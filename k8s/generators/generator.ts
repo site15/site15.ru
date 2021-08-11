@@ -263,8 +263,8 @@ const PROJECT_CONFIG = {
       annotations: {
         [`kubernetes.io/ingress.class`]: `nginx`,
         [`cert-manager.io/cluster-issuer`]: `letsencrypt-${HOST_TYPE}`,
-        [`nginx.ingress.kubernetes.io/proxy-read-timeout`]: `1800`,
-        [`nginx.ingress.kubernetes.io/proxy-send-timeout`]: `1800`,
+        [`nginx.ingress.kubernetes.io/proxy-read-timeout`]: `1900`,
+        [`nginx.ingress.kubernetes.io/proxy-send-timeout`]: `1900`,
         [`nginx.ingress.kubernetes.io/rewrite-target`]: `/api/$2`,
         [`nginx.ingress.kubernetes.io/secure-backends`]: `true`,
         [`nginx.ingress.kubernetes.io/ssl-redirect`]: `true`,
@@ -306,8 +306,8 @@ const PROJECT_CONFIG = {
       annotations: {
         [`kubernetes.io/ingress.class`]: `nginx`,
         [`cert-manager.io/cluster-issuer`]: `letsencrypt-${HOST_TYPE}`,
-        [`nginx.ingress.kubernetes.io/proxy-read-timeout`]: `1800`,
-        [`nginx.ingress.kubernetes.io/proxy-send-timeout`]: `1800`,
+        [`nginx.ingress.kubernetes.io/proxy-read-timeout`]: `1900`,
+        [`nginx.ingress.kubernetes.io/proxy-send-timeout`]: `1900`,
         [`nginx.ingress.kubernetes.io/rewrite-target`]: PROJECT_FRONTEND_INGRESS_REWRITE_TARGET,
         [`nginx.ingress.kubernetes.io/secure-backends`]: `true`,
         [`nginx.ingress.kubernetes.io/ssl-redirect`]: `true`,
