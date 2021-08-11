@@ -254,8 +254,8 @@ const PROJECT_CONFIG = {
       },
     },
   },
-  [`./k8s/${HOST_TYPE}/7.backend-ingress.yaml`]: <Ingress>{
-    apiVersion: `networking.k8s.io/v1beta1`,
+  [`./k8s/${HOST_TYPE}/7.backend-ingress.yaml`]:{
+    apiVersion: `networking.k8s.io/v1`,
     kind: `Ingress`,
     metadata: {
       namespace: `${PROJECT_NAME}-${HOST_TYPE}`,
@@ -263,8 +263,8 @@ const PROJECT_CONFIG = {
       annotations: {
         [`kubernetes.io/ingress.class`]: `nginx`,
         [`cert-manager.io/cluster-issuer`]: `letsencrypt-${HOST_TYPE}`,
-        [`nginx.ingress.kubernetes.io/proxy-read-timeout`]: `1900`,
-        [`nginx.ingress.kubernetes.io/proxy-send-timeout`]: `1900`,
+        [`nginx.ingress.kubernetes.io/proxy-read-timeout`]: `1800`,
+        [`nginx.ingress.kubernetes.io/proxy-send-timeout`]: `1800`,
         [`nginx.ingress.kubernetes.io/rewrite-target`]: `/api/$2`,
         [`nginx.ingress.kubernetes.io/secure-backends`]: `true`,
         [`nginx.ingress.kubernetes.io/ssl-redirect`]: `true`,
@@ -276,7 +276,7 @@ const PROJECT_CONFIG = {
       tls: [
         {
           hosts: [PROJECT_DOMAIN],
-          secretName: `echo-tls`,
+          secretName: `${PROJECT_NAME}-${HOST_TYPE}-tls`,
         },
       ],
       rules: [
@@ -286,9 +286,9 @@ const PROJECT_CONFIG = {
             paths: [
               {
                 path: PROJECT_BACKEND_INGRESS_PATH,
+                pathType: 'ImplementationSpecific',
                 backend: {
-                  serviceName: `${PROJECT_NAME}-backend-service`,
-                  servicePort: 5000,
+                    service: { name: `${PROJECT_NAME}-backend-service`, port: { number: 5000 } },
                 },
               },
             ],
@@ -297,8 +297,8 @@ const PROJECT_CONFIG = {
       ],
     },
   },
-  [`./k8s/${HOST_TYPE}/8.frontend-ingress.yaml`]: <Ingress>{
-    apiVersion: `networking.k8s.io/v1beta1`,
+  [`./k8s/${HOST_TYPE}/8.frontend-ingress.yaml`]:{
+    apiVersion: `networking.k8s.io/v1`,
     kind: `Ingress`,
     metadata: {
       namespace: `${PROJECT_NAME}-${HOST_TYPE}`,
@@ -306,8 +306,8 @@ const PROJECT_CONFIG = {
       annotations: {
         [`kubernetes.io/ingress.class`]: `nginx`,
         [`cert-manager.io/cluster-issuer`]: `letsencrypt-${HOST_TYPE}`,
-        [`nginx.ingress.kubernetes.io/proxy-read-timeout`]: `1900`,
-        [`nginx.ingress.kubernetes.io/proxy-send-timeout`]: `1900`,
+        [`nginx.ingress.kubernetes.io/proxy-read-timeout`]: `1800`,
+        [`nginx.ingress.kubernetes.io/proxy-send-timeout`]: `1800`,
         [`nginx.ingress.kubernetes.io/rewrite-target`]: PROJECT_FRONTEND_INGRESS_REWRITE_TARGET,
         [`nginx.ingress.kubernetes.io/secure-backends`]: `true`,
         [`nginx.ingress.kubernetes.io/ssl-redirect`]: `true`,
@@ -317,7 +317,7 @@ const PROJECT_CONFIG = {
       tls: [
         {
           hosts: [PROJECT_DOMAIN],
-          secretName: `echo-tls`,
+          secretName: `${PROJECT_NAME}-${HOST_TYPE}-tls`,
         },
       ],
       rules: [
@@ -327,9 +327,9 @@ const PROJECT_CONFIG = {
             paths: [
               {
                 path: PROJECT_FRONTEND_INGRESS_PATH,
+                pathType: 'ImplementationSpecific',
                 backend: {
-                  serviceName: `${PROJECT_NAME}-frontend-service`,
-                  servicePort: 9090,
+                    service: { name: `${PROJECT_NAME}-frontend-service`, port: { number: 9090 } },
                 },
               },
             ],
