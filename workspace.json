@@ -2,6 +2,7 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "common": "libs/common",
     "site15-backend": "apps/site15-backend",
     "site15-frontend": "apps/site15-frontend",
     "site15-frontend-e2e": "apps/site15-frontend-e2e"
