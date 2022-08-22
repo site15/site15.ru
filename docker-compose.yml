@@ -22,3 +22,12 @@ services:
       - site15-postgresql:/var/lib/postgresql/site15_data
     networks:
       - site15-network
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - site15-network
+    depends_on:
+      - site15-postgres

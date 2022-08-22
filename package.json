@@ -12,8 +12,10 @@
     "start:backend:dev": "export $(cat ./env/local.env) && npm run ng serve site15-backend",
     "start:frontend:dev": "npm run ng serve site15-frontend",
     "start:database": "export $(cat ./env/local.env) && docker-compose up",
-    "stop:database":"export $(cat ./env/local.env) && docker-compose down",
-    "migration:generate": "export $(cat ./env/local.env) && npx prisma migrate dev --name"
+    "stop:database": "export $(cat ./env/local.env) && docker-compose down",
+    "drop:database": "export $(cat ./env/local.env) && prisma migrate reset",
+    "prisma:pull": "export $(cat ./env/local.env) && prisma db pull",
+    "prisma:generate": "export $(cat ./env/local.env) && prisma generate"
   },
   "private": true,
   "devDependencies": {

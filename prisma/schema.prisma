@@ -1,50 +1,74 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-  binaryTargets = ["native","linux-musl"]
+model contact_types {
+  id       Int        @id(map: "PK_CONTACT_TYPES") @default(autoincrement())
+  name     String     @db.VarChar(100)
+  title    String     @db.VarChar(255)
+  title_ru String     @db.VarChar(255)
+  contacts contacts[]
+
+  @@index([name], map: "IDX_CONTACT_TYPES__NAME")
 }
 
-model ProjectType {
-  id      Int       @default(autoincrement()) @id
-  name    String    @unique
-  title   String
-  titleRu String    @map("title_ru")
-  pojects Project[]
-  @@map("project_types")
+model contacts {
+  id              Int           @id(map: "PK_CONTACTS") @default(autoincrement())
+  name            String        @db.VarChar(100)
+  title           String        @db.VarChar(255)
+  title_ru        String        @db.VarChar(255)
+  contact_type_id Int
+  contact_types   contact_types @relation(fields: [contact_type_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_CONTACTS__CONTACT_TYPE_ID")
+
+  @@index([contact_type_id], map: "IDX_CONTACTS__CONTACT_TYPE_ID")
 }
 
-model Project {
-  id            Int         @default(autoincrement()) @id
-  name          String      @unique
-  title         String
-  titleRu       String      @map("title_ru")
-  projectTypeId Int         @map("project_type_id")
-  projectType   ProjectType @relation(fields: [projectTypeId], references: [id])
-  @@map("projects")
+model project_counters {
+  id                      Int                   @id(map: "PK_PROJECT_COUNTERS") @default(autoincrement())
+  project_id              Int
+  project_type_counter_id Int
+  project_type_counters   project_type_counters @relation(fields: [project_type_counter_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_PROJECT_COUNTERS__PROJECT_TYPE_COUNTER_ID")
+  projects                projects              @relation(fields: [project_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_PROJECT__ID")
+
+  @@unique([project_id, project_type_counter_id], map: "UQ_PROJECT_COUNTERS")
 }
 
-model ContactType {
-  id       Int       @default(autoincrement()) @id
-  name     String    @unique
-  title    String
-  titleRu  String    @map("title_ru")
-  contacts Contact[]
-  @@map("contact_types")
+model project_type_counters {
+  id               Int                @id(map: "PK_PROJECT_TYPE_COUNTERS") @default(autoincrement())
+  name             String             @db.VarChar(100)
+  title            String             @db.VarChar(255)
+  title_ru         String             @db.VarChar(255)
+  project_type_id  Int
+  project_types    project_types      @relation(fields: [project_type_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_PROJECT_TYPE_COUNTERS__PROJECT_TYPE_ID")
+  project_counters project_counters[]
+
+  @@index([name], map: "IDX_PROJECT_TYPE_COUNTERS__NAME")
 }
 
-model Contact {
-  id            Int         @default(autoincrement()) @id
-  name          String      @unique
-  title         String
-  titleRu       String      @map("title_ru")
-  contactTypeId Int         @map("contact_type_id")
-  contactType   ContactType @relation(fields: [contactTypeId], references: [id])
-  @@map("contacts")
+model project_types {
+  id                    Int                     @id(map: "PK_PROJECT_TYPES") @default(autoincrement())
+  name                  String                  @db.VarChar(100)
+  title                 String                  @db.VarChar(255)
+  title_ru              String                  @db.VarChar(255)
+  project_type_counters project_type_counters[]
+  projects              projects[]
+
+  @@index([name], map: "IDX_PROJECT_TYPES__NAME")
+}
+
+model projects {
+  id               Int                @id(map: "PK_PROJECTS") @default(autoincrement())
+  name             String             @db.VarChar(100)
+  title            String             @db.VarChar(255)
+  title_ru         String             @db.VarChar(255)
+  project_type_id  Int
+  project_types    project_types      @relation(fields: [project_type_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_PROJECTS__PROJECT_TYPE_ID")
+  project_counters project_counters[]
+
+  @@index([project_type_id], map: "IDX_PROJECTS__PROJECT_TYPE_ID")
 }
