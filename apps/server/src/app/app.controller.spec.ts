@@ -14,10 +14,10 @@ describe('AppController', () => {
   });
 
   describe('getData', () => {
-    it('should return "Welcome to site15-backend!"', () => {
+    it('should return "Welcome to api!"', () => {
       const appController = app.get<AppController>(AppController);
       expect(appController.getData()).toEqual({
-        message: 'Welcome to site15-backend!',
+        message: 'Welcome to api!',
       });
     });
   });

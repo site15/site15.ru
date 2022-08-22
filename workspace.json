@@ -3,8 +3,8 @@
   "version": 2,
   "projects": {
     "common": "libs/common",
-    "site15-backend": "apps/site15-backend",
-    "site15-frontend": "apps/site15-frontend",
-    "site15-frontend-e2e": "apps/site15-frontend-e2e"
+    "server": "apps/server",
+    "client": "apps/client",
+    "client-e2e": "apps/client-e2e"
   }
 }

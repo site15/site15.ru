@@ -1,16 +1,16 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/site15-backend/src",
+  "sourceRoot": "apps/server/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/site15-backend",
-        "main": "apps/site15-backend/src/main.ts",
-        "tsConfig": "apps/site15-backend/tsconfig.app.json",
-        "assets": ["apps/site15-backend/src/assets"]
+        "outputPath": "dist/apps/server",
+        "main": "apps/server/src/main.ts",
+        "tsConfig": "apps/server/tsconfig.app.json",
+        "assets": ["apps/server/src/assets"]
       },
       "configurations": {
         "production": {
@@ -19,8 +19,8 @@
           "inspect": false,
           "fileReplacements": [
             {
-              "replace": "apps/site15-backend/src/environments/environment.ts",
-              "with": "apps/site15-backend/src/environments/environment.prod.ts"
+              "replace": "apps/server/src/environments/environment.ts",
+              "with": "apps/server/src/environments/environment.prod.ts"
             }
           ]
         }
@@ -29,11 +29,11 @@
     "serve": {
       "executor": "@nrwl/node:node",
       "options": {
-        "buildTarget": "site15-backend:build"
+        "buildTarget": "server:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "site15-backend:build:production"
+          "buildTarget": "server:build:production"
         }
       }
     },
@@ -41,14 +41,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/site15-backend/**/*.ts"]
+        "lintFilePatterns": ["apps/server/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/site15-backend"],
+      "outputs": ["coverage/apps/server"],
       "options": {
-        "jestConfig": "apps/site15-backend/jest.config.ts",
+        "jestConfig": "apps/server/jest.config.ts",
         "passWithNoTests": true
       }
     }

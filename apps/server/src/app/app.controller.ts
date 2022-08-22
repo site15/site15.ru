@@ -17,7 +17,7 @@ export class AppController {
 
   @Get('db')
   getDbData() {
-    return this.prismaService.projectType.findMany({
+    return this.prismaService.project_types.findMany({
       select: { id: true, name: true },
     });
   }

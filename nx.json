@@ -24,7 +24,7 @@
       "dependsOn": ["^build"]
     }
   },
-  "defaultProject": "site15-backend",
+  "defaultProject": "client-e2e",
   "generators": {
     "@nrwl/angular:application": {
       "style": "scss",
