@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Message } from '@site15.ru/common';
+import { Message } from '@site15/common';
 import { environment } from '../environments/environment';
 
 @Component({

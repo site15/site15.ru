@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "site15-ru",
+            "prefix": "site15",
             "style": "kebab-case"
           }
         ]

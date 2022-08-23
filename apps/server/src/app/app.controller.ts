@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import {Message} from '@site15.ru/common'
+import {Message} from '@site15/common'
 
 import { AppService } from './app.service';
 import { PrismaService } from './prisma.service';

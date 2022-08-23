@@ -1,7 +1,7 @@
 {
   "projectType": "application",
   "sourceRoot": "apps/client/src",
-  "prefix": "site15.ru",
+  "prefix": "site15",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

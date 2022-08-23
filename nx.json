@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "site15.ru",
+  "npmScope": "site15",
   "affected": {
     "defaultBase": "main"
   },

@@ -1,7 +1,7 @@
 {
   "projectType": "library",
   "sourceRoot": "libs/common/src",
-  "prefix": "site15.ru",
+  "prefix": "site15",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
