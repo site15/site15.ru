@@ -69,6 +69,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nrwl/angular": "14.5.10",
     "@prisma/client": "^4.2.1",
     "connection-string": "^4.3.5",
     "reflect-metadata": "^0.1.13",

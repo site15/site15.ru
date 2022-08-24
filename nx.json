@@ -4,6 +4,9 @@
   "affected": {
     "defaultBase": "main"
   },
+  "cli": {
+    "packageManager": "npm"
+  },
   "implicitDependencies": {
     "package.json": {
       "dependencies": "*",
@@ -24,7 +27,6 @@
       "dependsOn": ["^build"]
     }
   },
-  "defaultProject": "client-e2e",
   "generators": {
     "@nrwl/angular:application": {
       "style": "scss",
@@ -39,5 +41,6 @@
     "@nrwl/angular:component": {
       "style": "scss"
     }
-  }
+  },
+  "defaultProject": "client"
 }
