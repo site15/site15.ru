@@ -2,8 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
-    "server": "apps/server",
     "common": "libs/common",
+    "server": "apps/server",
     "client": "apps/client",
     "client-e2e": "apps/client-e2e"
   }

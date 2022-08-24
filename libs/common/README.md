@@ -1,7 +1,7 @@
-# api-interfaces
+# common
 
 This library was generated with [Nx](https://nx.dev).
 
-## Running lint
+## Running unit tests
 
-Run `nx lint api-interfaces` to execute the lint via [ESLint](https://eslint.org/).
+Run `nx test common` to execute the unit tests.
