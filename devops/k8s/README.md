@@ -1,0 +1,1 @@
+kubectl create secret docker-registry site15-global-regcred --docker-server=github.com --docker-username=site15-global-regcred --docker-password=glpat-t32ZScfLcp1FqnXxR6mc --docker-email=site15-global-regcred

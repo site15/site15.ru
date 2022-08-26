@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+    namespace: %NAMESPACE%
+    name: %CI_PROJECT_NAME%-service
+spec:
+    selector:
+        pod: %CI_PROJECT_NAME%-container
+    ports:
+        - protocol: TCP
+          port: 3000
+          targetPort: 3000
+    type: ClusterIP

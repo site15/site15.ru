@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="0" errors="0" time="1.592">
+  <testsuite name="app.e2e-spec.ts" errors="0" failures="0" skipped="0" timestamp="2022-08-26T15:34:54" time="1.536" tests="3">
+    <testcase classname="VersionController (e2e)" name="Get current tag" time="0.027" file="tests/e2e/app.e2e-spec.ts">
+    </testcase>
+    <testcase classname="VersionController (e2e)" name="Check current tag" time="0.009" file="tests/e2e/app.e2e-spec.ts">
+    </testcase>
+    <testcase classname="VersionController (e2e)" name="Error in check current tag" time="0.012" file="tests/e2e/app.e2e-spec.ts">
+    </testcase>
+  </testsuite>
+</testsuites>

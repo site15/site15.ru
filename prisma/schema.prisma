@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
 }
 
 datasource db {
@@ -71,4 +72,20 @@ model projects {
   project_counters project_counters[]
 
   @@index([project_type_id], map: "IDX_PROJECTS__PROJECT_TYPE_ID")
+}
+
+model migrations {
+  installed_rank Int      @id(map: "__migrations_pk")
+  version        String?  @db.VarChar(50)
+  description    String   @db.VarChar(200)
+  type           String   @db.VarChar(20)
+  script         String   @db.VarChar(1000)
+  checksum       Int?
+  installed_by   String   @db.VarChar(100)
+  installed_on   DateTime @default(now()) @db.Timestamp(6)
+  execution_time Int
+  success        Boolean
+
+  @@index([success], map: "__migrations_s_idx")
+  @@map("__migrations")
 }
