@@ -63,6 +63,16 @@ services:
             site15-server:
                 condition: service_healthy
 
+    site15-adminer:
+        image: adminer
+        container_name: adminer
+        ports:
+            - 8080:8080
+        networks:
+            - site15-network
+        depends_on:
+            - site15-postgres
+
     site15-server:
         image: node:16-alpine
         user: ${CURRENT_UID}

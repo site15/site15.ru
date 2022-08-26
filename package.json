@@ -11,15 +11,7 @@
     "test": "nx test",
     "prisma": "prisma",
     "migrate": "flyway -c .flyway.js",
-    "postinstall": "ngcc --properties es2020 browser module main",
-    "start:backend:dev": "export $(cat ./env/local.env) && npm run ng serve server",
-    "start:frontend:dev": "npm run ng serve client",
-    "start:database": "export $(cat ./env/local.env) && docker-compose up",
-    "stop:database": "export $(cat ./env/local.env) && docker-compose down",
-    "drop:database": "export $(cat ./env/local.env) && prisma migrate reset",
-    "prisma:pull": "export $(cat ./env/local.env) && prisma db pull",
-    "prisma:generate": "export $(cat ./env/local.env) && prisma generate",
-    "migrate:local": "export $(cat ./env/local.env) && npm run migrate"
+    "postinstall": "ngcc --properties es2020 browser module main"
   },
   "private": true,
   "devDependencies": {
