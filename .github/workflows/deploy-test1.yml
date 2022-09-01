@@ -61,7 +61,8 @@ jobs:
       - name: Collect docker stats
         if: always() # always run even if the previous step fails
         run: |
-          export COMPOSE_INTERACTIVE_NO_CLI=1 && docker-compose -f ./docker/prod/docker-compose-ci.yml logs |& tee -a tmp/logs.txt
+          cd devops
+          export COMPOSE_INTERACTIVE_NO_CLI=1 && docker-compose -f ./docker/prod/docker-compose.yml logs |& tee -a tmp/logs.txt
           docker stats --all --no-stream |& tee -a tmp/stats.txt
 
       - name: Store docker stats files
@@ -69,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: docker-stats
-          path: tmp/
+          path: devops/tmp/
 
       - name: Build
         env:
