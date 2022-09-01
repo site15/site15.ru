@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: %NAMESPACE%
-  name: %CI_PROJECT_NAME%
+  name: %CI_PROJECT_NAME%-server
   labels:
-    app: %CI_PROJECT_NAME%
+    app: %CI_PROJECT_NAME%-server
 spec:
   replicas: %K8S_SERVER_REPLICAS%
   selector:
@@ -17,7 +17,7 @@ spec:
         pod: %CI_PROJECT_NAME%-server-container
     spec:
       containers:
-        - name: %CI_PROJECT_NAME%
+        - name: %CI_PROJECT_NAME%-server
           image: %CI_REGISTRY%/%CI_PROJECT_NAMESPACE%/%SERVER_IMAGE%
           imagePullPolicy: Always
           ports:
