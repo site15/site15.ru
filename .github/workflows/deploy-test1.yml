@@ -1,4 +1,4 @@
-name: "Deploy to test1"
+name: 'Deploy to test1'
 
 on:
   push:
@@ -102,7 +102,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          
+
       - name: Deploy
         env:
           PSQL_DATABASE: site15-server
