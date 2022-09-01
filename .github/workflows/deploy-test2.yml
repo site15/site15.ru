@@ -1,0 +1,140 @@
+name: "Deploy to test2"
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build:
+    name: Build
+    environment: test2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          # We must fetch at least the immediate parents so that if this is
+          # a pull request then we can checkout the head.
+          fetch-depth: 2
+
+      - name: Cache node_modules
+        id: cache_node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install packages
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          . ~/.nvm/nvm.sh
+          nvm --version
+          nvm install
+          nvm use
+          npm ci --force
+          npm install
+        if: ${{steps.cache_node_modules.outputs.cache-hit != 'true' }}
+
+      # - name: Run e2e tests
+      #   run: |
+      #     cd devops
+      #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+      #     . ~/.nvm/nvm.sh
+      #     nvm --version
+      #     nvm install
+      #     nvm use
+      #     npm ci --force
+      #     npm run docker:prod:up:local
+      #     npm run test:local
+      #     npm run docker:prod:down
+
+      # - name: Publish Test Report
+      #   uses: mikepenz/action-junit-report@v3
+      #   if: always() # always run even if the previous step fails
+      #   with:
+      #     report_paths: "junit.xml"
+
+      - name: Collect docker stats
+        if: always() # always run even if the previous step fails
+        run: |
+          cd devops
+          export COMPOSE_INTERACTIVE_NO_CLI=1 && docker-compose -f ./docker/prod/docker-compose.yml logs |& tee -a tmp/logs.txt
+          docker stats --all --no-stream |& tee -a tmp/stats.txt
+
+      # - name: Store docker stats files
+      #   if: always() # always run even if the previous step fails
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: docker-stats
+      #     path: devops/tmp/
+
+      - name: Build
+        env:
+          CI_BRANCH_NAME: ${{ secrets.CI_BRANCH_NAME }}
+          CI_REGISTRY_PASSWORD: ${{ secrets.SITE15_ACCESS_TOKEN_DOCKER }}
+          CI_COMMIT_SHORT_SHA: ${{github.sha}}
+        run: |
+          cd devops
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          . ~/.nvm/nvm.sh
+          nvm --version
+          nvm install
+          nvm use
+          npm ci --force
+          npm run docker:prod:build-all-sources
+          npm run docker:prod:build-server-base-image
+          npm run docker:prod:build-all-images
+
+  deploy:
+    needs: [build]
+    name: Deploy
+    environment: test2
+    runs-on: [self-hosted, site15-develop-vps]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          # We must fetch at least the immediate parents so that if this is
+          # a pull request then we can checkout the head.
+          fetch-depth: 2
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Deploy
+        env:
+          CI_BRANCH_NAME: ${{ secrets.CI_BRANCH_NAME }}
+          PSQL_DATABASE: site15-server
+          ROOT_POSTGRES_USER: postgres
+          ROOT_POSTGRES_PASSWORD: ${{ secrets.SITE15_ROOT_POSTGRES_PASSWORD}}
+          PSQL_USERNAME: site15
+          PSQL_PASSWORD: ${{ secrets.SITE15_POSTGRES_PASSWORD }}
+          CI_REGISTRY_PASSWORD: ${{ secrets.SITE15_ACCESS_TOKEN_DOCKER }}
+          CI_COMMIT_SHORT_SHA: ${{github.sha}}
+        run: |
+          npm i --force
+          cd devops
+          npm i --force
+          npm run k8s:up
+
+  notifications:
+    needs: [deploy]
+    name: Notifications
+    environment: test2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} deploy feature to http://${{ secrets.CI_BRANCH_NAME }}.site15.ru:
+            Commit message: ${{ github.event.commits[0].message }}
+
+            Repository: ${{ github.repository }}
+
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}

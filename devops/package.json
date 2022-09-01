@@ -1,0 +1,41 @@
+{
+  "name": "devops",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "__________dev infra__________": "__________dev infra__________",
+    "docker:dev:restart": "npm run docker:dev:down && npm run docker:dev:up",
+    "docker:dev:down": "export $(xargs < ./.env.local) > /dev/null 2>&1 && ./docker/dev/docker-compose-down.sh",
+    "docker:dev:up": "export TAG_VERSION=local && export $(xargs < ./.env.local) > /dev/null 2>&1 && ./docker/dev/docker-compose-up.sh",
+    "docker:dev:clean-restart": "npm run docker:dev:clean-down && npm run docker:dev:up",
+    "docker:dev:clean-down": "export $(xargs < ./.env.local) > /dev/null 2>&1 && ./docker/dev/docker-compose-clean-down.sh",
+    "__________prod infra__________": "__________prod infra__________",
+    "docker:prod:restart:local": "npm run docker:prod:down && npm run docker:prod:up:local",
+    "docker:prod:down": "./docker/prod/docker-compose-down.sh",
+    "docker:prod:up:local": "export TAG_VERSION=local && export NO_PUSH_DOCKER_IMAGES=true && export NO_PULL_ON_BUILD_BASE_IMAGE=true && export $(xargs < ./.env.local) > /dev/null 2>&1 && npm run docker:prod:build-all-sources && npm run docker:prod:build-server-base-image && npm run docker:prod:build-all-images && npm run docker:prod:up",
+    "docker:prod:up": "./docker/prod/docker-compose-up.sh",
+    "docker:prod:build-all-sources": "cd ../ && npm run nx -- build server && npm run nx -- build client",
+    "docker:prod:build-server-base-image": "./docker/prod/docker-compose-build-server-base-image.sh",
+    "docker:prod:build-all-images": "./docker/prod/docker-compose-build-server.sh && ./docker/prod/docker-compose-build-client.sh && ./docker/prod/docker-compose-build-client-k8s.sh",
+    "__________test__________": "__________test__________",
+    "test": "./test/test.sh",
+    "test:local": "export $(xargs < ./.env.local) > /dev/null 2>&1 && ./test/test-local.sh",
+    "__________k8s infra__________": "__________k8s infra__________",
+    "k8s:up:local": "export $(xargs < ./.env.ci) > /dev/null 2>&1 && ./k8s/k8s-up.sh",
+    "k8s:up": "./k8s/k8s-up.sh",
+    "__________utils__________": "__________utils__________",
+    "wait-on": "wait-on --timeout=160000 --interval=1000 --window --verbose --log",
+    "rucken": "rucken"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "checksum": "1.0.0",
+    "pg": "8.7.3",
+    "pg-promise": "10.11.1",
+    "replace-in-files": "3.0.0",
+    "wait-on": "6.0.1",
+    "rucken": "4.1.0"
+  }
+}

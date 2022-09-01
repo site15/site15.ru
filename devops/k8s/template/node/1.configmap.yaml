@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: %NAMESPACE%
+  name: %NAMESPACE%-config
+data:
+  PROJECT_DOMAIN: '%PROJECT_DOMAIN%'
+  PROJECT_URL: '%PROJECT_URL%'
+  PORT: '3000'
+  TAG_VERSION: '%TAG_VERSION%'
+  CI_BRANCH_NAME: '%CI_BRANCH_NAME%'
+  POSTGRES_URL: '%SERVER_POSTGRES_URL%'
