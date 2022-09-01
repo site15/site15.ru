@@ -40,7 +40,7 @@ services:
     tty: true
     depends_on:
       site15-server:
-        condition: service_healthy
+        condition: service_started
 
   site15-server:
     image: ${CI_PROJECT_NAME}-${TAG_VERSION}
@@ -60,15 +60,6 @@ services:
       - ./logs:/var/log/nginx/
     networks:
       - site15-network
-    healthcheck:
-      test:
-        [
-          'CMD-SHELL',
-          'npx wait-on --timeout=160000 --interval=1000 --window --verbose --log http://localhost:3000/api/version/check-tag/$TAG_VERSION?healthcheck=true',
-        ]
-      interval: 30s
-      timeout: 10s
-      retries: 10
     tty: true
     depends_on:
       site15-postgres:

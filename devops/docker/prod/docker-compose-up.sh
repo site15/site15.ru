@@ -43,3 +43,5 @@ export SERVER_POSTGRES_URL=postgres://${PSQL_USERNAME}:${PSQL_PASSWORD}@${PSQL_H
 
 # Start all services
 export COMPOSE_INTERACTIVE_NO_CLI=1 && docker-compose -f ./docker/prod/docker-compose.yml --compatibility up -d
+
+npx -y wait-on --timeout=160000 --interval=1000 --window --verbose --log http://localhost:3000/api/version/check-tag/$TAG_VERSION?healthcheck=true
