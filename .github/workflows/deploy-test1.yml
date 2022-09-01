@@ -113,6 +113,7 @@ jobs:
           CI_REGISTRY_PASSWORD: ${{ secrets.SITE15_ACCESS_TOKEN_DOCKER }}
           CI_COMMIT_SHORT_SHA: ${{github.sha}}
         run: |
+          npm i --force
           cd devops
           npm i --force
           npm run k8s:up

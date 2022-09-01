@@ -14,7 +14,7 @@ if [ -z "${CI_PROJECT_NAME}" ]; then
 fi
 
 if [ -z "${CI_PROJECT_CODE}" ]; then
-    export CI_PROJECT_CODE=server
+    export CI_PROJECT_CODE=site15
 fi
 
 if [ -z "${CI_REGISTRY}" ]; then
@@ -92,6 +92,7 @@ export NAMESPACE=${CI_PROJECT_CODE}-$BRANCH_NAME
 export SERVER_BASE_IMAGE=${CI_PROJECT_NAME}-base-image:$(checksum -- ../package.json | grep -o "^\w*\b")
 export SERVER_IMAGE=${CI_PROJECT_NAME}-image:${TAG_VERSION}
 export CLIENT_IMAGE=${CI_PROJECT_NAME}-client-image:${TAG_VERSION}
+export CLIENT_K8S_IMAGE=${CI_PROJECT_NAME}-client-k8s-image:${TAG_VERSION}
 
 if [ -z "${PSQL_HOST}" ]; then
     export PSQL_HOST=10.0.1.1
@@ -102,6 +103,12 @@ export K8S_SERVER_RESOURCES_REQUEST_CPU=150m
 export K8S_SERVER_RESOURCES_LIMIT_MEMORY=1024Mi
 export K8S_SERVER_RESOURCES_LIMIT_CPU=1000m
 export K8S_SERVER_REPLICAS=1
+
+export K8S_CLIENT_RESOURCES_REQUEST_MEMORY=50Mi
+export K8S_CLIENT_RESOURCES_REQUEST_CPU=100m
+export K8S_CLIENT_RESOURCES_LIMIT_MEMORY=128Mi
+export K8S_CLIENT_RESOURCES_LIMIT_CPU=100m
+export K8S_CLIENT_REPLICAS=1
 
 export JEST_JUNIT_CLASSNAME="{classname}"
 export JEST_JUNIT_TITLE="{title}"

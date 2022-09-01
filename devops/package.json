@@ -17,7 +17,7 @@
     "docker:prod:up": "./docker/prod/docker-compose-up.sh",
     "docker:prod:build-all-sources": "cd ../ && npm run nx -- build server && npm run nx -- build client",
     "docker:prod:build-server-base-image": "./docker/prod/docker-compose-build-server-base-image.sh",
-    "docker:prod:build-all-images": "./docker/prod/docker-compose-build-server.sh && ./docker/prod/docker-compose-build-client.sh",
+    "docker:prod:build-all-images": "./docker/prod/docker-compose-build-server.sh && ./docker/prod/docker-compose-build-client.sh && ./docker/prod/docker-compose-build-client-k8s.sh",
     "__________test__________": "__________test__________",
     "test": "./test/test.sh",
     "test:local": "export $(xargs < ./.env.local) > /dev/null 2>&1 && ./test/test-local.sh",

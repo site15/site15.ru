@@ -9,12 +9,12 @@ spec:
   replicas: %K8S_SERVER_REPLICAS%
   selector:
     matchLabels:
-      pod: %CI_PROJECT_NAME%-container
+      pod: %CI_PROJECT_NAME%-server-container
   template:
     metadata:
       namespace: %NAMESPACE%
       labels:
-        pod: %CI_PROJECT_NAME%-container
+        pod: %CI_PROJECT_NAME%-server-container
     spec:
       containers:
         - name: %CI_PROJECT_NAME%

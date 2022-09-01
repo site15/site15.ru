@@ -2,12 +2,12 @@ kind: Service
 apiVersion: v1
 metadata:
   namespace: %NAMESPACE%
-  name: %CI_PROJECT_NAME%-server-service
+  name: %CI_PROJECT_NAME%-client-service
 spec:
   selector:
-    pod: %CI_PROJECT_NAME%-server-container
+    pod: %CI_PROJECT_NAME%-client-container
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 9090
+      targetPort: 9090
   type: ClusterIP

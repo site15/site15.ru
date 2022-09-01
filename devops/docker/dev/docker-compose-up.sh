@@ -12,7 +12,7 @@ until docker exec --tty $(docker ps -aqf "name=site15-postgres") pg_isready -U p
     sleep 2
 done
 
-export PSQL_PORT=5432
+export PSQL_PORT=11432
 export PSQL_HOST=localhost
 export ROOT_POSTGRES_URL=postgres://${ROOT_POSTGRES_USER}:${ROOT_POSTGRES_PASSWORD}@${PSQL_HOST}:${PSQL_PORT}/postgres?schema=public
 export SERVER_POSTGRES_URL=postgres://${PSQL_USERNAME}:${PSQL_PASSWORD}@${PSQL_HOST}:${PSQL_PORT}/${PSQL_DATABASE}?schema=public

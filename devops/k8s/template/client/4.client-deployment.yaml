@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: %NAMESPACE%
+  name: %CI_PROJECT_NAME%
+  labels:
+    app: %CI_PROJECT_NAME%
+spec:
+  replicas: %K8S_CLIENT_REPLICAS%
+  selector:
+    matchLabels:
+      pod: %CI_PROJECT_NAME%-client-container
+  template:
+    metadata:
+      namespace: %NAMESPACE%
+      labels:
+        pod: %CI_PROJECT_NAME%-client-container
+    spec:
+      containers:
+        - name: %CI_PROJECT_NAME%
+          image: %CI_REGISTRY%/%CI_PROJECT_NAMESPACE%/%CLIENT_IMAGE_K8S%
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9090
+          envFrom:
+            - configMapRef:
+                name: %NAMESPACE%-config
+          resources:
+            requests:
+              memory: %K8S_CLIENT_RESOURCES_REQUEST_MEMORY%
+              cpu: %K8S_CLIENT_RESOURCES_REQUEST_CPU%
+            limits:
+              memory: %K8S_CLIENT_RESOURCES_LIMIT_MEMORY%
+              cpu: %K8S_CLIENT_RESOURCES_LIMIT_CPU%
+      imagePullSecrets:
+        - name: site15-global-regcred
