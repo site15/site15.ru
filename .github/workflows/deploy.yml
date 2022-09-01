@@ -5,8 +5,8 @@ on:
     branches: [feature/18]
 
 jobs:
-  delivery-to-host:
-    name: Delivery to host
+  delivery-to-server:
+    name: Delivery to server
     runs-on: ubuntu-latest
 
     steps:
