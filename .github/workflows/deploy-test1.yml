@@ -1,4 +1,4 @@
-name: 'Deploy to test1'
+name: "Deploy to test1"
 
 on:
   push:
@@ -56,7 +56,20 @@ jobs:
         uses: mikepenz/action-junit-report@v3
         if: always() # always run even if the previous step fails
         with:
-          report_paths: 'junit.xml'
+          report_paths: "junit.xml"
+
+      - name: Collect docker stats
+        if: always() # always run even if the previous step fails
+        run: |
+          export COMPOSE_INTERACTIVE_NO_CLI=1 && docker-compose -f ./docker/prod/docker-compose-ci.yml logs |& tee -a tmp/logs.txt
+          docker stats --all --no-stream |& tee -a tmp/stats.txt
+
+      - name: Store docker stats files
+        if: always() # always run even if the previous step fails
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-stats
+          path: tmp/
 
       - name: Build
         env:
