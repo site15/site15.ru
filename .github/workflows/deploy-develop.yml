@@ -47,7 +47,7 @@ jobs:
           npm ci --force
           npm run docker:prod:up:local
           npm run test:local
-          npm run docker:prod:dow        
+          npm run docker:prod:down        
       
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
