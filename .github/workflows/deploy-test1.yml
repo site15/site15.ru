@@ -89,7 +89,7 @@ jobs:
     needs: [build]
     name: Deploy
     environment: test1
-    runs-on: [self-hosted, site15-develop-vps]
+    runs-on: [self-hosted, develop-vps]
     steps:
       - name: Deploy
         env:
