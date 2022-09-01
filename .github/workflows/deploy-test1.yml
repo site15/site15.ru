@@ -7,6 +7,7 @@ on:
 jobs:
   delivery-to-server:
     name: Delivery to server
+    environment: test1
     runs-on: ubuntu-latest
 
     steps:
@@ -30,4 +31,7 @@ jobs:
         if: ${{steps.cache_node_modules.outputs.cache-hit != 'true' }}
 
       - name: Run build code
-        run: printenv
+        run: | 
+          npm run docker:prod:build-all-sources
+          npm run docker:prod:build-server-base-image
+          npm run docker:prod:build-all-images
