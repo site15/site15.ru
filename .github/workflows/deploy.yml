@@ -1,0 +1,33 @@
+name: "Deploy to test1"
+
+on:
+  push:
+    branches: [feature/18]
+
+jobs:
+  delivery-to-host:
+    name: Delivery to host
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          # We must fetch at least the immediate parents so that if this is
+          # a pull request then we can checkout the head.
+          fetch-depth: 2
+
+      - name: Cache node_modules
+        id: cache_node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install packages
+        run: npm install
+        if: ${{steps.cache_node_modules.outputs.cache-hit != 'true' }}
+
+      - name: Run build code
+        run: printenv
