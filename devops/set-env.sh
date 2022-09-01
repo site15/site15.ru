@@ -42,11 +42,7 @@ export DEPLOY_COMMIT=${CI_COMMIT_SHORT_SHA}
 export DEPLOY_VERSION=$(node -pe "require('../package.json')['version']")
 
 if [ -z "${CI_BRANCH_NAME}" ]; then
-    if [ -z "${CI_COMMIT_BRANCH}" ]; then
-        export BRANCH_NAME=develop
-    else
-        export BRANCH_NAME=$CI_COMMIT_BRANCH
-    fi
+    export BRANCH_NAME=develop
 else
     export BRANCH_NAME=$CI_BRANCH_NAME
 fi
