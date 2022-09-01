@@ -114,7 +114,7 @@ jobs:
           CI_COMMIT_SHORT_SHA: ${{github.sha}}
         run: |
           cd devops
-          npm ci --force
+          npm i --force
           npm run k8s:up
 
   notifications:
