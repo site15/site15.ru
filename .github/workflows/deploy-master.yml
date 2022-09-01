@@ -1,13 +1,13 @@
-name: "Deploy to test1"
+name: "Deploy to master"
 
 on:
   push:
-    branches: [develop]
+    branches: [master]
 
 jobs:
   build:
     name: Build
-    environment: test1
+    environment: master
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -89,7 +89,7 @@ jobs:
   deploy:
     needs: [build]
     name: Deploy
-    environment: test1
+    environment: master
     runs-on: [self-hosted, site15-develop-vps]
     steps:
       - name: Checkout repository
@@ -123,7 +123,7 @@ jobs:
   notifications:
     needs: [deploy]
     name: Notifications
-    environment: test1
+    environment: master
     runs-on: ubuntu-latest
     steps:
       - name: Send telegram message
