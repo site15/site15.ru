@@ -98,6 +98,11 @@ jobs:
           # a pull request then we can checkout the head.
           fetch-depth: 2
 
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          
       - name: Deploy
         env:
           PSQL_DATABASE: site15-server
@@ -109,9 +114,6 @@ jobs:
           CI_COMMIT_SHORT_SHA: ${{github.sha}}
         run: |
           cd devops
-          nvm --version
-          nvm install
-          nvm use
           npm ci --force
           npm run k8s:up
 
