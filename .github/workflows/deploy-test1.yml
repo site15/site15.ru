@@ -1,4 +1,4 @@
-name: 'Deploy to test1'
+name: "Deploy to test1"
 
 on:
   push:
@@ -71,6 +71,7 @@ jobs:
 
       - name: Build
         env:
+          CI_BRANCH_NAME: ${{ secrets.CI_BRANCH_NAME }}
           CI_REGISTRY_PASSWORD: ${{ secrets.SITE15_ACCESS_TOKEN_DOCKER }}
           CI_COMMIT_SHORT_SHA: ${{github.sha}}
         run: |
@@ -105,6 +106,7 @@ jobs:
 
       - name: Deploy
         env:
+          CI_BRANCH_NAME: ${{ secrets.CI_BRANCH_NAME }}
           PSQL_DATABASE: site15-server
           ROOT_POSTGRES_USER: postgres
           ROOT_POSTGRES_PASSWORD: ${{ secrets.SITE15_ROOT_POSTGRES_PASSWORD}}
@@ -130,7 +132,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} deploy feature to http://test1.site15.ru:
+            ${{ github.actor }} deploy feature to http://${{ secrets.CI_BRANCH_NAME }}.site15.ru:
             Commit message: ${{ github.event.commits[0].message }}
 
             Repository: ${{ github.repository }}
