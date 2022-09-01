@@ -33,11 +33,13 @@ jobs:
           nvm --version
           nvm install
           nvm use
-          npm i --force
+          npm ci --force
           npm install
         if: ${{steps.cache_node_modules.outputs.cache-hit != 'true' }}
 
-      - name: Run build code
+      - name: Run e2e tests
+        env:
+          CI_REGISTRY_PASSWORD: ${{ secrets.SITE15_ACCESS_TOKEN_DOCKER }}
         run: |
           cd devops
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
@@ -45,7 +47,28 @@ jobs:
           nvm --version
           nvm install
           nvm use
-          npm i --force
+          npm ci --force
+          npm run docker:prod:up:local
+          npm run test:local
+          npm run docker:prod:down
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always() # always run even if the previous step fails
+        with:
+          report_paths: "junit.xml"
+
+      - name: Build
+        env:
+          CI_REGISTRY_PASSWORD: ${{ secrets.SITE15_ACCESS_TOKEN_DOCKER }}
+        run: |
+          cd devops
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          . ~/.nvm/nvm.sh
+          nvm --version
+          nvm install
+          nvm use
+          npm ci --force
           npm run docker:prod:build-all-sources
           npm run docker:prod:build-server-base-image
           npm run docker:prod:build-all-images

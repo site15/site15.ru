@@ -17,10 +17,6 @@ if [ -z "${CI_REGISTRY}" ]; then
     export CI_REGISTRY=ghcr.io
 fi
 
-if [ -z "${CI_REGISTRY_PASSWORD}"]; then
-    export CI_REGISTRY_PASSWORD=$SITE15_ACCESS_TOKEN_DOCKER
-fi
-
 if [ -z "${CI_REGISTRY_USER}"]; then
     export CI_REGISTRY_USER=EndyKaufman
 fi
