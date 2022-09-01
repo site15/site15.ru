@@ -21,10 +21,6 @@ if [ -z "${CI_REGISTRY_USER}"]; then
     export CI_REGISTRY_USER=EndyKaufman
 fi
 
-if [ -z "${CI_COMMIT_SHORT_SHA}"]; then
-    export CI_COMMIT_SHORT_SHA=$GITHUB_SHA
-fi
-
 if [ -z "${ROOT_DOMAIN}" ]; then
     export ROOT_DOMAIN=site15.ru
 fi

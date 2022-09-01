@@ -61,6 +61,7 @@ jobs:
       - name: Build
         env:
           CI_REGISTRY_PASSWORD: ${{ secrets.SITE15_ACCESS_TOKEN_DOCKER }}
+          CI_COMMIT_SHORT_SHA: ${{github.sha}}
         run: |
           cd devops
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
@@ -72,3 +73,16 @@ jobs:
           npm run docker:prod:build-all-sources
           npm run docker:prod:build-server-base-image
           npm run docker:prod:build-all-images
+
+      - name: Send telegram message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} deploy feature to http://test1.site15.ru:
+            Commit message: ${{ github.event.commits[0].message }}
+
+            Repository: ${{ github.repository }}
+
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
