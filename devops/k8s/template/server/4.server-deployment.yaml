@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: %CI_PROJECT_NAME%
-          image: %CI_REGISTRY%/%CI_PROJECT_NAMESPACE%/%CI_PROJECT_NAME%/%SERVER_IMAGE%
+          image: %CI_REGISTRY%/%CI_PROJECT_NAMESPACE%/%SERVER_IMAGE%
           imagePullPolicy: Always
           ports:
             - containerPort: 3000

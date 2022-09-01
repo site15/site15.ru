@@ -2,6 +2,10 @@
 export CURRENT_UID=$(id -u):$(id -g)
 
 if [ -z "${CI_PROJECT_NAMESPACE}" ]; then
+    export CI_PROJECT_NAMESPACE=$GITHUB_REPOSITORY_OWNER
+fi
+
+if [ -z "${CI_PROJECT_NAMESPACE}" ]; then
     export CI_PROJECT_NAMESPACE=site15
 fi
 
