@@ -1,57 +1,57 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    namespace: %NAMESPACE%
-    name: %CI_PROJECT_NAME%
-    labels:
-        app: %CI_PROJECT_NAME%
+  namespace: %NAMESPACE%
+  name: %CI_PROJECT_NAME%
+  labels:
+    app: %CI_PROJECT_NAME%
 spec:
-    replicas: %K8S_SERVER_REPLICAS%
-    selector:
-        matchLabels:
-            pod: %CI_PROJECT_NAME%-container
-    template:
-        metadata:
-            namespace: %NAMESPACE%
-            labels:
-                pod: %CI_PROJECT_NAME%-container
-        spec:
-            containers:
-                - name: %CI_PROJECT_NAME%
-                  image: %CI_REGISTRY%/%CI_PROJECT_NAMESPACE%/%CI_PROJECT_NAME%/%SERVER_IMAGE%
-                  imagePullPolicy: Always
-                  ports:
-                      - containerPort: 3000
-                  envFrom:
-                      - configMapRef:
-                            name: %NAMESPACE%-config
-                  livenessProbe:
-                      httpGet:
-                          path: /api/version/check-tag/%TAG_VERSION%?livenessProbe=true
-                          port: 3000
-                      initialDelaySeconds: 30
-                      periodSeconds: 10
-                      timeoutSeconds: 1
-                  readinessProbe:
-                      httpGet:
-                          path: /api/version/check-tag/%TAG_VERSION%?readinessProbe=true
-                          port: 3000
-                      initialDelaySeconds: 30
-                      periodSeconds: 10
-                      timeoutSeconds: 1
-                  startupProbe:
-                      httpGet:
-                          path: /api/version/check-tag/%TAG_VERSION%?startupProbe=true
-                          port: 3000
-                      failureThreshold: 30
-                      periodSeconds: 10
-                      timeoutSeconds: 1
-                  resources:
-                      requests:
-                          memory: %K8S_SERVER_RESOURCES_REQUEST_MEMORY%
-                          cpu: %K8S_SERVER_RESOURCES_REQUEST_CPU%
-                      limits:
-                          memory: %K8S_SERVER_RESOURCES_LIMIT_MEMORY%
-                          cpu: %K8S_SERVER_RESOURCES_LIMIT_CPU%
-            imagePullSecrets:
-                - name: site15-global-regcred
+  replicas: %K8S_SERVER_REPLICAS%
+  selector:
+    matchLabels:
+      pod: %CI_PROJECT_NAME%-container
+  template:
+    metadata:
+      namespace: %NAMESPACE%
+      labels:
+        pod: %CI_PROJECT_NAME%-container
+    spec:
+      containers:
+        - name: %CI_PROJECT_NAME%
+          image: %CI_REGISTRY%/%CI_PROJECT_NAMESPACE%/%CI_PROJECT_NAME%/%SERVER_IMAGE%
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: %NAMESPACE%-config
+          livenessProbe:
+            httpGet:
+              path: /api/version/check-tag/%TAG_VERSION%?livenessProbe=true
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /api/version/check-tag/%TAG_VERSION%?readinessProbe=true
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 1
+          startupProbe:
+            httpGet:
+              path: /api/version/check-tag/%TAG_VERSION%?startupProbe=true
+              port: 3000
+            failureThreshold: 30
+            periodSeconds: 10
+            timeoutSeconds: 1
+          resources:
+            requests:
+              memory: %K8S_SERVER_RESOURCES_REQUEST_MEMORY%
+              cpu: %K8S_SERVER_RESOURCES_REQUEST_CPU%
+            limits:
+              memory: %K8S_SERVER_RESOURCES_LIMIT_MEMORY%
+              cpu: %K8S_SERVER_RESOURCES_LIMIT_CPU%
+      imagePullSecrets:
+        - name: site15-global-regcred
