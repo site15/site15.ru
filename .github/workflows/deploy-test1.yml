@@ -40,6 +40,10 @@ jobs:
       - name: Run e2e tests
         env:
           CI_REGISTRY_PASSWORD: ${{ secrets.SITE15_ACCESS_TOKEN_DOCKER }}
+          NO_PUSH_DOCKER_IMAGES: "true"
+          TAG_VERSION: "local"
+          TEST_PROJECT_URL: "http://localhost:3000"
+          CI_BRANCH_NAME: develop
         run: |
           cd devops
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
