@@ -107,7 +107,6 @@ jobs:
       - name: Deploy
         env:
           CI_BRANCH_NAME: ${{ secrets.CI_BRANCH_NAME }}
-          PSQL_DATABASE: site15-server
           ROOT_POSTGRES_USER: postgres
           ROOT_POSTGRES_PASSWORD: ${{ secrets.SITE15_ROOT_POSTGRES_PASSWORD}}
           PSQL_USERNAME: site15
