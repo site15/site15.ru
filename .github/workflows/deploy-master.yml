@@ -131,7 +131,7 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} deploy feature to http://${{ secrets.CI_BRANCH_NAME }}.site15.ru:
+            ${{ github.actor }} deploy feature to http://site15.ru:
             Commit message: ${{ github.event.commits[0].message }}
 
             Repository: ${{ github.repository }}
