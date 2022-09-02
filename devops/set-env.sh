@@ -49,8 +49,8 @@ fi
 
 if [ -z "${CI_BRANCH_NAME}" ]; then
     if [ "$BRANCH_NAME" == "master" ]; then
-        if [ -z "${DB_DATABASE}" ]; then
-            export DB_DATABASE=${CI_PROJECT_CODE}
+        if [ -z "${PSQL_DATABASE}" ]; then
+            export PSQL_DATABASE=${CI_PROJECT_CODE}_${BRANCH_NAME}
         fi
         if [ -z "${CI_ENVIRONMENT_URL}" ]; then
             export PROJECT_URL=https://${ROOT_DOMAIN}
@@ -58,8 +58,8 @@ if [ -z "${CI_BRANCH_NAME}" ]; then
             export PROJECT_URL=${CI_ENVIRONMENT_URL}:${EXTERNAL_PORT}
         fi
     else
-        if [ -z "${DB_DATABASE}" ]; then
-            export DB_DATABASE=${CI_PROJECT_CODE}_${BRANCH_NAME}
+        if [ -z "${PSQL_DATABASE}" ]; then
+            export PSQL_DATABASE=${CI_PROJECT_CODE}_${BRANCH_NAME}
         fi
         if [ -z "${CI_ENVIRONMENT_URL}" ]; then
             export PROJECT_URL=https://${BRANCH_NAME}.${ROOT_DOMAIN}
@@ -68,13 +68,21 @@ if [ -z "${CI_BRANCH_NAME}" ]; then
         fi
     fi
 else
-    if [ -z "${DB_DATABASE}" ]; then
-        export DB_DATABASE=${CI_PROJECT_CODE}_${BRANCH_NAME}
+    if [ -z "${PSQL_DATABASE}" ]; then
+        export PSQL_DATABASE=${CI_PROJECT_CODE}_${BRANCH_NAME}
     fi
-    if [ -z "${CI_ENVIRONMENT_URL}" ]; then
-        export PROJECT_URL=https://${BRANCH_NAME}.${ROOT_DOMAIN}
+    if [ "$BRANCH_NAME" == "master" ]; then
+        if [ -z "${CI_ENVIRONMENT_URL}" ]; then
+            export PROJECT_URL=https://${ROOT_DOMAIN}
+        else
+            export PROJECT_URL=${CI_ENVIRONMENT_URL}:${EXTERNAL_PORT}
+        fi
     else
-        export PROJECT_URL=${CI_ENVIRONMENT_URL}:${EXTERNAL_PORT}
+        if [ -z "${CI_ENVIRONMENT_URL}" ]; then
+            export PROJECT_URL=https://${BRANCH_NAME}.${ROOT_DOMAIN}
+        else
+            export PROJECT_URL=${CI_ENVIRONMENT_URL}:${EXTERNAL_PORT}
+        fi
     fi
 fi
 export PROJECT_DOMAIN="${PROJECT_URL/https:\/\//}"
