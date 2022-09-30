@@ -1,0 +1,9 @@
+{
+  "i18n": [
+    {
+      "scope": "spider-common",
+      "path": "src/i18n",
+      "strategy": "join"
+    }
+  ]
+}

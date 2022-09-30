@@ -4,6 +4,13 @@
   "projects": {
     "client": "apps/client",
     "common": "libs/common",
-    "server": "apps/server"
+    "prisma-server": "libs/prisma/server",
+    "projects-client": "libs/projects/client",
+    "projects-common": "libs/projects/common",
+    "projects-server": "libs/projects/server",
+    "server": "apps/server",
+    "spider-client": "libs/spider/client",
+    "spider-common": "libs/spider/common",
+    "spider-server": "libs/spider/server"
   }
 }

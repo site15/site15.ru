@@ -31,8 +31,8 @@ npm run rucken -- postgres --app-database-url=$SERVER_POSTGRES_URL
 
 # Run migrate database for specific database
 cd ../
-export POSTGRES_URL=$SERVER_POSTGRES_URL
-npm run migrate -- migrate
+export SERVER_POSTGRES_URL=$SERVER_POSTGRES_URL
+npm run migrate
 cd ./devops
 
 # Change database host for applications

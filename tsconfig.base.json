@@ -15,8 +15,22 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "strictPropertyInitialization": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,    
     "paths": {
-      "@site15/common": ["libs/common/src/index.ts"]
+      "@site15/common": ["libs/common/src/index.ts"],
+      "@site15/prisma/server": ["libs/prisma/server/src/index.ts"],
+      "@site15/projects/client": ["libs/projects/client/src/index.ts"],
+      "@site15/projects/common": ["libs/projects/common/src/index.ts"],
+      "@site15/projects/server": ["libs/projects/server/src/index.ts"],
+      "@site15/spider/client": ["libs/spider/client/src/index.ts"],
+      "@site15/spider/common": ["libs/spider/common/src/index.ts"],
+      "@site15/spider/server": ["libs/spider/server/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

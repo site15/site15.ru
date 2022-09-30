@@ -1,9 +1,9 @@
-version: '3'
+version: "3"
 networks:
   site15-network:
     ipam:
       config:
-        - subnet: '172.10.0.0/16'
+        - subnet: "172.10.0.0/16"
 
 volumes:
   site15-postgres-volume:
@@ -11,20 +11,20 @@ volumes:
 
 services:
   site15-postgres:
-    image: 'endykaufman/postgres-default'
-    container_name: 'site15-postgres'
+    image: "endykaufman/postgres-default"
+    container_name: "site15-postgres"
     environment:
       - POSTGRES_USER=${ROOT_POSTGRES_USER}
       - POSTGRES_PASSWORD=${ROOT_POSTGRES_PASSWORD}
       - POSTGRES_DB=postgres
     ports:
-      - '11432:5432'
+      - "11432:5432"
     volumes:
       - site15-postgres-volume:/var/lib/postgresql/data
     networks:
       - site15-network
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -33,8 +33,8 @@ services:
   site15-nginx:
     image: nginx:alpine
     ports:
-      - '9090:9090'
-    container_name: 'site15-nginx'
+      - "9090:9090"
+    container_name: "site15-nginx"
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./logs:/var/log/nginx/
@@ -49,15 +49,15 @@ services:
   site15-client:
     image: node:14-alpine
     user: $UID:$GID
-    container_name: 'site15-client'
-    working_dir: '/app'
+    container_name: "site15-client"
+    working_dir: "/app"
     volumes:
       - ./../../../:/app
     networks:
       - site15-network
     ports:
-      - '4200:4200'
-    command: 'npm run nx -- serve client --port=4200 --host=0.0.0.0  --disable-host-check'
+      - "4200:4200"
+    command: "npm run nx -- serve client --port=4200 --host=0.0.0.0  --disable-host-check"
     tty: true
     depends_on:
       site15-server:
@@ -76,7 +76,7 @@ services:
   site15-server:
     image: node:16-alpine
     user: ${CURRENT_UID}
-    container_name: 'site15-server'
+    container_name: "site15-server"
     environment:
       - HOST=${HOST}
       - PROJECT_DOMAIN=${PROJECT_DOMAIN}
@@ -84,11 +84,11 @@ services:
       - PORT=3000
       - TAG_VERSION=${TAG_VERSION}
       - CI_BRANCH_NAME=${CI_BRANCH_NAME}
-      - POSTGRES_URL=${SERVER_POSTGRES_URL}
+      - SERVER_POSTGRES_URL=${SERVER_POSTGRES_URL}
     ports:
-      - '3000:3000'
-      - '9229:9229'
-    working_dir: '/app'
+      - "3000:3000"
+      - "9229:9229"
+    working_dir: "/app"
     volumes:
       - ./../../../:/app
     networks:
@@ -96,13 +96,13 @@ services:
     healthcheck:
       test:
         [
-          'CMD-SHELL',
-          'npx wait-on --timeout=160000 --interval=1000 --window --verbose --log http://localhost:3000/api/version/check-tag/$TAG_VERSION?healthcheck=true',
+          "CMD-SHELL",
+          "npx wait-on --timeout=160000 --interval=1000 --window --verbose --log http://localhost:3000/api/version/check-tag/$TAG_VERSION?healthcheck=true",
         ]
       interval: 30s
       timeout: 10s
       retries: 10
-    command: 'npm run nx -- serve server'
+    command: "npm run nx -- serve server"
     tty: true
     depends_on:
       site15-postgres:
