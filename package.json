@@ -94,6 +94,8 @@
     "connection-string": "^4.3.5",
     "env-var": "^7.3.0",
     "nestjs-custom-injector": "^2.2.3",
+    "primeicons": "^6.0.1",
+    "primeng": "^14.1.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
     "tslib": "^2.3.0",

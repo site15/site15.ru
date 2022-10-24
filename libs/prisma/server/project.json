@@ -5,14 +5,20 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/prisma/server/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/prisma/server/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/prisma/server"],
+      "outputs": [
+        "coverage/libs/prisma/server"
+      ],
       "options": {
         "jestConfig": "libs/prisma/server/jest.config.ts",
         "passWithNoTests": true

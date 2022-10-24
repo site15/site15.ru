@@ -1,0 +1,52 @@
+<div class="auth__page">
+  <div class="container">
+    <form [formGroup]="form" class="auth__form" (ngSubmit)="onSubmit()">
+      <h2 class="form__title">Sign in</h2>
+      <p class="form__subtitle">Enter username and password</p>
+      <fieldset class="form__fieldset">
+        <p
+          class="invalid-form__text"
+          *ngIf="
+            this.form.get('username')?.invalid &&
+            this.form.get('username')?.touched
+          "
+        >
+          * Bad username
+        </p>
+        <input
+          formControlName="username"
+          type="text"
+          placeholder="username"
+          pInputText
+          class="p-inputtext-lg"
+        />
+      </fieldset>
+      <fieldset class="form__fieldset">
+        <p
+          class="invalid-form__text"
+          *ngIf="
+            this.form.get('password')?.invalid &&
+            this.form.get('password')?.touched
+          "
+        >
+          * Bad password
+        </p>
+        <p-password
+          formControlName="password"
+          [feedback]="false"
+          [toggleMask]="true"
+          placeholder="password"
+          class="p-inputtext-lg"
+        ></p-password>
+      </fieldset>
+
+      <button
+        pButton
+        type="submit"
+        label="Sign in"
+        class="p-button-lg"
+        [disabled]="this.form.invalid"
+      ></button>
+    </form>
+  </div>
+</div>
