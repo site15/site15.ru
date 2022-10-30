@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { IContactTypes } from "../../../shared/models/contact-types.model";
 import { ContactTypesService } from "../../contact-types.service";
@@ -8,8 +8,46 @@ import { ContactTypesService } from "../../contact-types.service";
   templateUrl: "./contact-types.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactTypesComponent {
+export class ContactTypesComponent implements OnInit {
   contactTypes$!: Observable<IContactTypes[]>;
+  contactType!: IContactTypes;
+  contactTypesDialog!: boolean;
+
+  editing!: boolean;
 
   constructor(private contactTypesService: ContactTypesService) {}
+
+  ngOnInit(): void {
+    this.contactTypes$ = this.contactTypesService.getAllContactTypes();
+  }
+
+  hideDialog() {
+    this.contactTypesDialog = false;
+  }
+
+  openNew() {
+    this.contactType = {} as IContactTypes;
+    this.contactTypesDialog = true;
+    this.editing = false;
+  }
+
+  deleteContactType(id: number) {
+    this.contactTypesService.deleteContactType(id);
+  }
+
+  createContactType(ct: IContactTypes) {
+    this.contactTypesService.createContactType(ct);
+    this.contactTypesDialog = false;
+  }
+
+  editContactType(ct: IContactTypes) {
+    this.contactType = { ...ct };
+    this.contactTypesDialog = true;
+    this.editing = true;
+  }
+
+  saveContactType(ct: IContactTypes) {
+    this.contactTypesService.updateContactType(ct);
+    this.contactTypesDialog = false;
+  }
 }

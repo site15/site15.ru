@@ -2,9 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { IContactTypes } from "../shared/models/contact-types.model";
 
-@Injectable({
-  providedIn: "root",
-})
+@Injectable()
 export class ContactTypesService {
   contactTypes: IContactTypes[] = [
     {
@@ -40,9 +38,17 @@ export class ContactTypesService {
 
   createContactType(data: IContactTypes): void {
     this.contactTypes.push(data);
+    console.log("worked");
   }
 
-  deleteContactType(id: number): void {
-    this.contactTypes = this.contactTypes.filter((ct) => ct.id !== id);
+  deleteContactType(index: number): void {
+    this.contactTypes.splice(index, 1);
+  }
+
+  updateContactType(data: IContactTypes) {
+    const indexOfCt = this.contactTypes.findIndex((ct) => ct.id === data.id);
+
+    this.contactTypes.splice(indexOfCt, 1, data);
+    console.log("worked update");
   }
 }

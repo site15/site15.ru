@@ -6,6 +6,7 @@ import { Route, RouterModule } from "@angular/router";
 import { HeaderModule } from "../shared/header/header.module";
 import { SharedUiModule } from "../shared-ui/shared-ui/shared-ui.module";
 import { ContactTypesService } from "./contact-types.service";
+import { FormsModule } from "@angular/forms";
 
 const routes: Route[] = [
   { path: "contact-types", component: ContactTypesComponent },
@@ -16,6 +17,7 @@ const routes: Route[] = [
   declarations: [ContactTypesComponent, ContactTypesDetailsComponent],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule.forChild(routes),
     HeaderModule,
     SharedUiModule,

@@ -1,4 +1,135 @@
 <site15-header></site15-header>
 <main class="main">
-  <div class="container"></div>
+  <div class="container">
+    <ng-container *ngIf="contactTypes$ | async as contactTypes; else loading">
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <button
+            pButton
+            pRipple
+            label="New"
+            icon="pi pi-plus"
+            class="p-button-success mr-2"
+            (click)="openNew()"
+          ></button>
+        </ng-template>
+      </p-toolbar>
+      <p-table
+        [value]="contactTypes"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [paginator]="true"
+        [rowHover]="true"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Title RU</th>
+            <th>contacts</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-index="rowIndex" let-contactType>
+          <tr>
+            <td>{{ contactType.id }}</td>
+            <td>{{ contactType.name }}</td>
+            <td>{{ contactType.title }}</td>
+            <td>{{ contactType.title_ru }}</td>
+            <td>{{ contactType.contacts }}</td>
+            <td>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-success mr-2"
+                (click)="editContactType(contactType)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning ml-2"
+                (click)="deleteContactType(index)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <p-dialog
+        [(visible)]="contactTypesDialog"
+        [style]="{ width: '450px' }"
+        header="Contact Type Details"
+        [modal]="true"
+        styleClass="p-fluid"
+      >
+        <ng-template pTemplate="content">
+          <div class="field">
+            <label for="name" class="mb-2">Name</label>
+            <input
+              type="text"
+              pInputText
+              id="name"
+              [(ngModel)]="contactType.name"
+              required
+              autofocus
+              [(ngModel)]="contactType.name"
+            />
+          </div>
+          <div class="field">
+            <label for="title">Title</label>
+            <input
+              type="text"
+              pInputText
+              id="title"
+              [(ngModel)]="contactType.title"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="title_ru">Title RU</label>
+            <input
+              type="text"
+              pInputText
+              id="title_ru"
+              [(ngModel)]="contactType.title_ru"
+              required
+            />
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <button
+            pButton
+            pRipple
+            label="Cancel"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="hideDialog()"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            label="Save"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="saveContactType(contactType)"
+          ></button>
+          <button
+            *ngIf="!editing"
+            pButton
+            pRipple
+            label="Create"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="createContactType(contactType)"
+          ></button>
+        </ng-template>
+      </p-dialog>
+    </ng-container>
+    <ng-template #loading>Loading...</ng-template>
+  </div>
 </main>
