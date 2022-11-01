@@ -33,7 +33,7 @@ export class ContactTypeController {
   @ApiResponse({ status: 200 })
   @Get(":id")
   async findOne(@Param("id") id: number) {
-    return await this.contactTypeService.findOne(id);
+    return await this.contactTypeService.findOne(+id);
   }
 
   @ApiBody({ type: [UpdateContactTypeDto] })
@@ -43,12 +43,12 @@ export class ContactTypeController {
     @Param("id") id: number,
     @Body() updateContactTypeDto: UpdateContactTypeDto
   ) {
-    return await this.contactTypeService.update(id, updateContactTypeDto);
+    return await this.contactTypeService.update(+id, updateContactTypeDto);
   }
 
   @ApiResponse({ status: 200 })
   @Delete(":id")
   async remove(@Param("id") id: number) {
-    return await this.contactTypeService.remove(id);
+    return await this.contactTypeService.remove(+id);
   }
 }
