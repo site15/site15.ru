@@ -38,7 +38,6 @@ export class ContactTypesService {
 
   createContactType(data: IContactTypes): void {
     this.contactTypes.push(data);
-    console.log("worked");
   }
 
   deleteContactType(index: number): void {
@@ -49,6 +48,5 @@ export class ContactTypesService {
     const indexOfCt = this.contactTypes.findIndex((ct) => ct.id === data.id);
 
     this.contactTypes.splice(indexOfCt, 1, data);
-    console.log("worked update");
   }
 }

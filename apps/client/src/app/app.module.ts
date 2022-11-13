@@ -1,11 +1,10 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";
-import { ContactTypesModule } from "./contact-types/contact-types.module";
+import { AppRoutingModule } from "./app-routing.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,8 +12,7 @@ import { ContactTypesModule } from "./contact-types/contact-types.module";
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RouterModule.forRoot([]),
-    ContactTypesModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
