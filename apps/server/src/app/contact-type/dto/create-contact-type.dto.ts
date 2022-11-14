@@ -1,21 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { contact_types } from "@prisma/client";
-import { IsAlpha, IsNumber } from "class-validator";
 
-export class CreateContactTypeDto implements contact_types {
+export class CreateContactTypeDto implements Omit<contact_types, "id"> {
   @ApiProperty()
-  @IsNumber()
-  id: number;
+  name!: string;
 
   @ApiProperty()
-  @IsAlpha()
-  name: string;
+  title!: string;
 
   @ApiProperty()
-  @IsAlpha()
-  title: string;
-
-  @ApiProperty()
-  @IsAlpha()
-  title_ru: string;
+  title_ru!: string;
 }

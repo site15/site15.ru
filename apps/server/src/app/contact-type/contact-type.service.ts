@@ -1,7 +1,17 @@
-import { Injectable, Logger, NotFoundException } from "@nestjs/common";
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from "@nestjs/common";
+import { Prisma } from "@prisma/client";
+
 import { PrismaClientService } from "@site15/prisma/server";
+
 import { CreateContactTypeDto } from "./dto/create-contact-type.dto";
 import { UpdateContactTypeDto } from "./dto/update-contact-type.dto";
+import { IContactType } from "./interfaces/contact-type.interface";
+import { IStatus } from "./interfaces/status.interface";
 
 @Injectable()
 export class ContactTypeService {
@@ -9,71 +19,99 @@ export class ContactTypeService {
 
   constructor(private readonly prismaClient: PrismaClientService) {}
 
-  async create(createContactTypeDto: CreateContactTypeDto) {
+  async create(
+    createContactTypeDto: CreateContactTypeDto
+  ): Promise<IContactType> {
     try {
-      const contactType = this.prismaClient.contact_types.create({
+      return await this.prismaClient.contact_types.create({
         data: createContactTypeDto,
       });
-
-      return contactType;
     } catch (err) {
       this.logger.error(err, err.stack);
-      throw err;
+      throw new InternalServerErrorException({
+        message: "UNKNOWN_ERROR",
+      });
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<IContactType[]> {
     return await this.prismaClient.contact_types.findMany();
   }
 
-  async findOne(id: number) {
-    const user = this.prismaClient.contact_types.findFirst({
-      where: {
-        id,
-      },
-    });
-
-    if (!user) {
-      throw new NotFoundException({
-        message: "NOT_FOUND",
-        description: `Contact type with id: ${id} not found`,
-      });
-    }
-
-    return user;
-  }
-
-  async update(id: number, updateContactTypeDto: UpdateContactTypeDto) {
+  async findOne(id: number): Promise<IContactType> {
     try {
-      const isExist = await this.prismaClient.contact_types.update({
-        where: { id },
-        data: updateContactTypeDto,
-      });
+      {
+        return await this.prismaClient.contact_types.findFirstOrThrow({
+          where: {
+            id,
+          },
+        });
+      }
+    } catch (err) {
+      this.logger.error(err, err.stack);
 
-      if (!isExist) {
+      if (err instanceof Prisma.NotFoundError) {
         throw new NotFoundException({
           message: "NOT_FOUND",
           description: `Contact type with id: ${id} not found`,
         });
+      } else {
+        throw err;
       }
-
-      return isExist;
-    } catch (err) {
-      this.logger.error(err, err.stack);
-      throw err;
     }
   }
 
-  async remove(id: number) {
+  async update(
+    id: number,
+    updateContactTypeDto: UpdateContactTypeDto
+  ): Promise<IContactType> {
+    try {
+      return await this.prismaClient.contact_types.update({
+        where: { id },
+        data: updateContactTypeDto,
+      });
+    } catch (err) {
+      this.logger.error(err, err.stack);
+
+      /**
+       * Prisma.NotFoundError returns false.
+       * So, i decided to try Prisma.PrismaClientKnownRequestError.
+       */
+      if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new NotFoundException({
+          message: "NOT_FOUND",
+          description: `Contact type with id: ${id} not found`,
+        });
+      } else {
+        throw new InternalServerErrorException({
+          message: "UNKNOWN_ERROR",
+        });
+      }
+    }
+  }
+
+  async remove(id: number): Promise<IStatus> {
     try {
       await this.prismaClient.contact_types.delete({
         where: { id },
       });
 
-      return true;
+      return {
+        status: "OK",
+      };
     } catch (err) {
       this.logger.error(err, err.stack);
-      throw err;
+
+      if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new NotFoundException({
+          message: "NOT_FOUND",
+          description: `Contact type with id: ${id} not found`,
+        });
+      } else {
+        throw new InternalServerErrorException({
+          message: "UNKNOWN_ERROR",
+        });
+      }
     }
   }
 }
