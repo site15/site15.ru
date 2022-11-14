@@ -112,81 +112,69 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 });
 
 describe("[FAIL] Contact type (e2e)", () => {
-  // it("Get contact type by id that does not exist", async () => {
-  //   const result = await axios.get(
-  //     `${process.env.PROJECT_URL}/api/contact-type/8`
-  //   );
+  it("Get contact type by id that does not exist", async () => {
+    try {
+      await axios.get(`${process.env.PROJECT_URL}/api/contact-type/8`);
+    } catch (err) {
+      expect(err.response.status).toEqual(404);
+    }
+  });
 
-  //   expect(result.data).toMatchObject({
-  //     message: "NOT_FOUND",
-  //     description: `Contact type with id: 8 not found`,
-  //   });
-  // });
-
-  // it("Get contact type by id that is incorrect", async () => {
-  //   const result = await axios.get(
-  //     `${process.env.PROJECT_URL}/api/contact-type/NaN`
-  //   );
-
-  //   expect(result.data).toMatchObject({
-  //     statusCode: 400,
-  //     message: "Validation failed (numeric string is expected)",
-  //     error: "Bad Request",
-  //   });
-  // });
+  it("Get contact type by id that is incorrect", async () => {
+    try {
+      await axios.get(`${process.env.PROJECT_URL}/api/contact-type/NaN`);
+    } catch (err) {
+      expect(err.response.status).toEqual(400);
+    }
+  });
 
   // /**
-  //  * There is no test to Post method
+  //  * There is no test for Post method
   //  */
 
-  // it("Patch update contact type by id that does not exist", async () => {
-  //   const result = await axios.patch(
-  //     `${process.env.PROJECT_URL}/api/contact-type/8`,
-  //     {
-  //       name: "test1",
-  //       title: "test1",
-  //       title_ru: "test1",
-  //     }
-  //   );
+  it("Patch update contact type by id that does not exist", async () => {
+    try {
+      await axios.patch(`${process.env.PROJECT_URL}/api/contact-type/8`, {
+        name: "test1",
+        title: "test1",
+        title_ru: "test1",
+      });
+    } catch (err) {
+      expect(err.response.status).toEqual(404);
+    }
+  });
 
-  //   expect(result.data).toMatchObject({
-  //     message: "NOT_FOUND",
-  //     description: `Contact type with id: 8 not found`,
-  //   });
-  // });
+  it("Patch update contact type by id that is incorrect", async () => {
+    try {
+      await axios.patch(`${process.env.PROJECT_URL}/api/contact-type/NaN`, {
+        name: "test1",
+        title: "test1",
+        title_ru: "test1",
+      });
+    } catch (err) {
+      expect(err.response.status).toEqual(400);
+    }
+  });
 
-  // it("Patch update contact type by id that is incorrect", async () => {
-  //   const result = await axios.patch(
-  //     `${process.env.PROJECT_URL}/api/contact-type/NaN`,
-  //     {
-  //       name: "test1",
-  //       title: "test1",
-  //       title_ru: "test1",
-  //     }
-  //   );
-
-  //   expect(result.data).toMatchObject({
-  //     statusCode: 400,
-  //     message: "Validation failed (numeric string is expected)",
-  //     error: "Bad Request",
-  //   });
-  // });
-
-  // it("Delete delete contact type by id that does not exist", async () => {
-  //   const result = await axios.delete(
-  //     `${process.env.PROJECT_URL}/api/contact-type/8`
-  //   );
-
-  //   expect(result.data).toMatchObject({
-  //     message: "NOT_FOUND",
-  //     description: `Contact type with id: 8 not found`,
-  //   });
-  // });
+  it("Delete delete contact type by id that does not exist", async () => {
+    try {
+      await axios.delete(`${process.env.PROJECT_URL}/api/contact-type/8`);
+    } catch (err) {
+      expect(err.response.status).toEqual(404);
+    }
+  });
 
   it("Delete delete contact type by id that is incorrect", async () => {
-    const result = await axios.delete(
-      `${process.env.PROJECT_URL}/api/contact-type/NaN`
-    );
-    expect(result).toBe(400);
+    try {
+      const result = await axios.delete(
+        `${process.env.PROJECT_URL}/api/contact-type/NaN`
+      );
+
+      expect(result.data).toMatchObject({
+        status: "OK",
+      });
+    } catch (err) {
+      expect(err.response.status).toEqual(400);
+    }
   });
 });
