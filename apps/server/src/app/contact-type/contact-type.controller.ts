@@ -3,16 +3,15 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   ParseIntPipe,
+  Put,
 } from "@nestjs/common";
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
 
 import { ContactTypeService } from "./contact-type.service";
-import { CreateContactTypeDto } from "./dto/create-contact-type.dto";
-import { UpdateContactTypeDto } from "./dto/update-contact-type.dto";
+import { ContactTypeDto } from "./dto/contact-type.dto";
 import { IContactType } from "./interfaces/contact-type.interface";
 import { IStatus } from "./interfaces/status.interface";
 
@@ -21,13 +20,11 @@ import { IStatus } from "./interfaces/status.interface";
 export class ContactTypeController {
   constructor(private readonly contactTypeService: ContactTypeService) {}
 
-  @ApiBody({ type: [CreateContactTypeDto] })
+  @ApiBody({ type: [ContactTypeDto] })
   @ApiResponse({ status: 201 })
   @Post()
-  async create(
-    @Body() createContactTypeDto: CreateContactTypeDto
-  ): Promise<IContactType> {
-    return await this.contactTypeService.create(createContactTypeDto);
+  async create(@Body() contactTypeDto: ContactTypeDto): Promise<IContactType> {
+    return await this.contactTypeService.create(contactTypeDto);
   }
 
   @ApiResponse({ status: 200 })
@@ -42,14 +39,14 @@ export class ContactTypeController {
     return await this.contactTypeService.findOne(id);
   }
 
-  @ApiBody({ type: [UpdateContactTypeDto] })
+  @ApiBody({ type: [ContactTypeDto] })
   @ApiResponse({ status: 200 })
-  @Patch(":id")
+  @Put(":id")
   async update(
     @Param("id", ParseIntPipe) id: number,
-    @Body() updateContactTypeDto: UpdateContactTypeDto
+    @Body() contactTypeDto: ContactTypeDto
   ): Promise<IContactType> {
-    return await this.contactTypeService.update(id, updateContactTypeDto);
+    return await this.contactTypeService.update(id, contactTypeDto);
   }
 
   @ApiResponse({ status: 200 })

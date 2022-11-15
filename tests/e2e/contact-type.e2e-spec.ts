@@ -82,8 +82,8 @@ describe("[SUCCESS] Contact type (e2e)", () => {
     });
   });
 
-  it("Patch update contact type by id", async () => {
-    const result = await axios.patch(
+  it("Put update contact type by id", async () => {
+    const result = await axios.put(
       `${process.env.PROJECT_URL}/api/contact-type/8`,
       {
         name: "test1",
@@ -132,9 +132,9 @@ describe("[FAIL] Contact type (e2e)", () => {
   //  * There is no test for Post method
   //  */
 
-  it("Patch update contact type by id that does not exist", async () => {
+  it("Put update contact type by id that does not exist", async () => {
     try {
-      await axios.patch(`${process.env.PROJECT_URL}/api/contact-type/8`, {
+      await axios.put(`${process.env.PROJECT_URL}/api/contact-type/8`, {
         name: "test1",
         title: "test1",
         title_ru: "test1",
@@ -144,9 +144,9 @@ describe("[FAIL] Contact type (e2e)", () => {
     }
   });
 
-  it("Patch update contact type by id that is incorrect", async () => {
+  it("Put update contact type by id that is incorrect", async () => {
     try {
-      await axios.patch(`${process.env.PROJECT_URL}/api/contact-type/NaN`, {
+      await axios.put(`${process.env.PROJECT_URL}/api/contact-type/NaN`, {
         name: "test1",
         title: "test1",
         title_ru: "test1",
