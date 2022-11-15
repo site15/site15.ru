@@ -8,8 +8,7 @@ import { Prisma } from "@prisma/client";
 
 import { PrismaClientService } from "@site15/prisma/server";
 
-import { CreateContactTypeDto } from "./dto/create-contact-type.dto";
-import { UpdateContactTypeDto } from "./dto/update-contact-type.dto";
+import { ContactTypeDto } from "./dto/contact-type.dto";
 import { IContactType } from "./interfaces/contact-type.interface";
 import { IStatus } from "./interfaces/status.interface";
 
@@ -19,12 +18,10 @@ export class ContactTypeService {
 
   constructor(private readonly prismaClient: PrismaClientService) {}
 
-  async create(
-    createContactTypeDto: CreateContactTypeDto
-  ): Promise<IContactType> {
+  async create(contactTypeDto: ContactTypeDto): Promise<IContactType> {
     try {
       return await this.prismaClient.contact_types.create({
-        data: createContactTypeDto,
+        data: contactTypeDto,
       });
     } catch (err) {
       this.logger.error(err, err.stack);
@@ -48,31 +45,30 @@ export class ContactTypeService {
         });
       }
     } catch (err) {
-      this.logger.error(err, err.stack);
-
       if (err instanceof Prisma.NotFoundError) {
         throw new NotFoundException({
           message: "NOT_FOUND",
           description: `Contact type with id: ${id} not found`,
         });
-      } else {
-        throw err;
       }
+
+      this.logger.error(err, err.stack);
+      throw new InternalServerErrorException({
+        message: "UNKNOWN_ERROR",
+      });
     }
   }
 
   async update(
     id: number,
-    updateContactTypeDto: UpdateContactTypeDto
+    contactTypeDto: ContactTypeDto
   ): Promise<IContactType> {
     try {
       return await this.prismaClient.contact_types.update({
         where: { id },
-        data: updateContactTypeDto,
+        data: contactTypeDto,
       });
     } catch (err) {
-      this.logger.error(err, err.stack);
-
       /**
        * Prisma.NotFoundError returns false.
        * So, i decided to try Prisma.PrismaClientKnownRequestError.
@@ -82,11 +78,12 @@ export class ContactTypeService {
           message: "NOT_FOUND",
           description: `Contact type with id: ${id} not found`,
         });
-      } else {
-        throw new InternalServerErrorException({
-          message: "UNKNOWN_ERROR",
-        });
       }
+
+      this.logger.error(err, err.stack);
+      throw new InternalServerErrorException({
+        message: "UNKNOWN_ERROR",
+      });
     }
   }
 
@@ -100,18 +97,17 @@ export class ContactTypeService {
         status: "OK",
       };
     } catch (err) {
-      this.logger.error(err, err.stack);
-
       if (err instanceof Prisma.PrismaClientKnownRequestError) {
         throw new NotFoundException({
           message: "NOT_FOUND",
           description: `Contact type with id: ${id} not found`,
         });
-      } else {
-        throw new InternalServerErrorException({
-          message: "UNKNOWN_ERROR",
-        });
       }
+
+      this.logger.error(err, err.stack);
+      throw new InternalServerErrorException({
+        message: "UNKNOWN_ERROR",
+      });
     }
   }
 }
