@@ -114,7 +114,7 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 describe("[FAIL] Contact type (e2e)", () => {
   it("Get contact type by id that does not exist", async () => {
     try {
-      await axios.get(`${process.env.PROJECT_URL}/api/contact-type/8`);
+      await axios.get(`${process.env.PROJECT_URL}/api/contact-type/999`);
     } catch (err) {
       expect(err.response.status).toEqual(404);
     }
@@ -134,7 +134,7 @@ describe("[FAIL] Contact type (e2e)", () => {
 
   it("Put update contact type by id that does not exist", async () => {
     try {
-      await axios.put(`${process.env.PROJECT_URL}/api/contact-type/8`, {
+      await axios.put(`${process.env.PROJECT_URL}/api/contact-type/999`, {
         name: "test1",
         title: "test1",
         title_ru: "test1",
@@ -158,7 +158,7 @@ describe("[FAIL] Contact type (e2e)", () => {
 
   it("Delete delete contact type by id that does not exist", async () => {
     try {
-      await axios.delete(`${process.env.PROJECT_URL}/api/contact-type/8`);
+      await axios.delete(`${process.env.PROJECT_URL}/api/contact-type/999`);
     } catch (err) {
       expect(err.response.status).toEqual(404);
     }
@@ -170,9 +170,7 @@ describe("[FAIL] Contact type (e2e)", () => {
         `${process.env.PROJECT_URL}/api/contact-type/NaN`
       );
 
-      expect(result.data).toMatchObject({
-        status: "OK",
-      });
+      expect(true).toEqual(false);
     } catch (err) {
       expect(err.response.status).toEqual(400);
     }
