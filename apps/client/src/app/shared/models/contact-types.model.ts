@@ -3,5 +3,4 @@ export interface IContactTypes {
   name: string;
   title: string;
   title_ru: string;
-  contacts?: any[]; // "any" will be changed soon
 }

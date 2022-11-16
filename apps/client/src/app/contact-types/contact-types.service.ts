@@ -10,21 +10,18 @@ export class ContactTypesService {
       name: "first_contact_type",
       title: "first",
       title_ru: "первый",
-      contacts: [1, 2, 3],
     },
     {
       id: 2,
       name: "second_contact_type",
       title: "second",
       title_ru: "второй",
-      contacts: [1, 2, 3],
     },
     {
       id: 3,
       name: "third_contact_type",
       title: "third",
       title_ru: "третий",
-      contacts: [1, 2, 3],
     },
   ];
 
@@ -44,7 +41,7 @@ export class ContactTypesService {
     this.contactTypes.splice(index, 1);
   }
 
-  updateContactType(data: IContactTypes) {
+  updateContactType(data: IContactTypes): void {
     const indexOfCt = this.contactTypes.findIndex((ct) => ct.id === data.id);
 
     this.contactTypes.splice(indexOfCt, 1, data);
