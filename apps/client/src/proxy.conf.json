@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://test1.site15.ru",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

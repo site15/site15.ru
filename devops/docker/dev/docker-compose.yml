@@ -57,7 +57,7 @@ services:
       - site15-network
     ports:
       - "4200:4200"
-    command: "npm run nx -- serve client --port=4200 --host=0.0.0.0  --disable-host-check"
+    command: "npm run nx -- serve client --configuration=${CLIENT_ENV_NAME} --port=4200 --host=0.0.0.0  --disable-host-check"
     tty: true
     depends_on:
       site15-server:

@@ -1,6 +1,6 @@
 <main class="main">
   <div class="container">
-    <ng-container *ngIf="contactTypes$ | async as contactTypes; else loading">
+    <ng-container *ngIf="contactTypes$ | async as contactTypes">
       <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
           <button
@@ -29,7 +29,7 @@
             <th></th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-index="rowIndex" let-contactType>
+        <ng-template pTemplate="body" let-contactType>
           <tr>
             <td>{{ contactType.id }}</td>
             <td>{{ contactType.name }}</td>
@@ -48,7 +48,7 @@
                 pRipple
                 icon="pi pi-trash"
                 class="p-button-rounded p-button-warning ml-2"
-                (click)="deleteContactType(index)"
+                (click)="deleteContactType(contactType.id)"
               ></button>
             </td>
           </tr>

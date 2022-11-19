@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
 import { Observable } from "rxjs";
 import { IContactTypes } from "../../../shared/models/contact-types.model";
 import { ContactTypesService } from "../../contact-types.service";
@@ -8,7 +13,7 @@ import { ContactTypesService } from "../../contact-types.service";
   templateUrl: "./contact-types.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactTypesComponent implements OnInit {
+export class ContactTypesComponent implements OnInit, OnDestroy {
   contactTypes$!: Observable<IContactTypes[]>;
   contactType!: IContactTypes;
   contactTypesDialog!: boolean;
@@ -19,6 +24,10 @@ export class ContactTypesComponent implements OnInit {
 
   ngOnInit(): void {
     this.contactTypes$ = this.contactTypesService.getAllContactTypes();
+  }
+
+  ngOnDestroy(): void {
+    console.log("Here will be added unsubscribe functions :)");
   }
 
   hideDialog() {
@@ -32,11 +41,16 @@ export class ContactTypesComponent implements OnInit {
   }
 
   deleteContactType(id: number) {
-    this.contactTypesService.deleteContactType(id);
+    this.contactTypesService.deleteContactType(id).subscribe();
   }
 
   createContactType(ct: IContactTypes) {
-    this.contactTypesService.createContactType(ct);
+    this.contactTypesService
+      .createContactType(ct)
+      .subscribe(
+        () =>
+          (this.contactTypes$ = this.contactTypesService.getAllContactTypes())
+      );
     this.contactTypesDialog = false;
   }
 
@@ -47,7 +61,7 @@ export class ContactTypesComponent implements OnInit {
   }
 
   saveContactType(ct: IContactTypes) {
-    this.contactTypesService.updateContactType(ct);
+    this.contactTypesService.updateContactType(ct).subscribe();
     this.contactTypesDialog = false;
   }
 }

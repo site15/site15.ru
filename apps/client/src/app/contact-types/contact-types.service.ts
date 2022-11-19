@@ -1,49 +1,62 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { catchError, map, Observable, of } from "rxjs";
+import { environment } from "../../environments/environment";
 import { IContactTypes } from "../shared/models/contact-types.model";
+import { IContactTypesResponse } from "./interfaces/contact-types-response.interface";
 
 @Injectable()
 export class ContactTypesService {
-  contactTypes: IContactTypes[] = [
-    {
-      id: 1,
-      name: "first_contact_type",
-      title: "first",
-      title_ru: "первый",
-    },
-    {
-      id: 2,
-      name: "second_contact_type",
-      title: "second",
-      title_ru: "второй",
-    },
-    {
-      id: 3,
-      name: "third_contact_type",
-      title: "third",
-      title_ru: "третий",
-    },
-  ];
+  constructor(private http: HttpClient) {}
 
-  getAllContactTypes(): Observable<IContactTypes[]> {
-    return of(this.contactTypes);
+  getAllContactTypes() {
+    const url = `${environment.api}/contact-type`;
+
+    return this.http.get<IContactTypes[]>(url).pipe(
+      catchError((err) => {
+        throw err;
+      })
+    );
+  }
+  getContactTypeById(id: number) {
+    const url = `${environment.api}/contact-type/${id}`;
+
+    return this.http.get<IContactTypes>(url).pipe(
+      catchError((err) => {
+        throw err;
+      })
+    );
   }
 
-  getContactTypeById(id: number): Observable<IContactTypes | undefined> {
-    return of(this.contactTypes.find((ct) => ct.id === id));
+  createContactType(data: IContactTypes) {
+    const url = `${environment.api}/contact-type`;
+
+    return this.http.post<IContactTypes>(url, data).pipe(
+      catchError((err) => {
+        throw err;
+      })
+    );
   }
 
-  createContactType(data: IContactTypes): void {
-    this.contactTypes.push(data);
+  deleteContactType(id: number) {
+    const url = `${environment.api}/contact-type/${id}`;
+    console.log("delete metho");
+
+    return this.http.delete(url).pipe(
+      catchError((err) => {
+        throw err;
+      })
+    );
   }
 
-  deleteContactType(index: number): void {
-    this.contactTypes.splice(index, 1);
-  }
+  updateContactType(data: IContactTypes) {
+    const { id } = data;
+    const url = `${environment.api}/contact-type/${id}`;
 
-  updateContactType(data: IContactTypes): void {
-    const indexOfCt = this.contactTypes.findIndex((ct) => ct.id === data.id);
-
-    this.contactTypes.splice(indexOfCt, 1, data);
+    return this.http.put(url, data).pipe(
+      catchError((err) => {
+        throw err;
+      })
+    );
   }
 }

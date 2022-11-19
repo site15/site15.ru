@@ -51,6 +51,20 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "test1": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/client/src/environments/environment.ts",
+              "with": "apps/client/src/environments/environment.test1.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -63,9 +77,15 @@
         },
         "development": {
           "browserTarget": "client:build:development"
+        },
+        "test1": {
+          "browserTarget": "client:build:test1"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "test1",
+      "options": {
+        "proxyConfig": "apps/client/src/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
