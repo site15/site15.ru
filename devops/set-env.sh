@@ -37,6 +37,11 @@ if [ -z "${TAG_VERSION}" ]; then
     fi
 fi
 
+if [ -z "${CLIENT_ENV_NAME}" ]; then
+    export CLIENT_ENV_NAME=development
+fi
+
+
 export DEPLOY_DATE=$(date +'%Y-%m-%d %H:%M:%S')
 export DEPLOY_COMMIT=${CI_COMMIT_SHORT_SHA}
 export DEPLOY_VERSION=$(node -pe "require('../package.json')['version']")

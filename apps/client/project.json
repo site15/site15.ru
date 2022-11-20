@@ -79,13 +79,11 @@
           "browserTarget": "client:build:development"
         },
         "test1": {
-          "browserTarget": "client:build:test1"
+          "browserTarget": "client:build:test1",
+          "proxyConfig": "apps/client/src/test1-proxy.conf.json"
         }
       },
-      "defaultConfiguration": "test1",
-      "options": {
-        "proxyConfig": "apps/client/src/proxy.conf.json"
-      }
+      "defaultConfiguration": "development"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

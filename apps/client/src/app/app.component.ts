@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../environments/environment";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
   selector: "site15-root",
@@ -8,7 +7,5 @@ import { environment } from "../environments/environment";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  hello$ = this.http.get<{ message: string }>(`${environment.api}/hello`);
-  db$ = this.http.get(`${environment.api}/db`);
   constructor(private http: HttpClient) {}
 }

@@ -1,7 +1,12 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
+import { MainComponent } from "./main.component";
 
 const routes: Route[] = [
+  {
+    path: "",
+    component: MainComponent,
+  },
   {
     path: "contact-types",
     loadChildren: () =>
