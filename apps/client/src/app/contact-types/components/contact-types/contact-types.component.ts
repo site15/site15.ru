@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { Subject, tap } from "rxjs";
+import { BehaviorSubject, tap } from "rxjs";
 
 import { IContactTypes } from "../../../shared/models/contact-types.model";
 import { ContactTypesService } from "../../contact-types.service";
@@ -12,8 +12,7 @@ import { ContactTypesService } from "../../contact-types.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactTypesComponent implements OnInit {
-  contactTypes$ = new Subject<IContactTypes[]>();
-  contactTypes!: IContactTypes[];
+  contactTypes$ = new BehaviorSubject<IContactTypes[]>([]);
   contactType!: IContactTypes;
   contactTypesDialog!: boolean;
 
@@ -31,7 +30,6 @@ export class ContactTypesComponent implements OnInit {
       .getAllContactTypes()
       .pipe(
         tap((items) => {
-          this.contactTypes = items;
           this.contactTypes$.next(items);
         }),
         untilDestroyed(this)
@@ -44,10 +42,10 @@ export class ContactTypesComponent implements OnInit {
       .deleteContactType(id)
       .pipe(
         tap(() => {
-          this.contactTypes = this.contactTypes.filter(
-            (item) => item.id !== id
-          );
-          this.contactTypes$.next(this.contactTypes);
+          const items = this.contactTypes$
+            .getValue()
+            .filter((item) => item.id !== id);
+          this.contactTypes$.next(items);
         }),
         untilDestroyed(this)
       )
@@ -59,8 +57,9 @@ export class ContactTypesComponent implements OnInit {
       .createContactType(ct)
       .pipe(
         tap((item) => {
-          this.contactTypes.push(item);
-          this.contactTypes$.next(this.contactTypes);
+          const items = this.contactTypes$.getValue();
+          items.push(item);
+          this.contactTypes$.next(items);
         }),
         untilDestroyed(this)
       )
@@ -73,9 +72,10 @@ export class ContactTypesComponent implements OnInit {
       .updateContactType(ct)
       .pipe(
         tap(() => {
-          const index = this.contactTypes.findIndex(({ id }) => ct.id === id);
-          this.contactTypes[index] = ct;
-          this.contactTypes$.next(this.contactTypes);
+          const items = this.contactTypes$.getValue();
+          const index = items.findIndex(({ id }) => ct.id === id);
+          items[index] = ct;
+          this.contactTypes$.next(items);
         }),
         untilDestroyed(this)
       )
