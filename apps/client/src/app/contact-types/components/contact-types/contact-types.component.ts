@@ -13,6 +13,7 @@ import { ContactTypesService } from "../../contact-types.service";
 })
 export class ContactTypesComponent implements OnInit {
   contactTypes$ = new Subject<IContactTypes[]>();
+  contactTypes!: IContactTypes[];
   contactType!: IContactTypes;
   contactTypesDialog!: boolean;
 
@@ -29,7 +30,10 @@ export class ContactTypesComponent implements OnInit {
     this.contactTypesService
       .getAllContactTypes()
       .pipe(
-        tap((items) => this.contactTypes$.next(items)),
+        tap((items) => {
+          this.contactTypes = items;
+          this.contactTypes$.next(items);
+        }),
         untilDestroyed(this)
       )
       .subscribe();
@@ -40,7 +44,10 @@ export class ContactTypesComponent implements OnInit {
       .deleteContactType(id)
       .pipe(
         tap(() => {
-          this.getContactTypes();
+          this.contactTypes = this.contactTypes.filter(
+            (item) => item.id !== id
+          );
+          this.contactTypes$.next(this.contactTypes);
         }),
         untilDestroyed(this)
       )
@@ -51,8 +58,9 @@ export class ContactTypesComponent implements OnInit {
     this.contactTypesService
       .createContactType(ct)
       .pipe(
-        tap(() => {
-          this.getContactTypes();
+        tap((item) => {
+          this.contactTypes.push(item);
+          this.contactTypes$.next(this.contactTypes);
         }),
         untilDestroyed(this)
       )
@@ -65,7 +73,9 @@ export class ContactTypesComponent implements OnInit {
       .updateContactType(ct)
       .pipe(
         tap(() => {
-          this.getContactTypes();
+          const index = this.contactTypes.findIndex(({ id }) => ct.id === id);
+          this.contactTypes[index] = ct;
+          this.contactTypes$.next(this.contactTypes);
         }),
         untilDestroyed(this)
       )
