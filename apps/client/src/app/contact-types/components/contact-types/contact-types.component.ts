@@ -76,11 +76,11 @@ export class ContactTypesComponent implements OnInit {
           const index = items.findIndex(({ id }) => ct.id === id);
           items[index] = ct;
           this.contactTypes$.next(items);
+          this.contactTypesDialog = false;
         }),
         untilDestroyed(this)
       )
       .subscribe();
-    this.contactTypesDialog = false;
   }
 
   /**
