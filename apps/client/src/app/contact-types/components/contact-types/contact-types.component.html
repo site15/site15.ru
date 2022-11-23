@@ -1,5 +1,12 @@
 <main class="main">
   <div class="container">
+    <site15-backend-error
+      *ngIf="backendErrors"
+      [backendErrors]="backendErrors"
+    ></site15-backend-error>
+
+    <p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
     <ng-container *ngIf="contactTypes$ | async as contactTypes">
       <p-toolbar styleClass="mb-4">
         <ng-template pTemplate="left">
@@ -10,6 +17,16 @@
             icon="pi pi-plus"
             class="p-button-success mr-2"
             (click)="openNew()"
+          ></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <button
+            pButton
+            pRipple
+            label="Refresh"
+            icon="pi pi-refresh"
+            class="p-button-info mr-2"
+            (click)="refresh()"
           ></button>
         </ng-template>
       </p-toolbar>
@@ -46,7 +63,7 @@
                 pRipple
                 icon="pi pi-trash"
                 class="p-button-rounded p-button-warning ml-2"
-                (click)="deleteContactType(contactType.id)"
+                (click)="confirmDeleting(contactType.id)"
               ></button>
             </td>
           </tr>
@@ -56,7 +73,7 @@
       <p-dialog
         [(visible)]="contactTypesDialog"
         [style]="{ width: '450px' }"
-        header="Contact Type Details"
+        [header]="isEditing ? 'Edit' : 'Create'"
         [modal]="true"
         styleClass="p-fluid"
       >
@@ -105,7 +122,7 @@
             (click)="hideDialog()"
           ></button>
           <button
-            *ngIf="editing"
+            *ngIf="isEditing"
             pButton
             pRipple
             label="Save"
@@ -114,7 +131,7 @@
             (click)="saveContactType(contactType)"
           ></button>
           <button
-            *ngIf="!editing"
+            *ngIf="!isEditing"
             pButton
             pRipple
             label="Create"

@@ -1,14 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { BehaviorSubject, tap } from "rxjs";
+import { ConfirmationService } from "primeng/api";
+import { BehaviorSubject, catchError, of, tap, throwError } from "rxjs";
 
 import { IContactTypes } from "../../../shared/models/contact-types.model";
+import { IBackendError } from "../../../shared/modules/backend-error/interfaces/backend-error.interface";
 import { ContactTypesService } from "../../contact-types.service";
 
 @UntilDestroy()
 @Component({
   selector: "site15-contact-types",
   templateUrl: "./contact-types.component.html",
+  providers: [ConfirmationService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactTypesComponent implements OnInit {
@@ -16,10 +19,15 @@ export class ContactTypesComponent implements OnInit {
   contactType!: IContactTypes;
   contactTypesDialog!: boolean;
 
-  /* UI property */
-  editing!: boolean;
+  backendErrors!: IBackendError;
 
-  constructor(private contactTypesService: ContactTypesService) {}
+  /* UI property */
+  isEditing!: boolean;
+
+  constructor(
+    private confirmationService: ConfirmationService,
+    private contactTypesService: ContactTypesService
+  ) {}
 
   ngOnInit(): void {
     this.getContactTypes();
@@ -31,6 +39,10 @@ export class ContactTypesComponent implements OnInit {
       .pipe(
         tap((items) => {
           this.contactTypes$.next(items);
+        }),
+        catchError((err) => {
+          this.backendErrors = err;
+          return throwError(() => new Error("something went wrong..."));
         }),
         untilDestroyed(this)
       )
@@ -47,6 +59,10 @@ export class ContactTypesComponent implements OnInit {
             .filter((item) => item.id !== id);
           this.contactTypes$.next(items);
         }),
+        catchError((err) => {
+          this.backendErrors = err;
+          return throwError(() => new Error("something went wrong..."));
+        }),
         untilDestroyed(this)
       )
       .subscribe();
@@ -60,11 +76,15 @@ export class ContactTypesComponent implements OnInit {
           const items = this.contactTypes$.getValue();
           items.push(item);
           this.contactTypes$.next(items);
+          this.hideDialog();
+        }),
+        catchError((err) => {
+          this.backendErrors = err;
+          return throwError(() => new Error("something went wrong..."));
         }),
         untilDestroyed(this)
       )
       .subscribe();
-    this.contactTypesDialog = false;
   }
 
   saveContactType(ct: IContactTypes) {
@@ -76,7 +96,11 @@ export class ContactTypesComponent implements OnInit {
           const index = items.findIndex(({ id }) => ct.id === id);
           items[index] = ct;
           this.contactTypes$.next(items);
-          this.contactTypesDialog = false;
+          this.hideDialog();
+        }),
+        catchError((err) => {
+          this.backendErrors = err;
+          return throwError(() => new Error("something went wrong..."));
         }),
         untilDestroyed(this)
       )
@@ -94,12 +118,27 @@ export class ContactTypesComponent implements OnInit {
   openNew() {
     this.contactType = {} as IContactTypes;
     this.contactTypesDialog = true;
-    this.editing = false;
+    this.isEditing = false;
   }
 
   editContactType(ct: IContactTypes) {
     this.contactType = { ...ct };
     this.contactTypesDialog = true;
-    this.editing = true;
+    this.isEditing = true;
+  }
+
+  confirmDeleting(id: number) {
+    this.confirmationService.confirm({
+      message: "Are you sure that you want to proceed?",
+      header: "WARNING",
+      icon: "pi pi-exclamation-triangle",
+      accept: () => {
+        this.deleteContactType(id);
+      },
+    });
+  }
+
+  refresh() {
+    location.reload();
   }
 }

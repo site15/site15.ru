@@ -9,24 +9,24 @@ export class ContactTypesService {
   constructor(private http: HttpClient) {}
 
   getAllContactTypes(): Observable<IContactTypes[]> {
-    const url = `${environment.api}/contact-type`;
+    const url = `${environment.api}/contact-types`;
 
     return this.http.get<IContactTypes[]>(url);
   }
   getContactTypeById(id: number): Observable<IContactTypes> {
-    const url = `${environment.api}/contact-type/${id}`;
+    const url = `${environment.api}/contact-types/${id}`;
 
     return this.http.get<IContactTypes>(url);
   }
 
   createContactType(data: IContactTypes): Observable<IContactTypes> {
-    const url = `${environment.api}/contact-type`;
+    const url = `${environment.api}/contact-types`;
 
     return this.http.post<IContactTypes>(url, data);
   }
 
   deleteContactType(id: number) {
-    const url = `${environment.api}/contact-type/${id}`;
+    const url = `${environment.api}/contact-types/${id}`;
     console.log("delete metho");
 
     return this.http.delete(url);
@@ -34,7 +34,7 @@ export class ContactTypesService {
 
   updateContactType(data: IContactTypes) {
     const { id } = data;
-    const url = `${environment.api}/contact-type/${id}`;
+    const url = `${environment.api}/contact-types/${id}`;
 
     return this.http.put(url, data);
   }
