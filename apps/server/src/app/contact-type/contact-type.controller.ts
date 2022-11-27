@@ -20,7 +20,7 @@ import { IStatus } from "./interfaces/status.interface";
 export class ContactTypeController {
   constructor(private readonly contactTypeService: ContactTypeService) {}
 
-  @ApiBody({ type: [ContactTypeDto] })
+  @ApiBody({ type: ContactTypeDto })
   @ApiResponse({ status: 201 })
   @Post()
   async create(@Body() contactTypeDto: ContactTypeDto): Promise<IContactType> {
@@ -39,7 +39,7 @@ export class ContactTypeController {
     return await this.contactTypeService.findOne(id);
   }
 
-  @ApiBody({ type: [ContactTypeDto] })
+  @ApiBody({ type: ContactTypeDto })
   @ApiResponse({ status: 200 })
   @Put(":id")
   async update(

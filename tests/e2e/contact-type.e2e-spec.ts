@@ -128,9 +128,31 @@ describe("[FAIL] Contact type (e2e)", () => {
     }
   });
 
-  // /**
-  //  * There is no test for Post method
-  //  */
+  it("Post create contact type with incorrect data", async () => {
+    try {
+      await axios.post(`${process.env.PROJECT_URL}/api/contact-type`, {
+        name: "",
+        title: "",
+        title_ru: "",
+      });
+      expect(true).toEqual(false);
+    } catch (err) {
+      expect(err.response.status).toEqual(400);
+    }
+  });
+
+  it("Put update contact type with incorrect data", async () => {
+    try {
+      await axios.put(`${process.env.PROJECT_URL}/api/contact-type/7`, {
+        name: "",
+        title: "",
+        title_ru: "",
+      });
+      expect(true).toEqual(false);
+    } catch (err) {
+      expect(err.response.status).toEqual(400);
+    }
+  });
 
   it("Put update contact type by id that does not exist", async () => {
     try {
@@ -139,6 +161,7 @@ describe("[FAIL] Contact type (e2e)", () => {
         title: "test1",
         title_ru: "test1",
       });
+      expect(true).toEqual(false);
     } catch (err) {
       expect(err.response.status).toEqual(404);
     }
@@ -151,6 +174,7 @@ describe("[FAIL] Contact type (e2e)", () => {
         title: "test1",
         title_ru: "test1",
       });
+      expect(true).toEqual(false);
     } catch (err) {
       expect(err.response.status).toEqual(400);
     }
@@ -159,6 +183,7 @@ describe("[FAIL] Contact type (e2e)", () => {
   it("Delete delete contact type by id that does not exist", async () => {
     try {
       await axios.delete(`${process.env.PROJECT_URL}/api/contact-type/999`);
+      expect(true).toEqual(false);
     } catch (err) {
       expect(err.response.status).toEqual(404);
     }
