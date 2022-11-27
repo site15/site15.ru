@@ -49,14 +49,14 @@ const contactTypes = [
 describe("[SUCCESS] Contact type (e2e)", () => {
   it("Get contact types", async () => {
     const result = await axios.get(
-      `${process.env.PROJECT_URL}/api/contact-type`
+      `${process.env.PROJECT_URL}/api/contact-types`
     );
     expect(result.data).toEqual(contactTypes);
   });
 
   it("Get contact type by id", async () => {
     const result = await axios.get(
-      `${process.env.PROJECT_URL}/api/contact-type/7`
+      `${process.env.PROJECT_URL}/api/contact-types/7`
     );
 
     expect(result.data).toEqual({
@@ -71,7 +71,7 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 
   it("Post create contact type", async () => {
     const result = await axios.post(
-      `${process.env.PROJECT_URL}/api/contact-type/`,
+      `${process.env.PROJECT_URL}/api/contact-types/`,
       {
         name: "test",
         title: "test",
@@ -91,7 +91,7 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 
   it("Put update contact type by id", async () => {
     const result = await axios.put(
-      `${process.env.PROJECT_URL}/api/contact-type/${id}`,
+      `${process.env.PROJECT_URL}/api/contact-types/${id}`,
       {
         name: "test1",
         title: "test1",
@@ -109,7 +109,7 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 
   it("Delete delete contact type by id", async () => {
     const result = await axios.delete(
-      `${process.env.PROJECT_URL}/api/contact-type/${id}`
+      `${process.env.PROJECT_URL}/api/contact-types/${id}`
     );
 
     expect(result.data).toEqual({
@@ -121,7 +121,7 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 describe("[FAIL] Contact type (e2e)", () => {
   it("Get contact type by id that does not exist", async () => {
     try {
-      await axios.get(`${process.env.PROJECT_URL}/api/contact-type/999`);
+      await axios.get(`${process.env.PROJECT_URL}/api/contact-types/999`);
     } catch (err) {
       expect(err.response.status).toEqual(404);
     }
@@ -129,7 +129,7 @@ describe("[FAIL] Contact type (e2e)", () => {
 
   it("Get contact type by id that is incorrect", async () => {
     try {
-      await axios.get(`${process.env.PROJECT_URL}/api/contact-type/NaN`);
+      await axios.get(`${process.env.PROJECT_URL}/api/contact-types/NaN`);
     } catch (err) {
       expect(err.response.status).toEqual(400);
     }
@@ -137,7 +137,7 @@ describe("[FAIL] Contact type (e2e)", () => {
 
   it("Post create contact type with incorrect data", async () => {
     try {
-      await axios.post(`${process.env.PROJECT_URL}/api/contact-type`, {
+      await axios.post(`${process.env.PROJECT_URL}/api/contact-types`, {
         name: "",
         title: "",
         title_ru: "",
@@ -150,7 +150,7 @@ describe("[FAIL] Contact type (e2e)", () => {
 
   it("Put update contact type with incorrect data", async () => {
     try {
-      await axios.put(`${process.env.PROJECT_URL}/api/contact-type/7`, {
+      await axios.put(`${process.env.PROJECT_URL}/api/contact-types/7`, {
         name: "",
         title: "",
         title_ru: "",
@@ -163,7 +163,7 @@ describe("[FAIL] Contact type (e2e)", () => {
 
   it("Put update contact type by id that does not exist", async () => {
     try {
-      await axios.put(`${process.env.PROJECT_URL}/api/contact-type/999`, {
+      await axios.put(`${process.env.PROJECT_URL}/api/contact-types/999`, {
         name: "test1",
         title: "test1",
         title_ru: "test1",
@@ -176,7 +176,7 @@ describe("[FAIL] Contact type (e2e)", () => {
 
   it("Put update contact type by id that is incorrect", async () => {
     try {
-      await axios.put(`${process.env.PROJECT_URL}/api/contact-type/NaN`, {
+      await axios.put(`${process.env.PROJECT_URL}/api/contact-types/NaN`, {
         name: "test1",
         title: "test1",
         title_ru: "test1",
@@ -189,7 +189,7 @@ describe("[FAIL] Contact type (e2e)", () => {
 
   it("Delete delete contact type by id that does not exist", async () => {
     try {
-      await axios.delete(`${process.env.PROJECT_URL}/api/contact-type/999`);
+      await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/999`);
       expect(true).toEqual(false);
     } catch (err) {
       expect(err.response.status).toEqual(404);
@@ -199,7 +199,7 @@ describe("[FAIL] Contact type (e2e)", () => {
   it("Delete delete contact type by id that is incorrect", async () => {
     try {
       const result = await axios.delete(
-        `${process.env.PROJECT_URL}/api/contact-type/NaN`
+        `${process.env.PROJECT_URL}/api/contact-types/NaN`
       );
 
       expect(true).toEqual(false);
