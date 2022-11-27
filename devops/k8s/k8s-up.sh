@@ -29,6 +29,7 @@ cp -Rf ./k8s/template/* ./k8s/generated/$BRANCH_NAME
 node ./k8s/prepare-k8s-files.js
 
 ### Apply to k8s
+/snap/bin/microk8s kubectl delete secret site15-global-regcred
 /snap/bin/microk8s kubectl create secret docker-registry site15-global-regcred --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_REGISTRY_PASSWORD
 /snap/bin/microk8s kubectl apply -f ./k8s/generated/$BRANCH_NAME/node/0.namespace.yaml
 /snap/bin/microk8s kubectl delete configmap $NAMESPACE-config -n $NAMESPACE
