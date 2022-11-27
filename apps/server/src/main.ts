@@ -3,13 +3,14 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger, ValidationPipe } from "@nestjs/common";
+import { Logger } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 
 import env from "env-var";
 import { readFileSync } from "fs";
 import { AppModule } from "./app/app.module";
+import { ValidationPipe } from "./app/shared/pipes/validation.pipe";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
