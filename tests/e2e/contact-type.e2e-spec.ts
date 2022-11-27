@@ -64,6 +64,7 @@ describe("[SUCCESS] Contact type (e2e)", () => {
       `${process.env.PROJECT_URL}/api/contact-types/${id}`
     );
 
+    expect(result.data.id).toEqual(id);
     expect(result.data).toEqual(createdItem.data);
   });
 
@@ -84,6 +85,7 @@ describe("[SUCCESS] Contact type (e2e)", () => {
       `${process.env.PROJECT_URL}/api/contact-types/${id}`
     );
 
+    expect(result.data.id).toEqual(id);
     expect(result.data).toEqual(createdItem.data);
   });
 
@@ -113,30 +115,28 @@ describe("[SUCCESS] Contact type (e2e)", () => {
       `${process.env.PROJECT_URL}/api/contact-types/${id}`
     );
 
+    expect(result.data.id).toEqual(id);
     expect(result.data).toEqual(updatedItem.data);
   });
 
   it("Delete delete contact type by id", async () => {
-    try {
-      const createdItem = await axios.post(
-        `${process.env.PROJECT_URL}/api/contact-types/`,
-        {
-          name: String(randomUUID() + Date()),
-          title: String(randomUUID() + Date()),
-          title_ru: String(randomUUID() + Date()),
-        }
-      );
+    const createdItem = await axios.post(
+      `${process.env.PROJECT_URL}/api/contact-types/`,
+      {
+        name: String(randomUUID() + Date()),
+        title: String(randomUUID() + Date()),
+        title_ru: String(randomUUID() + Date()),
+      }
+    );
 
-      const id = createdItem.data.id;
+    const id = createdItem.data.id;
 
-      await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
+    await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
 
-      await axios.get(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
-
-      expect(true).toEqual(false);
-    } catch (err) {
-      expect(err.response.status).toEqual(404);
-    }
+    await axios
+      .get(`${process.env.PROJECT_URL}/api/contact-types/${id}`)
+      .then(() => expect(true).toEqual(false))
+      .catch((err) => expect(err.response.status).toEqual(404));
   });
 });
 
