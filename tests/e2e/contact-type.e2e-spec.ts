@@ -1,54 +1,57 @@
 import axios from "axios";
 
+/* Values from init migration */
+const contactTypes = [
+  {
+    id: 1,
+    name: "email",
+    title: "Email",
+    title_ru: "Emial",
+  },
+  {
+    id: 2,
+    name: "github_user",
+    title: "Github account name",
+    title_ru: "Github account name",
+  },
+  {
+    id: 3,
+    name: "github_org",
+    title: "Github organization name",
+    title_ru: "Github organization name",
+  },
+  {
+    id: 4,
+    name: "npm_user",
+    title: "Npm account name",
+    title_ru: "Npm account name",
+  },
+  {
+    id: 5,
+    name: "npm_org",
+    title: "Npm organization name",
+    title_ru: "Npm organization name",
+  },
+  {
+    id: 6,
+    name: "twitter_user",
+    title: "Twitter account name",
+    title_ru: "Twitter account name",
+  },
+  {
+    id: 7,
+    name: "dev_to_user",
+    title: "Dev.to account name",
+    title_ru: "Dev.to account name",
+  },
+];
+
 describe("[SUCCESS] Contact type (e2e)", () => {
   it("Get contact types", async () => {
     const result = await axios.get(
       `${process.env.PROJECT_URL}/api/contact-type`
     );
-    expect(result.data).toMatchObject([
-      {
-        id: 1,
-        name: "email",
-        title: "Email",
-        title_ru: "Emial",
-      },
-      {
-        id: 2,
-        name: "github_user",
-        title: "Github account name",
-        title_ru: "Github account name",
-      },
-      {
-        id: 3,
-        name: "github_org",
-        title: "Github organization name",
-        title_ru: "Github organization name",
-      },
-      {
-        id: 4,
-        name: "npm_user",
-        title: "Npm account name",
-        title_ru: "Npm account name",
-      },
-      {
-        id: 5,
-        name: "npm_org",
-        title: "Npm organization name",
-        title_ru: "Npm organization name",
-      },
-      {
-        id: 6,
-        name: "twitter_user",
-        title: "Twitter account name",
-        title_ru: "Twitter account name",
-      },
-      {
-        id: 7,
-        name: "dev_to_user",
-        title: "Dev.to account name",
-        title_ru: "Dev.to account name",
-      },
-    ]);
+    expect(result.data).toEqual(contactTypes);
   });
 
   it("Get contact type by id", async () => {
@@ -56,13 +59,15 @@ describe("[SUCCESS] Contact type (e2e)", () => {
       `${process.env.PROJECT_URL}/api/contact-type/7`
     );
 
-    expect(result.data).toMatchObject({
-      id: 7,
+    expect(result.data).toEqual({
+      id: expect.any(Number),
       name: "dev_to_user",
       title: "Dev.to account name",
       title_ru: "Dev.to account name",
     });
   });
+
+  let id;
 
   it("Post create contact type", async () => {
     const result = await axios.post(
@@ -74,8 +79,10 @@ describe("[SUCCESS] Contact type (e2e)", () => {
       }
     );
 
-    expect(result.data).toMatchObject({
-      id: 8,
+    id = result.data.id;
+
+    expect(result.data).toEqual({
+      id: expect.any(Number),
       name: "test",
       title: "test",
       title_ru: "test",
@@ -84,7 +91,7 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 
   it("Put update contact type by id", async () => {
     const result = await axios.put(
-      `${process.env.PROJECT_URL}/api/contact-type/8`,
+      `${process.env.PROJECT_URL}/api/contact-type/${id}`,
       {
         name: "test1",
         title: "test1",
@@ -92,8 +99,8 @@ describe("[SUCCESS] Contact type (e2e)", () => {
       }
     );
 
-    expect(result.data).toMatchObject({
-      id: 8,
+    expect(result.data).toEqual({
+      id: expect.any(Number),
       name: "test1",
       title: "test1",
       title_ru: "test1",
@@ -102,10 +109,10 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 
   it("Delete delete contact type by id", async () => {
     const result = await axios.delete(
-      `${process.env.PROJECT_URL}/api/contact-type/8`
+      `${process.env.PROJECT_URL}/api/contact-type/${id}`
     );
 
-    expect(result.data).toMatchObject({
+    expect(result.data).toEqual({
       status: "OK",
     });
   });
