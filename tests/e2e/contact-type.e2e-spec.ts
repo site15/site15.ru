@@ -11,22 +11,37 @@ describe("[SUCCESS] Contact type (e2e)", () => {
   });
 
   it("Get contact types", async () => {
+    const createDto = [
+      {
+        name: String(randomUUID() + Date()),
+        title: String(randomUUID() + Date()),
+        title_ru: String(randomUUID() + Date()),
+      },
+      {
+        name: String(randomUUID() + Date()),
+        title: String(randomUUID() + Date()),
+        title_ru: String(randomUUID() + Date()),
+      },
+      {
+        name: String(randomUUID() + Date()),
+        title: String(randomUUID() + Date()),
+        title_ru: String(randomUUID() + Date()),
+      },
+    ];
+
     const createdItems = await Promise.all([
-      await axios.post(`${process.env.PROJECT_URL}/api/contact-types/`, {
-        name: String(randomUUID() + Date()),
-        title: String(randomUUID() + Date()),
-        title_ru: String(randomUUID() + Date()),
-      }),
-      await axios.post(`${process.env.PROJECT_URL}/api/contact-types/`, {
-        name: String(randomUUID() + Date()),
-        title: String(randomUUID() + Date()),
-        title_ru: String(randomUUID() + Date()),
-      }),
-      await axios.post(`${process.env.PROJECT_URL}/api/contact-types/`, {
-        name: String(randomUUID() + Date()),
-        title: String(randomUUID() + Date()),
-        title_ru: String(randomUUID() + Date()),
-      }),
+      await axios.post(
+        `${process.env.PROJECT_URL}/api/contact-types/`,
+        createDto[0]
+      ),
+      await axios.post(
+        `${process.env.PROJECT_URL}/api/contact-types/`,
+        createDto[1]
+      ),
+      await axios.post(
+        `${process.env.PROJECT_URL}/api/contact-types/`,
+        createDto[2]
+      ),
     ]);
 
     idOfCreatedItems.push(
@@ -38,23 +53,26 @@ describe("[SUCCESS] Contact type (e2e)", () => {
     const result = await axios.get(
       `${process.env.PROJECT_URL}/api/contact-types`
     );
+
     expect(result.data).toEqual(
       expect.arrayContaining([
-        createdItems[0].data,
-        createdItems[1].data,
-        createdItems[2].data,
+        { ...createDto[0], id: createdItems[0].data.id },
+        { ...createDto[1], id: createdItems[1].data.id },
+        { ...createDto[2], id: createdItems[2].data.id },
       ])
     );
   });
 
   it("Get contact type by id", async () => {
+    const createDto = {
+      name: String(randomUUID() + Date()),
+      title: String(randomUUID() + Date()),
+      title_ru: String(randomUUID() + Date()),
+    };
+
     const createdItem = await axios.post(
       `${process.env.PROJECT_URL}/api/contact-types/`,
-      {
-        name: String(randomUUID() + Date()),
-        title: String(randomUUID() + Date()),
-        title_ru: String(randomUUID() + Date()),
-      }
+      createDto
     );
 
     const id = createdItem.data.id;
@@ -64,18 +82,19 @@ describe("[SUCCESS] Contact type (e2e)", () => {
       `${process.env.PROJECT_URL}/api/contact-types/${id}`
     );
 
-    expect(result.data.id).toEqual(id);
-    expect(result.data).toEqual(createdItem.data);
+    expect(result.data).toEqual({ ...createDto, id });
   });
 
   it("Post create contact type", async () => {
+    const createDto = {
+      name: String(randomUUID() + Date()),
+      title: String(randomUUID() + Date()),
+      title_ru: String(randomUUID() + Date()),
+    };
+
     const createdItem = await axios.post(
       `${process.env.PROJECT_URL}/api/contact-types/`,
-      {
-        name: String(randomUUID() + Date()),
-        title: String(randomUUID() + Date()),
-        title_ru: String(randomUUID() + Date()),
-      }
+      createDto
     );
 
     const id = createdItem.data.id;
@@ -85,48 +104,53 @@ describe("[SUCCESS] Contact type (e2e)", () => {
       `${process.env.PROJECT_URL}/api/contact-types/${id}`
     );
 
-    expect(result.data.id).toEqual(id);
-    expect(result.data).toEqual(createdItem.data);
+    expect(result.data).toEqual({ ...createDto, id });
   });
 
   it("Put update contact type by id", async () => {
+    const createDto = {
+      name: String(randomUUID() + Date()),
+      title: String(randomUUID() + Date()),
+      title_ru: String(randomUUID() + Date()),
+    };
+
     const createdItem = await axios.post(
       `${process.env.PROJECT_URL}/api/contact-types/`,
-      {
-        name: String(randomUUID() + Date()),
-        title: String(randomUUID() + Date()),
-        title_ru: String(randomUUID() + Date()),
-      }
+      createDto
     );
 
     const id = createdItem.data.id;
     idOfCreatedItems.push(id);
 
+    const updateDto = {
+      name: String(randomUUID() + Date()),
+      title: String(randomUUID() + Date()),
+      title_ru: String(randomUUID() + Date()),
+    };
+
     const updatedItem = await axios.put(
       `${process.env.PROJECT_URL}/api/contact-types/${id}`,
-      {
-        name: String(randomUUID() + Date()),
-        title: String(randomUUID() + Date()),
-        title_ru: String(randomUUID() + Date()),
-      }
+      updateDto
     );
 
     const result = await axios.get(
       `${process.env.PROJECT_URL}/api/contact-types/${id}`
     );
 
-    expect(result.data.id).toEqual(id);
-    expect(result.data).toEqual(updatedItem.data);
+    expect(id).toEqual(updatedItem.data.id);
+    expect(result.data).toEqual({ ...updateDto, id });
   });
 
   it("Delete delete contact type by id", async () => {
+    const createDto = {
+      name: String(randomUUID() + Date()),
+      title: String(randomUUID() + Date()),
+      title_ru: String(randomUUID() + Date()),
+    };
+
     const createdItem = await axios.post(
       `${process.env.PROJECT_URL}/api/contact-types/`,
-      {
-        name: String(randomUUID() + Date()),
-        title: String(randomUUID() + Date()),
-        title_ru: String(randomUUID() + Date()),
-      }
+      createDto
     );
 
     const id = createdItem.data.id;
