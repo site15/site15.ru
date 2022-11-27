@@ -15,8 +15,8 @@ import { ContactTypeDto } from "./dto/contact-type.dto";
 import { IContactType } from "./interfaces/contact-type.interface";
 import { IStatus } from "./interfaces/status.interface";
 
-@ApiTags("contact-type")
-@Controller("contact-type")
+@ApiTags("contact-types")
+@Controller("contact-types")
 export class ContactTypeController {
   constructor(private readonly contactTypeService: ContactTypeService) {}
 
