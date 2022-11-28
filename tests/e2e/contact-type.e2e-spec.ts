@@ -2,15 +2,6 @@ import axios from "axios";
 import { randomUUID } from "crypto";
 
 describe("[SUCCESS] Contact type (e2e)", () => {
-  let idOfCreatedItems: number[] = [];
-
-  afterEach(async () => {
-    for (let id of idOfCreatedItems) {
-      await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
-    }
-    idOfCreatedItems = [];
-  });
-
   it("Get contact types", async () => {
     const createDto = [
       {
@@ -45,12 +36,6 @@ describe("[SUCCESS] Contact type (e2e)", () => {
       ),
     ]);
 
-    idOfCreatedItems.push(
-      createdItems[0].data.id,
-      createdItems[1].data.id,
-      createdItems[2].data.id
-    );
-
     const result = await axios.get(
       `${process.env.PROJECT_URL}/api/contact-types`
     );
@@ -61,6 +46,16 @@ describe("[SUCCESS] Contact type (e2e)", () => {
         { ...createDto[1], id: createdItems[1].data.id },
         { ...createDto[2], id: createdItems[2].data.id },
       ])
+    );
+
+    await axios.delete(
+      `${process.env.PROJECT_URL}/api/contact-types/${createdItems[0].data.id}`
+    );
+    await axios.delete(
+      `${process.env.PROJECT_URL}/api/contact-types/${createdItems[1].data.id}`
+    );
+    await axios.delete(
+      `${process.env.PROJECT_URL}/api/contact-types/${createdItems[2].data.id}`
     );
   });
 
@@ -77,13 +72,14 @@ describe("[SUCCESS] Contact type (e2e)", () => {
     );
 
     const id = createdItem.data.id;
-    idOfCreatedItems.push(id);
 
     const result = await axios.get(
       `${process.env.PROJECT_URL}/api/contact-types/${id}`
     );
 
     expect(result.data).toEqual({ ...createDto, id });
+
+    await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
   });
 
   it("Post create contact type", async () => {
@@ -99,13 +95,14 @@ describe("[SUCCESS] Contact type (e2e)", () => {
     );
 
     const id = createdItem.data.id;
-    idOfCreatedItems.push(id);
 
     const result = await axios.get(
       `${process.env.PROJECT_URL}/api/contact-types/${id}`
     );
 
     expect(result.data).toEqual({ ...createDto, id });
+
+    await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
   });
 
   it("Put update contact type by id", async () => {
@@ -121,7 +118,6 @@ describe("[SUCCESS] Contact type (e2e)", () => {
     );
 
     const id = createdItem.data.id;
-    idOfCreatedItems.push(id);
 
     const updateDto = {
       name: String(randomUUID() + Date()),
@@ -140,6 +136,8 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 
     expect(id).toEqual(updatedItem.data.id);
     expect(result.data).toEqual({ ...updateDto, id });
+
+    await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
   });
 
   it("Delete delete contact type by id", async () => {
@@ -166,15 +164,6 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 });
 
 describe("[FAIL] Contact type (e2e)", () => {
-  let idOfCreatedItems: number[] = [];
-
-  afterEach(async () => {
-    for (let id of idOfCreatedItems) {
-      await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
-    }
-    idOfCreatedItems = [];
-  });
-
   it("Get contact type by id that does not exist", async () => {
     try {
       await axios.get(`${process.env.PROJECT_URL}/api/contact-types/999`);
@@ -264,7 +253,6 @@ describe("[FAIL] Contact type (e2e)", () => {
     );
 
     const id = createdItem.data.id;
-    idOfCreatedItems.push(id);
 
     await axios
       .put(`${process.env.PROJECT_URL}/api/contact-types/${id}`, {
@@ -287,6 +275,8 @@ describe("[FAIL] Contact type (e2e)", () => {
           ],
         });
       });
+
+    await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
   });
 
   it("Put update contact type with empty data", async () => {
@@ -300,7 +290,6 @@ describe("[FAIL] Contact type (e2e)", () => {
     );
 
     const id = createdItem.data.id;
-    idOfCreatedItems.push(id);
 
     await axios
       .put(`${process.env.PROJECT_URL}/api/contact-types/${id}`, {
@@ -337,6 +326,8 @@ describe("[FAIL] Contact type (e2e)", () => {
           ],
         });
       });
+
+    await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
   });
 
   it("Put update contact type by id that does not exist", async () => {
