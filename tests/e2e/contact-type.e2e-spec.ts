@@ -2,12 +2,13 @@ import axios from "axios";
 import { randomUUID } from "crypto";
 
 describe("[SUCCESS] Contact type (e2e)", () => {
-  const idOfCreatedItems: number[] = [];
+  let idOfCreatedItems: number[] = [];
 
-  afterAll(async () => {
+  afterEach(async () => {
     for (let id of idOfCreatedItems) {
       await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
     }
+    idOfCreatedItems = [];
   });
 
   it("Get contact types", async () => {
@@ -165,12 +166,13 @@ describe("[SUCCESS] Contact type (e2e)", () => {
 });
 
 describe("[FAIL] Contact type (e2e)", () => {
-  const idOfCreatedItems: number[] = [];
+  let idOfCreatedItems: number[] = [];
 
-  afterAll(async () => {
+  afterEach(async () => {
     for (let id of idOfCreatedItems) {
       await axios.delete(`${process.env.PROJECT_URL}/api/contact-types/${id}`);
     }
+    idOfCreatedItems = [];
   });
 
   it("Get contact type by id that does not exist", async () => {
@@ -252,89 +254,89 @@ describe("[FAIL] Contact type (e2e)", () => {
   });
 
   it("Put update contact type with empty name", async () => {
-    try {
-      const createdItem = await axios.post(
-        `${process.env.PROJECT_URL}/api/contact-types/`,
-        {
-          name: String(randomUUID() + Date()),
-          title: String(randomUUID() + Date()),
-          title_ru: String(randomUUID() + Date()),
-        }
-      );
+    const createdItem = await axios.post(
+      `${process.env.PROJECT_URL}/api/contact-types/`,
+      {
+        name: String(randomUUID() + Date()),
+        title: String(randomUUID() + Date()),
+        title_ru: String(randomUUID() + Date()),
+      }
+    );
 
-      const id = createdItem.data.id;
-      idOfCreatedItems.push(id);
+    const id = createdItem.data.id;
+    idOfCreatedItems.push(id);
 
-      await axios.put(`${process.env.PROJECT_URL}/api/contact-types/${id}`, {
+    await axios
+      .put(`${process.env.PROJECT_URL}/api/contact-types/${id}`, {
         name: "",
         title: String(randomUUID() + Date()),
         title_ru: String(randomUUID() + Date()),
-      });
-      expect(true).toEqual(false);
-    } catch (err) {
-      expect(err.response.data).toEqual({
-        message: "VALIDATION_FAILED",
-        description: [
-          {
-            property: "name",
-            children: [],
-            constraints: {
-              isNotEmpty: "name should not be empty",
+      })
+      .then(() => expect(true).toEqual(false))
+      .catch((err) => {
+        expect(err.response.data).toEqual({
+          message: "VALIDATION_FAILED",
+          description: [
+            {
+              property: "name",
+              children: [],
+              constraints: {
+                isNotEmpty: "name should not be empty",
+              },
             },
-          },
-        ],
+          ],
+        });
       });
-    }
   });
 
   it("Put update contact type with empty data", async () => {
-    try {
-      const createdItem = await axios.post(
-        `${process.env.PROJECT_URL}/api/contact-types/`,
-        {
-          name: String(randomUUID() + Date()),
-          title: String(randomUUID() + Date()),
-          title_ru: String(randomUUID() + Date()),
-        }
-      );
+    const createdItem = await axios.post(
+      `${process.env.PROJECT_URL}/api/contact-types/`,
+      {
+        name: String(randomUUID() + Date()),
+        title: String(randomUUID() + Date()),
+        title_ru: String(randomUUID() + Date()),
+      }
+    );
 
-      const id = createdItem.data.id;
-      idOfCreatedItems.push(id);
+    const id = createdItem.data.id;
+    idOfCreatedItems.push(id);
 
-      await axios.put(`${process.env.PROJECT_URL}/api/contact-types/${id}`, {
+    await axios
+      .put(`${process.env.PROJECT_URL}/api/contact-types/${id}`, {
         name: "",
         title: "",
         title_ru: "",
+      })
+      .then(() => expect(true).toEqual(false))
+      .catch((err) => {
+        expect(err.response.data).toEqual({
+          message: "VALIDATION_FAILED",
+          description: [
+            {
+              property: "name",
+              children: [],
+              constraints: {
+                isNotEmpty: "name should not be empty",
+              },
+            },
+            {
+              property: "title",
+              children: [],
+              constraints: {
+                isNotEmpty: "title should not be empty",
+              },
+            },
+            {
+              property: "title_ru",
+              children: [],
+              constraints: {
+                isNotEmpty: "title_ru should not be empty",
+              },
+            },
+          ],
+        });
       });
-      expect(true).toEqual(false);
-    } catch (err) {
-      expect(err.response.data).toEqual({
-        message: "VALIDATION_FAILED",
-        description: [
-          {
-            property: "name",
-            children: [],
-            constraints: {
-              isNotEmpty: "name should not be empty",
-            },
-          },
-          {
-            property: "title",
-            children: [],
-            constraints: {
-              isNotEmpty: "title should not be empty",
-            },
-          },
-          {
-            property: "title_ru",
-            children: [],
-            constraints: {
-              isNotEmpty: "title_ru should not be empty",
-            },
-          },
-        ],
-      });
-    }
   });
 
   it("Put update contact type by id that does not exist", async () => {
