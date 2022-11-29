@@ -1,5 +1,5 @@
 #!/bin/bash
-#!/bin/bash
+set -e
 source ./set-env.sh
 
 export PSQL_PORT=11432

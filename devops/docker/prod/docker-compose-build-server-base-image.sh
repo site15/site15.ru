@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source ./set-env.sh
 
 rm -rf ../devops/docker/prod/Dockerfile/files/server

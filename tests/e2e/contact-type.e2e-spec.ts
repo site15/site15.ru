@@ -332,14 +332,11 @@ describe("[FAIL] Contact type (e2e)", () => {
 
   it("Put update contact type by id that does not exist", async () => {
     try {
-      await axios.put(
-        `${process.env.PROJECT_URL}/api/contact-types/99999999999999`,
-        {
-          name: String(randomUUID() + Date()),
-          title: String(randomUUID() + Date()),
-          title_ru: String(randomUUID() + Date()),
-        }
-      );
+      await axios.put(`${process.env.PROJECT_URL}/api/contact-types/99999999`, {
+        name: String(randomUUID() + Date()),
+        title: String(randomUUID() + Date()),
+        title_ru: String(randomUUID() + Date()),
+      });
       expect(true).toEqual(false);
     } catch (err) {
       expect(err.response.status).toEqual(404);
@@ -362,7 +359,7 @@ describe("[FAIL] Contact type (e2e)", () => {
   it("Delete delete contact type by id that does not exist", async () => {
     try {
       await axios.delete(
-        `${process.env.PROJECT_URL}/api/contact-types/99999999999999999`
+        `${process.env.PROJECT_URL}/api/contact-types/99999999`
       );
       expect(true).toEqual(false);
     } catch (err) {
