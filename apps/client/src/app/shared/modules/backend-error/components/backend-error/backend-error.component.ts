@@ -22,9 +22,8 @@ export class BackendErrorComponent implements OnDestroy {
     setTimeout(() => {
       this.messageService.add({
         severity: "error",
-        summary:
-          this.backendErrors.status >= 500 ? "Server error" : "Something",
-        detail: "Something went wrong...",
+        summary: this.backendErrors.message,
+        detail: JSON.stringify(this.backendErrors["description"]),
       });
     });
   }

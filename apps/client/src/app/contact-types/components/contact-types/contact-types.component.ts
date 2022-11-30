@@ -1,7 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from "@angular/core";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { ConfirmationService } from "primeng/api";
-import { BehaviorSubject, catchError, of, tap, throwError } from "rxjs";
+import { BehaviorSubject, catchError, Subject, tap, throwError } from "rxjs";
 
 import { IContactTypes } from "../../../shared/models/contact-types.model";
 import { IBackendError } from "../../../shared/modules/backend-error/interfaces/backend-error.interface";
@@ -19,10 +24,11 @@ export class ContactTypesComponent implements OnInit {
   contactType!: IContactTypes;
   contactTypesDialog!: boolean;
 
-  backendErrors!: IBackendError;
+  backendErrors$ = new Subject<IBackendError>();
 
   /* UI property */
   isEditing!: boolean;
+  isInvalid!: boolean;
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -40,9 +46,9 @@ export class ContactTypesComponent implements OnInit {
         tap((items) => {
           this.contactTypes$.next(items);
         }),
-        catchError((err) => {
-          this.backendErrors = err;
-          return throwError(() => new Error("something went wrong..."));
+        catchError(({ error }) => {
+          this.backendErrors$.next(error);
+          return throwError(() => new Error(JSON.stringify(error)));
         }),
         untilDestroyed(this)
       )
@@ -59,9 +65,9 @@ export class ContactTypesComponent implements OnInit {
             .filter((item) => item.id !== id);
           this.contactTypes$.next(items);
         }),
-        catchError((err) => {
-          this.backendErrors = err;
-          return throwError(() => new Error("something went wrong..."));
+        catchError(({ error }) => {
+          this.backendErrors$.next(error);
+          return throwError(() => new Error(JSON.stringify(error)));
         }),
         untilDestroyed(this)
       )
@@ -78,9 +84,9 @@ export class ContactTypesComponent implements OnInit {
           this.contactTypes$.next(items);
           this.hideDialog();
         }),
-        catchError((err) => {
-          this.backendErrors = err;
-          return throwError(() => new Error("something went wrong..."));
+        catchError(({ error }) => {
+          this.backendErrors$.next(error);
+          return throwError(() => new Error(JSON.stringify(error)));
         }),
         untilDestroyed(this)
       )
@@ -98,9 +104,9 @@ export class ContactTypesComponent implements OnInit {
           this.contactTypes$.next(items);
           this.hideDialog();
         }),
-        catchError((err) => {
-          this.backendErrors = err;
-          return throwError(() => new Error("something went wrong..."));
+        catchError(({ error }) => {
+          this.backendErrors$.next(error);
+          return throwError(() => new Error(JSON.stringify(error)));
         }),
         untilDestroyed(this)
       )
@@ -140,5 +146,14 @@ export class ContactTypesComponent implements OnInit {
 
   refresh() {
     location.reload();
+  }
+
+  disableBtn() {
+    return (
+      !this.contactType?.name ||
+      !this.contactType?.title ||
+      !this.contactType?.title_ru ||
+      false
+    );
   }
 }

@@ -1,7 +1,7 @@
 <main class="main">
   <div class="container">
     <site15-backend-error
-      *ngIf="backendErrors"
+      *ngIf="backendErrors$ | async as backendErrors"
       [backendErrors]="backendErrors"
     ></site15-backend-error>
 
@@ -85,10 +85,14 @@
               pInputText
               id="name"
               [(ngModel)]="contactType.name"
+              maxlength="20"
+              #name="ngModel"
               required
-              autofocus
-              [(ngModel)]="contactType.name"
             />
+            <small class="text-red-500" *ngIf="name.invalid && name.touched">
+              Name is required. The name's length should be less than or equal
+              to 20 characters
+            </small>
           </div>
           <div class="field">
             <label for="title">Title</label>
@@ -97,8 +101,14 @@
               pInputText
               id="title"
               [(ngModel)]="contactType.title"
+              #title="ngModel"
+              maxlength="20"
               required
             />
+            <small class="text-red-500" *ngIf="title.invalid && title.touched">
+              Title is required. The title's length should be less than or equal
+              to 20 characters
+            </small>
           </div>
           <div class="field">
             <label for="title_ru">Title RU</label>
@@ -107,8 +117,17 @@
               pInputText
               id="title_ru"
               [(ngModel)]="contactType.title_ru"
+              #titleRu="ngModel"
+              maxlength="20"
               required
             />
+            <small
+              class="text-red-500"
+              *ngIf="titleRu.invalid && titleRu.touched"
+            >
+              Title RU is required. The title_ru's length should be less than or
+              equal to 20 characters
+            </small>
           </div>
         </ng-template>
 
@@ -129,6 +148,7 @@
             icon="pi pi-check"
             class="p-button-text"
             (click)="saveContactType(contactType)"
+            [disabled]="disableBtn()"
           ></button>
           <button
             *ngIf="!isEditing"
@@ -138,10 +158,10 @@
             icon="pi pi-check"
             class="p-button-text"
             (click)="createContactType(contactType)"
+            [disabled]="disableBtn()"
           ></button>
         </ng-template>
       </p-dialog>
     </ng-container>
-    <ng-template #loading>Loading...</ng-template>
   </div>
 </main>
