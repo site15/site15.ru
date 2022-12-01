@@ -1,9 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 import { ConfirmationService } from "primeng/api";
 import { BehaviorSubject, catchError, Subject, tap, throwError } from "rxjs";
@@ -86,6 +81,8 @@ export class ContactTypesComponent implements OnInit {
         }),
         catchError(({ error }) => {
           this.backendErrors$.next(error);
+          console.log(error);
+
           return throwError(() => new Error(JSON.stringify(error)));
         }),
         untilDestroyed(this)

@@ -93,6 +93,19 @@
               Name is required. The name's length should be less than or equal
               to 20 characters
             </small>
+            <small
+              class="text-red-500"
+              *ngIf="title.dirty && (backendErrors$ | async) as errors"
+            >
+              <ng-container
+                *ngFor="
+                  let error of errors['description'][0]['constraints']
+                    | keyvalue
+                "
+              >
+                {{ error.value }}
+              </ng-container>
+            </small>
           </div>
           <div class="field">
             <label for="title">Title</label>
@@ -108,6 +121,19 @@
             <small class="text-red-500" *ngIf="title.invalid && title.touched">
               Title is required. The title's length should be less than or equal
               to 20 characters
+            </small>
+            <small
+              class="text-red-500"
+              *ngIf="title.dirty && (backendErrors$ | async) as errors"
+            >
+              <ng-container
+                *ngFor="
+                  let error of errors['description'][1]['constraints']
+                    | keyvalue
+                "
+              >
+                {{ error.value }}
+              </ng-container>
             </small>
           </div>
           <div class="field">
@@ -127,6 +153,19 @@
             >
               Title RU is required. The title_ru's length should be less than or
               equal to 20 characters
+            </small>
+            <small
+              class="text-red-500"
+              *ngIf="titleRu.dirty && (backendErrors$ | async) as errors"
+            >
+              <ng-container
+                *ngFor="
+                  let error of errors['description'][2]['constraints']
+                    | keyvalue
+                "
+              >
+                {{ error.value }}
+              </ng-container>
             </small>
           </div>
         </ng-template>
@@ -148,7 +187,6 @@
             icon="pi pi-check"
             class="p-button-text"
             (click)="saveContactType(contactType)"
-            [disabled]="disableBtn()"
           ></button>
           <button
             *ngIf="!isEditing"
@@ -158,7 +196,6 @@
             icon="pi pi-check"
             class="p-button-text"
             (click)="createContactType(contactType)"
-            [disabled]="disableBtn()"
           ></button>
         </ng-template>
       </p-dialog>
