@@ -95,7 +95,7 @@
             </small>
             <small
               class="text-red-500"
-              *ngIf="title.dirty && (backendErrors$ | async) as errors"
+              *ngIf="!title.dirty && (backendErrors$ | async) as errors"
             >
               <ng-container
                 *ngFor="
@@ -124,7 +124,7 @@
             </small>
             <small
               class="text-red-500"
-              *ngIf="title.dirty && (backendErrors$ | async) as errors"
+              *ngIf="!title.dirty && (backendErrors$ | async) as errors"
             >
               <ng-container
                 *ngFor="
@@ -156,7 +156,7 @@
             </small>
             <small
               class="text-red-500"
-              *ngIf="titleRu.dirty && (backendErrors$ | async) as errors"
+              *ngIf="!titleRu.dirty && (backendErrors$ | async) as errors"
             >
               <ng-container
                 *ngFor="
