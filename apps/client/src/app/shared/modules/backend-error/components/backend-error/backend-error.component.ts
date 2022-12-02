@@ -3,11 +3,10 @@ import {
   Component,
   Input,
   OnDestroy,
-  OnInit,
 } from "@angular/core";
 import { MessageService } from "primeng/api";
 
-import { IBackendError } from "../../interfaces/backend-error.interface";
+import { IBackendErrorResponse } from "../../interfaces/backend-error.interface";
 
 @Component({
   selector: "site15-backend-error",
@@ -16,27 +15,40 @@ import { IBackendError } from "../../interfaces/backend-error.interface";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackendErrorComponent implements OnDestroy {
-  @Input() set backendErrors(value: IBackendError) {
-    this.errors = value;
-
+  @Input() set backendErrors(response: IBackendErrorResponse) {
     setTimeout(() => {
-      this.messageService.add({
-        severity: "error",
-        summary: this.backendErrors.message,
-        detail: JSON.stringify(this.backendErrors["description"]),
-      });
+      this.handleError(response);
     });
   }
-
-  get backendErrors() {
-    return this.errors;
-  }
-
-  errors!: IBackendError;
 
   constructor(private messageService: MessageService) {}
 
   ngOnDestroy(): void {
     this.messageService.clear();
+  }
+
+  private handleError(response: IBackendErrorResponse) {
+    const { error, status } = response;
+
+    if (status === 400) {
+      const validationErrors = Object.values(error.description);
+      const detail = validationErrors.map((err) => {
+        return `${Object.values(err.constraints)}`;
+      });
+
+      this.messageService.add({
+        severity: "error",
+        summary: error.message,
+        detail: detail.join(""),
+      });
+    }
+
+    if (error.status === 500) {
+      this.messageService.add({
+        severity: "error",
+        summary: error.message,
+        detail: "",
+      });
+    }
   }
 }

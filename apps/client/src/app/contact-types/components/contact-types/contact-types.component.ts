@@ -11,7 +11,7 @@ import {
 } from "rxjs";
 
 import { IContactTypes } from "../../../shared/models/contact-types.model";
-import { IBackendError } from "../../../shared/modules/backend-error/interfaces/backend-error.interface";
+import { IBackendErrorResponse } from "../../../shared/modules/backend-error/interfaces/backend-error.interface";
 import { ContactTypesService } from "../../contact-types.service";
 
 @UntilDestroy()
@@ -26,7 +26,7 @@ export class ContactTypesComponent implements OnInit {
   contactType!: IContactTypes;
   contactTypesDialog!: boolean;
 
-  backendErrors$ = new Subject<IBackendError>();
+  backendErrorsResponse$ = new Subject<IBackendErrorResponse>();
 
   /* UI property */
   isEditing!: boolean;
@@ -48,9 +48,8 @@ export class ContactTypesComponent implements OnInit {
         tap((items) => {
           this.contactTypes$.next(items);
         }),
-        catchError(({ error, status }) => {
-          this.backendErrors$.next(error);
-          return this.handleError({ error, status });
+        catchError((err) => {
+          return this.handleError(err);
         }),
         untilDestroyed(this)
       )
@@ -67,9 +66,8 @@ export class ContactTypesComponent implements OnInit {
             .filter((item) => item.id !== id);
           this.contactTypes$.next(items);
         }),
-        catchError(({ error, status }) => {
-          this.backendErrors$.next(error);
-          return this.handleError({ error, status });
+        catchError((err) => {
+          return this.handleError(err);
         }),
         untilDestroyed(this)
       )
@@ -86,9 +84,8 @@ export class ContactTypesComponent implements OnInit {
           this.contactTypes$.next(items);
           this.hideDialog();
         }),
-        catchError(({ error, status }) => {
-          this.backendErrors$.next(error);
-          return this.handleError({ error, status });
+        catchError((err) => {
+          return this.handleError(err);
         }),
         untilDestroyed(this)
       )
@@ -106,16 +103,19 @@ export class ContactTypesComponent implements OnInit {
           this.contactTypes$.next(items);
           this.hideDialog();
         }),
-        catchError(({ error, status }) => {
-          this.backendErrors$.next(error);
-          return this.handleError({ error, status });
+        catchError((err) => {
+          return this.handleError(err);
         }),
         untilDestroyed(this)
       )
       .subscribe();
   }
 
-  private handleError({ error, status }) {
+  private handleError(err: IBackendErrorResponse) {
+    const { error, status } = err;
+
+    this.backendErrorsResponse$.next(err);
+
     if (status === 400) {
       return of([]);
     }

@@ -1,7 +1,7 @@
 <main class="main">
   <div class="container">
     <site15-backend-error
-      *ngIf="backendErrors$ | async as backendErrors"
+      *ngIf="backendErrorsResponse$ | async as backendErrors"
       [backendErrors]="backendErrors"
     ></site15-backend-error>
 
@@ -95,11 +95,13 @@
             </small>
             <small
               class="text-red-500"
-              *ngIf="!title.dirty && (backendErrors$ | async) as errors"
+              *ngIf="
+                !name.dirty && (backendErrorsResponse$ | async) as response
+              "
             >
               <ng-container
                 *ngFor="
-                  let error of errors['description'][0]['constraints']
+                  let error of response.error.description[0].constraints
                     | keyvalue
                 "
               >
@@ -124,11 +126,13 @@
             </small>
             <small
               class="text-red-500"
-              *ngIf="!title.dirty && (backendErrors$ | async) as errors"
+              *ngIf="
+                !title.dirty && (backendErrorsResponse$ | async) as response
+              "
             >
               <ng-container
                 *ngFor="
-                  let error of errors['description'][1]['constraints']
+                  let error of response.error.description[1].constraints
                     | keyvalue
                 "
               >
@@ -156,11 +160,13 @@
             </small>
             <small
               class="text-red-500"
-              *ngIf="!titleRu.dirty && (backendErrors$ | async) as errors"
+              *ngIf="
+                !titleRu.dirty && (backendErrorsResponse$ | async) as response
+              "
             >
               <ng-container
                 *ngFor="
-                  let error of errors['description'][2]['constraints']
+                  let error of response.error.description[2].constraints
                     | keyvalue
                 "
               >
