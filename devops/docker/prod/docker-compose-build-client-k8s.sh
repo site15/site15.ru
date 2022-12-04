@@ -11,13 +11,13 @@ if [ -z "${NO_PUSH_DOCKER_IMAGES}" ]; then
         echo "No deploy to github [INFO-2]"
 
         docker build --platform linux/amd64 -t ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE} . --file ./docker/prod/Dockerfile/client-k8s-image.Dockerfile
-        docker tag ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE} ${CI_PROJECT_NAME}-client-${TAG_VERSION}
+        docker tag ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE} ${CI_PROJECT_NAME}-client-k8s-${TAG_VERSION}
     else
         echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
 
         docker build --platform linux/amd64 -t ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE} . --file ./docker/prod/Dockerfile/client-k8s-image.Dockerfile
         docker push ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE}
-        docker tag ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE} ${CI_PROJECT_NAME}-client-${TAG_VERSION}
+        docker tag ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE} ${CI_PROJECT_NAME}-client-k8s-${TAG_VERSION}
     fi
 else
     echo "No deploy to github [INFO-3]"
@@ -25,5 +25,5 @@ else
     docker logout $CI_REGISTRY
 
     docker build --platform linux/amd64 -t ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE} . --file ./docker/prod/Dockerfile/client-k8s-image.Dockerfile
-    docker tag ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE} ${CI_PROJECT_NAME}-client-${TAG_VERSION}
+    docker tag ${CI_REGISTRY}/${CI_PROJECT_NAMESPACE}/${CLIENT_K8S_IMAGE} ${CI_PROJECT_NAME}-client-k8s-${TAG_VERSION}
 fi
