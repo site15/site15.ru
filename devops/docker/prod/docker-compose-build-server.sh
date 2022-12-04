@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source ./set-env.sh
 
 cp -Rf ../dist/apps/server ../devops/docker/prod/Dockerfile/files

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 export TEST_PROJECT_URL=http://localhost:3000
 export PSQL_PORT=11432
 export PSQL_HOST=localhost
