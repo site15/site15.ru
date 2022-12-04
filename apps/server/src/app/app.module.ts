@@ -3,6 +3,7 @@ import { PrismaClientModule } from "@site15/prisma/server";
 import env from "env-var";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { ContactTypeModule } from "./contact-type/contact-type.module";
 import { VersionController } from "./version.controller";
 
 @Module({
@@ -12,6 +13,7 @@ import { VersionController } from "./version.controller";
       logging: "long_queries",
       maxQueryExecutionTime: 5000,
     }),
+    ContactTypeModule,
   ],
   controllers: [AppController, VersionController],
   providers: [AppService],
