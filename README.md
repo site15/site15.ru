@@ -1,4 +1,4 @@
-# Site15Ru
+# Site15Ru.
 
 This project was generated using [Nx](https://nx.dev).
 
