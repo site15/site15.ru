@@ -1,9 +1,9 @@
-version: '3'
+version: "3"
 networks:
   site15-network:
     ipam:
       config:
-        - subnet: '172.10.0.0/16'
+        - subnet: "172.10.0.0/16"
 
 volumes:
   site15-postgres-volume:
@@ -11,20 +11,20 @@ volumes:
 
 services:
   site15-postgres:
-    image: 'endykaufman/postgres-default'
-    container_name: 'site15-postgres'
+    image: "endykaufman/postgres-default"
+    container_name: "site15-postgres"
     environment:
       - POSTGRES_USER=${ROOT_POSTGRES_USER}
       - POSTGRES_PASSWORD=${ROOT_POSTGRES_PASSWORD}
       - POSTGRES_DB=postgres
     ports:
-      - '11432:5432'
+      - "11432:5432"
     volumes:
       - site15-postgres-volume:/var/lib/postgresql/data
     networks:
       - site15-network
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -32,11 +32,11 @@ services:
 
   site15-client:
     image: ${CI_PROJECT_NAME}-client-${TAG_VERSION}
-    container_name: 'site15-client'
+    container_name: "site15-client"
     networks:
       - site15-network
     ports:
-      - '9090:9090'
+      - "9090:9090"
     tty: true
     depends_on:
       site15-server:
@@ -45,7 +45,7 @@ services:
   site15-server:
     image: ${CI_PROJECT_NAME}-${TAG_VERSION}
     user: ${CURRENT_UID}
-    container_name: 'site15-server'
+    container_name: "site15-server"
     environment:
       - HOST=${HOST}
       - PROJECT_DOMAIN=${PROJECT_DOMAIN}
@@ -53,9 +53,9 @@ services:
       - PORT=3000
       - TAG_VERSION=${TAG_VERSION}
       - CI_BRANCH_NAME=${CI_BRANCH_NAME}
-      - POSTGRES_URL=${SERVER_POSTGRES_URL}
+      - SERVER_POSTGRES_URL=${SERVER_POSTGRES_URL}
     ports:
-      - '3000:3000'
+      - "3000:3000"
     volumes:
       - ./logs:/var/log/nginx/
     networks:

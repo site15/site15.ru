@@ -3,9 +3,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { join } = require('path');
+const { join } = require("path");
 
-const replaceInFiles = require('replace-in-files');
+const replaceInFiles = require("replace-in-files");
 
 async function main() {
   const keys = Object.keys(process.env);
@@ -13,7 +13,7 @@ async function main() {
     const key = keys[index];
     await replaceInFiles({
       files: join(__dirname, `./generated/${process.env.BRANCH_NAME}/**`),
-      from: new RegExp(`%${key}%`, 'g'),
+      from: new RegExp(`%${key}%`, "g"),
       to: process.env[key],
     });
   }

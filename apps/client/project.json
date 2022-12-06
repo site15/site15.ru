@@ -14,7 +14,13 @@
         "tsConfig": "apps/client/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
-        "styles": ["apps/client/src/styles.scss"],
+        "styles": [
+          "node_modules/primeicons/primeicons.css",
+          "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+          "node_modules/primeng/resources/primeng.min.css",
+          "node_modules/primeflex/primeflex.css",
+          "apps/client/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -46,6 +52,20 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "test1": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/client/src/environments/environment.ts",
+              "with": "apps/client/src/environments/environment.test1.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -58,6 +78,10 @@
         },
         "development": {
           "browserTarget": "client:build:development"
+        },
+        "test1": {
+          "browserTarget": "client:build:test1",
+          "proxyConfig": "apps/client/src/test1-proxy.conf.json"
         }
       },
       "defaultConfiguration": "development"

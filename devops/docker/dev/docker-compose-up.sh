@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source ./set-env.sh
 
 docker volume create --name=site15-postgres-volume --label=site15-postgres-volume
@@ -24,8 +25,8 @@ npm run rucken -- postgres --app-database-url=$SERVER_POSTGRES_URL
 
 # Run migrate database for specific database
 cd ../
-export POSTGRES_URL=$SERVER_POSTGRES_URL
-npm run migrate -- migrate
+export SERVER_POSTGRES_URL=$SERVER_POSTGRES_URL
+npm run migrate
 prisma db pull
 prisma generate
 cd ./devops

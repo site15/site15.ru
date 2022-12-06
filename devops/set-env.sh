@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 export CURRENT_UID=$(id -u):$(id -g)
 
 if [ -z "${CI_PROJECT_NAMESPACE}" ]; then
@@ -36,6 +37,11 @@ if [ -z "${TAG_VERSION}" ]; then
         export TAG_VERSION=${CI_COMMIT_SHORT_SHA}
     fi
 fi
+
+if [ -z "${CLIENT_ENV_NAME}" ]; then
+    export CLIENT_ENV_NAME=development
+fi
+
 
 export DEPLOY_DATE=$(date +'%Y-%m-%d %H:%M:%S')
 export DEPLOY_COMMIT=${CI_COMMIT_SHORT_SHA}
@@ -93,8 +99,8 @@ export SERVER_POSTGRES_URL=postgres://${PSQL_USERNAME}:${PSQL_PASSWORD}@${PSQL_H
 
 export NAMESPACE=${CI_PROJECT_CODE}-$BRANCH_NAME
 
-export SERVER_BASE_IMAGE=${CI_PROJECT_NAME}-base-image:$(checksum -- ../package.json | grep -o "^\w*\b")
-export SERVER_IMAGE=${CI_PROJECT_NAME}-image:${TAG_VERSION}
+export SERVER_BASE_IMAGE=${CI_PROJECT_NAME}-server-base-image:$(checksum -- ../package.json | grep -o "^\w*\b")
+export SERVER_IMAGE=${CI_PROJECT_NAME}-server-image:${TAG_VERSION}
 export CLIENT_IMAGE=${CI_PROJECT_NAME}-client-image:${TAG_VERSION}
 export CLIENT_K8S_IMAGE=${CI_PROJECT_NAME}-client-k8s-image:${TAG_VERSION}
 

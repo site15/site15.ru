@@ -32,7 +32,7 @@ jobs:
           nvm --version
           nvm install
           nvm use
-          npm ci --force
+          npm ci
           npm install
         if: ${{steps.cache_node_modules.outputs.cache-hit != 'true' }}
 
@@ -44,11 +44,11 @@ jobs:
           nvm --version
           nvm install
           nvm use
-          npm ci --force
+          npm ci
           npm run docker:prod:up:local
           npm run test:local
-          npm run docker:prod:down        
-      
+          npm run docker:prod:down
+
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v3
         if: always() # always run even if the previous step fails
@@ -81,7 +81,7 @@ jobs:
           nvm --version
           nvm install
           nvm use
-          npm ci --force
+          npm ci
           npm run docker:prod:build-all-sources
           npm run docker:prod:build-server-base-image
           npm run docker:prod:build-all-images

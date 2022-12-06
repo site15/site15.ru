@@ -1,28 +1,28 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-    namespace: %NAMESPACE%
-    name: %CI_PROJECT_NAME%-client-ingress
-    annotations:
-        kubernetes.io/ingress.class: nginx
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
-        nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
-        nginx.ingress.kubernetes.io/rewrite-target: /$1$2
-        nginx.ingress.kubernetes.io/secure-server: "true"
-        nginx.ingress.kubernetes.io/ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/configuration-snippet: |
-            rewrite ^/(.+)/$ /$1 permanent;
+  namespace: %NAMESPACE%
+  name: %CI_PROJECT_NAME%-client-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1$2
+    nginx.ingress.kubernetes.io/secure-server: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      rewrite ^/(.+)/$ /$1 permanent;
 spec:
-    tls:
-        - hosts:
-              - %PROJECT_DOMAIN%
-          secretName: %NAMESPACE%-tls
-    rules:
-        - host: %PROJECT_DOMAIN%
-          http:
-              paths:
-                  - path: /?(.*)
-                    backend:
-                        serviceName: %CI_PROJECT_NAME%-client-service
-                        servicePort: 9090
+  tls:
+    - hosts:
+        - %PROJECT_DOMAIN%
+      secretName: %NAMESPACE%-tls
+  rules:
+    - host: %PROJECT_DOMAIN%
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: %CI_PROJECT_NAME%-client-service
+              servicePort: 9090

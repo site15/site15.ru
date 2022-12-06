@@ -1,5 +1,5 @@
 #!/bin/bash
-#!/bin/bash
+set -e
 source ./set-env.sh
 
 export PSQL_PORT=11432
@@ -13,8 +13,7 @@ npm run rucken -- postgres --app-database-url=$SERVER_POSTGRES_URL
 
 # Run migrate database for specific database
 cd ../
-export POSTGRES_URL=$SERVER_POSTGRES_URL
-npm run migrate -- migrate
+npm run migrate
 cd ./devops
 
 # Change database host for applications
@@ -30,6 +29,7 @@ cp -Rf ./k8s/template/* ./k8s/generated/$BRANCH_NAME
 node ./k8s/prepare-k8s-files.js
 
 ### Apply to k8s
+set +e
 /snap/bin/microk8s kubectl create secret docker-registry site15-global-regcred --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_USER --docker-password=$CI_REGISTRY_PASSWORD
 /snap/bin/microk8s kubectl apply -f ./k8s/generated/$BRANCH_NAME/node/0.namespace.yaml
 /snap/bin/microk8s kubectl delete configmap $NAMESPACE-config -n $NAMESPACE
@@ -37,6 +37,7 @@ node ./k8s/prepare-k8s-files.js
 /snap/bin/microk8s kubectl get secret site15-global-regcred -n default -o yaml | sed s/"namespace: default"/"namespace: ${NAMESPACE}"/ | /snap/bin/microk8s kubectl apply -n ${NAMESPACE} -f -
 /snap/bin/microk8s kubectl apply -f ./k8s/generated/$BRANCH_NAME/server
 /snap/bin/microk8s kubectl apply -f ./k8s/generated/$BRANCH_NAME/client
+set -e
 
 npx -y wait-on --timeout=160000 --interval=1000 --window --verbose --log $PROJECT_URL/api/version/check-tag/$TAG_VERSION?healthcheck=true
 
