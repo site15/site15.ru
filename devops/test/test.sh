@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source ./set-env.sh
 
 if [ -z "${PSQL_HOST}" ]; then

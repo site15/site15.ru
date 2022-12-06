@@ -1,10 +1,11 @@
 #!/bin/bash
+set -e
 source ./set-env.sh
 
 rm -rf ../devops/docker/prod/Dockerfile/files/server
 mkdir -p ../devops/docker/prod/Dockerfile/files/server
-cp -Rf ../package.json ../devops/docker/prod/Dockerfile/files
-cp -Rf ../package-lock.json ../devops/docker/prod/Dockerfile/files
+cp -Rf ../apps/server/package.json ../devops/docker/prod/Dockerfile/files
+# cp -Rf ../package-lock.json ../devops/docker/prod/Dockerfile/files
 
 export SERVER_BASE_IMAGE=${CI_PROJECT_NAME}-server-base-image:$(checksum -- ../package.json | grep -o "^\w*\b")
 

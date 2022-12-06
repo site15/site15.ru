@@ -1,0 +1,11 @@
+{
+  "/test1-api": {
+    "target": "https://test1.site15.ru",
+    "pathRewrite": {
+      "^/test1-api": "/api"
+    },
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

@@ -1,0 +1,210 @@
+<main class="main">
+  <div class="container">
+    <site15-backend-error
+      *ngIf="backendErrorsResponse$ | async as backendErrors"
+      [backendErrors]="backendErrors"
+    ></site15-backend-error>
+
+    <p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+    <ng-container *ngIf="contactTypes$ | async as contactTypes">
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <button
+            pButton
+            pRipple
+            label="New"
+            icon="pi pi-plus"
+            class="p-button-success mr-2"
+            (click)="openNew()"
+          ></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <button
+            pButton
+            pRipple
+            label="Refresh"
+            icon="pi pi-refresh"
+            class="p-button-info mr-2"
+            (click)="refresh()"
+          ></button>
+        </ng-template>
+      </p-toolbar>
+      <p-table
+        [value]="contactTypes"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [paginator]="true"
+        [rowHover]="true"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Title RU</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-contactType>
+          <tr>
+            <td>{{ contactType.name }}</td>
+            <td>{{ contactType.title }}</td>
+            <td>{{ contactType.title_ru }}</td>
+            <td>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-success mr-2"
+                (click)="editContactType(contactType)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning ml-2"
+                (click)="confirmDeleting(contactType.id)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <p-dialog
+        [(visible)]="contactTypesDialog"
+        [style]="{ width: '450px' }"
+        [header]="isEditing ? 'Edit' : 'Create'"
+        [modal]="true"
+        styleClass="p-fluid"
+      >
+        <ng-template pTemplate="content">
+          <div class="field">
+            <label for="name" class="mb-2">Name</label>
+            <input
+              type="text"
+              pInputText
+              id="name"
+              [(ngModel)]="contactType.name"
+              maxlength="20"
+              #name="ngModel"
+              required
+            />
+            <small class="text-red-500" *ngIf="name.invalid && name.touched">
+              Name is required. The name's length should be less than or equal
+              to 20 characters
+            </small>
+            <small
+              class="text-red-500"
+              *ngIf="
+                !name.dirty && (backendErrorsResponse$ | async) as response
+              "
+            >
+              <ng-container
+                *ngFor="
+                  let error of response.error.description[0].constraints
+                    | keyvalue
+                "
+              >
+                {{ error.value }}
+              </ng-container>
+            </small>
+          </div>
+          <div class="field">
+            <label for="title">Title</label>
+            <input
+              type="text"
+              pInputText
+              id="title"
+              [(ngModel)]="contactType.title"
+              #title="ngModel"
+              maxlength="20"
+              required
+            />
+            <small class="text-red-500" *ngIf="title.invalid && title.touched">
+              Title is required. The title's length should be less than or equal
+              to 20 characters
+            </small>
+            <small
+              class="text-red-500"
+              *ngIf="
+                !title.dirty && (backendErrorsResponse$ | async) as response
+              "
+            >
+              <ng-container
+                *ngFor="
+                  let error of response.error.description[1].constraints
+                    | keyvalue
+                "
+              >
+                {{ error.value }}
+              </ng-container>
+            </small>
+          </div>
+          <div class="field">
+            <label for="title_ru">Title RU</label>
+            <input
+              type="text"
+              pInputText
+              id="title_ru"
+              [(ngModel)]="contactType.title_ru"
+              #titleRu="ngModel"
+              maxlength="20"
+              required
+            />
+            <small
+              class="text-red-500"
+              *ngIf="titleRu.invalid && titleRu.touched"
+            >
+              Title RU is required. The title_ru's length should be less than or
+              equal to 20 characters
+            </small>
+            <small
+              class="text-red-500"
+              *ngIf="
+                !titleRu.dirty && (backendErrorsResponse$ | async) as response
+              "
+            >
+              <ng-container
+                *ngFor="
+                  let error of response.error.description[2].constraints
+                    | keyvalue
+                "
+              >
+                {{ error.value }}
+              </ng-container>
+            </small>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <button
+            pButton
+            pRipple
+            label="Cancel"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="hideDialog()"
+          ></button>
+          <button
+            *ngIf="isEditing"
+            pButton
+            pRipple
+            label="Save"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="saveContactType(contactType)"
+          ></button>
+          <button
+            *ngIf="!isEditing"
+            pButton
+            pRipple
+            label="Create"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="createContactType(contactType)"
+          ></button>
+        </ng-template>
+      </p-dialog>
+    </ng-container>
+  </div>
+</main>

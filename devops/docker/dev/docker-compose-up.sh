@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source ./set-env.sh
 
 docker volume create --name=site15-postgres-volume --label=site15-postgres-volume

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 source ./set-env.sh
 
 if [ -z "${NO_PUSH_DOCKER_IMAGES}" ]; then
