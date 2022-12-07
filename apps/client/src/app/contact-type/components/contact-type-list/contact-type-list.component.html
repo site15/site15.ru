@@ -1,0 +1,74 @@
+<main class="main">
+  <div class="container">
+    <site15-backend-error
+      *ngIf="backendErrorsResponse$ | async as backendErrors"
+      [backendErrors]="backendErrors"
+    ></site15-backend-error>
+
+    <p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+    <ng-container *ngIf="contactTypes$ | async as contactTypes">
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <button
+            pButton
+            pRipple
+            label="New"
+            icon="pi pi-plus"
+            class="p-button-success mr-2"
+            (click)="openNew()"
+          ></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <button
+            pButton
+            pRipple
+            label="Refresh"
+            icon="pi pi-refresh"
+            class="p-button-info mr-2"
+            (click)="refresh()"
+          ></button>
+        </ng-template>
+      </p-toolbar>
+      <p-table
+        [value]="contactTypes"
+        responsiveLayout="scroll"
+        [rows]="10"
+        [paginator]="true"
+        [rowHover]="true"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Title RU</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-contactType>
+          <tr>
+            <td>{{ contactType.name }}</td>
+            <td>{{ contactType.title }}</td>
+            <td>{{ contactType.title_ru }}</td>
+            <td>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-pencil"
+                class="p-button-rounded p-button-success mr-2"
+                (click)="editContactType(contactType)"
+              ></button>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-rounded p-button-warning ml-2"
+                (click)="confirmDeleting(contactType.id)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-container>
+  </div>
+</main>

@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="field">
+    <label class="mb-2 mr-2">Name</label>
+    <input type="text" pInputText formControlName="name" />
+  </div>
+  <div class="field">
+    <label class="mb-2 mr-2">Title</label>
+    <input type="text" pInputText formControlName="title" />
+  </div>
+  <div class="field">
+    <label class="mb-2 mr-2">Title RU</label>
+    <input type="text" pInputText formControlName="titleRu" />
+  </div>
+  <button type="submit" class="p-button-rounded p-button-warning ml-2" pButton>
+    Create
+  </button>
+</form>

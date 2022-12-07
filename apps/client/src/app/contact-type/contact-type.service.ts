@@ -2,27 +2,27 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "../../environments/environment";
-import { IContactTypes } from "../shared/models/contact-types.model";
+import { IContactType } from "../shared/models/contact-type.model";
 
 @Injectable()
-export class ContactTypesService {
+export class ContactTypeService {
   constructor(private http: HttpClient) {}
 
-  getAllContactTypes(): Observable<IContactTypes[]> {
+  getAllContactTypes(): Observable<IContactType[]> {
     const url = `${environment.api}/contact-types`;
 
-    return this.http.get<IContactTypes[]>(url);
+    return this.http.get<IContactType[]>(url);
   }
-  getContactTypeById(id: number): Observable<IContactTypes> {
+  getContactTypeById(id: number): Observable<IContactType> {
     const url = `${environment.api}/contact-types/${id}`;
 
-    return this.http.get<IContactTypes>(url);
+    return this.http.get<IContactType>(url);
   }
 
-  createContactType(data: IContactTypes): Observable<IContactTypes> {
+  createContactType(data: IContactType): Observable<IContactType> {
     const url = `${environment.api}/contact-types`;
 
-    return this.http.post<IContactTypes>(url, data);
+    return this.http.post<IContactType>(url, data);
   }
 
   deleteContactType(id: number) {
@@ -32,7 +32,7 @@ export class ContactTypesService {
     return this.http.delete(url);
   }
 
-  updateContactType(data: IContactTypes) {
+  updateContactType(data: IContactType) {
     const { id } = data;
     const url = `${environment.api}/contact-types/${id}`;
 

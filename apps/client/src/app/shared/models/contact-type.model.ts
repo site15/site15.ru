@@ -1,4 +1,4 @@
-export interface IContactTypes {
+export interface IContactType {
   id: number;
   name: string;
   title: string;

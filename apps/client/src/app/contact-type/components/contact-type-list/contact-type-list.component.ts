@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+
 import { ConfirmationService } from "primeng/api";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+
 import {
   BehaviorSubject,
   catchError,
@@ -10,31 +14,34 @@ import {
   throwError,
 } from "rxjs";
 
-import { IContactTypes } from "../../../shared/models/contact-types.model";
+import { IContactType } from "../../../shared/models/contact-type.model";
 import { IBackendErrorResponse } from "../../../shared/modules/backend-error/interfaces/backend-error.interface";
-import { ContactTypesService } from "../../contact-types.service";
+import { ContactTypeService } from "../../contact-type.service";
+import { ContactTypeDetailsComponent } from "../contact-type-details/contact-type-details.component";
 
 @UntilDestroy()
 @Component({
   selector: "site15-contact-types",
-  templateUrl: "./contact-types.component.html",
-  providers: [ConfirmationService],
+  templateUrl: "./contact-type-list.component.html",
+  providers: [ConfirmationService, DialogService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactTypesComponent implements OnInit {
-  contactTypes$ = new BehaviorSubject<IContactTypes[]>([]);
-  contactType!: IContactTypes;
-  contactTypesDialog!: boolean;
+export class ContactTypeListComponent implements OnInit {
+  contactTypes$ = new BehaviorSubject<IContactType[]>([]);
+  contactType!: IContactType;
 
   backendErrorsResponse$ = new Subject<IBackendErrorResponse>();
 
   /* UI property */
+  dialogRef!: DynamicDialogRef;
+
   isEditing!: boolean;
   isInvalid!: boolean;
 
   constructor(
     private confirmationService: ConfirmationService,
-    private contactTypesService: ContactTypesService
+    private dialogService: DialogService,
+    private contactTypeService: ContactTypeService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +49,7 @@ export class ContactTypesComponent implements OnInit {
   }
 
   getContactTypes() {
-    this.contactTypesService
+    this.contactTypeService
       .getAllContactTypes()
       .pipe(
         tap((items) => {
@@ -57,7 +64,7 @@ export class ContactTypesComponent implements OnInit {
   }
 
   deleteContactType(id: number) {
-    this.contactTypesService
+    this.contactTypeService
       .deleteContactType(id)
       .pipe(
         tap(() => {
@@ -74,15 +81,14 @@ export class ContactTypesComponent implements OnInit {
       .subscribe();
   }
 
-  createContactType(ct: IContactTypes) {
-    this.contactTypesService
+  createContactType(ct: IContactType) {
+    this.contactTypeService
       .createContactType(ct)
       .pipe(
         tap((item) => {
           const items = this.contactTypes$.getValue();
           items.push(item);
           this.contactTypes$.next(items);
-          this.hideDialog();
         }),
         catchError((err) => {
           return this.handleError(err);
@@ -92,8 +98,8 @@ export class ContactTypesComponent implements OnInit {
       .subscribe();
   }
 
-  saveContactType(ct: IContactTypes) {
-    this.contactTypesService
+  saveContactType(ct: IContactType) {
+    this.contactTypeService
       .updateContactType(ct)
       .pipe(
         tap(() => {
@@ -101,7 +107,6 @@ export class ContactTypesComponent implements OnInit {
           const index = items.findIndex(({ id }) => ct.id === id);
           items[index] = ct;
           this.contactTypes$.next(items);
-          this.hideDialog();
         }),
         catchError((err) => {
           return this.handleError(err);
@@ -126,20 +131,23 @@ export class ContactTypesComponent implements OnInit {
    * UI methods
    */
 
-  hideDialog() {
-    this.contactTypesDialog = false;
-  }
-
   openNew() {
-    this.contactType = {} as IContactTypes;
-    this.contactTypesDialog = true;
+    this.contactType = {} as IContactType;
     this.isEditing = false;
+
+    this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
+      header: "Create contact type",
+    });
   }
 
-  editContactType(ct: IContactTypes) {
+  editContactType(ct: IContactType) {
     this.contactType = { ...ct };
-    this.contactTypesDialog = true;
     this.isEditing = true;
+
+    this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
+      header: "Edit the contact type",
+      data: ct,
+    });
   }
 
   confirmDeleting(id: number) {
