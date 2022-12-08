@@ -1,3 +1,8 @@
+<site15-backend-error
+  *ngIf="backendErrorsResponse$ | async as backendErrors"
+  [backendErrors]="backendErrors"
+></site15-backend-error>
+
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="field">
     <label class="mb-2 mr-2">Name</label>
@@ -9,9 +14,9 @@
   </div>
   <div class="field">
     <label class="mb-2 mr-2">Title RU</label>
-    <input type="text" pInputText formControlName="titleRu" />
+    <input type="text" pInputText formControlName="title_ru" />
   </div>
-  <button type="submit" class="p-button-rounded p-button-warning ml-2" pButton>
+  <button type="submit" class="p-button-rounded p-button-warning" pButton>
     Create
   </button>
 </form>
