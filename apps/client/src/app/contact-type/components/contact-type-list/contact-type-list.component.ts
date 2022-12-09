@@ -34,9 +34,6 @@ export class ContactTypeListComponent implements OnInit {
   /* UI property */
   dialogRef!: DynamicDialogRef;
 
-  isEditing!: boolean;
-  isInvalid!: boolean;
-
   constructor(
     private confirmationService: ConfirmationService,
     private dialogService: DialogService,
@@ -96,12 +93,11 @@ export class ContactTypeListComponent implements OnInit {
    */
 
   openNew() {
-    this.isEditing = false;
-
     this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
       header: "Create contact type",
+      width: "400px",
       data: {
-        isEditing: this.isEditing,
+        isEditing: false,
         contactType: {},
       },
     });
@@ -109,9 +105,11 @@ export class ContactTypeListComponent implements OnInit {
     this.dialogRef.onClose
       .pipe(
         tap((item) => {
-          const items = this.contactTypes$.getValue();
-          items.push(item);
-          this.contactTypes$.next(items);
+          if (item) {
+            const items = this.contactTypes$.getValue();
+            items.push(item);
+            this.contactTypes$.next(items);
+          }
         }),
         untilDestroyed(this)
       )
@@ -119,12 +117,10 @@ export class ContactTypeListComponent implements OnInit {
   }
 
   editContactType(contactType: IContactType) {
-    this.isEditing = true;
-
     this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
       header: "Edit the contact type",
       data: {
-        isEditing: this.isEditing,
+        isEditing: true,
         contactType,
       },
     });
@@ -132,10 +128,12 @@ export class ContactTypeListComponent implements OnInit {
     this.dialogRef.onClose
       .pipe(
         tap((item) => {
-          const items = this.contactTypes$.getValue();
-          const index = items.findIndex(({ id }) => item.id === id);
-          items[index] = item;
-          this.contactTypes$.next(items);
+          if (item) {
+            const items = this.contactTypes$.getValue();
+            const index = items.findIndex(({ id }) => item.id === id);
+            items[index] = item;
+            this.contactTypes$.next(items);
+          }
         }),
         untilDestroyed(this)
       )

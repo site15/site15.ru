@@ -93,9 +93,18 @@ export class ContactTypeDetailsComponent implements OnInit {
 
   private initializeForm() {
     this.form = this.fb.group({
-      name: [this.contactType?.name || "", Validators.required],
-      title: [this.contactType?.title || "", Validators.required],
-      title_ru: [this.contactType?.title_ru || "", Validators.required],
+      name: [
+        this.contactType?.name || "",
+        [Validators.required, Validators.maxLength(20)],
+      ],
+      title: [
+        this.contactType?.title || "",
+        [Validators.required, Validators.maxLength(20)],
+      ],
+      title_ru: [
+        this.contactType?.title_ru || "",
+        [Validators.required, Validators.maxLength(20)],
+      ],
     });
   }
 
@@ -104,5 +113,13 @@ export class ContactTypeDetailsComponent implements OnInit {
 
     this.contactType = contactType;
     this.isEditing = isEditing;
+  }
+
+  /**
+   * UI methods
+   */
+  closeDialog(event: Event) {
+    event.preventDefault();
+    this.dynamicDialogRef.close();
   }
 }
