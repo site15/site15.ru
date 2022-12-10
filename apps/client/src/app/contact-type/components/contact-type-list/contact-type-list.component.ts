@@ -95,10 +95,12 @@ export class ContactTypeListComponent implements OnInit {
   openNew() {
     this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
       header: "Create contact type",
-      width: "400px",
+      width: "360px",
+      closable: false,
       data: {
         isEditing: false,
         contactType: {},
+        backendErrors: this.backendErrorsResponse$,
       },
     });
 
@@ -119,9 +121,12 @@ export class ContactTypeListComponent implements OnInit {
   editContactType(contactType: IContactType) {
     this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
       header: "Edit the contact type",
+      width: "360px",
+      closable: false,
       data: {
         isEditing: true,
         contactType,
+        backendErrors: this.backendErrorsResponse$,
       },
     });
 

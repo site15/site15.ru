@@ -1,8 +1,3 @@
-<site15-backend-error
-  *ngIf="backendErrorsResponse$ | async as backendErrors"
-  [backendErrors]="backendErrors"
-></site15-backend-error>
-
 <form
   class="flex flex-column align-items-start justify-content-between"
   [formGroup]="form"
@@ -20,10 +15,7 @@
   </div>
   <small
     class="text-red-500"
-    *ngIf="
-      form.get('name')?.invalid &&
-      (form.get('name')?.dirty || form.get('name')?.touched)
-    "
+    *ngIf="form.get('name')?.invalid && form.get('name')?.dirty"
   >
     Name is required. The name's length should be less than or equal to 20
     characters
@@ -51,10 +43,7 @@
   </div>
   <small
     class="text-red-500"
-    *ngIf="
-      form.get('title')?.invalid &&
-      (form.get('title')?.dirty || form.get('title')?.touched)
-    "
+    *ngIf="form.get('title')?.invalid && form.get('title')?.dirty"
   >
     Title is required. The title's length should be less than or equal to 20
     characters
@@ -82,10 +71,7 @@
   </div>
   <small
     class="text-red-500"
-    *ngIf="
-      form.get('title_ru')?.invalid &&
-      (form.get('title_ru')?.dirty || form.get('title_ru')?.touched)
-    "
+    *ngIf="form.get('title_ru')?.invalid && form.get('title_ru')?.dirty"
   >
     Title RU is required. The title ru's length should be less than or equal to
     20 characters

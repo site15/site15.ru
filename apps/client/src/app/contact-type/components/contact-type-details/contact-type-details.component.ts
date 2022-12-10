@@ -18,7 +18,7 @@ import { IBackendErrorResponse } from "../../../shared/modules/backend-error/int
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactTypeDetailsComponent implements OnInit {
-  backendErrorsResponse$ = new Subject<IBackendErrorResponse>();
+  backendErrorsResponse$!: Subject<IBackendErrorResponse>;
 
   contactType!: IContactType;
   form!: FormGroup;
@@ -109,10 +109,12 @@ export class ContactTypeDetailsComponent implements OnInit {
   }
 
   private initializeValues() {
-    const { contactType, isEditing } = this.dynamicDialogConfig.data;
+    const { contactType, isEditing, backendErrors } =
+      this.dynamicDialogConfig.data;
 
     this.contactType = contactType;
     this.isEditing = isEditing;
+    this.backendErrorsResponse$ = backendErrors;
   }
 
   /**
