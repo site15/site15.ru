@@ -1,11 +1,14 @@
 {
+  "name": "projects-client",
   "projectType": "library",
   "sourceRoot": "libs/projects/client/src",
   "prefix": "site15",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/projects/client"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/projects/client"
+      ],
       "options": {
         "jestConfig": "libs/projects/client/jest.config.ts",
         "passWithNoTests": true

@@ -1,11 +1,14 @@
 {
+  "name": "spider-client",
   "projectType": "library",
   "sourceRoot": "libs/spider/client/src",
   "prefix": "site15",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/spider/client"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/spider/client"
+      ],
       "options": {
         "jestConfig": "libs/spider/client/jest.config.ts",
         "passWithNoTests": true
