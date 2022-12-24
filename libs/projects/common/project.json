@@ -6,20 +6,14 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/projects/common/**/*.ts"
-        ]
+        "lintFilePatterns": ["libs/projects/common/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/libs/projects/common"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/libs/projects/common"],
       "options": {
         "jestConfig": "libs/projects/common/jest.config.ts",
         "passWithNoTests": true

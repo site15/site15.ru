@@ -39,10 +39,10 @@
   "license": "ISC",
   "dependencies": {
     "checksum": "1.0.0",
-    "pg": "8.7.3",
-    "pg-promise": "10.11.1",
+    "pg": "8.8.0",
+    "pg-promise": "10.15.4",
     "replace-in-files": "3.0.0",
-    "wait-on": "6.0.1",
-    "rucken": "4.1.0"
+    "wait-on": "7.0.1",
+    "rucken": "4.4.6"
   }
 }

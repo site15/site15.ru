@@ -32,7 +32,7 @@ jobs:
           nvm --version
           nvm install
           nvm use
-          npm ci
+          npm i --force
           npm install
         if: ${{steps.cache_node_modules.outputs.cache-hit != 'true' }}
 
@@ -44,7 +44,7 @@ jobs:
           nvm --version
           nvm install
           nvm use
-          npm ci
+          npm i --force
           npm run docker:prod:up:local
           npm run test:local
           npm run docker:prod:down
@@ -81,7 +81,7 @@ jobs:
           nvm --version
           nvm install
           nvm use
-          npm ci
+          npm i --force
           npm run docker:prod:build-all-sources
           npm run docker:prod:build-server-base-image
           npm run docker:prod:build-all-images
