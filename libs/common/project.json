@@ -6,7 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/common"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/common"
+      ],
       "options": {
         "jestConfig": "libs/common/jest.config.ts",
         "passWithNoTests": true
@@ -15,7 +17,10 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["libs/common/**/*.ts", "libs/common/**/*.html"]
+        "lintFilePatterns": [
+          "libs/common/**/*.ts",
+          "libs/common/**/*.html"
+        ]
       }
     }
   },

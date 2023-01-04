@@ -27,15 +27,7 @@ export class PrismaClientModule {
           provide: PRISMA_CLIENT_CONFIG,
           useValue: {
             ...config,
-            databaseUrl: config.databaseUrl
-              .replace(
-                "${POSTGRES_HOST}",
-                env.get("SERVER_POSTGRES_URL").default("").asString()
-              )
-              .replace(
-                "localhost",
-                env.get("POSTGRES_HOST").default("").asString()
-              ),
+            databaseUrl: config.databaseUrl,
           },
         },
       ],

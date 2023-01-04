@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/client",
         "index": "apps/client/src/index.html",
@@ -14,7 +16,10 @@
         "polyfills": "apps/client/src/polyfills.ts",
         "tsConfig": "apps/client/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/client/src/favicon.ico", "apps/client/src/assets"],
+        "assets": [
+          "apps/client/src/favicon.ico",
+          "apps/client/src/assets"
+        ],
         "styles": [
           "node_modules/primeicons/primeicons.css",
           "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
@@ -67,6 +72,20 @@
               "with": "apps/client/src/environments/environment.test1.ts"
             }
           ]
+        },
+        "host": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/client/src/environments/environment.ts",
+              "with": "apps/client/src/environments/environment.host.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -83,6 +102,10 @@
         "test1": {
           "browserTarget": "client:build:test1",
           "proxyConfig": "apps/client/src/test1-proxy.conf.json"
+        },
+        "host": {
+          "browserTarget": "client:build:host",
+          "proxyConfig": "apps/client/src/host-proxy.conf.json"
         }
       },
       "defaultConfiguration": "development"
@@ -96,12 +119,17 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/client/**/*.ts", "apps/client/**/*.html"]
+        "lintFilePatterns": [
+          "apps/client/**/*.ts",
+          "apps/client/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/client"],
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/client"
+      ],
       "options": {
         "jestConfig": "apps/client/jest.config.ts",
         "passWithNoTests": true

@@ -57,7 +57,7 @@ services:
       - site15-network
     ports:
       - "4200:4200"
-    command: "npm run nx -- serve client --configuration=${CLIENT_ENV_NAME} --port=4200 --host=0.0.0.0  --disable-host-check"
+    command: "npm run serve:client"
     tty: true
     depends_on:
       site15-server:
@@ -93,7 +93,7 @@ services:
       - ./../../../:/app
     networks:
       - site15-network
-    command: "npm run nx -- serve server"
+    command: "serve:server"
     tty: true
     depends_on:
       site15-postgres:

@@ -6,14 +6,20 @@
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/spider/server/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/spider/server/**/*.ts"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/libs/spider/server"],
+      "outputs": [
+        "{workspaceRoot}/coverage/libs/spider/server"
+      ],
       "options": {
         "jestConfig": "libs/spider/server/jest.config.ts",
         "passWithNoTests": true
