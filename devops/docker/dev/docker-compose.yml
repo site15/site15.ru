@@ -93,7 +93,7 @@ services:
       - ./../../../:/app
     networks:
       - site15-network
-    command: "serve:server"
+    command: "npm run serve:server"
     tty: true
     depends_on:
       site15-postgres:
