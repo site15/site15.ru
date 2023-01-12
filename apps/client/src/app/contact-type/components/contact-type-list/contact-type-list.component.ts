@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+
 import { ConfirmationService } from "primeng/api";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+
 import {
   BehaviorSubject,
   catchError,
@@ -10,31 +14,30 @@ import {
   throwError,
 } from "rxjs";
 
-import { IContactTypes } from "../../../shared/models/contact-types.model";
+import { IContactType } from "../../../shared/models/contact-type.model";
 import { IBackendErrorResponse } from "../../../shared/modules/backend-error/interfaces/backend-error.interface";
-import { ContactTypesService } from "../../contact-types.service";
+import { ContactTypeService } from "../../contact-type.service";
+import { ContactTypeDetailsComponent } from "../contact-type-details/contact-type-details.component";
 
 @UntilDestroy()
 @Component({
   selector: "site15-contact-types",
-  templateUrl: "./contact-types.component.html",
-  providers: [ConfirmationService],
+  templateUrl: "./contact-type-list.component.html",
+  providers: [ConfirmationService, DialogService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContactTypesComponent implements OnInit {
-  contactTypes$ = new BehaviorSubject<IContactTypes[]>([]);
-  contactType!: IContactTypes;
-  contactTypesDialog!: boolean;
+export class ContactTypeListComponent implements OnInit {
+  contactTypes$ = new BehaviorSubject<IContactType[]>([]);
 
   backendErrorsResponse$ = new Subject<IBackendErrorResponse>();
 
   /* UI property */
-  isEditing!: boolean;
-  isInvalid!: boolean;
+  dialogRef!: DynamicDialogRef;
 
   constructor(
     private confirmationService: ConfirmationService,
-    private contactTypesService: ContactTypesService
+    private dialogService: DialogService,
+    private contactTypeService: ContactTypeService
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +45,7 @@ export class ContactTypesComponent implements OnInit {
   }
 
   getContactTypes() {
-    this.contactTypesService
+    this.contactTypeService
       .getAllContactTypes()
       .pipe(
         tap((items) => {
@@ -57,7 +60,7 @@ export class ContactTypesComponent implements OnInit {
   }
 
   deleteContactType(id: number) {
-    this.contactTypesService
+    this.contactTypeService
       .deleteContactType(id)
       .pipe(
         tap(() => {
@@ -65,43 +68,6 @@ export class ContactTypesComponent implements OnInit {
             .getValue()
             .filter((item) => item.id !== id);
           this.contactTypes$.next(items);
-        }),
-        catchError((err) => {
-          return this.handleError(err);
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe();
-  }
-
-  createContactType(ct: IContactTypes) {
-    this.contactTypesService
-      .createContactType(ct)
-      .pipe(
-        tap((item) => {
-          const items = this.contactTypes$.getValue();
-          items.push(item);
-          this.contactTypes$.next(items);
-          this.hideDialog();
-        }),
-        catchError((err) => {
-          return this.handleError(err);
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe();
-  }
-
-  saveContactType(ct: IContactTypes) {
-    this.contactTypesService
-      .updateContactType(ct)
-      .pipe(
-        tap(() => {
-          const items = this.contactTypes$.getValue();
-          const index = items.findIndex(({ id }) => ct.id === id);
-          items[index] = ct;
-          this.contactTypes$.next(items);
-          this.hideDialog();
         }),
         catchError((err) => {
           return this.handleError(err);
@@ -126,20 +92,57 @@ export class ContactTypesComponent implements OnInit {
    * UI methods
    */
 
-  hideDialog() {
-    this.contactTypesDialog = false;
-  }
-
   openNew() {
-    this.contactType = {} as IContactTypes;
-    this.contactTypesDialog = true;
-    this.isEditing = false;
+    this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
+      header: "Create contact type",
+      width: "360px",
+      closable: false,
+      data: {
+        isEditing: false,
+        contactType: {},
+        backendErrors: this.backendErrorsResponse$,
+      },
+    });
+
+    this.dialogRef.onClose
+      .pipe(
+        tap((item) => {
+          if (item) {
+            const items = this.contactTypes$.getValue();
+            items.push(item);
+            this.contactTypes$.next(items);
+          }
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe();
   }
 
-  editContactType(ct: IContactTypes) {
-    this.contactType = { ...ct };
-    this.contactTypesDialog = true;
-    this.isEditing = true;
+  editContactType(contactType: IContactType) {
+    this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
+      header: "Edit the contact type",
+      width: "360px",
+      closable: false,
+      data: {
+        isEditing: true,
+        contactType,
+        backendErrors: this.backendErrorsResponse$,
+      },
+    });
+
+    this.dialogRef.onClose
+      .pipe(
+        tap((item) => {
+          if (item) {
+            const items = this.contactTypes$.getValue();
+            const index = items.findIndex(({ id }) => item.id === id);
+            items[index] = item;
+            this.contactTypes$.next(items);
+          }
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe();
   }
 
   confirmDeleting(id: number) {
@@ -155,14 +158,5 @@ export class ContactTypesComponent implements OnInit {
 
   refresh() {
     location.reload();
-  }
-
-  disableBtn() {
-    return (
-      !this.contactType?.name ||
-      !this.contactType?.title ||
-      !this.contactType?.title_ru ||
-      false
-    );
   }
 }

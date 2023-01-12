@@ -1,0 +1,110 @@
+<form
+  class="flex flex-column align-items-start justify-content-between"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  <label class="mb-2 mr-2">Name</label>
+  <div class="field">
+    <input
+      type="text"
+      class="p-inputtext-lg"
+      pInputText
+      formControlName="name"
+      autofocus
+    />
+  </div>
+  <small
+    class="text-red-500"
+    *ngIf="form.get('name')?.invalid && form.get('name')?.dirty"
+  >
+    Name is required. The name's length should be less than or equal to 20
+    characters
+  </small>
+  <small
+    class="text-red-500"
+    *ngIf="
+      !form.get('name')?.dirty && (backendErrorsResponse$ | async) as response
+    "
+  >
+    <ng-container
+      *ngFor="let error of response.error.description[0].constraints | keyvalue"
+    >
+      {{ error.value }}
+    </ng-container>
+  </small>
+  <label class="mb-2 mr-2">Title</label>
+  <div class="field">
+    <input
+      type="text"
+      class="p-inputtext-lg"
+      pInputText
+      formControlName="title"
+    />
+  </div>
+  <small
+    class="text-red-500"
+    *ngIf="form.get('title')?.invalid && form.get('title')?.dirty"
+  >
+    Title is required. The title's length should be less than or equal to 20
+    characters
+  </small>
+  <small
+    class="text-red-500"
+    *ngIf="
+      !form.get('title')?.dirty && (backendErrorsResponse$ | async) as response
+    "
+  >
+    <ng-container
+      *ngFor="let error of response.error.description[1].constraints | keyvalue"
+    >
+      {{ error.value }}
+    </ng-container>
+  </small>
+  <label class="mb-2 mr-2">Title RU</label>
+  <div class="field">
+    <input
+      type="text"
+      class="p-inputtext-lg"
+      pInputText
+      formControlName="title_ru"
+    />
+  </div>
+  <small
+    class="text-red-500"
+    *ngIf="form.get('title_ru')?.invalid && form.get('title_ru')?.dirty"
+  >
+    Title RU is required. The title ru's length should be less than or equal to
+    20 characters
+  </small>
+  <small
+    class="text-red-500"
+    *ngIf="
+      !form.get('title_ru')?.dirty &&
+      (backendErrorsResponse$ | async) as response
+    "
+  >
+    <ng-container
+      *ngFor="let error of response.error.description[2].constraints | keyvalue"
+    >
+      {{ error.value }}
+    </ng-container>
+  </small>
+  <div class="flex justify-content-around m-auto mt-5">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="closeDialog($event)"
+    ></button>
+    <button
+      type="submit"
+      pButton
+      pRipple
+      [label]="isEditing ? 'Edit' : 'Create'"
+      icon="pi pi-check"
+      class="p-button-text"
+    ></button>
+  </div>
+</form>
