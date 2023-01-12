@@ -70,10 +70,10 @@ CREATE TABLE IF NOT EXISTS contacts
     id              serial       NOT NULL,
     name            varchar(100) NOT NULL,
     title           varchar(255) NOT NULL,
-    title_ru        varchar(255) NOT NULL,
-    contact_type_id integer      NOT NULL,
+    titleRu        varchar(255) NOT NULL,
+    contactTypeId integer      NOT NULL,
     CONSTRAINT "PK_CONTACTS" PRIMARY KEY (id),
-    CONSTRAINT "FK_CONTACTS__CONTACT_TYPE_ID" FOREIGN KEY (contact_type_id) REFERENCES contact_types ON DELETE CASCADE
+    CONSTRAINT "FK_CONTACTS__CONTACT_TYPE_ID" FOREIGN KEY (contactTypeId) REFERENCES contact_types ON DELETE CASCADE
 );
 
 INSERT INTO contact_types (name, title, titleRu)
