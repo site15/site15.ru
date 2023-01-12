@@ -44,8 +44,8 @@ CREATE INDEX IF NOT EXISTS "IDX_PROJECT_TYPE_COUNTERS__NAME" ON project_type_cou
 
 CREATE TABLE IF NOT EXISTS project_counters
 (
-    id                      serial  NOT NULL,
-    projectId              integer NOT NULL,
+    id                   serial  NOT NULL,
+    projectId            integer NOT NULL,
     projectTypeCounterId integer NOT NULL,
     CONSTRAINT "PK_PROJECT_COUNTERS" PRIMARY KEY (id),
     CONSTRAINT "FK_PROJECT__ID" FOREIGN KEY (projectId) REFERENCES projects ON DELETE CASCADE,
@@ -56,9 +56,9 @@ CREATE UNIQUE INDEX IF NOT EXISTS "UQ_PROJECT_COUNTERS" ON project_counters (pro
 
 CREATE TABLE IF NOT EXISTS contact_types
 (
-    id       serial       NOT NULL,
-    name     varchar(100) NOT NULL,
-    title    varchar(255) NOT NULL,
+    id      serial       NOT NULL,
+    name    varchar(100) NOT NULL,
+    title   varchar(255) NOT NULL,
     titleRu varchar(255) NOT NULL,
     CONSTRAINT "PK_CONTACT_TYPES" PRIMARY KEY (id)
 );
