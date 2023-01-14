@@ -1,3 +1,3 @@
-import { contact_types } from "@prisma/client";
+import { ContactTypes } from "@prisma/client";
 
-export type IContactType = contact_types;
+export type IContactType = ContactTypes;
