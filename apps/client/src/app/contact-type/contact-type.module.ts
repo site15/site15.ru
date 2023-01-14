@@ -1,13 +1,20 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { TableModule } from "primeng/table";
-import { ToolbarModule } from "primeng/toolbar";
-import { ButtonModule } from "primeng/button";
-import { InputTextModule } from "primeng/inputtext";
-import { ConfirmDialogModule } from "primeng/confirmdialog";
-import { DynamicDialogModule } from "primeng/dynamicdialog";
+import {
+  TuiButtonModule,
+  TuiHostedDropdownModule,
+  TuiLoaderModule,
+  TuiTextfieldControllerModule,
+} from "@taiga-ui/core";
+import { TuiInputModule } from "@taiga-ui/kit";
+import { TuiLetModule } from "@taiga-ui/cdk";
+import {
+  TuiReorderModule,
+  TuiTableModule,
+  TuiTablePaginationModule,
+} from "@taiga-ui/addon-table";
 
 import { ContactTypeListComponent } from "./components/contact-type-list/contact-type-list.component";
 import { ContactTypeService } from "./contact-type.service";
@@ -19,15 +26,21 @@ import { ContactTypeDetailsComponent } from "./components/contact-type-details/c
   declarations: [ContactTypeListComponent, ContactTypeDetailsComponent],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
-    TableModule,
-    ToolbarModule,
-    DynamicDialogModule,
-    ButtonModule,
-    InputTextModule,
-    ConfirmDialogModule,
+
     ContactTypeRoutingModule,
     BackendErrorModule,
+
+    TuiTableModule,
+    TuiTextfieldControllerModule,
+    TuiLoaderModule,
+    TuiHostedDropdownModule,
+    TuiReorderModule,
+    TuiButtonModule,
+    TuiTablePaginationModule,
+    TuiLetModule,
+    TuiInputModule,
   ],
   providers: [ContactTypeService],
 })

@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 
-import { catchError, of, Subject, tap, throwError } from "rxjs";
+import { TuiDialogContext } from "@taiga-ui/core";
+import { POLYMORPHEUS_CONTEXT } from "@tinkoff/ng-polymorpheus";
 
-import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
+import { catchError, of, Subject, tap, throwError } from "rxjs";
 
 import { IContactType } from "../../../shared/models/contact-type.model";
 import { ContactTypeService } from "../../contact-type.service";
@@ -23,16 +29,17 @@ export class ContactTypeDetailsComponent implements OnInit {
   contactType!: IContactType;
   form!: FormGroup;
 
-  /**
-   * UI prop
-   */
-  isEditing!: boolean;
-
   constructor(
+    @Inject(POLYMORPHEUS_CONTEXT)
+    private readonly context: TuiDialogContext<
+      IContactType | null,
+      {
+        contactType: IContactType;
+        backendErrors: Subject<IBackendErrorResponse>;
+      }
+    >,
     private fb: FormBuilder,
-    private contactTypeService: ContactTypeService,
-    private dynamicDialogRef: DynamicDialogRef,
-    private dynamicDialogConfig: DynamicDialogConfig
+    private contactTypeService: ContactTypeService
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +48,7 @@ export class ContactTypeDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isEditing
+    this.context.label === "Edit"
       ? this.saveContactType({
           id: this.contactType.id,
           ...this.form.value,
@@ -54,7 +61,7 @@ export class ContactTypeDetailsComponent implements OnInit {
       .createContactType(ct)
       .pipe(
         tap((item) => {
-          this.dynamicDialogRef.close(item);
+          this.context.completeWith(item);
         }),
         catchError((err) => {
           return this.handleError(err);
@@ -69,7 +76,7 @@ export class ContactTypeDetailsComponent implements OnInit {
       .updateContactType(ct)
       .pipe(
         tap((item) => {
-          this.dynamicDialogRef.close(item);
+          this.context.completeWith(item);
         }),
         catchError((err) => {
           return this.handleError(err);
@@ -109,19 +116,16 @@ export class ContactTypeDetailsComponent implements OnInit {
   }
 
   private initializeValues() {
-    const { contactType, isEditing, backendErrors } =
-      this.dynamicDialogConfig.data;
-
+    const { contactType, backendErrors } = this.context.data;
     this.contactType = contactType;
-    this.isEditing = isEditing;
     this.backendErrorsResponse$ = backendErrors;
   }
 
   /**
    * UI methods
    */
-  closeDialog(event: Event) {
-    event.preventDefault();
-    this.dynamicDialogRef.close();
+
+  closeDialog() {
+    this.context.completeWith(null);
   }
 }

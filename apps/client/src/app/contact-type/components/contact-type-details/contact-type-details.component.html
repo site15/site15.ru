@@ -1,110 +1,97 @@
-<form
-  class="flex flex-column align-items-start justify-content-between"
-  [formGroup]="form"
-  (ngSubmit)="onSubmit()"
->
-  <label class="mb-2 mr-2">Name</label>
-  <div class="field">
-    <input
-      type="text"
-      class="p-inputtext-lg"
-      pInputText
-      formControlName="name"
-      autofocus
-    />
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="tui-form__row">
+    <tui-input formControlName="name">Name </tui-input>
+
+    <div class="error-fields">
+      <small
+        *ngIf="
+          form.get('name')?.getError('required') && form.get('name')?.touched
+        "
+        >Name is required</small
+      >
+      <small *ngIf="form.get('name')?.getError('maxlength')"
+        >Length should not be more than
+        {{ form.get("name")?.getError("maxlength")["requiredLength"] }}. Current
+        length:
+        {{ form.get("name")?.getError("maxlength")["actualLength"] }}
+      </small>
+      <ng-container
+        *ngIf="
+          form.get('name')?.invalid &&
+          (backendErrorsResponse$ | async) as errors
+        "
+      >
+        <small> {{ errors | getErrorByParam : "name" }} </small>
+      </ng-container>
+    </div>
   </div>
-  <small
-    class="text-red-500"
-    *ngIf="form.get('name')?.invalid && form.get('name')?.dirty"
-  >
-    Name is required. The name's length should be less than or equal to 20
-    characters
-  </small>
-  <small
-    class="text-red-500"
-    *ngIf="
-      !form.get('name')?.dirty && (backendErrorsResponse$ | async) as response
-    "
-  >
-    <ng-container
-      *ngFor="let error of response.error.description[0].constraints | keyvalue"
-    >
-      {{ error.value }}
-    </ng-container>
-  </small>
-  <label class="mb-2 mr-2">Title</label>
-  <div class="field">
-    <input
-      type="text"
-      class="p-inputtext-lg"
-      pInputText
-      formControlName="title"
-    />
+  <div class="tui-form__row">
+    <tui-input formControlName="title">Title</tui-input>
+    <div class="error-fields">
+      <small
+        *ngIf="
+          form.get('title')?.getError('required') && form.get('title')?.touched
+        "
+        >Title is required</small
+      >
+      <small *ngIf="form.get('title')?.getError('maxlength')"
+        >Length should not be more than
+        {{ form.get("title")?.getError("maxlength")["requiredLength"] }}.
+        Current length:
+        {{ form.get("title")?.getError("maxlength")["actualLength"] }}
+      </small>
+
+      <ng-container
+        *ngIf="
+          form.get('title')?.invalid &&
+          (backendErrorsResponse$ | async) as errors
+        "
+      >
+        <small> {{ errors | getErrorByParam : "title" }} </small>
+      </ng-container>
+    </div>
   </div>
-  <small
-    class="text-red-500"
-    *ngIf="form.get('title')?.invalid && form.get('title')?.dirty"
-  >
-    Title is required. The title's length should be less than or equal to 20
-    characters
-  </small>
-  <small
-    class="text-red-500"
-    *ngIf="
-      !form.get('title')?.dirty && (backendErrorsResponse$ | async) as response
-    "
-  >
-    <ng-container
-      *ngFor="let error of response.error.description[1].constraints | keyvalue"
-    >
-      {{ error.value }}
-    </ng-container>
-  </small>
-  <label class="mb-2 mr-2">Title RU</label>
-  <div class="field">
-    <input
-      type="text"
-      class="p-inputtext-lg"
-      pInputText
-      formControlName="title_ru"
-    />
+
+  <div class="tui-form__row">
+    <tui-input formControlName="title_ru">TitleRU </tui-input>
+    <div class="error-fields">
+      <small
+        *ngIf="
+          form.get('title_ru')?.getError('required') &&
+          form.get('title_ru')?.touched
+        "
+        >TitleRU is required</small
+      >
+      <small *ngIf="form.get('title_ru')?.getError('maxlength')"
+        >Length should not be more than
+        {{ form.get("title_ru")?.getError("maxlength")["requiredLength"] }}.
+        Current length:
+        {{ form.get("title_ru")?.getError("maxlength")["actualLength"] }}
+      </small>
+
+      <ng-container
+        *ngIf="
+          form.get('title_ru')?.invalid &&
+          (backendErrorsResponse$ | async) as errors
+        "
+      >
+        <small> {{ errors | getErrorByParam : "title_ru" }} </small>
+      </ng-container>
+    </div>
   </div>
-  <small
-    class="text-red-500"
-    *ngIf="form.get('title_ru')?.invalid && form.get('title_ru')?.dirty"
-  >
-    Title RU is required. The title ru's length should be less than or equal to
-    20 characters
-  </small>
-  <small
-    class="text-red-500"
-    *ngIf="
-      !form.get('title_ru')?.dirty &&
-      (backendErrorsResponse$ | async) as response
-    "
-  >
-    <ng-container
-      *ngFor="let error of response.error.description[2].constraints | keyvalue"
-    >
-      {{ error.value }}
-    </ng-container>
-  </small>
-  <div class="flex justify-content-around m-auto mt-5">
+  <div class="tui-form__buttons">
+    <button tuiButton size="m" type="submit" class="tui-form__button">
+      Submit
+    </button>
     <button
-      pButton
-      pRipple
-      label="Cancel"
-      icon="pi pi-times"
-      class="p-button-text"
-      (click)="closeDialog($event)"
-    ></button>
-    <button
-      type="submit"
-      pButton
-      pRipple
-      [label]="isEditing ? 'Edit' : 'Create'"
-      icon="pi pi-check"
-      class="p-button-text"
-    ></button>
+      tuiButton
+      type="button"
+      appearance="flat"
+      size="m"
+      class="tui-form__button"
+      (click)="closeDialog()"
+    >
+      Cancel
+    </button>
   </div>
 </form>
