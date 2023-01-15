@@ -45,16 +45,12 @@
         tuiTable
         class="table"
         [columns]="columns"
-        [direction]="(direction$ | async) || 1"
-        [tuiSortBy]="sorter$ | async"
-        (tuiSortByChange)="sorter$.next($any($event!))"
-        (directionChange)="direction$.next($event)"
       >
         <thead>
           <tr tuiThGroup>
-            <th *tuiHead="'name'" tuiTh>Name</th>
-            <th *tuiHead="'title'" tuiTh>Title</th>
-            <th *tuiHead="'titleRu'" tuiTh>TitleRU</th>
+            <th *tuiHead="'name'" tuiTh [sorter]="null">Name</th>
+            <th *tuiHead="'title'" tuiTh [sorter]="null">Title</th>
+            <th *tuiHead="'titleRu'" tuiTh [sorter]="null">TitleRU</th>
             <th *tuiHead="'actions'" tuiTh [sorter]="null">Actions</th>
           </tr>
         </thead>
@@ -109,21 +105,11 @@
             </td>
           </tr>
         </tbody>
-        <tfoot>
-          <tr>
-            <td [colSpan]="columns.length">
-              <tui-table-pagination
-                class="tui-space_top-2"
-                [total]="(total$ | async) || 0"
-                (pageChange)="onPage($event)"
-                (sizeChange)="onSize($event)"
-              ></tui-table-pagination>
-            </td>
-          </tr>
-        </tfoot>
       </table>
     </tui-loader>
   </div>
 </main>
 
-<ng-template #confirm> Delete record? </ng-template>
+<ng-template #confirm>
+  <p class="tui-text_body-xl">Delete record?</p>
+</ng-template>

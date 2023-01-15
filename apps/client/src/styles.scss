@@ -2,38 +2,9 @@
 
 :root {
   --container-width: 1220px;
-  --background-color: #4280f5;
 }
 
 .container {
   max-width: var(--container-width);
   margin: 0 auto;
-}
-
-.table {
-  width: 100%;
-}
-
-.filters {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.input {
-  flex: 1;
-}
-
-.columns {
-  width: 10.625rem;
-}
-
-.match {
-  background-color: #4280f5;
-}
-
-.error-fields {
-  display: flex;
-  flex-direction: column;
-  color: #ff0000;
 }

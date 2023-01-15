@@ -4,8 +4,7 @@ import { CommonModule } from "@angular/common";
 import { TuiButtonModule } from "@taiga-ui/core";
 
 import { PolymorpheusModule } from "@tinkoff/ng-polymorpheus";
-
-import { PromptComponent } from "./components/prompt.component";
+import { PromptComponent } from "./components/prompt/prompt.component";
 
 @NgModule({
   declarations: [PromptComponent],

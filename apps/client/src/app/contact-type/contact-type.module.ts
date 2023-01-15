@@ -21,6 +21,7 @@ import { ContactTypeService } from "./contact-type.service";
 import { ContactTypeRoutingModule } from "./contact-type-routing.module";
 import { BackendErrorModule } from "../shared/modules/backend-error/backend-error.module";
 import { ContactTypeDetailsComponent } from "./components/contact-type-details/contact-type-details.component";
+import { PromptModule } from "../shared/modules/prompt/prompt.module";
 
 @NgModule({
   declarations: [ContactTypeListComponent, ContactTypeDetailsComponent],
@@ -29,6 +30,7 @@ import { ContactTypeDetailsComponent } from "./components/contact-type-details/c
     FormsModule,
     ReactiveFormsModule,
 
+    PromptModule,
     ContactTypeRoutingModule,
     BackendErrorModule,
 

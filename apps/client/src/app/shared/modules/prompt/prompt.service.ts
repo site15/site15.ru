@@ -2,7 +2,7 @@ import { Injectable, Provider } from "@angular/core";
 import { AbstractTuiDialogService, TUI_DIALOGS } from "@taiga-ui/cdk";
 import { PolymorpheusComponent } from "@tinkoff/ng-polymorpheus";
 
-import { PromptComponent } from "./components/prompt.component";
+import { PromptComponent } from "./components/prompt/prompt.component";
 import { IPromptOptions } from "./interface/prompt-options.interface";
 
 @Injectable({
