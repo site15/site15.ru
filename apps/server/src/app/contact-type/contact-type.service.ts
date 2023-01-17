@@ -31,8 +31,33 @@ export class ContactTypeService {
     }
   }
 
-  async findAll(): Promise<IContactType[]> {
-    return await this.prismaClient.contact_types.findMany();
+  async findAll(query?: string): Promise<IContactType[]> {
+    const contactTypes = await this.prismaClient.contact_types.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              contains: query,
+            },
+          },
+          {
+            title: {
+              contains: query,
+            },
+            title_ru: {
+              contains: query,
+            },
+          },
+        ],
+      },
+    });
+    if (contactTypes.length === 0) {
+      throw new NotFoundException({
+        message: "NOT_FOUND",
+        description: "Contact types are not found",
+      });
+    }
+    return contactTypes;
   }
 
   async findOne(id: number): Promise<IContactType> {

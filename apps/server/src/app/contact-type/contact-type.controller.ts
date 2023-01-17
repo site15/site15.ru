@@ -7,6 +7,7 @@ import {
   Delete,
   ParseIntPipe,
   Put,
+  Query,
 } from "@nestjs/common";
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
 
@@ -14,6 +15,7 @@ import { ContactTypeService } from "./contact-type.service";
 import { ContactTypeDto } from "./dto/contact-type.dto";
 import { IContactType } from "./interfaces/contact-type.interface";
 import { IStatus } from "./interfaces/status.interface";
+import { SearchContactTypeQueryDto } from "./dto/search-contact-type-query.dto";
 
 @ApiTags("contact-types")
 @Controller("contact-types")
@@ -29,8 +31,10 @@ export class ContactTypeController {
 
   @ApiResponse({ status: 200 })
   @Get()
-  async findAll(): Promise<IContactType[]> {
-    return await this.contactTypeService.findAll();
+  async findAll(
+    @Query() { q }: SearchContactTypeQueryDto
+  ): Promise<IContactType[]> {
+    return await this.contactTypeService.findAll(q);
   }
 
   @ApiResponse({ status: 200 })
