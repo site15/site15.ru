@@ -7,7 +7,8 @@ mkdir -p ../devops/docker/prod/Dockerfile/files/server
 cp -Rf ../apps/server/package.json ../devops/docker/prod/Dockerfile/files
 # cp -Rf ../package-lock.json ../devops/docker/prod/Dockerfile/files
 
-export SERVER_BASE_IMAGE=${CI_PROJECT_NAME}-server-base-image:$(checksum -- ../package.json | grep -o "^\w*\b")
+export SERVER_BASE_IMAGE=${CI_PROJECT_NAME}-server-base-image:${CI_COMMIT_SHORT_SHA}
+# $(checksum -- ../package.json | grep -o "^\w*\b")
 
 if [ -z "${CI_COMMIT_SHORT_SHA}" ]; then
     echo "No deploy to github [INFO-1]"
