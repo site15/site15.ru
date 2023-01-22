@@ -99,7 +99,7 @@ export SERVER_POSTGRES_URL=postgres://${PSQL_USERNAME}:${PSQL_PASSWORD}@${PSQL_H
 
 export NAMESPACE=${CI_PROJECT_CODE}-$BRANCH_NAME
 
-export SERVER_BASE_IMAGE=${CI_PROJECT_NAME}-server-base-image:${CI_COMMIT_SHORT_SHA}
+export SERVER_BASE_IMAGE=${CI_PROJECT_NAME}-server-base-image:${TAG_VERSION}
 # $(checksum -- ../package.json | grep -o "^\w*\b")
 export SERVER_IMAGE=${CI_PROJECT_NAME}-server-image:${TAG_VERSION}
 export CLIENT_IMAGE=${CI_PROJECT_NAME}-client-image:${TAG_VERSION}
