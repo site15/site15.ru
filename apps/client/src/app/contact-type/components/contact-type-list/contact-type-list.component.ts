@@ -170,8 +170,8 @@ export class ContactTypeListComponent implements OnInit {
             const index = items.findIndex(({ id }) => item.id === id);
             items[index] = item;
             this.contactTypes$.next([...items]);
-            this.loading$.next(false);
           }
+          this.loading$.next(false);
         }),
         catchError((err) => {
           return this.handleError(err);

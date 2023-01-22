@@ -6,6 +6,8 @@ import {
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
+import { DynamicFormBuilder, DynamicFormGroup } from "ngx-dynamic-form-builder";
+
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
 
 import { TuiDialogContext } from "@taiga-ui/core";
@@ -13,7 +15,10 @@ import { POLYMORPHEUS_CONTEXT } from "@tinkoff/ng-polymorpheus";
 
 import { catchError, of, Subject, tap, throwError } from "rxjs";
 
-import { IContactType } from "../../../shared/models/contact-type.model";
+import {
+  ContactType,
+  IContactType,
+} from "../../../shared/models/contact-type.model";
 import { ContactTypeService } from "../../contact-type.service";
 import { IBackendErrorResponse } from "../../../shared/modules/backend-error/interfaces/backend-error.interface";
 
@@ -21,13 +26,24 @@ import { IBackendErrorResponse } from "../../../shared/modules/backend-error/int
 @Component({
   selector: "site15-contact-type-details",
   templateUrl: "./contact-type-details.component.html",
+  styles: [
+    `
+      .error-fields {
+        display: flex;
+        flex-direction: column;
+        color: #ff0000;
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactTypeDetailsComponent implements OnInit {
   backendErrorsResponse$!: Subject<IBackendErrorResponse>;
 
   contactType!: IContactType;
-  form!: FormGroup;
+  form!: DynamicFormGroup<IContactType>;
+
+  private fb = new DynamicFormBuilder();
 
   constructor(
     @Inject(POLYMORPHEUS_CONTEXT)
@@ -38,7 +54,7 @@ export class ContactTypeDetailsComponent implements OnInit {
         backendErrors: Subject<IBackendErrorResponse>;
       }
     >,
-    private fb: FormBuilder,
+
     private contactTypeService: ContactTypeService
   ) {}
 
@@ -99,19 +115,10 @@ export class ContactTypeDetailsComponent implements OnInit {
   }
 
   private initializeForm() {
-    this.form = this.fb.group({
-      name: [
-        this.contactType?.name || "",
-        [Validators.required, Validators.maxLength(20)],
-      ],
-      title: [
-        this.contactType?.title || "",
-        [Validators.required, Validators.maxLength(20)],
-      ],
-      title_ru: [
-        this.contactType?.title_ru || "",
-        [Validators.required, Validators.maxLength(20)],
-      ],
+    this.form = this.fb.rootFormGroup(ContactType, {
+      name: this.contactType?.name || "",
+      title: this.contactType?.title || "",
+      title_ru: this.contactType?.title_ru || "",
     });
   }
 

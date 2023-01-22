@@ -1,20 +1,17 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="form"
+  *ngIf="form.customValidateErrors | async as errors"
+  (ngSubmit)="onSubmit()"
+  novalidate
+>
   <div class="tui-form__row">
     <tui-input formControlName="name">Name </tui-input>
 
     <div class="error-fields">
-      <small
-        *ngIf="
-          form.get('name')?.getError('required') && form.get('name')?.touched
-        "
-        >Name is required</small
-      >
-      <small *ngIf="form.get('name')?.getError('maxlength')"
-        >Length should not be more than
-        {{ form.get("name")?.getError("maxlength")["requiredLength"] }}. Current
-        length:
-        {{ form.get("name")?.getError("maxlength")["actualLength"] }}
-      </small>
+      <ng-container *ngIf="form.get('name')?.touched">
+        <small *ngFor="let error of errors['name']">{{ error }}</small>
+      </ng-container>
+
       <ng-container
         *ngIf="
           form.get('name')?.invalid &&
@@ -28,18 +25,9 @@
   <div class="tui-form__row">
     <tui-input formControlName="title">Title</tui-input>
     <div class="error-fields">
-      <small
-        *ngIf="
-          form.get('title')?.getError('required') && form.get('title')?.touched
-        "
-        >Title is required</small
-      >
-      <small *ngIf="form.get('title')?.getError('maxlength')"
-        >Length should not be more than
-        {{ form.get("title")?.getError("maxlength")["requiredLength"] }}.
-        Current length:
-        {{ form.get("title")?.getError("maxlength")["actualLength"] }}
-      </small>
+      <ng-container *ngIf="form.get('title')?.touched">
+        <small *ngFor="let error of errors['title']">{{ error }}</small>
+      </ng-container>
 
       <ng-container
         *ngIf="
@@ -55,19 +43,9 @@
   <div class="tui-form__row">
     <tui-input formControlName="title_ru">TitleRU </tui-input>
     <div class="error-fields">
-      <small
-        *ngIf="
-          form.get('title_ru')?.getError('required') &&
-          form.get('title_ru')?.touched
-        "
-        >TitleRU is required</small
-      >
-      <small *ngIf="form.get('title_ru')?.getError('maxlength')"
-        >Length should not be more than
-        {{ form.get("title_ru")?.getError("maxlength")["requiredLength"] }}.
-        Current length:
-        {{ form.get("title_ru")?.getError("maxlength")["actualLength"] }}
-      </small>
+      <ng-container *ngIf="form.get('title_ru')?.touched">
+        <small *ngFor="let error of errors['title_ru']">{{ error }}</small>
+      </ng-container>
 
       <ng-container
         *ngIf="
