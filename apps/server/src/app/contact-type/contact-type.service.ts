@@ -32,7 +32,7 @@ export class ContactTypeService {
   }
 
   async findAll(query?: string): Promise<IContactType[]> {
-    const contactTypes = await this.prismaClient.contact_types.findMany({
+    return await this.prismaClient.contact_types.findMany({
       where: {
         OR: [
           {
@@ -51,13 +51,6 @@ export class ContactTypeService {
         ],
       },
     });
-    if (contactTypes.length === 0) {
-      throw new NotFoundException({
-        message: "NOT_FOUND",
-        description: "Contact types are not found",
-      });
-    }
-    return contactTypes;
   }
 
   async findOne(id: number): Promise<IContactType> {
