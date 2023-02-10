@@ -27,15 +27,14 @@ export class ContactTypeService {
 
   deleteContactType(id: number) {
     const url = `${environment.api}/contact-types/${id}`;
-    console.log("delete metho");
 
     return this.http.delete(url);
   }
 
-  updateContactType(data: IContactType) {
+  updateContactType(data: IContactType): Observable<IContactType> {
     const { id } = data;
     const url = `${environment.api}/contact-types/${id}`;
 
-    return this.http.put(url, data);
+    return this.http.put<IContactType>(url, data);
   }
 }

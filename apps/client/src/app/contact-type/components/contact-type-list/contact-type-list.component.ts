@@ -1,42 +1,78 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  Injector,
+  OnInit,
+} from "@angular/core";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+import { TUI_DEFAULT_MATCHER } from "@taiga-ui/cdk";
+import {
+  TuiAlertService,
+  TuiDialogService,
+  TuiNotification,
+} from "@taiga-ui/core";
+import { TUI_ARROW } from "@taiga-ui/kit";
 
-import { ConfirmationService } from "primeng/api";
-import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import {
+  PolymorpheusComponent,
+  PolymorpheusContent,
+} from "@tinkoff/ng-polymorpheus";
 
 import {
   BehaviorSubject,
   catchError,
+  mergeMap,
+  Observable,
   of,
   Subject,
+  switchMap,
   tap,
   throwError,
 } from "rxjs";
 
 import { IContactType } from "../../../shared/models/contact-type.model";
 import { IBackendErrorResponse } from "../../../shared/modules/backend-error/interfaces/backend-error.interface";
+import { PromptService } from "../../../shared/modules/prompt/prompt.service";
 import { ContactTypeService } from "../../contact-type.service";
 import { ContactTypeDetailsComponent } from "../contact-type-details/contact-type-details.component";
 
+const KEYS = {
+  Name: "name",
+  Title: "title",
+  TitleRU: "titleRu",
+  Actions: "actions",
+};
+
 @UntilDestroy()
 @Component({
-  selector: "site15-contact-types",
+  selector: "site15-contact-type-list",
   templateUrl: "./contact-type-list.component.html",
-  providers: [ConfirmationService, DialogService],
+  styleUrls: ["./contact-type-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContactTypeListComponent implements OnInit {
   contactTypes$ = new BehaviorSubject<IContactType[]>([]);
+  contactTypesDialog!: boolean;
 
   backendErrorsResponse$ = new Subject<IBackendErrorResponse>();
 
   /* UI property */
-  dialogRef!: DynamicDialogRef;
+  initial: readonly string[] = ["Name", "Title", "TitleRU", "Actions"];
+  enabled = this.initial;
+  columns = ["name", "title", "titleRu", "actions"];
+  search = "";
+  arrow = TUI_ARROW;
+  loading$ = new BehaviorSubject<boolean>(true);
+
+  private dialog$!: Observable<IContactType>;
 
   constructor(
-    private confirmationService: ConfirmationService,
-    private dialogService: DialogService,
+    @Inject(TuiAlertService)
+    private alertService: TuiAlertService,
+    @Inject(PromptService) private promptService: PromptService,
+    @Inject(TuiDialogService) private dialogService: TuiDialogService,
+    @Inject(Injector) private injector: Injector,
     private contactTypeService: ContactTypeService
   ) {}
 
@@ -48,8 +84,61 @@ export class ContactTypeListComponent implements OnInit {
     this.contactTypeService
       .getAllContactTypes()
       .pipe(
+        tap(() => this.loading$.next(true)),
         tap((items) => {
           this.contactTypes$.next(items);
+          this.loading$.next(false);
+        }),
+        catchError((err) => {
+          return this.handleError(err);
+        }),
+
+        untilDestroyed(this)
+      )
+      .subscribe();
+  }
+
+  deleteContactType(id: number) {
+    return this.contactTypeService.deleteContactType(id).pipe(
+      tap(() => this.loading$.next(true)),
+      tap(() => {
+        const items = this.contactTypes$
+          .getValue()
+          .filter((item) => item.id !== id);
+        this.contactTypes$.next(items);
+        this.loading$.next(false);
+      }),
+      catchError((err) => {
+        return this.handleError(err);
+      }),
+      untilDestroyed(this)
+    );
+  }
+
+  createContactType() {
+    this.dialog$ = this.dialogService.open(
+      new PolymorpheusComponent(ContactTypeDetailsComponent, this.injector),
+      {
+        label: "Create",
+        dismissible: true,
+        data: {
+          backendErrors: this.backendErrorsResponse$,
+        },
+      }
+    );
+
+    this.dialog$
+      .pipe(
+        tap((item) => (item ? this.loading$.next(true) : item)),
+
+        tap((item) => {
+          if (item) {
+            const items = this.contactTypes$.getValue();
+            items.push(item);
+            this.contactTypes$.next([...items]);
+
+            this.loading$.next(false);
+          }
         }),
         catchError((err) => {
           return this.handleError(err);
@@ -59,15 +148,30 @@ export class ContactTypeListComponent implements OnInit {
       .subscribe();
   }
 
-  deleteContactType(id: number) {
-    this.contactTypeService
-      .deleteContactType(id)
+  editContactType(ct: IContactType) {
+    this.dialog$ = this.dialogService.open(
+      new PolymorpheusComponent(ContactTypeDetailsComponent, this.injector),
+      {
+        label: "Edit",
+        dismissible: true,
+        data: {
+          contactType: ct,
+          backendErrors: this.backendErrorsResponse$,
+        },
+      }
+    );
+
+    this.dialog$
       .pipe(
-        tap(() => {
-          const items = this.contactTypes$
-            .getValue()
-            .filter((item) => item.id !== id);
-          this.contactTypes$.next(items);
+        tap(() => this.loading$.next(true)),
+        tap((item) => {
+          if (item) {
+            const items = this.contactTypes$.getValue();
+            const index = items.findIndex(({ id }) => item.id === id);
+            items[index] = item;
+            this.contactTypes$.next([...items]);
+          }
+          this.loading$.next(false);
         }),
         catchError((err) => {
           return this.handleError(err);
@@ -79,7 +183,7 @@ export class ContactTypeListComponent implements OnInit {
 
   private handleError(err: IBackendErrorResponse) {
     const { error, status } = err;
-
+    this.loading$.next(false);
     this.backendErrorsResponse$.next(err);
 
     if (status === 400) {
@@ -88,72 +192,44 @@ export class ContactTypeListComponent implements OnInit {
 
     return throwError(() => new Error(JSON.stringify(error)));
   }
+
   /**
    * UI methods
    */
 
-  openNew() {
-    this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
-      header: "Create contact type",
-      width: "360px",
-      closable: false,
-      data: {
-        isEditing: false,
-        contactType: {},
-        backendErrors: this.backendErrorsResponse$,
-      },
-    });
-
-    this.dialogRef.onClose
+  confirmDeleting(id: number, template: PolymorpheusContent): void {
+    this.promptService
+      .open(template, {
+        heading: "Are you sure that you want to proceed?",
+        buttons: ["Confirm", "Cancel"],
+      })
       .pipe(
-        tap((item) => {
-          if (item) {
-            const items = this.contactTypes$.getValue();
-            items.push(item);
-            this.contactTypes$.next(items);
+        switchMap((response) => {
+          if (response) {
+            return this.deleteContactType(id).pipe(
+              mergeMap(() =>
+                this.alertService.open("Record deleted", {
+                  status: TuiNotification.Success,
+                })
+              )
+            );
           }
-        }),
-        untilDestroyed(this)
+
+          return of(response);
+        })
       )
       .subscribe();
   }
 
-  editContactType(contactType: IContactType) {
-    this.dialogRef = this.dialogService.open(ContactTypeDetailsComponent, {
-      header: "Edit the contact type",
-      width: "360px",
-      closable: false,
-      data: {
-        isEditing: true,
-        contactType,
-        backendErrors: this.backendErrorsResponse$,
-      },
-    });
-
-    this.dialogRef.onClose
-      .pipe(
-        tap((item) => {
-          if (item) {
-            const items = this.contactTypes$.getValue();
-            const index = items.findIndex(({ id }) => item.id === id);
-            items[index] = item;
-            this.contactTypes$.next(items);
-          }
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe();
+  onEnabled(enabled: readonly string[]): void {
+    this.enabled = enabled;
+    this.columns = this.initial
+      .filter((column) => enabled.includes(column))
+      .map((column) => KEYS[column]);
   }
 
-  confirmDeleting(id: number) {
-    this.confirmationService.confirm({
-      message: "Are you sure that you want to proceed?",
-      header: "WARNING",
-      icon: "pi pi-exclamation-triangle",
-      accept: () => {
-        this.deleteContactType(id);
-      },
-    });
+  isMatch(value: string): boolean {
+    return !!this.search && TUI_DEFAULT_MATCHER(value, this.search);
   }
 
   refresh() {

@@ -5,70 +5,111 @@
       [backendErrors]="backendErrors"
     ></site15-backend-error>
 
-    <p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>
+    <p tuiTextfieldSize="m" class="filters">
+      <button tuiButton size="m" icon="tuiIconRefresh" (click)="refresh()">
+        Refresh
+      </button>
 
-    <ng-container *ngIf="contactTypes$ | async as contactTypes">
-      <p-toolbar styleClass="mb-4">
-        <ng-template pTemplate="left">
-          <button
-            pButton
-            pRipple
-            label="New"
-            icon="pi pi-plus"
-            class="p-button-success mr-2"
-            (click)="openNew()"
-          ></button>
-        </ng-template>
-        <ng-template pTemplate="right">
-          <button
-            pButton
-            pRipple
-            label="Refresh"
-            icon="pi pi-refresh"
-            class="p-button-info mr-2"
-            (click)="refresh()"
-          ></button>
-        </ng-template>
-      </p-toolbar>
-      <p-table
-        [value]="contactTypes"
-        responsiveLayout="scroll"
-        [rows]="10"
-        [paginator]="true"
-        [rowHover]="true"
+      <tui-input
+        class="input"
+        [tuiTextfieldCleaner]="true"
+        tuiTextfieldCustomContent="tuiIconSearchLarge"
+        [(ngModel)]="search"
       >
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Name</th>
-            <th>Title</th>
-            <th>Title RU</th>
-            <th></th>
-          </tr>
+        Find on page
+      </tui-input>
+
+      <tui-hosted-dropdown [content]="dropdown">
+        <button tuiButton size="m" [iconRight]="arrow">Columns</button>
+        <ng-template #dropdown>
+          <tui-reorder
+            class="columns"
+            [enabled]="enabled"
+            [(items)]="initial"
+            (enabledChange)="onEnabled($event)"
+          ></tui-reorder>
         </ng-template>
-        <ng-template pTemplate="body" let-contactType>
-          <tr>
-            <td>{{ contactType.name }}</td>
-            <td>{{ contactType.title }}</td>
-            <td>{{ contactType.title_ru }}</td>
-            <td>
-              <button
-                pButton
-                pRipple
-                icon="pi pi-pencil"
-                class="p-button-rounded p-button-success mr-2"
-                (click)="editContactType(contactType)"
-              ></button>
-              <button
-                pButton
-                pRipple
-                icon="pi pi-trash"
-                class="p-button-rounded p-button-warning ml-2"
-                (click)="confirmDeleting(contactType.id)"
-              ></button>
+      </tui-hosted-dropdown>
+      <button
+        tuiButton
+        size="m"
+        iconRight="tuiIconPlusCircleLarge"
+        (click)="createContactType()"
+      >
+        New
+      </button>
+    </p>
+    <tui-loader [overlay]="true" [showLoader]="!!(loading$ | async)">
+      <table
+        *ngIf="contactTypes$ | async as contactTypes"
+        tuiTable
+        class="table"
+        [columns]="columns"
+      >
+        <thead>
+          <tr tuiThGroup>
+            <th *tuiHead="'name'" tuiTh [sorter]="null">Name</th>
+            <th *tuiHead="'title'" tuiTh [sorter]="null">Title</th>
+            <th *tuiHead="'titleRu'" tuiTh [sorter]="null">TitleRU</th>
+            <th *tuiHead="'actions'" tuiTh [sorter]="null">Actions</th>
+          </tr>
+        </thead>
+        <tbody
+          *tuiLet="contactTypes | tuiTableSort as sortedData"
+          tuiTbody
+          [data]="sortedData"
+        >
+          <tr *ngFor="let item of sortedData" tuiTr>
+            <td *tuiCell="'name'" tuiTd [class.match]="isMatch(item.name)">
+              {{ item.name }}
+            </td>
+            <td *tuiCell="'title'" tuiTd [class.match]="isMatch(item.title)">
+              {{ item.title }}
+            </td>
+            <td
+              *tuiCell="'titleRu'"
+              tuiTd
+              [class.match]="isMatch(item.title_ru)"
+            >
+              {{ item.title_ru }}
+            </td>
+            <td *tuiCell="'actions'" tuiTd>
+              <div
+                [ngStyle]="{
+                  display: 'flex',
+                  'justify-content': 'space-between',
+                  margin: '0 auto',
+                  width: '70%'
+                }"
+              >
+                <button
+                  tuiIconButton
+                  appearance="flat"
+                  size="s"
+                  icon="tuiIconTrashLarge"
+                  title="Remove"
+                  shape="rounded"
+                  (click)="confirmDeleting(item.id, confirm)"
+                ></button>
+
+                <button
+                  tuiIconButton
+                  appearance="flat"
+                  size="s"
+                  icon="tuiIconEditLarge"
+                  title="edit"
+                  shape="rounded"
+                  (click)="editContactType(item)"
+                ></button>
+              </div>
             </td>
           </tr>
-        </ng-template>
-      </p-table>
-    </ng-container>
+        </tbody>
+      </table>
+    </tui-loader>
   </div>
 </main>
+
+<ng-template #confirm>
+  <p class="tui-text_body-xl">Delete record?</p>
+</ng-template>

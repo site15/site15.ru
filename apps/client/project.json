@@ -6,9 +6,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/client",
         "index": "apps/client/src/index.html",
@@ -18,13 +16,18 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/client/src/favicon.ico",
-          "apps/client/src/assets"
+          "apps/client/src/assets",
+          {
+            "glob": "**/*",
+            "input": "node_modules/@taiga-ui/icons/src",
+            "output": "assets/taiga-ui/icons"
+          }
         ],
         "styles": [
-          "node_modules/primeicons/primeicons.css",
-          "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-          "node_modules/primeng/resources/primeng.min.css",
-          "node_modules/primeflex/primeflex.css",
+          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
+          "node_modules/@taiga-ui/styles/taiga-ui-global.less",
+
           "apps/client/src/styles.scss"
         ],
         "scripts": []
@@ -119,17 +122,12 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/client/**/*.ts",
-          "apps/client/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/client/**/*.ts", "apps/client/**/*.html"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/apps/client"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/client"],
       "options": {
         "jestConfig": "apps/client/jest.config.ts",
         "passWithNoTests": true
