@@ -1,0 +1,21 @@
+.table {
+  width: 100%;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.input {
+  flex: 1;
+}
+
+.columns {
+  width: 10.625rem;
+}
+
+.match {
+  background: var(--tui-selection);
+}

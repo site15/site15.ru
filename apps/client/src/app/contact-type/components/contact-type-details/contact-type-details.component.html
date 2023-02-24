@@ -1,0 +1,75 @@
+<form
+  [formGroup]="form"
+  *ngIf="form.customValidateErrors | async as errors"
+  (ngSubmit)="onSubmit()"
+  novalidate
+>
+  <div class="tui-form__row">
+    <tui-input formControlName="name">Name </tui-input>
+
+    <div class="error-fields">
+      <ng-container *ngIf="form.get('name')?.touched">
+        <small *ngFor="let error of errors['name']">{{ error }}</small>
+      </ng-container>
+
+      <ng-container
+        *ngIf="
+          form.get('name')?.invalid &&
+          (backendErrorsResponse$ | async) as errors
+        "
+      >
+        <small> {{ errors | getErrorByParam : "name" }} </small>
+      </ng-container>
+    </div>
+  </div>
+  <div class="tui-form__row">
+    <tui-input formControlName="title">Title</tui-input>
+    <div class="error-fields">
+      <ng-container *ngIf="form.get('title')?.touched">
+        <small *ngFor="let error of errors['title']">{{ error }}</small>
+      </ng-container>
+
+      <ng-container
+        *ngIf="
+          form.get('title')?.invalid &&
+          (backendErrorsResponse$ | async) as errors
+        "
+      >
+        <small> {{ errors | getErrorByParam : "title" }} </small>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="tui-form__row">
+    <tui-input formControlName="title_ru">TitleRU </tui-input>
+    <div class="error-fields">
+      <ng-container *ngIf="form.get('title_ru')?.touched">
+        <small *ngFor="let error of errors['title_ru']">{{ error }}</small>
+      </ng-container>
+
+      <ng-container
+        *ngIf="
+          form.get('title_ru')?.invalid &&
+          (backendErrorsResponse$ | async) as errors
+        "
+      >
+        <small> {{ errors | getErrorByParam : "title_ru" }} </small>
+      </ng-container>
+    </div>
+  </div>
+  <div class="tui-form__buttons">
+    <button tuiButton size="m" type="submit" class="tui-form__button">
+      Submit
+    </button>
+    <button
+      tuiButton
+      type="button"
+      appearance="flat"
+      size="m"
+      class="tui-form__button"
+      (click)="closeDialog()"
+    >
+      Cancel
+    </button>
+  </div>
+</form>

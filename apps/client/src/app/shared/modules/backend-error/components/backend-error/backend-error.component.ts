@@ -1,31 +1,31 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Inject,
   Input,
   OnDestroy,
 } from "@angular/core";
-import { MessageService } from "primeng/api";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+
+import { TuiAlertService, TuiNotification } from "@taiga-ui/core";
 
 import { IBackendErrorResponse } from "../../interfaces/backend-error.interface";
 
+@UntilDestroy()
 @Component({
   selector: "site15-backend-error",
-  template: "<p-toast></p-toast>",
-  providers: [MessageService],
+  template: "",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BackendErrorComponent implements OnDestroy {
+export class BackendErrorComponent {
   @Input() set backendErrors(response: IBackendErrorResponse) {
-    setTimeout(() => {
-      this.handleError(response);
-    });
+    this.handleError(response).pipe(untilDestroyed(this)).subscribe();
   }
 
-  constructor(private messageService: MessageService) {}
-
-  ngOnDestroy(): void {
-    this.messageService.clear();
-  }
+  constructor(
+    @Inject(TuiAlertService)
+    private alertService: TuiAlertService
+  ) {}
 
   private handleError(response: IBackendErrorResponse) {
     const { error, status } = response;
@@ -36,19 +36,20 @@ export class BackendErrorComponent implements OnDestroy {
         return `${Object.values(err.constraints)}`;
       });
 
-      this.messageService.add({
-        severity: "error",
-        summary: error.message,
-        detail: detail.join(""),
+      return this.alertService.open("Validation failed", {
+        status: TuiNotification.Error,
+        data: detail.join(""),
       });
     }
 
     if (error.status === 500) {
-      this.messageService.add({
-        severity: "error",
-        summary: error.message,
-        detail: "",
+      return this.alertService.open("Server error", {
+        status: TuiNotification.Error,
       });
     }
+
+    return this.alertService.open("Some error", {
+      status: TuiNotification.Error,
+    });
   }
 }

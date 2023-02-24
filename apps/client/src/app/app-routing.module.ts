@@ -10,8 +10,8 @@ const routes: Route[] = [
   {
     path: "contact-types",
     loadChildren: () =>
-      import("./contact-types/contact-types.module").then(
-        (m) => m.ContactTypesModule
+      import("./contact-type/contact-type.module").then(
+        (m) => m.ContactTypeModule
       ),
   },
 ];
