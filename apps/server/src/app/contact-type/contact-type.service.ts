@@ -20,7 +20,7 @@ export class ContactTypeService {
 
   async create(contactTypeDto: ContactTypeDto): Promise<IContactType> {
     try {
-      return await this.prismaClient.contact_types.create({
+      return await this.prismaClient.contactTypes.create({
         data: contactTypeDto,
       });
     } catch (err) {
@@ -30,6 +30,7 @@ export class ContactTypeService {
       });
     }
   }
+
 
   async findAll(query?: string): Promise<IContactType[]> {
     return await this.prismaClient.contact_types.findMany({
@@ -56,7 +57,7 @@ export class ContactTypeService {
   async findOne(id: number): Promise<IContactType> {
     try {
       {
-        return await this.prismaClient.contact_types.findFirstOrThrow({
+        return await this.prismaClient.contactTypes.findFirstOrThrow({
           where: {
             id,
           },
@@ -82,7 +83,7 @@ export class ContactTypeService {
     contactTypeDto: ContactTypeDto
   ): Promise<IContactType> {
     try {
-      return await this.prismaClient.contact_types.update({
+      return await this.prismaClient.contactTypes.update({
         where: { id },
         data: contactTypeDto,
       });
@@ -107,7 +108,7 @@ export class ContactTypeService {
 
   async remove(id: number): Promise<IStatus> {
     try {
-      await this.prismaClient.contact_types.delete({
+      await this.prismaClient.contactTypes.delete({
         where: { id },
       });
 

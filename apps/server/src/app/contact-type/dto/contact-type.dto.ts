@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { contact_types } from "@prisma/client";
+import { ContactTypes } from "@prisma/client";
 import { IsNotEmpty } from "class-validator";
-export class ContactTypeDto implements Omit<contact_types, "id"> {
+export class ContactTypeDto implements Omit<ContactTypes, "id"> {
   @ApiProperty()
   @IsNotEmpty()
   name!: string;
@@ -12,5 +12,5 @@ export class ContactTypeDto implements Omit<contact_types, "id"> {
 
   @ApiProperty()
   @IsNotEmpty()
-  title_ru!: string;
+  titleRu!: string;
 }
