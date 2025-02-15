@@ -3,13 +3,13 @@ import { TranslocoService } from '@jsverse/transloco';
 import {
   ValidationErrorMetadataInterface,
   WebhookEventInterface,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { tap } from 'rxjs';
 import { WebhookAuthCredentials } from './webhook-auth.service';
 import { WebhookEventsService } from './webhook-events.service';
-import { ValidationService } from '@nestjs-mod-fullstack/common-angular';
+import { ValidationService } from '@nestjs-mod-sso/common-angular';
 
 @UntilDestroy()
 @Injectable({ providedIn: 'root' })

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-export REPOSITORY=nestjs-mod/nestjs-mod-fullstack
+export REPOSITORY=nestjs-mod/nestjs-mod-sso
 export REGISTRY=ghcr.io
 export BASE_SERVER_IMAGE_NAME="${REPOSITORY}-base-server"
 export BUILDER_IMAGE_NAME="${REPOSITORY}-builder"

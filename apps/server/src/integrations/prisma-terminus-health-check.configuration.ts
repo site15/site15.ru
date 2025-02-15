@@ -1,5 +1,5 @@
-import { AUTH_FEATURE } from '@nestjs-mod-fullstack/auth';
-import { WEBHOOK_FEATURE } from '@nestjs-mod-fullstack/webhook';
+import { AUTH_FEATURE } from '@nestjs-mod-sso/auth';
+import { WEBHOOK_FEATURE } from '@nestjs-mod-sso/webhook';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { TerminusHealthCheckConfiguration } from '@nestjs-mod/terminus';
 import { Injectable } from '@nestjs/common';

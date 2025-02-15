@@ -7,15 +7,15 @@ import {
   FilesRestService,
   TimeRestService,
   WebhookRestService,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AUTH_CONFIGURATION_TOKEN,
   AuthActiveLangService,
   AuthConfiguration,
   AuthService,
   TokensService,
-} from '@nestjs-mod-fullstack/auth-angular';
-import { ActiveLangService } from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/auth-angular';
+import { ActiveLangService } from '@nestjs-mod-sso/common-angular';
 import { catchError, map, merge, mergeMap, of, Subscription, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

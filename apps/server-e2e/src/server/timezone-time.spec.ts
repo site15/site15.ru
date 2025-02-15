@@ -1,4 +1,4 @@
-import { RestClientHelper } from '@nestjs-mod-fullstack/testing';
+import { RestClientHelper } from '@nestjs-mod-sso/testing';
 import { isDateString } from 'class-validator';
 import { get } from 'env-var';
 import { lastValueFrom, take, toArray } from 'rxjs';

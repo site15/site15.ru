@@ -1,6 +1,6 @@
 ARG BASE_SERVER_IMAGE_TAG=latest
 ARG REGISTRY=ghcr.io
-ARG BASE_SERVER_IMAGE_NAME=nestjs-mod/nestjs-mod-fullstack-base-server
+ARG BASE_SERVER_IMAGE_NAME=nestjs-mod/nestjs-mod-sso-base-server
 
 FROM ${REGISTRY}/${BASE_SERVER_IMAGE_NAME}:${BASE_SERVER_IMAGE_TAG} AS builder
 WORKDIR /usr/src/app

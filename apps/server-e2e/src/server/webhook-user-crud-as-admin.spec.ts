@@ -1,5 +1,5 @@
-import { WebhookErrorEnum } from '@nestjs-mod-fullstack/app-rest-sdk';
-import { RestClientHelper } from '@nestjs-mod-fullstack/testing';
+import { WebhookErrorEnum } from '@nestjs-mod-sso/app-rest-sdk';
+import { RestClientHelper } from '@nestjs-mod-sso/testing';
 import { get } from 'env-var';
 
 describe('CRUD operations with WebhookUser as "Admin" role', () => {

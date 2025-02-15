@@ -4,12 +4,12 @@ import { marker } from '@jsverse/transloco-keys-manager/marker';
 import {
   AuthUserScalarFieldEnumInterface,
   ValidationErrorMetadataInterface,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AuthLoginInput,
   AuthProfileFormService,
-} from '@nestjs-mod-fullstack/auth-angular';
-import { ValidationService } from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/auth-angular';
+import { ValidationService } from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 

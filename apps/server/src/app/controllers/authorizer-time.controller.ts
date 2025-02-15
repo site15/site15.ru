@@ -1,4 +1,4 @@
-import { UseAuthInterceptorsAndGuards } from '@nestjs-mod-fullstack/auth';
+import { UseAuthInterceptorsAndGuards } from '@nestjs-mod-sso/auth';
 import { AllowEmptyUser, AuthorizerGuard } from '@nestjs-mod/authorizer';
 import { Controller, Get } from '@nestjs/common';
 

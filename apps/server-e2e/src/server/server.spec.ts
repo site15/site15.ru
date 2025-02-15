@@ -1,4 +1,4 @@
-import { RestClientHelper } from '@nestjs-mod-fullstack/testing';
+import { RestClientHelper } from '@nestjs-mod-sso/testing';
 
 describe('GET /api', () => {
   jest.setTimeout(60000);

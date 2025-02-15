@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { AuthSignUpFormComponent } from '@nestjs-mod-fullstack/auth-angular';
+import { AuthSignUpFormComponent } from '@nestjs-mod-sso/auth-angular';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 @Component({

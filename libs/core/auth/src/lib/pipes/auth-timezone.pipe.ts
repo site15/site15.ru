@@ -1,4 +1,4 @@
-import { SERVER_TIMEZONE_OFFSET } from '@nestjs-mod-fullstack/common';
+import { SERVER_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common';
 import { Injectable, PipeTransform } from '@nestjs/common';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { AuthEnvironments } from '../auth.environments';

@@ -4,13 +4,13 @@ import {
   AUTH_FEATURE,
   AuthExceptionsFilter,
   AuthModule,
-} from '@nestjs-mod-fullstack/auth';
-import { FilesModule } from '@nestjs-mod-fullstack/files';
+} from '@nestjs-mod-sso/auth';
+import { FilesModule } from '@nestjs-mod-sso/files';
 import {
   ValidationError,
   ValidationErrorEnum,
-} from '@nestjs-mod-fullstack/validation';
-import { WebhookModule } from '@nestjs-mod-fullstack/webhook';
+} from '@nestjs-mod-sso/validation';
+import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import { AuthorizerGuard, AuthorizerModule } from '@nestjs-mod/authorizer';
 import { KeyvModule } from '@nestjs-mod/keyv';
 import { MinioModule } from '@nestjs-mod/minio';

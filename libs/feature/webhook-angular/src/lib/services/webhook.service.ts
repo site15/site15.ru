@@ -3,8 +3,8 @@ import {
   CreateWebhookDtoInterface,
   UpdateWebhookDtoInterface,
   WebhookRestService,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
-import { RequestMeta } from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { map } from 'rxjs';
 import { WebhookAuthService } from './webhook-auth.service';
 import { WebhookMapperService } from './webhook-mapper.service';

@@ -11,7 +11,7 @@ import {
   TimeApi,
   WebhookApi,
   WebhookUser,
-} from '@nestjs-mod-fullstack/app-rest-sdk';
+} from '@nestjs-mod-sso/app-rest-sdk';
 import axios, { AxiosInstance } from 'axios';
 import { Observable, finalize } from 'rxjs';
 import {

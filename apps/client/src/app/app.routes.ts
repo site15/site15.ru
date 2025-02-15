@@ -3,7 +3,7 @@ import {
   AUTH_GUARD_DATA_ROUTE_KEY,
   AuthGuardData,
   AuthGuardService,
-} from '@nestjs-mod-fullstack/auth-angular';
+} from '@nestjs-mod-sso/auth-angular';
 import { DemoComponent } from './pages/demo/demo.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';

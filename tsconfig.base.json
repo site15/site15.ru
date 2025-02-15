@@ -23,31 +23,31 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "paths": {
-      "@nestjs-mod-fullstack/app-angular-rest-sdk": [
+      "@nestjs-mod-sso/app-angular-rest-sdk": [
         "libs/sdk/app-angular-rest-sdk/src/index.ts"
       ],
-      "@nestjs-mod-fullstack/app-rest-sdk": [
+      "@nestjs-mod-sso/app-rest-sdk": [
         "libs/sdk/app-rest-sdk/src/index.ts"
       ],
-      "@nestjs-mod-fullstack/auth": ["libs/core/auth/src/index.ts"],
-      "@nestjs-mod-fullstack/auth-angular": [
+      "@nestjs-mod-sso/auth": ["libs/core/auth/src/index.ts"],
+      "@nestjs-mod-sso/auth-angular": [
         "libs/core/auth-angular/src/index.ts"
       ],
-      "@nestjs-mod-fullstack/common": ["libs/common/src/index.ts"],
-      "@nestjs-mod-fullstack/common-angular": [
+      "@nestjs-mod-sso/common": ["libs/common/src/index.ts"],
+      "@nestjs-mod-sso/common-angular": [
         "libs/common-angular/src/index.ts"
       ],
-      "@nestjs-mod-fullstack/files": ["libs/core/files/src/index.ts"],
-      "@nestjs-mod-fullstack/files-angular": [
+      "@nestjs-mod-sso/files": ["libs/core/files/src/index.ts"],
+      "@nestjs-mod-sso/files-angular": [
         "libs/core/files-angular/src/index.ts"
       ],
-      "@nestjs-mod-fullstack/prisma-tools": [
+      "@nestjs-mod-sso/prisma-tools": [
         "libs/core/prisma-tools/src/index.ts"
       ],
-      "@nestjs-mod-fullstack/testing": ["libs/testing/src/index.ts"],
-      "@nestjs-mod-fullstack/validation": ["libs/core/validation/src/index.ts"],
-      "@nestjs-mod-fullstack/webhook": ["libs/feature/webhook/src/index.ts"],
-      "@nestjs-mod-fullstack/webhook-angular": [
+      "@nestjs-mod-sso/testing": ["libs/testing/src/index.ts"],
+      "@nestjs-mod-sso/validation": ["libs/core/validation/src/index.ts"],
+      "@nestjs-mod-sso/webhook": ["libs/feature/webhook/src/index.ts"],
+      "@nestjs-mod-sso/webhook-angular": [
         "libs/feature/webhook-angular/src/index.ts"
       ]
     }

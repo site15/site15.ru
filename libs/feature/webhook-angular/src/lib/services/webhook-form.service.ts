@@ -5,8 +5,8 @@ import {
   ValidationErrorMetadataInterface,
   WebhookEventInterface,
   WebhookScalarFieldEnumInterface,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
-import { ValidationService } from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { ValidationService } from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { tap } from 'rxjs';

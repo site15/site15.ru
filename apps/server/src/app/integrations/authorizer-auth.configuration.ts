@@ -1,4 +1,4 @@
-import { AuthConfiguration, AuthError } from '@nestjs-mod-fullstack/auth';
+import { AuthConfiguration, AuthError } from '@nestjs-mod-sso/auth';
 import { AuthorizerService } from '@nestjs-mod/authorizer';
 import { Injectable, Logger } from '@nestjs/common';
 @Injectable()

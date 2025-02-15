@@ -1,5 +1,5 @@
 {
-    "name": "@nestjs-mod-fullstack/files",
+    "name": "@nestjs-mod-sso/files",
     "version": "0.0.1",
     "private": true,
     "dependencies": {

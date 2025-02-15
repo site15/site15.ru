@@ -7,7 +7,7 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { StatusResponse } from '@nestjs-mod-fullstack/common';
+import { StatusResponse } from '@nestjs-mod-sso/common';
 import { ApiExtraModels, ApiOkResponse } from '@nestjs/swagger';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 import { randomUUID } from 'node:crypto';

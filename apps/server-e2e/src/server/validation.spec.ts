@@ -1,4 +1,4 @@
-import { RestClientHelper } from '@nestjs-mod-fullstack/testing';
+import { RestClientHelper } from '@nestjs-mod-sso/testing';
 import { AxiosError } from 'axios';
 
 describe('Validation', () => {

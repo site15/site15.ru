@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs-mod-fullstack/source",
+  "name": "@nestjs-mod-sso/source",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "targets": {
     "local-registry": {

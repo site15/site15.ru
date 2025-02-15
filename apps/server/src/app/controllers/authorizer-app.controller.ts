@@ -8,8 +8,8 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { AllowEmptyAuthUser } from '@nestjs-mod-fullstack/auth';
-import { WebhookService } from '@nestjs-mod-fullstack/webhook';
+import { AllowEmptyAuthUser } from '@nestjs-mod-sso/auth';
+import { WebhookService } from '@nestjs-mod-sso/webhook';
 import { AllowEmptyUser, CurrentAuthorizerUser } from '@nestjs-mod/authorizer';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';

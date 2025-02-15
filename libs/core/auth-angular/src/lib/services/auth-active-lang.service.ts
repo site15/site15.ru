@@ -8,8 +8,8 @@ import {
   AuthErrorEnumInterface,
   AuthErrorInterface,
   AuthRestService,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
-import { ActiveLangService } from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { ActiveLangService } from '@nestjs-mod-sso/common-angular';
 import { catchError, map, of, tap, throwError } from 'rxjs';
 import { TokensService } from './tokens.service';
 

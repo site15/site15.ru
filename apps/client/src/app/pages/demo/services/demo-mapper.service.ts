@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AppDemoInterface } from '@nestjs-mod-fullstack/app-angular-rest-sdk';
-import { BROWSER_TIMEZONE_OFFSET } from '@nestjs-mod-fullstack/common-angular';
+import { AppDemoInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { BROWSER_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common-angular';
 import { addHours } from 'date-fns';
 
 export interface AppDemoModel

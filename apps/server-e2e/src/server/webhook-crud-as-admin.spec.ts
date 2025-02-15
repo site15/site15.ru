@@ -1,4 +1,4 @@
-import { RestClientHelper } from '@nestjs-mod-fullstack/testing';
+import { RestClientHelper } from '@nestjs-mod-sso/testing';
 import { get } from 'env-var';
 
 describe('CRUD operations with Webhook as "Admin" role', () => {

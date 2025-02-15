@@ -1,7 +1,7 @@
 # server
-> Version: 1.14.0
+> Version: 1.15.0
 
-Boilerplate for creating a fullstack application on NestJS and Angular
+Boilerplate for creating a sso application on NestJS and Angular
 ## System modules
 
 ### ProjectUtils
@@ -14,10 +14,10 @@ Utilities for setting global application parameters, such as project name, descr
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`applicationPackageJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/package.json```|
-|`packageJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/package.json```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/project.json```|
-|`envFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/.env```|
+|`applicationPackageJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/package.json```|
+|`packageJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/package.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/project.json```|
+|`envFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/.env```|
 
 ### DefaultNestApplicationInitializer
 Default NestJS application initializer.
@@ -76,10 +76,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```auth```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/core/auth/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/core/auth/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
 
 #### Environments(webhook)
 
@@ -93,10 +93,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
 
 #### Environments(app)
 
@@ -110,7 +110,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```app```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/src/prisma/app-schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
 
@@ -132,10 +132,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```auth```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/core/auth/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/core/auth/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
 
 #### Environments(webhook)
 
@@ -149,10 +149,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
 
 #### Environments(app)
 
@@ -166,7 +166,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```app```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/src/prisma/app-schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
 
@@ -188,10 +188,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```auth```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/core/auth/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/core/auth/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
 
 #### Environments(webhook)
 
@@ -205,10 +205,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
 
 #### Environments(app)
 
@@ -222,7 +222,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```app```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/src/prisma/app-schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
 
@@ -324,7 +324,7 @@ Production process manager for Node.JS applications with a built-in load balance
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/ecosystem.config.json```|
+|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/ecosystem.config.json```|
 |`applicationScriptFile`|**isNotEmpty** (applicationScriptFile should not be empty)|```dist/apps/server/main.js```|
 
 ### DockerCompose
@@ -337,7 +337,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/docker-compose.yml```|
+|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/docker-compose.yml```|
 
 #### Modules that use feature configuration
 ##### Feature module name: SERVER_POSTGRE_SQL
@@ -353,7 +353,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`services`|**optional**|```{"server-authorizer":{"image":"lakhansamani/authorizer:1.4.4","container_name":"server-authorizer","ports":["8080:8080"],"networks":["server-network"],"environment":{"ADMIN_SECRET":"VfKSfPPljhHBXCEohnitursmgDxfAyiD","DATABASE_TYPE":"postgres","DATABASE_URL":"postgres://Yk42KA4sOb:B7Ep2MwlRR6fAx0frXGWVTGP850qAxM6@localhost:5432/authorizer","DATABASE_NAME":"authorizer","PORT":8080,"AUTHORIZER_URL":"http://localhost:8080","COOKIE_NAME":"authorizer","DISABLE_PLAYGROUND":true,"ACCESS_TOKEN_EXPIRY_TIME":"30m","IMAGE":"lakhansamani/authorizer:1.4.4","DISABLE_STRONG_PASSWORD":"true","DISABLE_EMAIL_VERIFICATION":"true","FEATURE_NAME":"authorizer","ORGANIZATION_NAME":"NestJSModFullstack","DEPENDS_ON_SERVICE_NAMES":{"postgre-sql":"service_healthy"},"IS_EMAIL_SERVICE_ENABLED":"true","IS_SMS_SERVICE_ENABLED":"false","ENV":"development","EXTERNAL_CLIENT_PORT":8080,"RESET_PASSWORD_URL":"/reset-password","ROLES":"user,admin","DEFAULT_ROLES":"user","JWT_ROLE_CLAIM":"role","ORGANIZATION_LOGO":"Authorizer Logo","COUCHBASE_BUCKET":"authorizer","COUCHBASE_BUCKET_RAM_QUOTA":1000,"COUCHBASE_SCOPE":"_default"},"keysOfEnvironmentsWithStaticValue":["featureName","image","networks","dependsOnServiceNames","env"],"tty":true,"restart":"always","depends_on":{"server-postgre-sql":{"condition":"service_healthy"}}}}```|
+|`services`|**optional**|```{"server-authorizer":{"image":"lakhansamani/authorizer:1.4.4","container_name":"server-authorizer","ports":["8080:8080"],"networks":["server-network"],"environment":{"ADMIN_SECRET":"VfKSfPPljhHBXCEohnitursmgDxfAyiD","DATABASE_TYPE":"postgres","DATABASE_URL":"postgres://Yk42KA4sOb:B7Ep2MwlRR6fAx0frXGWVTGP850qAxM6@localhost:5432/authorizer","DATABASE_NAME":"authorizer","PORT":8080,"AUTHORIZER_URL":"http://localhost:8080","COOKIE_NAME":"authorizer","DISABLE_PLAYGROUND":true,"ACCESS_TOKEN_EXPIRY_TIME":"30m","IMAGE":"lakhansamani/authorizer:1.4.4","DISABLE_STRONG_PASSWORD":"true","DISABLE_EMAIL_VERIFICATION":"true","FEATURE_NAME":"authorizer","ORGANIZATION_NAME":"NestJSModSSO","DEPENDS_ON_SERVICE_NAMES":{"postgre-sql":"service_healthy"},"IS_EMAIL_SERVICE_ENABLED":"true","IS_SMS_SERVICE_ENABLED":"false","ENV":"development","EXTERNAL_CLIENT_PORT":8080,"RESET_PASSWORD_URL":"/reset-password","ROLES":"user,admin","DEFAULT_ROLES":"user","JWT_ROLE_CLAIM":"role","ORGANIZATION_LOGO":"Authorizer Logo","COUCHBASE_BUCKET":"authorizer","COUCHBASE_BUCKET_RAM_QUOTA":1000,"COUCHBASE_SCOPE":"_default"},"keysOfEnvironmentsWithStaticValue":["featureName","image","networks","dependsOnServiceNames","env"],"tty":true,"restart":"always","depends_on":{"server-postgre-sql":{"condition":"service_healthy"}}}}```|
 |`networks`|**optional**|```{"server-network":{"driver":"bridge"}}```|
 
 #### Modules that use feature configuration
@@ -388,7 +388,7 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```app```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/src/migrations```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/migrations```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -404,7 +404,7 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```app```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/src/migrations```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/migrations```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -420,7 +420,7 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```app```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/src/migrations```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/migrations```|
 
 ### InfrastructureMarkdownReportGenerator
 Infrastructure markdown report generator.
@@ -432,7 +432,7 @@ Infrastructure markdown report generator.
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`markdownFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/apps/server/INFRASTRUCTURE.MD```|
+|`markdownFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/INFRASTRUCTURE.MD```|
 |`skipEmptySettings`|**optional**|```true```|
 |`style`|**optional**|```pretty```|
 
@@ -456,14 +456,14 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
 
 #### Modules that use feature configuration
 ##### Feature module name: auth
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-fullstack/libs/core/auth/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
 
 #### Modules that use feature environments
 ##### Feature module name: app
@@ -568,7 +568,7 @@ Authorizer is an open-source authentication and authorization solution for your 
 |`dependsOnServiceNames`|**optional**|```{"postgre-sql":"service_healthy"}```|
 |`env`|**optional**|```development```|
 |`disableEmailVerification`|**optional**|```true```|
-|`organizationName`|**optional**|```NestJSModFullstack```|
+|`organizationName`|**optional**|```NestJSModSSO```|
 |`isEmailServiceEnabled`|**optional**|```true```|
 |`isSmsServiceEnabled`|**optional**|```false```|
 |`disableStrongPassword`|**optional**|```true```|

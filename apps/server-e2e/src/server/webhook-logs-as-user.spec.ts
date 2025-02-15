@@ -1,4 +1,4 @@
-import { getUrls, RestClientHelper } from '@nestjs-mod-fullstack/testing';
+import { getUrls, RestClientHelper } from '@nestjs-mod-sso/testing';
 import { randomUUID } from 'crypto';
 import { get } from 'env-var';
 

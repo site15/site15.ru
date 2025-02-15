@@ -12,17 +12,17 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import {
   AppRestService,
   TimeRestService,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AuthActiveLangService,
   AuthService,
   AuthUser,
   TokensService,
-} from '@nestjs-mod-fullstack/auth-angular';
+} from '@nestjs-mod-sso/auth-angular';
 import {
   BROWSER_TIMEZONE_OFFSET,
   webSocket,
-} from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { addHours } from 'date-fns';
 import { NzIconModule } from 'ng-zorro-antd/icon';

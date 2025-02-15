@@ -1,8 +1,8 @@
-import { StatusResponse } from '@nestjs-mod-fullstack/common';
+import { StatusResponse } from '@nestjs-mod-sso/common';
 import {
   ValidationError,
   ValidationErrorEnum,
-} from '@nestjs-mod-fullstack/validation';
+} from '@nestjs-mod-sso/validation';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,

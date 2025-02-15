@@ -1,4 +1,4 @@
-import { AuthConfiguration, AuthError } from '@nestjs-mod-fullstack/auth';
+import { AuthConfiguration, AuthError } from '@nestjs-mod-sso/auth';
 import { Injectable } from '@nestjs/common';
 import { SupabaseService } from '../supabase/supabase.service';
 

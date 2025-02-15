@@ -1,4 +1,4 @@
-import { UseAuthInterceptorsAndGuards } from '@nestjs-mod-fullstack/auth';
+import { UseAuthInterceptorsAndGuards } from '@nestjs-mod-sso/auth';
 import { Controller, Get } from '@nestjs/common';
 
 import { ApiOkResponse } from '@nestjs/swagger';

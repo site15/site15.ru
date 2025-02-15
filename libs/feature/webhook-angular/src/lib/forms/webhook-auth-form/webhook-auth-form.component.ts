@@ -15,7 +15,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+import { ValidationErrorMetadataInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';

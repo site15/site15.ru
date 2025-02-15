@@ -18,21 +18,18 @@ import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 import {
   RestClientApiModule,
   RestClientConfiguration,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AuthProfileFormService,
   AuthProfileMapperService,
   AuthService,
-} from '@nestjs-mod-fullstack/auth-angular';
-import { COMMON_FORMLY_FIELDS } from '@nestjs-mod-fullstack/common-angular';
-import {
-  FILES_FORMLY_FIELDS,
-  MINIO_URL,
-} from '@nestjs-mod-fullstack/files-angular';
+} from '@nestjs-mod-sso/auth-angular';
+import { COMMON_FORMLY_FIELDS } from '@nestjs-mod-sso/common-angular';
+import { FILES_FORMLY_FIELDS, MINIO_URL } from '@nestjs-mod-sso/files-angular';
 import {
   WEBHOOK_CONFIGURATION_TOKEN,
   WebhookConfiguration,
-} from '@nestjs-mod-fullstack/webhook-angular';
+} from '@nestjs-mod-sso/webhook-angular';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';

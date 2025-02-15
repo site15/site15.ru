@@ -1,7 +1,7 @@
 import { Inject, InjectionToken, Provider } from '@angular/core';
 import { Authorizer, ConfigType } from '@authorizerdev/authorizer-js';
 import { TranslocoService } from '@jsverse/transloco';
-import { AuthRestService } from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+import { AuthRestService } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AUTH_CONFIGURATION_TOKEN,
   AuthConfiguration,
@@ -11,9 +11,9 @@ import {
   AuthUser,
   AuthUserAndTokens,
   TokensService,
-} from '@nestjs-mod-fullstack/auth-angular';
-import { mapGraphqlErrors } from '@nestjs-mod-fullstack/common-angular';
-import { FilesService } from '@nestjs-mod-fullstack/files-angular';
+} from '@nestjs-mod-sso/auth-angular';
+import { mapGraphqlErrors } from '@nestjs-mod-sso/common-angular';
+import { FilesService } from '@nestjs-mod-sso/files-angular';
 import { catchError, from, map, mergeMap, Observable, of } from 'rxjs';
 
 export const AUTHORIZER_URL = new InjectionToken<string>('AuthorizerURL');

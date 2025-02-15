@@ -7,7 +7,7 @@ else
 fi
 
 if [[ -z "${SERVER_NAME}" ]]; then
-    SERVER_NAME="nestjs-mod-fullstack-server"
+    SERVER_NAME="nestjs-mod-sso-server"
 else
     SERVER_NAME="${SERVER_NAME}"
 fi

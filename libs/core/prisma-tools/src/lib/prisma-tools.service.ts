@@ -1,4 +1,4 @@
-import { FindManyArgs } from '@nestjs-mod-fullstack/common';
+import { FindManyArgs } from '@nestjs-mod-sso/common';
 import { ConfigModel } from '@nestjs-mod/common';
 import { Logger } from '@nestjs/common';
 import { basename } from 'path';

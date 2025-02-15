@@ -1,6 +1,6 @@
 import { Controller, Get, Optional } from '@nestjs/common';
 
-import { AllowEmptyAuthUser, AuthError } from '@nestjs-mod-fullstack/auth';
+import { AllowEmptyAuthUser, AuthError } from '@nestjs-mod-sso/auth';
 import { AllowEmptyUser, AuthorizerService } from '@nestjs-mod/authorizer';
 import { ApiExtraModels, ApiOkResponse, ApiProperty } from '@nestjs/swagger';
 import { AllowEmptySupabaseUser } from '../supabase/supabase.decorators';

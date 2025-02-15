@@ -1,5 +1,5 @@
 {
-    "name": "@nestjs-mod-fullstack/testing",
+    "name": "@nestjs-mod-sso/testing",
     "version": "1.3.0",
     "private": true,
     "dependencies": {

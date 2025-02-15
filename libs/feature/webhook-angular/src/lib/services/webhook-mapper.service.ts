@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { WebhookInterface } from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+import { WebhookInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   BROWSER_TIMEZONE_OFFSET,
   safeParseJson,
-} from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/common-angular';
 import { addHours, format } from 'date-fns';
 
 export interface WebhookModel

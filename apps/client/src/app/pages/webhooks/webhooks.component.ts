@@ -4,7 +4,7 @@ import { TranslocoDirective } from '@jsverse/transloco';
 import {
   WebhookGridComponent,
   WebhookLogGridComponent,
-} from '@nestjs-mod-fullstack/webhook-angular';
+} from '@nestjs-mod-sso/webhook-angular';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';

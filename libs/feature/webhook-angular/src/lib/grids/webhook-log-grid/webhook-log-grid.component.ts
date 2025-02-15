@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 import {
   WebhookLogInterface,
   WebhookLogScalarFieldEnumInterface,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';
@@ -33,7 +33,7 @@ import {
   NgChanges,
   NzTableSortOrderDetectorPipe,
   RequestMeta,
-} from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/common-angular';
 import { WebhookLogService } from '../../services/webhook-log.service';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';

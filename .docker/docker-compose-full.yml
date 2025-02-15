@@ -1,13 +1,13 @@
 version: '3'
 networks:
-  nestjs-mod-fullstack-network:
+  nestjs-mod-sso-network:
     driver: 'bridge'
 services:
-  nestjs-mod-fullstack-postgre-sql:
+  nestjs-mod-sso-postgre-sql:
     image: 'bitnami/postgresql:15.5.0'
-    container_name: 'nestjs-mod-fullstack-postgre-sql'
+    container_name: 'nestjs-mod-sso-postgre-sql'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     healthcheck:
       test:
         - 'CMD-SHELL'
@@ -22,14 +22,14 @@ services:
       POSTGRESQL_PASSWORD: '${SERVER_POSTGRE_SQL_POSTGRESQL_PASSWORD}'
       POSTGRESQL_DATABASE: '${SERVER_POSTGRE_SQL_POSTGRESQL_DATABASE}'
     volumes:
-      - 'nestjs-mod-fullstack-postgre-sql-volume:/bitnami/postgresql'
-  nestjs-mod-fullstack-authorizer:
+      - 'nestjs-mod-sso-postgre-sql-volume:/bitnami/postgresql'
+  nestjs-mod-sso-authorizer:
     image: 'lakhansamani/authorizer:1.4.4'
-    container_name: 'nestjs-mod-fullstack-authorizer'
+    container_name: 'nestjs-mod-sso-authorizer'
     ports:
       - '8000:8080'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     environment:
       DATABASE_URL: '${SERVER_AUTHORIZER_DATABASE_URL}'
       DATABASE_TYPE: '${SERVER_AUTHORIZER_DATABASE_TYPE}'
@@ -60,20 +60,20 @@ services:
     tty: true
     restart: 'always'
     depends_on:
-      nestjs-mod-fullstack-postgre-sql:
+      nestjs-mod-sso-postgre-sql:
         condition: service_healthy
-      nestjs-mod-fullstack-postgre-sql-migrations:
+      nestjs-mod-sso-postgre-sql-migrations:
         condition: service_completed_successfully
-  nestjs-mod-fullstack-minio:
+  nestjs-mod-sso-minio:
     image: 'bitnami/minio:2024.11.7'
-    container_name: 'nestjs-mod-fullstack-minio'
+    container_name: 'nestjs-mod-sso-minio'
     volumes:
-      - 'nestjs-mod-fullstack-minio-volume:/bitnami/minio/data'
+      - 'nestjs-mod-sso-minio-volume:/bitnami/minio/data'
     ports:
       - '9000:9000'
       - '9001:9001'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     environment:
       MINIO_ROOT_USER: '${SERVER_MINIO_MINIO_ROOT_USER}'
       MINIO_ROOT_PASSWORD: '${SERVER_MINIO_MINIO_ROOT_PASSWORD}'
@@ -88,15 +88,15 @@ services:
       retries: 5
     tty: true
     restart: 'always'
-  nestjs-mod-fullstack-redis:
+  nestjs-mod-sso-redis:
     image: 'bitnami/redis:7.4.1'
-    container_name: 'nestjs-mod-fullstack-redis'
+    container_name: 'nestjs-mod-sso-redis'
     volumes:
-      - 'nestjs-mod-fullstack-redis-volume:/bitnami/redis/data'
+      - 'nestjs-mod-sso-redis-volume:/bitnami/redis/data'
     ports:
       - '6379:6379'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     environment:
       REDIS_DATABASE: '${SERVER_REDIS_REDIS_DATABASE}'
       REDIS_PASSWORD: '${SERVER_REDIS_REDIS_PASSWORD}'
@@ -112,11 +112,11 @@ services:
       retries: 5
     tty: true
     restart: 'always'
-  nestjs-mod-fullstack-postgre-sql-migrations:
-    image: 'ghcr.io/nestjs-mod/nestjs-mod-fullstack-migrations:${ROOT_VERSION}'
-    container_name: 'nestjs-mod-fullstack-postgre-sql-migrations'
+  nestjs-mod-sso-postgre-sql-migrations:
+    image: 'ghcr.io/nestjs-mod/nestjs-mod-sso-migrations:${ROOT_VERSION}'
+    container_name: 'nestjs-mod-sso-postgre-sql-migrations'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     tty: true
     environment:
       NX_SKIP_NX_CACHE: 'true'
@@ -126,17 +126,17 @@ services:
       SERVER_AUTH_DATABASE_URL: '${SERVER_AUTH_DATABASE_URL}'
       SERVER_AUTHORIZER_DATABASE_URL: '${SERVER_AUTHORIZER_DATABASE_URL}'
     depends_on:
-      nestjs-mod-fullstack-postgre-sql:
+      nestjs-mod-sso-postgre-sql:
         condition: 'service_healthy'
     working_dir: '/usr/src/app'
     volumes:
       - './../apps:/usr/src/app/apps'
       - './../libs:/usr/src/app/libs'
-  nestjs-mod-fullstack-server:
-    image: 'ghcr.io/nestjs-mod/nestjs-mod-fullstack-server:${SERVER_VERSION}'
-    container_name: 'nestjs-mod-fullstack-server'
+  nestjs-mod-sso-server:
+    image: 'ghcr.io/nestjs-mod/nestjs-mod-sso-server:${SERVER_VERSION}'
+    container_name: 'nestjs-mod-sso-server'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     healthcheck:
@@ -169,21 +169,21 @@ services:
       SERVER_KEYV_URL: '${SERVER_KEYV_URL}'
     restart: 'always'
     depends_on:
-      nestjs-mod-fullstack-authorizer:
+      nestjs-mod-sso-authorizer:
         condition: 'service_started'
-      nestjs-mod-fullstack-minio:
+      nestjs-mod-sso-minio:
         condition: 'service_started'
-      nestjs-mod-fullstack-redis:
+      nestjs-mod-sso-redis:
         condition: 'service_healthy'
-      nestjs-mod-fullstack-postgre-sql:
+      nestjs-mod-sso-postgre-sql:
         condition: service_healthy
-      nestjs-mod-fullstack-postgre-sql-migrations:
+      nestjs-mod-sso-postgre-sql-migrations:
         condition: service_completed_successfully
-  nestjs-mod-fullstack-nginx:
-    image: 'ghcr.io/nestjs-mod/nestjs-mod-fullstack-nginx:${CLIENT_VERSION}'
-    container_name: 'nestjs-mod-fullstack-nginx'
+  nestjs-mod-sso-nginx:
+    image: 'ghcr.io/nestjs-mod/nestjs-mod-sso-nginx:${CLIENT_VERSION}'
+    container_name: 'nestjs-mod-sso-nginx'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     healthcheck:
       test:
         [
@@ -201,58 +201,58 @@ services:
       CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID: '${CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID}'
     restart: 'always'
     depends_on:
-      nestjs-mod-fullstack-server:
+      nestjs-mod-sso-server:
         condition: service_healthy
     ports:
       - '${NGINX_PORT}:${NGINX_PORT}'
-  nestjs-mod-fullstack-e2e-tests:
-    image: 'ghcr.io/nestjs-mod/nestjs-mod-fullstack-e2e-tests:${ROOT_VERSION}'
-    container_name: 'nestjs-mod-fullstack-e2e-tests'
+  nestjs-mod-sso-e2e-tests:
+    image: 'ghcr.io/nestjs-mod/nestjs-mod-sso-e2e-tests:${ROOT_VERSION}'
+    container_name: 'nestjs-mod-sso-e2e-tests'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     environment:
       IS_DOCKER_COMPOSE: 'true'
-      BASE_URL: 'http://nestjs-mod-fullstack-nginx:${NGINX_PORT}'
-      SERVER_AUTHORIZER_URL: 'http://nestjs-mod-fullstack-authorizer:8080'
-      SERVER_MINIO_URL: 'http://nestjs-mod-fullstack-minio:9000'
-      CLIENT_URL: 'http://nestjs-mod-fullstack-nginx:${NGINX_PORT}'
+      BASE_URL: 'http://nestjs-mod-sso-nginx:${NGINX_PORT}'
+      SERVER_AUTHORIZER_URL: 'http://nestjs-mod-sso-authorizer:8080'
+      SERVER_MINIO_URL: 'http://nestjs-mod-sso-minio:9000'
+      CLIENT_URL: 'http://nestjs-mod-sso-nginx:${NGINX_PORT}'
       SERVER_URL: 'http://localhost:9090/api'
       SERVER_AUTH_ADMIN_EMAIL: '${SERVER_AUTH_ADMIN_EMAIL}'
       SERVER_AUTH_ADMIN_USERNAME: '${SERVER_AUTH_ADMIN_USERNAME}'
       SERVER_AUTH_ADMIN_PASSWORD: '${SERVER_AUTH_ADMIN_PASSWORD}'
       SERVER_AUTHORIZER_ADMIN_SECRET: '${SERVER_AUTHORIZER_ADMIN_SECRET}'
     depends_on:
-      nestjs-mod-fullstack-nginx:
+      nestjs-mod-sso-nginx:
         condition: service_healthy
     working_dir: '/usr/src/app'
     volumes:
       - './../apps:/usr/src/app/apps'
       - './../libs:/usr/src/app/libs'
-  nestjs-mod-fullstack-https-portal:
+  nestjs-mod-sso-https-portal:
     image: steveltn/https-portal:1
-    container_name: 'nestjs-mod-fullstack-https-portal'
+    container_name: 'nestjs-mod-sso-https-portal'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     ports:
       - '80:80'
       - '443:443'
     links:
-      - nestjs-mod-fullstack-nginx
+      - nestjs-mod-sso-nginx
     restart: always
     environment:
       STAGE: '${HTTPS_PORTAL_STAGE}'
-      DOMAINS: '${SERVER_DOMAIN} -> http://nestjs-mod-fullstack-nginx:${NGINX_PORT}'
+      DOMAINS: '${SERVER_DOMAIN} -> http://nestjs-mod-sso-nginx:${NGINX_PORT}'
     depends_on:
-      nestjs-mod-fullstack-nginx:
+      nestjs-mod-sso-nginx:
         condition: service_healthy
     volumes:
-      - nestjs-mod-fullstack-https-portal-volume:/var/lib/https-portal
+      - nestjs-mod-sso-https-portal-volume:/var/lib/https-portal
 volumes:
-  nestjs-mod-fullstack-postgre-sql-volume:
-    name: 'nestjs-mod-fullstack-postgre-sql-volume'
-  nestjs-mod-fullstack-https-portal-volume:
-    name: 'nestjs-mod-fullstack-https-portal-volume'
-  nestjs-mod-fullstack-minio-volume:
-    name: 'nestjs-mod-fullstack-minio-volume'
-  nestjs-mod-fullstack-redis-volume:
-    name: 'nestjs-mod-fullstack-redis-volume'
+  nestjs-mod-sso-postgre-sql-volume:
+    name: 'nestjs-mod-sso-postgre-sql-volume'
+  nestjs-mod-sso-https-portal-volume:
+    name: 'nestjs-mod-sso-https-portal-volume'
+  nestjs-mod-sso-minio-volume:
+    name: 'nestjs-mod-sso-minio-volume'
+  nestjs-mod-sso-redis-volume:
+    name: 'nestjs-mod-sso-redis-volume'

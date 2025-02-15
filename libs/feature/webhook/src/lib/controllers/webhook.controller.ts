@@ -1,7 +1,7 @@
-import { FindManyArgs, StatusResponse } from '@nestjs-mod-fullstack/common';
+import { FindManyArgs, StatusResponse } from '@nestjs-mod-sso/common';
 
-import { PrismaToolsService } from '@nestjs-mod-fullstack/prisma-tools';
-import { ValidationError } from '@nestjs-mod-fullstack/validation';
+import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
+import { ValidationError } from '@nestjs-mod-sso/validation';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,

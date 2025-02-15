@@ -3,7 +3,7 @@ import {
   WebhookErrorInterface,
   WebhookRestService,
   WebhookUserInterface,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, catchError, of, tap, throwError } from 'rxjs';
 

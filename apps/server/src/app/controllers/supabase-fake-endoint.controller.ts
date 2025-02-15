@@ -11,7 +11,7 @@ import {
   Post,
 } from '@nestjs/common';
 
-import { AllowEmptyAuthUser } from '@nestjs-mod-fullstack/auth';
+import { AllowEmptyAuthUser } from '@nestjs-mod-sso/auth';
 import { KeyvService } from '@nestjs-mod/keyv';
 import { CACHE_KEY } from '../app.constants';
 import { AllowEmptySupabaseUser } from '../supabase/supabase.decorators';

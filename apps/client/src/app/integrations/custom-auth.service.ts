@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { AuthRestService } from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+import { AuthRestService } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AUTH_CONFIGURATION_TOKEN,
   AuthConfiguration,
@@ -7,7 +7,7 @@ import {
   AuthUpdateProfileInput,
   AuthUser,
   TokensService,
-} from '@nestjs-mod-fullstack/auth-angular';
+} from '@nestjs-mod-sso/auth-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { omit } from 'lodash';
 import { catchError, map, mergeMap, of } from 'rxjs';

@@ -1,5 +1,5 @@
-import { AuthErrorEnum } from '@nestjs-mod-fullstack/app-rest-sdk';
-import { RestClientHelper } from '@nestjs-mod-fullstack/testing';
+import { AuthErrorEnum } from '@nestjs-mod-sso/app-rest-sdk';
+import { RestClientHelper } from '@nestjs-mod-sso/testing';
 
 describe('CRUD operations with Webhook as "User" role', () => {
   jest.setTimeout(60000);

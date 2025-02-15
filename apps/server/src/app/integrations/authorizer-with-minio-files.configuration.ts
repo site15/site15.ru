@@ -1,4 +1,4 @@
-import { FilesConfiguration } from '@nestjs-mod-fullstack/files';
+import { FilesConfiguration } from '@nestjs-mod-sso/files';
 import { MinioFilesService } from '@nestjs-mod/minio';
 import { Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';

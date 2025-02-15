@@ -1,7 +1,7 @@
 import { Inject, InjectionToken, Provider } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
-import { AuthRestService } from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+import { AuthRestService } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AUTH_CONFIGURATION_TOKEN,
   AuthConfiguration,
@@ -11,8 +11,8 @@ import {
   AuthUser,
   AuthUserAndTokens,
   TokensService,
-} from '@nestjs-mod-fullstack/auth-angular';
-import { FilesService } from '@nestjs-mod-fullstack/files-angular';
+} from '@nestjs-mod-sso/auth-angular';
+import { FilesService } from '@nestjs-mod-sso/files-angular';
 import {
   AuthError,
   AuthResponse,

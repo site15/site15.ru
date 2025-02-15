@@ -1,5 +1,5 @@
 {
-    "name": "@nestjs-mod-fullstack/prisma-tools",
+    "name": "@nestjs-mod-sso/prisma-tools",
     "version": "1.3.2",
     "private": true,
     "dependencies": {

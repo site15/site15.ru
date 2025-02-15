@@ -2,7 +2,7 @@ import { Inject, Injectable, InjectionToken } from '@angular/core';
 import {
   FilesPresignedUrlsInterface,
   FilesRestService,
-} from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { Observable, from, map, mergeMap, of } from 'rxjs';
 
 export const MINIO_URL = new InjectionToken<string>('MinioURL');

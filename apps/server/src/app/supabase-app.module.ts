@@ -1,10 +1,10 @@
-import { AUTH_FEATURE, AuthModule } from '@nestjs-mod-fullstack/auth';
-import { FilesModule } from '@nestjs-mod-fullstack/files';
+import { AUTH_FEATURE, AuthModule } from '@nestjs-mod-sso/auth';
+import { FilesModule } from '@nestjs-mod-sso/files';
 import {
   ValidationError,
   ValidationErrorEnum,
-} from '@nestjs-mod-fullstack/validation';
-import { WebhookModule } from '@nestjs-mod-fullstack/webhook';
+} from '@nestjs-mod-sso/validation';
+import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import {
   createNestModule,
   getRequestFromExecutionContext,

@@ -1,4 +1,4 @@
-import { PrismaToolsModule } from '@nestjs-mod-fullstack/prisma-tools';
+import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
 import {
   createNestModule,
   getFeatureDotEnvPropertyNameFormatter,

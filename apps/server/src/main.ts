@@ -1,16 +1,16 @@
 process.env.TZ = 'UTC';
 
 import KeyvPostgres from '@keyv/postgres';
-import { AUTH_FEATURE, AUTH_FOLDER } from '@nestjs-mod-fullstack/auth';
-import { PrismaToolsModule } from '@nestjs-mod-fullstack/prisma-tools';
-import { ValidationModule } from '@nestjs-mod-fullstack/validation';
+import { AUTH_FEATURE, AUTH_FOLDER } from '@nestjs-mod-sso/auth';
+import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
+import { ValidationModule } from '@nestjs-mod-sso/validation';
 
 import KeyvRedis, { createClient } from '@keyv/redis';
 import {
   WEBHOOK_FEATURE,
   WEBHOOK_FOLDER,
   WebhookModule,
-} from '@nestjs-mod-fullstack/webhook';
+} from '@nestjs-mod-sso/webhook';
 import { AUTHORIZER_ENV_PREFIX } from '@nestjs-mod/authorizer';
 import {
   DefaultNestApplicationInitializer,
@@ -73,7 +73,7 @@ bootstrapNestApplication({
   project: {
     name: 'server',
     description:
-      'Boilerplate for creating a fullstack application on NestJS and Angular',
+      'Boilerplate for creating a sso application on NestJS and Angular',
   },
   modules: {
     system: [
@@ -313,7 +313,7 @@ bootstrapNestApplication({
                 disableStrongPassword: 'true',
                 disableEmailVerification: 'true',
                 featureName: AUTHORIZER_ENV_PREFIX,
-                organizationName: 'NestJSModFullstack',
+                organizationName: 'NestJSModSSO',
                 dependsOnServiceNames: {
                   'postgre-sql': 'service_healthy',
                 },

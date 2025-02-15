@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { WebhookScalarFieldEnumInterface } from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+import { WebhookScalarFieldEnumInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';
@@ -34,7 +34,7 @@ import {
   getQueryMetaByParams,
   NzTableSortOrderDetectorPipe,
   RequestMeta,
-} from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/common-angular';
 import { WebhookFormComponent } from '../../forms/webhook-form/webhook-form.component';
 import { WebhookModel } from '../../services/webhook-mapper.service';
 import { WebhookService } from '../../services/webhook.service';

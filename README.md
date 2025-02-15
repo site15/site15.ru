@@ -2,13 +2,13 @@
   <a href="https://github.com/nestjs-mod/" target="blank"><img src="https://avatars.githubusercontent.com/u/155752954?s=200&v=4" width="120" alt="NestJS-mod Logo" /></a>
 </p>
 
-  <p align="center">Boilerplate for creating a fullstack application on NestJS and Angular</p>
+  <p align="center">Boilerplate for creating a sso application on NestJS and Angular</p>
 
 ## Demo
 
-https://fullstack.nestjs-mod.com - live demo on Kubernetes
+https://sso.nestjs-mod.com - live demo on Kubernetes
 
-https://nestjs-mod-fullstack.vercel.app - live demo on Vercel
+https://nestjs-mod-sso.vercel.app - live demo on Vercel
 
 ## Dev/Watch mode
 
@@ -17,8 +17,8 @@ Infrastructure is running using docker-compose, applications are launched in wat
 ### Init
 
 ```sh
-git clone git@github.com:nestjs-mod/nestjs-mod-fullstack.git
-cd nestjs-mod-fullstack
+git clone git@github.com:nestjs-mod/nestjs-mod-sso.git
+cd nestjs-mod-sso
 npm i
 cp ./example.env ./.env
 ```
@@ -52,8 +52,8 @@ Infrastructure is running using docker-compose, built applications are launched 
 ### Init
 
 ```sh
-git clone git@github.com:nestjs-mod/nestjs-mod-fullstack.git
-cd nestjs-mod-fullstack
+git clone git@github.com:nestjs-mod/nestjs-mod-sso.git
+cd nestjs-mod-sso
 npm i
 cp ./example.env ./.env
 ```
@@ -87,8 +87,8 @@ Infrastructure and applications built into Docker images are run using docker-co
 ### Init
 
 ```sh
-git clone git@github.com:nestjs-mod/nestjs-mod-fullstack.git
-cd nestjs-mod-fullstack
+git clone git@github.com:nestjs-mod/nestjs-mod-sso.git
+cd nestjs-mod-sso
 npm i
 cp ./example.env ./.env
 ```
@@ -122,8 +122,8 @@ Infrastructure is running on [Supabase](https://supabase.com/), applications are
 ### Init
 
 ```sh
-git clone git@github.com:nestjs-mod/nestjs-mod-fullstack.git
-cd nestjs-mod-fullstack
+git clone git@github.com:nestjs-mod/nestjs-mod-sso.git
+cd nestjs-mod-sso
 npm i
 cp ./example-supabase.env ./.env
 ```
@@ -178,8 +178,8 @@ npm run pm2-supabase-full:dev:stop
 
 ## Links
 
-- https://fullstack.nestjs-mod.com - live demo on Kubernetes
-- https://nestjs-mod-fullstack.vercel.app - live demo on Vercel
+- https://sso.nestjs-mod.com - live demo on Kubernetes
+- https://nestjs-mod-sso.vercel.app - live demo on Vercel
 - https://github.com/nestjs-mod/nestjs-mod - A collection of utilities for unifying NestJS applications and modules
 - https://github.com/nestjs-mod/nestjs-mod-contrib - Contrib repository for the NestJS-mod
 - https://github.com/nestjs-mod/nestjs-mod-example - Example application built with [@nestjs-mod/schematics](https://github.com/nestjs-mod/nestjs-mod/tree/master/libs/schematics)

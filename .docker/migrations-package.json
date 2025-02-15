@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs-mod-fullstack/source",
+  "name": "@nestjs-mod-sso/source",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {

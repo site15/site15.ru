@@ -2,7 +2,7 @@
     "changelog": true,
     "npm": true,
     "github": true,
-    "repositoryUrl": "https://github.com/nestjs-mod/nestjs-mod-fullstack",
+    "repositoryUrl": "https://github.com/nestjs-mod/nestjs-mod-sso",
     "branches": [
         "master",
         {

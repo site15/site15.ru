@@ -1,13 +1,13 @@
 version: '3'
 networks:
-  nestjs-mod-fullstack-network:
+  nestjs-mod-sso-network:
     driver: 'bridge'
 services:
-  nestjs-mod-fullstack-e2e-tests:
-    image: 'ghcr.io/nestjs-mod/nestjs-mod-fullstack-e2e-tests:0.0.6'
-    container_name: 'nestjs-mod-fullstack-e2e-tests'
+  nestjs-mod-sso-e2e-tests:
+    image: 'ghcr.io/nestjs-mod/nestjs-mod-sso-e2e-tests:0.0.6'
+    container_name: 'nestjs-mod-sso-e2e-tests'
     networks:
-      - 'nestjs-mod-fullstack-network'
+      - 'nestjs-mod-sso-network'
     environment:
       BASE_URL: 'https://example.com'
     working_dir: '/usr/src/app'

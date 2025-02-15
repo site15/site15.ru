@@ -1,4 +1,4 @@
-import { AuthErrorEnum } from '@nestjs-mod-fullstack/auth';
+import { AuthErrorEnum } from '@nestjs-mod-sso/auth';
 import { AuthorizerError } from '@nestjs-mod/authorizer';
 import {
   ArgumentsHost,

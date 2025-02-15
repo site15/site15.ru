@@ -4,12 +4,9 @@ import {
   AuthError,
   AuthErrorEnum,
   AuthRequest,
-} from '@nestjs-mod-fullstack/auth';
-import { FilesRequest, FilesRole } from '@nestjs-mod-fullstack/files';
-import {
-  WebhookRequest,
-  WebhookUsersService,
-} from '@nestjs-mod-fullstack/webhook';
+} from '@nestjs-mod-sso/auth';
+import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
+import { WebhookRequest, WebhookUsersService } from '@nestjs-mod-sso/webhook';
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import {

@@ -15,11 +15,11 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod-fullstack/app-angular-rest-sdk';
+import { ValidationErrorMetadataInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   BROWSER_TIMEZONE_OFFSET,
   ValidationService,
-} from '@nestjs-mod-fullstack/common-angular';
+} from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { addHours } from 'date-fns';

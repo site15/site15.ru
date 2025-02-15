@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { WebhookRestService } from '@nestjs-mod-fullstack/app-angular-rest-sdk';
-import { RequestMeta } from '@nestjs-mod-fullstack/common-angular';
+import { WebhookRestService } from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { WebhookAuthService } from './webhook-auth.service';
 
 @Injectable({ providedIn: 'root' })
