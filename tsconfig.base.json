@@ -1,0 +1,56 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "noImplicitOverride": true,
+    "strictPropertyInitialization": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "paths": {
+      "@nestjs-mod-fullstack/app-angular-rest-sdk": [
+        "libs/sdk/app-angular-rest-sdk/src/index.ts"
+      ],
+      "@nestjs-mod-fullstack/app-rest-sdk": [
+        "libs/sdk/app-rest-sdk/src/index.ts"
+      ],
+      "@nestjs-mod-fullstack/auth": ["libs/core/auth/src/index.ts"],
+      "@nestjs-mod-fullstack/auth-angular": [
+        "libs/core/auth-angular/src/index.ts"
+      ],
+      "@nestjs-mod-fullstack/common": ["libs/common/src/index.ts"],
+      "@nestjs-mod-fullstack/common-angular": [
+        "libs/common-angular/src/index.ts"
+      ],
+      "@nestjs-mod-fullstack/files": ["libs/core/files/src/index.ts"],
+      "@nestjs-mod-fullstack/files-angular": [
+        "libs/core/files-angular/src/index.ts"
+      ],
+      "@nestjs-mod-fullstack/prisma-tools": [
+        "libs/core/prisma-tools/src/index.ts"
+      ],
+      "@nestjs-mod-fullstack/testing": ["libs/testing/src/index.ts"],
+      "@nestjs-mod-fullstack/validation": ["libs/core/validation/src/index.ts"],
+      "@nestjs-mod-fullstack/webhook": ["libs/feature/webhook/src/index.ts"],
+      "@nestjs-mod-fullstack/webhook-angular": [
+        "libs/feature/webhook-angular/src/index.ts"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

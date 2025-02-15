@@ -1,0 +1,423 @@
+{
+  "name": "@nestjs-mod-fullstack/source",
+  "version": "0.0.27",
+  "license": "MIT",
+  "scripts": {
+    "_____pm2-supabase-full dev infra_____": "_____pm2-supabase-full dev infra_____",
+    "pm2-supabase-full:dev:start": "npm run pg-flyway:migrate && npm run prisma:generate && npm run pm2-supabase:dev:start",
+    "pm2-supabase-full:dev:stop": "npm run pm2:dev:stop",
+    "pm2-supabase-full:dev:test:e2e": "npm run test:e2e",
+    "pm2-supabase:dev:start": "./node_modules/.bin/pm2 start ./ecosystem-supabase.config.json && npm run wait-on -- --log http://localhost:3000/api/health --log http://localhost:4200",
+    "_____pm2-full dev infra_____": "_____pm2-full dev infra_____",
+    "pm2-full:dev:start": "npm run generate && npm run docker-compose:start-prod:server && npm run db:create-and-fill && npm run pm2:dev:start",
+    "pm2-full:dev:stop": "npm run docker-compose:stop-prod:server && npm run pm2:dev:stop",
+    "pm2-full:dev:test:e2e": "npm run test:e2e",
+    "_____dev infra_____": "_____dev infra_____",
+    "serve:dev": "./node_modules/.bin/nx run-many --all -t=serve --skip-nx-cache=true",
+    "serve:dev:server": "./node_modules/.bin/nx serve server --skip-nx-cache=true",
+    "serve:dev:client": "./node_modules/.bin/nx serve client --skip-nx-cache=true",
+    "_____pm2 dev infra_____": "_____pm2 dev infra_____",
+    "pm2:dev:start": "./node_modules/.bin/pm2 start ./ecosystem.config.json && npm run wait-on -- --log http://localhost:3000/api/health --log http://localhost:4200",
+    "pm2:dev:stop": "./node_modules/.bin/pm2 delete all",
+    "_____pm2-full prod infra_____": "_____pm2-full prod infra_____",
+    "pm2-full:prod:start": "npm run build:prod && ./node_modules/.bin/nx run client:build:development --skip-nx-cache=true && npm run docker-compose:start-prod:server && npm run db:create-and-fill && npm run pm2:start",
+    "pm2-full:prod:stop": "npm run docker-compose:stop-prod:server && npm run pm2:stop",
+    "pm2-full:prod:test:e2e": "export BASE_URL=http://localhost:3000 && npm run test:e2e",
+    "_____prod infra_____": "_____prod infra_____",
+    "start": "./node_modules/.bin/nx run-many --all -t=start",
+    "build:prod": "npm run generate && chmod -R augo+rw libs apps dist && ./node_modules/.bin/nx run-many -p app-rest-sdk server client -t=build --configuration=production --parallel=1",
+    "_____pm2 prod infra_____": "_____pm2 prod infra_____",
+    "pm2:start": "./node_modules/.bin/pm2 start ./ecosystem-prod.config.json && npm run wait-on -- --log http://localhost:3000/api/health --log http://localhost:3000",
+    "pm2:stop": "./node_modules/.bin/pm2 delete all",
+    "_____docker-compose-full prod infra_____": "_____docker-compose-full prod infra_____",
+    "docker-compose-full:prod:build": ". .docker/set-env.sh && .docker/build-images.sh",
+    "docker-compose-full:prod:start": "npm run docker-compose-full:prod:build && npm run docker-compose-full:prod:only-start",
+    "docker-compose-full:prod:stop": ". .docker/set-env.sh && docker compose -f ./.docker/docker-compose-full.yml --env-file ./.docker/docker-compose-full.env --compatibility down",
+    "docker-compose-full:prod:only-start": ". .docker/set-env.sh && docker compose -f ./.docker/docker-compose-full.yml --env-file ./.docker/docker-compose-full.env --compatibility up -d",
+    "docker-compose-full:prod:test:e2e": ". .docker/set-env.sh && export BASE_URL=http://localhost:8080 && npm run test:e2e",
+    "_____docs_____": "_____docs_____",
+    "docs:infrastructure": "export NESTJS_MODE=infrastructure && ./node_modules/.bin/nx run-many --exclude=client* --all -t=serve --parallel=1 -- --watch=false --inspect=false",
+    "_____docker-compose infra_____": "_____docker-compose infra_____",
+    "docker-compose:start:server": "export COMPOSE_INTERACTIVE_NO_CLI=1 && docker compose -f ./apps/server/docker-compose.yml --compatibility up -d",
+    "docker-compose:stop:server": "export COMPOSE_INTERACTIVE_NO_CLI=1 && docker compose -f ./apps/server/docker-compose.yml down",
+    "_____docker-compose prod-infra_____": "_____docker-compose prod-infra_____",
+    "docker-compose:start-prod:server": "export COMPOSE_INTERACTIVE_NO_CLI=1 && docker compose -f ./apps/server/docker-compose-prod.yml --env-file ./apps/server/docker-compose-prod.env --compatibility up -d",
+    "docker-compose:stop-prod:server": "export COMPOSE_INTERACTIVE_NO_CLI=1 && docker compose -f ./apps/server/docker-compose-prod.yml --env-file ./apps/server/docker-compose-prod.env down",
+    "_____tests_____": "_____tests_____",
+    "test": "export CI=true && ./node_modules/.bin/nx run-many --all -t=test --skip-nx-cache=true --passWithNoTests --output-style=stream-without-prefixes",
+    "test:e2e": "export CI=true && ./node_modules/.bin/nx run-many --all -t=e2e --skip-nx-cache=true --output-style=stream-without-prefixes",
+    "test:server": "./node_modules/.bin/nx test server --skip-nx-cache=true --passWithNoTests --output-style=stream-without-prefixes",
+    "_____lint_____": "_____lint_____",
+    "lint": "npm run tsc:lint && ./node_modules/.bin/nx run-many --all -t=lint --parallel=1",
+    "lint:fix": "npm run tsc:lint && ./node_modules/.bin/nx run-many --all -t=lint --parallel=1 --fix",
+    "tsc:lint": "./node_modules/.bin/tsc --noEmit -p tsconfig.base.json",
+    "_____vercel_____": "_____vercel_____",
+    "vercel:pull-environment:production": "vercel pull --yes --environment=production && cp -r .vercel/.env.production.local .env && npx --yes tsx update-files-for-vercel.ts",
+    "_____supabase_____": "_____supabase_____",
+    "build-supabase": "./node_modules/.bin/nx run-many -p client -t=build --configuration=supabase-prod && ./node_modules/.bin/nx run-many -p app-rest-sdk server -t=build --configuration=supabase",
+    "manual-supabase-build": "npm run pg-flyway:migrate && npm run prisma:generate && npm run build-supabase && npm run test",
+    "_____kubernetes_____": "_____kubernetes_____",
+    "kubernetes:generate": "rm -rf ./.kubernetes/generated && . .kubernetes/set-env.sh && npm run rucken copy-paste -- --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true",
+    "_____db_____": "_____db_____",
+    "db:create": "./node_modules/.bin/nx run-many -t=db-create",
+    "db:create-and-fill": "npm run db:create && npm run pg-flyway:migrate",
+    "_____prisma_____": "_____prisma_____",
+    "prisma:pull:server": "./node_modules/.bin/nx run server:prisma-pull",
+    "prisma:pull": "./node_modules/.bin/nx run-many -t=prisma-pull --skip-nx-cache=true",
+    "prisma:generate": "./node_modules/.bin/nx run-many -t=prisma-generate --parallel=1",
+    "prisma:pull:webhook": "./node_modules/.bin/nx run webhook:prisma-pull",
+    "prisma:pull:auth": "./node_modules/.bin/nx run auth:prisma-pull",
+    "_____pg-flyway_____": "_____pg-flyway_____",
+    "pg-flyway:create:server": "./node_modules/.bin/nx run server:pg-flyway-create-migration",
+    "pg-flyway:migrate:server": "./node_modules/.bin/nx run server:pg-flyway-migrate",
+    "pg-flyway:migrate": "./node_modules/.bin/nx run-many -t=pg-flyway-migrate",
+    "pg-flyway:create:webhook": "./node_modules/.bin/nx run webhook:pg-flyway-create-migration",
+    "pg-flyway:migrate:webhook": "./node_modules/.bin/nx run webhook:pg-flyway-migrate",
+    "pg-flyway:create:auth": "./node_modules/.bin/nx run auth:pg-flyway-create-migration",
+    "pg-flyway:migrate:auth": "./node_modules/.bin/nx run auth:pg-flyway-migrate",
+    "_____utils_____": "_____utils_____",
+    "generate": "./node_modules/.bin/nx run-many --all -t=generate --parallel=1 && npm run make-ts-list && npm run lint:fix",
+    "tsc": "tsc",
+    "nx": "nx",
+    "dep-graph": "./node_modules/.bin/nx dep-graph",
+    "make-ts-list": "./node_modules/.bin/rucken make-ts-list",
+    "manual:prepare": "npm run generate && npm run docs:infrastructure && npm run test",
+    "update:nestjs-mod-versions": "npx -y npm-check-updates @nestjs-mod/* nestjs-mod rucken pg-flyway -u",
+    "rucken": "rucken",
+    "translates": "./node_modules/.bin/rucken prepare --locales=en,ru --update-package-version=false",
+    "wait-on": "./node_modules/.bin/wait-on --timeout=240000 --interval=1000 --window",
+    "prepare": "npx -y husky install"
+  },
+  "private": true,
+  "devDependencies": {
+    "@angular-devkit/build-angular": "19.0.6",
+    "@angular-devkit/core": "19.0.6",
+    "@angular-devkit/schematics": "19.0.6",
+    "@angular-eslint/eslint-plugin": "19.0.2",
+    "@angular-eslint/eslint-plugin-template": "19.0.2",
+    "@angular-eslint/template-parser": "19.0.2",
+    "@angular/cli": "~19.0.0",
+    "@angular/compiler-cli": "19.0.5",
+    "@angular/language-service": "19.0.5",
+    "@brakebein/prisma-generator-nestjs-dto": "^1.24.0-beta5",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@nestjs-mod/schematics": "^2.12.5",
+    "@nestjs-mod/testing": "2.17.4",
+    "@nestjs/schematics": "^10.2.3",
+    "@nestjs/testing": "^10.4.15",
+    "@nx/angular": "20.3.3",
+    "@nx/devkit": "20.3.3",
+    "@nx/eslint": "20.3.3",
+    "@nx/eslint-plugin": "20.3.3",
+    "@nx/jest": "20.3.3",
+    "@nx/js": "20.3.3",
+    "@nx/node": "20.3.3",
+    "@nx/playwright": "20.3.3",
+    "@nx/web": "20.3.3",
+    "@nx/webpack": "20.3.3",
+    "@nx/workspace": "20.3.3",
+    "@openapitools/openapi-generator-cli": "2.16.3",
+    "@playwright/test": "^1.48.2",
+    "@schematics/angular": "19.0.6",
+    "@swc-node/register": "~1.10.9",
+    "@swc/core": "~1.9.2",
+    "@swc/helpers": "~0.5.15",
+    "@theunderscorer/nx-semantic-release": "^2.12.0",
+    "@types/jest": "29.5.13",
+    "@types/lodash": "^4.17.10",
+    "@types/node": "~18.16.9",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "@typescript-eslint/utils": "^7.16.0",
+    "autoprefixer": "^10.4.0",
+    "browser-sync": "^3.0.0",
+    "eslint": "~8.57.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-playwright": "^0.15.3",
+    "fast-glob": "^3.3.2",
+    "husky": "^9.1.6",
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "jest-preset-angular": "14.4.2",
+    "jsonc-eslint-parser": "^2.1.0",
+    "lint-staged": "^15.2.10",
+    "ng-packagr": "19.0.1",
+    "nx": "20.3.3",
+    "postcss": "^8.4.5",
+    "postcss-url": "~10.1.3",
+    "prettier": "^2.6.2",
+    "prisma": "^5.22.0",
+    "rucken": "^4.15.0",
+    "string-replace-loader": "3.1.0",
+    "tailwindcss": "^3.4.15",
+    "ts-jest": "^29.1.0",
+    "ts-node": "10.9.1",
+    "typescript": "5.6.3",
+    "verdaccio": "^5.0.4",
+    "pg-flyway": "1.0.1",
+    "pg-promise": "10.12.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": "eslint --fix",
+    "*.{js,ts,css,scss,md}": "prettier --ignore-unknown --write",
+    "*.js": "eslint --cache --fix"
+  },
+  "scriptsComments": {
+    "pm2-supabase-full:dev:start": [],
+    "pm2-supabase-full:dev:stop": [],
+    "pm2-supabase-full:dev:test:e2e": [],
+    "pm2-supabase:dev:start": [],
+    "pm2-full:dev:start": [
+      "Launching infrastructure and all applications in watch mode via PM2"
+    ],
+    "pm2-full:dev:stop": [
+      "Stopping infrastructure and all applications in watch mode via PM2"
+    ],
+    "pm2-full:dev:test:e2e": [
+      "Running E2E tests for all applications in PM2 dev mode"
+    ],
+    "serve:dev": [
+      "Running NestJS application source code in watch mode"
+    ],
+    "serve:dev:server": [
+      "Running server source code in watch mode"
+    ],
+    "serve:dev:client": [],
+    "pm2:dev:start": [
+      "Launching all applications in watch mode via PM2"
+    ],
+    "pm2:dev:stop": [
+      "Stopping all applications in watch mode via PM2"
+    ],
+    "pm2-full:prod:start": [
+      "Launching the infrastructure and building all applications, followed by launching them via PM2"
+    ],
+    "pm2-full:prod:stop": [
+      "Stopping infrastructure and all applications running through PM2"
+    ],
+    "pm2-full:prod:test:e2e": [
+      "Running E2E tests for all applications in PM2 prod mode"
+    ],
+    "start": [],
+    "build:prod": [
+      "Building a NestJS application in prod mode"
+    ],
+    "pm2:start": [
+      "Launch all applications in PM2 mode"
+    ],
+    "pm2:stop": [
+      "Stop all applications in PM2 mode"
+    ],
+    "docker-compose-full:prod:build": [
+      "Building Docker images"
+    ],
+    "docker-compose-full:prod:start": [
+      "Build and launching Docker Compose infrastructure with a backend in the form of a Docker container and frontend statics transmitted via Nginx"
+    ],
+    "docker-compose-full:prod:stop": [
+      "Stopping Docker Compose infrastructure and all applications"
+    ],
+    "docker-compose-full:prod:only-start": [
+      "Launching Docker Compose infrastructure with a backend in the form of a Docker container and frontend statics transmitted via Nginx"
+    ],
+    "docker-compose-full:prod:test:e2e": [
+      "Launching E2E tests on an application launched via Docker Compose"
+    ],
+    "docs:infrastructure": [
+      "Creation of documentation for the entire infrastructure and creation of files necessary to launch the infrastructure"
+    ],
+    "docker-compose:start:server": [
+      "Running the docker-compose infrastructure for server"
+    ],
+    "docker-compose:stop:server": [
+      "Stopping the docker-compose infrastructure for server"
+    ],
+    "docker-compose:start-prod:server": [
+      "Running the main docker-compose prod infrastructure for server"
+    ],
+    "docker-compose:stop-prod:server": [
+      "Stopping the main docker-compose prod infrastructure for server"
+    ],
+    "test": [
+      "Running tests across the entire project"
+    ],
+    "test:e2e": [
+      "Running E2E tests for all applications"
+    ],
+    "test:server": [
+      "Running tests for server"
+    ],
+    "lint": [
+      "Checking the typescript code for the entire project"
+    ],
+    "lint:fix": [
+      "Checking the typescript code throughout the project and trying to fix everything possible"
+    ],
+    "tsc:lint": [],
+    "vercel:pull-environment:production": [],
+    "build-supabase": [],
+    "manual-supabase-build": [],
+    "kubernetes:generate": [],
+    "db:create": [
+      "Creation all databases of applications and modules"
+    ],
+    "db:create-and-fill": [
+      "Create and fill databases"
+    ],
+    "prisma:pull:server": [
+      "Generating a prisma schema based on a database for server"
+    ],
+    "prisma:pull": [
+      "Generating a prisma schema based on a database"
+    ],
+    "prisma:generate": [
+      "Generation of client prisma schema of all applications and modules"
+    ],
+    "prisma:pull:webhook": [
+      "Generating a prisma schema based on a database for webhook"
+    ],
+    "prisma:pull:auth": [
+      "Generating a prisma schema based on a database for auth"
+    ],
+    "pg-flyway:create:server": [
+      "Command to create new empty migration for server, for set name pass name to --args, example: npm run pg-flyway:create:appname --args=Init"
+    ],
+    "pg-flyway:migrate:server": [
+      "Applying migrations for server"
+    ],
+    "pg-flyway:migrate": [
+      "Applying migrations of all applications and modules"
+    ],
+    "pg-flyway:create:webhook": [
+      "Command to create new empty migration for webhook, for set name pass name to --args, example: npm run pg-flyway:create:appname --args=Init"
+    ],
+    "pg-flyway:migrate:webhook": [
+      "Applying migrations for webhook"
+    ],
+    "pg-flyway:create:auth": [
+      "Command to create new empty migration for auth, for set name pass name to --args, example: npm run pg-flyway:create:appname --args=Init"
+    ],
+    "pg-flyway:migrate:auth": [
+      "Applying migrations for auth"
+    ],
+    "generate": [
+      "Running the \"generate\" nx command in applications and libraries which can be customized at your discretion",
+      "automatically generating an index.ts file for each library",
+      "checking the code and trying to fix it"
+    ],
+    "tsc": [
+      "Alias for running the tsc version locally, which is in the project (example: `npm run tsc -- --noEmit -p tsconfig.base.json`),",
+      "in order not to install tsc globally in the operating system"
+    ],
+    "nx": [
+      "Alias for running the nx version locally, which is in the project (example: `./node_modules/.bin/nx dep-graph`),",
+      "in order not to install nx globally in the operating system"
+    ],
+    "dep-graph": [
+      "Generating dependency diagrams for nx applications and libraries"
+    ],
+    "make-ts-list": [
+      "Automatically generating an index.ts file for each library,",
+      "works only for nx applications created using the `--projectNameAndRootFormat=as-provided` flag"
+    ],
+    "manual:prepare": [
+      "Preparing code, building code, creating infrastructure documentation",
+      "and all the files necessary to raise the infrastructure and running tests (generate, build, docs:infrastructure, test)"
+    ],
+    "update:nestjs-mod-versions": [
+      "Updating NestJS-mod libraries"
+    ],
+    "rucken": [
+      "Alias for console tools and scripts for nx and not only use to automate the workflow and",
+      "speed up the development process (example: `npm run rucken -- make-ts-list`, site: https://www.npmjs.com/package/rucken)"
+    ],
+    "translates": [],
+    "wait-on": [
+      "Utility for checking and waiting for site availability"
+    ],
+    "prepare": []
+  },
+  "overrides": {
+    "@supabase/supabase-js": {
+      "@supabase/gotrue-js": "2.61.0"
+    }
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.47.10",
+    "@angular/animations": "19.0.5",
+    "@angular/common": "19.0.5",
+    "@angular/compiler": "19.0.5",
+    "@angular/core": "19.0.5",
+    "@angular/forms": "19.0.5",
+    "@angular/platform-browser": "19.0.5",
+    "@angular/platform-browser-dynamic": "19.0.5",
+    "@angular/platform-server": "19.0.5",
+    "@angular/router": "19.0.5",
+    "@angular/ssr": "19.0.6",
+    "@authorizerdev/authorizer-js": "^2.0.3",
+    "@faker-js/faker": "^9.2.0",
+    "@jsverse/transloco": "^7.5.0",
+    "@jsverse/transloco-keys-manager": "^6.0.0",
+    "@jsverse/transloco-locale": "^7.0.1",
+    "@jsverse/transloco-messageformat": "^7.0.1",
+    "@nestjs-mod/authorizer": "^1.5.3",
+    "@nestjs-mod/keyv": "1.1.1",
+    "@keyv/redis": "4.2.0",
+    "@keyv/postgres": "2.0.4",
+    "@nestjs-mod/common": "2.17.4",
+    "@nestjs-mod/docker-compose": "^1.17.2",
+    "@nestjs-mod/pg-flyway": "^1.0.4",
+    "@nestjs-mod/minio": "^1.4.1",
+    "@nestjs-mod/pino": "1.15.1",
+    "@nestjs-mod/pm2": "1.13.2",
+    "@nestjs-mod/prisma": "^1.11.3",
+    "@nestjs-mod/reports": "2.17.4",
+    "@nestjs-mod/terminus": "1.14.1",
+    "@nestjs/axios": "^3.1.3",
+    "@nestjs/common": "^10.4.15",
+    "@nestjs/core": "^10.4.15",
+    "@nestjs/platform-express": "^10.4.15",
+    "@nestjs/platform-socket.io": "^10.4.15",
+    "@nestjs/platform-ws": "^10.4.15",
+    "@nestjs/serve-static": "^4.0.2",
+    "@nestjs/swagger": "^8.1.1",
+    "@nestjs/terminus": "^10.2.3",
+    "@nestjs/websockets": "^10.4.15",
+    "@ngneat/until-destroy": "^10.0.0",
+    "@ngx-formly/core": "^6.3.12",
+    "@ngx-formly/ng-zorro-antd": "^6.3.12",
+    "@prisma/client": "^5.22.0",
+    "ajv": "^8.17.1",
+    "axios": "^1.7.7",
+    "case-anything": "2.1.13",
+    "class-transformer": "^0.5.1",
+    "class-transformer-global-storage": "0.4.1-1",
+    "class-validator": "^0.14.1",
+    "class-validator-multi-lang": "^0.140.1",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.5",
+    "env-var": "^7.5.0",
+    "express": "~4.21.1",
+    "lodash": "^4.17.21",
+    "minio": "^8.0.2",
+    "nestjs-minio": "^2.6.2",
+    "nestjs-pino": "^4.1.0",
+    "nestjs-translates": "^2.0.2",
+    "ng-zorro-antd": "^19.0.0",
+    "pino-http": "^10.3.0",
+    "pino-pretty": "^13.0.0",
+    "pm2": "^5.4.3",
+    "keyv": "5.2.2",
+    "redis": "4.7.0",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.3.0",
+    "wait-on": "^8.0.1",
+    "zone.js": "0.15.0"
+  },
+  "nx": {
+    "includedScripts": []
+  }
+}
