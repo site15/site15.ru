@@ -81,6 +81,23 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
 
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
 #### Environments(webhook)
 
 | Key    | Sources | Constraints | Value |
@@ -137,6 +154,23 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
 
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
 #### Environments(webhook)
 
 | Key    | Sources | Constraints | Value |
@@ -192,6 +226,96 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
+
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+
+#### Environments(app)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
+
+#### Static configuration(app)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```app```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+
+### PrismaModule
+Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
+
+#### Shared providers
+`PrismaClientFactoryService`, `PrismaClient`
+
+#### Environments(auth)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
+
+#### Static configuration(auth)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```auth```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
+
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 
 #### Environments(webhook)
 
@@ -422,6 +546,22 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 |`featureName`|**optional**|```app```|
 |`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/migrations```|
 
+### PgFlyway
+PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
+
+#### Environments
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
+
+#### Static configuration
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```app```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/migrations```|
+
 ### InfrastructureMarkdownReportGenerator
 Infrastructure markdown report generator.
 
@@ -465,6 +605,13 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 | ------ | ----------- | ----- |
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
 
+#### Modules that use feature configuration
+##### Feature module name: sso
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
 #### Modules that use feature environments
 ##### Feature module name: app
 
@@ -492,6 +639,13 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
 |`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
+
+#### Modules that use feature environments
+##### Feature module name: sso
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
 
 ### DockerComposeAuthorizer
 Authorizer is an open-source authentication and authorization solution for your applications. Bring your database and have complete control over the user information. You can self-host authorizer instances and connect to supported databases. (Generator for https://authorizer.dev in docker-compose.yml for https://www.npmjs.com/package/@nestjs-mod/docker-compose)

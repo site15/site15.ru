@@ -4,7 +4,7 @@ import KeyvPostgres from '@keyv/postgres';
 import { AUTH_FEATURE, AUTH_FOLDER } from '@nestjs-mod-sso/auth';
 import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
 import { ValidationModule } from '@nestjs-mod-sso/validation';
-
+import { SSO_FEATURE, SSO_FOLDER } from '@nestjs-mod-sso/sso';
 import KeyvRedis, { createClient } from '@keyv/redis';
 import {
   WEBHOOK_FEATURE,
@@ -210,6 +210,30 @@ bootstrapNestApplication({
           ],
         },
       }),
+      PrismaModule.forRoot({
+        contextName: SSO_FEATURE,
+        staticConfiguration: {
+          featureName: SSO_FEATURE,
+          schemaFile: join(
+            rootFolder,
+            SSO_FOLDER,
+            'src',
+            'prisma',
+            PRISMA_SCHEMA_FILE
+          ),
+          prismaModule: isInfrastructureMode()
+            ? import(`@nestjs-mod/prisma`)
+            : import(`@prisma/sso-client`),
+          addMigrationScripts: false,
+          nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+
+          binaryTargets: [
+            'native',
+            'rhel-openssl-3.0.x',
+            'linux-musl-openssl-3.0.x',
+          ],
+        },
+      }),
       KeyvModule.forRoot({
         staticConfiguration: {
           storeFactoryByEnvironmentUrl: (uri) => {
@@ -373,6 +397,19 @@ bootstrapNestApplication({
           featureName: AUTH_FEATURE,
           migrationsFolder: join(rootFolder, AUTH_FOLDER, 'src', 'migrations'),
           nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
+        },
+      }),
+      DockerComposePostgreSQL.forFeatureAsync({
+        featureModuleName: SSO_FEATURE,
+        featureConfiguration: {
+          nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+        },
+      }),
+      PgFlyway.forRoot({
+        staticConfiguration: {
+          featureName: SSO_FEATURE,
+          migrationsFolder: join(rootFolder, SSO_FOLDER, 'src', 'migrations'),
+          nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
         },
       }),
     ],

@@ -1,0 +1,20 @@
+import { OauthApi } from '@donationbet/sdk/common';
+
+describe('OAuth (e2e)', () => {
+    jest.setTimeout(5 * 60 * 1000);
+
+    it('Get providers', async () => {
+        const { data } = await new OauthApi(undefined, process.env.PROJECT_URL).oAuthControllerOauthProviders();
+        expect(data.providers.length).toBeGreaterThan(0);
+        expect(data.providers.find((p) => p.name === 'google')!.title).toEqual('Sign in with Google');
+    });
+    it('Get providers with Russian locale', async () => {
+        const { data } = await new OauthApi(undefined, process.env.PROJECT_URL).oAuthControllerOauthProviders({
+            headers: {
+                'accept-language': 'ru',
+            },
+        });
+        expect(data.providers.length).toBeGreaterThan(0);
+        expect(data.providers.find((p) => p.name === 'google')!.title).toEqual('Войти с помощью Google');
+    });
+});

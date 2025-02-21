@@ -1,0 +1,152 @@
+import { AuthApi } from '@donationbet/sdk/common';
+import { AxiosError } from 'axios';
+
+describe('Auth (e2e)', () => {
+    jest.setTimeout(5 * 60 * 1000);
+
+    it('English validation errors in sign-up with not equals password', async () => {
+        try {
+            await new AuthApi(undefined, process.env.PROJECT_URL).authControllerSignUp({
+                email: `oauth_${new Date().getTime()}@gmail.com`,
+                password: 'password',
+                rePassword: 'wrong password',
+                fingerprint: `fingerprint_${new Date().getTime()}`,
+            });
+            expect(true).toEqual(false);
+        } catch (err) {
+            const errData = (err as AxiosError).isAxiosError ? (err as AxiosError).response!.data : null;
+            expect(errData).not.toEqual(null);
+            if (errData) {
+                expect(errData['validationErrors']).toEqual([
+                    {
+                        property: 'rePassword',
+                        children: [],
+                        constraints: { equalsTo: 'password do not match to rePassword' },
+                    },
+                ]);
+            }
+        }
+    });
+    it('Russian validation errors in sign-up with not equals password', async () => {
+        try {
+            await new AuthApi(undefined, process.env.PROJECT_URL).authControllerSignUp(
+                {
+                    email: `oauth_${new Date().getTime()}@gmail.com`,
+                    password: 'password',
+                    rePassword: 'wrong password',
+                    fingerprint: `fingerprint_${new Date().getTime()}`,
+                },
+                {
+                    headers: {
+                        'accept-language': 'ru',
+                    },
+                }
+            );
+            expect(true).toEqual(false);
+        } catch (err) {
+            const errData = (err as AxiosError).isAxiosError ? (err as AxiosError).response!.data : null;
+            expect(errData).not.toEqual(null);
+            if (errData) {
+                expect(errData['validationErrors']).toEqual([
+                    {
+                        property: 'rePassword',
+                        children: [],
+                        constraints: { equalsTo: 'password не равен rePassword' },
+                    },
+                ]);
+            }
+        }
+    });
+    it('English errors in sign-in not exists user', async () => {
+        try {
+            await new AuthApi(undefined, process.env.PROJECT_URL).authControllerSignIn({
+                email: `oauth_${new Date().getTime()}@gmail.com`,
+                password: 'password',
+                fingerprint: `fingerprint_${new Date().getTime()}`,
+            });
+            expect(true).toEqual(false);
+        } catch (err) {
+            const errData = (err as AxiosError).isAxiosError ? (err as AxiosError).response!.data : null;
+            expect(errData).not.toEqual(null);
+            if (errData) {
+                expect(errData['message']).toEqual('User not found');
+                expect(errData['code']).toEqual('AUTH-001');
+            }
+        }
+    });
+    it('Russian errors in sign-in not exists user', async () => {
+        try {
+            await new AuthApi(undefined, process.env.PROJECT_URL).authControllerSignIn(
+                {
+                    email: `oauth_${new Date().getTime()}@gmail.com`,
+                    password: 'password',
+                    fingerprint: `fingerprint_${new Date().getTime()}`,
+                },
+                {
+                    headers: {
+                        'accept-language': 'ru',
+                    },
+                }
+            );
+            expect(true).toEqual(false);
+        } catch (err) {
+            const errData = (err as AxiosError).isAxiosError ? (err as AxiosError).response!.data : null;
+            expect(errData).not.toEqual(null);
+            if (errData) {
+                expect(errData['message']).toEqual('Пользователь не найден');
+                expect(errData['code']).toEqual('AUTH-001');
+            }
+        }
+    });
+    it('English validation errors in sign-in with empty password', async () => {
+        try {
+            await new AuthApi(undefined, process.env.PROJECT_URL).authControllerSignIn({
+                email: `oauth_${new Date().getTime()}@gmail.com`,
+                password: '',
+                fingerprint: `fingerprint_${new Date().getTime()}`,
+            });
+            expect(true).toEqual(false);
+        } catch (err) {
+            const errData = (err as AxiosError).isAxiosError ? (err as AxiosError).response!.data : null;
+            expect(errData).not.toEqual(null);
+            if (errData) {
+                expect(errData['validationErrors']).toEqual([
+                    {
+                        property: 'password',
+                        children: [],
+                        constraints: { isNotEmpty: 'password should not be empty' },
+                    },
+                ]);
+            }
+        }
+    });
+    it('Russian validation errors in sign-in with empty password', async () => {
+        try {
+            await new AuthApi(undefined, process.env.PROJECT_URL).authControllerSignIn(
+                {
+                    email: `oauth_${new Date().getTime()}@gmail.com`,
+                    password: '',
+                    fingerprint: `fingerprint_${new Date().getTime()}`,
+                },
+                {
+                    headers: {
+                        'accept-language': 'ru',
+                    },
+                }
+            );
+            expect(true).toEqual(false);
+        } catch (err) {
+            const errData = (err as AxiosError).isAxiosError ? (err as AxiosError).response!.data : null;
+            expect(errData).not.toEqual(null);
+            if (errData) {
+                expect(errData['validationErrors']).toEqual([
+                    {
+                        property: 'password',
+                        children: [],
+                        constraints: { isNotEmpty: 'password не может быть пустым' },
+                    },
+                ]);
+            }
+        }
+    });
+});

@@ -67,6 +67,7 @@
     "prisma:generate": "./node_modules/.bin/nx run-many -t=prisma-generate --parallel=1",
     "prisma:pull:webhook": "./node_modules/.bin/nx run webhook:prisma-pull",
     "prisma:pull:auth": "./node_modules/.bin/nx run auth:prisma-pull",
+    "prisma:pull:sso": "./node_modules/.bin/nx run sso:prisma-pull",
     "_____pg-flyway_____": "_____pg-flyway_____",
     "pg-flyway:create:server": "./node_modules/.bin/nx run server:pg-flyway-create-migration",
     "pg-flyway:migrate:server": "./node_modules/.bin/nx run server:pg-flyway-migrate",
@@ -75,6 +76,8 @@
     "pg-flyway:migrate:webhook": "./node_modules/.bin/nx run webhook:pg-flyway-migrate",
     "pg-flyway:create:auth": "./node_modules/.bin/nx run auth:pg-flyway-create-migration",
     "pg-flyway:migrate:auth": "./node_modules/.bin/nx run auth:pg-flyway-migrate",
+    "pg-flyway:create:sso": "./node_modules/.bin/nx run sso:pg-flyway-create-migration",
+    "pg-flyway:migrate:sso": "./node_modules/.bin/nx run sso:pg-flyway-migrate",
     "_____utils_____": "_____utils_____",
     "generate": "./node_modules/.bin/nx run-many --all -t=generate --parallel=1 && npm run make-ts-list && npm run lint:fix",
     "tsc": "tsc",
@@ -90,6 +93,7 @@
   },
   "private": true,
   "devDependencies": {
+    "@types/nodemailer": "6.4.17",
     "@angular-devkit/build-angular": "19.0.6",
     "@angular-devkit/core": "19.0.6",
     "@angular-devkit/schematics": "19.0.6",
@@ -156,7 +160,7 @@
     "ts-node": "10.9.1",
     "typescript": "5.6.3",
     "verdaccio": "^5.0.4",
-    "pg-flyway": "1.0.1",
+    "pg-flyway": "1.0.2",
     "pg-promise": "10.12.0"
   },
   "lint-staged": {
@@ -281,6 +285,9 @@
     "prisma:pull:auth": [
       "Generating a prisma schema based on a database for auth"
     ],
+    "prisma:pull:sso": [
+      "Generating a prisma schema based on a database for sso"
+    ],
     "pg-flyway:create:server": [
       "Command to create new empty migration for server, for set name pass name to --args, example: npm run pg-flyway:create:appname --args=Init"
     ],
@@ -301,6 +308,12 @@
     ],
     "pg-flyway:migrate:auth": [
       "Applying migrations for auth"
+    ],
+    "pg-flyway:create:sso": [
+      "Command to create new empty migration for sso, for set name pass name to --args, example: npm run pg-flyway:create:appname --args=Init"
+    ],
+    "pg-flyway:migrate:sso": [
+      "Applying migrations for sso"
     ],
     "generate": [
       "Running the \"generate\" nx command in applications and libraries which can be customized at your discretion",
@@ -345,6 +358,8 @@
     }
   },
   "dependencies": {
+    "nodemailer": "6.10.0",
+    "bcryptjs": "3.0.2",
     "@supabase/supabase-js": "2.47.10",
     "@angular/animations": "19.0.5",
     "@angular/common": "19.0.5",
@@ -385,6 +400,7 @@
     "@nestjs/swagger": "^8.1.1",
     "@nestjs/terminus": "^10.2.3",
     "@nestjs/websockets": "^10.4.15",
+    "@nestjs/jwt": "^10.2.0",
     "@ngneat/until-destroy": "^10.0.0",
     "@ngx-formly/core": "^6.3.12",
     "@ngx-formly/ng-zorro-antd": "^6.3.12",
@@ -404,7 +420,7 @@
     "minio": "^8.0.2",
     "nestjs-minio": "^2.6.2",
     "nestjs-pino": "^4.1.0",
-    "nestjs-translates": "^2.0.2",
+    "nestjs-translates": "^2.1.1",
     "ng-zorro-antd": "^19.0.0",
     "pino-http": "^10.3.0",
     "pino-pretty": "^13.0.0",

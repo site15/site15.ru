@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+  
+  output   = "../../../../../node_modules/@prisma/sso-client"
+  binaryTargets = ["native","rhel-openssl-3.0.x","linux-musl-openssl-3.0.x"]
+  
+}
+datasource db {
+  provider          = "postgres"
+  url               = env("SERVER_SSO_DATABASE_URL")
+}
+generator prismaClassGenerator {
+  provider                        = "prisma-generator-nestjs-dto"
+  output                          = "../lib/generated/rest/dto"
+  entitySuffix                    = ""
+  noDependencies                  = "false"
+  annotateAllDtoProperties        = "true"
+  definiteAssignmentAssertion     = "true"
+  createDtoPrefix                 = "Create"
+  fileNamingStyle                 = "kebab"
+  reExport                        = "false"
+  entityPrefix                    = ""
+  flatResourceStructure           = "false"
+  exportRelationModifierClasses   = "true"
+  classValidation                 = "true"
+  outputToNestJsResourceStructure = "false"
+  prettier                        = "true"
+  dtoSuffix                       = "Dto"
+  updateDtoPrefix                 = "Update"
+}
+
+model SsoProject {
+  id           String    @id(map: "PK_SSO_PROJECTS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  clientId     String    @unique(map: "UQ_SSO_PROJECTS__CLIENT_ID")
+  clientSecret String
+  createdAt    DateTime  @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime  @default(now()) @db.Timestamp(6)
+  SsoUser      SsoUser[]
+}
+
+model SsoUser {
+  id                String              @id(map: "PK_SSO_USERS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  email             String              @db.VarChar(254)
+  username          String?             @db.VarChar(254)
+  password          String              @db.VarChar(254)
+  roles             String?             @db.VarChar(254)
+  firstname         String?             @db.VarChar(254)
+  lastname          String?             @db.VarChar(254)
+  birthdate         DateTime?           @db.Timestamp(6)
+  picture           String?
+  appData           Json?
+  projectId         String              @db.Uuid
+  createdAt         DateTime            @default(now()) @db.Timestamp(6)
+  updatedAt         DateTime            @default(now()) @db.Timestamp(6)
+  SsoRefreshSession SsoRefreshSession[]
+  SsoProject        SsoProject          @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_USERS__PROJECT_ID")
+
+  @@unique([email, projectId], map: "UQ_SSO_USERS__EMAIL")
+  @@unique([username, projectId], map: "UQ_SSO_USERS__USERNAME")
+  @@index([firstname, projectId], map: "IDX_SSO_USERS__FIRSTNAME")
+  @@index([lastname, projectId], map: "IDX_SSO_USERS__LASTNAME")
+}
+
+model migrations_sso {
+  installed_rank Int      @id(map: "__migrations_sso_pk")
+  version        String?  @db.VarChar(50)
+  description    String   @db.VarChar(200)
+  type           String   @db.VarChar(20)
+  script         String   @db.VarChar(1000)
+  checksum       Int?
+  installed_by   String   @db.VarChar(100)
+  installed_on   DateTime @default(now()) @db.Timestamp(6)
+  execution_time Int
+  success        Boolean
+
+  @@index([success], map: "__migrations_sso_s_idx")
+  @@map("__migrations_sso")
+}
+
+model SsoRefreshSession {
+  id           String   @id(map: "PK_SSO_REFRESH_SESSIONS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  refreshToken String   @db.Uuid
+  userAgent    String?  @db.VarChar(254)
+  fingerprint  String?  @db.VarChar(254)
+  userIp       String?  @db.VarChar(128)
+  expiresIn    BigInt?
+  userId       String   @db.Uuid
+  createdAt    DateTime @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime @default(now()) @db.Timestamp(6)
+  SsoUser      SsoUser  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "FK_SSO_REFRESH_SESSIONS__USER_ID")
+}

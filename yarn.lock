@@ -3180,6 +3180,14 @@
     tslib "2.4.0"
     uuid "8.3.2"
 
+"@nestjs/jwt@^10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/jwt/-/jwt-10.2.0.tgz#6aa35a04922d19c6426efced4671620f92e6dbd0"
+  integrity sha512-x8cG90SURkEiLOehNaN2aRlotxT0KZESUliOPKKnjWiyJOcWurkF3w345WOX0P4MgFzUjGoZ1Sy0aZnxeihT0g==
+  dependencies:
+    "@types/jsonwebtoken" "9.0.5"
+    jsonwebtoken "9.0.2"
+
 "@nestjs/mapped-types@2.0.6":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@nestjs/mapped-types/-/mapped-types-2.0.6.tgz#d2d8523709fd5d872a9b9e0c38162746e2a7f44e"
@@ -5628,6 +5636,13 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.15.tgz#596a1747233694d50f6ad8a7869fcb6f56cf5841"
   integrity sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==
 
+"@types/jsonwebtoken@9.0.5":
+  version "9.0.5"
+  resolved "https://registry.yarnpkg.com/@types/jsonwebtoken/-/jsonwebtoken-9.0.5.tgz#0bd9b841c9e6c5a937c17656e2368f65da025588"
+  integrity sha512-VRLSGzik+Unrup6BsouBeHsf4d1hOEgYWTm/7Nmw1sXoN1+tRly/Gy/po3yeahnP4jfnQWWAhQAqcNfH7ngOkA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/lodash@^4.17.10":
   version "4.17.14"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.14.tgz#bafc053533f4cdc5fcc9635af46a963c1f3deaff"
@@ -5671,6 +5686,13 @@
   version "18.16.20"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.16.20.tgz#b27be1ceb267bfb47d8bac024ff6379998f62207"
   integrity sha512-nL54VfDjThdP2UXJXZao5wp76CDiDw4zSRO8d4Tk7UgDqNKGKVEQB0/t3ti63NS+YNNkIQDvwEAF04BO+WYu7Q==
+
+"@types/nodemailer@6.4.17":
+  version "6.4.17"
+  resolved "https://registry.yarnpkg.com/@types/nodemailer/-/nodemailer-6.4.17.tgz#5c82a42aee16a3dd6ea31446a1bd6a447f1ac1a4"
+  integrity sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww==
+  dependencies:
+    "@types/node" "*"
 
 "@types/normalize-package-data@^2.4.0", "@types/normalize-package-data@^2.4.1":
   version "2.4.4"
@@ -6956,6 +6978,11 @@ bcryptjs@2.4.3:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
   integrity sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==
+
+bcryptjs@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/bcryptjs/-/bcryptjs-3.0.2.tgz#caadcca1afefe372ed6e20f86db8e8546361c1ca"
+  integrity sha512-k38b3XOZKv60C4E2hVsXTolJWfkGRMbILBIe2IBITXciy5bOsTKot5kDrf3ZfufQtQOUN5mXceUEpU1rTl9Uog==
 
 beasties@0.1.0:
   version "0.1.0"
@@ -13831,10 +13858,10 @@ nestjs-pino@^4.1.0:
   resolved "https://registry.yarnpkg.com/nestjs-pino/-/nestjs-pino-4.3.0.tgz#6056027b3477ebe6237da799326ffebe43203240"
   integrity sha512-u/FRi+eRH+ER6cccyr9BBNaHg71qxLgWwDT7a0eGbSVZrSUzQ04O5zTNqydgzihNNHfuam6TBTz1wWdapOWYnQ==
 
-nestjs-translates@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/nestjs-translates/-/nestjs-translates-2.0.2.tgz#96a305e1239e2fdf05109e75ca8b59145ca53fa9"
-  integrity sha512-23yYm21W9ET/KRvMuYPkEXVluNw1HJG6sGgO5eW5TYR9/GtqOvlQBhBgXpfxwYkRF1fZ79MKeSqaTIkmYXa/Jg==
+nestjs-translates@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/nestjs-translates/-/nestjs-translates-2.1.1.tgz#0d010aaa905987ebb0a18ea5cbc73f9a241b8d4d"
+  integrity sha512-CVEqa3VRb5a9J+ncOgcDWFVSBAZLwS+oNFQlzuSg0OR0x6AE5uwqRteiGFyd2vj7IYv6ZC24kGK7oBLfdyph2g==
   dependencies:
     mustache "4.2.0"
     rxjs "7.1.0"
@@ -14000,6 +14027,11 @@ node-schedule@2.1.1:
     cron-parser "^4.2.0"
     long-timeout "0.1.1"
     sorted-array-functions "^1.3.0"
+
+nodemailer@6.10.0:
+  version "6.10.0"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.10.0.tgz#1f24c9de94ad79c6206f66d132776b6503003912"
+  integrity sha512-SQ3wZCExjeSatLE/HBaXS5vqUOQk6GtBdIIKxiFdmm01mOQZX/POJkO3SUX1wDiYcwUOJwT23scFSC9fY2H8IA==
 
 nopt@^6.0.0:
   version "6.0.0"
@@ -15068,10 +15100,10 @@ pg-connection-string@^2.5.0, pg-connection-string@^2.7.0:
   resolved "https://registry.yarnpkg.com/pg-connection-string/-/pg-connection-string-2.7.0.tgz#f1d3489e427c62ece022dba98d5262efcb168b37"
   integrity sha512-PI2W9mv53rXJQEOb8xNR8lH7Hr+EKa6oJa38zsK0S/ky2er16ios1wLKhZyxzD7jUReiWokc9WK5nxSnC7W1TA==
 
-pg-flyway@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/pg-flyway/-/pg-flyway-1.0.1.tgz#1cfcf67609efd5faf533ce53b9559ba0373b44d4"
-  integrity sha512-VAZ7cBed9NUUTnWZ/ktqOUD6nE35MpSqaEBj61Tg8OtXe67rG+qREBkyOcOhqjJfscvJQ6NBajUvz7XJ+DuoSg==
+pg-flyway@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/pg-flyway/-/pg-flyway-1.0.2.tgz#982c1d2a6b01b306752d8940c2f43781a349cfeb"
+  integrity sha512-twpYVEPg28hwU/glFyfZbcw08BZ4BS0+sLBEmRWrOWDHbeggJPYLx8naqdwiraTeJ85MGSLSoPpMzA5NsVJ/yw==
   dependencies:
     commander "13.0.0"
     console-table-printer "2.12.1"
