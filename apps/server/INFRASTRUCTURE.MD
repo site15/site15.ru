@@ -41,7 +41,7 @@ Terminus integration provides readiness/liveness health checks for NestJS-mod (W
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`standardHealthIndicators`|**optional**|[ ```{"name":"memory_heap"}```, ```{"name":"database_app"}```, ```{"name":"database_auth"}```, ```{"name":"database_webhook"}``` ]|
+|`standardHealthIndicators`|**optional**|[ ```{"name":"memory_heap"}```, ```{"name":"database_app"}```, ```{"name":"database_auth"}```, ```{"name":"database_webhook"}```, ```{"name":"database_sso"}``` ]|
 
 ## Core modules
 
@@ -98,6 +98,23 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
 
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
 #### Environments(app)
 
 | Key    | Sources | Constraints | Value |
@@ -154,6 +171,23 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
 
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
 #### Environments(app)
 
 | Key    | Sources | Constraints | Value |
@@ -209,6 +243,96 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
+#### Environments(app)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
+
+#### Static configuration(app)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```app```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+
+### PrismaModule
+Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
+
+#### Shared providers
+`PrismaClientFactoryService`, `PrismaClient`
+
+#### Environments(auth)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
+
+#### Static configuration(auth)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```auth```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
+
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 
 #### Environments(app)
 
@@ -349,14 +473,6 @@ Docker Compose is a tool for defining and running multi-container applications. 
 |`volumes`|**optional**|```{"server-postgre-sql-volume":{"name":"server-postgre-sql-volume"}}```|
 
 #### Modules that use feature configuration
-##### Feature module name: SERVER_AUTHORIZER
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`services`|**optional**|```{"server-authorizer":{"image":"lakhansamani/authorizer:1.4.4","container_name":"server-authorizer","ports":["8080:8080"],"networks":["server-network"],"environment":{"ADMIN_SECRET":"VfKSfPPljhHBXCEohnitursmgDxfAyiD","DATABASE_TYPE":"postgres","DATABASE_URL":"postgres://Yk42KA4sOb:B7Ep2MwlRR6fAx0frXGWVTGP850qAxM6@server-postgre-sql:5432/authorizer","DATABASE_NAME":"authorizer","PORT":8080,"AUTHORIZER_URL":"http://localhost:8080","COOKIE_NAME":"authorizer","DISABLE_PLAYGROUND":true,"ACCESS_TOKEN_EXPIRY_TIME":"30m","IMAGE":"lakhansamani/authorizer:1.4.4","DISABLE_STRONG_PASSWORD":"true","DISABLE_EMAIL_VERIFICATION":"true","FEATURE_NAME":"authorizer","ORGANIZATION_NAME":"NestJSModSSO","DEPENDS_ON_SERVICE_NAMES":{"postgre-sql":"service_healthy"},"IS_EMAIL_SERVICE_ENABLED":"true","IS_SMS_SERVICE_ENABLED":"false","ENV":"development","EXTERNAL_CLIENT_PORT":8080,"RESET_PASSWORD_URL":"/reset-password","ROLES":"user,admin","DEFAULT_ROLES":"user","JWT_ROLE_CLAIM":"role","ORGANIZATION_LOGO":"Authorizer Logo","COUCHBASE_BUCKET":"authorizer","COUCHBASE_BUCKET_RAM_QUOTA":1000,"COUCHBASE_SCOPE":"_default"},"keysOfEnvironmentsWithStaticValue":["featureName","image","networks","dependsOnServiceNames","env"],"tty":true,"restart":"always","depends_on":{"server-postgre-sql":{"condition":"service_healthy"}}}}```|
-|`networks`|**optional**|```{"server-network":{"driver":"bridge"}}```|
-
-#### Modules that use feature configuration
 ##### Feature module name: SERVER_REDIS
 
 | Key    | Constraints | Value |
@@ -381,14 +497,15 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
 
 #### Static configuration
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`featureName`|**optional**|```app```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/migrations```|
+|`featureName`|**optional**|```sso```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -397,14 +514,15 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
 
 #### Static configuration
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`featureName`|**optional**|```app```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/migrations```|
+|`featureName`|**optional**|```sso```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -413,14 +531,32 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
 
 #### Static configuration
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`featureName`|**optional**|```app```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/migrations```|
+|`featureName`|**optional**|```sso```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
+### PgFlyway
+PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
+
+#### Environments
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```sso```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 
 ### InfrastructureMarkdownReportGenerator
 Infrastructure markdown report generator.
@@ -452,6 +588,13 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 |`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_FEATURE_MODULE_NAME_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Modules that use feature configuration
+##### Feature module name: sso
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
+#### Modules that use feature configuration
 ##### Feature module name: webhook
 
 | Key    | Constraints | Value |
@@ -466,18 +609,18 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
 
 #### Modules that use feature environments
-##### Feature module name: authorizer
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTHORIZER_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://Yk42KA4sOb:B7Ep2MwlRR6fAx0frXGWVTGP850qAxM6@server-postgre-sql:5432/authorizer```|
-
-#### Modules that use feature environments
 ##### Feature module name: app
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
 |`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
+
+#### Modules that use feature environments
+##### Feature module name: sso
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
 
 #### Modules that use feature environments
 ##### Feature module name: webhook
@@ -492,86 +635,6 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
 |`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
-
-### DockerComposeAuthorizer
-Authorizer is an open-source authentication and authorization solution for your applications. Bring your database and have complete control over the user information. You can self-host authorizer instances and connect to supported databases. (Generator for https://authorizer.dev in docker-compose.yml for https://www.npmjs.com/package/@nestjs-mod/docker-compose)
-
-#### Static environments
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`adminSecret`|`obj['adminSecret']`, `process.env['SERVER_AUTHORIZER_ADMIN_SECRET']`|**isNotEmpty** (adminSecret should not be empty)|```VfKSfPPljhHBXCEohnitursmgDxfAyiD```|
-|`databaseType`|`obj['databaseType']`, `process.env['SERVER_AUTHORIZER_DATABASE_TYPE']`|**isNotEmpty** (databaseType should not be empty)|```postgres```|
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTHORIZER_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://Yk42KA4sOb:B7Ep2MwlRR6fAx0frXGWVTGP850qAxM6@server-postgre-sql:5432/authorizer```|
-|`databaseName`|`obj['databaseName']`, `process.env['SERVER_AUTHORIZER_DATABASE_NAME']`|**optional**|```authorizer```|
-|`redisUrl`|`obj['redisUrl']`, `process.env['SERVER_AUTHORIZER_REDIS_URL']`|**optional**|-|
-|`databasePort`|`obj['databasePort']`, `process.env['SERVER_AUTHORIZER_DATABASE_PORT']`|**optional**|-|
-|`databaseHost`|`obj['databaseHost']`, `process.env['SERVER_AUTHORIZER_DATABASE_HOST']`|**optional**|-|
-|`databaseUsername`|`obj['databaseUsername']`, `process.env['SERVER_AUTHORIZER_DATABASE_USERNAME']`|**optional**|-|
-|`databasePassword`|`obj['databasePassword']`, `process.env['SERVER_AUTHORIZER_DATABASE_PASSWORD']`|**optional**|-|
-|`databaseCert`|`obj['databaseCert']`, `process.env['SERVER_AUTHORIZER_DATABASE_CERT']`|**optional**|-|
-|`databaseCertKey`|`obj['databaseCertKey']`, `process.env['SERVER_AUTHORIZER_DATABASE_CERT_KEY']`|**optional**|-|
-|`databaseCaCert`|`obj['databaseCaCert']`, `process.env['SERVER_AUTHORIZER_DATABASE_CA_CERT']`|**optional**|-|
-|`port`|`obj['port']`, `process.env['SERVER_AUTHORIZER_PORT']`|**optional**|```8080```|
-|`authorizerUrl`|`obj['authorizerUrl']`, `process.env['SERVER_AUTHORIZER_AUTHORIZER_URL']`|**optional**|```http://localhost:8080```|
-|`cookieName`|`obj['cookieName']`, `process.env['SERVER_AUTHORIZER_COOKIE_NAME']`|**optional**|```authorizer```|
-|`smtpHost`|`obj['smtpHost']`, `process.env['SERVER_AUTHORIZER_SMTP_HOST']`|**optional**|-|
-|`smtpPort`|`obj['smtpPort']`, `process.env['SERVER_AUTHORIZER_SMTP_PORT']`|**optional**|-|
-|`smtpUsername`|`obj['smtpUsername']`, `process.env['SERVER_AUTHORIZER_SMTP_USERNAME']`|**optional**|-|
-|`smtpPassword`|`obj['smtpPassword']`, `process.env['SERVER_AUTHORIZER_SMTP_PASSWORD']`|**optional**|-|
-|`senderEmail`|`obj['senderEmail']`, `process.env['SERVER_AUTHORIZER_SENDER_EMAIL']`|**optional**|-|
-|`senderName`|`obj['senderName']`, `process.env['SERVER_AUTHORIZER_SENDER_NAME']`|**optional**|-|
-|`disablePlayground`|`obj['disablePlayground']`, `process.env['SERVER_AUTHORIZER_DISABLE_PLAYGROUND']`|**optional**|```true```|
-|`accessTokenExpiryTime`|`obj['accessTokenExpiryTime']`, `process.env['SERVER_AUTHORIZER_ACCESS_TOKEN_EXPIRY_TIME']`|**optional**|```30m```|
-|`awsAccessKeyId`|`obj['awsAccessKeyId']`, `process.env['SERVER_AUTHORIZER_AWS_ACCESS_KEY_ID']`|**optional**|-|
-|`awsSecretAccessKey`|`obj['awsSecretAccessKey']`, `process.env['SERVER_AUTHORIZER_AWS_SECRET_ACCESS_KEY']`|**optional**|-|
-|`googleClientId`|`obj['googleClientId']`, `process.env['SERVER_AUTHORIZER_GOOGLE_CLIENT_ID']`|**optional**|-|
-|`googleClientSecret`|`obj['googleClientSecret']`, `process.env['SERVER_AUTHORIZER_GOOGLE_CLIENT_SECRET']`|**optional**|-|
-|`githubClientId`|`obj['githubClientId']`, `process.env['SERVER_AUTHORIZER_GITHUB_CLIENT_ID']`|**optional**|-|
-|`githubClientSecret`|`obj['githubClientSecret']`, `process.env['SERVER_AUTHORIZER_GITHUB_CLIENT_SECRET']`|**optional**|-|
-|`facebookClientId`|`obj['facebookClientId']`, `process.env['SERVER_AUTHORIZER_FACEBOOK_CLIENT_ID']`|**optional**|-|
-|`facebookClientSecret`|`obj['facebookClientSecret']`, `process.env['SERVER_AUTHORIZER_FACEBOOK_CLIENT_SECRET']`|**optional**|-|
-|`linkedinClientId`|`obj['linkedinClientId']`, `process.env['SERVER_AUTHORIZER_LINKEDIN_CLIENT_ID']`|**optional**|-|
-|`linkedinClientSecret`|`obj['linkedinClientSecret']`, `process.env['SERVER_AUTHORIZER_LINKEDIN_CLIENT_SECRET']`|**optional**|-|
-|`appleClientId`|`obj['appleClientId']`, `process.env['SERVER_AUTHORIZER_APPLE_CLIENT_ID']`|**optional**|-|
-|`appleClientSecret`|`obj['appleClientSecret']`, `process.env['SERVER_AUTHORIZER_APPLE_CLIENT_SECRET']`|**optional**|-|
-|`twitterClientId`|`obj['twitterClientId']`, `process.env['SERVER_AUTHORIZER_TWITTER_CLIENT_ID']`|**optional**|-|
-|`twitterClientSecret`|`obj['twitterClientSecret']`, `process.env['SERVER_AUTHORIZER_TWITTER_CLIENT_SECRET']`|**optional**|-|
-|`microsoftClientId`|`obj['microsoftClientId']`, `process.env['SERVER_AUTHORIZER_MICROSOFT_CLIENT_ID']`|**optional**|-|
-|`microsoftClientSecret`|`obj['microsoftClientSecret']`, `process.env['SERVER_AUTHORIZER_MICROSOFT_CLIENT_SECRET']`|**optional**|-|
-|`microsoftActiveDirectoryTenantId`|`obj['microsoftActiveDirectoryTenantId']`, `process.env['SERVER_AUTHORIZER_MICROSOFT_ACTIVE_DIRECTORY_TENANT_ID']`|**optional**|-|
-|`smtpLocalName`|`obj['smtpLocalName']`, `process.env['SERVER_AUTHORIZER_SMTP_LOCAL_NAME']`|**optional**|-|
-|`jwtSecret`|`obj['jwtSecret']`, `process.env['SERVER_AUTHORIZER_JWT_SECRET']`|**optional**|-|
-|`jwtPrivateKey`|`obj['jwtPrivateKey']`, `process.env['SERVER_AUTHORIZER_JWT_PRIVATE_KEY']`|**optional**|-|
-|`jwtPublicKey`|`obj['jwtPublicKey']`, `process.env['SERVER_AUTHORIZER_JWT_PUBLIC_KEY']`|**optional**|-|
-|`appUrl`|`obj['appUrl']`, `process.env['SERVER_AUTHORIZER_APP_URL']`|**optional**|-|
-|`discordClientId`|`obj['discordClientId']`, `process.env['SERVER_AUTHORIZER_DISCORD_CLIENT_ID']`|**optional**|-|
-|`discordClientSecret`|`obj['discordClientSecret']`, `process.env['SERVER_AUTHORIZER_DISCORD_CLIENT_SECRET']`|**optional**|-|
-|`twitchClientId`|`obj['twitchClientId']`, `process.env['SERVER_AUTHORIZER_TWITCH_CLIENT_ID']`|**optional**|-|
-|`twitchClientSecret`|`obj['twitchClientSecret']`, `process.env['SERVER_AUTHORIZER_TWITCH_CLIENT_SECRET']`|**optional**|-|
-|`clientId`|`obj['clientId']`, `process.env['SERVER_AUTHORIZER_CLIENT_ID']`|**optional**|-|
-|`clientSecret`|`obj['clientSecret']`, `process.env['SERVER_AUTHORIZER_CLIENT_SECRET']`|**optional**|-|
-|`encryptionKey`|`obj['encryptionKey']`, `process.env['SERVER_AUTHORIZER_ENCRYPTION_KEY']`|**optional**|-|
-|`isProd`|`obj['isProd']`, `process.env['SERVER_AUTHORIZER_IS_PROD']`|**optional**|-|
-|`allowedOrigins`|`obj['allowedOrigins']`, `process.env['SERVER_AUTHORIZER_ALLOWED_ORIGINS']`|**optional**|-|
-|`twilioApiKey`|`obj['twilioApiKey']`, `process.env['SERVER_AUTHORIZER_TWILIO_API_KEY']`|**optional**|-|
-|`twilioApiSecret`|`obj['twilioApiSecret']`, `process.env['SERVER_AUTHORIZER_TWILIO_API_SECRET']`|**optional**|-|
-|`twilioAccountSid`|`obj['twilioAccountSid']`, `process.env['SERVER_AUTHORIZER_TWILIO_ACCOUNT_SID']`|**optional**|-|
-|`twilioSender`|`obj['twilioSender']`, `process.env['SERVER_AUTHORIZER_TWILIO_SENDER']`|**optional**|-|
-
-#### Static configuration
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`image`|**optional**|```lakhansamani/authorizer:1.4.4```|
-|`featureName`|**optional**|```authorizer```|
-|`dependsOnServiceNames`|**optional**|```{"postgre-sql":"service_healthy"}```|
-|`env`|**optional**|```development```|
-|`disableEmailVerification`|**optional**|```true```|
-|`organizationName`|**optional**|```NestJSModSSO```|
-|`isEmailServiceEnabled`|**optional**|```true```|
-|`isSmsServiceEnabled`|**optional**|```false```|
-|`disableStrongPassword`|**optional**|```true```|
 
 ### DockerComposeRedis
 The open-source, in-memory data store used by millions of developers as a cache, vector database, document database, streaming engine, and message broker. (Generator for redis in docker-compose.yml for https://www.npmjs.com/package/@nestjs-mod/docker-compose)

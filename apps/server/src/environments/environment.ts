@@ -1,26 +1,21 @@
-process.env.TZ = 'UTC';
-
-import { AUTHORIZER_ENV_PREFIX } from '@nestjs-mod/authorizer';
-import { isInfrastructureMode, PACKAGE_JSON_FILE } from '@nestjs-mod/common';
-import {
-  DockerComposeAuthorizer,
-  DockerComposePostgreSQL,
-} from '@nestjs-mod/docker-compose';
-import { PrismaModule } from '@nestjs-mod/prisma';
-import { join } from 'path';
-
 import KeyvRedis from '@keyv/redis';
-import { WebhookModule } from '@nestjs-mod-sso/webhook';
+import { AUTH_FEATURE } from '@nestjs-mod-sso/auth';
+import { SSO_FEATURE, SSO_FOLDER } from '@nestjs-mod-sso/sso';
+import { WEBHOOK_FEATURE, WebhookModule } from '@nestjs-mod-sso/webhook';
+import {
+  isInfrastructureMode,
+  PACKAGE_JSON_FILE,
+  PROJECT_JSON_FILE,
+} from '@nestjs-mod/common';
+import { DockerComposePostgreSQL } from '@nestjs-mod/docker-compose';
 import { KeyvModule } from '@nestjs-mod/keyv';
 import { MinioModule } from '@nestjs-mod/minio';
-import { existsSync } from 'fs';
-import { getText } from 'nestjs-translates';
-import { createClient } from 'redis';
-import { AuthorizerAppModule } from '../app/authorizer-app.module';
-
-import { AUTH_FEATURE } from '@nestjs-mod-sso/auth';
-import { WEBHOOK_FEATURE } from '@nestjs-mod-sso/webhook';
-import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { PgFlyway } from '@nestjs-mod/pg-flyway';
+import {
+  InjectPrismaClient,
+  PRISMA_SCHEMA_FILE,
+  PrismaModule,
+} from '@nestjs-mod/prisma';
 import {
   TERMINUS_MODULE_NAME,
   TerminusHealthCheckConfiguration,
@@ -30,8 +25,15 @@ import { Injectable } from '@nestjs/common';
 import { MemoryHealthIndicator, PrismaHealthIndicator } from '@nestjs/terminus';
 import { PrismaClient as AppPrismaClient } from '@prisma/app-client';
 import { PrismaClient as AuthPrismaClient } from '@prisma/auth-client';
+import { PrismaClient as SsoPrismaClient } from '@prisma/sso-client';
 import { PrismaClient as WebhookPrismaClient } from '@prisma/webhook-client';
+import { existsSync } from 'fs';
+import { getText } from 'nestjs-translates';
+import { join } from 'path';
+import { createClient } from 'redis';
 import { APP_FEATURE } from '../app/app.constants';
+import { SsoAppModule } from '../app/sso-app.module';
+
 let rootFolder = join(__dirname, '..', '..', '..');
 
 if (
@@ -56,7 +58,7 @@ if (
 
 export { appFolder, rootFolder };
 
-export const AppModule = AuthorizerAppModule;
+export const AppModule = SsoAppModule;
 
 export const MainKeyvModule = KeyvModule.forRoot({
   staticConfiguration: {
@@ -146,6 +148,15 @@ export class PrismaTerminusHealthCheckConfiguration
           { timeout: 60 * 1000 }
         ),
     },
+    {
+      name: `database_${SSO_FEATURE}`,
+      check: () =>
+        this.prismaHealthIndicator.pingCheck(
+          `database_${SSO_FEATURE}`,
+          this.ssoPrismaClient,
+          { timeout: 60 * 1000 }
+        ),
+    },
   ];
 
   constructor(
@@ -156,7 +167,9 @@ export class PrismaTerminusHealthCheckConfiguration
     @InjectPrismaClient(AUTH_FEATURE)
     private readonly authPrismaClient: AuthPrismaClient,
     @InjectPrismaClient(WEBHOOK_FEATURE)
-    private readonly webhookPrismaClient: WebhookPrismaClient
+    private readonly webhookPrismaClient: WebhookPrismaClient,
+    @InjectPrismaClient(SSO_FEATURE)
+    private readonly ssoPrismaClient: SsoPrismaClient
   ) {}
 }
 
@@ -175,29 +188,54 @@ export const MainTerminusHealthCheckModule =
         featureModuleName: TERMINUS_MODULE_NAME,
         contextName: WEBHOOK_FEATURE,
       }),
+      // todo: move to standalone module with forFeature configuration
+      PrismaModule.forFeature({
+        featureModuleName: TERMINUS_MODULE_NAME,
+        contextName: SSO_FEATURE,
+      }),
     ],
     configurationClass: PrismaTerminusHealthCheckConfiguration,
   });
 
 export const infrastructuresModules = [
-  DockerComposePostgreSQL.forFeature({
-    featureModuleName: AUTHORIZER_ENV_PREFIX,
+  DockerComposePostgreSQL.forFeatureAsync({
+    featureModuleName: SSO_FEATURE,
+    featureConfiguration: {
+      nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+    },
   }),
-  DockerComposeAuthorizer.forRoot({
+  PgFlyway.forRoot({
     staticConfiguration: {
-      image: 'lakhansamani/authorizer:1.4.4',
-      disableStrongPassword: 'true',
-      disableEmailVerification: 'true',
-      featureName: AUTHORIZER_ENV_PREFIX,
-      organizationName: 'NestJSModSSO',
-      dependsOnServiceNames: {
-        'postgre-sql': 'service_healthy',
-      },
-      isEmailServiceEnabled: 'true',
-      isSmsServiceEnabled: 'false',
-      env: 'development',
+      featureName: SSO_FEATURE,
+      migrationsFolder: join(rootFolder, SSO_FOLDER, 'src', 'migrations'),
+      nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
     },
   }),
 ];
 
-export const coreModules = [];
+export const coreModules = [
+  PrismaModule.forRoot({
+    contextName: SSO_FEATURE,
+    staticConfiguration: {
+      featureName: SSO_FEATURE,
+      schemaFile: join(
+        rootFolder,
+        SSO_FOLDER,
+        'src',
+        'prisma',
+        PRISMA_SCHEMA_FILE
+      ),
+      prismaModule: isInfrastructureMode()
+        ? import(`@nestjs-mod/prisma`)
+        : import(`@prisma/sso-client`),
+      addMigrationScripts: false,
+      nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+
+      binaryTargets: [
+        'native',
+        'rhel-openssl-3.0.x',
+        'linux-musl-openssl-3.0.x',
+      ],
+    },
+  }),
+];

@@ -287,6 +287,25 @@ export interface AuthorizerClientID {
 /**
  *
  * @export
+ * @interface CreateSsoProjectDto
+ */
+export interface CreateSsoProjectDto {
+  /**
+   *
+   * @type {string}
+   * @memberof CreateSsoProjectDto
+   */
+  clientId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreateSsoProjectDto
+   */
+  clientSecret: string;
+}
+/**
+ *
+ * @export
  * @interface CreateWebhookDto
  */
 export interface CreateWebhookDto {
@@ -433,6 +452,44 @@ export interface FindManyResponseMeta {
 /**
  *
  * @export
+ * @interface FindManySsoProjectResponse
+ */
+export interface FindManySsoProjectResponse {
+  /**
+   *
+   * @type {Array<SsoProject>}
+   * @memberof FindManySsoProjectResponse
+   */
+  ssoProjects: Array<SsoProject>;
+  /**
+   *
+   * @type {FindManyResponseMeta}
+   * @memberof FindManySsoProjectResponse
+   */
+  meta: FindManyResponseMeta;
+}
+/**
+ *
+ * @export
+ * @interface FindManySsoUserResponse
+ */
+export interface FindManySsoUserResponse {
+  /**
+   *
+   * @type {Array<SsoUser>}
+   * @memberof FindManySsoUserResponse
+   */
+  ssoUsers: Array<SsoUser>;
+  /**
+   *
+   * @type {FindManyResponseMeta}
+   * @memberof FindManySsoUserResponse
+   */
+  meta: FindManyResponseMeta;
+}
+/**
+ *
+ * @export
  * @interface FindManyWebhookLogResponse
  */
 export interface FindManyWebhookLogResponse {
@@ -487,6 +544,429 @@ export interface FindManyWebhookUserResponse {
    */
   meta: FindManyResponseMeta;
 }
+/**
+ *
+ * @export
+ * @interface SsoControllerSignIn400Response
+ */
+export interface SsoControllerSignIn400Response {
+  /**
+   * Validation error (VALIDATION-000)
+   * @type {string}
+   * @memberof SsoControllerSignIn400Response
+   */
+  message: string;
+  /**
+   *
+   * @type {ValidationErrorEnum}
+   * @memberof SsoControllerSignIn400Response
+   */
+  code: ValidationErrorEnum;
+  /**
+   *
+   * @type {Array<ValidationErrorMetadata>}
+   * @memberof SsoControllerSignIn400Response
+   */
+  metadata?: Array<ValidationErrorMetadata>;
+}
+
+/**
+ *
+ * @export
+ * @interface SsoEntities
+ */
+export interface SsoEntities {
+  /**
+   *
+   * @type {SsoProjectScalarFieldEnum}
+   * @memberof SsoEntities
+   */
+  ssoProject: SsoProjectScalarFieldEnum;
+  /**
+   *
+   * @type {SsoUserScalarFieldEnum}
+   * @memberof SsoEntities
+   */
+  ssoUser: SsoUserScalarFieldEnum;
+}
+
+/**
+ *
+ * @export
+ * @interface SsoError
+ */
+export interface SsoError {
+  /**
+   * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011)
+   * @type {string}
+   * @memberof SsoError
+   */
+  message: string;
+  /**
+   *
+   * @type {SsoErrorEnum}
+   * @memberof SsoError
+   */
+  code: SsoErrorEnum;
+  /**
+   *
+   * @type {object}
+   * @memberof SsoError
+   */
+  metadata?: object;
+}
+
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+
+export const SsoErrorEnum = {
+  Sso000: 'SSO-000',
+  Sso001: 'SSO-001',
+  Sso002: 'SSO-002',
+  Sso003: 'SSO-003',
+  Sso004: 'SSO-004',
+  Sso005: 'SSO-005',
+  Sso006: 'SSO-006',
+  Sso007: 'SSO-007',
+  Sso008: 'SSO-008',
+  Sso009: 'SSO-009',
+  Sso010: 'SSO-010',
+  Sso011: 'SSO-011',
+} as const;
+
+export type SsoErrorEnum = (typeof SsoErrorEnum)[keyof typeof SsoErrorEnum];
+
+/**
+ *
+ * @export
+ * @interface SsoProject
+ */
+export interface SsoProject {
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProject
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProject
+   */
+  clientId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProject
+   */
+  clientSecret: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProject
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProject
+   */
+  updatedAt: string;
+  /**
+   *
+   * @type {Array<SsoUser>}
+   * @memberof SsoProject
+   */
+  SsoUser?: Array<SsoUser>;
+}
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+
+export const SsoProjectScalarFieldEnum = {
+  Id: 'id',
+  ClientId: 'clientId',
+  ClientSecret: 'clientSecret',
+  CreatedAt: 'createdAt',
+  UpdatedAt: 'updatedAt',
+} as const;
+
+export type SsoProjectScalarFieldEnum =
+  (typeof SsoProjectScalarFieldEnum)[keyof typeof SsoProjectScalarFieldEnum];
+
+/**
+ *
+ * @export
+ * @interface SsoRefreshSession
+ */
+export interface SsoRefreshSession {
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSession
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSession
+   */
+  refreshToken: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSession
+   */
+  userAgent: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSession
+   */
+  fingerprint: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSession
+   */
+  userIp: string | null;
+  /**
+   *
+   * @type {number}
+   * @memberof SsoRefreshSession
+   */
+  expiresIn: number | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSession
+   */
+  userId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSession
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSession
+   */
+  updatedAt: string;
+  /**
+   *
+   * @type {SsoUser}
+   * @memberof SsoRefreshSession
+   */
+  SsoUser?: SsoUser;
+}
+/**
+ *
+ * @export
+ * @interface SsoUser
+ */
+export interface SsoUser {
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  username: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  password: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  roles: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  firstname: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  lastname: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  birthdate: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  picture: string | null;
+  /**
+   *
+   * @type {object}
+   * @memberof SsoUser
+   */
+  appData: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  projectId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  updatedAt: string;
+  /**
+   *
+   * @type {Array<SsoRefreshSession>}
+   * @memberof SsoUser
+   */
+  SsoRefreshSession?: Array<SsoRefreshSession>;
+  /**
+   *
+   * @type {SsoProject}
+   * @memberof SsoUser
+   */
+  SsoProject?: SsoProject;
+}
+/**
+ *
+ * @export
+ * @interface SsoUserDto
+ */
+export interface SsoUserDto {
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  username: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  password: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  roles: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  firstname: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  lastname: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  birthdate: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  picture: string | null;
+  /**
+   *
+   * @type {object}
+   * @memberof SsoUserDto
+   */
+  appData: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  updatedAt: string;
+}
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+
+export const SsoUserScalarFieldEnum = {
+  Id: 'id',
+  Email: 'email',
+  Username: 'username',
+  Password: 'password',
+  Roles: 'roles',
+  Firstname: 'firstname',
+  Lastname: 'lastname',
+  Birthdate: 'birthdate',
+  Picture: 'picture',
+  AppData: 'appData',
+  ProjectId: 'projectId',
+  CreatedAt: 'createdAt',
+  UpdatedAt: 'updatedAt',
+} as const;
+
+export type SsoUserScalarFieldEnum =
+  (typeof SsoUserScalarFieldEnum)[keyof typeof SsoUserScalarFieldEnum];
+
 /**
  *
  * @export
@@ -621,6 +1101,135 @@ export interface UpdateAuthUserDto {
   lang?: string | null;
 }
 
+/**
+ *
+ * @export
+ * @interface UpdateProfileModel
+ */
+export interface UpdateProfileModel {
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileModel
+   */
+  email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileModel
+   */
+  username: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileModel
+   */
+  password: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileModel
+   */
+  firstname: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileModel
+   */
+  lastname: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileModel
+   */
+  birthdate: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileModel
+   */
+  picture: string | null;
+}
+/**
+ *
+ * @export
+ * @interface UpdateSsoProjectDto
+ */
+export interface UpdateSsoProjectDto {
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoProjectDto
+   */
+  clientId?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoProjectDto
+   */
+  clientSecret?: string;
+}
+/**
+ *
+ * @export
+ * @interface UpdateSsoUserDto
+ */
+export interface UpdateSsoUserDto {
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  email?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  username?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  password?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  roles?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  firstname?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  lastname?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  birthdate?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  picture?: string | null;
+  /**
+   *
+   * @type {object}
+   * @memberof UpdateSsoUserDto
+   */
+  appData?: object | null;
+}
 /**
  *
  * @export
@@ -3183,6 +3792,2081 @@ export class FilesApi extends BaseAPI {
   ) {
     return FilesApiFp(this.configuration)
       .filesControllerGetPresignedUrl(ext, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
+ * SsoApi - axios parameter creator
+ * @export
+ */
+export const SsoApiAxiosParamCreator = function (
+  configuration?: Configuration
+) {
+  return {
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerChangePassword: async (
+      body: object,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'body' is not null or undefined
+      assertParamExists('ssoControllerChangePassword', 'body', body);
+      const localVarPath = `/api/sso/change-password`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} code
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerCompleteForgotPassword: async (
+      code: string,
+      body: object,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'code' is not null or undefined
+      assertParamExists('ssoControllerCompleteForgotPassword', 'code', code);
+      // verify required parameter 'body' is not null or undefined
+      assertParamExists('ssoControllerCompleteForgotPassword', 'body', body);
+      const localVarPath = `/api/sso/complete-forgot-password`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (code !== undefined) {
+        localVarQueryParameter['code'] = code;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerForgotPassword: async (
+      body: object,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'body' is not null or undefined
+      assertParamExists('ssoControllerForgotPassword', 'body', body);
+      const localVarPath = `/api/sso/forgot-password`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerProfile: async (
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/api/sso/profile`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerRefreshTokens: async (
+      body: object,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'body' is not null or undefined
+      assertParamExists('ssoControllerRefreshTokens', 'body', body);
+      const localVarPath = `/api/sso/refresh-tokens`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerSignIn: async (
+      body: object,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'body' is not null or undefined
+      assertParamExists('ssoControllerSignIn', 'body', body);
+      const localVarPath = `/api/sso/sign-in`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerSignOut: async (
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/api/sso/sign-out`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerSignUp: async (
+      body: object,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'body' is not null or undefined
+      assertParamExists('ssoControllerSignUp', 'body', body);
+      const localVarPath = `/api/sso/sign-up`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        body,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {UpdateProfileModel} updateProfileModel
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerUpdateProfile: async (
+      updateProfileModel: UpdateProfileModel,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'updateProfileModel' is not null or undefined
+      assertParamExists(
+        'ssoControllerUpdateProfile',
+        'updateProfileModel',
+        updateProfileModel
+      );
+      const localVarPath = `/api/sso/profile`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        updateProfileModel,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {CreateSsoProjectDto} createSsoProjectDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerCreateOne: async (
+      createSsoProjectDto: CreateSsoProjectDto,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'createSsoProjectDto' is not null or undefined
+      assertParamExists(
+        'ssoProjectsControllerCreateOne',
+        'createSsoProjectDto',
+        createSsoProjectDto
+      );
+      const localVarPath = `/api/sso/projects`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        createSsoProjectDto,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerDeleteOne: async (
+      id: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('ssoProjectsControllerDeleteOne', 'id', id);
+      const localVarPath = `/api/sso/projects/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerFindMany: async (
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/api/sso/projects`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (curPage !== undefined) {
+        localVarQueryParameter['curPage'] = curPage;
+      }
+
+      if (perPage !== undefined) {
+        localVarQueryParameter['perPage'] = perPage;
+      }
+
+      if (searchText !== undefined) {
+        localVarQueryParameter['searchText'] = searchText;
+      }
+
+      if (sort !== undefined) {
+        localVarQueryParameter['sort'] = sort;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerFindOne: async (
+      id: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('ssoProjectsControllerFindOne', 'id', id);
+      const localVarPath = `/api/sso/projects/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateSsoProjectDto} updateSsoProjectDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerUpdateOne: async (
+      id: string,
+      updateSsoProjectDto: UpdateSsoProjectDto,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('ssoProjectsControllerUpdateOne', 'id', id);
+      // verify required parameter 'updateSsoProjectDto' is not null or undefined
+      assertParamExists(
+        'ssoProjectsControllerUpdateOne',
+        'updateSsoProjectDto',
+        updateSsoProjectDto
+      );
+      const localVarPath = `/api/sso/projects/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        updateSsoProjectDto,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoUsersControllerDeleteOne: async (
+      id: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('ssoUsersControllerDeleteOne', 'id', id);
+      const localVarPath = `/api/sso/users/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'DELETE',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoUsersControllerFindMany: async (
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/api/sso/users`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (curPage !== undefined) {
+        localVarQueryParameter['curPage'] = curPage;
+      }
+
+      if (perPage !== undefined) {
+        localVarQueryParameter['perPage'] = perPage;
+      }
+
+      if (searchText !== undefined) {
+        localVarQueryParameter['searchText'] = searchText;
+      }
+
+      if (sort !== undefined) {
+        localVarQueryParameter['sort'] = sort;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoUsersControllerFindOne: async (
+      id: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('ssoUsersControllerFindOne', 'id', id);
+      const localVarPath = `/api/sso/users/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateSsoUserDto} updateSsoUserDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoUsersControllerUpdateOne: async (
+      id: string,
+      updateSsoUserDto: UpdateSsoUserDto,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('ssoUsersControllerUpdateOne', 'id', id);
+      // verify required parameter 'updateSsoUserDto' is not null or undefined
+      assertParamExists(
+        'ssoUsersControllerUpdateOne',
+        'updateSsoUserDto',
+        updateSsoUserDto
+      );
+      const localVarPath = `/api/sso/users/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        updateSsoUserDto,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * SsoApi - functional programming interface
+ * @export
+ */
+export const SsoApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator = SsoApiAxiosParamCreator(configuration);
+  return {
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerChangePassword(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerChangePassword(
+          body,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerChangePassword']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} code
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerCompleteForgotPassword(
+      code: string,
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerCompleteForgotPassword(
+          code,
+          body,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerCompleteForgotPassword']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerForgotPassword(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerForgotPassword(
+          body,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerForgotPassword']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerProfile(
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoUserDto>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerProfile(options);
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerProfile']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerRefreshTokens(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerRefreshTokens(
+          body,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerRefreshTokens']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerSignIn(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerSignIn(body, options);
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerSignIn']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerSignOut(
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerSignOut(options);
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerSignOut']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerSignUp(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerSignUp(body, options);
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerSignUp']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {UpdateProfileModel} updateProfileModel
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerUpdateProfile(
+      updateProfileModel: UpdateProfileModel,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoUserDto>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerUpdateProfile(
+          updateProfileModel,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerUpdateProfile']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {CreateSsoProjectDto} createSsoProjectDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoProjectsControllerCreateOne(
+      createSsoProjectDto: CreateSsoProjectDto,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProject>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoProjectsControllerCreateOne(
+          createSsoProjectDto,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoProjectsControllerCreateOne']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoProjectsControllerDeleteOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoProjectsControllerDeleteOne(
+          id,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoProjectsControllerDeleteOne']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoProjectsControllerFindMany(
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<FindManySsoProjectResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoProjectsControllerFindMany(
+          curPage,
+          perPage,
+          searchText,
+          sort,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoProjectsControllerFindMany']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoProjectsControllerFindOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProject>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoProjectsControllerFindOne(
+          id,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoProjectsControllerFindOne']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateSsoProjectDto} updateSsoProjectDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoProjectsControllerUpdateOne(
+      id: string,
+      updateSsoProjectDto: UpdateSsoProjectDto,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProject>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoProjectsControllerUpdateOne(
+          id,
+          updateSsoProjectDto,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoProjectsControllerUpdateOne']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoUsersControllerDeleteOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoUsersControllerDeleteOne(
+          id,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoUsersControllerDeleteOne']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoUsersControllerFindMany(
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<FindManySsoUserResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoUsersControllerFindMany(
+          curPage,
+          perPage,
+          searchText,
+          sort,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoUsersControllerFindMany']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoUsersControllerFindOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoUser>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoUsersControllerFindOne(id, options);
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoUsersControllerFindOne']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateSsoUserDto} updateSsoUserDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoUsersControllerUpdateOne(
+      id: string,
+      updateSsoUserDto: UpdateSsoUserDto,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoUser>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoUsersControllerUpdateOne(
+          id,
+          updateSsoUserDto,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoUsersControllerUpdateOne']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+  };
+};
+
+/**
+ * SsoApi - factory interface
+ * @export
+ */
+export const SsoApiFactory = function (
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
+) {
+  const localVarFp = SsoApiFp(configuration);
+  return {
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerChangePassword(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<StatusResponse> {
+      return localVarFp
+        .ssoControllerChangePassword(body, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} code
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerCompleteForgotPassword(
+      code: string,
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<object> {
+      return localVarFp
+        .ssoControllerCompleteForgotPassword(code, body, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerForgotPassword(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<StatusResponse> {
+      return localVarFp
+        .ssoControllerForgotPassword(body, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerProfile(
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<SsoUserDto> {
+      return localVarFp
+        .ssoControllerProfile(options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerRefreshTokens(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<object> {
+      return localVarFp
+        .ssoControllerRefreshTokens(body, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerSignIn(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<object> {
+      return localVarFp
+        .ssoControllerSignIn(body, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerSignOut(
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<StatusResponse> {
+      return localVarFp
+        .ssoControllerSignOut(options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {object} body
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerSignUp(
+      body: object,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<object> {
+      return localVarFp
+        .ssoControllerSignUp(body, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {UpdateProfileModel} updateProfileModel
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerUpdateProfile(
+      updateProfileModel: UpdateProfileModel,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<SsoUserDto> {
+      return localVarFp
+        .ssoControllerUpdateProfile(updateProfileModel, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {CreateSsoProjectDto} createSsoProjectDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerCreateOne(
+      createSsoProjectDto: CreateSsoProjectDto,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<SsoProject> {
+      return localVarFp
+        .ssoProjectsControllerCreateOne(createSsoProjectDto, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerDeleteOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<StatusResponse> {
+      return localVarFp
+        .ssoProjectsControllerDeleteOne(id, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerFindMany(
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<FindManySsoProjectResponse> {
+      return localVarFp
+        .ssoProjectsControllerFindMany(
+          curPage,
+          perPage,
+          searchText,
+          sort,
+          options
+        )
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerFindOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<SsoProject> {
+      return localVarFp
+        .ssoProjectsControllerFindOne(id, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateSsoProjectDto} updateSsoProjectDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoProjectsControllerUpdateOne(
+      id: string,
+      updateSsoProjectDto: UpdateSsoProjectDto,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<SsoProject> {
+      return localVarFp
+        .ssoProjectsControllerUpdateOne(id, updateSsoProjectDto, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoUsersControllerDeleteOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<StatusResponse> {
+      return localVarFp
+        .ssoUsersControllerDeleteOne(id, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoUsersControllerFindMany(
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<FindManySsoUserResponse> {
+      return localVarFp
+        .ssoUsersControllerFindMany(curPage, perPage, searchText, sort, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoUsersControllerFindOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<SsoUser> {
+      return localVarFp
+        .ssoUsersControllerFindOne(id, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateSsoUserDto} updateSsoUserDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoUsersControllerUpdateOne(
+      id: string,
+      updateSsoUserDto: UpdateSsoUserDto,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<SsoUser> {
+      return localVarFp
+        .ssoUsersControllerUpdateOne(id, updateSsoUserDto, options)
+        .then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * SsoApi - object-oriented interface
+ * @export
+ * @class SsoApi
+ * @extends {BaseAPI}
+ */
+export class SsoApi extends BaseAPI {
+  /**
+   *
+   * @param {object} body
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerChangePassword(
+    body: object,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerChangePassword(body, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} code
+   * @param {object} body
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerCompleteForgotPassword(
+    code: string,
+    body: object,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerCompleteForgotPassword(code, body, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {object} body
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerForgotPassword(
+    body: object,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerForgotPassword(body, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerProfile(options?: RawAxiosRequestConfig) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerProfile(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {object} body
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerRefreshTokens(
+    body: object,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerRefreshTokens(body, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {object} body
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerSignIn(body: object, options?: RawAxiosRequestConfig) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerSignIn(body, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerSignOut(options?: RawAxiosRequestConfig) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerSignOut(options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {object} body
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerSignUp(body: object, options?: RawAxiosRequestConfig) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerSignUp(body, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {UpdateProfileModel} updateProfileModel
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerUpdateProfile(
+    updateProfileModel: UpdateProfileModel,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerUpdateProfile(updateProfileModel, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {CreateSsoProjectDto} createSsoProjectDto
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoProjectsControllerCreateOne(
+    createSsoProjectDto: CreateSsoProjectDto,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoProjectsControllerCreateOne(createSsoProjectDto, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoProjectsControllerDeleteOne(
+    id: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoProjectsControllerDeleteOne(id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {number} [curPage]
+   * @param {number} [perPage]
+   * @param {string} [searchText]
+   * @param {string} [sort]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoProjectsControllerFindMany(
+    curPage?: number,
+    perPage?: number,
+    searchText?: string,
+    sort?: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoProjectsControllerFindMany(
+        curPage,
+        perPage,
+        searchText,
+        sort,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoProjectsControllerFindOne(
+    id: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoProjectsControllerFindOne(id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {UpdateSsoProjectDto} updateSsoProjectDto
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoProjectsControllerUpdateOne(
+    id: string,
+    updateSsoProjectDto: UpdateSsoProjectDto,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoProjectsControllerUpdateOne(id, updateSsoProjectDto, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoUsersControllerDeleteOne(
+    id: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoUsersControllerDeleteOne(id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {number} [curPage]
+   * @param {number} [perPage]
+   * @param {string} [searchText]
+   * @param {string} [sort]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoUsersControllerFindMany(
+    curPage?: number,
+    perPage?: number,
+    searchText?: string,
+    sort?: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoUsersControllerFindMany(curPage, perPage, searchText, sort, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoUsersControllerFindOne(
+    id: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoUsersControllerFindOne(id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {UpdateSsoUserDto} updateSsoUserDto
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoUsersControllerUpdateOne(
+    id: string,
+    updateSsoUserDto: UpdateSsoUserDto,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoUsersControllerUpdateOne(id, updateSsoUserDto, options)
       .then((request) => request(this.axios, this.basePath));
   }
 }
