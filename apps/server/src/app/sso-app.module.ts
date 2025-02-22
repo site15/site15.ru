@@ -1,54 +1,48 @@
 import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
 
-import {
-  AUTH_FEATURE,
-  AuthExceptionsFilter,
-  AuthModule,
-} from '@nestjs-mod-sso/auth';
+import { AUTH_FEATURE, AUTH_MODULE, AuthModule } from '@nestjs-mod-sso/auth';
 import { FilesModule } from '@nestjs-mod-sso/files';
+import { SSO_FEATURE, SsoController, SsoModule } from '@nestjs-mod-sso/sso';
 import {
   ValidationError,
   ValidationErrorEnum,
 } from '@nestjs-mod-sso/validation';
 import { WebhookModule } from '@nestjs-mod-sso/webhook';
-import { AuthorizerGuard, AuthorizerModule } from '@nestjs-mod/authorizer';
 import { KeyvModule } from '@nestjs-mod/keyv';
 import { MinioModule } from '@nestjs-mod/minio';
 import { PrismaModule } from '@nestjs-mod/prisma';
-import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { TranslatesModule } from 'nestjs-translates';
 import { join } from 'path';
 import { APP_FEATURE } from './app.constants';
-import { AppController } from './controllers/authorizer/authorizer-app.controller';
-import { FakeEndpointController } from './controllers/authorizer/authorizer-fake-endoint.controller';
-import { TimeController } from './controllers/authorizer/authorizer-time.controller';
-import { AuthorizerController } from './controllers/authorizer/authorizer.controller';
-import { AuthorizerAuthConfiguration } from './integrations/authorizer/authorizer-auth.configuration';
-import { AuthorizerWithMinioFilesConfiguration } from './integrations/authorizer/authorizer-with-minio-files.configuration';
-import { WebhookWithAuthAuthorizerConfiguration } from './integrations/authorizer/webhook-with-auth-authorizer.configuration';
+import { AuthorizerController } from './controllers/sso/authorizer.controller';
+import { AppController } from './controllers/sso/sso-app.controller';
+import { FakeEndpointController } from './controllers/sso/sso-fake-endoint.controller';
+import { TimeController } from './controllers/sso/sso-time.controller';
+import { SsoAuthConfiguration } from './integrations/sso/sso-auth.configuration';
+import { SsoWithMinioFilesConfiguration } from './integrations/sso/sso-with-minio-files.configuration';
 import { AppService } from './services/app.service';
 
-export const { AppModule: AuthorizerAppModule } = createNestModule({
+export const { AppModule: SsoAppModule } = createNestModule({
   moduleName: 'AppModule',
   moduleCategory: NestModuleCategory.feature,
   imports: [
-    AuthorizerModule.forRootAsync({
-      imports: [
-        WebhookModule.forFeature({ featureModuleName: AUTH_FEATURE }),
-        AuthModule.forFeature({ featureModuleName: AUTH_FEATURE }),
-      ],
-      configurationClass: WebhookWithAuthAuthorizerConfiguration,
-    }),
+    SsoModule.forRoot(),
     FilesModule.forRootAsync({
-      imports: [AuthorizerModule.forFeature(), MinioModule.forFeature()],
-      configurationClass: AuthorizerWithMinioFilesConfiguration,
+      imports: [SsoModule.forFeature(), MinioModule.forFeature()],
+      configurationClass: SsoWithMinioFilesConfiguration,
     }),
     AuthModule.forRootAsync({
-      imports: [AuthorizerModule.forFeature()],
-      configurationClass: AuthorizerAuthConfiguration,
+      imports: [
+        SsoModule.forFeature(),
+        PrismaModule.forFeature({
+          contextName: SSO_FEATURE,
+          featureModuleName: AUTH_MODULE,
+        }),
+      ],
+      configurationClass: SsoAuthConfiguration,
     }),
-    AuthorizerModule.forFeature({
+    SsoModule.forFeature({
       featureModuleName: APP_FEATURE,
     }),
     AuthModule.forFeature({
@@ -58,11 +52,15 @@ export const { AppModule: AuthorizerAppModule } = createNestModule({
       featureModuleName: APP_FEATURE,
     }),
     PrismaModule.forFeature({
-      contextName: APP_FEATURE,
+      contextName: SSO_FEATURE,
       featureModuleName: APP_FEATURE,
     }),
     PrismaModule.forFeature({
       contextName: AUTH_FEATURE,
+      featureModuleName: APP_FEATURE,
+    }),
+    PrismaModule.forFeature({
+      contextName: APP_FEATURE,
       featureModuleName: APP_FEATURE,
     }),
     TranslatesModule.forRootDefault({
@@ -99,11 +97,12 @@ export const { AppModule: AuthorizerAppModule } = createNestModule({
     AppController,
     TimeController,
     FakeEndpointController,
+    SsoController,
     AuthorizerController,
   ],
   providers: [
-    { provide: APP_GUARD, useClass: AuthorizerGuard },
-    { provide: APP_FILTER, useClass: AuthExceptionsFilter },
+    // { provide: APP_GUARD, useClass: SsoGuard },
+    // { provide: APP_FILTER, useClass: AuthExceptionsFilter },
     AppService,
     TimeController,
   ],

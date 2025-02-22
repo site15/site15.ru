@@ -24,8 +24,7 @@ export class SsoCookieService {
     fingerprint: string
   ) {
     const refTokenExpiresInMilliseconds =
-      new Date().getTime() +
-      ms(this.ssoEnvironments.ssoJwtRefreshTokenExpiresIn);
+      new Date().getTime() + ms(this.ssoEnvironments.jwtRefreshTokenExpiresIn);
     const session = await this.prismaClient.ssoRefreshSession.create({
       data: {
         refreshToken: randomUUID(),
@@ -40,13 +39,13 @@ export class SsoCookieService {
       accessToken: this.jwtService.sign(
         { userId },
         {
-          expiresIn: this.ssoEnvironments.ssoJwtAccessTokenExpiresIn,
+          expiresIn: this.ssoEnvironments.jwtAccessTokenExpiresIn,
         }
       ),
       refreshToken: session.refreshToken,
       cookie: this.getCookie('refreshToken', session.refreshToken, {
         ['max-age']: Math.round(
-          ms(this.ssoEnvironments.ssoJwtRefreshTokenExpiresIn) / 1000
+          ms(this.ssoEnvironments.jwtRefreshTokenExpiresIn) / 1000
         ),
         // domain,
         path: '/',

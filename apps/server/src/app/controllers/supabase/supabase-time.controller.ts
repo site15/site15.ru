@@ -1,5 +1,4 @@
 import { UseAuthInterceptorsAndGuards } from '@nestjs-mod-sso/auth';
-import { AllowEmptyUser, AuthorizerGuard } from '@nestjs-mod/authorizer';
 import { Controller, Get } from '@nestjs/common';
 
 import { ApiOkResponse } from '@nestjs/swagger';
@@ -9,13 +8,15 @@ import {
   WsResponse,
 } from '@nestjs/websockets';
 import { interval, map, Observable } from 'rxjs';
-import { ChangeTimeStream } from '../app.constants';
+import { AllowEmptySupabaseUser } from '../../supabase/supabase.decorators';
+import { SupabaseGuard } from '../../supabase/supabase.guard';
+import { ChangeTimeStream } from '../../app.constants';
 
 @UseAuthInterceptorsAndGuards({
-  guards: [AuthorizerGuard],
+  guards: [SupabaseGuard],
   skipInterceptor: true,
 })
-@AllowEmptyUser()
+@AllowEmptySupabaseUser()
 @WebSocketGateway({
   cors: {
     origin: '*',

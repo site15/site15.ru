@@ -6,43 +6,48 @@ import ms from 'ms';
 @EnvModel()
 export class SsoEnvironments {
   @EnvModelProperty({
-    description: 'Domain name for use in emails',
+    description: 'Domain name for use in templates',
   })
   @IsNotEmpty()
-  ssoDomain!: string;
+  templatesVarDomain!: string;
 
   @EnvModelProperty({
-    description: 'Available roles',
+    description: 'Available user roles',
     default: 'user,admin',
+    hidden: true,
   })
   @IsOptional()
-  ssoRoles?: string;
+  userAvailableRoles?: string;
 
   @EnvModelProperty({
     description: 'Default roles for new user',
     default: 'user',
+    hidden: true,
   })
   @IsOptional()
-  ssoDefaultRoles?: string;
+  userDefaultRoles?: string;
 
   @EnvModelProperty({
-    description: 'Secret key',
+    description: 'Secret key for generate jwt keys',
     default: 'AcJwUY9AP6FPf8XnfwbSuW7ZjwoaPiFJ',
+    hidden: true,
   })
   @IsOptional()
-  ssoJwtSecretKey?: string;
+  jwtSecretKey?: string;
 
   @EnvModelProperty({
     description: 'Access token expires in',
     default: '30m',
+    hidden: true,
   })
   @IsNotEmpty()
-  ssoJwtAccessTokenExpiresIn!: ms.StringValue;
+  jwtAccessTokenExpiresIn!: ms.StringValue;
 
   @EnvModelProperty({
     description: 'Refresh token expires in',
     default: '24h',
+    hidden: true,
   })
   @IsNotEmpty()
-  ssoJwtRefreshTokenExpiresIn!: ms.StringValue;
+  jwtRefreshTokenExpiresIn!: ms.StringValue;
 }

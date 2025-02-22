@@ -19,6 +19,7 @@ import { AuthEnvironments } from './auth.environments';
 import { AuthError, AuthErrorEnum } from './auth.errors';
 import { AuthCacheService } from './services/auth-cache.service';
 import { AuthRequest } from './types/auth-request';
+import { AuthConfiguration } from './auth.configuration';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -30,6 +31,7 @@ export class AuthGuard implements CanActivate {
     private readonly reflector: Reflector,
     private readonly authCacheService: AuthCacheService,
     private readonly authEnvironments: AuthEnvironments,
+    private readonly authConfiguration: AuthConfiguration,
     private readonly translatesStorage: TranslatesStorage
   ) {}
 
@@ -47,6 +49,14 @@ export class AuthGuard implements CanActivate {
       }
 
       const req: AuthRequest = this.getRequestFromExecutionContext(context);
+
+      // check access by custom logic
+      if (this.authConfiguration.checkAccessValidator) {
+        await this.authConfiguration.checkAccessValidator(
+          req.authUser,
+          context
+        );
+      }
 
       if (allowEmptyUserMetadata) {
         req.skipEmptyAuthUser = true;

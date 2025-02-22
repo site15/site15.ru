@@ -98,7 +98,7 @@ export class SsoService {
             ssoRequest
           ),
           {
-            domain: this.ssoEnvironments.ssoDomain,
+            domain: this.ssoEnvironments.templatesVarDomain,
             code: code,
           }
         ),
@@ -164,8 +164,7 @@ export class SsoService {
     fingerprint: string
   ) {
     const refTokenExpiresInMilliseconds =
-      new Date().getTime() +
-      ms(this.ssoEnvironments.ssoJwtRefreshTokenExpiresIn);
+      new Date().getTime() + ms(this.ssoEnvironments.jwtRefreshTokenExpiresIn);
 
     let currentRefreshSession: SsoRefreshSession;
     try {
@@ -205,7 +204,7 @@ export class SsoService {
     const accessToken = this.jwtService.sign(
       { userId: session.userId },
       {
-        expiresIn: this.ssoEnvironments.ssoJwtAccessTokenExpiresIn,
+        expiresIn: this.ssoEnvironments.jwtAccessTokenExpiresIn,
       }
     );
 
@@ -214,7 +213,7 @@ export class SsoService {
       session.refreshToken,
       {
         ['max-age']: Math.round(
-          ms(this.ssoEnvironments.ssoJwtRefreshTokenExpiresIn) / 1000
+          ms(this.ssoEnvironments.jwtRefreshTokenExpiresIn) / 1000
         ),
         path: '/',
         httponly: true,

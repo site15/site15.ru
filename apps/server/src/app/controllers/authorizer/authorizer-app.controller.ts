@@ -10,22 +10,19 @@ import {
 
 import { AllowEmptyAuthUser } from '@nestjs-mod-sso/auth';
 import { WebhookService } from '@nestjs-mod-sso/webhook';
+import { AllowEmptyUser, CurrentAuthorizerUser } from '@nestjs-mod/authorizer';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { PrismaClient as AppPrismaClient } from '@prisma/app-client';
 import { randomUUID } from 'crypto';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
-import { APP_FEATURE } from '../app.constants';
-import { AppDemo } from '../generated/rest/dto/app-demo.entity';
-import { AppService } from '../services/app.service';
-import {
-  AllowEmptySupabaseUser,
-  CurrentSupabaseUser,
-} from '../supabase/supabase.decorators';
-import { AppData } from '../types/app-data';
-import { AppDemoEventName } from '../types/app-demo-event-name';
+import { APP_FEATURE } from '../../app.constants';
+import { AppDemo } from '../../generated/rest/dto/app-demo.entity';
+import { AppService } from '../../services/app.service';
+import { AppData } from '../../types/app-data';
+import { AppDemoEventName } from '../../types/app-demo-event-name';
 
-@AllowEmptySupabaseUser()
+@AllowEmptyUser()
 @AllowEmptyAuthUser()
 @Controller()
 export class AppController {
@@ -44,7 +41,7 @@ export class AppController {
 
   @Post('/demo')
   @ApiCreatedResponse({ type: AppDemo })
-  async demoCreateOne(@CurrentSupabaseUser() externalUser: { id: string }) {
+  async demoCreateOne(@CurrentAuthorizerUser() externalUser: { id: string }) {
     const result = await this.appPrismaClient.appDemo.create({
       data: { name: 'demo name' + randomUUID() },
     });
@@ -69,7 +66,7 @@ export class AppController {
   @Delete('/demo/:id')
   @ApiOkResponse({ type: AppDemo })
   async demoDeleteOne(
-    @CurrentSupabaseUser() externalUser: { id: string },
+    @CurrentAuthorizerUser() externalUser: { id: string },
     @Param('id', new ParseUUIDPipe()) id: string
   ) {
     const result = await this.appPrismaClient.appDemo.delete({ where: { id } });
@@ -86,7 +83,7 @@ export class AppController {
   @Put('/demo/:id')
   @ApiOkResponse({ type: AppDemo })
   async demoUpdateOne(
-    @CurrentSupabaseUser() externalUser: { id: string },
+    @CurrentAuthorizerUser() externalUser: { id: string },
     @Param('id', new ParseUUIDPipe()) id: string
   ) {
     const result = await this.appPrismaClient.appDemo.update({

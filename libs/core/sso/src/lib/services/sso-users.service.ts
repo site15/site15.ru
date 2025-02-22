@@ -2,11 +2,9 @@ import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';
-import omit from 'lodash/fp/omit';
 import { CreateSsoUserDto } from '../generated/rest/dto/create-sso-user.dto';
 import { SsoUser } from '../generated/rest/dto/sso-user.entity';
 import { SSO_FEATURE } from '../sso.constants';
-import { SsoEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { SignUpArgs } from '../types/sign-up.dto';
 import { SsoEventsService } from './sso-events.service';
@@ -19,33 +17,10 @@ export class SsoUsersService {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly ssoEnvironments: SsoEnvironments,
     private readonly ssoPasswordService: SsoPasswordService,
     private readonly ssoEventsService: SsoEventsService,
     private readonly prismaToolsService: PrismaToolsService
   ) {}
-
-  async createUserIfNotExists(user: Omit<SsoUser, 'id'>) {
-    const data = {
-      roles: this.ssoEnvironments.ssoDefaultRoles,
-      ...omit(['id', 'createdAt', 'updatedAt'], user),
-    } as CreateSsoUserDto;
-    const existsUser = await this.prismaClient.ssoUser.findFirst({
-      where: {
-        email: user.email,
-        projectId: user.projectId,
-      },
-    });
-    if (!existsUser) {
-      return await this.prismaClient.ssoUser.create({
-        data: {
-          ...data,
-          SsoProject: { connect: { id: user.projectId } },
-        },
-      });
-    }
-    return existsUser;
-  }
 
   async getByEmail(email: string, projectId: string) {
     try {
