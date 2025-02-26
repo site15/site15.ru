@@ -8,12 +8,8 @@
  * Do not edit the class manually.
  */
 
-export interface UpdateProfileModelInterface {
+export interface SignInArgsInterface {
   email: string;
-  username: string | null;
   password: string;
-  firstname: string | null;
-  lastname: string | null;
-  birthdate: string | null;
-  picture: string | null;
+  fingerprint: string;
 }

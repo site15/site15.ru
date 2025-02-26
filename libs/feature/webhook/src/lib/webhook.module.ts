@@ -19,7 +19,7 @@ import {
   WebhookStaticConfiguration,
 } from './webhook.configuration';
 import { WEBHOOK_FEATURE, WEBHOOK_MODULE } from './webhook.constants';
-import { WebhookEnvironments } from './webhook.environments';
+import { WebhookStaticEnvironments } from './webhook.environments';
 import { WebhookExceptionsFilter } from './webhook.filter';
 import { WebhookGuard } from './webhook.guard';
 
@@ -30,7 +30,7 @@ import { WebhookCacheService } from './services/webhook-cache.service';
 export const { WebhookModule } = createNestModule({
   moduleName: WEBHOOK_MODULE,
   moduleCategory: NestModuleCategory.feature,
-  staticEnvironmentsModel: WebhookEnvironments,
+  staticEnvironmentsModel: WebhookStaticEnvironments,
   staticConfigurationModel: WebhookStaticConfiguration,
   configurationModel: WebhookConfiguration,
   imports: [
@@ -77,21 +77,19 @@ export const { WebhookModule } = createNestModule({
     return { asyncModuleOptions };
   },
   preWrapApplication: async ({ current }) => {
-    const staticEnvironments =
-      current.staticEnvironments as WebhookEnvironments;
-    const staticConfiguration =
-      current.staticConfiguration as WebhookStaticConfiguration;
+    const staticEnvironments = current.staticEnvironments;
+    const staticConfiguration = current.staticConfiguration;
 
     for (const ctrl of [WebhookController, WebhookUsersController]) {
-      if (staticEnvironments.useFilters) {
+      if (staticEnvironments?.useFilters) {
         UseFilters(WebhookExceptionsFilter)(ctrl);
       }
-      if (staticEnvironments.useGuards) {
+      if (staticEnvironments?.useGuards) {
         UseGuards(WebhookGuard)(ctrl);
       }
       if (
-        staticConfiguration.externalUserIdHeaderName &&
-        staticConfiguration.externalTenantIdHeaderName
+        staticConfiguration?.externalUserIdHeaderName &&
+        staticConfiguration?.externalTenantIdHeaderName
       ) {
         ApiHeaders([
           {

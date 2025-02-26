@@ -8,6 +8,7 @@ import {
   Configuration,
   FakeEndpointApi,
   FilesApi,
+  SsoApi,
   TimeApi,
   WebhookApi,
   WebhookUser,
@@ -24,7 +25,7 @@ import { AuthResponse } from '@supabase/supabase-js';
 import WebSocket from 'ws';
 import { TestingSupabaseService } from './supabase.service';
 
-export class RestClientHelper {
+export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   private authorizerClientID!: string;
 
   authorizationTokens?: AuthToken;
@@ -37,6 +38,7 @@ export class RestClientHelper {
 
   private testingSupabaseService?: TestingSupabaseService;
 
+  private ssoApi?: SsoApi;
   private webhookApi?: WebhookApi;
   private appApi?: AppApi;
   private authorizerApi?: AuthorizerApi;
@@ -45,6 +47,7 @@ export class RestClientHelper {
   private authApi?: AuthApi;
   private fakeEndpointApi?: FakeEndpointApi;
 
+  private ssoApiAxios?: AxiosInstance;
   private webhookApiAxios?: AxiosInstance;
   private appApiAxios?: AxiosInstance;
   private authorizerApiAxios?: AxiosInstance;
@@ -53,7 +56,9 @@ export class RestClientHelper {
   private authApiAxios?: AxiosInstance;
   private fakeEndpointApiAxios?: AxiosInstance;
 
-  randomUser?: GenerateRandomUserResult;
+  randomUser: T extends 'strict'
+    ? GenerateRandomUserResult
+    : GenerateRandomUserResult | undefined;
 
   constructor(
     private readonly options?: {
@@ -65,7 +70,7 @@ export class RestClientHelper {
       activeLang?: string;
     }
   ) {
-    this.randomUser = options?.randomUser;
+    this.randomUser = options?.randomUser as GenerateRandomUserResult;
     this.createApiClients();
     this.setAuthorizationHeadersFromAuthorizationTokens();
   }
@@ -137,6 +142,13 @@ export class RestClientHelper {
       throw new Error('authorizerApi not set');
     }
     return this.authorizerApi;
+  }
+
+  getSsoApi() {
+    if (!this.ssoApi) {
+      throw new Error('ssoApi not set');
+    }
+    return this.ssoApi;
   }
 
   getWebhookApi() {
@@ -343,6 +355,12 @@ export class RestClientHelper {
         this.getAuthorizationHeaders()
       );
     }
+    if (this.ssoApiAxios) {
+      Object.assign(
+        this.ssoApiAxios.defaults.headers.common,
+        this.getAuthorizationHeaders()
+      );
+    }
     if (this.appApiAxios) {
       Object.assign(
         this.appApiAxios.defaults.headers.common,
@@ -425,6 +443,16 @@ export class RestClientHelper {
       }),
       undefined,
       this.webhookApiAxios
+    );
+    //
+
+    this.ssoApiAxios = axios.create();
+    this.ssoApi = new SsoApi(
+      new Configuration({
+        basePath: this.getServerUrl(),
+      }),
+      undefined,
+      this.ssoApiAxios
     );
     //
 

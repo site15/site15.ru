@@ -1,4 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsOptional } from 'class-validator';
 import { getText } from 'nestjs-translates';
 
 export enum SsoErrorEnum {
@@ -14,6 +15,8 @@ export enum SsoErrorEnum {
   InvalidRefreshSession = 'SSO-009',
   AccessTokenExpired = 'SSO-010',
   EmailIsExists = 'SSO-011',
+  EmailNotVerified = 'SSO-012',
+  Forbidden = 'SSO-013',
 }
 
 export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
@@ -31,6 +34,8 @@ export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
   [SsoErrorEnum.InvalidRefreshSession]: getText('Invalid refresh session'),
   [SsoErrorEnum.AccessTokenExpired]: getText('Access token expired'),
   [SsoErrorEnum.EmailIsExists]: getText('User is exists'),
+  [SsoErrorEnum.EmailNotVerified]: getText('Email not verified'),
+  [SsoErrorEnum.Forbidden]: getText('Forbidden'),
 };
 
 export class SsoError<T = unknown> extends Error {

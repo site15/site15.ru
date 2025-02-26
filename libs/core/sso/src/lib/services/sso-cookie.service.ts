@@ -1,64 +1,68 @@
-import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { PrismaClient } from '@prisma/sso-client';
+import { SsoRefreshSession } from '@prisma/sso-client';
 import ms from 'ms';
-import { randomUUID } from 'node:crypto';
-import { SsoRefreshSession } from '../generated/rest/dto/sso-refresh-session.entity';
-import { SSO_FEATURE } from '../sso.constants';
-import { SsoEnvironments } from '../sso.environments';
+import { SsoStaticEnvironments } from '../sso.environments';
+import { SsoTokensService } from './sso-tokens.service';
 
 @Injectable()
 export class SsoCookieService {
   constructor(
-    private readonly ssoEnvironments: SsoEnvironments,
-    private readonly jwtService: JwtService,
-    @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
+    private readonly ssoTokensService: SsoTokensService
   ) {}
 
-  async getCookieWithJwtToken(
-    userId: string,
-    userIp: string,
-    userAgent: string,
-    fingerprint: string
-  ) {
-    const refTokenExpiresInMilliseconds =
-      new Date().getTime() + ms(this.ssoEnvironments.jwtRefreshTokenExpiresIn);
-    const session = await this.prismaClient.ssoRefreshSession.create({
-      data: {
-        refreshToken: randomUUID(),
+  async getCookieWithJwtToken({
+    userId,
+    userIp,
+    userAgent,
+    fingerprint,
+    roles,
+    projectId,
+  }: {
+    userId: string;
+    userIp: string;
+    userAgent: string;
+    fingerprint: string;
+    roles: string | null;
+    projectId: string;
+  }) {
+    const tokens = await this.ssoTokensService.getAccessAndRefreshTokens(
+      {
+        fingerprint,
+        roles,
+        userAgent,
         userId,
         userIp,
-        userAgent,
-        fingerprint,
-        expiresIn: refTokenExpiresInMilliseconds,
       },
-    });
+      projectId
+    );
     return {
-      accessToken: this.jwtService.sign(
-        { userId },
-        {
-          expiresIn: this.ssoEnvironments.jwtAccessTokenExpiresIn,
-        }
-      ),
-      refreshToken: session.refreshToken,
-      cookie: this.getCookie('refreshToken', session.refreshToken, {
-        ['max-age']: Math.round(
-          ms(this.ssoEnvironments.jwtRefreshTokenExpiresIn) / 1000
-        ),
-        // domain,
-        path: '/',
-        httponly: true,
-        signed: true,
-        sameSite: true,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      cookie: this.getCookie({
+        name: 'refreshToken',
+        value: tokens.refreshToken,
+        options: {
+          ['max-age']: Math.round(
+            ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn) / 1000
+          ),
+          // domain,
+          path: '/',
+          httponly: true,
+          signed: true,
+          sameSite: true,
+        },
       }),
     };
   }
 
-  getCookie(
-    name: string,
-    value: string,
+  getCookie({
+    name,
+    value,
+    options,
+  }: {
+    name: string;
+    value: string;
     options: {
       ['max-age']: number;
       // domain,
@@ -66,8 +70,8 @@ export class SsoCookieService {
       httponly: boolean;
       signed: boolean;
       sameSite: boolean;
-    }
-  ): string {
+    };
+  }): string {
     return `${name}=${value}; ${Object.keys(options)
       .map((key) =>
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -79,26 +83,34 @@ export class SsoCookieService {
       .join('; ')}`;
   }
 
-  async getCookieForSignOut(refreshToken: string): Promise<{
+  async getCookieForSignOut({
+    refreshToken,
+    projectId,
+  }: {
+    refreshToken: string;
+    projectId: string;
+  }): Promise<{
     refreshSession: SsoRefreshSession | null;
     cookie: string;
   }> {
     const refreshSession =
-      await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
-        where: { refreshToken },
+      await this.ssoTokensService.deleteRefreshSessionByRefreshToken({
+        refreshToken,
+        projectId,
       });
-    this.prismaClient.ssoRefreshSession.deleteMany({
-      where: { refreshToken },
-    });
     return {
       refreshSession,
-      cookie: this.getCookie('refreshToken', '', {
-        ['max-age']: 0,
-        // domain,
-        path: '/',
-        httponly: true,
-        signed: true,
-        sameSite: true,
+      cookie: this.getCookie({
+        name: 'refreshToken',
+        value: '',
+        options: {
+          ['max-age']: 0,
+          // domain,
+          path: '/',
+          httponly: true,
+          signed: true,
+          sameSite: true,
+        },
       }),
     };
   }

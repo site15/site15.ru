@@ -3,7 +3,8 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { SsoRequest } from './types/sso-request';
 
-export const CheckSsoIsAdmin = Reflector.createDecorator<true>();
+export const SsoCheckIsAdmin = Reflector.createDecorator<true>();
+export const SsoCheckHaveClientSecret = Reflector.createDecorator<true>();
 
 export const CurrentSsoRequest = createParamDecorator(
   (_data: unknown, ctx: ExecutionContext) => {

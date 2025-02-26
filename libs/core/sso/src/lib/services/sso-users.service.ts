@@ -6,7 +6,6 @@ import { CreateSsoUserDto } from '../generated/rest/dto/create-sso-user.dto';
 import { SsoUser } from '../generated/rest/dto/sso-user.entity';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
-import { SignUpArgs } from '../types/sign-up.dto';
 import { SsoEventsService } from './sso-events.service';
 import { SsoPasswordService } from './sso-password.service';
 
@@ -22,7 +21,7 @@ export class SsoUsersService {
     private readonly prismaToolsService: PrismaToolsService
   ) {}
 
-  async getByEmail(email: string, projectId: string) {
+  async getByEmail({ email, projectId }: { email: string; projectId: string }) {
     try {
       return await this.prismaClient.ssoUser.findUniqueOrThrow({
         where: { email_projectId: { email, projectId } },
@@ -37,10 +36,10 @@ export class SsoUsersService {
     }
   }
 
-  async getById(id: string) {
+  async getById({ id, projectId }: { id: string; projectId: string }) {
     try {
       return await this.prismaClient.ssoUser.findUniqueOrThrow({
-        where: { id },
+        where: { id, projectId },
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -52,20 +51,24 @@ export class SsoUsersService {
     }
   }
 
-  async getByEmailAndPassword(
-    email: string,
-    password: string,
-    projectId: string
-  ) {
+  async getByEmailAndPassword({
+    email,
+    password,
+    projectId,
+  }: {
+    email: string;
+    password: string;
+    projectId: string;
+  }) {
     try {
       const user = await this.prismaClient.ssoUser.findUniqueOrThrow({
         where: { email_projectId: { email, projectId } },
       });
       if (
-        !(await this.ssoPasswordService.comparePasswordWithHash(
+        !(await this.ssoPasswordService.comparePasswordWithHash({
           password,
-          user.password
-        ))
+          hashedPassword: user.password,
+        }))
       ) {
         throw new SsoError(SsoErrorEnum.WrongPassword);
       }
@@ -80,7 +83,13 @@ export class SsoUsersService {
     }
   }
 
-  async create(user: CreateSsoUserDto, projectId: string) {
+  async create({
+    user,
+    projectId,
+  }: {
+    user: CreateSsoUserDto;
+    projectId: string;
+  }) {
     const hashedPassword = await this.ssoPasswordService.createPasswordHash(
       user.password
     );
@@ -88,7 +97,7 @@ export class SsoUsersService {
       return await this.prismaClient.ssoUser.create({
         data: {
           ...user,
-          username: user.username || user.email,
+          username: user.username,
           password: hashedPassword,
           projectId: projectId,
         },
@@ -118,72 +127,46 @@ export class SsoUsersService {
     }
   }
 
-  async autoSignUp(
-    user: Pick<
-      SsoUser,
-      | 'email'
-      | 'appData'
-      | 'birthdate'
-      | 'firstname'
-      | 'lastname'
-      | 'password'
-      | 'picture'
-      | 'roles'
-      | 'username'
-    >,
-    projectId: string
-  ) {
-    const createdUser = await this.create(
-      {
-        ...user,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        appData: user.appData as any,
-      },
-      projectId
-    );
-    this.ssoEventsService.send({
-      userId: createdUser.id,
-      SignUp: {
-        signUpArgs: { ...user, fingerprint: createdUser.id } as SignUpArgs,
-      },
-    });
-    return createdUser;
-  }
-
-  async changePassword(user: Pick<SsoUser, 'id' | 'password'>) {
+  async changePassword({
+    id,
+    password,
+    projectId,
+  }: {
+    id: string;
+    password: string;
+    projectId: string;
+  }) {
     const hashedPassword = await this.ssoPasswordService.createPasswordHash(
-      user.password
+      password
     );
     await this.prismaClient.ssoUser.update({
       data: {
         password: hashedPassword,
+        updatedAt: new Date(),
       },
-      where: { id: user.id },
+      where: { id, projectId },
     });
-    return await this.getById(user.id);
+    return await this.getById({ id, projectId });
   }
 
-  async update(
+  async update({
+    user,
+    projectId,
+  }: {
     user: Pick<
       SsoUser,
-      | 'email'
-      | 'birthdate'
-      | 'firstname'
-      | 'lastname'
-      | 'id'
-      | 'password'
-      | 'picture'
-      | 'username'
-    >,
-    projectId: string
-  ) {
+      'birthdate' | 'firstname' | 'lastname' | 'id' | 'picture' | 'gender'
+    >;
+    projectId: string;
+  }) {
     const updatedUser = await this.prismaClient.ssoUser.update({
       data: {
         ...user,
         projectId,
+        updatedAt: new Date(),
       },
       where: { id: user.id },
     });
-    return this.getById(updatedUser.id);
+    return this.getById({ id: updatedUser.id, projectId });
   }
 }

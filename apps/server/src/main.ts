@@ -40,6 +40,7 @@ import {
   MainWebhookModule,
   rootFolder,
 } from './environments/environment';
+import { SsoModule } from '@nestjs-mod-sso/sso';
 
 bootstrapNestApplication({
   project: {
@@ -141,6 +142,7 @@ bootstrapNestApplication({
           ],
         },
       }),
+      // todo: remove
       PrismaModule.forRoot({
         contextName: AUTH_FEATURE,
         staticConfiguration: {
@@ -154,10 +156,9 @@ bootstrapNestApplication({
           ),
           prismaModule: isInfrastructureMode()
             ? import(`@nestjs-mod/prisma`)
-            : import(`@prisma/auth-client`),
+            : import(`@nestjs-mod/prisma`),
           addMigrationScripts: false,
           nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
-
           binaryTargets: [
             'native',
             'rhel-openssl-3.0.x',
@@ -170,7 +171,7 @@ bootstrapNestApplication({
       MainMinioModule,
       ValidationModule.forRoot({ staticEnvironments: { usePipes: false } }),
     ],
-    feature: [AppModule.forRoot(), MainWebhookModule],
+    feature: [SsoModule.forRoot(), AppModule.forRoot(), MainWebhookModule],
     infrastructure: [
       InfrastructureMarkdownReportGenerator.forRoot({
         staticConfiguration: {
@@ -232,19 +233,6 @@ bootstrapNestApplication({
             WEBHOOK_FOLDER,
             PROJECT_JSON_FILE
           ),
-        },
-      }),
-      DockerComposePostgreSQL.forFeatureAsync({
-        featureModuleName: AUTH_FEATURE,
-        featureConfiguration: {
-          nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
-        },
-      }),
-      PgFlyway.forRoot({
-        staticConfiguration: {
-          featureName: AUTH_FEATURE,
-          migrationsFolder: join(rootFolder, AUTH_FOLDER, 'src', 'migrations'),
-          nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
         },
       }),
     ],

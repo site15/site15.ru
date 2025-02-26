@@ -287,6 +287,63 @@ export interface AuthorizerClientID {
 /**
  *
  * @export
+ * @interface ChangePasswordArgs
+ */
+export interface ChangePasswordArgs {
+  /**
+   *
+   * @type {string}
+   * @memberof ChangePasswordArgs
+   */
+  password: string;
+  /**
+   *
+   * @type {string}
+   * @memberof ChangePasswordArgs
+   */
+  rePassword: string;
+}
+/**
+ *
+ * @export
+ * @interface CompleteForgotPasswordArgs
+ */
+export interface CompleteForgotPasswordArgs {
+  /**
+   *
+   * @type {string}
+   * @memberof CompleteForgotPasswordArgs
+   */
+  password: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CompleteForgotPasswordArgs
+   */
+  rePassword: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CompleteForgotPasswordArgs
+   */
+  fingerprint: string;
+}
+/**
+ *
+ * @export
+ * @interface CompleteSignUpArgs
+ */
+export interface CompleteSignUpArgs {
+  /**
+   *
+   * @type {string}
+   * @memberof CompleteSignUpArgs
+   */
+  fingerprint: string;
+}
+/**
+ *
+ * @export
  * @interface CreateSsoProjectDto
  */
 export interface CreateSsoProjectDto {
@@ -547,6 +604,100 @@ export interface FindManyWebhookUserResponse {
 /**
  *
  * @export
+ * @interface ForgotPasswordArgs
+ */
+export interface ForgotPasswordArgs {
+  /**
+   *
+   * @type {string}
+   * @memberof ForgotPasswordArgs
+   */
+  email: string;
+}
+/**
+ *
+ * @export
+ * @interface RefreshTokensResponse
+ */
+export interface RefreshTokensResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof RefreshTokensResponse
+   */
+  fingerprint: string;
+  /**
+   *
+   * @type {string}
+   * @memberof RefreshTokensResponse
+   */
+  refreshToken?: string;
+}
+/**
+ *
+ * @export
+ * @interface SignInArgs
+ */
+export interface SignInArgs {
+  /**
+   *
+   * @type {string}
+   * @memberof SignInArgs
+   */
+  email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SignInArgs
+   */
+  password: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SignInArgs
+   */
+  fingerprint: string;
+}
+/**
+ *
+ * @export
+ * @interface SignUpArgs
+ */
+export interface SignUpArgs {
+  /**
+   *
+   * @type {string}
+   * @memberof SignUpArgs
+   */
+  email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SignUpArgs
+   */
+  username: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SignUpArgs
+   */
+  password: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SignUpArgs
+   */
+  rePassword?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SignUpArgs
+   */
+  fingerprint: string;
+}
+/**
+ *
+ * @export
  * @interface SsoControllerSignIn400Response
  */
 export interface SsoControllerSignIn400Response {
@@ -597,7 +748,7 @@ export interface SsoEntities {
  */
 export interface SsoError {
   /**
-   * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011)
+   * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013)
    * @type {string}
    * @memberof SsoError
    */
@@ -635,6 +786,8 @@ export const SsoErrorEnum = {
   Sso009: 'SSO-009',
   Sso010: 'SSO-010',
   Sso011: 'SSO-011',
+  Sso012: 'SSO-012',
+  Sso013: 'SSO-013',
 } as const;
 
 export type SsoErrorEnum = (typeof SsoErrorEnum)[keyof typeof SsoErrorEnum];
@@ -769,6 +922,85 @@ export interface SsoRefreshSession {
 /**
  *
  * @export
+ * @interface SsoTwoFactorCode
+ */
+export interface SsoTwoFactorCode {
+  /**
+   *
+   * @type {string}
+   * @memberof SsoTwoFactorCode
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoTwoFactorCode
+   */
+  userId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoTwoFactorCode
+   */
+  operationName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoTwoFactorCode
+   */
+  code: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoTwoFactorCode
+   */
+  type: string;
+  /**
+   *
+   * @type {number}
+   * @memberof SsoTwoFactorCode
+   */
+  maxAttempt: number;
+  /**
+   *
+   * @type {number}
+   * @memberof SsoTwoFactorCode
+   */
+  attempt: number;
+  /**
+   *
+   * @type {number}
+   * @memberof SsoTwoFactorCode
+   */
+  timeout: number;
+  /**
+   *
+   * @type {boolean}
+   * @memberof SsoTwoFactorCode
+   */
+  used: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoTwoFactorCode
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoTwoFactorCode
+   */
+  updatedAt: string;
+  /**
+   *
+   * @type {SsoUser}
+   * @memberof SsoTwoFactorCode
+   */
+  SsoUser?: SsoUser;
+}
+/**
+ *
+ * @export
  * @interface SsoUser
  */
 export interface SsoUser {
@@ -784,6 +1016,12 @@ export interface SsoUser {
    * @memberof SsoUser
    */
   email: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  phone: string | null;
   /**
    *
    * @type {string}
@@ -819,6 +1057,12 @@ export interface SsoUser {
    * @type {string}
    * @memberof SsoUser
    */
+  gender: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
   birthdate: string | null;
   /**
    *
@@ -843,6 +1087,24 @@ export interface SsoUser {
    * @type {string}
    * @memberof SsoUser
    */
+  revokedAt: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  emailVerifiedAt: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
+  phoneVerifiedAt: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
   createdAt: string;
   /**
    *
@@ -852,10 +1114,16 @@ export interface SsoUser {
   updatedAt: string;
   /**
    *
-   * @type {Array<SsoRefreshSession>}
+   * @type {SsoRefreshSession}
    * @memberof SsoUser
    */
-  SsoRefreshSession?: Array<SsoRefreshSession>;
+  SsoRefreshSession?: SsoRefreshSession | null;
+  /**
+   *
+   * @type {SsoTwoFactorCode}
+   * @memberof SsoUser
+   */
+  SsoTwoFactorCode?: SsoTwoFactorCode | null;
   /**
    *
    * @type {SsoProject}
@@ -886,6 +1154,12 @@ export interface SsoUserDto {
    * @type {string}
    * @memberof SsoUserDto
    */
+  phone: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
   username: string | null;
   /**
    *
@@ -916,6 +1190,12 @@ export interface SsoUserDto {
    * @type {string}
    * @memberof SsoUserDto
    */
+  gender: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
   birthdate: string | null;
   /**
    *
@@ -929,6 +1209,24 @@ export interface SsoUserDto {
    * @memberof SsoUserDto
    */
   appData: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  revokedAt: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  emailVerifiedAt: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUserDto
+   */
+  phoneVerifiedAt: string | null;
   /**
    *
    * @type {string}
@@ -951,15 +1249,20 @@ export interface SsoUserDto {
 export const SsoUserScalarFieldEnum = {
   Id: 'id',
   Email: 'email',
+  Phone: 'phone',
   Username: 'username',
   Password: 'password',
   Roles: 'roles',
   Firstname: 'firstname',
   Lastname: 'lastname',
+  Gender: 'gender',
   Birthdate: 'birthdate',
   Picture: 'picture',
   AppData: 'appData',
   ProjectId: 'projectId',
+  RevokedAt: 'revokedAt',
+  EmailVerifiedAt: 'emailVerifiedAt',
+  PhoneVerifiedAt: 'phoneVerifiedAt',
   CreatedAt: 'createdAt',
   UpdatedAt: 'updatedAt',
 } as const;
@@ -1072,6 +1375,25 @@ export interface TerminusHealthCheckControllerCheck503Response {
 /**
  *
  * @export
+ * @interface TokensResponse
+ */
+export interface TokensResponse {
+  /**
+   *
+   * @type {string}
+   * @memberof TokensResponse
+   */
+  accessToken: string;
+  /**
+   *
+   * @type {string}
+   * @memberof TokensResponse
+   */
+  refreshToken: string;
+}
+/**
+ *
+ * @export
  * @interface UpdateAuthUserDto
  */
 export interface UpdateAuthUserDto {
@@ -1104,51 +1426,39 @@ export interface UpdateAuthUserDto {
 /**
  *
  * @export
- * @interface UpdateProfileModel
+ * @interface UpdateProfileArgs
  */
-export interface UpdateProfileModel {
+export interface UpdateProfileArgs {
   /**
    *
    * @type {string}
-   * @memberof UpdateProfileModel
+   * @memberof UpdateProfileArgs
    */
-  email: string;
+  firstname?: string | null;
   /**
    *
    * @type {string}
-   * @memberof UpdateProfileModel
+   * @memberof UpdateProfileArgs
    */
-  username: string | null;
+  lastname?: string | null;
   /**
    *
    * @type {string}
-   * @memberof UpdateProfileModel
+   * @memberof UpdateProfileArgs
    */
-  password: string;
+  gender?: string | null;
   /**
    *
    * @type {string}
-   * @memberof UpdateProfileModel
+   * @memberof UpdateProfileArgs
    */
-  firstname: string | null;
+  birthdate?: string | null;
   /**
    *
    * @type {string}
-   * @memberof UpdateProfileModel
+   * @memberof UpdateProfileArgs
    */
-  lastname: string | null;
-  /**
-   *
-   * @type {string}
-   * @memberof UpdateProfileModel
-   */
-  birthdate: string | null;
-  /**
-   *
-   * @type {string}
-   * @memberof UpdateProfileModel
-   */
-  picture: string | null;
+  picture?: string | null;
 }
 /**
  *
@@ -1186,6 +1496,12 @@ export interface UpdateSsoUserDto {
    * @type {string}
    * @memberof UpdateSsoUserDto
    */
+  phone?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
   username?: string | null;
   /**
    *
@@ -1216,6 +1532,12 @@ export interface UpdateSsoUserDto {
    * @type {string}
    * @memberof UpdateSsoUserDto
    */
+  gender?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
   birthdate?: string | null;
   /**
    *
@@ -1229,6 +1551,24 @@ export interface UpdateSsoUserDto {
    * @memberof UpdateSsoUserDto
    */
   appData?: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  revokedAt?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  emailVerifiedAt?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoUserDto
+   */
+  phoneVerifiedAt?: string | null;
 }
 /**
  *
@@ -3806,16 +4146,20 @@ export const SsoApiAxiosParamCreator = function (
   return {
     /**
      *
-     * @param {object} body
+     * @param {ChangePasswordArgs} changePasswordArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerChangePassword: async (
-      body: object,
+      changePasswordArgs: ChangePasswordArgs,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('ssoControllerChangePassword', 'body', body);
+      // verify required parameter 'changePasswordArgs' is not null or undefined
+      assertParamExists(
+        'ssoControllerChangePassword',
+        'changePasswordArgs',
+        changePasswordArgs
+      );
       const localVarPath = `/api/sso/change-password`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3843,7 +4187,7 @@ export const SsoApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        body,
+        changePasswordArgs,
         localVarRequestOptions,
         configuration
       );
@@ -3856,19 +4200,23 @@ export const SsoApiAxiosParamCreator = function (
     /**
      *
      * @param {string} code
-     * @param {object} body
+     * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerCompleteForgotPassword: async (
       code: string,
-      body: object,
+      completeForgotPasswordArgs: CompleteForgotPasswordArgs,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'code' is not null or undefined
       assertParamExists('ssoControllerCompleteForgotPassword', 'code', code);
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('ssoControllerCompleteForgotPassword', 'body', body);
+      // verify required parameter 'completeForgotPasswordArgs' is not null or undefined
+      assertParamExists(
+        'ssoControllerCompleteForgotPassword',
+        'completeForgotPasswordArgs',
+        completeForgotPasswordArgs
+      );
       const localVarPath = `/api/sso/complete-forgot-password`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3900,7 +4248,7 @@ export const SsoApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        body,
+        completeForgotPasswordArgs,
         localVarRequestOptions,
         configuration
       );
@@ -3912,16 +4260,81 @@ export const SsoApiAxiosParamCreator = function (
     },
     /**
      *
-     * @param {object} body
+     * @param {string} code
+     * @param {CompleteSignUpArgs} completeSignUpArgs
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerCompleteSignUp: async (
+      code: string,
+      completeSignUpArgs: CompleteSignUpArgs,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'code' is not null or undefined
+      assertParamExists('ssoControllerCompleteSignUp', 'code', code);
+      // verify required parameter 'completeSignUpArgs' is not null or undefined
+      assertParamExists(
+        'ssoControllerCompleteSignUp',
+        'completeSignUpArgs',
+        completeSignUpArgs
+      );
+      const localVarPath = `/api/sso/complete-sign-up`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'POST',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (code !== undefined) {
+        localVarQueryParameter['code'] = code;
+      }
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        completeSignUpArgs,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {ForgotPasswordArgs} forgotPasswordArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerForgotPassword: async (
-      body: object,
+      forgotPasswordArgs: ForgotPasswordArgs,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('ssoControllerForgotPassword', 'body', body);
+      // verify required parameter 'forgotPasswordArgs' is not null or undefined
+      assertParamExists(
+        'ssoControllerForgotPassword',
+        'forgotPasswordArgs',
+        forgotPasswordArgs
+      );
       const localVarPath = `/api/sso/forgot-password`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -3949,7 +4362,7 @@ export const SsoApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        body,
+        forgotPasswordArgs,
         localVarRequestOptions,
         configuration
       );
@@ -3999,16 +4412,20 @@ export const SsoApiAxiosParamCreator = function (
     },
     /**
      *
-     * @param {object} body
+     * @param {RefreshTokensResponse} refreshTokensResponse
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerRefreshTokens: async (
-      body: object,
+      refreshTokensResponse: RefreshTokensResponse,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('ssoControllerRefreshTokens', 'body', body);
+      // verify required parameter 'refreshTokensResponse' is not null or undefined
+      assertParamExists(
+        'ssoControllerRefreshTokens',
+        'refreshTokensResponse',
+        refreshTokensResponse
+      );
       const localVarPath = `/api/sso/refresh-tokens`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4036,7 +4453,7 @@ export const SsoApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        body,
+        refreshTokensResponse,
         localVarRequestOptions,
         configuration
       );
@@ -4048,16 +4465,16 @@ export const SsoApiAxiosParamCreator = function (
     },
     /**
      *
-     * @param {object} body
+     * @param {SignInArgs} signInArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerSignIn: async (
-      body: object,
+      signInArgs: SignInArgs,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('ssoControllerSignIn', 'body', body);
+      // verify required parameter 'signInArgs' is not null or undefined
+      assertParamExists('ssoControllerSignIn', 'signInArgs', signInArgs);
       const localVarPath = `/api/sso/sign-in`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4085,7 +4502,7 @@ export const SsoApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        body,
+        signInArgs,
         localVarRequestOptions,
         configuration
       );
@@ -4135,16 +4552,16 @@ export const SsoApiAxiosParamCreator = function (
     },
     /**
      *
-     * @param {object} body
+     * @param {SignUpArgs} signUpArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerSignUp: async (
-      body: object,
+      signUpArgs: SignUpArgs,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'body' is not null or undefined
-      assertParamExists('ssoControllerSignUp', 'body', body);
+      // verify required parameter 'signUpArgs' is not null or undefined
+      assertParamExists('ssoControllerSignUp', 'signUpArgs', signUpArgs);
       const localVarPath = `/api/sso/sign-up`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4172,7 +4589,7 @@ export const SsoApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        body,
+        signUpArgs,
         localVarRequestOptions,
         configuration
       );
@@ -4184,19 +4601,19 @@ export const SsoApiAxiosParamCreator = function (
     },
     /**
      *
-     * @param {UpdateProfileModel} updateProfileModel
+     * @param {UpdateProfileArgs} updateProfileArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerUpdateProfile: async (
-      updateProfileModel: UpdateProfileModel,
+      updateProfileArgs: UpdateProfileArgs,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
-      // verify required parameter 'updateProfileModel' is not null or undefined
+      // verify required parameter 'updateProfileArgs' is not null or undefined
       assertParamExists(
         'ssoControllerUpdateProfile',
-        'updateProfileModel',
-        updateProfileModel
+        'updateProfileArgs',
+        updateProfileArgs
       );
       const localVarPath = `/api/sso/profile`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -4225,7 +4642,7 @@ export const SsoApiAxiosParamCreator = function (
         ...options.headers,
       };
       localVarRequestOptions.data = serializeDataIfNeeded(
-        updateProfileModel,
+        updateProfileArgs,
         localVarRequestOptions,
         configuration
       );
@@ -4724,19 +5141,19 @@ export const SsoApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
-     * @param {object} body
+     * @param {ChangePasswordArgs} changePasswordArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async ssoControllerChangePassword(
-      body: object,
+      changePasswordArgs: ChangePasswordArgs,
       options?: RawAxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoControllerChangePassword(
-          body,
+          changePasswordArgs,
           options
         );
       const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -4755,21 +5172,21 @@ export const SsoApiFp = function (configuration?: Configuration) {
     /**
      *
      * @param {string} code
-     * @param {object} body
+     * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async ssoControllerCompleteForgotPassword(
       code: string,
-      body: object,
+      completeForgotPasswordArgs: CompleteForgotPasswordArgs,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoControllerCompleteForgotPassword(
           code,
-          body,
+          completeForgotPasswordArgs,
           options
         );
       const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -4787,19 +5204,52 @@ export const SsoApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @param {object} body
+     * @param {string} code
+     * @param {CompleteSignUpArgs} completeSignUpArgs
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoControllerCompleteSignUp(
+      code: string,
+      completeSignUpArgs: CompleteSignUpArgs,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoControllerCompleteSignUp(
+          code,
+          completeSignUpArgs,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoControllerCompleteSignUp']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {ForgotPasswordArgs} forgotPasswordArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async ssoControllerForgotPassword(
-      body: object,
+      forgotPasswordArgs: ForgotPasswordArgs,
       options?: RawAxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoControllerForgotPassword(
-          body,
+          forgotPasswordArgs,
           options
         );
       const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -4842,19 +5292,19 @@ export const SsoApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @param {object} body
+     * @param {RefreshTokensResponse} refreshTokensResponse
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async ssoControllerRefreshTokens(
-      body: object,
+      refreshTokensResponse: RefreshTokensResponse,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoControllerRefreshTokens(
-          body,
+          refreshTokensResponse,
           options
         );
       const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -4872,18 +5322,21 @@ export const SsoApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @param {object} body
+     * @param {SignInArgs} signInArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async ssoControllerSignIn(
-      body: object,
+      signInArgs: SignInArgs,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>
     > {
       const localVarAxiosArgs =
-        await localVarAxiosParamCreator.ssoControllerSignIn(body, options);
+        await localVarAxiosParamCreator.ssoControllerSignIn(
+          signInArgs,
+          options
+        );
       const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
       const localVarOperationServerBasePath =
         operationServerMap['SsoApi.ssoControllerSignIn']?.[
@@ -4924,18 +5377,21 @@ export const SsoApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @param {object} body
+     * @param {SignUpArgs} signUpArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async ssoControllerSignUp(
-      body: object,
+      signUpArgs: SignUpArgs,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
     > {
       const localVarAxiosArgs =
-        await localVarAxiosParamCreator.ssoControllerSignUp(body, options);
+        await localVarAxiosParamCreator.ssoControllerSignUp(
+          signUpArgs,
+          options
+        );
       const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
       const localVarOperationServerBasePath =
         operationServerMap['SsoApi.ssoControllerSignUp']?.[
@@ -4951,19 +5407,19 @@ export const SsoApiFp = function (configuration?: Configuration) {
     },
     /**
      *
-     * @param {UpdateProfileModel} updateProfileModel
+     * @param {UpdateProfileArgs} updateProfileArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async ssoControllerUpdateProfile(
-      updateProfileModel: UpdateProfileModel,
+      updateProfileArgs: UpdateProfileArgs,
       options?: RawAxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoUserDto>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoControllerUpdateProfile(
-          updateProfileModel,
+          updateProfileArgs,
           options
         );
       const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -5292,46 +5748,66 @@ export const SsoApiFactory = function (
   return {
     /**
      *
-     * @param {object} body
+     * @param {ChangePasswordArgs} changePasswordArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerChangePassword(
-      body: object,
+      changePasswordArgs: ChangePasswordArgs,
       options?: RawAxiosRequestConfig
     ): AxiosPromise<StatusResponse> {
       return localVarFp
-        .ssoControllerChangePassword(body, options)
+        .ssoControllerChangePassword(changePasswordArgs, options)
         .then((request) => request(axios, basePath));
     },
     /**
      *
      * @param {string} code
-     * @param {object} body
+     * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerCompleteForgotPassword(
       code: string,
-      body: object,
+      completeForgotPasswordArgs: CompleteForgotPasswordArgs,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<object> {
+    ): AxiosPromise<TokensResponse> {
       return localVarFp
-        .ssoControllerCompleteForgotPassword(code, body, options)
+        .ssoControllerCompleteForgotPassword(
+          code,
+          completeForgotPasswordArgs,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
     /**
      *
-     * @param {object} body
+     * @param {string} code
+     * @param {CompleteSignUpArgs} completeSignUpArgs
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoControllerCompleteSignUp(
+      code: string,
+      completeSignUpArgs: CompleteSignUpArgs,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<TokensResponse> {
+      return localVarFp
+        .ssoControllerCompleteSignUp(code, completeSignUpArgs, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {ForgotPasswordArgs} forgotPasswordArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerForgotPassword(
-      body: object,
+      forgotPasswordArgs: ForgotPasswordArgs,
       options?: RawAxiosRequestConfig
     ): AxiosPromise<StatusResponse> {
       return localVarFp
-        .ssoControllerForgotPassword(body, options)
+        .ssoControllerForgotPassword(forgotPasswordArgs, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -5348,30 +5824,30 @@ export const SsoApiFactory = function (
     },
     /**
      *
-     * @param {object} body
+     * @param {RefreshTokensResponse} refreshTokensResponse
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerRefreshTokens(
-      body: object,
+      refreshTokensResponse: RefreshTokensResponse,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<object> {
+    ): AxiosPromise<TokensResponse> {
       return localVarFp
-        .ssoControllerRefreshTokens(body, options)
+        .ssoControllerRefreshTokens(refreshTokensResponse, options)
         .then((request) => request(axios, basePath));
     },
     /**
      *
-     * @param {object} body
+     * @param {SignInArgs} signInArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerSignIn(
-      body: object,
+      signInArgs: SignInArgs,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<object> {
+    ): AxiosPromise<TokensResponse> {
       return localVarFp
-        .ssoControllerSignIn(body, options)
+        .ssoControllerSignIn(signInArgs, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -5388,30 +5864,30 @@ export const SsoApiFactory = function (
     },
     /**
      *
-     * @param {object} body
+     * @param {SignUpArgs} signUpArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerSignUp(
-      body: object,
+      signUpArgs: SignUpArgs,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<object> {
+    ): AxiosPromise<StatusResponse> {
       return localVarFp
-        .ssoControllerSignUp(body, options)
+        .ssoControllerSignUp(signUpArgs, options)
         .then((request) => request(axios, basePath));
     },
     /**
      *
-     * @param {UpdateProfileModel} updateProfileModel
+     * @param {UpdateProfileArgs} updateProfileArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerUpdateProfile(
-      updateProfileModel: UpdateProfileModel,
+      updateProfileArgs: UpdateProfileArgs,
       options?: RawAxiosRequestConfig
     ): AxiosPromise<SsoUserDto> {
       return localVarFp
-        .ssoControllerUpdateProfile(updateProfileModel, options)
+        .ssoControllerUpdateProfile(updateProfileArgs, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -5574,51 +6050,73 @@ export const SsoApiFactory = function (
 export class SsoApi extends BaseAPI {
   /**
    *
-   * @param {object} body
+   * @param {ChangePasswordArgs} changePasswordArgs
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SsoApi
    */
   public ssoControllerChangePassword(
-    body: object,
+    changePasswordArgs: ChangePasswordArgs,
     options?: RawAxiosRequestConfig
   ) {
     return SsoApiFp(this.configuration)
-      .ssoControllerChangePassword(body, options)
+      .ssoControllerChangePassword(changePasswordArgs, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    *
    * @param {string} code
-   * @param {object} body
+   * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SsoApi
    */
   public ssoControllerCompleteForgotPassword(
     code: string,
-    body: object,
+    completeForgotPasswordArgs: CompleteForgotPasswordArgs,
     options?: RawAxiosRequestConfig
   ) {
     return SsoApiFp(this.configuration)
-      .ssoControllerCompleteForgotPassword(code, body, options)
+      .ssoControllerCompleteForgotPassword(
+        code,
+        completeForgotPasswordArgs,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    *
-   * @param {object} body
+   * @param {string} code
+   * @param {CompleteSignUpArgs} completeSignUpArgs
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoControllerCompleteSignUp(
+    code: string,
+    completeSignUpArgs: CompleteSignUpArgs,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoControllerCompleteSignUp(code, completeSignUpArgs, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {ForgotPasswordArgs} forgotPasswordArgs
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SsoApi
    */
   public ssoControllerForgotPassword(
-    body: object,
+    forgotPasswordArgs: ForgotPasswordArgs,
     options?: RawAxiosRequestConfig
   ) {
     return SsoApiFp(this.configuration)
-      .ssoControllerForgotPassword(body, options)
+      .ssoControllerForgotPassword(forgotPasswordArgs, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -5636,30 +6134,33 @@ export class SsoApi extends BaseAPI {
 
   /**
    *
-   * @param {object} body
+   * @param {RefreshTokensResponse} refreshTokensResponse
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SsoApi
    */
   public ssoControllerRefreshTokens(
-    body: object,
+    refreshTokensResponse: RefreshTokensResponse,
     options?: RawAxiosRequestConfig
   ) {
     return SsoApiFp(this.configuration)
-      .ssoControllerRefreshTokens(body, options)
+      .ssoControllerRefreshTokens(refreshTokensResponse, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    *
-   * @param {object} body
+   * @param {SignInArgs} signInArgs
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SsoApi
    */
-  public ssoControllerSignIn(body: object, options?: RawAxiosRequestConfig) {
+  public ssoControllerSignIn(
+    signInArgs: SignInArgs,
+    options?: RawAxiosRequestConfig
+  ) {
     return SsoApiFp(this.configuration)
-      .ssoControllerSignIn(body, options)
+      .ssoControllerSignIn(signInArgs, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
@@ -5677,30 +6178,33 @@ export class SsoApi extends BaseAPI {
 
   /**
    *
-   * @param {object} body
+   * @param {SignUpArgs} signUpArgs
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SsoApi
    */
-  public ssoControllerSignUp(body: object, options?: RawAxiosRequestConfig) {
+  public ssoControllerSignUp(
+    signUpArgs: SignUpArgs,
+    options?: RawAxiosRequestConfig
+  ) {
     return SsoApiFp(this.configuration)
-      .ssoControllerSignUp(body, options)
+      .ssoControllerSignUp(signUpArgs, options)
       .then((request) => request(this.axios, this.basePath));
   }
 
   /**
    *
-   * @param {UpdateProfileModel} updateProfileModel
+   * @param {UpdateProfileArgs} updateProfileArgs
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SsoApi
    */
   public ssoControllerUpdateProfile(
-    updateProfileModel: UpdateProfileModel,
+    updateProfileArgs: UpdateProfileArgs,
     options?: RawAxiosRequestConfig
   ) {
     return SsoApiFp(this.configuration)
-      .ssoControllerUpdateProfile(updateProfileModel, options)
+      .ssoControllerUpdateProfile(updateProfileArgs, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

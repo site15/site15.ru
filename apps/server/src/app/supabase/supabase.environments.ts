@@ -7,7 +7,7 @@ import {
 import { IsNotEmpty } from 'class-validator';
 
 @EnvModel()
-export class SupabaseEnvironments {
+export class SupabaseStaticEnvironments {
   @EnvModelProperty({
     description: 'Supabase URL',
   })
@@ -22,13 +22,13 @@ export class SupabaseEnvironments {
 
   @EnvModelProperty({
     description:
-      'Allowed identifiers of external applications, if you have logged in previously and do not need to log in again in the authorization service, these identifiers must be private and can be used for testing.',
+      'Allowed identifiers of external applications, if you have logged in previously and do not need to log in again in the authorization service, these identifiers must be private and can be used for testing',
     transform: new ArrayOfStringTransformer(),
   })
   allowedExternalAppIds?: string[];
 
   @EnvModelProperty({
-    description: 'Use guards.',
+    description: 'Use guards',
     transform: new BooleanTransformer(),
     default: true,
     hidden: true,
@@ -36,7 +36,7 @@ export class SupabaseEnvironments {
   useGuards?: boolean;
 
   @EnvModelProperty({
-    description: 'Use filters.',
+    description: 'Use filters',
     transform: new BooleanTransformer(),
     default: true,
     hidden: true,

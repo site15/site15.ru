@@ -4,12 +4,16 @@ import {
   getFeatureDotEnvPropertyNameFormatter,
   NestModuleCategory,
 } from '@nestjs-mod/common';
+import { KeyvModule } from '@nestjs-mod/keyv';
 import { PrismaModule } from '@nestjs-mod/prisma';
-import { JwtModule } from '@nestjs/jwt';
+import { UseFilters, UseGuards } from '@nestjs/common';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { ApiHeaders } from '@nestjs/swagger';
 import { TranslatesModule } from 'nestjs-translates';
 import { SsoProjectsController } from './controllers/sso-projects.controller';
 import { SsoUsersController } from './controllers/sso-users.controller';
 import { SsoController } from './controllers/sso.controller';
+import { SsoCacheService } from './services/sso-cache.service';
 import { SsoCookieService } from './services/sso-cookie.service';
 import { SsoEventsService } from './services/sso-events.service';
 import { SsoMailService } from './services/sso-mail.service';
@@ -17,14 +21,20 @@ import { SsoPasswordService } from './services/sso-password.service';
 import { SsoTwoFactorService } from './services/sso-two-factor.service';
 import { SsoUsersService } from './services/sso-users.service';
 import { SsoService } from './services/sso.service';
+import { SsoStaticConfiguration } from './sso.configuration';
 import { SSO_FEATURE, SSO_MODULE } from './sso.constants';
-import { SsoEnvironments } from './sso.environments';
+import { SsoStaticEnvironments } from './sso.environments';
+import { SsoExceptionsFilter } from './sso.filter';
+import { SsoGuard } from './sso.guard';
+import { SsoTokensService } from './services/sso-tokens.service';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
   moduleCategory: NestModuleCategory.feature,
-  staticEnvironmentsModel: SsoEnvironments,
+  staticEnvironmentsModel: SsoStaticEnvironments,
+  staticConfigurationModel: SsoStaticConfiguration,
   imports: [
+    KeyvModule.forFeature({ featureModuleName: SSO_FEATURE }),
     PrismaModule.forFeature({
       contextName: SSO_FEATURE,
       featureModuleName: SSO_FEATURE,
@@ -33,9 +43,9 @@ export const { SsoModule } = createNestModule({
       featureModuleName: SSO_FEATURE,
     }),
     TranslatesModule,
-    JwtModule,
   ],
   sharedImports: [
+    KeyvModule.forFeature({ featureModuleName: SSO_FEATURE }),
     PrismaModule.forFeature({
       contextName: SSO_FEATURE,
       featureModuleName: SSO_FEATURE,
@@ -44,8 +54,8 @@ export const { SsoModule } = createNestModule({
       featureModuleName: SSO_FEATURE,
     }),
     TranslatesModule,
-    JwtModule,
   ],
+  controllers: [SsoController, SsoUsersController, SsoProjectsController],
   sharedProviders: [
     SsoService,
     SsoUsersService,
@@ -54,8 +64,10 @@ export const { SsoModule } = createNestModule({
     SsoMailService,
     SsoPasswordService,
     SsoTwoFactorService,
+    SsoCacheService,
+    SsoTokensService,
+    JwtService,
   ],
-  controllers: [SsoUsersController, SsoProjectsController, SsoController],
   wrapForRootAsync: (asyncModuleOptions) => {
     if (!asyncModuleOptions) {
       asyncModuleOptions = {};
@@ -69,5 +81,23 @@ export const { SsoModule } = createNestModule({
     });
 
     return { asyncModuleOptions };
+  },
+  preWrapApplication: async ({ current }) => {
+    const staticEnvironments = current.staticEnvironments;
+
+    // all routes
+    for (const ctrl of [
+      SsoProjectsController,
+      SsoUsersController,
+      SsoController,
+    ]) {
+      if (staticEnvironments?.useFilters) {
+        UseFilters(SsoExceptionsFilter)(ctrl);
+      }
+      if (staticEnvironments?.useGuards) {
+        console.log(SsoGuard.name, ctrl.name);
+        UseGuards(SsoGuard)(ctrl);
+      }
+    }
   },
 });

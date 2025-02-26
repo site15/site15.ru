@@ -1,5 +1,5 @@
 import KeyvRedis from '@keyv/redis';
-import { AUTH_FEATURE } from '@nestjs-mod-sso/auth';
+
 import { SSO_FEATURE, SSO_FOLDER } from '@nestjs-mod-sso/sso';
 import { WEBHOOK_FEATURE, WebhookModule } from '@nestjs-mod-sso/webhook';
 import {
@@ -24,7 +24,6 @@ import {
 import { Injectable } from '@nestjs/common';
 import { MemoryHealthIndicator, PrismaHealthIndicator } from '@nestjs/terminus';
 import { PrismaClient as AppPrismaClient } from '@prisma/app-client';
-import { PrismaClient as AuthPrismaClient } from '@prisma/auth-client';
 import { PrismaClient as SsoPrismaClient } from '@prisma/sso-client';
 import { PrismaClient as WebhookPrismaClient } from '@prisma/webhook-client';
 import { existsSync } from 'fs';
@@ -131,15 +130,6 @@ export class PrismaTerminusHealthCheckConfiguration
         ),
     },
     {
-      name: `database_${AUTH_FEATURE}`,
-      check: () =>
-        this.prismaHealthIndicator.pingCheck(
-          `database_${AUTH_FEATURE}`,
-          this.authPrismaClient,
-          { timeout: 60 * 1000 }
-        ),
-    },
-    {
       name: `database_${WEBHOOK_FEATURE}`,
       check: () =>
         this.prismaHealthIndicator.pingCheck(
@@ -164,8 +154,6 @@ export class PrismaTerminusHealthCheckConfiguration
     private readonly prismaHealthIndicator: PrismaHealthIndicator,
     @InjectPrismaClient(APP_FEATURE)
     private readonly appPrismaClient: AppPrismaClient,
-    @InjectPrismaClient(AUTH_FEATURE)
-    private readonly authPrismaClient: AuthPrismaClient,
     @InjectPrismaClient(WEBHOOK_FEATURE)
     private readonly webhookPrismaClient: WebhookPrismaClient,
     @InjectPrismaClient(SSO_FEATURE)
@@ -179,10 +167,6 @@ export const MainTerminusHealthCheckModule =
       PrismaModule.forFeature({
         featureModuleName: TERMINUS_MODULE_NAME,
         contextName: APP_FEATURE,
-      }),
-      PrismaModule.forFeature({
-        featureModuleName: TERMINUS_MODULE_NAME,
-        contextName: AUTH_FEATURE,
       }),
       PrismaModule.forFeature({
         featureModuleName: TERMINUS_MODULE_NAME,

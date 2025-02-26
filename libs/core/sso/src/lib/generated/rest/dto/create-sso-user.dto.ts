@@ -21,6 +21,14 @@ export class CreateSsoUserDto {
   })
   @IsOptional()
   @IsString()
+  phone?: string | null;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
   username?: string | null;
   @ApiProperty({
     type: 'string',
@@ -54,6 +62,14 @@ export class CreateSsoUserDto {
   lastname?: string | null;
   @ApiProperty({
     type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  gender?: string | null;
+  @ApiProperty({
+    type: 'string',
     format: 'date-time',
     required: false,
     nullable: true,
@@ -76,4 +92,31 @@ export class CreateSsoUserDto {
   })
   @IsOptional()
   appData?: Prisma.InputJsonValue | Prisma.NullableJsonNullValueInput;
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsDateString()
+  revokedAt?: Date | null;
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsDateString()
+  emailVerifiedAt?: Date | null;
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsDateString()
+  phoneVerifiedAt?: Date | null;
 }

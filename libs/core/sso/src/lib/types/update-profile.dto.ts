@@ -1,32 +1,31 @@
-import { OmitType } from '@nestjs/swagger';
+import { ApiPropertyOptional, PickType } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 
-export class UpdateProfileModel extends OmitType(SsoUserDto, [
-  'createdAt',
-  'updatedAt',
-  'roles',
-  'appData',
-  'id',
+export class UpdateProfileArgs extends PickType(SsoUserDto, [
+  'birthdate',
+  'firstname',
+  'lastname',
+  'picture',
+  'gender',
 ]) {
+  @ApiPropertyOptional({ type: String })
   @IsOptional()
   override birthdate!: Date | null;
 
-  @IsOptional()
-  override email!: string;
-
+  @ApiPropertyOptional({ type: String })
   @IsOptional()
   override firstname!: string | null;
 
+  @ApiPropertyOptional({ type: String })
   @IsOptional()
   override lastname!: string | null;
 
-  @IsOptional()
-  override password!: string;
-
+  @ApiPropertyOptional({ type: String })
   @IsOptional()
   override picture!: string | null;
 
+  @ApiPropertyOptional({ type: String })
   @IsOptional()
-  override username!: string | null;
+  override gender!: string | null;
 }

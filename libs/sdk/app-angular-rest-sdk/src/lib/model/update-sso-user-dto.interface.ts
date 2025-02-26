@@ -10,12 +10,17 @@
 
 export interface UpdateSsoUserDtoInterface {
   email?: string;
+  phone?: string | null;
   username?: string | null;
   password?: string;
   roles?: string | null;
   firstname?: string | null;
   lastname?: string | null;
+  gender?: string | null;
   birthdate?: string | null;
   picture?: string | null;
   appData?: object | null;
+  revokedAt?: string | null;
+  emailVerifiedAt?: string | null;
+  phoneVerifiedAt?: string | null;
 }

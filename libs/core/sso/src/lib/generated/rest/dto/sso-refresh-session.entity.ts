@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { SsoProject } from './sso-project.entity';
 import { SsoUser } from './sso-user.entity';
 
 export class SsoRefreshSession {
@@ -8,18 +9,9 @@ export class SsoRefreshSession {
   id!: string;
   @ApiProperty({
     type: 'string',
-  })
-  refreshToken!: string;
-  @ApiProperty({
-    type: 'string',
     nullable: true,
   })
   userAgent!: string | null;
-  @ApiProperty({
-    type: 'string',
-    nullable: true,
-  })
-  fingerprint!: string | null;
   @ApiProperty({
     type: 'string',
     nullable: true,
@@ -37,6 +29,10 @@ export class SsoRefreshSession {
   userId!: string;
   @ApiProperty({
     type: 'string',
+  })
+  projectId!: string;
+  @ApiProperty({
+    type: 'string',
     format: 'date-time',
   })
   createdAt!: Date;
@@ -45,6 +41,11 @@ export class SsoRefreshSession {
     format: 'date-time',
   })
   updatedAt!: Date;
+  @ApiProperty({
+    type: () => SsoProject,
+    required: false,
+  })
+  SsoProject?: SsoProject;
   @ApiProperty({
     type: () => SsoUser,
     required: false,

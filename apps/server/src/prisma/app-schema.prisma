@@ -1,32 +1,32 @@
 generator client {
-  provider = "prisma-client-js"
-  
-  output   = "../../../../node_modules/@prisma/app-client"
-  binaryTargets = ["native","rhel-openssl-3.0.x","linux-musl-openssl-3.0.x"]
-  
+  provider      = "prisma-client-js"
+  output        = "../../../../node_modules/@prisma/app-client"
+  binaryTargets = ["native", "rhel-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
 }
-datasource db {
-  provider          = "postgres"
-  url               = env("SERVER_APP_DATABASE_URL")
-}
+
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../app/generated/rest/dto"
-  entitySuffix                    = ""
-  exportRelationModifierClasses   = "true"
-  updateDtoPrefix                 = "Update"
-  reExport                        = "false"
-  definiteAssignmentAssertion     = "true"
-  noDependencies                  = "false"
   outputToNestJsResourceStructure = "false"
   createDtoPrefix                 = "Create"
-  prettier                        = "true"
-  annotateAllDtoProperties        = "true"
-  dtoSuffix                       = "Dto"
-  flatResourceStructure           = "false"
   entityPrefix                    = ""
   classValidation                 = "true"
+  entitySuffix                    = ""
+  exportRelationModifierClasses   = "true"
+  definiteAssignmentAssertion     = "true"
+  updateDtoPrefix                 = "Update"
+  dtoSuffix                       = "Dto"
+  noDependencies                  = "false"
+  reExport                        = "false"
+  prettier                        = "true"
+  flatResourceStructure           = "false"
   fileNamingStyle                 = "kebab"
+  annotateAllDtoProperties        = "true"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("SERVER_APP_DATABASE_URL")
 }
 
 model AppDemo {

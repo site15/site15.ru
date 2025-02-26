@@ -25,8 +25,9 @@ import { isUUID } from 'class-validator';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 import { SsoUser } from '../generated/rest/dto/sso-user.entity';
 import { UpdateSsoUserDto } from '../generated/rest/dto/update-sso-user.dto';
+import { SsoPasswordService } from '../services/sso-password.service';
 import { SSO_FEATURE } from '../sso.constants';
-import { CheckSsoIsAdmin } from '../sso.decorators';
+import { SsoCheckIsAdmin } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
 
@@ -35,13 +36,14 @@ import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
   schema: { allOf: refs(SsoError, ValidationError) },
 })
 @ApiTags('Sso')
-@CheckSsoIsAdmin()
+@SsoCheckIsAdmin()
 @Controller('/sso/users')
 export class SsoUsersController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly prismaToolsService: PrismaToolsService
+    private readonly prismaToolsService: PrismaToolsService,
+    private readonly ssoPasswordService: SsoPasswordService
   ) {}
 
   @Get()
@@ -68,7 +70,6 @@ export class SsoUsersController {
         }),
         {}
       );
-
     const result = await this.prismaClient.$transaction(async (prisma) => {
       return {
         ssoUsers: await prisma.ssoUser.findMany({
@@ -112,6 +113,7 @@ export class SsoUsersController {
         }),
       };
     });
+
     return {
       ssoUsers: result.ssoUsers,
       meta: {
@@ -129,7 +131,17 @@ export class SsoUsersController {
     @Body() args: UpdateSsoUserDto
   ) {
     const result = await this.prismaClient.ssoUser.update({
-      data: { ...args, updatedAt: new Date() },
+      data: {
+        ...args,
+        ...(args.password
+          ? {
+              password: await this.ssoPasswordService.createPasswordHash(
+                args.password
+              ),
+            }
+          : {}),
+        updatedAt: new Date(),
+      },
       where: {
         id,
       },

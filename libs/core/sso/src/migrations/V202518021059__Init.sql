@@ -21,14 +21,19 @@ CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_PROJECTS__CLIENT_ID" ON "SsoProject"("
 CREATE TABLE IF NOT EXISTS "SsoUser"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     email varchar(254) NOT NULL,
+    phone varchar(254),
     username varchar(254),
     password varchar(254) NOT NULL,
     "roles" varchar(254),
     "firstname" varchar(254),
     "lastname" varchar(254),
+    "gender" varchar(1),
     "birthdate" timestamp,
     "picture" text,
     "appData" jsonb,
+    "revokedAt" timestamp,
+    "emailVerifiedAt" timestamp,
+    "phoneVerifiedAt" timestamp,
     "projectId" uuid NOT NULL,
     "createdAt" timestamp DEFAULT now() NOT NULL,
     "updatedAt" timestamp DEFAULT now() NOT NULL
@@ -54,13 +59,11 @@ EXCEPTION
 END
 $$;
 
+CREATE INDEX IF NOT EXISTS "IDX_SSO_USERS__PROJECT_ID" ON "SsoUser"("projectId");
+
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_USERS__EMAIL" ON "SsoUser"(email, "projectId");
 
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_USERS__USERNAME" ON "SsoUser"(username, "projectId");
-
-CREATE INDEX IF NOT EXISTS "IDX_SSO_USERS__FIRSTNAME" ON "SsoUser"(firstname, "projectId");
-
-CREATE INDEX IF NOT EXISTS "IDX_SSO_USERS__LASTNAME" ON "SsoUser"(lastname, "projectId");
 
 CREATE TABLE IF NOT EXISTS "SsoRefreshSession"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
@@ -70,9 +73,95 @@ CREATE TABLE IF NOT EXISTS "SsoRefreshSession"(
     "userIp" varchar(128),
     "expiresIn" bigint,
     "userId" uuid NOT NULL,
+    "projectId" uuid NOT NULL,
     "createdAt" timestamp DEFAULT now() NOT NULL,
-    "updatedAt" timestamp DEFAULT now() NOT NULL,
-    CONSTRAINT "PK_SSO_REFRESH_SESSIONS" PRIMARY KEY (id),
-    CONSTRAINT "FK_SSO_REFRESH_SESSIONS__USER_ID" FOREIGN KEY ("userId") REFERENCES "SsoUser" ON DELETE CASCADE
+    "updatedAt" timestamp DEFAULT now() NOT NULL
 );
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoRefreshSession"
+        ADD CONSTRAINT "PK_SSO_REFRESH_SESSIONS" PRIMARY KEY(id);
+EXCEPTION
+    WHEN invalid_table_definition THEN
+        NULL;
+END
+$$;
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoRefreshSession"
+        ADD CONSTRAINT "FK_SSO_REFRESH_SESSIONS__PROJECT_ID" FOREIGN KEY("projectId") REFERENCES "SsoProject";
+EXCEPTION
+    WHEN duplicate_object THEN
+        NULL;
+END
+$$;
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoRefreshSession"
+        ADD CONSTRAINT "FK_SSO_REFRESH_SESSIONS__USER_ID" FOREIGN KEY("userId") REFERENCES "SsoUser";
+EXCEPTION
+    WHEN duplicate_object THEN
+        NULL;
+END
+$$;
+
+CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_REFRESH_SESSIONS" ON "SsoRefreshSession"("userId", "fingerprint", "projectId");
+
+CREATE INDEX IF NOT EXISTS "IDX_SSO_REFRESH_SESSIONS__PROJECT_ID" ON "SsoRefreshSession"("projectId");
+
+CREATE INDEX IF NOT EXISTS "IDX_SSO_REFRESH_SESSIONS_USER_ID" ON "SsoRefreshSession"("userId", "projectId");
+
+CREATE TABLE IF NOT EXISTS "SsoTwoFactorCode"(
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    "operationName" varchar(512) NOT NULL,
+    "code" varchar(100) NOT NULL,
+    "type" varchar(100) NOT NULL,
+    "maxAttempt" int NOT NULL,
+    "attempt" int NOT NULL,
+    "timeout" int NOT NULL,
+    "used" boolean NOT NULL,
+    "userId" uuid NOT NULL,
+    "projectId" uuid NOT NULL,
+    "createdAt" timestamp DEFAULT now() NOT NULL,
+    "updatedAt" timestamp DEFAULT now() NOT NULL
+);
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoTwoFactorCode"
+        ADD CONSTRAINT "PK_SSO_TWO_FACTOR_CODES" PRIMARY KEY(id);
+EXCEPTION
+    WHEN invalid_table_definition THEN
+        NULL;
+END
+$$;
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoTwoFactorCode"
+        ADD CONSTRAINT "FK_SSO_TWO_FACTOR_CODES__PROJECT_ID" FOREIGN KEY("projectId") REFERENCES "SsoProject";
+EXCEPTION
+    WHEN duplicate_object THEN
+        NULL;
+END
+$$;
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoTwoFactorCode"
+        ADD CONSTRAINT "FK_SSO_TWO_FACTOR_CODES__USER_ID" FOREIGN KEY("userId") REFERENCES "SsoUser";
+EXCEPTION
+    WHEN duplicate_object THEN
+        NULL;
+END
+$$;
+
+CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_TWO_FACTOR_CODES" ON "SsoTwoFactorCode"("userId", "operationName", "code", "projectId");
+
+CREATE UNIQUE INDEX IF NOT EXISTS "IDX_SSO_TWO_FACTOR_CODES__USER_ID" ON "SsoTwoFactorCode"("userId", "projectId");
+
+CREATE UNIQUE INDEX IF NOT EXISTS "IDX_SSO_TWO_FACTOR_CODES__PROJECT_ID" ON "SsoTwoFactorCode"("projectId");
 

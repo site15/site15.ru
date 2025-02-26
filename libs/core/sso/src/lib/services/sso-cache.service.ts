@@ -1,0 +1,89 @@
+import { KeyvService } from '@nestjs-mod/keyv';
+import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { Injectable } from '@nestjs/common';
+import { PrismaClient, SsoProject, SsoUser } from '@prisma/sso-client';
+import { SsoStaticConfiguration } from '../sso.configuration';
+import { SSO_FEATURE } from '../sso.constants';
+
+@Injectable()
+export class SsoCacheService {
+  constructor(
+    @InjectPrismaClient(SSO_FEATURE)
+    private readonly prismaClient: PrismaClient,
+    private readonly ssoStaticConfiguration: SsoStaticConfiguration,
+    private readonly keyvService: KeyvService
+  ) {}
+
+  async clearCacheByUserId(userId: string) {
+    await this.keyvService.delete(this.getUserCacheKey(userId));
+  }
+
+  async getCachedUser({
+    userId,
+    projectId,
+  }: {
+    userId: string;
+    projectId: string;
+  }) {
+    const cached = await this.keyvService.get<SsoUser>(
+      this.getUserCacheKey(userId)
+    );
+    if (cached) {
+      return cached as SsoUser;
+    }
+    const user = await this.prismaClient.ssoUser.findFirst({
+      where: {
+        id: userId,
+        projectId,
+      },
+    });
+    if (user) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...cachedUser } = user;
+      await this.keyvService.set(
+        this.getUserCacheKey(userId),
+        cachedUser,
+        this.ssoStaticConfiguration.cacheTTL
+      );
+      return cachedUser;
+    }
+    return undefined;
+  }
+
+  private getUserCacheKey(userId: string): string {
+    return `ssoUser.${userId}`;
+  }
+
+  //
+
+  async clearCacheByClientId(clientId: string) {
+    await this.keyvService.delete(this.getProjectCacheKey(clientId));
+  }
+
+  async getCachedProject(clientId: string) {
+    const cached = await this.keyvService.get<SsoProject>(
+      this.getProjectCacheKey(clientId)
+    );
+    if (cached) {
+      return cached as SsoProject;
+    }
+    const project = await this.prismaClient.ssoProject.findFirst({
+      where: {
+        clientId,
+      },
+    });
+    if (project) {
+      await this.keyvService.set(
+        this.getProjectCacheKey(clientId),
+        project,
+        this.ssoStaticConfiguration.cacheTTL
+      );
+      return project;
+    }
+    return undefined;
+  }
+
+  private getProjectCacheKey(clientId: string): string {
+    return `ssoProject.${clientId}`;
+  }
+}

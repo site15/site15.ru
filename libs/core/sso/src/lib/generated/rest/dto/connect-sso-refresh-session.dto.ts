@@ -1,11 +1,50 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class ConnectSsoRefreshSessionDto {
+export class SsoRefreshSessionUserIdFingerprintProjectIdUniqueInputDto {
   @ApiProperty({
     type: 'string',
   })
   @IsNotEmpty()
   @IsString()
-  id!: string;
+  userId!: string;
+  @ApiProperty({
+    type: 'string',
+  })
+  @IsNotEmpty()
+  @IsString()
+  fingerprint!: string;
+  @ApiProperty({
+    type: 'string',
+  })
+  @IsNotEmpty()
+  @IsString()
+  projectId!: string;
+}
+
+@ApiExtraModels(SsoRefreshSessionUserIdFingerprintProjectIdUniqueInputDto)
+export class ConnectSsoRefreshSessionDto {
+  @ApiProperty({
+    type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  id?: string;
+  @ApiProperty({
+    type: SsoRefreshSessionUserIdFingerprintProjectIdUniqueInputDto,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => SsoRefreshSessionUserIdFingerprintProjectIdUniqueInputDto)
+  userId_fingerprint_projectId?: SsoRefreshSessionUserIdFingerprintProjectIdUniqueInputDto;
 }

@@ -1,9 +1,17 @@
 import { SsoProject } from '../generated/rest/dto/sso-project.entity';
 import { SsoUser } from '../generated/rest/dto/sso-user.entity';
 
+export type SsoAccessTokenData = {
+  userId: string;
+  roles: string;
+};
+
 export type SsoRequest = {
-  ssoUser: SsoUser;
   ssoProject: SsoProject;
-  ssoIsAdmin: boolean;
+  ssoUser?: SsoUser;
+  ssoIsAdmin?: boolean;
+  ssoClientId?: string;
+  ssoClientSecret?: string;
+  ssoAccessTokenData?: SsoAccessTokenData;
   headers: Record<string, string>;
 };

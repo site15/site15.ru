@@ -9,21 +9,28 @@
  */
 import { SsoProjectInterface } from './sso-project.interface';
 import { SsoRefreshSessionInterface } from './sso-refresh-session.interface';
+import { SsoTwoFactorCodeInterface } from './sso-two-factor-code.interface';
 
 export interface SsoUserInterface {
   id: string;
   email: string;
+  phone: string | null;
   username: string | null;
   password: string;
   roles: string | null;
   firstname: string | null;
   lastname: string | null;
+  gender: string | null;
   birthdate: string | null;
   picture: string | null;
   appData: object | null;
   projectId: string;
+  revokedAt: string | null;
+  emailVerifiedAt: string | null;
+  phoneVerifiedAt: string | null;
   createdAt: string;
   updatedAt: string;
-  SsoRefreshSession?: Array<SsoRefreshSessionInterface>;
+  SsoRefreshSession?: SsoRefreshSessionInterface | null;
+  SsoTwoFactorCode?: SsoTwoFactorCodeInterface | null;
   SsoProject?: SsoProjectInterface;
 }

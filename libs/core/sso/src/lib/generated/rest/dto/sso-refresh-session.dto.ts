@@ -7,18 +7,9 @@ export class SsoRefreshSessionDto {
   id!: string;
   @ApiProperty({
     type: 'string',
-  })
-  refreshToken!: string;
-  @ApiProperty({
-    type: 'string',
     nullable: true,
   })
   userAgent!: string | null;
-  @ApiProperty({
-    type: 'string',
-    nullable: true,
-  })
-  fingerprint!: string | null;
   @ApiProperty({
     type: 'string',
     nullable: true,

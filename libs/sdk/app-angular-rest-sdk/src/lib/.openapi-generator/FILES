@@ -27,6 +27,9 @@ model/auth-role.interface.ts
 model/auth-user-scalar-field-enum.interface.ts
 model/auth-user.interface.ts
 model/authorizer-client-id.interface.ts
+model/change-password-args.interface.ts
+model/complete-forgot-password-args.interface.ts
+model/complete-sign-up-args.interface.ts
 model/create-sso-project-dto.interface.ts
 model/create-webhook-dto.interface.ts
 model/files-error-enum.interface.ts
@@ -39,7 +42,11 @@ model/find-many-sso-user-response.interface.ts
 model/find-many-webhook-log-response.interface.ts
 model/find-many-webhook-response.interface.ts
 model/find-many-webhook-user-response.interface.ts
+model/forgot-password-args.interface.ts
 model/models.ts
+model/refresh-tokens-response.interface.ts
+model/sign-in-args.interface.ts
+model/sign-up-args.interface.ts
 model/sso-controller-sign-in400-response.interface.ts
 model/sso-entities.interface.ts
 model/sso-error-enum.interface.ts
@@ -47,6 +54,7 @@ model/sso-error.interface.ts
 model/sso-project-scalar-field-enum.interface.ts
 model/sso-project.interface.ts
 model/sso-refresh-session.interface.ts
+model/sso-two-factor-code.interface.ts
 model/sso-user-dto.interface.ts
 model/sso-user-scalar-field-enum.interface.ts
 model/sso-user.interface.ts
@@ -54,8 +62,9 @@ model/status-response.interface.ts
 model/terminus-health-check-controller-check200-response-info-value.interface.ts
 model/terminus-health-check-controller-check200-response.interface.ts
 model/terminus-health-check-controller-check503-response.interface.ts
+model/tokens-response.interface.ts
 model/update-auth-user-dto.interface.ts
-model/update-profile-model.interface.ts
+model/update-profile-args.interface.ts
 model/update-sso-project-dto.interface.ts
 model/update-sso-user-dto.interface.ts
 model/update-webhook-dto.interface.ts

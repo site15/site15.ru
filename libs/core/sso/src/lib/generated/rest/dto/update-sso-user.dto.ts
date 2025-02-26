@@ -17,6 +17,14 @@ export class UpdateSsoUserDto {
   })
   @IsOptional()
   @IsString()
+  phone?: string | null;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
   username?: string | null;
   @ApiProperty({
     type: 'string',
@@ -51,6 +59,14 @@ export class UpdateSsoUserDto {
   lastname?: string | null;
   @ApiProperty({
     type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  gender?: string | null;
+  @ApiProperty({
+    type: 'string',
     format: 'date-time',
     required: false,
     nullable: true,
@@ -73,4 +89,31 @@ export class UpdateSsoUserDto {
   })
   @IsOptional()
   appData?: Prisma.InputJsonValue | Prisma.NullableJsonNullValueInput;
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsDateString()
+  revokedAt?: Date | null;
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsDateString()
+  emailVerifiedAt?: Date | null;
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsDateString()
+  phoneVerifiedAt?: Date | null;
 }

@@ -29,7 +29,7 @@ import { CreateSsoProjectDto } from '../generated/rest/dto/create-sso-project.dt
 import { SsoProject } from '../generated/rest/dto/sso-project.entity';
 import { UpdateSsoProjectDto } from '../generated/rest/dto/update-sso-project.dto';
 import { SSO_FEATURE } from '../sso.constants';
-import { CheckSsoIsAdmin } from '../sso.decorators';
+import { SsoCheckIsAdmin } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoProjectResponse } from '../types/find-many-sso-project-response';
 import { SsoEntities } from '../types/sso-entities';
@@ -39,7 +39,7 @@ import { SsoEntities } from '../types/sso-entities';
   schema: { allOf: refs(SsoError, ValidationError) },
 })
 @ApiTags('Sso')
-@CheckSsoIsAdmin()
+@SsoCheckIsAdmin()
 @Controller('/sso/projects')
 export class SsoProjectsController {
   constructor(

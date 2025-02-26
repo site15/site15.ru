@@ -1,4 +1,3 @@
-import { UseAuthInterceptorsAndGuards } from '@nestjs-mod-sso/auth';
 import { Controller, Get } from '@nestjs/common';
 
 import { ApiOkResponse } from '@nestjs/swagger';
@@ -10,10 +9,6 @@ import {
 import { interval, map, Observable } from 'rxjs';
 import { ChangeTimeStream } from '../../app.constants';
 
-@UseAuthInterceptorsAndGuards({
-  //guards: [SsoGuard],
-  skipInterceptor: true,
-})
 // @AllowEmptyUser()
 @WebSocketGateway({
   cors: {
@@ -30,7 +25,6 @@ export class TimeController {
     return new Date();
   }
 
-  @UseAuthInterceptorsAndGuards()
   @SubscribeMessage(ChangeTimeStream)
   onChangeTimeStream(): Observable<WsResponse<Date>> {
     return interval(1000).pipe(

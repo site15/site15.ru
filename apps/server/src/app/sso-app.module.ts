@@ -1,6 +1,6 @@
 import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
 
-import { AUTH_FEATURE, AUTH_MODULE, AuthModule } from '@nestjs-mod-sso/auth';
+import { AUTH_MODULE, AuthModule } from '@nestjs-mod-sso/auth';
 import { FilesModule } from '@nestjs-mod-sso/files';
 import { SSO_FEATURE, SsoController, SsoModule } from '@nestjs-mod-sso/sso';
 import {
@@ -19,7 +19,6 @@ import { AuthorizerController } from './controllers/sso/authorizer.controller';
 import { AppController } from './controllers/sso/sso-app.controller';
 import { FakeEndpointController } from './controllers/sso/sso-fake-endoint.controller';
 import { TimeController } from './controllers/sso/sso-time.controller';
-import { SsoAuthConfiguration } from './integrations/sso/sso-auth.configuration';
 import { SsoWithMinioFilesConfiguration } from './integrations/sso/sso-with-minio-files.configuration';
 import { AppService } from './services/app.service';
 
@@ -27,11 +26,11 @@ export const { AppModule: SsoAppModule } = createNestModule({
   moduleName: 'AppModule',
   moduleCategory: NestModuleCategory.feature,
   imports: [
-    SsoModule.forRoot(),
     FilesModule.forRootAsync({
       imports: [SsoModule.forFeature(), MinioModule.forFeature()],
       configurationClass: SsoWithMinioFilesConfiguration,
     }),
+    // todo: remove
     AuthModule.forRootAsync({
       imports: [
         SsoModule.forFeature(),
@@ -40,12 +39,15 @@ export const { AppModule: SsoAppModule } = createNestModule({
           featureModuleName: AUTH_MODULE,
         }),
       ],
-      configurationClass: SsoAuthConfiguration,
+      staticEnvironments: {
+        useFilters: false,
+        useGuards: false,
+        useInterceptors: false,
+        usePipes: false,
+      },
+      configuration: { createAdmin: async () => null },
     }),
     SsoModule.forFeature({
-      featureModuleName: APP_FEATURE,
-    }),
-    AuthModule.forFeature({
       featureModuleName: APP_FEATURE,
     }),
     WebhookModule.forFeature({
@@ -53,10 +55,6 @@ export const { AppModule: SsoAppModule } = createNestModule({
     }),
     PrismaModule.forFeature({
       contextName: SSO_FEATURE,
-      featureModuleName: APP_FEATURE,
-    }),
-    PrismaModule.forFeature({
-      contextName: AUTH_FEATURE,
       featureModuleName: APP_FEATURE,
     }),
     PrismaModule.forFeature({
@@ -98,6 +96,7 @@ export const { AppModule: SsoAppModule } = createNestModule({
     TimeController,
     FakeEndpointController,
     SsoController,
+    // todo: remove
     AuthorizerController,
   ],
   providers: [

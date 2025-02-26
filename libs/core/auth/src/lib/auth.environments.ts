@@ -6,7 +6,7 @@ import {
 import { IsNotEmpty } from 'class-validator';
 
 @EnvModel()
-export class AuthEnvironments {
+export class AuthStaticEnvironments {
   @EnvModelProperty({
     description: 'Global admin username',
     default: 'admin@example.com',
@@ -26,14 +26,14 @@ export class AuthEnvironments {
   adminPassword?: string;
 
   @EnvModelProperty({
-    description: 'TTL for cached data.',
+    description: 'TTL for cached data',
     default: 15_000,
     hidden: true,
   })
   cacheTTL?: number;
 
   @EnvModelProperty({
-    description: 'Use guards.',
+    description: 'Use guards',
     transform: new BooleanTransformer(),
     default: true,
     hidden: true,
@@ -41,7 +41,7 @@ export class AuthEnvironments {
   useGuards?: boolean;
 
   @EnvModelProperty({
-    description: 'Use filters.',
+    description: 'Use filters',
     transform: new BooleanTransformer(),
     default: true,
     hidden: true,
@@ -49,7 +49,7 @@ export class AuthEnvironments {
   useFilters?: boolean;
 
   @EnvModelProperty({
-    description: 'Use interceptors.',
+    description: 'Use interceptors',
     transform: new BooleanTransformer(),
     default: true,
     hidden: true,
@@ -57,7 +57,7 @@ export class AuthEnvironments {
   useInterceptors?: boolean;
 
   @EnvModelProperty({
-    description: 'Use pipes.',
+    description: 'Use pipes',
     transform: new BooleanTransformer(),
     default: true,
     hidden: true,

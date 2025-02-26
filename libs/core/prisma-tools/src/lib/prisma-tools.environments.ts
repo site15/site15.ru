@@ -7,9 +7,9 @@ import {
 } from '@nestjs-mod/common';
 
 @EnvModel()
-export class PrismaToolsEnvironments {
+export class PrismaToolsStaticEnvironments {
   @EnvModelProperty({
-    description: 'Use filters.',
+    description: 'Use filters',
     transform: new BooleanTransformer(),
     default: true,
     hidden: true,
@@ -17,7 +17,7 @@ export class PrismaToolsEnvironments {
   useFilters?: boolean;
 
   @EnvModelProperty({
-    description: 'Pagination initial page.',
+    description: 'Pagination initial page',
     transform: new NumberTransformer(),
     default: 1,
     hidden: true,
@@ -25,7 +25,7 @@ export class PrismaToolsEnvironments {
   paginationInitialPage?: number;
 
   @EnvModelProperty({
-    description: 'Pagination per page steps.',
+    description: 'Pagination per page steps',
     transform: new ArrayOfStringTransformer(),
     default: [1, 2, 5, 10, 25, 100],
     hidden: true,
@@ -33,7 +33,7 @@ export class PrismaToolsEnvironments {
   paginationPerPageSteps?: (number | string)[];
 
   @EnvModelProperty({
-    description: 'Pagination per page.',
+    description: 'Pagination per page',
     transform: new NumberTransformer(),
     default: 5,
     hidden: true,

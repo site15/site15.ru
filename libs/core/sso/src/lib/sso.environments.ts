@@ -1,10 +1,30 @@
-import { EnvModel, EnvModelProperty } from '@nestjs-mod/common';
+import {
+  BooleanTransformer,
+  EnvModel,
+  EnvModelProperty,
+} from '@nestjs-mod/common';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
 import ms from 'ms';
 
 @EnvModel()
-export class SsoEnvironments {
+export class SsoStaticEnvironments {
+  @EnvModelProperty({
+    description: 'Use guards',
+    transform: new BooleanTransformer(),
+    default: true,
+    hidden: true,
+  })
+  useGuards?: boolean;
+
+  @EnvModelProperty({
+    description: 'Use filters',
+    transform: new BooleanTransformer(),
+    default: true,
+    hidden: true,
+  })
+  useFilters?: boolean;
+
   @EnvModelProperty({
     description: 'Domain name for use in templates',
   })
@@ -50,4 +70,9 @@ export class SsoEnvironments {
   })
   @IsNotEmpty()
   jwtRefreshTokenExpiresIn!: ms.StringValue;
+
+  @EnvModelProperty({
+    description: 'Admin secret key',
+  })
+  adminSecret?: string;
 }

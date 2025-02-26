@@ -5,9 +5,9 @@ import {
 } from '@nestjs-mod/common';
 
 @EnvModel()
-export class ValidationEnvironments {
+export class ValidationStaticEnvironments {
   @EnvModelProperty({
-    description: 'Use pipes.',
+    description: 'Use pipes',
     transform: new BooleanTransformer(),
     default: true,
     hidden: true,
@@ -15,7 +15,7 @@ export class ValidationEnvironments {
   usePipes?: boolean;
 
   @EnvModelProperty({
-    description: 'Use filters.',
+    description: 'Use filters',
     transform: new BooleanTransformer(),
     default: true,
     hidden: true,

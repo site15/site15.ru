@@ -43,14 +43,14 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     });
 
     try {
-      const signupUserResult = await this.ssoService.create(
-        {
+      const signupUserResult = await this.ssoService.create({
+        user: {
           username: user.username,
           password: user.password,
           email: user.email.toLowerCase(),
         },
-        adminProject.id
-      );
+        projectId: adminProject.id,
+      });
 
       if (signupUserResult.roles === 'admin') {
         await this.prismaClient.ssoUser.update({

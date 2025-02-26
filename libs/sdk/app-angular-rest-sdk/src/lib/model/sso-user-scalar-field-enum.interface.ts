@@ -11,30 +11,40 @@
 export type SsoUserScalarFieldEnumInterface =
   | 'id'
   | 'email'
+  | 'phone'
   | 'username'
   | 'password'
   | 'roles'
   | 'firstname'
   | 'lastname'
+  | 'gender'
   | 'birthdate'
   | 'picture'
   | 'appData'
   | 'projectId'
+  | 'revokedAt'
+  | 'emailVerifiedAt'
+  | 'phoneVerifiedAt'
   | 'createdAt'
   | 'updatedAt';
 
 export const SsoUserScalarFieldEnumInterface = {
   id: 'id' as SsoUserScalarFieldEnumInterface,
   email: 'email' as SsoUserScalarFieldEnumInterface,
+  phone: 'phone' as SsoUserScalarFieldEnumInterface,
   username: 'username' as SsoUserScalarFieldEnumInterface,
   password: 'password' as SsoUserScalarFieldEnumInterface,
   roles: 'roles' as SsoUserScalarFieldEnumInterface,
   firstname: 'firstname' as SsoUserScalarFieldEnumInterface,
   lastname: 'lastname' as SsoUserScalarFieldEnumInterface,
+  gender: 'gender' as SsoUserScalarFieldEnumInterface,
   birthdate: 'birthdate' as SsoUserScalarFieldEnumInterface,
   picture: 'picture' as SsoUserScalarFieldEnumInterface,
   appData: 'appData' as SsoUserScalarFieldEnumInterface,
   projectId: 'projectId' as SsoUserScalarFieldEnumInterface,
+  revokedAt: 'revokedAt' as SsoUserScalarFieldEnumInterface,
+  emailVerifiedAt: 'emailVerifiedAt' as SsoUserScalarFieldEnumInterface,
+  phoneVerifiedAt: 'phoneVerifiedAt' as SsoUserScalarFieldEnumInterface,
   createdAt: 'createdAt' as SsoUserScalarFieldEnumInterface,
   updatedAt: 'updatedAt' as SsoUserScalarFieldEnumInterface,
 };

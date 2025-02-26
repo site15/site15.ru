@@ -14,11 +14,12 @@ export class SsoUserDto {
     type: 'string',
     nullable: true,
   })
-  username!: string | null;
+  phone!: string | null;
   @ApiProperty({
     type: 'string',
+    nullable: true,
   })
-  password!: string;
+  username!: string | null;
   @ApiProperty({
     type: 'string',
     nullable: true,
@@ -36,6 +37,11 @@ export class SsoUserDto {
   lastname!: string | null;
   @ApiProperty({
     type: 'string',
+    nullable: true,
+  })
+  gender!: string | null;
+  @ApiProperty({
+    type: 'string',
     format: 'date-time',
     nullable: true,
   })
@@ -50,6 +56,24 @@ export class SsoUserDto {
     nullable: true,
   })
   appData!: Prisma.JsonValue | null;
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    nullable: true,
+  })
+  revokedAt!: Date | null;
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    nullable: true,
+  })
+  emailVerifiedAt!: Date | null;
+  @ApiProperty({
+    type: 'string',
+    format: 'date-time',
+    nullable: true,
+  })
+  phoneVerifiedAt!: Date | null;
   @ApiProperty({
     type: 'string',
     format: 'date-time',
