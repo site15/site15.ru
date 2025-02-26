@@ -1,0 +1,22 @@
+{
+    "name": "@nestjs-mod-sso/notifications",
+    "version": "0.0.1",
+    "dependencies": {
+        "tslib": "^2.3.0"
+    },
+    "type": "commonjs",
+    "main": "./src/index.js",
+    "typings": "./src/index.d.ts",
+    "i18n": [
+        {
+            "scope": "notifications",
+            "path": "src/i18n",
+            "strategy": "join"
+        },
+        {
+            "scope": "notifications-getText",
+            "path": "src/i18n/getText",
+            "strategy": "join"
+        }
+    ]
+}
