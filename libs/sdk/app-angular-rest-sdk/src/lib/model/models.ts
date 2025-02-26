@@ -35,7 +35,6 @@ export * from './sso-error.interface';
 export * from './sso-project.interface';
 export * from './sso-project-scalar-field-enum.interface';
 export * from './sso-refresh-session.interface';
-export * from './sso-two-factor-code.interface';
 export * from './sso-user-dto.interface';
 export * from './sso-user.interface';
 export * from './sso-user-scalar-field-enum.interface';

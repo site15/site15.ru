@@ -52,7 +52,6 @@ export * from './lib/model/sso-error.interface';
 export * from './lib/model/sso-project-scalar-field-enum.interface';
 export * from './lib/model/sso-project.interface';
 export * from './lib/model/sso-refresh-session.interface';
-export * from './lib/model/sso-two-factor-code.interface';
 export * from './lib/model/sso-user-dto.interface';
 export * from './lib/model/sso-user-scalar-field-enum.interface';
 export * from './lib/model/sso-user.interface';

@@ -1,5 +1,13 @@
 import KeyvRedis from '@keyv/redis';
+import {
+  TWO_FACTOR_FEATURE,
+  TWO_FACTOR_FOLDER,
+} from '@nestjs-mod-sso/two-factor';
 
+import {
+  NOTIFICATIONS_FEATURE,
+  NOTIFICATIONS_FOLDER,
+} from '@nestjs-mod-sso/notifications';
 import { SSO_FEATURE, SSO_FOLDER } from '@nestjs-mod-sso/sso';
 import { WEBHOOK_FEATURE, WebhookModule } from '@nestjs-mod-sso/webhook';
 import {
@@ -26,6 +34,8 @@ import { MemoryHealthIndicator, PrismaHealthIndicator } from '@nestjs/terminus';
 import { PrismaClient as AppPrismaClient } from '@prisma/app-client';
 import { PrismaClient as SsoPrismaClient } from '@prisma/sso-client';
 import { PrismaClient as WebhookPrismaClient } from '@prisma/webhook-client';
+import { PrismaClient as TwoFactorPrismaClient } from '@prisma/two-factor-client';
+import { PrismaClient as NotificationsPrismaClient } from '@prisma/notifications-client';
 import { existsSync } from 'fs';
 import { getText } from 'nestjs-translates';
 import { join } from 'path';
@@ -147,6 +157,24 @@ export class PrismaTerminusHealthCheckConfiguration
           { timeout: 60 * 1000 }
         ),
     },
+    {
+      name: `database_${TWO_FACTOR_FEATURE}`,
+      check: () =>
+        this.prismaHealthIndicator.pingCheck(
+          `database_${TWO_FACTOR_FEATURE}`,
+          this.twoFactorPrismaClient,
+          { timeout: 60 * 1000 }
+        ),
+    },
+    {
+      name: `database_${NOTIFICATIONS_FEATURE}`,
+      check: () =>
+        this.prismaHealthIndicator.pingCheck(
+          `database_${NOTIFICATIONS_FEATURE}`,
+          this.notificationsPrismaClient,
+          { timeout: 60 * 1000 }
+        ),
+    },
   ];
 
   constructor(
@@ -157,7 +185,11 @@ export class PrismaTerminusHealthCheckConfiguration
     @InjectPrismaClient(WEBHOOK_FEATURE)
     private readonly webhookPrismaClient: WebhookPrismaClient,
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly ssoPrismaClient: SsoPrismaClient
+    private readonly ssoPrismaClient: SsoPrismaClient,
+    @InjectPrismaClient(TWO_FACTOR_FEATURE)
+    private readonly twoFactorPrismaClient: TwoFactorPrismaClient,
+    @InjectPrismaClient(NOTIFICATIONS_FEATURE)
+    private readonly notificationsPrismaClient: NotificationsPrismaClient
   ) {}
 }
 
@@ -177,11 +209,20 @@ export const MainTerminusHealthCheckModule =
         featureModuleName: TERMINUS_MODULE_NAME,
         contextName: SSO_FEATURE,
       }),
+      PrismaModule.forFeature({
+        featureModuleName: TERMINUS_MODULE_NAME,
+        contextName: TWO_FACTOR_FEATURE,
+      }),
+      PrismaModule.forFeature({
+        featureModuleName: TERMINUS_MODULE_NAME,
+        contextName: NOTIFICATIONS_FEATURE,
+      }),
     ],
     configurationClass: PrismaTerminusHealthCheckConfiguration,
   });
 
 export const infrastructuresModules = [
+  // sso
   DockerComposePostgreSQL.forFeatureAsync({
     featureModuleName: SSO_FEATURE,
     featureConfiguration: {
@@ -193,6 +234,52 @@ export const infrastructuresModules = [
       featureName: SSO_FEATURE,
       migrationsFolder: join(rootFolder, SSO_FOLDER, 'src', 'migrations'),
       nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+    },
+  }),
+  // 2fa
+  DockerComposePostgreSQL.forFeatureAsync({
+    featureModuleName: TWO_FACTOR_FEATURE,
+    featureConfiguration: {
+      nxProjectJsonFile: join(rootFolder, TWO_FACTOR_FOLDER, PROJECT_JSON_FILE),
+    },
+  }),
+  PgFlyway.forRoot({
+    staticConfiguration: {
+      featureName: TWO_FACTOR_FEATURE,
+      migrationsFolder: join(
+        rootFolder,
+        TWO_FACTOR_FOLDER,
+        'src',
+        'migrations'
+      ),
+      nxProjectJsonFile: join(rootFolder, TWO_FACTOR_FOLDER, PROJECT_JSON_FILE),
+    },
+  }),
+  // notify
+  DockerComposePostgreSQL.forFeatureAsync({
+    featureModuleName: NOTIFICATIONS_FEATURE,
+    featureConfiguration: {
+      nxProjectJsonFile: join(
+        rootFolder,
+        NOTIFICATIONS_FOLDER,
+        PROJECT_JSON_FILE
+      ),
+    },
+  }),
+  PgFlyway.forRoot({
+    staticConfiguration: {
+      featureName: NOTIFICATIONS_FEATURE,
+      migrationsFolder: join(
+        rootFolder,
+        NOTIFICATIONS_FOLDER,
+        'src',
+        'migrations'
+      ),
+      nxProjectJsonFile: join(
+        rootFolder,
+        NOTIFICATIONS_FOLDER,
+        PROJECT_JSON_FILE
+      ),
     },
   }),
 ];
@@ -214,6 +301,58 @@ export const coreModules = [
         : import(`@prisma/sso-client`),
       addMigrationScripts: false,
       nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+
+      binaryTargets: [
+        'native',
+        'rhel-openssl-3.0.x',
+        'linux-musl-openssl-3.0.x',
+      ],
+    },
+  }),
+  PrismaModule.forRoot({
+    contextName: TWO_FACTOR_FEATURE,
+    staticConfiguration: {
+      featureName: TWO_FACTOR_FEATURE,
+      schemaFile: join(
+        rootFolder,
+        TWO_FACTOR_FOLDER,
+        'src',
+        'prisma',
+        PRISMA_SCHEMA_FILE
+      ),
+      prismaModule: isInfrastructureMode()
+        ? import(`@nestjs-mod/prisma`)
+        : import(`@prisma/two-factor-client`),
+      addMigrationScripts: false,
+      nxProjectJsonFile: join(rootFolder, TWO_FACTOR_FOLDER, PROJECT_JSON_FILE),
+
+      binaryTargets: [
+        'native',
+        'rhel-openssl-3.0.x',
+        'linux-musl-openssl-3.0.x',
+      ],
+    },
+  }),
+  PrismaModule.forRoot({
+    contextName: NOTIFICATIONS_FEATURE,
+    staticConfiguration: {
+      featureName: NOTIFICATIONS_FEATURE,
+      schemaFile: join(
+        rootFolder,
+        NOTIFICATIONS_FOLDER,
+        'src',
+        'prisma',
+        PRISMA_SCHEMA_FILE
+      ),
+      prismaModule: isInfrastructureMode()
+        ? import(`@nestjs-mod/prisma`)
+        : import(`@prisma/notifications-client`),
+      addMigrationScripts: false,
+      nxProjectJsonFile: join(
+        rootFolder,
+        NOTIFICATIONS_FOLDER,
+        PROJECT_JSON_FILE
+      ),
 
       binaryTargets: [
         'native',

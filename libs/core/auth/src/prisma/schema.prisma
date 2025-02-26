@@ -1,32 +1,32 @@
 generator client {
-  provider      = "prisma-client-js"
-  output        = "../../../../../node_modules/@prisma/auth-client"
-  binaryTargets = ["native", "rhel-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+  provider = "prisma-client-js"
+  
+  output   = "../../../../../node_modules/@prisma/auth-client"
+  binaryTargets = ["native","rhel-openssl-3.0.x","linux-musl-openssl-3.0.x"]
+  
 }
-
+datasource db {
+  provider          = "postgres"
+  url               = env("SERVER_AUTH_DATABASE_URL")
+}
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  annotateAllDtoProperties        = "true"
-  entityPrefix                    = ""
   reExport                        = "false"
-  definiteAssignmentAssertion     = "true"
   exportRelationModifierClasses   = "true"
-  classValidation                 = "true"
-  flatResourceStructure           = "false"
-  noDependencies                  = "false"
-  updateDtoPrefix                 = "Update"
-  entitySuffix                    = ""
-  fileNamingStyle                 = "kebab"
-  dtoSuffix                       = "Dto"
-  createDtoPrefix                 = "Create"
+  entityPrefix                    = ""
   outputToNestJsResourceStructure = "false"
+  annotateAllDtoProperties        = "true"
   prettier                        = "true"
-}
-
-datasource db {
-  provider = "postgres"
-  url      = env("SERVER_AUTH_DATABASE_URL")
+  flatResourceStructure           = "false"
+  updateDtoPrefix                 = "Update"
+  definiteAssignmentAssertion     = "true"
+  classValidation                 = "true"
+  dtoSuffix                       = "Dto"
+  noDependencies                  = "false"
+  createDtoPrefix                 = "Create"
+  fileNamingStyle                 = "kebab"
+  entitySuffix                    = ""
 }
 
 model AuthUser {

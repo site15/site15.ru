@@ -40,7 +40,9 @@
       "@nestjs-mod-sso/webhook": ["libs/feature/webhook/src/index.ts"],
       "@nestjs-mod-sso/webhook-angular": [
         "libs/feature/webhook-angular/src/index.ts"
-      ]
+      ],
+      "@nestjs-mod-sso/notifications": ["libs/core/notifications/src/index.ts"],
+      "@nestjs-mod-sso/two-factor": ["libs/core/two-factor/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

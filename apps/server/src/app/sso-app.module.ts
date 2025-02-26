@@ -21,6 +21,8 @@ import { FakeEndpointController } from './controllers/sso/sso-fake-endoint.contr
 import { TimeController } from './controllers/sso/sso-time.controller';
 import { SsoWithMinioFilesConfiguration } from './integrations/sso/sso-with-minio-files.configuration';
 import { AppService } from './services/app.service';
+import { TwoFactorModule } from '@nestjs-mod-sso/two-factor';
+import { NotificationsModule } from '@nestjs-mod-sso/notifications';
 
 export const { AppModule: SsoAppModule } = createNestModule({
   moduleName: 'AppModule',
@@ -90,6 +92,8 @@ export const { AppModule: SsoAppModule } = createNestModule({
             rootPath: join(__dirname, '..', 'client', 'browser'),
           }),
         ]),
+    TwoFactorModule.forRoot(),
+    NotificationsModule.forRoot(),
   ],
   controllers: [
     AppController,

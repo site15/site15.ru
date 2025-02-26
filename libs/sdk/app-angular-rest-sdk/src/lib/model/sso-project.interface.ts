@@ -8,6 +8,7 @@
  * Do not edit the class manually.
  */
 import { SsoUserInterface } from './sso-user.interface';
+import { SsoRefreshSessionInterface } from './sso-refresh-session.interface';
 
 export interface SsoProjectInterface {
   id: string;
@@ -15,5 +16,6 @@ export interface SsoProjectInterface {
   clientSecret: string;
   createdAt: string;
   updatedAt: string;
+  SsoRefreshSession?: Array<SsoRefreshSessionInterface>;
   SsoUser?: Array<SsoUserInterface>;
 }

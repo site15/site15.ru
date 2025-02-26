@@ -8,16 +8,17 @@
  * Do not edit the class manually.
  */
 import { SsoUserInterface } from './sso-user.interface';
+import { SsoProjectInterface } from './sso-project.interface';
 
 export interface SsoRefreshSessionInterface {
   id: string;
-  refreshToken: string;
   userAgent: string | null;
-  fingerprint: string | null;
   userIp: string | null;
   expiresIn: number | null;
   userId: string;
+  projectId: string;
   createdAt: string;
   updatedAt: string;
+  SsoProject?: SsoProjectInterface;
   SsoUser?: SsoUserInterface;
 }

@@ -1,7 +1,6 @@
 import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
 import { SsoRefreshSession } from './sso-refresh-session.entity';
-import { SsoTwoFactorCode } from './sso-two-factor-code.entity';
 import { SsoProject } from './sso-project.entity';
 
 export class SsoUser {
@@ -97,12 +96,6 @@ export class SsoUser {
     required: false,
   })
   SsoRefreshSession?: SsoRefreshSession[];
-  @ApiProperty({
-    type: () => SsoTwoFactorCode,
-    isArray: true,
-    required: false,
-  })
-  SsoTwoFactorCode?: SsoTwoFactorCode[];
   @ApiProperty({
     type: () => SsoProject,
     required: false,

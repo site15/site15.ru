@@ -1,32 +1,32 @@
 generator client {
-  provider      = "prisma-client-js"
-  output        = "../../../../../node_modules/@prisma/sso-client"
-  binaryTargets = ["native", "rhel-openssl-3.0.x", "linux-musl-openssl-3.0.x"]
+  provider = "prisma-client-js"
+  
+  output   = "../../../../../node_modules/@prisma/sso-client"
+  binaryTargets = ["native","rhel-openssl-3.0.x","linux-musl-openssl-3.0.x"]
+  
 }
-
+datasource db {
+  provider          = "postgres"
+  url               = env("SERVER_SSO_DATABASE_URL")
+}
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  createDtoPrefix                 = "Create"
-  entitySuffix                    = ""
-  fileNamingStyle                 = "kebab"
-  dtoSuffix                       = "Dto"
-  flatResourceStructure           = "false"
   exportRelationModifierClasses   = "true"
-  reExport                        = "false"
-  outputToNestJsResourceStructure = "false"
-  entityPrefix                    = ""
-  noDependencies                  = "false"
-  classValidation                 = "true"
-  prettier                        = "true"
-  updateDtoPrefix                 = "Update"
+  createDtoPrefix                 = "Create"
   definiteAssignmentAssertion     = "true"
+  dtoSuffix                       = "Dto"
+  reExport                        = "false"
+  prettier                        = "true"
+  entitySuffix                    = ""
   annotateAllDtoProperties        = "true"
-}
-
-datasource db {
-  provider = "postgres"
-  url      = env("SERVER_SSO_DATABASE_URL")
+  updateDtoPrefix                 = "Update"
+  outputToNestJsResourceStructure = "false"
+  classValidation                 = "true"
+  flatResourceStructure           = "false"
+  fileNamingStyle                 = "kebab"
+  noDependencies                  = "false"
+  entityPrefix                    = ""
 }
 
 model SsoProject {
@@ -36,7 +36,6 @@ model SsoProject {
   createdAt         DateTime            @default(now()) @db.Timestamp(6)
   updatedAt         DateTime            @default(now()) @db.Timestamp(6)
   SsoRefreshSession SsoRefreshSession[]
-  SsoTwoFactorCode  SsoTwoFactorCode?
   SsoUser           SsoUser[]
 }
 
@@ -61,7 +60,6 @@ model SsoUser {
   createdAt         DateTime            @default(now()) @db.Timestamp(6)
   updatedAt         DateTime            @default(now()) @db.Timestamp(6)
   SsoRefreshSession SsoRefreshSession[]
-  SsoTwoFactorCode  SsoTwoFactorCode[]
   SsoProject        SsoProject          @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_USERS__PROJECT_ID")
 
   @@unique([email, projectId], map: "UQ_SSO_USERS__EMAIL")
@@ -104,25 +102,4 @@ model SsoRefreshSession {
   @@unique([userId, fingerprint, projectId], map: "UQ_SSO_REFRESH_SESSIONS")
   @@index([userId, projectId], map: "IDX_SSO_REFRESH_SESSIONS_USER_ID")
   @@index([projectId], map: "IDX_SSO_REFRESH_SESSIONS__PROJECT_ID")
-}
-
-model SsoTwoFactorCode {
-  id            String     @id(map: "PK_SSO_TWO_FACTOR_CODES") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  operationName String     @db.VarChar(512)
-  /// @DtoEntityHidden
-  code          String     @db.VarChar(100)
-  type          String     @db.VarChar(100)
-  maxAttempt    Int
-  attempt       Int
-  timeout       Int
-  used          Boolean
-  userId        String     @db.Uuid
-  projectId     String     @unique(map: "IDX_SSO_TWO_FACTOR_CODES__PROJECT_ID") @db.Uuid
-  createdAt     DateTime   @default(now()) @db.Timestamp(6)
-  updatedAt     DateTime   @default(now()) @db.Timestamp(6)
-  SsoProject    SsoProject @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_TWO_FACTOR_CODES__PROJECT_ID")
-  SsoUser       SsoUser    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_TWO_FACTOR_CODES__USER_ID")
-
-  @@unique([userId, operationName, code, projectId], map: "UQ_SSO_TWO_FACTOR_CODES")
-  @@unique([userId, projectId], map: "IDX_SSO_TWO_FACTOR_CODES__USER_ID")
 }

@@ -13,7 +13,6 @@ export interface SsoUserDtoInterface {
   email: string;
   phone: string | null;
   username: string | null;
-  password: string;
   roles: string | null;
   firstname: string | null;
   lastname: string | null;

@@ -1,7 +1,7 @@
 {
-  "name": "two-factor",
+  "name": "notifications",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/core/two-factor/src",
+  "sourceRoot": "libs/core/notifications/src",
   "projectType": "library",
   "release": {
     "version": {
@@ -15,13 +15,17 @@
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/libs/core/two-factor",
-        "tsConfig": "libs/core/two-factor/tsconfig.lib.json",
-        "packageJson": "libs/core/two-factor/package.json",
-        "main": "libs/core/two-factor/src/index.ts",
-        "assets": ["libs/core/two-factor/*.md"]
+        "outputPath": "dist/libs/core/notifications",
+        "tsConfig": "libs/core/notifications/tsconfig.lib.json",
+        "packageJson": "libs/core/notifications/package.json",
+        "main": "libs/core/notifications/src/index.ts",
+        "assets": [
+          "libs/core/notifications/*.md"
+        ]
       }
     },
     "nx-release-publish": {
@@ -31,16 +35,128 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
-        "jestConfig": "libs/core/two-factor/jest.config.ts"
+        "jestConfig": "libs/core/notifications/jest.config.ts"
       }
     },
     "semantic-release": {
       "executor": "@theunderscorer/nx-semantic-release:semantic-release",
       "options": {
         "buildTarget": "${PROJECT_NAME}:build",
-        "outputPath": "dist/libs/core/two-factor"
+        "outputPath": "dist/libs/core/notifications"
+      }
+    },
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "./node_modules/.bin/prisma generate --schema=./libs/core/notifications/src/prisma/schema.prisma"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
+      }
+    },
+    "prisma-generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "./node_modules/.bin/prisma generate --schema=./libs/core/notifications/src/prisma/schema.prisma"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
+      }
+    },
+    "prisma-pull": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "./node_modules/.bin/prisma db pull --schema=./libs/core/notifications/src/prisma/schema.prisma"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
+      }
+    },
+    "db-create": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "./node_modules/.bin/rucken postgres --force-change-username=true --force-change-password=true --root-database-url=${SERVER_ROOT_DATABASE_URL} --app-database-url=${SERVER_NOTIFICATIONS_DATABASE_URL}"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
+      }
+    },
+    "pg-flyway-create-migration": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "export PG_FLYWAY_DATABASE_URL=${SERVER_NOTIFICATIONS_DATABASE_URL} && export PG_FLYWAY_HISTORY_TABLE=__migrations_notifications && export PG_FLYWAY_LOCATIONS=./libs/core/notifications/src/migrations && ./node_modules/.bin/pg-flyway create --name=${npm_config_args:-NewMigration}"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
+      }
+    },
+    "pg-flyway-migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "export PG_FLYWAY_DATABASE_URL=${SERVER_NOTIFICATIONS_DATABASE_URL} && export PG_FLYWAY_HISTORY_TABLE=__migrations_notifications && export PG_FLYWAY_LOCATIONS=./libs/core/notifications/src/migrations && ./node_modules/.bin/pg-flyway migrate"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
+      }
+    },
+    "pg-flyway-info": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "export PG_FLYWAY_DATABASE_URL=${SERVER_NOTIFICATIONS_DATABASE_URL} && export PG_FLYWAY_HISTORY_TABLE=__migrations_notifications && export PG_FLYWAY_LOCATIONS=./libs/core/notifications/src/migrations && ./node_modules/.bin/pg-flyway info"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
+      }
+    },
+    "pg-flyway-baseline": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "export PG_FLYWAY_DATABASE_URL=${SERVER_NOTIFICATIONS_DATABASE_URL} && export PG_FLYWAY_HISTORY_TABLE=__migrations_notifications && export PG_FLYWAY_LOCATIONS=./libs/core/notifications/src/migrations && ./node_modules/.bin/pg-flyway baseline"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
+      }
+    },
+    "pg-flyway-validate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "export PG_FLYWAY_DATABASE_URL=${SERVER_NOTIFICATIONS_DATABASE_URL} && export PG_FLYWAY_HISTORY_TABLE=__migrations_notifications && export PG_FLYWAY_LOCATIONS=./libs/core/notifications/src/migrations && ./node_modules/.bin/pg-flyway validate"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
+      }
+    },
+    "pg-flyway-repair": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "export PG_FLYWAY_DATABASE_URL=${SERVER_NOTIFICATIONS_DATABASE_URL} && export PG_FLYWAY_HISTORY_TABLE=__migrations_notifications && export PG_FLYWAY_LOCATIONS=./libs/core/notifications/src/migrations && ./node_modules/.bin/pg-flyway repair"
+        ],
+        "parallel": false,
+        "envFile": "./.env",
+        "color": true
       }
     }
   }

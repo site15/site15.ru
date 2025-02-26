@@ -830,6 +830,12 @@ export interface SsoProject {
   updatedAt: string;
   /**
    *
+   * @type {Array<SsoRefreshSession>}
+   * @memberof SsoProject
+   */
+  SsoRefreshSession?: Array<SsoRefreshSession>;
+  /**
+   *
    * @type {Array<SsoUser>}
    * @memberof SsoProject
    */
@@ -869,19 +875,7 @@ export interface SsoRefreshSession {
    * @type {string}
    * @memberof SsoRefreshSession
    */
-  refreshToken: string;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoRefreshSession
-   */
   userAgent: string | null;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoRefreshSession
-   */
-  fingerprint: string | null;
   /**
    *
    * @type {string}
@@ -905,6 +899,12 @@ export interface SsoRefreshSession {
    * @type {string}
    * @memberof SsoRefreshSession
    */
+  projectId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSession
+   */
   createdAt: string;
   /**
    *
@@ -914,87 +914,14 @@ export interface SsoRefreshSession {
   updatedAt: string;
   /**
    *
-   * @type {SsoUser}
+   * @type {SsoProject}
    * @memberof SsoRefreshSession
    */
-  SsoUser?: SsoUser;
-}
-/**
- *
- * @export
- * @interface SsoTwoFactorCode
- */
-export interface SsoTwoFactorCode {
-  /**
-   *
-   * @type {string}
-   * @memberof SsoTwoFactorCode
-   */
-  id: string;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoTwoFactorCode
-   */
-  userId: string;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoTwoFactorCode
-   */
-  operationName: string;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoTwoFactorCode
-   */
-  code: string;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoTwoFactorCode
-   */
-  type: string;
-  /**
-   *
-   * @type {number}
-   * @memberof SsoTwoFactorCode
-   */
-  maxAttempt: number;
-  /**
-   *
-   * @type {number}
-   * @memberof SsoTwoFactorCode
-   */
-  attempt: number;
-  /**
-   *
-   * @type {number}
-   * @memberof SsoTwoFactorCode
-   */
-  timeout: number;
-  /**
-   *
-   * @type {boolean}
-   * @memberof SsoTwoFactorCode
-   */
-  used: boolean;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoTwoFactorCode
-   */
-  createdAt: string;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoTwoFactorCode
-   */
-  updatedAt: string;
+  SsoProject?: SsoProject;
   /**
    *
    * @type {SsoUser}
-   * @memberof SsoTwoFactorCode
+   * @memberof SsoRefreshSession
    */
   SsoUser?: SsoUser;
 }
@@ -1028,12 +955,6 @@ export interface SsoUser {
    * @memberof SsoUser
    */
   username: string | null;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoUser
-   */
-  password: string;
   /**
    *
    * @type {string}
@@ -1081,12 +1002,6 @@ export interface SsoUser {
    * @type {string}
    * @memberof SsoUser
    */
-  projectId: string;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoUser
-   */
   revokedAt: string | null;
   /**
    *
@@ -1105,6 +1020,12 @@ export interface SsoUser {
    * @type {string}
    * @memberof SsoUser
    */
+  projectId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoUser
+   */
   createdAt: string;
   /**
    *
@@ -1114,16 +1035,10 @@ export interface SsoUser {
   updatedAt: string;
   /**
    *
-   * @type {SsoRefreshSession}
+   * @type {Array<SsoRefreshSession>}
    * @memberof SsoUser
    */
-  SsoRefreshSession?: SsoRefreshSession | null;
-  /**
-   *
-   * @type {SsoTwoFactorCode}
-   * @memberof SsoUser
-   */
-  SsoTwoFactorCode?: SsoTwoFactorCode | null;
+  SsoRefreshSession?: Array<SsoRefreshSession>;
   /**
    *
    * @type {SsoProject}
@@ -1161,12 +1076,6 @@ export interface SsoUserDto {
    * @memberof SsoUserDto
    */
   username: string | null;
-  /**
-   *
-   * @type {string}
-   * @memberof SsoUserDto
-   */
-  password: string;
   /**
    *
    * @type {string}
@@ -1259,10 +1168,10 @@ export const SsoUserScalarFieldEnum = {
   Birthdate: 'birthdate',
   Picture: 'picture',
   AppData: 'appData',
-  ProjectId: 'projectId',
   RevokedAt: 'revokedAt',
   EmailVerifiedAt: 'emailVerifiedAt',
   PhoneVerifiedAt: 'phoneVerifiedAt',
+  ProjectId: 'projectId',
   CreatedAt: 'createdAt',
   UpdatedAt: 'updatedAt',
 } as const;
