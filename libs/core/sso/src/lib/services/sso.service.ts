@@ -6,6 +6,10 @@ import { PrismaClient, SsoRefreshSession, SsoUser } from '@prisma/sso-client';
 import ms from 'ms';
 import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
 import { randomUUID } from 'node:crypto';
+import {
+  SendNotificationOptions,
+  SsoStaticConfiguration,
+} from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
@@ -18,8 +22,6 @@ import { SignInArgs } from '../types/sign-in.dto';
 import { SignUpArgs } from '../types/sign-up.dto';
 import { SsoRequest } from '../types/sso-request';
 import { SsoCookieService } from './sso-cookie.service';
-import { SsoMailService } from './sso-mail.service';
-import { SsoTwoFactorService } from './sso-two-factor.service';
 import { SsoUsersService } from './sso-users.service';
 
 @Injectable()
@@ -30,12 +32,11 @@ export class SsoService {
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
+    private readonly ssoStaticConfiguration: SsoStaticConfiguration,
     private readonly ssoUsersService: SsoUsersService,
     private readonly jwtService: JwtService,
     private readonly ssoCookieService: SsoCookieService,
-    private readonly ssoMailService: SsoMailService,
     private readonly translatesAsyncLocalStorageContext: TranslatesAsyncLocalStorageContext,
-    private readonly ssoTwoFactorService: SsoTwoFactorService,
     private readonly prismaToolsService: PrismaToolsService
   ) {}
 
@@ -65,30 +66,50 @@ export class SsoService {
     const user = await this.ssoUsersService.create({
       user: {
         ...data,
-        emailVerifiedAt: null,
+        emailVerifiedAt: this.ssoStaticConfiguration.twoFactorCodeGenerate
+          ? null
+          : new Date(),
       },
       projectId,
     });
 
-    const code = await this.ssoTwoFactorService.generate({ user });
-
-    await this.ssoMailService.sendMail({
-      to: user.email,
-      subject: this.translatesAsyncLocalStorageContext
-        .get()
-        .translate('Verify your email'),
-      html: [
-        this.translatesAsyncLocalStorageContext
+    if (this.ssoStaticConfiguration.twoFactorCodeGenerate) {
+      const code = await this.ssoStaticConfiguration.twoFactorCodeGenerate({
+        user,
+      });
+      const sendNotificationOptions: SendNotificationOptions = {
+        recipientUsers: [user],
+        subject: this.translatesAsyncLocalStorageContext
           .get()
-          .translate(
-            'Please navigate by a <a href="{{{domain}}}/verify-email?code={{code}}">link</a> to verify your email',
-            {
-              domain: this.ssoStaticEnvironments.templatesVarDomain,
-              code: code,
-            }
-          ),
-      ].join('<br/>'),
-    });
+          .translate('Verify your email'),
+        html: [
+          this.translatesAsyncLocalStorageContext
+            .get()
+            .translate(
+              'Please navigate by a <a href="{{{domain}}}/verify-email?code={{code}}">link</a> to verify your email',
+              {
+                domain: this.ssoStaticEnvironments.templatesVarDomain,
+                code: code,
+              }
+            ),
+        ].join('<br/>'),
+        context: {
+          domain: this.ssoStaticEnvironments.templatesVarDomain,
+          code: code,
+        },
+        projectId,
+      };
+      if (this.ssoStaticConfiguration.sendNotification) {
+        await this.ssoStaticConfiguration.sendNotification(
+          sendNotificationOptions
+        );
+      } else {
+        this.logger.debug({
+          sendNotification: sendNotificationOptions,
+        });
+      }
+    }
+
     return user;
   }
 
@@ -99,11 +120,19 @@ export class SsoService {
     code: string;
     projectId: string;
   }) {
-    const result = await this.ssoTwoFactorService.validateOnlyTwoFactorCode(
-      code
-    );
+    const result = this.ssoStaticConfiguration.twoFactorCodeValidate
+      ? await this.ssoStaticConfiguration.twoFactorCodeValidate({
+          code,
+          projectId,
+        })
+      : null;
+
+    if (!result) {
+      return result;
+    }
+
     return await this.prismaClient.ssoUser.update({
-      where: { id: result.user.id, projectId },
+      where: { id: result.userId, projectId },
       data: { emailVerifiedAt: new Date(), updatedAt: new Date() },
     });
   }
@@ -137,29 +166,37 @@ export class SsoService {
       email: forgotPasswordArgs.email,
       projectId,
     });
+    if (this.ssoStaticConfiguration.twoFactorCodeGenerate) {
+      const code = await this.ssoStaticConfiguration.twoFactorCodeGenerate({
+        ...ssoRequest,
+        user,
+      });
 
-    const code = await this.ssoTwoFactorService.generate({
-      ...ssoRequest,
-      user,
-    });
-
-    await this.ssoMailService.sendMail({
-      to: user.email,
-      subject: this.translatesAsyncLocalStorageContext
-        .get()
-        .translate('Restore forgotten password link'),
-      html: [
-        this.translatesAsyncLocalStorageContext
-          .get()
-          .translate(
-            'Please navigate by a <a href="{{{domain}}}/complete-forgot-password?code={{code}}">link</a> to set new password',
-            {
-              domain: this.ssoStaticEnvironments.templatesVarDomain,
-              code: code,
-            }
-          ),
-      ].join('<br/>'),
-    });
+      if (this.ssoStaticConfiguration.sendNotification) {
+        await this.ssoStaticConfiguration.sendNotification({
+          projectId,
+          recipientUsers: [user],
+          subject: this.translatesAsyncLocalStorageContext
+            .get()
+            .translate('Restore forgotten password link'),
+          html: [
+            this.translatesAsyncLocalStorageContext
+              .get()
+              .translate(
+                'Please navigate by a <a href="{{{domain}}}/complete-forgot-password?code={{code}}">link</a> to set new password',
+                {
+                  domain: this.ssoStaticEnvironments.templatesVarDomain,
+                  code: code,
+                }
+              ),
+          ].join('<br/>'),
+          context: {
+            domain: this.ssoStaticEnvironments.templatesVarDomain,
+            code: code,
+          },
+        });
+      }
+    }
   }
 
   async completeForgotPassword({
@@ -173,14 +210,18 @@ export class SsoService {
   }) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { fingerprint, rePassword, ...data } = completeForgotPasswordArgs;
-    const result = await this.ssoTwoFactorService.validateOnlyTwoFactorCode(
-      code
-    );
-    return this.ssoUsersService.changePassword({
-      id: result.user.id,
-      password: data.password,
-      projectId,
-    });
+    if (this.ssoStaticConfiguration.twoFactorCodeValidate) {
+      const result = await this.ssoStaticConfiguration.twoFactorCodeValidate({
+        code,
+        projectId,
+      });
+      return this.ssoUsersService.changePassword({
+        id: result.userId,
+        password: data.password,
+        projectId,
+      });
+    }
+    return null;
   }
 
   async verifyRefreshSession({

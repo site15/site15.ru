@@ -140,6 +140,10 @@ export class SsoController {
       projectId: ssoRequest.ssoProject.id,
     });
 
+    if (!user) {
+      throw new SsoError(SsoErrorEnum.UserNotFound);
+    }
+
     const cookieWithJwtToken =
       await this.ssoCookieService.getCookieWithJwtToken({
         userId: user.id,
@@ -222,6 +226,11 @@ export class SsoController {
       completeForgotPasswordArgs,
       projectId: ssoRequest.ssoProject.id,
     });
+
+    if (!user) {
+      throw new SsoError(SsoErrorEnum.UserNotFound);
+    }
+
     const cookieWithJwtToken =
       await this.ssoCookieService.getCookieWithJwtToken({
         userId: user.id,
