@@ -19,7 +19,7 @@ import { SsoPasswordService } from './services/sso-password.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoUsersService } from './services/sso-users.service';
 import { SsoService } from './services/sso.service';
-import { SsoStaticConfiguration } from './sso.configuration';
+import { SsoConfiguration } from './sso.configuration';
 import { SSO_FEATURE, SSO_MODULE } from './sso.constants';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
@@ -29,7 +29,7 @@ export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
   moduleCategory: NestModuleCategory.feature,
   staticEnvironmentsModel: SsoStaticEnvironments,
-  staticConfigurationModel: SsoStaticConfiguration,
+  configurationModel: SsoConfiguration,
   imports: [
     KeyvModule.forFeature({ featureModuleName: SSO_FEATURE }),
     PrismaModule.forFeature({

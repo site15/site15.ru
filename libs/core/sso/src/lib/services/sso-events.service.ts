@@ -12,12 +12,14 @@ export class SsoEventsService {
 
   async send(event: Partial<SsoEventContext>) {
     if (event.serviceId !== this.id) {
+      event.serviceId = this.id;
       this.logger.debug(`send: ${JSON.stringify(event)}`);
       this.ssoEventStream$.next(event);
     }
   }
 
   listen() {
+    this.logger.debug(`listen...`);
     return this.ssoEventStream$;
   }
 }

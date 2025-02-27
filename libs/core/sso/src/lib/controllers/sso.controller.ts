@@ -19,6 +19,7 @@ import {
   refs,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+import assert from 'node:assert';
 import { Cookies } from '../decorators/cookie.decorator';
 import { IpAddress } from '../decorators/ip-address.decorator';
 import { UserAgent } from '../decorators/user-agent.decorator';
@@ -41,7 +42,6 @@ import { SsoEntities } from '../types/sso-entities';
 import { SsoRequest } from '../types/sso-request';
 import { TokensResponse } from '../types/tokens.dto';
 import { UpdateProfileArgs } from '../types/update-profile.dto';
-import assert from 'node:assert';
 
 @ApiExtraModels(SsoError, SsoEntities, ValidationError)
 @ApiBadRequestResponse({
@@ -76,8 +76,8 @@ export class SsoController {
     }
 
     await this.ssoEventsService.send({
-      userId: user.id,
       SignIn: { signInArgs },
+      userId: user.id,
       userIp,
       userAgent,
     });
@@ -94,7 +94,7 @@ export class SsoController {
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
-    return response.send({
+    response.send({
       accessToken: cookieWithJwtToken.accessToken,
       refreshToken: cookieWithJwtToken.refreshToken,
     });
@@ -115,8 +115,8 @@ export class SsoController {
     });
 
     await this.ssoEventsService.send({
-      userId: user.id,
       SignUp: { signUpArgs: signUpArgs },
+      userId: user.id,
       userIp,
       userAgent,
     });
@@ -156,7 +156,7 @@ export class SsoController {
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
-    return response.send({
+    response.send({
       accessToken: cookieWithJwtToken.accessToken,
       refreshToken: cookieWithJwtToken.refreshToken,
     });
@@ -184,15 +184,15 @@ export class SsoController {
     });
 
     await this.ssoEventsService.send({
-      userId: cookieWithJwtToken.refreshSession?.userId,
       SignOut: { signOutArgs: { refreshToken } },
+      userId: cookieWithJwtToken.refreshSession?.userId,
       userIp,
       userAgent,
     });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
-    return response.send({ message: 'ok' });
+    response.send({ message: 'ok' });
   }
 
   @ApiOkResponse({ type: StatusResponse })
@@ -243,7 +243,7 @@ export class SsoController {
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
-    return response.send({
+    response.send({
       accessToken: cookieWithJwtToken.accessToken,
       refreshToken: cookieWithJwtToken.refreshToken,
     });
@@ -291,7 +291,7 @@ export class SsoController {
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
-    return response.send({
+    response.send({
       accessToken: cookieWithJwtToken.accessToken,
       refreshToken: cookieWithJwtToken.refreshToken,
     });

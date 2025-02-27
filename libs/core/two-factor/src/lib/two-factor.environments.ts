@@ -7,14 +7,6 @@ import {
 @EnvModel()
 export class TwoFactorStaticEnvironments {
   @EnvModelProperty({
-    description: 'Use pipes',
-    transform: new BooleanTransformer(),
-    default: true,
-    hidden: true,
-  })
-  usePipes?: boolean;
-
-  @EnvModelProperty({
     description: 'Use filters',
     transform: new BooleanTransformer(),
     default: true,

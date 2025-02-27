@@ -6,8 +6,8 @@ import { PrismaClient, SsoUser } from '@prisma/sso-client';
 import ms from 'ms';
 import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
 import {
-  SendNotificationOptions,
-  SsoStaticConfiguration,
+  SsoSendNotificationOptions,
+  SsoConfiguration,
 } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
@@ -31,7 +31,7 @@ export class SsoService {
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
-    private readonly ssoStaticConfiguration: SsoStaticConfiguration,
+    private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoUsersService: SsoUsersService,
     private readonly jwtService: JwtService,
     private readonly ssoCookieService: SsoCookieService,
@@ -66,18 +66,18 @@ export class SsoService {
     const user = await this.ssoUsersService.create({
       user: {
         ...data,
-        emailVerifiedAt: this.ssoStaticConfiguration.twoFactorCodeGenerate
+        emailVerifiedAt: this.ssoConfiguration.twoFactorCodeGenerate
           ? null
           : new Date(),
       },
       projectId,
     });
 
-    if (this.ssoStaticConfiguration.twoFactorCodeGenerate) {
-      const code = await this.ssoStaticConfiguration.twoFactorCodeGenerate({
+    if (this.ssoConfiguration.twoFactorCodeGenerate) {
+      const code = await this.ssoConfiguration.twoFactorCodeGenerate({
         user,
       });
-      const sendNotificationOptions: SendNotificationOptions = {
+      const sendNotificationOptions: SsoSendNotificationOptions = {
         recipientUsers: [user],
         subject: this.translatesAsyncLocalStorageContext
           .get()
@@ -99,10 +99,8 @@ export class SsoService {
         },
         projectId,
       };
-      if (this.ssoStaticConfiguration.sendNotification) {
-        await this.ssoStaticConfiguration.sendNotification(
-          sendNotificationOptions
-        );
+      if (this.ssoConfiguration.sendNotification) {
+        await this.ssoConfiguration.sendNotification(sendNotificationOptions);
       } else {
         this.logger.debug({
           sendNotification: sendNotificationOptions,
@@ -120,8 +118,8 @@ export class SsoService {
     code: string;
     projectId: string;
   }) {
-    const result = this.ssoStaticConfiguration.twoFactorCodeValidate
-      ? await this.ssoStaticConfiguration.twoFactorCodeValidate({
+    const result = this.ssoConfiguration.twoFactorCodeValidate
+      ? await this.ssoConfiguration.twoFactorCodeValidate({
           code,
           projectId,
         })
@@ -166,14 +164,14 @@ export class SsoService {
       email: forgotPasswordArgs.email,
       projectId,
     });
-    if (this.ssoStaticConfiguration.twoFactorCodeGenerate) {
-      const code = await this.ssoStaticConfiguration.twoFactorCodeGenerate({
+    if (this.ssoConfiguration.twoFactorCodeGenerate) {
+      const code = await this.ssoConfiguration.twoFactorCodeGenerate({
         ...ssoRequest,
         user,
       });
 
-      if (this.ssoStaticConfiguration.sendNotification) {
-        await this.ssoStaticConfiguration.sendNotification({
+      if (this.ssoConfiguration.sendNotification) {
+        await this.ssoConfiguration.sendNotification({
           projectId,
           recipientUsers: [user],
           subject: this.translatesAsyncLocalStorageContext
@@ -210,8 +208,8 @@ export class SsoService {
   }) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { fingerprint, rePassword, ...data } = completeForgotPasswordArgs;
-    if (this.ssoStaticConfiguration.twoFactorCodeValidate) {
-      const result = await this.ssoStaticConfiguration.twoFactorCodeValidate({
+    if (this.ssoConfiguration.twoFactorCodeValidate) {
+      const result = await this.ssoConfiguration.twoFactorCodeValidate({
         code,
         projectId,
       });

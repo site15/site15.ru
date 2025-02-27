@@ -2,7 +2,7 @@ import { ConfigModel, ConfigModelProperty } from '@nestjs-mod/common';
 import { SsoUser } from './generated/rest/dto/sso-user.entity';
 import { randomUUID } from 'node:crypto';
 
-export type SendNotificationOptions = {
+export type SsoSendNotificationOptions = {
   senderUser?: SsoUser;
   recipientUsers: SsoUser[];
   subject: string;
@@ -13,25 +13,25 @@ export type SendNotificationOptions = {
   projectId: string;
 };
 
-export type TwoFactorCodeValidateOptions = {
+export type SsoTwoFactorCodeValidateOptions = {
   code: string;
   projectId: string;
 };
 
-export type TwoFactorCodeGenerateOptions = {
+export type SsoTwoFactorCodeGenerateOptions = {
   user: SsoUser;
 };
 
-export type TwoFactorCodeValidateResponse = {
+export type SsoTwoFactorCodeValidateResponse = {
   userId: string;
 };
 
-export type SendNotificationResponse = {
+export type SsoSendNotificationResponse = {
   notificationId: string;
 };
 
 @ConfigModel()
-export class SsoStaticConfiguration {
+export class SsoConfiguration {
   @ConfigModelProperty({
     description: 'TTL for cached data',
     default: 15_000,
@@ -60,28 +60,28 @@ export class SsoStaticConfiguration {
 
   @ConfigModelProperty({
     description: 'Function for generating two-factor authentication code',
-    default: (options: TwoFactorCodeGenerateOptions) =>
+    default: (options: SsoTwoFactorCodeGenerateOptions) =>
       Buffer.from(options.user.id).toString('hex'),
   })
   twoFactorCodeGenerate?: (
-    options: TwoFactorCodeGenerateOptions
+    options: SsoTwoFactorCodeGenerateOptions
   ) => Promise<string>;
 
   @ConfigModelProperty({
     description: 'Two-factor authentication code verification function',
-    default: (options: TwoFactorCodeValidateOptions) =>
+    default: (options: SsoTwoFactorCodeValidateOptions) =>
       Buffer.from(options.code, 'hex').toString(),
   })
   twoFactorCodeValidate?: (
-    options: TwoFactorCodeValidateOptions
-  ) => Promise<TwoFactorCodeValidateResponse>;
+    options: SsoTwoFactorCodeValidateOptions
+  ) => Promise<SsoTwoFactorCodeValidateResponse>;
 
   @ConfigModelProperty({
     description: 'Function for sending notifications',
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    default: (options: SendNotificationOptions) => randomUUID(),
+    default: (options: SsoSendNotificationOptions) => randomUUID(),
   })
   sendNotification?: (
-    options: SendNotificationOptions
-  ) => Promise<SendNotificationResponse>;
+    options: SsoSendNotificationOptions
+  ) => Promise<SsoSendNotificationResponse>;
 }

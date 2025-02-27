@@ -9,11 +9,6 @@ export enum SsoEventEnum {
 }
 
 export interface SsoEventContext {
-  serviceId: string;
-  userId: string;
-  projectId: string;
-  userIp: string;
-  userAgent: string;
   [SsoEventEnum.SignIn]: {
     signInArgs: SignInArgs;
   };
@@ -23,4 +18,9 @@ export interface SsoEventContext {
   [SsoEventEnum.SignOut]: {
     signOutArgs: SignOutArgs;
   };
+  serviceId: string;
+  userId: string;
+  projectId: string;
+  userIp: string;
+  userAgent: string;
 }

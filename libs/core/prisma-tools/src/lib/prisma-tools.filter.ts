@@ -34,13 +34,15 @@ export class PrismaToolsExceptionsFilter extends BaseExceptionFilter {
         host
       );
     } else {
-      //if (!(exception instanceof Socket)) {
-      //  this.logger.error(exception, exception.stack);
-      //}
-      super.catch(
-        new HttpException(exception.message, HttpStatus.BAD_REQUEST),
-        host
-      );
+      try {
+        this.logger.error(exception, exception.stack);
+        super.catch(exception, host);
+      } catch (err) {
+        super.catch(
+          new HttpException(exception.message, HttpStatus.BAD_REQUEST),
+          host
+        );
+      }
     }
   }
 }

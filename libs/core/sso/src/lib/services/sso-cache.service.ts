@@ -2,7 +2,7 @@ import { KeyvService } from '@nestjs-mod/keyv';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable } from '@nestjs/common';
 import { PrismaClient, SsoProject, SsoUser } from '@prisma/sso-client';
-import { SsoStaticConfiguration } from '../sso.configuration';
+import { SsoConfiguration } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class SsoCacheService {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly ssoStaticConfiguration: SsoStaticConfiguration,
+    private readonly ssoConfiguration: SsoConfiguration,
     private readonly keyvService: KeyvService
   ) {}
 
@@ -43,7 +43,7 @@ export class SsoCacheService {
       await this.keyvService.set(
         this.getUserCacheKey(userId),
         cachedUser,
-        this.ssoStaticConfiguration.cacheTTL
+        this.ssoConfiguration.cacheTTL
       );
       return cachedUser;
     }
@@ -76,7 +76,7 @@ export class SsoCacheService {
       await this.keyvService.set(
         this.getProjectCacheKey(clientId),
         project,
-        this.ssoStaticConfiguration.cacheTTL
+        this.ssoConfiguration.cacheTTL
       );
       return project;
     }

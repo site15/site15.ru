@@ -40,7 +40,12 @@ import {
   MainWebhookModule,
   rootFolder,
 } from './environments/environment';
-import { SsoModule } from '@nestjs-mod-sso/sso';
+import {
+  SsoModule,
+  SsoTwoFactorCodeGenerateOptions,
+  SsoTwoFactorCodeValidateOptions,
+} from '@nestjs-mod-sso/sso';
+import { TwoFactorModule, TwoFactorService } from '@nestjs-mod-sso/two-factor';
 
 bootstrapNestApplication({
   project: {
@@ -171,7 +176,43 @@ bootstrapNestApplication({
       MainMinioModule,
       ValidationModule.forRoot({ staticEnvironments: { usePipes: false } }),
     ],
-    feature: [SsoModule.forRoot(), AppModule.forRoot(), MainWebhookModule],
+    feature: [
+      SsoModule.forRootAsync({
+        inject: [TwoFactorService],
+        configurationFactory: (twoFactorService: TwoFactorService) => {
+          return {
+            twoFactorCodeGenerate: async (
+              options: SsoTwoFactorCodeGenerateOptions
+            ) => {
+              const generatedCode = await twoFactorService.generateCode({
+                externalTenantId: options.user.projectId,
+                externalUserId: options.user.id,
+                operationName: 'any',
+                type: options.user.phoneVerifiedAt ? 'phone' : 'email',
+              });
+              return generatedCode.code;
+            },
+            twoFactorCodeValidate: async (
+              options: SsoTwoFactorCodeValidateOptions
+            ) => {
+              const validatedCode = await twoFactorService.validateCode({
+                externalTenantId: options.projectId,
+                operationName: 'any',
+                code: options.code,
+              });
+              return {
+                userId: validatedCode.twoFactorUser.id,
+              };
+            },
+          };
+        },
+        imports: [
+          TwoFactorModule.forFeature({ featureModuleName: APP_FEATURE }),
+        ],
+      }),
+      AppModule.forRoot(),
+      MainWebhookModule,
+    ],
     infrastructure: [
       InfrastructureMarkdownReportGenerator.forRoot({
         staticConfiguration: {

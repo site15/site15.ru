@@ -8,7 +8,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { SsoCacheService } from './services/sso-cache.service';
 import { SsoTokensService } from './services/sso-tokens.service';
-import { SsoStaticConfiguration } from './sso.configuration';
+import { SsoConfiguration } from './sso.configuration';
 import { SsoCheckHaveClientSecret, SsoCheckIsAdmin } from './sso.decorators';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoError, SsoErrorEnum } from './sso.errors';
@@ -21,7 +21,7 @@ export class SsoGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
-    private readonly ssoStaticConfiguration: SsoStaticConfiguration,
+    private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoCacheService: SsoCacheService,
     private readonly ssoTokensService: SsoTokensService
   ) {}
@@ -89,11 +89,11 @@ export class SsoGuard implements CanActivate {
 
   private checkAdminInRequest(req: SsoRequest) {
     if (
-      this.ssoStaticConfiguration.adminSecretHeaderName &&
-      req.headers?.[this.ssoStaticConfiguration.adminSecretHeaderName]
+      this.ssoConfiguration.adminSecretHeaderName &&
+      req.headers?.[this.ssoConfiguration.adminSecretHeaderName]
     ) {
       return (
-        req.headers?.[this.ssoStaticConfiguration.adminSecretHeaderName] ===
+        req.headers?.[this.ssoConfiguration.adminSecretHeaderName] ===
         this.ssoStaticEnvironments.adminSecret
       );
     }
@@ -104,16 +104,16 @@ export class SsoGuard implements CanActivate {
   private getClientSecretFromRequest(req: SsoRequest) {
     return (
       req.ssoClientSecret ||
-      (this.ssoStaticConfiguration.clientSecretHeaderName &&
-        req.headers?.[this.ssoStaticConfiguration.clientSecretHeaderName])
+      (this.ssoConfiguration.clientSecretHeaderName &&
+        req.headers?.[this.ssoConfiguration.clientSecretHeaderName])
     );
   }
 
   private getClientIdFromRequest(req: SsoRequest) {
     return (
       req.ssoClientId ||
-      (this.ssoStaticConfiguration.clientIdHeaderName &&
-        req.headers?.[this.ssoStaticConfiguration.clientIdHeaderName])
+      (this.ssoConfiguration.clientIdHeaderName &&
+        req.headers?.[this.ssoConfiguration.clientIdHeaderName])
     );
   }
 

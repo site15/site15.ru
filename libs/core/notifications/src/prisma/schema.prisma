@@ -11,6 +11,26 @@ datasource db {
 }
 
 
+generator prismaClassGenerator {
+  provider                        = "prisma-generator-nestjs-dto"
+  output                          = "../lib/generated/rest/dto"
+  exportRelationModifierClasses   = "true"
+  classValidation                 = "true"
+  entitySuffix                    = ""
+  prettier                        = "true"
+  flatResourceStructure           = "false"
+  updateDtoPrefix                 = "Update"
+  createDtoPrefix                 = "Create"
+  dtoSuffix                       = "Dto"
+  fileNamingStyle                 = "kebab"
+  reExport                        = "false"
+  noDependencies                  = "false"
+  entityPrefix                    = ""
+  annotateAllDtoProperties        = "true"
+  definiteAssignmentAssertion     = "true"
+  outputToNestJsResourceStructure = "false"
+}
+
 model NotificationsUser {
   id                                                                       String               @id(map: "PK_NOTIFICATIONS_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   externalTenantId                                                         String               @db.Uuid
