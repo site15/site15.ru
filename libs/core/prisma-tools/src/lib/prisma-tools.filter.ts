@@ -8,6 +8,7 @@ import {
 import { BaseExceptionFilter } from '@nestjs/core';
 import { PrismaToolsStaticEnvironments } from './prisma-tools.environments';
 import { PrismaToolsService } from './prisma-tools.service';
+import { Socket } from 'node:net';
 
 @Catch()
 export class PrismaToolsExceptionsFilter extends BaseExceptionFilter {
@@ -33,8 +34,13 @@ export class PrismaToolsExceptionsFilter extends BaseExceptionFilter {
         host
       );
     } else {
-      this.logger.error(exception, exception.stack);
-      super.catch(exception, host);
+      //if (!(exception instanceof Socket)) {
+      //  this.logger.error(exception, exception.stack);
+      //}
+      super.catch(
+        new HttpException(exception.message, HttpStatus.BAD_REQUEST),
+        host
+      );
     }
   }
 }

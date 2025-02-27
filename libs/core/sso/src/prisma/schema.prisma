@@ -13,20 +13,20 @@ generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
   exportRelationModifierClasses   = "true"
-  createDtoPrefix                 = "Create"
-  definiteAssignmentAssertion     = "true"
-  dtoSuffix                       = "Dto"
-  reExport                        = "false"
-  prettier                        = "true"
-  entitySuffix                    = ""
-  annotateAllDtoProperties        = "true"
-  updateDtoPrefix                 = "Update"
-  outputToNestJsResourceStructure = "false"
-  classValidation                 = "true"
   flatResourceStructure           = "false"
-  fileNamingStyle                 = "kebab"
-  noDependencies                  = "false"
+  classValidation                 = "true"
+  annotateAllDtoProperties        = "true"
+  dtoSuffix                       = "Dto"
   entityPrefix                    = ""
+  noDependencies                  = "false"
+  definiteAssignmentAssertion     = "true"
+  entitySuffix                    = ""
+  createDtoPrefix                 = "Create"
+  prettier                        = "true"
+  reExport                        = "false"
+  updateDtoPrefix                 = "Update"
+  fileNamingStyle                 = "kebab"
+  outputToNestJsResourceStructure = "false"
 }
 
 model SsoProject {
@@ -92,6 +92,8 @@ model SsoRefreshSession {
   fingerprint  String?    @db.VarChar(254)
   userIp       String?    @db.VarChar(128)
   expiresIn    BigInt?
+  userData     Json?
+  enabled      Boolean
   userId       String     @db.Uuid
   projectId    String     @db.Uuid
   createdAt    DateTime   @default(now()) @db.Timestamp(6)
@@ -99,7 +101,6 @@ model SsoRefreshSession {
   SsoProject   SsoProject @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_REFRESH_SESSIONS__PROJECT_ID")
   SsoUser      SsoUser    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_REFRESH_SESSIONS__USER_ID")
 
-  @@unique([userId, fingerprint, projectId], map: "UQ_SSO_REFRESH_SESSIONS")
   @@index([userId, projectId], map: "IDX_SSO_REFRESH_SESSIONS_USER_ID")
   @@index([projectId], map: "IDX_SSO_REFRESH_SESSIONS__PROJECT_ID")
 }

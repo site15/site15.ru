@@ -2,17 +2,15 @@ import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaClient, SsoRefreshSession, SsoUser } from '@prisma/sso-client';
+import { PrismaClient, SsoUser } from '@prisma/sso-client';
 import ms from 'ms';
 import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
-import { randomUUID } from 'node:crypto';
 import {
   SendNotificationOptions,
   SsoStaticConfiguration,
 } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
-import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { ChangePasswordArgs } from '../types/change-password.dto';
 import {
   CompleteForgotPasswordArgs,
@@ -22,6 +20,7 @@ import { SignInArgs } from '../types/sign-in.dto';
 import { SignUpArgs } from '../types/sign-up.dto';
 import { SsoRequest } from '../types/sso-request';
 import { SsoCookieService } from './sso-cookie.service';
+import { SsoTokensService } from './sso-tokens.service';
 import { SsoUsersService } from './sso-users.service';
 
 @Injectable()
@@ -37,7 +36,8 @@ export class SsoService {
     private readonly jwtService: JwtService,
     private readonly ssoCookieService: SsoCookieService,
     private readonly translatesAsyncLocalStorageContext: TranslatesAsyncLocalStorageContext,
-    private readonly prismaToolsService: PrismaToolsService
+    private readonly prismaToolsService: PrismaToolsService,
+    private readonly ssoTokensService: SsoTokensService
   ) {}
 
   signIn({
@@ -224,29 +224,6 @@ export class SsoService {
     return null;
   }
 
-  async verifyRefreshSession({
-    oldRefreshSession,
-    newFingerprint,
-    newIp,
-  }: {
-    oldRefreshSession: SsoRefreshSession;
-    newFingerprint: string;
-    newIp: string;
-  }) {
-    const nowTime = new Date().getTime();
-
-    if (!oldRefreshSession.expiresIn || nowTime > oldRefreshSession.expiresIn) {
-      throw new SsoError(SsoErrorEnum.SessionExpired);
-    }
-    if (
-      oldRefreshSession.userIp !== newIp ||
-      oldRefreshSession.fingerprint !== newFingerprint
-    ) {
-      this.logger.debug({ oldRefreshSession, newFingerprint, newIp });
-      throw new SsoError(SsoErrorEnum.InvalidRefreshSession);
-    }
-  }
-
   update({
     user,
     projectId,
@@ -276,61 +253,17 @@ export class SsoService {
     fingerprint: string;
     projectId: string;
   }) {
-    const refTokenExpiresInMilliseconds =
-      new Date().getTime() +
-      ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn);
-
-    let currentRefreshSession: SsoRefreshSession;
-    try {
-      currentRefreshSession =
-        await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
-          where: { refreshToken, projectId },
-        });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
-        throw new SsoError(SsoErrorEnum.RefreshTokenNotProvided);
-      }
-      this.logger.error(err, err.stack);
-      throw err;
-    }
-    try {
-      await this.prismaClient.ssoRefreshSession.deleteMany({
-        where: { refreshToken, projectId },
-      });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      //
-    }
-    await this.verifyRefreshSession({
-      oldRefreshSession: currentRefreshSession,
-      newFingerprint: fingerprint,
-      newIp: userIp,
-    });
-
-    const session = await this.prismaClient.ssoRefreshSession.create({
-      data: {
-        refreshToken: randomUUID(),
-        userId: currentRefreshSession.userId,
+    const tokens =
+      await this.ssoTokensService.getAccessAndRefreshTokensByRefreshToken({
+        refreshToken,
         userIp,
         userAgent,
         fingerprint,
-        expiresIn: refTokenExpiresInMilliseconds,
         projectId,
-      },
-    });
-
-    const accessToken = this.jwtService.sign(
-      { userId: session.userId },
-      {
-        expiresIn: this.ssoStaticEnvironments.jwtAccessTokenExpiresIn,
-        secret: this.ssoStaticEnvironments.jwtSecretKey,
-      }
-    );
-
+      });
     const cookie = this.ssoCookieService.getCookie({
       name: 'refreshToken',
-      value: session.refreshToken,
+      value: tokens.refreshToken,
       options: {
         ['max-age']: Math.round(
           ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn) / 1000
@@ -342,8 +275,8 @@ export class SsoService {
       },
     });
     return {
-      accessToken,
-      refreshToken: session.refreshToken,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
       cookie,
     };
   }

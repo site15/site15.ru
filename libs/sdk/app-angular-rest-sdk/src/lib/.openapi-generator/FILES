@@ -46,6 +46,7 @@ model/forgot-password-args.interface.ts
 model/models.ts
 model/refresh-tokens-response.interface.ts
 model/sign-in-args.interface.ts
+model/sign-out-args.interface.ts
 model/sign-up-args.interface.ts
 model/sso-controller-sign-in400-response.interface.ts
 model/sso-entities.interface.ts

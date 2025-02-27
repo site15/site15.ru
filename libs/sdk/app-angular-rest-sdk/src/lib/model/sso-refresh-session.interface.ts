@@ -15,6 +15,8 @@ export interface SsoRefreshSessionInterface {
   userAgent: string | null;
   userIp: string | null;
   expiresIn: number | null;
+  userData: object | null;
+  enabled: boolean;
   userId: string;
   projectId: string;
   createdAt: string;

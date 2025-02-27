@@ -661,6 +661,19 @@ export interface SignInArgs {
 /**
  *
  * @export
+ * @interface SignOutArgs
+ */
+export interface SignOutArgs {
+  /**
+   *
+   * @type {string}
+   * @memberof SignOutArgs
+   */
+  refreshToken?: string;
+}
+/**
+ *
+ * @export
  * @interface SignUpArgs
  */
 export interface SignUpArgs {
@@ -888,6 +901,18 @@ export interface SsoRefreshSession {
    * @memberof SsoRefreshSession
    */
   expiresIn: number | null;
+  /**
+   *
+   * @type {object}
+   * @memberof SsoRefreshSession
+   */
+  userData: object | null;
+  /**
+   *
+   * @type {boolean}
+   * @memberof SsoRefreshSession
+   */
+  enabled: boolean;
   /**
    *
    * @type {string}
@@ -4423,12 +4448,16 @@ export const SsoApiAxiosParamCreator = function (
     },
     /**
      *
+     * @param {SignOutArgs} signOutArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerSignOut: async (
+      signOutArgs: SignOutArgs,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
+      // verify required parameter 'signOutArgs' is not null or undefined
+      assertParamExists('ssoControllerSignOut', 'signOutArgs', signOutArgs);
       const localVarPath = `/api/sso/sign-out`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4445,6 +4474,8 @@ export const SsoApiAxiosParamCreator = function (
       const localVarHeaderParameter = {} as any;
       const localVarQueryParameter = {} as any;
 
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
       setSearchParams(localVarUrlObj, localVarQueryParameter);
       let headersFromBaseOptions =
         baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -4453,6 +4484,11 @@ export const SsoApiAxiosParamCreator = function (
         ...headersFromBaseOptions,
         ...options.headers,
       };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        signOutArgs,
+        localVarRequestOptions,
+        configuration
+      );
 
       return {
         url: toPathString(localVarUrlObj),
@@ -5261,16 +5297,21 @@ export const SsoApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @param {SignOutArgs} signOutArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     async ssoControllerSignOut(
+      signOutArgs: SignOutArgs,
       options?: RawAxiosRequestConfig
     ): Promise<
       (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
     > {
       const localVarAxiosArgs =
-        await localVarAxiosParamCreator.ssoControllerSignOut(options);
+        await localVarAxiosParamCreator.ssoControllerSignOut(
+          signOutArgs,
+          options
+        );
       const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
       const localVarOperationServerBasePath =
         operationServerMap['SsoApi.ssoControllerSignOut']?.[
@@ -5761,14 +5802,16 @@ export const SsoApiFactory = function (
     },
     /**
      *
+     * @param {SignOutArgs} signOutArgs
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
     ssoControllerSignOut(
+      signOutArgs: SignOutArgs,
       options?: RawAxiosRequestConfig
     ): AxiosPromise<StatusResponse> {
       return localVarFp
-        .ssoControllerSignOut(options)
+        .ssoControllerSignOut(signOutArgs, options)
         .then((request) => request(axios, basePath));
     },
     /**
@@ -6075,13 +6118,17 @@ export class SsoApi extends BaseAPI {
 
   /**
    *
+   * @param {SignOutArgs} signOutArgs
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SsoApi
    */
-  public ssoControllerSignOut(options?: RawAxiosRequestConfig) {
+  public ssoControllerSignOut(
+    signOutArgs: SignOutArgs,
+    options?: RawAxiosRequestConfig
+  ) {
     return SsoApiFp(this.configuration)
-      .ssoControllerSignOut(options)
+      .ssoControllerSignOut(signOutArgs, options)
       .then((request) => request(this.axios, this.basePath));
   }
 

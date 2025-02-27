@@ -167,7 +167,7 @@ export class SsoController {
   @Post('sign-out')
   async signOut(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Body() signOutArgs: SignOutArgs | null,
+    @Body() signOutArgs: SignOutArgs,
     @Res({ passthrough: true }) response: Response,
     @Cookies('refreshToken') cookieRefreshToken: string | null,
     @IpAddress() userIp: string,

@@ -26,16 +26,17 @@ export class SsoCookieService {
     roles: string | null;
     projectId: string;
   }) {
-    const tokens = await this.ssoTokensService.getAccessAndRefreshTokens(
-      {
-        fingerprint,
-        roles,
-        userAgent,
-        userId,
-        userIp,
-      },
-      projectId
-    );
+    const tokens =
+      await this.ssoTokensService.getAccessAndRefreshTokensByUserId(
+        {
+          fingerprint,
+          roles,
+          userAgent,
+          userId,
+          userIp,
+        },
+        projectId
+      );
     return {
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
@@ -94,7 +95,7 @@ export class SsoCookieService {
     cookie: string;
   }> {
     const refreshSession =
-      await this.ssoTokensService.deleteRefreshSessionByRefreshToken({
+      await this.ssoTokensService.disableRefreshSessionByRefreshToken({
         refreshToken,
         projectId,
       });

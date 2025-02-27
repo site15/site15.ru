@@ -41,6 +41,8 @@ import { RefreshTokensResponseInterface } from '../model/refresh-tokens-response
 // @ts-ignore
 import { SignInArgsInterface } from '../model/sign-in-args.interface';
 // @ts-ignore
+import { SignOutArgsInterface } from '../model/sign-out-args.interface';
+// @ts-ignore
 import { SignUpArgsInterface } from '../model/sign-up-args.interface';
 // @ts-ignore
 import { SsoControllerSignIn400ResponseInterface } from '../model/sso-controller-sign-in400-response.interface';
@@ -1032,10 +1034,12 @@ export class SsoRestService {
   }
 
   /**
+   * @param signOutArgsInterface
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
   public ssoControllerSignOut(
+    signOutArgsInterface: SignOutArgsInterface,
     observe?: 'body',
     reportProgress?: boolean,
     options?: {
@@ -1045,6 +1049,7 @@ export class SsoRestService {
     }
   ): Observable<StatusResponseInterface>;
   public ssoControllerSignOut(
+    signOutArgsInterface: SignOutArgsInterface,
     observe?: 'response',
     reportProgress?: boolean,
     options?: {
@@ -1054,6 +1059,7 @@ export class SsoRestService {
     }
   ): Observable<HttpResponse<StatusResponseInterface>>;
   public ssoControllerSignOut(
+    signOutArgsInterface: SignOutArgsInterface,
     observe?: 'events',
     reportProgress?: boolean,
     options?: {
@@ -1063,6 +1069,7 @@ export class SsoRestService {
     }
   ): Observable<HttpEvent<StatusResponseInterface>>;
   public ssoControllerSignOut(
+    signOutArgsInterface: SignOutArgsInterface,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: {
@@ -1071,6 +1078,12 @@ export class SsoRestService {
       transferCache?: boolean;
     }
   ): Observable<any> {
+    if (signOutArgsInterface === null || signOutArgsInterface === undefined) {
+      throw new Error(
+        'Required parameter signOutArgsInterface was null or undefined when calling ssoControllerSignOut.'
+      );
+    }
+
     let localVarHeaders = this.defaultHeaders;
 
     let localVarHttpHeaderAcceptSelected: string | undefined =
@@ -1100,6 +1113,17 @@ export class SsoRestService {
       localVarTransferCache = true;
     }
 
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set(
+        'Content-Type',
+        httpContentTypeSelected
+      );
+    }
+
     let responseType_: 'text' | 'json' | 'blob' = 'json';
     if (localVarHttpHeaderAcceptSelected) {
       if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -1119,6 +1143,7 @@ export class SsoRestService {
       `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
+        body: signOutArgsInterface,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

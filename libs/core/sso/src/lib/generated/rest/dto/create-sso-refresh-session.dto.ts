@@ -1,5 +1,12 @@
+import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateSsoRefreshSessionDto {
   @ApiProperty({
@@ -41,4 +48,17 @@ export class CreateSsoRefreshSessionDto {
   @IsOptional()
   @IsInt()
   expiresIn?: bigint | null;
+  @ApiProperty({
+    type: () => Object,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  userData?: Prisma.InputJsonValue | Prisma.NullableJsonNullValueInput;
+  @ApiProperty({
+    type: 'boolean',
+  })
+  @IsNotEmpty()
+  @IsBoolean()
+  enabled!: boolean;
 }

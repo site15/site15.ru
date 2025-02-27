@@ -1,23 +1,144 @@
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaClient } from '@prisma/sso-client';
+import { PrismaClient, SsoRefreshSession } from '@prisma/sso-client';
 import ms from 'ms';
 import { randomUUID } from 'node:crypto';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoAccessTokenData } from '../types/sso-request';
+import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
+import { SsoError, SsoErrorEnum } from '../sso.errors';
 
 @Injectable()
 export class SsoTokensService {
+  private logger = new Logger(SsoTokensService.name);
+
   constructor(
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly jwtService: JwtService,
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient
+    private readonly prismaClient: PrismaClient,
+    private readonly prismaToolsService: PrismaToolsService
   ) {}
 
-  async getAccessAndRefreshTokens(
+  async getAccessAndRefreshTokensByRefreshToken({
+    refreshToken,
+    userIp,
+    userAgent,
+    fingerprint,
+    projectId,
+  }: {
+    refreshToken: string;
+    userIp: string;
+    userAgent: string;
+    fingerprint: string;
+    projectId: string;
+  }) {
+    const refTokenExpiresInMilliseconds =
+      new Date().getTime() +
+      ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn);
+
+    let currentRefreshSession: SsoRefreshSession;
+    try {
+      currentRefreshSession =
+        await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
+          where: { fingerprint, refreshToken, projectId, enabled: true },
+        });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
+        this.logger.debug({
+          fingerprint,
+          refreshToken,
+          projectId,
+          enabled: true,
+        });
+        throw new SsoError(SsoErrorEnum.RefreshTokenNotProvided);
+      }
+      this.logger.error(err, err.stack);
+      throw err;
+    }
+    try {
+      await this.prismaClient.ssoRefreshSession.updateMany({
+        data: { enabled: false },
+        where: { fingerprint, refreshToken, projectId },
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      //
+    }
+    await this.verifyRefreshSession({
+      oldRefreshSession: currentRefreshSession,
+      newFingerprint: fingerprint,
+      newIp: userIp,
+    });
+
+    const session = await this.prismaClient.ssoRefreshSession.create({
+      data: {
+        refreshToken: randomUUID(),
+        userId: currentRefreshSession.userId,
+        userIp,
+        userAgent,
+        fingerprint,
+        expiresIn: refTokenExpiresInMilliseconds,
+        projectId,
+        enabled: true,
+      },
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const currentRefreshSessionUserData: any = currentRefreshSession.userData;
+    const accessToken = this.jwtService.sign(
+      {
+        userId: session.userId,
+        ...(currentRefreshSessionUserData['roles'] &&
+        typeof currentRefreshSessionUserData['roles'] === 'string'
+          ? { roles: currentRefreshSessionUserData['roles'] }
+          : {}),
+      },
+      {
+        expiresIn: this.ssoStaticEnvironments.jwtAccessTokenExpiresIn,
+        secret: this.ssoStaticEnvironments.jwtSecretKey,
+      }
+    );
+
+    return {
+      accessToken,
+      refreshToken: session.refreshToken,
+    };
+  }
+
+  async verifyRefreshSession({
+    oldRefreshSession,
+    newFingerprint,
+    newIp,
+  }: {
+    oldRefreshSession: SsoRefreshSession;
+    newFingerprint?: string;
+    newIp?: string;
+  }) {
+    const nowTime = new Date().getTime();
+
+    if (!oldRefreshSession.expiresIn || nowTime > oldRefreshSession.expiresIn) {
+      this.logger.debug({
+        nowTime,
+        oldRefreshSession,
+      });
+      throw new SsoError(SsoErrorEnum.SessionExpired);
+    }
+    if (newFingerprint && newIp) {
+      if (
+        oldRefreshSession.userIp !== newIp ||
+        oldRefreshSession.fingerprint !== newFingerprint
+      ) {
+        this.logger.debug({ oldRefreshSession, newFingerprint, newIp });
+        throw new SsoError(SsoErrorEnum.InvalidRefreshSession);
+      }
+    }
+  }
+
+  async getAccessAndRefreshTokensByUserId(
     {
       userId,
       userIp,
@@ -36,6 +157,16 @@ export class SsoTokensService {
     const refTokenExpiresInMilliseconds =
       new Date().getTime() +
       ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn);
+    await this.prismaClient.ssoRefreshSession.updateMany({
+      data: {
+        enabled: false,
+      },
+      where: {
+        userId,
+        fingerprint,
+        projectId,
+      },
+    });
     const session = await this.prismaClient.ssoRefreshSession.create({
       data: {
         refreshToken: randomUUID(),
@@ -45,6 +176,9 @@ export class SsoTokensService {
         fingerprint,
         expiresIn: refTokenExpiresInMilliseconds,
         projectId,
+        enabled: true,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        userData: { roles } as any,
       },
     });
     return {
@@ -59,21 +193,32 @@ export class SsoTokensService {
     };
   }
 
-  async deleteRefreshSessionByRefreshToken({
+  async disableRefreshSessionByRefreshToken({
     refreshToken,
     projectId,
   }: {
     refreshToken: string;
     projectId: string;
   }) {
-    const refreshSession =
-      await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
+    try {
+      const refreshSession =
+        await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
+          where: { refreshToken, projectId, enabled: true },
+        });
+
+      await this.verifyRefreshSession({
+        oldRefreshSession: refreshSession,
+      });
+
+      this.prismaClient.ssoRefreshSession.updateMany({
+        data: { enabled: false },
         where: { refreshToken, projectId },
       });
-    this.prismaClient.ssoRefreshSession.deleteMany({
-      where: { refreshToken, projectId },
-    });
-    return refreshSession;
+      return refreshSession;
+    } catch (err) {
+      this.logger.debug({ refreshToken, projectId });
+      throw new SsoError(SsoErrorEnum.RefreshTokenNotProvided);
+    }
   }
 
   async verifyAndDecodeAccessToken(accessToken: string | undefined) {

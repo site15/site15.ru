@@ -27,6 +27,7 @@ export * from './find-many-webhook-user-response.interface';
 export * from './forgot-password-args.interface';
 export * from './refresh-tokens-response.interface';
 export * from './sign-in-args.interface';
+export * from './sign-out-args.interface';
 export * from './sign-up-args.interface';
 export * from './sso-controller-sign-in400-response.interface';
 export * from './sso-entities.interface';

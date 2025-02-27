@@ -72,6 +72,8 @@ CREATE TABLE IF NOT EXISTS "SsoRefreshSession"(
     "fingerprint" varchar(254),
     "userIp" varchar(128),
     "expiresIn" bigint,
+    "userData" jsonb,
+    "enabled" boolean NOT NULL,
     "userId" uuid NOT NULL,
     "projectId" uuid NOT NULL,
     "createdAt" timestamp DEFAULT now() NOT NULL,
@@ -108,7 +110,9 @@ EXCEPTION
 END
 $$;
 
-CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_REFRESH_SESSIONS" ON "SsoRefreshSession"("userId", "fingerprint", "projectId");
+CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_REFRESH_SESSIONS" ON "SsoRefreshSession"("userId", "fingerprint", "projectId")
+WHERE
+    enabled = TRUE;
 
 CREATE INDEX IF NOT EXISTS "IDX_SSO_REFRESH_SESSIONS__PROJECT_ID" ON "SsoRefreshSession"("projectId");
 

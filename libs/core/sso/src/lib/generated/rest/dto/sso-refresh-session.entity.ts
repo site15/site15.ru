@@ -1,3 +1,4 @@
+import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
 import { SsoProject } from './sso-project.entity';
 import { SsoUser } from './sso-user.entity';
@@ -23,6 +24,15 @@ export class SsoRefreshSession {
     nullable: true,
   })
   expiresIn!: bigint | null;
+  @ApiProperty({
+    type: () => Object,
+    nullable: true,
+  })
+  userData!: Prisma.JsonValue | null;
+  @ApiProperty({
+    type: 'boolean',
+  })
+  enabled!: boolean;
   @ApiProperty({
     type: 'string',
   })

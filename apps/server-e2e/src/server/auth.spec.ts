@@ -6,6 +6,7 @@ import {
   ValidationErrorEnum,
 } from '@nestjs-mod-sso/app-rest-sdk';
 import { getErrorData, RestClientHelper } from '@nestjs-mod-sso/testing';
+import { randomUUID } from 'node:crypto';
 
 describe('Auth (e2e)', () => {
   let user: RestClientHelper<'strict'>;
@@ -351,12 +352,29 @@ describe('Auth (e2e)', () => {
   });
 
   it('Sign-in with new password', async () => {
+    const { data: signInResult } = await user.getSsoApi().ssoControllerSignIn(
+      {
+        email: user.randomUser.email,
+        password: user.randomUser.newPassword,
+        fingerprint: user.randomUser.id,
+      },
+      {
+        headers: {
+          'x-client-id': project.randomUser.id,
+        },
+      }
+    );
+    expect(signInResult).toHaveProperty('accessToken');
+    expect(signInResult).toHaveProperty('refreshToken');
+    userTokens = signInResult;
+  });
+
+  it('English errors in refresh tokens method called with wrong refresh-token', async () => {
     try {
-      const { data: signInResult } = await user.getSsoApi().ssoControllerSignIn(
+      await user.getSsoApi().ssoControllerRefreshTokens(
         {
-          email: user.randomUser.email,
-          password: user.randomUser.newPassword,
           fingerprint: user.randomUser.id,
+          refreshToken: randomUUID(),
         },
         {
           headers: {
@@ -364,11 +382,78 @@ describe('Auth (e2e)', () => {
           },
         }
       );
-      expect(signInResult).toHaveProperty('accessToken');
-      expect(signInResult).toHaveProperty('refreshToken');
-      userTokens = signInResult;
     } catch (err) {
-      console.log({ ...err });
+      const errData = getErrorData<SsoError>(err);
+      expect(errData).not.toEqual(null);
+      expect(errData?.code).toEqual(SsoErrorEnum.Sso007);
+      expect(errData?.message).toEqual('Refresh token not provided');
+    }
+  });
+
+  it('Should refresh tokens successfully', async () => {
+    const { data: refreshTokensResult } = await user
+      .getSsoApi()
+      .ssoControllerRefreshTokens(
+        {
+          fingerprint: user.randomUser.id,
+          refreshToken: userTokens.refreshToken,
+        },
+        {
+          headers: {
+            'x-client-id': project.randomUser.id,
+          },
+        }
+      );
+    expect(refreshTokensResult).toHaveProperty('accessToken');
+    expect(refreshTokensResult).toHaveProperty('refreshToken');
+    userTokens = refreshTokensResult;
+  });
+
+  it('English errors in sign-out method called with wrong refresh-token', async () => {
+    try {
+      await user.getSsoApi().ssoControllerSignOut(
+        { refreshToken: randomUUID() },
+        {
+          headers: {
+            'x-client-id': project.randomUser.id,
+          },
+        }
+      );
+    } catch (err) {
+      const errData = getErrorData<SsoError>(err);
+      expect(errData).not.toEqual(null);
+      expect(errData?.code).toEqual(SsoErrorEnum.Sso007);
+      expect(errData?.message).toEqual('Refresh token not provided');
+    }
+  });
+
+  it('Sign-out', async () => {
+    const { data: signOutResult } = await user.getSsoApi().ssoControllerSignOut(
+      { refreshToken: userTokens.refreshToken },
+      {
+        headers: {
+          'x-client-id': project.randomUser.id,
+        },
+      }
+    );
+    expect(signOutResult.message).toEqual('ok');
+  });
+
+  it('English errors in sign-out method called with old refresh-token', async () => {
+    try {
+      await user.getSsoApi().ssoControllerSignOut(
+        { refreshToken: userTokens.refreshToken },
+        {
+          headers: {
+            'x-client-id': project.randomUser.id,
+          },
+        }
+      );
+    } catch (err) {
+      const errData = getErrorData<SsoError>(err);
+      expect(errData).not.toEqual(null);
+      expect(errData?.code).toEqual(SsoErrorEnum.Sso007);
+      expect(errData?.message).toEqual('Refresh token not provided');
     }
   });
 });

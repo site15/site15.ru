@@ -44,6 +44,7 @@ export * from './lib/model/forgot-password-args.interface';
 export * from './lib/model/models';
 export * from './lib/model/refresh-tokens-response.interface';
 export * from './lib/model/sign-in-args.interface';
+export * from './lib/model/sign-out-args.interface';
 export * from './lib/model/sign-up-args.interface';
 export * from './lib/model/sso-controller-sign-in400-response.interface';
 export * from './lib/model/sso-entities.interface';
