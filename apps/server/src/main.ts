@@ -2,13 +2,17 @@ process.env.TZ = 'UTC';
 
 import { AUTH_FEATURE, AUTH_FOLDER } from '@nestjs-mod-sso/auth';
 import {
+  NOTIFICATIONS_FEATURE,
   NotificationsModule,
+  NotificationsRequest,
   NotificationsService,
   SendNotificationOptionsType,
 } from '@nestjs-mod-sso/notifications';
 import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
 import {
+  SsoGuard,
   SsoModule,
+  SsoRequest,
   SsoSendNotificationOptions,
   SsoTwoFactorCodeGenerateOptions,
   SsoTwoFactorCodeValidateOptions,
@@ -20,6 +24,7 @@ import {
   bootstrapNestApplication,
   DefaultNestApplicationInitializer,
   DefaultNestApplicationListener,
+  getRequestFromExecutionContext,
   InfrastructureMarkdownReportGenerator,
   isInfrastructureMode,
   PACKAGE_JSON_FILE,
@@ -36,6 +41,7 @@ import {
 import { PgFlyway } from '@nestjs-mod/pg-flyway';
 import { ECOSYSTEM_CONFIG_FILE, Pm2 } from '@nestjs-mod/pm2';
 import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
+import { ExecutionContext } from '@nestjs/common';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { writeFileSync } from 'fs';
@@ -181,8 +187,7 @@ bootstrapNestApplication({
       MainKeyvModule,
       MainMinioModule,
       ValidationModule.forRoot({ staticEnvironments: { usePipes: false } }),
-    ],
-    feature: [
+
       SsoModule.forRootAsync({
         imports: [
           TwoFactorModule.forFeature({ featureModuleName: APP_FEATURE }),
@@ -253,9 +258,24 @@ bootstrapNestApplication({
           };
         },
       }),
-      AppModule.forRoot(),
-      MainWebhookModule,
+      NotificationsModule.forRootAsync({
+        imports: [
+          SsoModule.forFeature({
+            featureModuleName: NOTIFICATIONS_FEATURE,
+          }),
+        ],
+        staticConfiguration: { guards: [SsoGuard] },
+        configuration: {
+          checkAccessValidator: async (ctx: ExecutionContext) => {
+            const req = getRequestFromExecutionContext(ctx) as SsoRequest &
+              NotificationsRequest;
+            req.notificationIsAdmin = Boolean(req.ssoIsAdmin);
+            req.externalTenantId = req.ssoProject?.id;
+          },
+        },
+      }),
     ],
+    feature: [AppModule.forRoot(), MainWebhookModule],
     infrastructure: [
       InfrastructureMarkdownReportGenerator.forRoot({
         staticConfiguration: {

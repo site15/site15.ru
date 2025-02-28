@@ -5,21 +5,29 @@ import {
   NestModuleCategory,
 } from '@nestjs-mod/common';
 import { PrismaModule } from '@nestjs-mod/prisma';
-import { Provider } from '@nestjs/common';
+import { Provider, UseGuards } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
+import { NotificationsServiceBootstrap } from './notifications-bootstrap.service';
+import {
+  NotificationsConfiguration,
+  NotificationsStaticConfiguration,
+} from './notifications.configuration';
 import {
   NOTIFICATIONS_FEATURE,
   NOTIFICATIONS_MODULE,
 } from './notifications.constants';
+import { NotificationsController } from './notifications.controller';
 import { NotificationsStaticEnvironments } from './notifications.environments';
 import { NotificationsExceptionsFilter } from './notifications.filter';
+import { NotificationsGuard } from './notifications.guard';
 import { NotificationsService } from './notifications.service';
-import { NotificationsServiceBootstrap } from './notifications-bootstrap.service';
 
 export const { NotificationsModule } = createNestModule({
   moduleName: NOTIFICATIONS_MODULE,
   moduleCategory: NestModuleCategory.feature,
   staticEnvironmentsModel: NotificationsStaticEnvironments,
+  staticConfigurationModel: NotificationsStaticConfiguration,
+  configurationModel: NotificationsConfiguration,
   imports: [
     PrismaModule.forFeature({
       contextName: NOTIFICATIONS_FEATURE,
@@ -49,6 +57,7 @@ export const { NotificationsModule } = createNestModule({
     }
     return providers;
   },
+  controllers: [NotificationsController],
   wrapForRootAsync: (asyncModuleOptions) => {
     if (!asyncModuleOptions) {
       asyncModuleOptions = {};
@@ -64,5 +73,16 @@ export const { NotificationsModule } = createNestModule({
     });
 
     return { asyncModuleOptions };
+  },
+  preWrapApplication: async ({ current }) => {
+    const staticConfiguration = current.staticConfiguration;
+
+    // all routes
+    for (const ctrl of [NotificationsController]) {
+      UseGuards(
+        ...(staticConfiguration?.guards || []),
+        NotificationsGuard
+      )(ctrl);
+    }
   },
 });

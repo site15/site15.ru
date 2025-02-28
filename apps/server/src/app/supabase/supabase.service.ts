@@ -1,3 +1,4 @@
+import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import {
   ExecutionContext,
   Injectable,
@@ -185,7 +186,9 @@ export class SupabaseService implements OnModuleInit {
   }
 
   private getRequestFromExecutionContext(ctx: ExecutionContext) {
-    return this.supabaseConfiguration.getRequestFromContext?.(ctx) || {};
+    const req = getRequestFromExecutionContext(ctx) as SupabaseRequest;
+    req.headers = req.headers || {};
+    return req;
   }
 
   private getHandlersReflectMetadata(ctx: ExecutionContext) {

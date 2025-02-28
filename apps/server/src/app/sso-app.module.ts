@@ -3,6 +3,7 @@ import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
 import { AUTH_MODULE, AuthModule } from '@nestjs-mod-sso/auth';
 import { FilesModule } from '@nestjs-mod-sso/files';
 import { SSO_FEATURE, SsoController, SsoModule } from '@nestjs-mod-sso/sso';
+import { TwoFactorModule } from '@nestjs-mod-sso/two-factor';
 import {
   ValidationError,
   ValidationErrorEnum,
@@ -21,8 +22,6 @@ import { FakeEndpointController } from './controllers/sso/sso-fake-endoint.contr
 import { TimeController } from './controllers/sso/sso-time.controller';
 import { SsoWithMinioFilesConfiguration } from './integrations/sso/sso-with-minio-files.configuration';
 import { AppService } from './services/app.service';
-import { TwoFactorModule } from '@nestjs-mod-sso/two-factor';
-import { NotificationsModule } from '@nestjs-mod-sso/notifications';
 
 export const { AppModule: SsoAppModule } = createNestModule({
   moduleName: 'AppModule',
@@ -93,7 +92,6 @@ export const { AppModule: SsoAppModule } = createNestModule({
           }),
         ]),
     TwoFactorModule.forRoot(),
-    NotificationsModule.forRoot(),
   ],
   controllers: [
     AppController,

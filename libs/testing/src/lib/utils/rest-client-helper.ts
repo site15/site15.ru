@@ -12,6 +12,7 @@ import {
   TimeApi,
   WebhookApi,
   WebhookUser,
+  NotificationsApi,
 } from '@nestjs-mod-sso/app-rest-sdk';
 import axios, { AxiosInstance } from 'axios';
 import { Observable, finalize } from 'rxjs';
@@ -46,6 +47,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   private timeApi?: TimeApi;
   private authApi?: AuthApi;
   private fakeEndpointApi?: FakeEndpointApi;
+  private notificationsApi?: NotificationsApi;
 
   private ssoApiAxios?: AxiosInstance;
   private webhookApiAxios?: AxiosInstance;
@@ -55,6 +57,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   private timeApiAxios?: AxiosInstance;
   private authApiAxios?: AxiosInstance;
   private fakeEndpointApiAxios?: AxiosInstance;
+  private notificationsApiAxios?: AxiosInstance;
 
   randomUser: T extends 'strict'
     ? GenerateRandomUserResult
@@ -184,6 +187,13 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       throw new Error('authApi not set');
     }
     return this.authApi;
+  }
+
+  getNotificationsApi() {
+    if (!this.notificationsApi) {
+      throw new Error('notificationsApi not set');
+    }
+    return this.notificationsApi;
   }
 
   async getAuthorizerClient() {
@@ -397,6 +407,12 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         this.getAuthorizationHeaders()
       );
     }
+    if (this.notificationsApiAxios) {
+      Object.assign(
+        this.notificationsApiAxios.defaults.headers.common,
+        this.getAuthorizationHeaders()
+      );
+    }
   }
 
   async logout() {
@@ -503,6 +519,16 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       }),
       undefined,
       this.fakeEndpointApiAxios
+    );
+    //
+
+    this.notificationsApiAxios = axios.create();
+    this.notificationsApi = new NotificationsApi(
+      new Configuration({
+        basePath: this.getServerUrl(),
+      }),
+      undefined,
+      this.notificationsApiAxios
     );
   }
 

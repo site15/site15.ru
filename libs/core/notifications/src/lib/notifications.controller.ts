@@ -1,0 +1,178 @@
+import { FindManyArgs } from '@nestjs-mod-sso/common';
+
+import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
+import { ValidationError } from '@nestjs-mod-sso/validation';
+import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Put,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiExtraModels,
+  ApiOkResponse,
+  ApiTags,
+  refs,
+} from '@nestjs/swagger';
+import { Prisma, PrismaClient } from '@prisma/notifications-client';
+import { isUUID } from 'class-validator';
+import { NotificationsEventDto } from './generated/rest/dto/notifications-event.dto';
+import { UpdateNotificationsEventDto } from './generated/rest/dto/update-notifications-event.dto';
+import { NOTIFICATIONS_FEATURE } from './notifications.constants';
+import { CurrentNotificationsExternalTenantId } from './notifications.decorators';
+import { NotificationsError } from './notifications.errors';
+import { FindManyNotificationResponse } from './types/find-many-notification-event-response';
+import { NotificationsEntities } from './types/notifications-entities';
+
+@ApiExtraModels(NotificationsError, NotificationsEntities, ValidationError)
+@ApiBadRequestResponse({
+  schema: { allOf: refs(NotificationsError, ValidationError) },
+})
+@ApiTags('Notifications')
+@Controller('/notifications')
+export class NotificationsController {
+  constructor(
+    @InjectPrismaClient(NOTIFICATIONS_FEATURE)
+    private readonly prismaClient: PrismaClient,
+    private readonly prismaToolsService: PrismaToolsService
+  ) {}
+
+  @Get()
+  @ApiOkResponse({ type: FindManyNotificationResponse })
+  async findMany(
+    @CurrentNotificationsExternalTenantId() externalTenantId: string,
+    @Query() args: FindManyArgs
+  ) {
+    const { take, skip, curPage, perPage } =
+      this.prismaToolsService.getFirstSkipFromCurPerPage({
+        curPage: args.curPage,
+        perPage: args.perPage,
+      });
+    const searchText = args.searchText;
+
+    const orderBy = (args.sort || 'createdAt:desc')
+      .split(',')
+      .map((s) => s.split(':'))
+      .reduce(
+        (all, [key, value]) => ({
+          ...all,
+          ...(key in Prisma.NotificationsEventScalarFieldEnum
+            ? {
+                [key]: value === 'desc' ? 'desc' : 'asc',
+              }
+            : {}),
+        }),
+        {}
+      );
+    const result = await this.prismaClient.$transaction(async (prisma) => {
+      return {
+        notifications: await prisma.notificationsEvent.findMany({
+          where: {
+            ...(searchText
+              ? {
+                  OR: [
+                    ...(isUUID(searchText)
+                      ? [
+                          { id: { equals: searchText } },
+                          { externalTenantId: { equals: searchText } },
+                        ]
+                      : []),
+                    { html: { contains: searchText, mode: 'insensitive' } },
+                    {
+                      text: { contains: searchText, mode: 'insensitive' },
+                    },
+                    {
+                      error: { string_contains: searchText },
+                    },
+                    {
+                      recipientData: { string_contains: searchText },
+                    },
+                    {
+                      senderData: { string_contains: searchText },
+                    },
+                  ],
+                }
+              : {}),
+            externalTenantId,
+          },
+          take,
+          skip,
+          orderBy,
+        }),
+        totalResults: await prisma.notificationsEvent.count({
+          where: {
+            ...(searchText
+              ? {
+                  OR: [
+                    ...(isUUID(searchText)
+                      ? [
+                          { id: { equals: searchText } },
+                          { externalTenantId: { equals: searchText } },
+                        ]
+                      : []),
+                    { html: { contains: searchText, mode: 'insensitive' } },
+                    {
+                      text: { contains: searchText, mode: 'insensitive' },
+                    },
+                    {
+                      error: { string_contains: searchText },
+                    },
+                    {
+                      recipientData: { string_contains: searchText },
+                    },
+                    {
+                      senderData: { string_contains: searchText },
+                    },
+                  ],
+                }
+              : {}),
+            externalTenantId,
+          },
+        }),
+      };
+    });
+    return {
+      notifications: result.notifications,
+      meta: {
+        totalResults: result.totalResults,
+        curPage,
+        perPage,
+      },
+    };
+  }
+
+  @Put(':id')
+  @ApiOkResponse({ type: NotificationsEventDto })
+  async updateOne(
+    @CurrentNotificationsExternalTenantId() externalTenantId: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() args: UpdateNotificationsEventDto
+  ) {
+    return await this.prismaClient.notificationsEvent.update({
+      data: { ...args, updatedAt: new Date() },
+      where: {
+        id,
+        externalTenantId,
+      },
+    });
+  }
+
+  @Get(':id')
+  @ApiOkResponse({ type: NotificationsEventDto })
+  async findOne(
+    @CurrentNotificationsExternalTenantId() externalTenantId: string,
+    @Param('id', new ParseUUIDPipe()) id: string
+  ) {
+    return await this.prismaClient.notificationsEvent.findFirstOrThrow({
+      where: {
+        id,
+        externalTenantId,
+      },
+    });
+  }
+}

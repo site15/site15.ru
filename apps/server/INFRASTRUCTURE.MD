@@ -766,7 +766,7 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 | ------ | ------- | ----------- | ----- |
 |`useGuards`|`obj['useGuards']`, `process.env['SERVER_SSO_USE_GUARDS']`|**optional**|```true```|
 |`useFilters`|`obj['useFilters']`, `process.env['SERVER_SSO_USE_FILTERS']`|**optional**|```true```|
-|`templatesVarSsoServerUrl`|`obj['templatesVarSsoServerUrl']`, `process.env['SERVER_SSO_TEMPLATES_VAR_SSO_SERVER_URL']`|**isNotEmpty** (templatesVarSsoServerUrl should not be empty)|-|
+|`templatesVarSsoServerUrl`|`obj['templatesVarSsoServerUrl']`, `process.env['SERVER_SSO_TEMPLATES_VAR_SSO_SERVER_URL']`|**isNotEmpty** (templatesVarSsoServerUrl should not be empty)|```http://localhost```|
 |`userAvailableRoles`|`obj['userAvailableRoles']`, `process.env['SERVER_SSO_USER_AVAILABLE_ROLES']`|**optional**|```user,admin```|
 |`userDefaultRoles`|`obj['userDefaultRoles']`, `process.env['SERVER_SSO_USER_DEFAULT_ROLES']`|**optional**|```user```|
 |`jwtSecretKey`|`obj['jwtSecretKey']`, `process.env['SERVER_SSO_JWT_SECRET_KEY']`|**optional**|```AcJwUY9AP6FPf8XnfwbSuW7ZjwoaPiFJ```|

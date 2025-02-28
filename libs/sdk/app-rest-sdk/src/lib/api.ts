@@ -484,6 +484,25 @@ export interface FindManyAuthUserResponse {
 /**
  *
  * @export
+ * @interface FindManyNotificationResponse
+ */
+export interface FindManyNotificationResponse {
+  /**
+   *
+   * @type {Array<NotificationsEvent>}
+   * @memberof FindManyNotificationResponse
+   */
+  notifications: Array<NotificationsEvent>;
+  /**
+   *
+   * @type {FindManyResponseMeta}
+   * @memberof FindManyNotificationResponse
+   */
+  meta: FindManyResponseMeta;
+}
+/**
+ *
+ * @export
  * @interface FindManyResponseMeta
  */
 export interface FindManyResponseMeta {
@@ -613,6 +632,428 @@ export interface ForgotPasswordArgs {
    * @memberof ForgotPasswordArgs
    */
   email: string;
+}
+/**
+ *
+ * @export
+ * @interface NotificationsControllerFindMany400Response
+ */
+export interface NotificationsControllerFindMany400Response {
+  /**
+   * Validation error (VALIDATION-000)
+   * @type {string}
+   * @memberof NotificationsControllerFindMany400Response
+   */
+  message: string;
+  /**
+   *
+   * @type {ValidationErrorEnum}
+   * @memberof NotificationsControllerFindMany400Response
+   */
+  code: ValidationErrorEnum;
+  /**
+   *
+   * @type {Array<ValidationErrorMetadata>}
+   * @memberof NotificationsControllerFindMany400Response
+   */
+  metadata?: Array<ValidationErrorMetadata>;
+}
+
+/**
+ *
+ * @export
+ * @interface NotificationsEntities
+ */
+export interface NotificationsEntities {
+  /**
+   *
+   * @type {NotificationsEventScalarFieldEnum}
+   * @memberof NotificationsEntities
+   */
+  notificationEvent: NotificationsEventScalarFieldEnum;
+}
+
+/**
+ *
+ * @export
+ * @interface NotificationsError
+ */
+export interface NotificationsError {
+  /**
+   * Notificationserror (NOTIFICATIONS-000), Tenant ID not set (NOTIFICATIONS-001), User ID not set (NOTIFICATIONS-002), Forbidden (NOTIFICATIONS-003)
+   * @type {string}
+   * @memberof NotificationsError
+   */
+  message: string;
+  /**
+   *
+   * @type {NotificationsErrorEnum}
+   * @memberof NotificationsError
+   */
+  code: NotificationsErrorEnum;
+  /**
+   *
+   * @type {Array<NotificationsErrorMetadata>}
+   * @memberof NotificationsError
+   */
+  metadata?: Array<NotificationsErrorMetadata>;
+}
+
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+
+export const NotificationsErrorEnum = {
+  Notifications000: 'NOTIFICATIONS-000',
+  Notifications001: 'NOTIFICATIONS-001',
+  Notifications002: 'NOTIFICATIONS-002',
+  Notifications003: 'NOTIFICATIONS-003',
+} as const;
+
+export type NotificationsErrorEnum =
+  (typeof NotificationsErrorEnum)[keyof typeof NotificationsErrorEnum];
+
+/**
+ *
+ * @export
+ * @interface NotificationsErrorMetadata
+ */
+export interface NotificationsErrorMetadata {
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsErrorMetadata
+   */
+  property: string;
+  /**
+   *
+   * @type {Array<NotificationsErrorMetadataConstraint>}
+   * @memberof NotificationsErrorMetadata
+   */
+  constraints: Array<NotificationsErrorMetadataConstraint>;
+  /**
+   *
+   * @type {Array<NotificationsErrorMetadata>}
+   * @memberof NotificationsErrorMetadata
+   */
+  children?: Array<NotificationsErrorMetadata>;
+}
+/**
+ *
+ * @export
+ * @interface NotificationsErrorMetadataConstraint
+ */
+export interface NotificationsErrorMetadataConstraint {
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsErrorMetadataConstraint
+   */
+  name: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsErrorMetadataConstraint
+   */
+  description: string;
+}
+/**
+ *
+ * @export
+ * @interface NotificationsEvent
+ */
+export interface NotificationsEvent {
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  type: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  operationName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  subject: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  html: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  text: string | null;
+  /**
+   *
+   * @type {number}
+   * @memberof NotificationsEvent
+   */
+  attempt: number;
+  /**
+   *
+   * @type {boolean}
+   * @memberof NotificationsEvent
+   */
+  used: boolean;
+  /**
+   *
+   * @type {object}
+   * @memberof NotificationsEvent
+   */
+  error: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  senderUserId: string | null;
+  /**
+   *
+   * @type {object}
+   * @memberof NotificationsEvent
+   */
+  senderData: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  recipientGroupId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  recipientUserId: string;
+  /**
+   *
+   * @type {object}
+   * @memberof NotificationsEvent
+   */
+  recipientData: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  externalTenantId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEvent
+   */
+  updatedAt: string;
+  /**
+   *
+   * @type {NotificationsUser}
+   * @memberof NotificationsEvent
+   */
+  NotificationsUser_NotificationsEvent_recipientUserIdToNotificationsUser?: NotificationsUser;
+  /**
+   *
+   * @type {NotificationsUser}
+   * @memberof NotificationsEvent
+   */
+  NotificationsUser_NotificationsEvent_senderUserIdToNotificationsUser?: NotificationsUser | null;
+}
+/**
+ *
+ * @export
+ * @interface NotificationsEventDto
+ */
+export interface NotificationsEventDto {
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  type: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  operationName: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  subject: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  html: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  text: string | null;
+  /**
+   *
+   * @type {number}
+   * @memberof NotificationsEventDto
+   */
+  attempt: number;
+  /**
+   *
+   * @type {boolean}
+   * @memberof NotificationsEventDto
+   */
+  used: boolean;
+  /**
+   *
+   * @type {object}
+   * @memberof NotificationsEventDto
+   */
+  error: object | null;
+  /**
+   *
+   * @type {object}
+   * @memberof NotificationsEventDto
+   */
+  senderData: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  recipientGroupId: string;
+  /**
+   *
+   * @type {object}
+   * @memberof NotificationsEventDto
+   */
+  recipientData: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  externalTenantId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsEventDto
+   */
+  updatedAt: string;
+}
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+
+export const NotificationsEventScalarFieldEnum = {
+  Id: 'id',
+  Type: 'type',
+  OperationName: 'operationName',
+  Subject: 'subject',
+  Html: 'html',
+  Text: 'text',
+  Attempt: 'attempt',
+  Used: 'used',
+  Error: 'error',
+  SenderUserId: 'senderUserId',
+  SenderData: 'senderData',
+  RecipientGroupId: 'recipientGroupId',
+  RecipientUserId: 'recipientUserId',
+  RecipientData: 'recipientData',
+  ExternalTenantId: 'externalTenantId',
+  CreatedAt: 'createdAt',
+  UpdatedAt: 'updatedAt',
+} as const;
+
+export type NotificationsEventScalarFieldEnum =
+  (typeof NotificationsEventScalarFieldEnum)[keyof typeof NotificationsEventScalarFieldEnum];
+
+/**
+ *
+ * @export
+ * @interface NotificationsUser
+ */
+export interface NotificationsUser {
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsUser
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsUser
+   */
+  externalTenantId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsUser
+   */
+  externalUserId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsUser
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof NotificationsUser
+   */
+  updatedAt: string;
+  /**
+   *
+   * @type {Array<NotificationsEvent>}
+   * @memberof NotificationsUser
+   */
+  NotificationsEvent_NotificationsEvent_recipientUserIdToNotificationsUser?: Array<NotificationsEvent>;
+  /**
+   *
+   * @type {Array<NotificationsEvent>}
+   * @memberof NotificationsUser
+   */
+  NotificationsEvent_NotificationsEvent_senderUserIdToNotificationsUser?: Array<NotificationsEvent>;
 }
 /**
  *
@@ -1357,6 +1798,85 @@ export interface UpdateAuthUserDto {
   lang?: string | null;
 }
 
+/**
+ *
+ * @export
+ * @interface UpdateNotificationsEventDto
+ */
+export interface UpdateNotificationsEventDto {
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateNotificationsEventDto
+   */
+  type?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateNotificationsEventDto
+   */
+  operationName?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateNotificationsEventDto
+   */
+  subject?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateNotificationsEventDto
+   */
+  html?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateNotificationsEventDto
+   */
+  text?: string | null;
+  /**
+   *
+   * @type {number}
+   * @memberof UpdateNotificationsEventDto
+   */
+  attempt?: number;
+  /**
+   *
+   * @type {boolean}
+   * @memberof UpdateNotificationsEventDto
+   */
+  used?: boolean;
+  /**
+   *
+   * @type {object}
+   * @memberof UpdateNotificationsEventDto
+   */
+  error?: object | null;
+  /**
+   *
+   * @type {object}
+   * @memberof UpdateNotificationsEventDto
+   */
+  senderData?: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateNotificationsEventDto
+   */
+  recipientGroupId?: string;
+  /**
+   *
+   * @type {object}
+   * @memberof UpdateNotificationsEventDto
+   */
+  recipientData?: object | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateNotificationsEventDto
+   */
+  externalTenantId?: string;
+}
 /**
  *
  * @export
@@ -4066,6 +4586,454 @@ export class FilesApi extends BaseAPI {
   ) {
     return FilesApiFp(this.configuration)
       .filesControllerGetPresignedUrl(ext, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+}
+
+/**
+ * NotificationsApi - axios parameter creator
+ * @export
+ */
+export const NotificationsApiAxiosParamCreator = function (
+  configuration?: Configuration
+) {
+  return {
+    /**
+     *
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    notificationsControllerFindMany: async (
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      const localVarPath = `/api/notifications`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (curPage !== undefined) {
+        localVarQueryParameter['curPage'] = curPage;
+      }
+
+      if (perPage !== undefined) {
+        localVarQueryParameter['perPage'] = perPage;
+      }
+
+      if (searchText !== undefined) {
+        localVarQueryParameter['searchText'] = searchText;
+      }
+
+      if (sort !== undefined) {
+        localVarQueryParameter['sort'] = sort;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    notificationsControllerFindOne: async (
+      id: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('notificationsControllerFindOne', 'id', id);
+      const localVarPath = `/api/notifications/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateNotificationsEventDto} updateNotificationsEventDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    notificationsControllerUpdateOne: async (
+      id: string,
+      updateNotificationsEventDto: UpdateNotificationsEventDto,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('notificationsControllerUpdateOne', 'id', id);
+      // verify required parameter 'updateNotificationsEventDto' is not null or undefined
+      assertParamExists(
+        'notificationsControllerUpdateOne',
+        'updateNotificationsEventDto',
+        updateNotificationsEventDto
+      );
+      const localVarPath = `/api/notifications/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        updateNotificationsEventDto,
+        localVarRequestOptions,
+        configuration
+      );
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+  };
+};
+
+/**
+ * NotificationsApi - functional programming interface
+ * @export
+ */
+export const NotificationsApiFp = function (configuration?: Configuration) {
+  const localVarAxiosParamCreator =
+    NotificationsApiAxiosParamCreator(configuration);
+  return {
+    /**
+     *
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async notificationsControllerFindMany(
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<FindManyNotificationResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.notificationsControllerFindMany(
+          curPage,
+          perPage,
+          searchText,
+          sort,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap[
+          'NotificationsApi.notificationsControllerFindMany'
+        ]?.[localVarOperationServerIndex]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async notificationsControllerFindOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<NotificationsEventDto>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.notificationsControllerFindOne(
+          id,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['NotificationsApi.notificationsControllerFindOne']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateNotificationsEventDto} updateNotificationsEventDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async notificationsControllerUpdateOne(
+      id: string,
+      updateNotificationsEventDto: UpdateNotificationsEventDto,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<NotificationsEventDto>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.notificationsControllerUpdateOne(
+          id,
+          updateNotificationsEventDto,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap[
+          'NotificationsApi.notificationsControllerUpdateOne'
+        ]?.[localVarOperationServerIndex]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+  };
+};
+
+/**
+ * NotificationsApi - factory interface
+ * @export
+ */
+export const NotificationsApiFactory = function (
+  configuration?: Configuration,
+  basePath?: string,
+  axios?: AxiosInstance
+) {
+  const localVarFp = NotificationsApiFp(configuration);
+  return {
+    /**
+     *
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    notificationsControllerFindMany(
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<FindManyNotificationResponse> {
+      return localVarFp
+        .notificationsControllerFindMany(
+          curPage,
+          perPage,
+          searchText,
+          sort,
+          options
+        )
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    notificationsControllerFindOne(
+      id: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<NotificationsEventDto> {
+      return localVarFp
+        .notificationsControllerFindOne(id, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateNotificationsEventDto} updateNotificationsEventDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    notificationsControllerUpdateOne(
+      id: string,
+      updateNotificationsEventDto: UpdateNotificationsEventDto,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<NotificationsEventDto> {
+      return localVarFp
+        .notificationsControllerUpdateOne(
+          id,
+          updateNotificationsEventDto,
+          options
+        )
+        .then((request) => request(axios, basePath));
+    },
+  };
+};
+
+/**
+ * NotificationsApi - object-oriented interface
+ * @export
+ * @class NotificationsApi
+ * @extends {BaseAPI}
+ */
+export class NotificationsApi extends BaseAPI {
+  /**
+   *
+   * @param {number} [curPage]
+   * @param {number} [perPage]
+   * @param {string} [searchText]
+   * @param {string} [sort]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NotificationsApi
+   */
+  public notificationsControllerFindMany(
+    curPage?: number,
+    perPage?: number,
+    searchText?: string,
+    sort?: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return NotificationsApiFp(this.configuration)
+      .notificationsControllerFindMany(
+        curPage,
+        perPage,
+        searchText,
+        sort,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NotificationsApi
+   */
+  public notificationsControllerFindOne(
+    id: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return NotificationsApiFp(this.configuration)
+      .notificationsControllerFindOne(id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {UpdateNotificationsEventDto} updateNotificationsEventDto
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof NotificationsApi
+   */
+  public notificationsControllerUpdateOne(
+    id: string,
+    updateNotificationsEventDto: UpdateNotificationsEventDto,
+    options?: RawAxiosRequestConfig
+  ) {
+    return NotificationsApiFp(this.configuration)
+      .notificationsControllerUpdateOne(
+        id,
+        updateNotificationsEventDto,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 }

@@ -4,6 +4,9 @@ import { getText } from 'nestjs-translates';
 
 export enum NotificationsErrorEnum {
   COMMON = 'NOTIFICATIONS-000',
+  EXTERNAL_TENANT_ID_NOT_SET = 'NOTIFICATIONS-001',
+  EXTERNAL_USER_ID_NOT_SET = 'NOTIFICATIONS-002',
+  FORBIDDEN = 'NOTIFICATIONS-003',
 }
 
 export const NOTIFICATIONS_ERROR_ENUM_TITLES: Record<
@@ -11,6 +14,10 @@ export const NOTIFICATIONS_ERROR_ENUM_TITLES: Record<
   string
 > = {
   [NotificationsErrorEnum.COMMON]: getText('Notificationserror'),
+  [NotificationsErrorEnum.EXTERNAL_TENANT_ID_NOT_SET]:
+    getText('Tenant ID not set'),
+  [NotificationsErrorEnum.EXTERNAL_USER_ID_NOT_SET]: getText('User ID not set'),
+  [NotificationsErrorEnum.FORBIDDEN]: getText('Forbidden'),
 };
 
 export class NotificationsErrorMetadataConstraint {

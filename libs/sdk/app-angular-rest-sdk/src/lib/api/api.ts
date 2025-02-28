@@ -8,6 +8,8 @@ export * from './fake-endpoint-rest.service';
 import { FakeEndpointRestService } from './fake-endpoint-rest.service';
 export * from './files-rest.service';
 import { FilesRestService } from './files-rest.service';
+export * from './notifications-rest.service';
+import { NotificationsRestService } from './notifications-rest.service';
 export * from './sso-rest.service';
 import { SsoRestService } from './sso-rest.service';
 export * from './terminus-health-check-rest.service';
@@ -22,6 +24,7 @@ export const APIS = [
   AuthorizerRestService,
   FakeEndpointRestService,
   FilesRestService,
+  NotificationsRestService,
   SsoRestService,
   TerminusHealthCheckRestService,
   TimeRestService,

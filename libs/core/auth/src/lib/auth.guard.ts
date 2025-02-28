@@ -9,6 +9,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { AuthRole, PrismaClient } from '@prisma/auth-client';
 import { ACCEPT_LANGUAGE, TranslatesStorage } from 'nestjs-translates';
+import { AuthConfiguration } from './auth.configuration';
 import { AUTH_ADMIN_ROLE, AUTH_FEATURE } from './auth.constants';
 import {
   AllowEmptyAuthUser,
@@ -19,7 +20,6 @@ import { AuthStaticEnvironments } from './auth.environments';
 import { AuthError, AuthErrorEnum } from './auth.errors';
 import { AuthCacheService } from './services/auth-cache.service';
 import { AuthRequest } from './types/auth-request';
-import { AuthConfiguration } from './auth.configuration';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -48,7 +48,7 @@ export class AuthGuard implements CanActivate {
         return true;
       }
 
-      const req: AuthRequest = this.getRequestFromExecutionContext(context);
+      const req = this.getRequestFromExecutionContext(context);
 
       // check access by custom logic
       if (this.authConfiguration.checkAccessValidator) {

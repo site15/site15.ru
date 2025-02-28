@@ -90,7 +90,6 @@ export const { SsoModule } = createNestModule({
         UseFilters(SsoExceptionsFilter)(ctrl);
       }
       if (staticEnvironments?.useGuards) {
-        console.log(SsoGuard.name, ctrl.name);
         UseGuards(SsoGuard)(ctrl);
       }
     }

@@ -95,7 +95,7 @@
     "rucken": "rucken",
     "translates": "./node_modules/.bin/rucken prepare --locales=en,ru --update-package-version=false",
     "wait-on": "./node_modules/.bin/wait-on --timeout=240000 --interval=1000 --window",
-    "prepare": "npx -y husky install"
+    "prepare": "npx -y husky"
   },
   "private": true,
   "devDependencies": {
