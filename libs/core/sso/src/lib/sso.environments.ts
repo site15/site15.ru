@@ -29,7 +29,7 @@ export class SsoStaticEnvironments {
     description: 'Domain name for use in templates',
   })
   @IsNotEmpty()
-  templatesVarDomain!: string;
+  templatesVarSsoServerUrl!: string;
 
   @EnvModelProperty({
     description: 'Available user roles',

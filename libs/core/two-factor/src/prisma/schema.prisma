@@ -9,26 +9,24 @@ datasource db {
   provider          = "postgres"
   url               = env("SERVER_TWO_FACTOR_DATABASE_URL")
 }
-
-
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
   exportRelationModifierClasses   = "true"
   classValidation                 = "true"
-  entitySuffix                    = ""
-  prettier                        = "true"
-  flatResourceStructure           = "false"
-  updateDtoPrefix                 = "Update"
-  createDtoPrefix                 = "Create"
-  dtoSuffix                       = "Dto"
   fileNamingStyle                 = "kebab"
-  reExport                        = "false"
   noDependencies                  = "false"
-  entityPrefix                    = ""
   annotateAllDtoProperties        = "true"
-  definiteAssignmentAssertion     = "true"
+  prettier                        = "true"
+  createDtoPrefix                 = "Create"
+  flatResourceStructure           = "false"
+  dtoSuffix                       = "Dto"
+  entitySuffix                    = ""
   outputToNestJsResourceStructure = "false"
+  updateDtoPrefix                 = "Update"
+  reExport                        = "false"
+  definiteAssignmentAssertion     = "true"
+  entityPrefix                    = ""
 }
 
 model TwoFactorUser {

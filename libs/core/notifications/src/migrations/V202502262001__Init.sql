@@ -21,9 +21,12 @@ CREATE TABLE IF NOT EXISTS "NotificationsEvent"(
     "text" text,
     "attempt" int NOT NULL,
     "used" boolean NOT NULL,
-    "senderUserId" uuid NOT NULL,
+    "error" jsonb,
+    "senderUserId" uuid,
+    "senderData" jsonb,
     "recipientGroupId" uuid NOT NULL,
     "recipientUserId" uuid NOT NULL,
+    "recipientData" jsonb,
     "externalTenantId" uuid NOT NULL,
     "createdAt" timestamp DEFAULT now() NOT NULL,
     "updatedAt" timestamp DEFAULT now() NOT NULL

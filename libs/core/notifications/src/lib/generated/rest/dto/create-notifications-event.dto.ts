@@ -1,3 +1,4 @@
+import { Prisma } from '../../../../../../../../node_modules/@prisma/notifications-client';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
@@ -54,11 +55,32 @@ export class CreateNotificationsEventDto {
   @IsBoolean()
   used!: boolean;
   @ApiProperty({
+    type: () => Object,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  error?: Prisma.InputJsonValue | Prisma.NullableJsonNullValueInput;
+  @ApiProperty({
+    type: () => Object,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  senderData?: Prisma.InputJsonValue | Prisma.NullableJsonNullValueInput;
+  @ApiProperty({
     type: 'string',
   })
   @IsNotEmpty()
   @IsString()
   recipientGroupId!: string;
+  @ApiProperty({
+    type: () => Object,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  recipientData?: Prisma.InputJsonValue | Prisma.NullableJsonNullValueInput;
   @ApiProperty({
     type: 'string',
   })

@@ -1,7 +1,19 @@
 process.env.TZ = 'UTC';
 
 import { AUTH_FEATURE, AUTH_FOLDER } from '@nestjs-mod-sso/auth';
+import {
+  NotificationsModule,
+  NotificationsService,
+  SendNotificationOptionsType,
+} from '@nestjs-mod-sso/notifications';
 import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
+import {
+  SsoModule,
+  SsoSendNotificationOptions,
+  SsoTwoFactorCodeGenerateOptions,
+  SsoTwoFactorCodeValidateOptions,
+} from '@nestjs-mod-sso/sso';
+import { TwoFactorModule, TwoFactorService } from '@nestjs-mod-sso/two-factor';
 import { ValidationModule } from '@nestjs-mod-sso/validation';
 import { WEBHOOK_FEATURE, WEBHOOK_FOLDER } from '@nestjs-mod-sso/webhook';
 import {
@@ -40,12 +52,6 @@ import {
   MainWebhookModule,
   rootFolder,
 } from './environments/environment';
-import {
-  SsoModule,
-  SsoTwoFactorCodeGenerateOptions,
-  SsoTwoFactorCodeValidateOptions,
-} from '@nestjs-mod-sso/sso';
-import { TwoFactorModule, TwoFactorService } from '@nestjs-mod-sso/two-factor';
 
 bootstrapNestApplication({
   project: {
@@ -178,9 +184,49 @@ bootstrapNestApplication({
     ],
     feature: [
       SsoModule.forRootAsync({
-        inject: [TwoFactorService],
-        configurationFactory: (twoFactorService: TwoFactorService) => {
+        imports: [
+          TwoFactorModule.forFeature({ featureModuleName: APP_FEATURE }),
+          NotificationsModule.forFeature({ featureModuleName: APP_FEATURE }),
+        ],
+        inject: [TwoFactorService, NotificationsService],
+        configurationFactory: (
+          twoFactorService: TwoFactorService,
+          notificationsService: NotificationsService
+        ) => {
           return {
+            sendNotification: async (options: SsoSendNotificationOptions) => {
+              return await notificationsService.sendNotification({
+                externalTenantId: options.projectId,
+                html: options.html,
+                operationName: 'any',
+                recipients: options.recipientUsers.map((recipientUser) => ({
+                  externalUserId: recipientUser.id,
+                  email: recipientUser.email || undefined,
+                  phone: recipientUser.phone || undefined,
+                  name:
+                    recipientUser.firstname && recipientUser.lastname
+                      ? `${recipientUser.firstname} ${recipientUser.lastname}`
+                      : undefined,
+                })),
+                subject: options.subject,
+                type: options.recipientUsers[0].phoneVerifiedAt
+                  ? SendNotificationOptionsType.phone
+                  : SendNotificationOptionsType.email,
+                sender: options.senderUser
+                  ? {
+                      externalUserId: options.senderUser.id,
+                      email: options.senderUser.email || undefined,
+                      phone: options.senderUser.phone || undefined,
+                      name:
+                        options.senderUser.firstname &&
+                        options.senderUser.lastname
+                          ? `${options.senderUser.firstname} ${options.senderUser.lastname}`
+                          : undefined,
+                    }
+                  : undefined,
+                text: options.text,
+              });
+            },
             twoFactorCodeGenerate: async (
               options: SsoTwoFactorCodeGenerateOptions
             ) => {
@@ -206,9 +252,6 @@ bootstrapNestApplication({
             },
           };
         },
-        imports: [
-          TwoFactorModule.forFeature({ featureModuleName: APP_FEATURE }),
-        ],
       }),
       AppModule.forRoot(),
       MainWebhookModule,

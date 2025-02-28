@@ -8,8 +8,6 @@ export type SsoSendNotificationOptions = {
   subject: string;
   html: string;
   text?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context?: any;
   projectId: string;
 };
 

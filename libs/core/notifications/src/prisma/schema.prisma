@@ -9,26 +9,24 @@ datasource db {
   provider          = "postgres"
   url               = env("SERVER_NOTIFICATIONS_DATABASE_URL")
 }
-
-
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  exportRelationModifierClasses   = "true"
-  classValidation                 = "true"
-  entitySuffix                    = ""
-  prettier                        = "true"
-  flatResourceStructure           = "false"
   updateDtoPrefix                 = "Update"
-  createDtoPrefix                 = "Create"
-  dtoSuffix                       = "Dto"
-  fileNamingStyle                 = "kebab"
-  reExport                        = "false"
-  noDependencies                  = "false"
-  entityPrefix                    = ""
+  prettier                        = "true"
   annotateAllDtoProperties        = "true"
   definiteAssignmentAssertion     = "true"
+  entityPrefix                    = ""
+  classValidation                 = "true"
+  reExport                        = "false"
+  exportRelationModifierClasses   = "true"
+  fileNamingStyle                 = "kebab"
+  flatResourceStructure           = "false"
+  dtoSuffix                       = "Dto"
   outputToNestJsResourceStructure = "false"
+  noDependencies                  = "false"
+  createDtoPrefix                 = "Create"
+  entitySuffix                    = ""
 }
 
 model NotificationsUser {
@@ -45,22 +43,25 @@ model NotificationsUser {
 }
 
 model NotificationsEvent {
-  id                                                                      String            @id(map: "PK_NOTIFICATIONS_EVENTS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  type                                                                    String            @db.VarChar(512)
-  operationName                                                           String            @db.VarChar(512)
-  subject                                                                 String            @db.VarChar(512)
+  id                                                                      String             @id(map: "PK_NOTIFICATIONS_EVENTS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  type                                                                    String             @db.VarChar(512)
+  operationName                                                           String             @db.VarChar(512)
+  subject                                                                 String             @db.VarChar(512)
   html                                                                    String
   text                                                                    String?
   attempt                                                                 Int
   used                                                                    Boolean
-  senderUserId                                                            String            @db.Uuid
-  recipientGroupId                                                        String            @db.Uuid
-  recipientUserId                                                         String            @db.Uuid
-  externalTenantId                                                        String            @unique(map: "IDX_NOTIFICATIONS__EXTERNAL_TENANT_ID") @db.Uuid
-  createdAt                                                               DateTime          @default(now()) @db.Timestamp(6)
-  updatedAt                                                               DateTime          @default(now()) @db.Timestamp(6)
-  NotificationsUser_NotificationsEvent_recipientUserIdToNotificationsUser NotificationsUser @relation("NotificationsEvent_recipientUserIdToNotificationsUser", fields: [recipientUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_NOTIFICATIONS__RECIPIENT_USER_ID")
-  NotificationsUser_NotificationsEvent_senderUserIdToNotificationsUser    NotificationsUser @relation("NotificationsEvent_senderUserIdToNotificationsUser", fields: [senderUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_NOTIFICATIONS__SENDER_USER_ID")
+  error                                                                   Json?
+  senderUserId                                                            String?            @db.Uuid
+  senderData                                                              Json?
+  recipientGroupId                                                        String             @db.Uuid
+  recipientUserId                                                         String             @db.Uuid
+  recipientData                                                           Json?
+  externalTenantId                                                        String             @unique(map: "IDX_NOTIFICATIONS__EXTERNAL_TENANT_ID") @db.Uuid
+  createdAt                                                               DateTime           @default(now()) @db.Timestamp(6)
+  updatedAt                                                               DateTime           @default(now()) @db.Timestamp(6)
+  NotificationsUser_NotificationsEvent_recipientUserIdToNotificationsUser NotificationsUser  @relation("NotificationsEvent_recipientUserIdToNotificationsUser", fields: [recipientUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_NOTIFICATIONS__RECIPIENT_USER_ID")
+  NotificationsUser_NotificationsEvent_senderUserIdToNotificationsUser    NotificationsUser? @relation("NotificationsEvent_senderUserIdToNotificationsUser", fields: [senderUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_NOTIFICATIONS__SENDER_USER_ID")
 
   @@unique([recipientGroupId, externalTenantId], map: "IDX_NOTIFICATIONS__RECIPIENT_GROUP_ID")
   @@unique([recipientUserId, externalTenantId], map: "IDX_NOTIFICATIONS__RECIPIENT_USER_ID")

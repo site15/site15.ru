@@ -6,8 +6,8 @@ import { PrismaClient, SsoUser } from '@prisma/sso-client';
 import ms from 'ms';
 import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
 import {
-  SsoSendNotificationOptions,
   SsoConfiguration,
+  SsoSendNotificationOptions,
 } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
@@ -88,15 +88,11 @@ export class SsoService {
             .translate(
               'Please navigate by a <a href="{{{domain}}}/verify-email?code={{code}}">link</a> to verify your email',
               {
-                domain: this.ssoStaticEnvironments.templatesVarDomain,
+                domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
                 code: code,
               }
             ),
         ].join('<br/>'),
-        context: {
-          domain: this.ssoStaticEnvironments.templatesVarDomain,
-          code: code,
-        },
         projectId,
       };
       if (this.ssoConfiguration.sendNotification) {
@@ -183,15 +179,11 @@ export class SsoService {
               .translate(
                 'Please navigate by a <a href="{{{domain}}}/complete-forgot-password?code={{code}}">link</a> to set new password',
                 {
-                  domain: this.ssoStaticEnvironments.templatesVarDomain,
+                  domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
                   code: code,
                 }
               ),
           ].join('<br/>'),
-          context: {
-            domain: this.ssoStaticEnvironments.templatesVarDomain,
-            code: code,
-          },
         });
       }
     }
