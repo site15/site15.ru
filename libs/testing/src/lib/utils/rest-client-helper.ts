@@ -71,6 +71,8 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       supabaseKey?: string;
       randomUser?: GenerateRandomUserResult;
       activeLang?: string;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      headers?: any;
     }
   ) {
     this.randomUser = options?.randomUser as GenerateRandomUserResult;
@@ -431,6 +433,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
   getAuthorizationHeaders() {
     return {
+      ...this.options?.headers,
       Authorization: `Bearer ${
         this.authData?.session?.access_token ||
         this.authorizationTokens?.access_token

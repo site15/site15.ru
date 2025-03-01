@@ -90,10 +90,28 @@ export class NotificationsController {
                       error: { string_contains: searchText },
                     },
                     {
-                      recipientData: { string_contains: searchText },
+                      recipientData: {
+                        string_contains: searchText,
+                        path: ['email'],
+                      },
                     },
                     {
-                      senderData: { string_contains: searchText },
+                      senderData: {
+                        string_contains: searchText,
+                        path: ['email'],
+                      },
+                    },
+                    {
+                      recipientData: {
+                        string_contains: searchText,
+                        path: ['phone'],
+                      },
+                    },
+                    {
+                      senderData: {
+                        string_contains: searchText,
+                        path: ['phone'],
+                      },
                     },
                   ],
                 }
@@ -123,10 +141,28 @@ export class NotificationsController {
                       error: { string_contains: searchText },
                     },
                     {
-                      recipientData: { string_contains: searchText },
+                      recipientData: {
+                        string_contains: searchText,
+                        path: ['email'],
+                      },
                     },
                     {
-                      senderData: { string_contains: searchText },
+                      senderData: {
+                        string_contains: searchText,
+                        path: ['email'],
+                      },
+                    },
+                    {
+                      recipientData: {
+                        string_contains: searchText,
+                        path: ['phone'],
+                      },
+                    },
+                    {
+                      senderData: {
+                        string_contains: searchText,
+                        path: ['phone'],
+                      },
                     },
                   ],
                 }

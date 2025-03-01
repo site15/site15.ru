@@ -92,25 +92,21 @@ describe('Auth (e2e)', () => {
   });
 
   it('Sign-up', async () => {
-    try {
-      const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp(
-        {
-          username: user.randomUser.username,
-          email: user.randomUser.email,
-          password: user.randomUser.password,
-          rePassword: user.randomUser.password,
-          fingerprint: user.randomUser.id,
+    const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp(
+      {
+        username: user.randomUser.username,
+        email: user.randomUser.email,
+        password: user.randomUser.password,
+        rePassword: user.randomUser.password,
+        fingerprint: user.randomUser.id,
+      },
+      {
+        headers: {
+          'x-client-id': project.randomUser.id,
         },
-        {
-          headers: {
-            'x-client-id': project.randomUser.id,
-          },
-        }
-      );
-      expect(signUpResult).toMatchObject({ message: 'ok' });
-    } catch (error) {
-      console.log(getErrorData(error));
-    }
+      }
+    );
+    expect(signUpResult).toMatchObject({ message: 'ok' });
   });
 
   it('English errors in sign-in not exists user', async () => {

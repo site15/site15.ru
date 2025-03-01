@@ -1,13 +1,13 @@
-import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { PrismaClient, SsoUser } from '@prisma/sso-client';
 import ms from 'ms';
 import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
 import {
   SsoConfiguration,
   SsoSendNotificationOptions,
+  SsoSendNotificationOptionsOperationName,
+  SsoTwoFactorCodeOptionsOperationName,
 } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
@@ -33,10 +33,8 @@ export class SsoService {
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoUsersService: SsoUsersService,
-    private readonly jwtService: JwtService,
     private readonly ssoCookieService: SsoCookieService,
     private readonly translatesAsyncLocalStorageContext: TranslatesAsyncLocalStorageContext,
-    private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoTokensService: SsoTokensService
   ) {}
 
@@ -76,23 +74,32 @@ export class SsoService {
     if (this.ssoConfiguration.twoFactorCodeGenerate) {
       const code = await this.ssoConfiguration.twoFactorCodeGenerate({
         user,
+        operationName: SsoTwoFactorCodeOptionsOperationName.VERIFY_EMAIL,
       });
       const sendNotificationOptions: SsoSendNotificationOptions = {
         recipientUsers: [user],
         subject: this.translatesAsyncLocalStorageContext
           .get()
           .translate('Verify your email'),
-        html: [
-          this.translatesAsyncLocalStorageContext
-            .get()
-            .translate(
-              'Please navigate by a <a href="{{{domain}}}/verify-email?code={{code}}">link</a> to verify your email',
-              {
-                domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
-                code: code,
-              }
-            ),
-        ].join('<br/>'),
+        text: this.translatesAsyncLocalStorageContext
+          .get()
+          .translate(
+            'Please navigate by a {{{domain}}}/verify-email?code={{code}} to verify your email',
+            {
+              domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
+              code: code,
+            }
+          ),
+        html: this.translatesAsyncLocalStorageContext
+          .get()
+          .translate(
+            'Please navigate by a <a href="{{{domain}}}/verify-email?code={{code}}">link</a> to verify your email',
+            {
+              domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
+              code: code,
+            }
+          ),
+        operationName: SsoSendNotificationOptionsOperationName.VERIFY_EMAIL,
         projectId,
       };
       if (this.ssoConfiguration.sendNotification) {
@@ -118,12 +125,21 @@ export class SsoService {
       ? await this.ssoConfiguration.twoFactorCodeValidate({
           code,
           projectId,
+          operationName: SsoTwoFactorCodeOptionsOperationName.VERIFY_EMAIL,
         })
       : null;
 
     if (!result) {
       return result;
     }
+
+    this.logger.debug({
+      completeSignUp: {
+        code,
+        projectId,
+        result,
+      },
+    });
 
     return await this.prismaClient.ssoUser.update({
       where: { id: result.userId, projectId },
@@ -164,6 +180,8 @@ export class SsoService {
       const code = await this.ssoConfiguration.twoFactorCodeGenerate({
         ...ssoRequest,
         user,
+        operationName:
+          SsoTwoFactorCodeOptionsOperationName.COMPLETE_FORGOT_PASSWORD,
       });
 
       if (this.ssoConfiguration.sendNotification) {
@@ -173,17 +191,26 @@ export class SsoService {
           subject: this.translatesAsyncLocalStorageContext
             .get()
             .translate('Restore forgotten password link'),
-          html: [
-            this.translatesAsyncLocalStorageContext
-              .get()
-              .translate(
-                'Please navigate by a <a href="{{{domain}}}/complete-forgot-password?code={{code}}">link</a> to set new password',
-                {
-                  domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
-                  code: code,
-                }
-              ),
-          ].join('<br/>'),
+          text: this.translatesAsyncLocalStorageContext
+            .get()
+            .translate(
+              'Please navigate by a {{{domain}}}/complete-forgot-password?code={{code}} to set new password',
+              {
+                domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
+                code: code,
+              }
+            ),
+          html: this.translatesAsyncLocalStorageContext
+            .get()
+            .translate(
+              'Please navigate by a <a href="{{{domain}}}/complete-forgot-password?code={{code}}">link</a> to set new password',
+              {
+                domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
+                code: code,
+              }
+            ),
+          operationName:
+            SsoSendNotificationOptionsOperationName.COMPLETE_FORGOT_PASSWORD,
         });
       }
     }
@@ -204,6 +231,8 @@ export class SsoService {
       const result = await this.ssoConfiguration.twoFactorCodeValidate({
         code,
         projectId,
+        operationName:
+          SsoTwoFactorCodeOptionsOperationName.COMPLETE_FORGOT_PASSWORD,
       });
       return this.ssoUsersService.changePassword({
         id: result.userId,

@@ -2,6 +2,16 @@ import { ConfigModel, ConfigModelProperty } from '@nestjs-mod/common';
 import { SsoUser } from './generated/rest/dto/sso-user.entity';
 import { randomUUID } from 'node:crypto';
 
+export enum SsoSendNotificationOptionsOperationName {
+  VERIFY_EMAIL = 'VERIFY_EMAIL',
+  COMPLETE_FORGOT_PASSWORD = 'COMPLETE_FORGOT_PASSWORD',
+}
+
+export enum SsoTwoFactorCodeOptionsOperationName {
+  VERIFY_EMAIL = 'VERIFY_EMAIL',
+  COMPLETE_FORGOT_PASSWORD = 'COMPLETE_FORGOT_PASSWORD',
+}
+
 export type SsoSendNotificationOptions = {
   senderUser?: SsoUser;
   recipientUsers: SsoUser[];
@@ -9,15 +19,18 @@ export type SsoSendNotificationOptions = {
   html: string;
   text?: string;
   projectId: string;
+  operationName: SsoSendNotificationOptionsOperationName;
 };
 
 export type SsoTwoFactorCodeValidateOptions = {
   code: string;
   projectId: string;
+  operationName: SsoTwoFactorCodeOptionsOperationName;
 };
 
 export type SsoTwoFactorCodeGenerateOptions = {
   user: SsoUser;
+  operationName: SsoTwoFactorCodeOptionsOperationName;
 };
 
 export type SsoTwoFactorCodeValidateResponse = {

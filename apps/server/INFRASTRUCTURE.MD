@@ -743,8 +743,6 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 |`usePipes`|`obj['usePipes']`, `process.env['SERVER_VALIDATION_USE_PIPES']`|**optional**|```false```|
 |`useFilters`|`obj['useFilters']`, `process.env['SERVER_VALIDATION_USE_FILTERS']`|**optional**|```true```|
 
-## Feature modules
-
 ### SsoModule
 #### Shared providers
 `SsoService`, `SsoUsersService`, `SsoCookieService`, `SsoEventsService`, `SsoPasswordService`, `SsoCacheService`, `SsoTokensService`, `JwtService`
@@ -773,6 +771,36 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 |`jwtAccessTokenExpiresIn`|`obj['jwtAccessTokenExpiresIn']`, `process.env['SERVER_SSO_JWT_ACCESS_TOKEN_EXPIRES_IN']`|**isNotEmpty** (jwtAccessTokenExpiresIn should not be empty)|```30m```|
 |`jwtRefreshTokenExpiresIn`|`obj['jwtRefreshTokenExpiresIn']`, `process.env['SERVER_SSO_JWT_REFRESH_TOKEN_EXPIRES_IN']`|**isNotEmpty** (jwtRefreshTokenExpiresIn should not be empty)|```24h```|
 |`adminSecret`|`obj['adminSecret']`, `process.env['SERVER_SSO_ADMIN_SECRET']`|**optional**|```VfKSfPPljhHBXCEohnitursmgDxfAyiD```|
+
+### NotificationsModule
+#### Shared providers
+`NotificationsService`
+
+#### Shared imports
+`PrismaModule`, `PrismaToolsModule`
+
+#### Configuration
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`checkAccessValidator`|**optional**|```checkAccessValidator```|
+
+#### Static environments
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`useFilters`|`obj['useFilters']`, `process.env['SERVER_NOTIFICATIONS_USE_FILTERS']`|**optional**|```true```|
+|`mailTransport`|`obj['mailTransport']`, `process.env['SERVER_NOTIFICATIONS_MAIL_TRANSPORT']`|**optional**|-|
+|`mailDefaultSenderName`|`obj['mailDefaultSenderName']`, `process.env['SERVER_NOTIFICATIONS_MAIL_DEFAULT_SENDER_NAME']`|**optional**|-|
+|`mailDefaultSenderEmail`|`obj['mailDefaultSenderEmail']`, `process.env['SERVER_NOTIFICATIONS_MAIL_DEFAULT_SENDER_EMAIL']`|**optional**|-|
+
+#### Static configuration
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`guards`|**optional**|-|
+
+## Feature modules
 
 ### AppModule
 ### WebhookModule

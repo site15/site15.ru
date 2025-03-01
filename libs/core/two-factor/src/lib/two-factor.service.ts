@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {
   PrismaClient,
   TwoFactorCode,
@@ -16,6 +16,8 @@ import { TwoFactorError, TwoFactorErrorEnum } from './two-factor.errors';
 
 @Injectable()
 export class TwoFactorService {
+  private readonly logger = new Logger(TwoFactorService.name);
+
   constructor(
     @InjectPrismaClient(TWO_FACTOR_FEATURE)
     private readonly prismaClient: PrismaClient,
@@ -211,7 +213,9 @@ export class TwoFactorService {
         },
       });
       return { twoFactorCode, code };
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      this.logger.error(err, err.stack);
       return this.recursiveGenTwoFactorCode(options, depth - 1);
     }
   }

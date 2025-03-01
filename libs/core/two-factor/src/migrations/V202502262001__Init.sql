@@ -47,7 +47,7 @@ $$;
 
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_TWO_FACTOR_CODES" ON "TwoFactorCode"("userId", "operationName", "type", "code", "externalTenantId");
 
-CREATE UNIQUE INDEX IF NOT EXISTS "IDX_TWO_FACTOR_CODES__USER_ID" ON "TwoFactorCode"("userId", "externalTenantId");
+CREATE INDEX IF NOT EXISTS "IDX_TWO_FACTOR_CODES__USER_ID" ON "TwoFactorCode"("userId", "externalTenantId");
 
-CREATE UNIQUE INDEX IF NOT EXISTS "IDX_TWO_FACTOR_CODES__EXTERNAL_TENANT_ID" ON "TwoFactorCode"("externalTenantId");
+CREATE INDEX IF NOT EXISTS "IDX_TWO_FACTOR_CODES__EXTERNAL_TENANT_ID" ON "TwoFactorCode"("externalTenantId");
 

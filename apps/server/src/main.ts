@@ -203,7 +203,7 @@ bootstrapNestApplication({
               return await notificationsService.sendNotification({
                 externalTenantId: options.projectId,
                 html: options.html,
-                operationName: 'any',
+                operationName: options.operationName,
                 recipients: options.recipientUsers.map((recipientUser) => ({
                   externalUserId: recipientUser.id,
                   email: recipientUser.email || undefined,
@@ -238,7 +238,7 @@ bootstrapNestApplication({
               const generatedCode = await twoFactorService.generateCode({
                 externalTenantId: options.user.projectId,
                 externalUserId: options.user.id,
-                operationName: 'any',
+                operationName: options.operationName,
                 type: options.user.phoneVerifiedAt ? 'phone' : 'email',
               });
               return generatedCode.code;
@@ -248,11 +248,11 @@ bootstrapNestApplication({
             ) => {
               const validatedCode = await twoFactorService.validateCode({
                 externalTenantId: options.projectId,
-                operationName: 'any',
+                operationName: options.operationName,
                 code: options.code,
               });
               return {
-                userId: validatedCode.twoFactorUser.id,
+                userId: validatedCode.twoFactorUser.externalUserId,
               };
             },
           };

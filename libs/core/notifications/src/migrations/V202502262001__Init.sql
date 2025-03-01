@@ -64,11 +64,11 @@ $$;
 
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_NOTIFICATIONS" ON "NotificationsEvent"("senderUserId", "recipientUserId", "operationName", "type", "html", "subject", "externalTenantId");
 
-CREATE UNIQUE INDEX IF NOT EXISTS "IDX_NOTIFICATIONS__SENDER_USER_ID" ON "NotificationsEvent"("senderUserId", "externalTenantId");
+CREATE INDEX IF NOT EXISTS "IDX_NOTIFICATIONS__SENDER_USER_ID" ON "NotificationsEvent"("senderUserId", "externalTenantId");
 
-CREATE UNIQUE INDEX IF NOT EXISTS "IDX_NOTIFICATIONS__RECIPIENT_USER_ID" ON "NotificationsEvent"("recipientUserId", "externalTenantId");
+CREATE INDEX IF NOT EXISTS "IDX_NOTIFICATIONS__RECIPIENT_USER_ID" ON "NotificationsEvent"("recipientUserId", "externalTenantId");
 
-CREATE UNIQUE INDEX IF NOT EXISTS "IDX_NOTIFICATIONS__RECIPIENT_GROUP_ID" ON "NotificationsEvent"("recipientGroupId", "externalTenantId");
+CREATE INDEX IF NOT EXISTS "IDX_NOTIFICATIONS__RECIPIENT_GROUP_ID" ON "NotificationsEvent"("recipientGroupId", "externalTenantId");
 
-CREATE UNIQUE INDEX IF NOT EXISTS "IDX_NOTIFICATIONS__EXTERNAL_TENANT_ID" ON "NotificationsEvent"("externalTenantId");
+CREATE INDEX IF NOT EXISTS "IDX_NOTIFICATIONS__EXTERNAL_TENANT_ID" ON "NotificationsEvent"("externalTenantId");
 
