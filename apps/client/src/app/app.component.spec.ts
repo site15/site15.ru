@@ -9,7 +9,10 @@ import {
   RestClientConfiguration,
 } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { MINIO_URL } from '@nestjs-mod-sso/files-angular';
-import { authorizerURL, minioURL } from '../environments/environment';
+import {
+  authorizerURL,
+  minioURL,
+} from '../environments/environment.authorizer';
 import { AppComponent } from './app.component';
 import {
   AUTHORIZER_URL,

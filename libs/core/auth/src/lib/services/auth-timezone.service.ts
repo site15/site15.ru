@@ -45,6 +45,50 @@ export class AuthTimezoneService {
     return data;
   }
 
+  convertDatesInObjectToDateStrings(data: TData, depth = 10): TData {
+    if (depth === 0) {
+      return data;
+    }
+    if (Array.isArray(data)) {
+      const newArray: unknown[] = [];
+      for (const item of data) {
+        newArray.push(this.convertDatesInObjectToDateStrings(item, depth - 1));
+      }
+      return newArray;
+    }
+    if (
+      (typeof data === 'string' ||
+        typeof data === 'number' ||
+        typeof data === 'function') &&
+      !this.isValidDate(data) &&
+      !this.isValidStringDate(data)
+    ) {
+      return data;
+    }
+    try {
+      if (data) {
+        if (this.isValidDate(data)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          data = (data as any)['toISOString']
+            ? (data as Date).toISOString()
+            : data;
+        } else {
+          const keys = Object.keys(data as object);
+          for (const key of keys) {
+            (data as TObject)[key] = this.convertDatesInObjectToDateStrings(
+              (data as TObject)[key],
+              depth - 1
+            );
+          }
+        }
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      this.logger.error(err, err.stack);
+    }
+    return data;
+  }
+
   private convertComplexObject(data: TData, timezone: number, depth: number) {
     const keys = Object.keys(data as object);
     for (const key of keys) {

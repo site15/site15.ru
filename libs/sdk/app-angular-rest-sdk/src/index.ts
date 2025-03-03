@@ -26,7 +26,6 @@ export * from './lib/model/auth-role.interface';
 export * from './lib/model/auth-user-scalar-field-enum.interface';
 export * from './lib/model/auth-user.interface';
 export * from './lib/model/authorizer-client-id.interface';
-export * from './lib/model/change-password-args.interface';
 export * from './lib/model/complete-forgot-password-args.interface';
 export * from './lib/model/complete-sign-up-args.interface';
 export * from './lib/model/create-sso-project-dto.interface';

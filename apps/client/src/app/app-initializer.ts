@@ -5,6 +5,7 @@ import {
   AppRestService,
   AuthRestService,
   FilesRestService,
+  SsoRestService,
   TimeRestService,
   WebhookRestService,
 } from '@nestjs-mod-sso/app-angular-rest-sdk';
@@ -31,6 +32,7 @@ export class AppInitializer {
     private readonly authService: AuthService,
     private readonly filesRestService: FilesRestService,
     private readonly authRestService: AuthRestService,
+    private readonly ssoRestService: SsoRestService,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
     private readonly authActiveLangService: AuthActiveLangService,
@@ -79,6 +81,9 @@ export class AppInitializer {
               authorizationHeaders
             );
             this.authRestService.defaultHeaders = new HttpHeaders(
+              authorizationHeaders
+            );
+            this.ssoRestService.defaultHeaders = new HttpHeaders(
               authorizationHeaders
             );
           }

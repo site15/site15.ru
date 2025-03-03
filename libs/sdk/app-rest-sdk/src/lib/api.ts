@@ -287,25 +287,6 @@ export interface AuthorizerClientID {
 /**
  *
  * @export
- * @interface ChangePasswordArgs
- */
-export interface ChangePasswordArgs {
-  /**
-   *
-   * @type {string}
-   * @memberof ChangePasswordArgs
-   */
-  password: string;
-  /**
-   *
-   * @type {string}
-   * @memberof ChangePasswordArgs
-   */
-  rePassword: string;
-}
-/**
- *
- * @export
  * @interface CompleteForgotPasswordArgs
  */
 export interface CompleteForgotPasswordArgs {
@@ -320,7 +301,7 @@ export interface CompleteForgotPasswordArgs {
    * @type {string}
    * @memberof CompleteForgotPasswordArgs
    */
-  rePassword: string;
+  confirmPassword: string;
   /**
    *
    * @type {string}
@@ -1129,7 +1110,7 @@ export interface SignUpArgs {
    * @type {string}
    * @memberof SignUpArgs
    */
-  username: string;
+  username?: string;
   /**
    *
    * @type {string}
@@ -1141,7 +1122,7 @@ export interface SignUpArgs {
    * @type {string}
    * @memberof SignUpArgs
    */
-  rePassword?: string;
+  confirmPassword?: string;
   /**
    *
    * @type {string}
@@ -1202,7 +1183,7 @@ export interface SsoEntities {
  */
 export interface SsoError {
   /**
-   * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013)
+   * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014)
    * @type {string}
    * @memberof SsoError
    */
@@ -1242,6 +1223,7 @@ export const SsoErrorEnum = {
   Sso011: 'SSO-011',
   Sso012: 'SSO-012',
   Sso013: 'SSO-013',
+  Sso014: 'SSO-014',
 } as const;
 
 export type SsoErrorEnum = (typeof SsoErrorEnum)[keyof typeof SsoErrorEnum];
@@ -1765,6 +1747,12 @@ export interface TokensResponse {
    * @memberof TokensResponse
    */
   refreshToken: string;
+  /**
+   *
+   * @type {SsoUser}
+   * @memberof TokensResponse
+   */
+  user: SsoUser;
 }
 /**
  *
@@ -1913,6 +1901,24 @@ export interface UpdateProfileArgs {
    * @memberof UpdateProfileArgs
    */
   picture?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileArgs
+   */
+  oldPassword?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileArgs
+   */
+  password?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateProfileArgs
+   */
+  confirmPassword?: string;
 }
 /**
  *
@@ -5048,59 +5054,6 @@ export const SsoApiAxiosParamCreator = function (
   return {
     /**
      *
-     * @param {ChangePasswordArgs} changePasswordArgs
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    ssoControllerChangePassword: async (
-      changePasswordArgs: ChangePasswordArgs,
-      options: RawAxiosRequestConfig = {}
-    ): Promise<RequestArgs> => {
-      // verify required parameter 'changePasswordArgs' is not null or undefined
-      assertParamExists(
-        'ssoControllerChangePassword',
-        'changePasswordArgs',
-        changePasswordArgs
-      );
-      const localVarPath = `/api/sso/change-password`;
-      // use dummy base URL string because the URL constructor only accepts absolute URLs.
-      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-      let baseOptions;
-      if (configuration) {
-        baseOptions = configuration.baseOptions;
-      }
-
-      const localVarRequestOptions = {
-        method: 'POST',
-        ...baseOptions,
-        ...options,
-      };
-      const localVarHeaderParameter = {} as any;
-      const localVarQueryParameter = {} as any;
-
-      localVarHeaderParameter['Content-Type'] = 'application/json';
-
-      setSearchParams(localVarUrlObj, localVarQueryParameter);
-      let headersFromBaseOptions =
-        baseOptions && baseOptions.headers ? baseOptions.headers : {};
-      localVarRequestOptions.headers = {
-        ...localVarHeaderParameter,
-        ...headersFromBaseOptions,
-        ...options.headers,
-      };
-      localVarRequestOptions.data = serializeDataIfNeeded(
-        changePasswordArgs,
-        localVarRequestOptions,
-        configuration
-      );
-
-      return {
-        url: toPathString(localVarUrlObj),
-        options: localVarRequestOptions,
-      };
-    },
-    /**
-     *
      * @param {string} code
      * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs
      * @param {*} [options] Override http request option.
@@ -6054,36 +6007,6 @@ export const SsoApiFp = function (configuration?: Configuration) {
   return {
     /**
      *
-     * @param {ChangePasswordArgs} changePasswordArgs
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    async ssoControllerChangePassword(
-      changePasswordArgs: ChangePasswordArgs,
-      options?: RawAxiosRequestConfig
-    ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
-    > {
-      const localVarAxiosArgs =
-        await localVarAxiosParamCreator.ssoControllerChangePassword(
-          changePasswordArgs,
-          options
-        );
-      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-      const localVarOperationServerBasePath =
-        operationServerMap['SsoApi.ssoControllerChangePassword']?.[
-          localVarOperationServerIndex
-        ]?.url;
-      return (axios, basePath) =>
-        createRequestFunction(
-          localVarAxiosArgs,
-          globalAxios,
-          BASE_PATH,
-          configuration
-        )(axios, localVarOperationServerBasePath || basePath);
-    },
-    /**
-     *
      * @param {string} code
      * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs
      * @param {*} [options] Override http request option.
@@ -6303,7 +6226,7 @@ export const SsoApiFp = function (configuration?: Configuration) {
       signUpArgs: SignUpArgs,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoControllerSignUp(
@@ -6666,20 +6589,6 @@ export const SsoApiFactory = function (
   return {
     /**
      *
-     * @param {ChangePasswordArgs} changePasswordArgs
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     */
-    ssoControllerChangePassword(
-      changePasswordArgs: ChangePasswordArgs,
-      options?: RawAxiosRequestConfig
-    ): AxiosPromise<StatusResponse> {
-      return localVarFp
-        .ssoControllerChangePassword(changePasswordArgs, options)
-        .then((request) => request(axios, basePath));
-    },
-    /**
-     *
      * @param {string} code
      * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs
      * @param {*} [options] Override http request option.
@@ -6791,7 +6700,7 @@ export const SsoApiFactory = function (
     ssoControllerSignUp(
       signUpArgs: SignUpArgs,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<StatusResponse> {
+    ): AxiosPromise<TokensResponse> {
       return localVarFp
         .ssoControllerSignUp(signUpArgs, options)
         .then((request) => request(axios, basePath));
@@ -6968,22 +6877,6 @@ export const SsoApiFactory = function (
  * @extends {BaseAPI}
  */
 export class SsoApi extends BaseAPI {
-  /**
-   *
-   * @param {ChangePasswordArgs} changePasswordArgs
-   * @param {*} [options] Override http request option.
-   * @throws {RequiredError}
-   * @memberof SsoApi
-   */
-  public ssoControllerChangePassword(
-    changePasswordArgs: ChangePasswordArgs,
-    options?: RawAxiosRequestConfig
-  ) {
-    return SsoApiFp(this.configuration)
-      .ssoControllerChangePassword(changePasswordArgs, options)
-      .then((request) => request(this.axios, this.basePath));
-  }
-
   /**
    *
    * @param {string} code

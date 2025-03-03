@@ -10,6 +10,6 @@
 
 export interface CompleteForgotPasswordArgsInterface {
   password: string;
-  rePassword: string;
+  confirmPassword: string;
   fingerprint: string;
 }

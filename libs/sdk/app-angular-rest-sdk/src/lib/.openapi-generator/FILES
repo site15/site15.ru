@@ -28,7 +28,6 @@ model/auth-role.interface.ts
 model/auth-user-scalar-field-enum.interface.ts
 model/auth-user.interface.ts
 model/authorizer-client-id.interface.ts
-model/change-password-args.interface.ts
 model/complete-forgot-password-args.interface.ts
 model/complete-sign-up-args.interface.ts
 model/create-sso-project-dto.interface.ts

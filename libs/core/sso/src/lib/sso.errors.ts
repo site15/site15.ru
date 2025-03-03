@@ -17,6 +17,7 @@ export enum SsoErrorEnum {
   EmailIsExists = 'SSO-011',
   EmailNotVerified = 'SSO-012',
   Forbidden = 'SSO-013',
+  WrongOldPassword = 'SSO-014',
 }
 
 export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
@@ -36,6 +37,7 @@ export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
   [SsoErrorEnum.EmailIsExists]: getText('User is exists'),
   [SsoErrorEnum.EmailNotVerified]: getText('Email not verified'),
   [SsoErrorEnum.Forbidden]: getText('Forbidden'),
+  [SsoErrorEnum.WrongOldPassword]: getText('Wrong old password'),
 };
 
 export class SsoError<T = unknown> extends Error {

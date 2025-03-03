@@ -12,6 +12,7 @@ import { TranslatesModule } from 'nestjs-translates';
 import { SsoProjectsController } from './controllers/sso-projects.controller';
 import { SsoUsersController } from './controllers/sso-users.controller';
 import { SsoController } from './controllers/sso.controller';
+import { SsoServiceBootstrap } from './services/sso-bootstrap.service';
 import { SsoCacheService } from './services/sso-cache.service';
 import { SsoCookieService } from './services/sso-cookie.service';
 import { SsoEventsService } from './services/sso-events.service';
@@ -19,16 +20,18 @@ import { SsoPasswordService } from './services/sso-password.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoUsersService } from './services/sso-users.service';
 import { SsoService } from './services/sso.service';
-import { SsoConfiguration } from './sso.configuration';
+import { SsoConfiguration, SsoStaticConfiguration } from './sso.configuration';
 import { SSO_FEATURE, SSO_MODULE } from './sso.constants';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
+import { SsoProjectService } from './services/sso-project.service';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
   moduleCategory: NestModuleCategory.feature,
   staticEnvironmentsModel: SsoStaticEnvironments,
+  staticConfigurationModel: SsoStaticConfiguration,
   configurationModel: SsoConfiguration,
   imports: [
     KeyvModule.forFeature({ featureModuleName: SSO_FEATURE }),
@@ -53,6 +56,7 @@ export const { SsoModule } = createNestModule({
     TranslatesModule,
   ],
   controllers: [SsoController, SsoUsersController, SsoProjectsController],
+  providers: [SsoServiceBootstrap],
   sharedProviders: [
     SsoService,
     SsoUsersService,
@@ -61,6 +65,7 @@ export const { SsoModule } = createNestModule({
     SsoPasswordService,
     SsoCacheService,
     SsoTokensService,
+    SsoProjectService,
     JwtService,
   ],
   wrapForRootAsync: (asyncModuleOptions) => {
@@ -79,6 +84,7 @@ export const { SsoModule } = createNestModule({
   },
   preWrapApplication: async ({ current }) => {
     const staticEnvironments = current.staticEnvironments;
+    const ssoStaticConfiguration = current.staticConfiguration;
 
     // all routes
     for (const ctrl of [
@@ -91,6 +97,9 @@ export const { SsoModule } = createNestModule({
       }
       if (staticEnvironments?.useGuards) {
         UseGuards(SsoGuard)(ctrl);
+      }
+      if (ssoStaticConfiguration?.mutateController) {
+        ssoStaticConfiguration.mutateController(ctrl);
       }
     }
   },

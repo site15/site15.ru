@@ -8,7 +8,7 @@ import {
 import { getErrorData, RestClientHelper } from '@nestjs-mod-sso/testing';
 import { randomUUID } from 'node:crypto';
 
-describe('Auth (e2e)', () => {
+describe('Sso (e2e)', () => {
   let user: RestClientHelper<'strict'>;
   let project: RestClientHelper<'strict'>;
 
@@ -63,7 +63,7 @@ describe('Auth (e2e)', () => {
           username: user.randomUser.username,
           email: user.randomUser.email,
           password: user.randomUser.password,
-          rePassword: user.randomUser.newPassword,
+          confirmPassword: user.randomUser.newPassword,
           fingerprint: user.randomUser.id,
         },
         {
@@ -79,11 +79,11 @@ describe('Auth (e2e)', () => {
       expect(errData?.code).toEqual(ValidationErrorEnum.Validation000);
       expect(errData?.metadata).toEqual([
         {
-          property: 'rePassword',
+          property: 'confirmPassword',
           constraints: [
             {
               name: 'equalsTo',
-              description: 'password do not match to rePassword',
+              description: 'password do not match to confirmPassword',
             },
           ],
         },
@@ -97,7 +97,7 @@ describe('Auth (e2e)', () => {
         username: user.randomUser.username,
         email: user.randomUser.email,
         password: user.randomUser.password,
-        rePassword: user.randomUser.password,
+        confirmPassword: user.randomUser.password,
         fingerprint: user.randomUser.id,
       },
       {
@@ -106,7 +106,9 @@ describe('Auth (e2e)', () => {
         },
       }
     );
-    expect(signUpResult).toMatchObject({ message: 'ok' });
+    expect(signUpResult).toHaveProperty('accessToken');
+    expect(signUpResult).toHaveProperty('refreshToken');
+    expect(signUpResult).toHaveProperty('user');
   });
 
   it('English errors in sign-in not exists user', async () => {
@@ -232,15 +234,16 @@ describe('Auth (e2e)', () => {
     );
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
+    expect(signInResult).toHaveProperty('user');
     userTokens = signInResult;
   });
 
-  it('English errors in change password about empty password and rePassword fields', async () => {
+  it('English errors in change password about empty password and confirmPassword fields', async () => {
     try {
-      await user.getSsoApi().ssoControllerChangePassword(
+      await user.getSsoApi().ssoControllerUpdateProfile(
         {
           password: '',
-          rePassword: '',
+          confirmPassword: '',
         },
         {
           headers: {
@@ -264,23 +267,24 @@ describe('Auth (e2e)', () => {
           ],
         },
         {
-          property: 'rePassword',
+          property: 'confirmPassword',
           constraints: [
             {
               name: 'isNotEmpty',
-              description: 'rePassword should not be empty',
+              description: 'confirmPassword should not be empty',
             },
           ],
         },
       ]);
     }
   });
+
   it('English errors in change password about empty password fields', async () => {
     try {
-      await user.getSsoApi().ssoControllerChangePassword(
+      await user.getSsoApi().ssoControllerUpdateProfile(
         {
           password: user.randomUser.newPassword,
-          rePassword: '',
+          confirmPassword: '',
         },
         {
           headers: {
@@ -295,15 +299,11 @@ describe('Auth (e2e)', () => {
       expect(errData?.code).toEqual(ValidationErrorEnum.Validation000);
       expect(errData?.metadata).toEqual([
         {
-          property: 'rePassword',
+          property: 'confirmPassword',
           constraints: [
             {
               name: 'equalsTo',
-              description: 'password do not match to rePassword',
-            },
-            {
-              name: 'isNotEmpty',
-              description: 'rePassword should not be empty',
+              description: 'password do not match to confirmPassword',
             },
           ],
         },
@@ -314,10 +314,11 @@ describe('Auth (e2e)', () => {
   it('Change password', async () => {
     const { data: changePasswordResult } = await user
       .getSsoApi()
-      .ssoControllerChangePassword(
+      .ssoControllerUpdateProfile(
         {
           password: user.randomUser.newPassword,
-          rePassword: user.randomUser.newPassword,
+          confirmPassword: user.randomUser.newPassword,
+          oldPassword: user.randomUser.password,
         },
         {
           headers: {
@@ -326,7 +327,7 @@ describe('Auth (e2e)', () => {
           },
         }
       );
-    expect(changePasswordResult).toMatchObject({ message: 'ok' });
+    expect(changePasswordResult).toHaveProperty('id');
   });
 
   it('English errors in sign-in with old password', async () => {
@@ -366,6 +367,7 @@ describe('Auth (e2e)', () => {
     );
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
+    expect(signInResult).toHaveProperty('user');
     userTokens = signInResult;
   });
 
@@ -406,6 +408,7 @@ describe('Auth (e2e)', () => {
       );
     expect(refreshTokensResult).toHaveProperty('accessToken');
     expect(refreshTokensResult).toHaveProperty('refreshToken');
+    expect(refreshTokensResult).toHaveProperty('user');
     userTokens = refreshTokensResult;
   });
 
@@ -422,8 +425,8 @@ describe('Auth (e2e)', () => {
     } catch (err) {
       const errData = getErrorData<SsoError>(err);
       expect(errData).not.toEqual(null);
-      expect(errData?.code).toEqual(SsoErrorEnum.Sso007);
-      expect(errData?.message).toEqual('Refresh token not provided');
+      expect(errData?.code).toEqual(SsoErrorEnum.Sso013);
+      expect(errData?.message).toEqual('Forbidden');
     }
   });
 
@@ -433,6 +436,7 @@ describe('Auth (e2e)', () => {
       {
         headers: {
           'x-client-id': project.randomUser.id,
+          Authorization: `Bearer ${userTokens.accessToken}`,
         },
       }
     );
@@ -446,14 +450,15 @@ describe('Auth (e2e)', () => {
         {
           headers: {
             'x-client-id': project.randomUser.id,
+            Authorization: `Bearer ${userTokens.accessToken}`,
           },
         }
       );
     } catch (err) {
       const errData = getErrorData<SsoError>(err);
       expect(errData).not.toEqual(null);
-      expect(errData?.code).toEqual(SsoErrorEnum.Sso007);
-      expect(errData?.message).toEqual('Refresh token not provided');
+      expect(errData?.code).toEqual(SsoErrorEnum.Sso013);
+      expect(errData?.message).toEqual('Forbidden');
     }
   });
 });

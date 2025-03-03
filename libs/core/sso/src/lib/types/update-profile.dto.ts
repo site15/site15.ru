@@ -1,6 +1,7 @@
 import { ApiPropertyOptional, PickType } from '@nestjs/swagger';
-import { IsOptional } from 'class-validator';
+import { IsOptional, Validate } from 'class-validator';
 import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
+import { EqualsTo } from '../utils/equals-to';
 
 export class UpdateProfileArgs extends PickType(SsoUserDto, [
   'birthdate',
@@ -28,4 +29,17 @@ export class UpdateProfileArgs extends PickType(SsoUserDto, [
   @ApiPropertyOptional({ type: String })
   @IsOptional()
   override gender!: string | null;
+
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  oldPassword!: string | null;
+
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  password!: string | null;
+
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  @Validate(EqualsTo, ['password'])
+  confirmPassword!: string | null;
 }

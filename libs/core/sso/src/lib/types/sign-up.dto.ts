@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, Validate } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsOptional, Validate } from 'class-validator';
 import { EqualsTo } from '../utils/equals-to';
 
 export class SignUpArgs {
@@ -8,9 +8,9 @@ export class SignUpArgs {
   @IsNotEmpty()
   email!: string;
 
-  @ApiProperty({ type: String })
-  @IsNotEmpty()
-  username!: string;
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  username?: string;
 
   @ApiProperty({ type: String })
   @IsNotEmpty()
@@ -19,7 +19,7 @@ export class SignUpArgs {
   @ApiPropertyOptional({ type: String })
   @IsNotEmpty()
   @Validate(EqualsTo, ['password'])
-  rePassword?: string;
+  confirmPassword?: string;
 
   @ApiProperty({ type: String })
   @IsNotEmpty()

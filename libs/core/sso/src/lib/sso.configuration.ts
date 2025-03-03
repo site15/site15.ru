@@ -1,6 +1,8 @@
 import { ConfigModel, ConfigModelProperty } from '@nestjs-mod/common';
-import { SsoUser } from './generated/rest/dto/sso-user.entity';
 import { randomUUID } from 'node:crypto';
+import { SsoUser } from './generated/rest/dto/sso-user.entity';
+import { ReflectableDecorator } from '@nestjs/core';
+import { Type } from '@nestjs/common';
 
 export enum SsoSendNotificationOptionsOperationName {
   VERIFY_EMAIL = 'VERIFY_EMAIL',
@@ -95,4 +97,12 @@ export class SsoConfiguration {
   sendNotification?: (
     options: SsoSendNotificationOptions
   ) => Promise<SsoSendNotificationResponse>;
+}
+
+@ConfigModel()
+export class SsoStaticConfiguration {
+  @ConfigModelProperty({
+    description: 'Function for additional mutation of controllers',
+  })
+  mutateController?: (ctrl: Type) => Type;
 }

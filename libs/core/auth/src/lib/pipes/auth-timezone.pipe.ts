@@ -17,11 +17,13 @@ export class AuthTimezonePipe implements PipeTransform {
     if (!this.authStaticEnvironments.usePipes) {
       return value;
     }
+
     const result = this.authTimezoneService.convertObject(
       value,
       -1 * (this.asyncLocalStorage.getStore()?.authTimezone || 0) -
         SERVER_TIMEZONE_OFFSET
     );
-    return result;
+
+    return this.authTimezoneService.convertDatesInObjectToDateStrings(result);
   }
 }

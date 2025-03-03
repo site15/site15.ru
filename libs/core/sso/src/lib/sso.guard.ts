@@ -7,12 +7,18 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { SsoCacheService } from './services/sso-cache.service';
+import { SsoProjectService } from './services/sso-project.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoConfiguration } from './sso.configuration';
-import { SsoCheckHaveClientSecret, SsoCheckIsAdmin } from './sso.decorators';
+import {
+  AllowEmptySsoUser,
+  SsoCheckHaveClientSecret,
+  SsoCheckIsAdmin,
+} from './sso.decorators';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoError, SsoErrorEnum } from './sso.errors';
 import { SsoRequest } from './types/sso-request';
+import e from 'express';
 
 @Injectable()
 export class SsoGuard implements CanActivate {
@@ -23,28 +29,22 @@ export class SsoGuard implements CanActivate {
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoCacheService: SsoCacheService,
-    private readonly ssoTokensService: SsoTokensService
+    private readonly ssoTokensService: SsoTokensService,
+    private readonly ssoProjectService: SsoProjectService
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const { checkSsoIsAdmin, checkHaveClientSecret } =
+    const { allowEmptyUserMetadata, checkSsoIsAdmin, checkHaveClientSecret } =
       this.getHandlersReflectMetadata(context);
 
     const req = this.getRequestFromExecutionContext(context);
 
-    const func = async () => {
-      req.ssoClientId = this.getClientIdFromRequest(req);
-      req.ssoClientSecret = this.getClientSecretFromRequest(req);
-      req.ssoIsAdmin = this.checkAdminInRequest(req);
+    if (allowEmptyUserMetadata) {
+      req.skipEmptySsoUser = true;
+    }
 
-      if (req.ssoClientId) {
-        const project = await this.ssoCacheService.getCachedProject(
-          req.ssoClientId
-        );
-        if (project) {
-          req.ssoProject = project;
-        }
-      }
+    const func = async () => {
+      await this.ssoProjectService.getProjectByRequest(req);
 
       req.ssoAccessTokenData =
         await this.ssoTokensService.verifyAndDecodeAccessToken(
@@ -58,33 +58,56 @@ export class SsoGuard implements CanActivate {
           })
         : undefined;
 
-      if (checkSsoIsAdmin && !req.ssoIsAdmin) {
-        throw new SsoError(SsoErrorEnum.Forbidden);
-      }
+      req.ssoIsAdmin = this.checkAdminInRequest(req);
 
       if (checkHaveClientSecret && !req.ssoClientSecret) {
         throw new SsoError(SsoErrorEnum.Forbidden);
       }
 
+      if (checkSsoIsAdmin) {
+        if (!req.ssoIsAdmin) {
+          throw new SsoError(SsoErrorEnum.Forbidden);
+        }
+      } else {
+        if (!req.ssoUser && !req.skipEmptySsoUser) {
+          throw new SsoError(SsoErrorEnum.Forbidden);
+        }
+      }
+
       return true;
     };
+    try {
+      const result = await func();
 
-    const result = await func();
+      this.logger.debug(
+        `${context.getClass().name}.${
+          context.getHandler().name
+        }: ${result}, ssoProject: ${JSON.stringify(
+          req.ssoProject
+        )}, ssoClientId: ${
+          req.ssoClientId
+        }, ssoAccessTokenData: ${JSON.stringify(
+          req.ssoAccessTokenData
+        )}, ssoUser: ${JSON.stringify(req.ssoUser)}`
+      );
 
-    this.logger.debug(
-      `${context.getClass().name}.${
-        context.getHandler().name
-      }: ${result}, ssoProject: ${JSON.stringify(
-        req.ssoProject
-      )}, ssoClientId: ${req.ssoClientId}, ssoAccessTokenData: ${JSON.stringify(
-        req.ssoAccessTokenData
-      )}, ssoUser: ${JSON.stringify(req.ssoUser)}`
-    );
+      if (!result) {
+        throw new SsoError(SsoErrorEnum.Forbidden);
+      }
 
-    if (!result) {
-      throw new SsoError(SsoErrorEnum.Forbidden);
+      return result;
+    } catch (err) {
+      this.logger.debug(
+        `${context.getClass().name}.${context.getHandler().name}: ${String(
+          err
+        )}, ssoProject: ${JSON.stringify(req.ssoProject)}, ssoClientId: ${
+          req.ssoClientId
+        }, ssoAccessTokenData: ${JSON.stringify(
+          req.ssoAccessTokenData
+        )}, ssoUser: ${JSON.stringify(req.ssoUser)}`
+      );
+      throw err;
     }
-    return result;
   }
 
   private checkAdminInRequest(req: SsoRequest) {
@@ -101,22 +124,6 @@ export class SsoGuard implements CanActivate {
     return undefined;
   }
 
-  private getClientSecretFromRequest(req: SsoRequest) {
-    return (
-      req.ssoClientSecret ||
-      (this.ssoConfiguration.clientSecretHeaderName &&
-        req.headers?.[this.ssoConfiguration.clientSecretHeaderName])
-    );
-  }
-
-  private getClientIdFromRequest(req: SsoRequest) {
-    return (
-      req.ssoClientId ||
-      (this.ssoConfiguration.clientIdHeaderName &&
-        req.headers?.[this.ssoConfiguration.clientIdHeaderName])
-    );
-  }
-
   private getRequestFromExecutionContext(context: ExecutionContext) {
     const req = getRequestFromExecutionContext(context) as SsoRequest;
     req.headers = req.headers || {};
@@ -124,6 +131,14 @@ export class SsoGuard implements CanActivate {
   }
 
   private getHandlersReflectMetadata(context: ExecutionContext) {
+    const allowEmptyUserMetadata = Boolean(
+      (typeof context.getHandler === 'function' &&
+        this.reflector.get(AllowEmptySsoUser, context.getHandler())) ||
+        (typeof context.getClass === 'function' &&
+          this.reflector.get(AllowEmptySsoUser, context.getClass())) ||
+        undefined
+    );
+
     const checkSsoIsAdmin =
       (typeof context.getHandler === 'function' &&
         this.reflector.get(SsoCheckIsAdmin, context.getHandler())) ||
@@ -139,6 +154,7 @@ export class SsoGuard implements CanActivate {
       undefined;
 
     return {
+      allowEmptyUserMetadata,
       checkSsoIsAdmin,
       checkHaveClientSecret,
     };

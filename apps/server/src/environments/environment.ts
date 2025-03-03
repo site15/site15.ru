@@ -4,6 +4,7 @@ import {
   TWO_FACTOR_FOLDER,
 } from '@nestjs-mod-sso/two-factor';
 
+import { AUTH_FEATURE, AuthModule } from '@nestjs-mod-sso/auth';
 import {
   NOTIFICATIONS_FEATURE,
   NOTIFICATIONS_FOLDER,
@@ -32,10 +33,10 @@ import {
 import { Injectable } from '@nestjs/common';
 import { MemoryHealthIndicator, PrismaHealthIndicator } from '@nestjs/terminus';
 import { PrismaClient as AppPrismaClient } from '@prisma/app-client';
-import { PrismaClient as SsoPrismaClient } from '@prisma/sso-client';
-import { PrismaClient as WebhookPrismaClient } from '@prisma/webhook-client';
-import { PrismaClient as TwoFactorPrismaClient } from '@prisma/two-factor-client';
 import { PrismaClient as NotificationsPrismaClient } from '@prisma/notifications-client';
+import { PrismaClient as SsoPrismaClient } from '@prisma/sso-client';
+import { PrismaClient as TwoFactorPrismaClient } from '@prisma/two-factor-client';
+import { PrismaClient as WebhookPrismaClient } from '@prisma/webhook-client';
 import { existsSync } from 'fs';
 import { getText } from 'nestjs-translates';
 import { join } from 'path';
@@ -83,6 +84,13 @@ export const MainMinioModule = MinioModule.forRoot();
 
 export const MainWebhookModule = WebhookModule.forRootAsync({
   staticEnvironments: { checkHeaders: false },
+  imports: [
+    AuthModule.forFeature({ featureModuleName: AUTH_FEATURE }),
+    PrismaModule.forFeature({
+      featureModuleName: WEBHOOK_FEATURE,
+      contextName: AUTH_FEATURE,
+    }),
+  ],
   configuration: {
     syncMode: false,
     events: [

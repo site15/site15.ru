@@ -5,7 +5,7 @@ import {
 } from '@nestjs-mod-sso/app-rest-sdk';
 import { getErrorData, RestClientHelper } from '@nestjs-mod-sso/testing';
 
-describe('Auth profile (e2e)', () => {
+describe('Sso profile (e2e)', () => {
   let user: RestClientHelper<'strict'>;
   let project: RestClientHelper<'strict'>;
 
@@ -39,7 +39,7 @@ describe('Auth profile (e2e)', () => {
         username: user.randomUser.username,
         email: user.randomUser.email,
         password: user.randomUser.password,
-        rePassword: user.randomUser.password,
+        confirmPassword: user.randomUser.password,
         fingerprint: user.randomUser.id,
       },
       {
@@ -48,7 +48,9 @@ describe('Auth profile (e2e)', () => {
         },
       }
     );
-    expect(signUpResult).toMatchObject({ message: 'ok' });
+    expect(signUpResult).toHaveProperty('accessToken');
+    expect(signUpResult).toHaveProperty('refreshToken');
+    expect(signUpResult).toHaveProperty('user');
   });
 
   it('As admin set current date to emailVerifiedAt column', async () => {
@@ -96,6 +98,7 @@ describe('Auth profile (e2e)', () => {
     );
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
+    expect(signInResult).toHaveProperty('user');
     userTokens = signInResult;
   });
 

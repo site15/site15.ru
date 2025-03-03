@@ -10,8 +10,8 @@
 
 export interface SignUpArgsInterface {
   email: string;
-  username: string;
+  username?: string;
   password: string;
-  rePassword?: string;
+  confirmPassword?: string;
   fingerprint: string;
 }

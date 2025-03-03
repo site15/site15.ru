@@ -1,5 +1,15 @@
 import { AuthConfiguration, AuthRequest, AuthUser } from '@nestjs-mod-sso/auth';
-import { SSO_FEATURE, SsoUsersService } from '@nestjs-mod-sso/sso';
+import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
+import {
+  SSO_FEATURE,
+  SsoError,
+  SsoProjectService,
+  SsoRequest,
+  SsoStaticEnvironments,
+  SsoTokensService,
+  SsoUsersService,
+} from '@nestjs-mod-sso/sso';
+import { WebhookUsersService, WebhookRequest } from '@nestjs-mod-sso/webhook';
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
@@ -12,14 +22,21 @@ export class SsoAuthConfiguration implements AuthConfiguration {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly ssoService: SsoUsersService
+    private readonly ssoService: SsoUsersService,
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
+    private readonly webhookUsersService: WebhookUsersService,
+    private readonly ssoTokensService: SsoTokensService,
+    private readonly ssoUsersService: SsoUsersService,
+    private readonly ssoProjectService: SsoProjectService
   ) {}
 
   async checkAccessValidator(
     authUser?: AuthUser | null,
     ctx?: ExecutionContext
   ) {
-    const req: AuthRequest = ctx && getRequestFromExecutionContext(ctx);
+    const req: SsoRequest & WebhookRequest & FilesRequest & AuthRequest = ctx
+      ? getRequestFromExecutionContext(ctx)
+      : {};
 
     if (
       typeof ctx?.getClass === 'function' &&
@@ -29,6 +46,71 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     ) {
       req.skipEmptyAuthUser = true;
     }
+
+    if (!req.ssoProject) {
+      req.ssoProject = await this.ssoProjectService.getProjectByRequest(req);
+    }
+
+    if (!req.ssoUser?.id) {
+      const token = req.headers?.authorization?.split(' ')[1];
+
+      if (token) {
+        // check user in sso
+        try {
+          const tokenData =
+            await this.ssoTokensService.verifyAndDecodeAccessToken(token);
+          if (!tokenData?.userId) {
+            throw new SsoError('tokenData.userId not set');
+          }
+          const getProfileResult = await this.ssoUsersService.getById({
+            id: tokenData.userId,
+            projectId: req.ssoProject.id,
+          });
+
+          req.ssoUser = getProfileResult;
+        } catch (err) {
+          this.logger.error(err, err.stack);
+          req.ssoUser = undefined;
+        }
+      }
+    }
+
+    if (req?.ssoUser?.id) {
+      // common
+      // req.externalUserId = req.ssoUser.id;
+      // req.externalTenantId = req.ssoProject.id;
+
+      // webhook
+      req.webhookUser = await this.webhookUsersService.createUserIfNotExists({
+        externalUserId: req?.ssoUser?.id,
+        externalTenantId: req?.ssoProject?.id,
+        userRole: req.ssoUser?.roles?.split(',').includes('admin')
+          ? 'Admin'
+          : 'User',
+      });
+
+      if (req.webhookUser) {
+        req.externalUserId = req.webhookUser.externalUserId;
+        req.externalTenantId = req.webhookUser.externalTenantId;
+      }
+
+      // files
+      req.filesUser = {
+        userRole:
+          req.webhookUser?.userRole === 'Admin'
+            ? FilesRole.Admin
+            : FilesRole.User,
+      };
+
+      if (req.ssoUser?.email && req.ssoUser?.roles) {
+        req.externalUser = {
+          email: req.ssoUser.email,
+          role: req.ssoUser.roles?.split(',')?.[0],
+        };
+      }
+
+      req.skipEmptyAuthUser = true;
+    }
   }
 
   async createAdmin(user: {
@@ -36,25 +118,31 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     password: string;
     email: string;
   }): Promise<void | null> {
-    const adminProject = await this.prismaClient.ssoProject.upsert({
-      create: { clientId: user.email, clientSecret: user.password },
-      update: {},
-      where: { clientId: user.email },
-    });
-
-    try {
-      const signupUserResult = await this.ssoService.create({
-        user: {
-          username: user.username,
-          password: user.password,
-          email: user.email.toLowerCase(),
+    if (
+      this.ssoStaticEnvironments.defaultClientId &&
+      this.ssoStaticEnvironments.defaultClientSecret
+    ) {
+      const adminProject = await this.prismaClient.ssoProject.upsert({
+        create: {
+          clientId: this.ssoStaticEnvironments.defaultClientId,
+          clientSecret: this.ssoStaticEnvironments.defaultClientSecret,
         },
-        projectId: adminProject.id,
+        update: {},
+        where: { clientId: this.ssoStaticEnvironments.defaultClientId },
       });
 
-      if (signupUserResult.roles === 'admin') {
+      try {
+        const signupUserResult = await this.ssoService.create({
+          user: {
+            username: user.username,
+            password: user.password,
+            email: user.email.toLowerCase(),
+          },
+          projectId: adminProject.id,
+        });
+
         await this.prismaClient.ssoUser.update({
-          data: { roles: 'admin' },
+          data: { roles: 'admin', emailVerifiedAt: new Date() },
           where: {
             email_projectId: {
               email: user.email,
@@ -62,12 +150,12 @@ export class SsoAuthConfiguration implements AuthConfiguration {
             },
           },
         });
+        this.logger.debug(
+          `Admin with email: ${signupUserResult.email} successfully created!`
+        );
+      } catch (err) {
+        this.logger.error(err, err.stack);
       }
-      this.logger.debug(
-        `Admin with email: ${signupUserResult.email} successfully created!`
-      );
-    } catch (err) {
-      //
     }
   }
 }

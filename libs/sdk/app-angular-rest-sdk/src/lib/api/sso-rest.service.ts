@@ -23,8 +23,6 @@ import { CustomHttpParameterCodec } from '../encoder';
 import { Observable } from 'rxjs';
 
 // @ts-ignore
-import { ChangePasswordArgsInterface } from '../model/change-password-args.interface';
-// @ts-ignore
 import { CompleteForgotPasswordArgsInterface } from '../model/complete-forgot-password-args.interface';
 // @ts-ignore
 import { CompleteSignUpArgsInterface } from '../model/complete-sign-up-args.interface';
@@ -152,130 +150,6 @@ export class SsoRestService {
       throw Error('key may not be null if value is not object or array');
     }
     return httpParams;
-  }
-
-  /**
-   * @param changePasswordArgsInterface
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
-   */
-  public ssoControllerChangePassword(
-    changePasswordArgsInterface: ChangePasswordArgsInterface,
-    observe?: 'body',
-    reportProgress?: boolean,
-    options?: {
-      httpHeaderAccept?: 'application/json';
-      context?: HttpContext;
-      transferCache?: boolean;
-    }
-  ): Observable<StatusResponseInterface>;
-  public ssoControllerChangePassword(
-    changePasswordArgsInterface: ChangePasswordArgsInterface,
-    observe?: 'response',
-    reportProgress?: boolean,
-    options?: {
-      httpHeaderAccept?: 'application/json';
-      context?: HttpContext;
-      transferCache?: boolean;
-    }
-  ): Observable<HttpResponse<StatusResponseInterface>>;
-  public ssoControllerChangePassword(
-    changePasswordArgsInterface: ChangePasswordArgsInterface,
-    observe?: 'events',
-    reportProgress?: boolean,
-    options?: {
-      httpHeaderAccept?: 'application/json';
-      context?: HttpContext;
-      transferCache?: boolean;
-    }
-  ): Observable<HttpEvent<StatusResponseInterface>>;
-  public ssoControllerChangePassword(
-    changePasswordArgsInterface: ChangePasswordArgsInterface,
-    observe: any = 'body',
-    reportProgress: boolean = false,
-    options?: {
-      httpHeaderAccept?: 'application/json';
-      context?: HttpContext;
-      transferCache?: boolean;
-    }
-  ): Observable<any> {
-    if (
-      changePasswordArgsInterface === null ||
-      changePasswordArgsInterface === undefined
-    ) {
-      throw new Error(
-        'Required parameter changePasswordArgsInterface was null or undefined when calling ssoControllerChangePassword.'
-      );
-    }
-
-    let localVarHeaders = this.defaultHeaders;
-
-    let localVarHttpHeaderAcceptSelected: string | undefined =
-      options && options.httpHeaderAccept;
-    if (localVarHttpHeaderAcceptSelected === undefined) {
-      // to determine the Accept header
-      const httpHeaderAccepts: string[] = ['application/json'];
-      localVarHttpHeaderAcceptSelected =
-        this.configuration.selectHeaderAccept(httpHeaderAccepts);
-    }
-    if (localVarHttpHeaderAcceptSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Accept',
-        localVarHttpHeaderAcceptSelected
-      );
-    }
-
-    let localVarHttpContext: HttpContext | undefined =
-      options && options.context;
-    if (localVarHttpContext === undefined) {
-      localVarHttpContext = new HttpContext();
-    }
-
-    let localVarTransferCache: boolean | undefined =
-      options && options.transferCache;
-    if (localVarTransferCache === undefined) {
-      localVarTransferCache = true;
-    }
-
-    // to determine the Content-Type header
-    const consumes: string[] = ['application/json'];
-    const httpContentTypeSelected: string | undefined =
-      this.configuration.selectHeaderContentType(consumes);
-    if (httpContentTypeSelected !== undefined) {
-      localVarHeaders = localVarHeaders.set(
-        'Content-Type',
-        httpContentTypeSelected
-      );
-    }
-
-    let responseType_: 'text' | 'json' | 'blob' = 'json';
-    if (localVarHttpHeaderAcceptSelected) {
-      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-        responseType_ = 'text';
-      } else if (
-        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
-      ) {
-        responseType_ = 'json';
-      } else {
-        responseType_ = 'blob';
-      }
-    }
-
-    let localVarPath = `/api/sso/change-password`;
-    return this.httpClient.request<StatusResponseInterface>(
-      'post',
-      `${this.configuration.basePath}${localVarPath}`,
-      {
-        context: localVarHttpContext,
-        body: changePasswordArgsInterface,
-        responseType: <any>responseType_,
-        withCredentials: this.configuration.withCredentials,
-        headers: localVarHeaders,
-        observe: observe,
-        transferCache: localVarTransferCache,
-        reportProgress: reportProgress,
-      }
-    );
   }
 
   /**
@@ -1168,7 +1042,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<StatusResponseInterface>;
+  ): Observable<TokensResponseInterface>;
   public ssoControllerSignUp(
     signUpArgsInterface: SignUpArgsInterface,
     observe?: 'response',
@@ -1178,7 +1052,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpResponse<StatusResponseInterface>>;
+  ): Observable<HttpResponse<TokensResponseInterface>>;
   public ssoControllerSignUp(
     signUpArgsInterface: SignUpArgsInterface,
     observe?: 'events',
@@ -1188,7 +1062,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpEvent<StatusResponseInterface>>;
+  ): Observable<HttpEvent<TokensResponseInterface>>;
   public ssoControllerSignUp(
     signUpArgsInterface: SignUpArgsInterface,
     observe: any = 'body',
@@ -1259,7 +1133,7 @@ export class SsoRestService {
     }
 
     let localVarPath = `/api/sso/sign-up`;
-    return this.httpClient.request<StatusResponseInterface>(
+    return this.httpClient.request<TokensResponseInterface>(
       'post',
       `${this.configuration.basePath}${localVarPath}`,
       {

@@ -1,7 +1,7 @@
 import { TokensResponse } from '@nestjs-mod-sso/app-rest-sdk';
 import { RestClientHelper } from '@nestjs-mod-sso/testing';
 
-describe('Auth with check notifications (e2e)', () => {
+describe('Sso with check notifications (e2e)', () => {
   let user: RestClientHelper<'strict'>;
   let admin: RestClientHelper<'strict'>;
   let project: RestClientHelper<'strict'>;
@@ -40,10 +40,12 @@ describe('Auth with check notifications (e2e)', () => {
       username: user.randomUser.username,
       email: user.randomUser.email,
       password: user.randomUser.password,
-      rePassword: user.randomUser.password,
+      confirmPassword: user.randomUser.password,
       fingerprint: user.randomUser.id,
     });
-    expect(signUpResult).toMatchObject({ message: 'ok' });
+    expect(signUpResult).toHaveProperty('accessToken');
+    expect(signUpResult).toHaveProperty('refreshToken');
+    expect(signUpResult).toHaveProperty('user');
   });
 
   it('As admin get verify code from notifications and use it for verify as user', async () => {
@@ -66,6 +68,7 @@ describe('Auth with check notifications (e2e)', () => {
 
     expect(completeSignUpResult).toHaveProperty('accessToken');
     expect(completeSignUpResult).toHaveProperty('refreshToken');
+    expect(completeSignUpResult).toHaveProperty('user');
 
     // check tokens
     const { data: profileResult } = await user
@@ -87,16 +90,18 @@ describe('Auth with check notifications (e2e)', () => {
     });
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
+    expect(signInResult).toHaveProperty('user');
     userTokens = signInResult;
   });
 
   it('Change password', async () => {
     const { data: changePasswordResult } = await user
       .getSsoApi()
-      .ssoControllerChangePassword(
+      .ssoControllerUpdateProfile(
         {
           password: user.randomUser.newPassword,
-          rePassword: user.randomUser.newPassword,
+          confirmPassword: user.randomUser.newPassword,
+          oldPassword: user.randomUser.password,
         },
         {
           headers: {
@@ -104,7 +109,7 @@ describe('Auth with check notifications (e2e)', () => {
           },
         }
       );
-    expect(changePasswordResult).toMatchObject({ message: 'ok' });
+    expect(changePasswordResult).toHaveProperty('id');
   });
 
   it('Sign-in with new password', async () => {
@@ -115,6 +120,7 @@ describe('Auth with check notifications (e2e)', () => {
     });
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
+    expect(signInResult).toHaveProperty('user');
     userTokens = signInResult;
   });
 
@@ -127,6 +133,7 @@ describe('Auth with check notifications (e2e)', () => {
       });
     expect(refreshTokensResult).toHaveProperty('accessToken');
     expect(refreshTokensResult).toHaveProperty('refreshToken');
+    expect(refreshTokensResult).toHaveProperty('user');
     userTokens = refreshTokensResult;
   });
 

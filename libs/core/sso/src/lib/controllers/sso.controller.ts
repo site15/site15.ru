@@ -6,6 +6,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Logger,
   Post,
   Put,
   Query,
@@ -27,9 +28,8 @@ import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 import { SsoCookieService } from '../services/sso-cookie.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SsoService } from '../services/sso.service';
-import { CurrentSsoRequest } from '../sso.decorators';
+import { AllowEmptySsoUser, CurrentSsoRequest } from '../sso.decorators';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
-import { ChangePasswordArgs } from '../types/change-password.dto';
 import {
   CompleteForgotPasswordArgs,
   ForgotPasswordArgs,
@@ -50,12 +50,15 @@ import { UpdateProfileArgs } from '../types/update-profile.dto';
 @ApiTags('Sso')
 @Controller('/sso')
 export class SsoController {
+  private logger = new Logger(SsoController.name);
+
   constructor(
     private readonly ssoCookieService: SsoCookieService,
     private readonly ssoService: SsoService,
     private readonly ssoEventsService: SsoEventsService
   ) {}
 
+  @AllowEmptySsoUser()
   @ApiOkResponse({ type: TokensResponse })
   @HttpCode(HttpStatus.OK)
   @Post('sign-in')
@@ -65,13 +68,19 @@ export class SsoController {
     @Res({ passthrough: true }) response: Response,
     @IpAddress() userIp: string,
     @UserAgent() userAgent: string
-  ) {
+  ): Promise<void> {
     const user = await this.ssoService.signIn({
       signInArgs,
       projectId: ssoRequest.ssoProject.id,
     });
 
     if (user.emailVerifiedAt === null) {
+      this.logger.debug({
+        signIn: {
+          signInArgs,
+          projectId: ssoRequest.ssoProject.id,
+        },
+      });
       throw new SsoError(SsoErrorEnum.EmailNotVerified);
     }
 
@@ -94,21 +103,25 @@ export class SsoController {
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
-    response.send({
+    const result: TokensResponse = {
+      user,
       accessToken: cookieWithJwtToken.accessToken,
       refreshToken: cookieWithJwtToken.refreshToken,
-    });
+    };
+    response.send(result);
   }
 
-  @ApiOkResponse({ type: StatusResponse })
+  @AllowEmptySsoUser()
+  @ApiOkResponse({ type: TokensResponse })
   @HttpCode(HttpStatus.OK)
   @Post('sign-up')
   async signUp(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Body() signUpArgs: SignUpArgs,
+    @Res({ passthrough: true }) response: Response,
     @IpAddress() userIp: string,
     @UserAgent() userAgent: string
-  ) {
+  ): Promise<void> {
     const user = await this.ssoService.signUp({
       signUpArgs,
       projectId: ssoRequest.ssoProject.id,
@@ -121,9 +134,27 @@ export class SsoController {
       userAgent,
     });
 
-    return { message: 'ok' };
+    const cookieWithJwtToken =
+      await this.ssoCookieService.getCookieWithJwtToken({
+        userId: user.id,
+        userIp,
+        userAgent,
+        fingerprint: signUpArgs.fingerprint,
+        roles: user.roles,
+        projectId: ssoRequest.ssoProject.id,
+      });
+
+    response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
+
+    const result: TokensResponse = {
+      user,
+      accessToken: cookieWithJwtToken.accessToken,
+      refreshToken: cookieWithJwtToken.refreshToken,
+    };
+    response.send(result);
   }
 
+  @AllowEmptySsoUser()
   @ApiOkResponse({ type: TokensResponse })
   @HttpCode(HttpStatus.OK)
   @Post('complete-sign-up')
@@ -134,7 +165,7 @@ export class SsoController {
     @IpAddress() userIp: string,
     @UserAgent() userAgent: string,
     @Query('code') code: string
-  ) {
+  ): Promise<void> {
     const user = await this.ssoService.completeSignUp({
       code,
       projectId: ssoRequest.ssoProject.id,
@@ -156,10 +187,12 @@ export class SsoController {
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
-    response.send({
+    const result: TokensResponse = {
+      user,
       accessToken: cookieWithJwtToken.accessToken,
       refreshToken: cookieWithJwtToken.refreshToken,
-    });
+    };
+    response.send(result);
   }
 
   @ApiOkResponse({ type: StatusResponse })
@@ -172,7 +205,7 @@ export class SsoController {
     @Cookies('refreshToken') cookieRefreshToken: string | null,
     @IpAddress() userIp: string,
     @UserAgent() userAgent: string
-  ) {
+  ): Promise<void> {
     const refreshToken = cookieRefreshToken || signOutArgs?.refreshToken;
     if (!refreshToken) {
       throw new SsoError(SsoErrorEnum.RefreshTokenNotProvided);
@@ -195,13 +228,14 @@ export class SsoController {
     response.send({ message: 'ok' });
   }
 
+  @AllowEmptySsoUser()
   @ApiOkResponse({ type: StatusResponse })
   @HttpCode(HttpStatus.OK)
   @Post('forgot-password')
   async forgotPassword(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Body() forgotPasswordArgs: ForgotPasswordArgs
-  ) {
+  ): Promise<StatusResponse> {
     await this.ssoService.forgotPassword({
       forgotPasswordArgs,
       ssoRequest,
@@ -210,6 +244,7 @@ export class SsoController {
     return { message: 'ok' };
   }
 
+  @AllowEmptySsoUser()
   @ApiOkResponse({ type: TokensResponse })
   @HttpCode(HttpStatus.OK)
   @Post('complete-forgot-password')
@@ -220,7 +255,7 @@ export class SsoController {
     @IpAddress() userIp: string,
     @UserAgent() userAgent: string,
     @Query('code') code: string
-  ) {
+  ): Promise<void> {
     const user = await this.ssoService.completeForgotPassword({
       code,
       completeForgotPasswordArgs,
@@ -243,28 +278,15 @@ export class SsoController {
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
-    response.send({
+    const result: TokensResponse = {
+      user,
       accessToken: cookieWithJwtToken.accessToken,
       refreshToken: cookieWithJwtToken.refreshToken,
-    });
+    };
+    response.send(result);
   }
 
-  @ApiOkResponse({ type: StatusResponse })
-  @HttpCode(HttpStatus.OK)
-  @Post('change-password')
-  async changePassword(
-    @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Body() changePasswordArgs: ChangePasswordArgs
-  ) {
-    assert(ssoRequest.ssoUser);
-    await this.ssoService.changePassword({
-      userId: ssoRequest.ssoUser.id,
-      changePasswordArgs,
-      projectId: ssoRequest.ssoProject.id,
-    });
-    return { message: 'ok' };
-  }
-
+  @AllowEmptySsoUser()
   @ApiOkResponse({ type: TokensResponse })
   @HttpCode(HttpStatus.OK)
   @Post('refresh-tokens')
@@ -275,7 +297,7 @@ export class SsoController {
     @Cookies('refreshToken') cookieRefreshToken: string | null,
     @IpAddress() userIp: string,
     @UserAgent() userAgent: string
-  ) {
+  ): Promise<void> {
     const refreshToken = cookieRefreshToken || refreshTokensArgs.refreshToken;
     if (!refreshToken) {
       throw new SsoError(SsoErrorEnum.RefreshTokenNotProvided);
@@ -291,15 +313,18 @@ export class SsoController {
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
-    response.send({
+    const result: TokensResponse = {
+      user: cookieWithJwtToken.user,
       accessToken: cookieWithJwtToken.accessToken,
       refreshToken: cookieWithJwtToken.refreshToken,
-    });
+    };
+    response.send(result);
   }
 
   @ApiOkResponse({ type: SsoUserDto })
   @Get('profile')
-  profile(@CurrentSsoRequest() ssoRequest: SsoRequest) {
+  profile(@CurrentSsoRequest() ssoRequest: SsoRequest): SsoUserDto {
+    assert(ssoRequest.ssoUser);
     return ssoRequest.ssoUser;
   }
 
@@ -308,16 +333,16 @@ export class SsoController {
   async updateProfile(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Body() updateProfileArgs: UpdateProfileArgs
-  ) {
+  ): Promise<SsoUserDto> {
     assert(ssoRequest.ssoUser);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...user } = await this.ssoService.update({
+    const { confirmPassword, ...profile } = updateProfileArgs;
+    return await this.ssoService.update({
       user: {
-        ...updateProfileArgs,
+        ...profile,
         id: ssoRequest.ssoUser.id,
       },
       projectId: ssoRequest.ssoProject.id,
     });
-    return user;
   }
 }

@@ -11,7 +11,6 @@ import {
 } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
-import { ChangePasswordArgs } from '../types/change-password.dto';
 import {
   CompleteForgotPasswordArgs,
   ForgotPasswordArgs,
@@ -60,7 +59,7 @@ export class SsoService {
     projectId: string;
   }) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { fingerprint, rePassword, ...data } = signUpArgs;
+    const { fingerprint, confirmPassword, ...data } = signUpArgs;
     const user = await this.ssoUsersService.create({
       user: {
         ...data,
@@ -147,22 +146,6 @@ export class SsoService {
     });
   }
 
-  changePassword({
-    userId,
-    changePasswordArgs,
-    projectId,
-  }: {
-    userId: string;
-    changePasswordArgs: ChangePasswordArgs;
-    projectId: string;
-  }) {
-    return this.ssoUsersService.changePassword({
-      id: userId,
-      password: changePasswordArgs.password,
-      projectId,
-    });
-  }
-
   async forgotPassword({
     forgotPasswordArgs,
     ssoRequest,
@@ -226,7 +209,8 @@ export class SsoService {
     projectId: string;
   }) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { fingerprint, rePassword, ...data } = completeForgotPasswordArgs;
+    const { fingerprint, confirmPassword, ...data } =
+      completeForgotPasswordArgs;
     if (this.ssoConfiguration.twoFactorCodeValidate) {
       const result = await this.ssoConfiguration.twoFactorCodeValidate({
         code,
@@ -250,7 +234,7 @@ export class SsoService {
     user: Pick<
       SsoUser,
       'birthdate' | 'firstname' | 'lastname' | 'id' | 'picture' | 'gender'
-    >;
+    > & { password: string | null; oldPassword: string | null };
     projectId: string;
   }) {
     return this.ssoUsersService.update({
@@ -297,6 +281,7 @@ export class SsoService {
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
       cookie,
+      user: tokens.user,
     };
   }
 }

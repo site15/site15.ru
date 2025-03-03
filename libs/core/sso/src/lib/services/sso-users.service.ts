@@ -6,8 +6,8 @@ import { CreateSsoUserDto } from '../generated/rest/dto/create-sso-user.dto';
 import { SsoUser } from '../generated/rest/dto/sso-user.entity';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
-import { SsoEventsService } from './sso-events.service';
 import { SsoPasswordService } from './sso-password.service';
+import { SsoCacheService } from './sso-cache.service';
 
 @Injectable()
 export class SsoUsersService {
@@ -17,8 +17,8 @@ export class SsoUsersService {
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly ssoPasswordService: SsoPasswordService,
-    private readonly ssoEventsService: SsoEventsService,
-    private readonly prismaToolsService: PrismaToolsService
+    private readonly prismaToolsService: PrismaToolsService,
+    private readonly ssoCacheService: SsoCacheService
   ) {}
 
   async getByEmail({ email, projectId }: { email: string; projectId: string }) {
@@ -31,6 +31,12 @@ export class SsoUsersService {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
         throw new SsoError(SsoErrorEnum.UserNotFound);
       }
+      this.logger.debug({
+        getByEmail: {
+          email,
+          projectId,
+        },
+      });
       this.logger.error(err, err.stack);
       throw err;
     }
@@ -46,6 +52,12 @@ export class SsoUsersService {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
         throw new SsoError(SsoErrorEnum.UserNotFound);
       }
+      this.logger.debug({
+        getById: {
+          id,
+          projectId,
+        },
+      });
       this.logger.error(err, err.stack);
       throw err;
     }
@@ -76,8 +88,12 @@ export class SsoUsersService {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
+        this.logger.debug({ getByEmailAndPassword: { email, projectId } });
         throw new SsoError(SsoErrorEnum.UserNotFound);
       }
+      this.logger.debug({
+        getByEmailAndPassword: { email, password, projectId },
+      });
       this.logger.error(err, err.stack);
       throw err;
     }
@@ -122,6 +138,12 @@ export class SsoUsersService {
       ) {
         throw new SsoError(SsoErrorEnum.UserIsExists);
       }
+      this.logger.debug({
+        create: {
+          user,
+          projectId,
+        },
+      });
       this.logger.error(err, err.stack);
       throw err;
     }
@@ -146,6 +168,7 @@ export class SsoUsersService {
       },
       where: { id, projectId },
     });
+    await this.ssoCacheService.clearCacheByUserId(id);
     return await this.getById({ id, projectId });
   }
 
@@ -156,17 +179,51 @@ export class SsoUsersService {
     user: Pick<
       SsoUser,
       'birthdate' | 'firstname' | 'lastname' | 'id' | 'picture' | 'gender'
-    >;
+    > & { password: string | null; oldPassword: string | null };
     projectId: string;
   }) {
+    const { password, oldPassword, ...profile } = user;
+    if (password) {
+      const currentUser = await this.prismaClient.ssoUser.findFirst({
+        where: { id: user.id },
+      });
+
+      if (
+        currentUser &&
+        !(await this.ssoPasswordService.comparePasswordWithHash({
+          password: oldPassword || '',
+          hashedPassword: currentUser.password,
+        }))
+      ) {
+        throw new SsoError(SsoErrorEnum.WrongOldPassword);
+      }
+
+      if (
+        currentUser &&
+        (await this.ssoPasswordService.comparePasswordWithHash({
+          password,
+          hashedPassword: currentUser.password,
+        }))
+      ) {
+        user.password = null;
+      }
+    }
     const updatedUser = await this.prismaClient.ssoUser.update({
       data: {
-        ...user,
+        ...profile,
         projectId,
+        ...(user.password
+          ? {
+              password: await this.ssoPasswordService.createPasswordHash(
+                user.password
+              ),
+            }
+          : {}),
         updatedAt: new Date(),
       },
       where: { id: user.id },
     });
+    await this.ssoCacheService.clearCacheByUserId(updatedUser.id);
     return this.getById({ id: updatedUser.id, projectId });
   }
 }

@@ -745,7 +745,7 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 
 ### SsoModule
 #### Shared providers
-`SsoService`, `SsoUsersService`, `SsoCookieService`, `SsoEventsService`, `SsoPasswordService`, `SsoCacheService`, `SsoTokensService`, `JwtService`
+`SsoService`, `SsoUsersService`, `SsoCookieService`, `SsoEventsService`, `SsoPasswordService`, `SsoCacheService`, `SsoTokensService`, `SsoProjectService`, `JwtService`
 
 #### Shared imports
 `KeyvModule`, `PrismaModule`, `PrismaToolsModule`, `TranslatesModule`
@@ -771,6 +771,14 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 |`jwtAccessTokenExpiresIn`|`obj['jwtAccessTokenExpiresIn']`, `process.env['SERVER_SSO_JWT_ACCESS_TOKEN_EXPIRES_IN']`|**isNotEmpty** (jwtAccessTokenExpiresIn should not be empty)|```30m```|
 |`jwtRefreshTokenExpiresIn`|`obj['jwtRefreshTokenExpiresIn']`, `process.env['SERVER_SSO_JWT_REFRESH_TOKEN_EXPIRES_IN']`|**isNotEmpty** (jwtRefreshTokenExpiresIn should not be empty)|```24h```|
 |`adminSecret`|`obj['adminSecret']`, `process.env['SERVER_SSO_ADMIN_SECRET']`|**optional**|```VfKSfPPljhHBXCEohnitursmgDxfAyiD```|
+|`defaultClientId`|`obj['defaultClientId']`, `process.env['SERVER_SSO_DEFAULT_CLIENT_ID']`|**optional**|```KzMRNEZTetzatIgQPVSDYfeGyaZrbLzkcxNc```|
+|`defaultClientSecret`|`obj['defaultClientSecret']`, `process.env['SERVER_SSO_DEFAULT_CLIENT_SECRET']`|**optional**|```qaHkVpAtUVIpDdLXMlAOzsBfMRJblWoHpXguYQRBuSEBpGKbWt```|
+
+#### Static configuration
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`mutateController`|**optional**|```mutateController```|
 
 ### NotificationsModule
 #### Shared providers

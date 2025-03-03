@@ -20,6 +20,7 @@ import { AppDemo } from '../../generated/rest/dto/app-demo.entity';
 import { AppService } from '../../services/app.service';
 import { AppData } from '../../types/app-data';
 import { AppDemoEventName } from '../../types/app-demo-event-name';
+import { CurrentSsoUser } from '@nestjs-mod-sso/sso';
 
 // @AllowEmptyUser()
 @AllowEmptyAuthUser()
@@ -41,8 +42,10 @@ export class AppController {
   @Post('/demo')
   @ApiCreatedResponse({ type: AppDemo })
   async demoCreateOne(
-    // @CurrentSsoUser()
-    externalUser: { id: string }
+    @CurrentSsoUser()
+    externalUser: {
+      id: string;
+    }
   ) {
     const result = await this.appPrismaClient.appDemo.create({
       data: { name: 'demo name' + randomUUID() },
@@ -68,7 +71,7 @@ export class AppController {
   @Delete('/demo/:id')
   @ApiOkResponse({ type: AppDemo })
   async demoDeleteOne(
-    // @CurrentSsoUser()
+    @CurrentSsoUser()
     externalUser: { id: string },
     @Param('id', new ParseUUIDPipe()) id: string
   ) {
@@ -86,7 +89,7 @@ export class AppController {
   @Put('/demo/:id')
   @ApiOkResponse({ type: AppDemo })
   async demoUpdateOne(
-    // @CurrentSsoUser()
+    @CurrentSsoUser()
     externalUser: { id: string },
     @Param('id', new ParseUUIDPipe()) id: string
   ) {

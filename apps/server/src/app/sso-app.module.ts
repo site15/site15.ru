@@ -1,6 +1,6 @@
 import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
 
-import { AUTH_MODULE, AuthModule } from '@nestjs-mod-sso/auth';
+import { AUTH_FEATURE, AUTH_MODULE, AuthModule } from '@nestjs-mod-sso/auth';
 import { FilesModule } from '@nestjs-mod-sso/files';
 import { SSO_FEATURE, SsoController, SsoModule } from '@nestjs-mod-sso/sso';
 import { TwoFactorModule } from '@nestjs-mod-sso/two-factor';
@@ -20,6 +20,8 @@ import { AuthorizerController } from './controllers/sso/authorizer.controller';
 import { AppController } from './controllers/sso/sso-app.controller';
 import { FakeEndpointController } from './controllers/sso/sso-fake-endoint.controller';
 import { TimeController } from './controllers/sso/sso-time.controller';
+import { SsoAuthConfiguration } from './integrations/sso/sso-auth.configuration';
+import { SsoClientModule } from './integrations/sso/sso-client.guard';
 import { SsoWithMinioFilesConfiguration } from './integrations/sso/sso-with-minio-files.configuration';
 import { AppService } from './services/app.service';
 
@@ -27,6 +29,12 @@ export const { AppModule: SsoAppModule } = createNestModule({
   moduleName: 'AppModule',
   moduleCategory: NestModuleCategory.feature,
   imports: [
+    SsoClientModule.forRootAsync({
+      imports: [
+        WebhookModule.forFeature({ featureModuleName: AUTH_FEATURE }),
+        AuthModule.forFeature({ featureModuleName: AUTH_FEATURE }),
+      ],
+    }),
     FilesModule.forRootAsync({
       imports: [SsoModule.forFeature(), MinioModule.forFeature()],
       configurationClass: SsoWithMinioFilesConfiguration,
@@ -34,19 +42,29 @@ export const { AppModule: SsoAppModule } = createNestModule({
     // todo: remove
     AuthModule.forRootAsync({
       imports: [
-        SsoModule.forFeature(),
+        SsoClientModule.forFeature({
+          featureModuleName: AUTH_MODULE,
+        }),
+        SsoModule.forFeature({
+          featureModuleName: AUTH_MODULE,
+        }),
         PrismaModule.forFeature({
           contextName: SSO_FEATURE,
           featureModuleName: AUTH_MODULE,
         }),
+        PrismaModule.forFeature({
+          contextName: AUTH_FEATURE,
+          featureModuleName: AUTH_FEATURE,
+        }),
+        WebhookModule.forFeature({
+          featureModuleName: AUTH_MODULE,
+        }),
       ],
-      staticEnvironments: {
-        useFilters: false,
-        useGuards: false,
-        useInterceptors: false,
-        usePipes: false,
-      },
-      configuration: { createAdmin: async () => null },
+      configurationClass: SsoAuthConfiguration,
+    }),
+    PrismaModule.forFeature({
+      contextName: AUTH_FEATURE,
+      featureModuleName: AUTH_FEATURE,
     }),
     SsoModule.forFeature({
       featureModuleName: APP_FEATURE,
@@ -74,11 +92,17 @@ export const { AppModule: SsoAppModule } = createNestModule({
         transform: true,
         whitelist: true,
         validationError: {
-          target: false,
+          //  target: false,
           value: false,
         },
-        exceptionFactory: (errors) =>
-          new ValidationError(ValidationErrorEnum.COMMON, undefined, errors),
+        exceptionFactory: (errors) => {
+          console.log(errors);
+          return new ValidationError(
+            ValidationErrorEnum.COMMON,
+            undefined,
+            errors
+          );
+        },
       },
       usePipes: true,
       useInterceptors: true,
@@ -101,10 +125,5 @@ export const { AppModule: SsoAppModule } = createNestModule({
     // todo: remove
     AuthorizerController,
   ],
-  providers: [
-    // { provide: APP_GUARD, useClass: SsoGuard },
-    // { provide: APP_FILTER, useClass: AuthExceptionsFilter },
-    AppService,
-    TimeController,
-  ],
+  providers: [AppService, TimeController],
 });

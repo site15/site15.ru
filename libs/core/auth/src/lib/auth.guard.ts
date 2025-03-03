@@ -36,49 +36,82 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    if (!this.authStaticEnvironments.useGuards) {
-      return true;
-    }
+    const req = this.getRequestFromExecutionContext(context);
 
-    try {
-      const { skipAuthGuard, checkAuthRole, allowEmptyUserMetadata } =
-        this.getHandlersReflectMetadata(context);
-
-      if (skipAuthGuard) {
+    const func = async () => {
+      if (!this.authStaticEnvironments.useGuards) {
         return true;
       }
 
-      const req = this.getRequestFromExecutionContext(context);
+      try {
+        const { skipAuthGuard, checkAuthRole, allowEmptyUserMetadata } =
+          this.getHandlersReflectMetadata(context);
 
-      // check access by custom logic
-      if (this.authConfiguration.checkAccessValidator) {
-        await this.authConfiguration.checkAccessValidator(
-          req.authUser,
-          context
-        );
+        if (skipAuthGuard) {
+          return true;
+        }
+
+        // check access by custom logic
+        if (this.authConfiguration.checkAccessValidator) {
+          await this.authConfiguration.checkAccessValidator(
+            req.authUser,
+            context
+          );
+        }
+
+        if (allowEmptyUserMetadata) {
+          req.skipEmptyAuthUser = true;
+        }
+
+        if (req.externalUserId) {
+          await this.tryGetOrCreateCurrentUserWithExternalUserId(
+            req,
+            req.externalUserId
+          );
+        }
+
+        this.throwErrorIfCurrentUserNotSet(req);
+
+        this.pathAdminRoles(req);
+
+        this.throwErrorIfCurrentUserNotHaveNeededRoles(checkAuthRole, req);
+      } catch (err) {
+        this.logger.error(err, (err as Error).stack);
+        throw err;
       }
+      return true;
+    };
 
-      if (allowEmptyUserMetadata) {
-        req.skipEmptyAuthUser = true;
-      }
+    try {
+      const result = await func();
 
-      if (req.externalUserId) {
-        await this.tryGetOrCreateCurrentUserWithExternalUserId(
-          req,
-          req.externalUserId
-        );
-      }
+      this.logger.debug(
+        `${context.getClass().name}.${
+          context.getHandler().name
+        }: ${result}, authUser: ${JSON.stringify(
+          req.authUser
+        )}, externalUser: ${JSON.stringify(
+          req.externalUser
+        )}, externalUserId: ${JSON.stringify(
+          JSON.stringify(req.externalUserId)
+        )}, skipEmptyAuthUser: ${JSON.stringify(req.skipEmptyAuthUser)}`
+      );
 
-      this.throwErrorIfCurrentUserNotSet(req);
-
-      this.pathAdminRoles(req);
-
-      this.throwErrorIfCurrentUserNotHaveNeededRoles(checkAuthRole, req);
+      return result;
     } catch (err) {
-      this.logger.error(err, (err as Error).stack);
+      this.logger.debug(
+        `${context.getClass().name}.${context.getHandler().name}: ${String(
+          err
+        )}, authUser: ${JSON.stringify(
+          req.authUser
+        )}, externalUser: ${JSON.stringify(
+          req.externalUser
+        )}, externalUserId: ${JSON.stringify(
+          req.externalUserId
+        )}, skipEmptyAuthUser: ${JSON.stringify(req.skipEmptyAuthUser)}`
+      );
       throw err;
     }
-    return true;
   }
 
   private pathAdminRoles(req: AuthRequest) {

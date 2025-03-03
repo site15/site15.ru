@@ -75,4 +75,14 @@ export class SsoStaticEnvironments {
     description: 'Admin secret key',
   })
   adminSecret?: string;
+
+  @EnvModelProperty({
+    description: 'Default client ID',
+  })
+  defaultClientId?: string;
+
+  @EnvModelProperty({
+    description: 'Default secret key',
+  })
+  defaultClientSecret?: string;
 }

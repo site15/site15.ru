@@ -1,10 +1,25 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, merge, of } from 'rxjs';
+import { BehaviorSubject, from, map, merge, mergeMap, of, tap } from 'rxjs';
 import { AuthTokens } from './auth.types';
+import { load } from '@fingerprintjs/fingerprintjs';
 
 @Injectable({ providedIn: 'root' })
 export class TokensService {
   private tokens$ = new BehaviorSubject<AuthTokens | undefined>(undefined);
+
+  getFingerprint() {
+    const fingerprint = localStorage.getItem('fingerprint');
+    if (!fingerprint) {
+      return from(load()).pipe(
+        mergeMap((fp) => fp.get()),
+        map((result) => {
+          localStorage.setItem('fingerprint', result.visitorId);
+          return result.visitorId;
+        })
+      );
+    }
+    return of(fingerprint);
+  }
 
   getRefreshToken() {
     return (

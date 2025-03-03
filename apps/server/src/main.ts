@@ -1,6 +1,6 @@
 process.env.TZ = 'UTC';
 
-import { AUTH_FEATURE, AUTH_FOLDER } from '@nestjs-mod-sso/auth';
+import { AUTH_FEATURE, AUTH_FOLDER, SkipAuthGuard } from '@nestjs-mod-sso/auth';
 import {
   NOTIFICATIONS_FEATURE,
   NotificationsModule,
@@ -173,7 +173,7 @@ bootstrapNestApplication({
           ),
           prismaModule: isInfrastructureMode()
             ? import(`@nestjs-mod/prisma`)
-            : import(`@nestjs-mod/prisma`),
+            : import(`@prisma/auth-client`),
           addMigrationScripts: false,
           nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
           binaryTargets: [
@@ -187,13 +187,18 @@ bootstrapNestApplication({
       MainKeyvModule,
       MainMinioModule,
       ValidationModule.forRoot({ staticEnvironments: { usePipes: false } }),
-
       SsoModule.forRootAsync({
         imports: [
           TwoFactorModule.forFeature({ featureModuleName: APP_FEATURE }),
           NotificationsModule.forFeature({ featureModuleName: APP_FEATURE }),
         ],
         inject: [TwoFactorService, NotificationsService],
+        staticConfiguration: {
+          mutateController: (ctrl) => {
+            SkipAuthGuard()(ctrl);
+            return ctrl;
+          },
+        },
         configurationFactory: (
           twoFactorService: TwoFactorService,
           notificationsService: NotificationsService

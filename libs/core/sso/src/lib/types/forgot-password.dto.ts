@@ -17,7 +17,7 @@ export class CompleteForgotPasswordArgs {
   @ApiProperty({ type: String })
   @IsNotEmpty()
   @Validate(EqualsTo, ['password'])
-  rePassword!: string;
+  confirmPassword!: string;
 
   @ApiProperty({ type: String })
   @IsNotEmpty()

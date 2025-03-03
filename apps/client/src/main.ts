@@ -8,10 +8,13 @@ import {
   supabaseURL,
 } from './environments/environment';
 import { authorizerAppConfig } from './app/authorizer-app.config';
+import { ssoAppConfig } from './app/sso-app.config';
 
 bootstrapApplication(
   AppComponent,
   authorizerURL
     ? authorizerAppConfig({ authorizerURL, minioURL })
-    : supabaseAppConfig({ minioURL, supabaseKey, supabaseURL })
+    : supabaseKey
+    ? supabaseAppConfig({ minioURL, supabaseKey, supabaseURL })
+    : ssoAppConfig({ minioURL })
 ).catch((err) => console.error(err));
