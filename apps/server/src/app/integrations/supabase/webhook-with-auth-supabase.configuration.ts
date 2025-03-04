@@ -88,7 +88,7 @@ export class WebhookWithAuthSupabaseConfiguration
       if (supabaseUser?.email && supabaseUser?.role) {
         req.externalUser = {
           email: supabaseUser?.email,
-          role: supabaseUser?.role,
+          roles: supabaseUser?.role.split(','),
         };
       }
     }

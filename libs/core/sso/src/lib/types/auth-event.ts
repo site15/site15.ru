@@ -1,11 +1,12 @@
 import { SignInArgs } from './sign-in.dto';
 import { SignOutArgs } from './sign-out.dto';
-import { SignUpArgs } from './sign-up.dto';
+import { CompleteSignUpArgs, SignUpArgs } from './sign-up.dto';
 
 export enum SsoEventEnum {
   SignIn = 'SignIn',
   SignUp = 'SignUp',
   SignOut = 'SignOut',
+  CompleteSignUp = 'CompleteSignUp',
 }
 
 export interface SsoEventContext {
@@ -17,6 +18,9 @@ export interface SsoEventContext {
   };
   [SsoEventEnum.SignOut]: {
     signOutArgs: SignOutArgs;
+  };
+  [SsoEventEnum.CompleteSignUp]: {
+    completeSignUpArgs: CompleteSignUpArgs;
   };
   serviceId: string;
   userId: string;

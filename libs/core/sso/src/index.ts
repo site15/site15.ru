@@ -37,6 +37,7 @@ export * from './lib/generated/rest/dto/update-sso-project.dto';
 export * from './lib/generated/rest/dto/update-sso-refresh-session.dto';
 export * from './lib/generated/rest/dto/update-sso-two-factor-code.dto';
 export * from './lib/generated/rest/dto/update-sso-user.dto';
+export * from './lib/services/sso-admin.service';
 export * from './lib/services/sso-bootstrap.service';
 export * from './lib/services/sso-cache.service';
 export * from './lib/services/sso-cookie.service';

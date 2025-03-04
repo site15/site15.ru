@@ -1,4 +1,5 @@
 import {
+  ArrayOfStringTransformer,
   BooleanTransformer,
   EnvModel,
   EnvModelProperty,
@@ -33,19 +34,30 @@ export class SsoStaticEnvironments {
 
   @EnvModelProperty({
     description: 'Available user roles',
-    default: 'user,admin',
+    default: ['user', 'admin'],
+    transform: new ArrayOfStringTransformer(),
     hidden: true,
   })
   @IsOptional()
-  userAvailableRoles?: string;
+  userAvailableRoles?: string[];
 
   @EnvModelProperty({
     description: 'Default roles for new user',
-    default: 'user',
+    default: ['user'],
+    transform: new ArrayOfStringTransformer(),
     hidden: true,
   })
   @IsOptional()
-  userDefaultRoles?: string;
+  userDefaultRoles?: string[];
+
+  @EnvModelProperty({
+    description: 'Default roles for admin',
+    default: ['admin'],
+    transform: new ArrayOfStringTransformer(),
+    hidden: true,
+  })
+  @IsOptional()
+  adminDefaultRoles?: string[];
 
   @EnvModelProperty({
     description: 'Secret key for generate jwt keys',

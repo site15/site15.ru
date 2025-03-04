@@ -15,4 +15,9 @@ export class NotificationsStaticConfiguration {
     description: 'External guards for controllers',
   })
   guards?: Type[];
+
+  @ConfigModelProperty({
+    description: 'Function for additional mutation of controllers',
+  })
+  mutateController?: (ctrl: Type) => Type;
 }

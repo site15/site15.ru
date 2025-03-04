@@ -35,7 +35,7 @@ export type SendNotificationOptions = {
 };
 
 export type SendNotificationResponse = {
-  notificationId: string;
+  recipientGroupId: string;
 };
 
 @Injectable()
@@ -56,13 +56,17 @@ export class NotificationsService {
 
   async sendNotification(
     options: SendNotificationOptions
-  ): Promise<SendNotificationResponse> {
-    await this.createEvents(options);
+  ): Promise<SendNotificationResponse | null> {
+    const recipientGroupId = await this.createEvents(options);
 
     await this.sendAllNewEvents();
 
+    if (!this.mailTransporter) {
+      return null;
+    }
+
     return {
-      notificationId: 'ok',
+      recipientGroupId,
     };
   }
 
@@ -121,6 +125,7 @@ export class NotificationsService {
         },
       });
     }
+    return recipientGroupId;
   }
 
   async sendEmailNotification(
@@ -184,7 +189,7 @@ export class NotificationsService {
     }
 
     return {
-      notificationId: event.id,
+      recipientGroupId: event.id,
     };
   }
 
@@ -192,7 +197,7 @@ export class NotificationsService {
     event: Omit<NotificationsEvent, 'type'>
   ): Promise<SendNotificationResponse> {
     return {
-      notificationId: event.id,
+      recipientGroupId: event.id,
     };
   }
 

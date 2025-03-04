@@ -75,7 +75,9 @@ describe('Sso with check notifications (e2e)', () => {
       .getSsoApi()
       .ssoControllerProfile({
         headers: {
-          Authorization: `Bearer ${completeSignUpResult.accessToken}`,
+          ...(completeSignUpResult.accessToken
+            ? { Authorization: `Bearer ${completeSignUpResult.accessToken}` }
+            : {}),
         },
       });
 
@@ -105,7 +107,9 @@ describe('Sso with check notifications (e2e)', () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${userTokens.accessToken}`,
+            ...(userTokens.accessToken
+              ? { Authorization: `Bearer ${userTokens.accessToken}` }
+              : {}),
           },
         }
       );
@@ -138,9 +142,16 @@ describe('Sso with check notifications (e2e)', () => {
   });
 
   it('Sign-out', async () => {
-    const { data: signOutResult } = await user
-      .getSsoApi()
-      .ssoControllerSignOut({ refreshToken: userTokens.refreshToken });
+    const { data: signOutResult } = await user.getSsoApi().ssoControllerSignOut(
+      { refreshToken: userTokens.refreshToken },
+      {
+        headers: {
+          ...(userTokens.accessToken
+            ? { Authorization: `Bearer ${userTokens.accessToken}` }
+            : {}),
+        },
+      }
+    );
     expect(signOutResult.message).toEqual('ok');
   });
 });

@@ -1,6 +1,7 @@
 import { AuthModule, AuthRequest } from '@nestjs-mod-sso/auth';
 import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
 import {
+  SsoAdminService,
   SsoError,
   SsoModule,
   SsoProjectService,
@@ -33,7 +34,8 @@ export class SsoClientGuard implements CanActivate {
     private readonly webhookUsersService: WebhookUsersService,
     private readonly ssoTokensService: SsoTokensService,
     private readonly ssoUsersService: SsoUsersService,
-    private readonly ssoProjectService: SsoProjectService
+    private readonly ssoProjectService: SsoProjectService,
+    private readonly ssoAdminService: SsoAdminService
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -53,12 +55,15 @@ export class SsoClientGuard implements CanActivate {
     if (!req.ssoUser?.id) {
       const token = req.headers?.authorization?.split(' ')[1];
 
-      if (token) {
+      if (token && token !== 'undefined') {
         // check user in sso
         try {
           const tokenData =
             await this.ssoTokensService.verifyAndDecodeAccessToken(token);
           if (!tokenData?.userId) {
+            this.logger.debug({
+              tryGetOrCreateCurrentUserWithExternalUserId: { token, tokenData },
+            });
             throw new SsoError('tokenData.userId not set');
           }
           const getProfileResult = await this.ssoUsersService.getById({
@@ -104,12 +109,17 @@ export class SsoClientGuard implements CanActivate {
       if (req.ssoUser?.email && req.ssoUser?.roles) {
         req.externalUser = {
           email: req.ssoUser.email,
-          role: req.ssoUser.roles?.split(',')?.[0],
+          roles: req.ssoUser.roles?.split(','),
         };
       }
 
       req.skipEmptyAuthUser = true;
     }
+
+    if (this.ssoAdminService.checkAdminInRequest(req)) {
+      req.skipEmptyAuthUser = true;
+    }
+
     return true;
   }
 }

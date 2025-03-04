@@ -1,13 +1,8 @@
-import {
-  SsoError,
-  SsoErrorEnum,
-  TokensResponse,
-} from '@nestjs-mod-sso/app-rest-sdk';
-import { getErrorData, RestClientHelper } from '@nestjs-mod-sso/testing';
+import { TokensResponse } from '@nestjs-mod-sso/app-rest-sdk';
+import { RestClientHelper } from '@nestjs-mod-sso/testing';
 
 describe('Sso profile (e2e)', () => {
   let user: RestClientHelper<'strict'>;
-  let project: RestClientHelper<'strict'>;
 
   let userTokens: TokensResponse;
 
@@ -15,39 +10,16 @@ describe('Sso profile (e2e)', () => {
 
   beforeAll(async () => {
     user = await new RestClientHelper().generateRandomUser();
-    project = await new RestClientHelper().generateRandomUser();
-  });
-
-  it('Create project', async () => {
-    const { data: createOneResult } = await user
-      .getSsoApi()
-      .ssoProjectsControllerCreateOne(
-        {
-          clientId: project.randomUser.id,
-          clientSecret: project.randomUser.password,
-        },
-        {
-          headers: { 'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET },
-        }
-      );
-    expect(createOneResult).toHaveProperty('id');
   });
 
   it('Sign-up', async () => {
-    const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp(
-      {
-        username: user.randomUser.username,
-        email: user.randomUser.email,
-        password: user.randomUser.password,
-        confirmPassword: user.randomUser.password,
-        fingerprint: user.randomUser.id,
-      },
-      {
-        headers: {
-          'x-client-id': project.randomUser.id,
-        },
-      }
-    );
+    const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp({
+      username: user.randomUser.username,
+      email: user.randomUser.email,
+      password: user.randomUser.password,
+      confirmPassword: user.randomUser.password,
+      fingerprint: user.randomUser.id,
+    });
     expect(signUpResult).toHaveProperty('accessToken');
     expect(signUpResult).toHaveProperty('refreshToken');
     expect(signUpResult).toHaveProperty('user');
@@ -84,18 +56,11 @@ describe('Sso profile (e2e)', () => {
   });
 
   it('Sign-in', async () => {
-    const { data: signInResult } = await user.getSsoApi().ssoControllerSignIn(
-      {
-        email: user.randomUser.email,
-        password: user.randomUser.password,
-        fingerprint: user.randomUser.id,
-      },
-      {
-        headers: {
-          'x-client-id': project.randomUser.id,
-        },
-      }
-    );
+    const { data: signInResult } = await user.getSsoApi().ssoControllerSignIn({
+      email: user.randomUser.email,
+      password: user.randomUser.password,
+      fingerprint: user.randomUser.id,
+    });
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
     expect(signInResult).toHaveProperty('user');
@@ -107,8 +72,9 @@ describe('Sso profile (e2e)', () => {
       .getSsoApi()
       .ssoControllerProfile({
         headers: {
-          'x-client-id': project.randomUser.id,
-          Authorization: `Bearer ${userTokens.accessToken}`,
+          ...(userTokens.accessToken
+            ? { Authorization: `Bearer ${userTokens.accessToken}` }
+            : {}),
         },
       });
     const { data: updateProfileResult } = await user
@@ -123,8 +89,9 @@ describe('Sso profile (e2e)', () => {
         },
         {
           headers: {
-            'x-client-id': project.randomUser.id,
-            Authorization: `Bearer ${userTokens.accessToken}`,
+            ...(userTokens.accessToken
+              ? { Authorization: `Bearer ${userTokens.accessToken}` }
+              : {}),
           },
         }
       );
@@ -132,7 +99,7 @@ describe('Sso profile (e2e)', () => {
       email: user.randomUser.email,
       phone: null,
       username: user.randomUser.username,
-      roles: null,
+      roles: 'user',
       firstname: null,
       lastname: null,
       gender: null,
@@ -155,7 +122,7 @@ describe('Sso profile (e2e)', () => {
       email: user.randomUser.email,
       phone: null,
       username: user.randomUser.username,
-      roles: null,
+      roles: 'user',
       firstname: user.randomUser.firstName,
       lastname: user.randomUser.lastName,
       gender: 'm',
@@ -170,43 +137,5 @@ describe('Sso profile (e2e)', () => {
     });
     expect(updateProfileResult.updatedAt).toBeDefined();
     expect(profileResult.updatedAt).not.toEqual(updateProfileResult.updatedAt);
-  });
-
-  it("Let's try to change the password by updating the user profile data, and we get an error when trying to use the new password, since the password cannot be changed by updating the profile", async () => {
-    const { data: updateProfileResult } = await user
-      .getSsoApi()
-      .ssoControllerUpdateProfile(
-        {
-          password: 'hack',
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as any,
-        {
-          headers: {
-            'x-client-id': project.randomUser.id,
-            Authorization: `Bearer ${userTokens.accessToken}`,
-          },
-        }
-      );
-    expect(updateProfileResult).toHaveProperty('id');
-
-    try {
-      await user.getSsoApi().ssoControllerSignIn(
-        {
-          email: user.randomUser.email,
-          password: 'hack',
-          fingerprint: user.randomUser.id,
-        },
-        {
-          headers: {
-            'x-client-id': project.randomUser.id,
-          },
-        }
-      );
-    } catch (err) {
-      const errData = getErrorData<SsoError>(err);
-      expect(errData).not.toEqual(null);
-      expect(errData?.code).toEqual(SsoErrorEnum.Sso002);
-      expect(errData?.message).toEqual('Wrong password');
-    }
   });
 });

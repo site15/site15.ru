@@ -205,7 +205,9 @@ export class SsoAuthConfiguration implements AuthConfiguration {
       };
     }
     return {
-      Authorization: `Bearer ${this.tokensService.getAccessToken()}`,
+      ...(this.tokensService.getAccessToken()
+        ? { Authorization: `Bearer ${this.tokensService.getAccessToken()}` }
+        : {}),
       'Accept-language': lang,
     };
   }

@@ -1,8 +1,6 @@
 import { ConfigModel, ConfigModelProperty } from '@nestjs-mod/common';
-import { randomUUID } from 'node:crypto';
-import { SsoUser } from './generated/rest/dto/sso-user.entity';
-import { ReflectableDecorator } from '@nestjs/core';
 import { Type } from '@nestjs/common';
+import { SsoUser } from './generated/rest/dto/sso-user.entity';
 
 export enum SsoSendNotificationOptionsOperationName {
   VERIFY_EMAIL = 'VERIFY_EMAIL',
@@ -40,7 +38,7 @@ export type SsoTwoFactorCodeValidateResponse = {
 };
 
 export type SsoSendNotificationResponse = {
-  notificationId: string;
+  recipientGroupId: string;
 };
 
 @ConfigModel()
@@ -91,12 +89,10 @@ export class SsoConfiguration {
 
   @ConfigModelProperty({
     description: 'Function for sending notifications',
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    default: (options: SsoSendNotificationOptions) => randomUUID(),
   })
   sendNotification?: (
     options: SsoSendNotificationOptions
-  ) => Promise<SsoSendNotificationResponse>;
+  ) => Promise<SsoSendNotificationResponse | null>;
 }
 
 @ConfigModel()

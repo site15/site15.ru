@@ -31,8 +31,8 @@ export const { AppModule: SsoAppModule } = createNestModule({
   imports: [
     SsoClientModule.forRootAsync({
       imports: [
-        WebhookModule.forFeature({ featureModuleName: AUTH_FEATURE }),
-        AuthModule.forFeature({ featureModuleName: AUTH_FEATURE }),
+        WebhookModule.forFeature({ featureModuleName: SSO_FEATURE }),
+        AuthModule.forFeature({ featureModuleName: SSO_FEATURE }),
       ],
     }),
     FilesModule.forRootAsync({
@@ -62,6 +62,7 @@ export const { AppModule: SsoAppModule } = createNestModule({
       ],
       configurationClass: SsoAuthConfiguration,
     }),
+    AuthModule.forFeature({ featureModuleName: AUTH_FEATURE }),
     PrismaModule.forFeature({
       contextName: AUTH_FEATURE,
       featureModuleName: AUTH_FEATURE,

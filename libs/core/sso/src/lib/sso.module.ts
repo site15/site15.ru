@@ -26,6 +26,7 @@ import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
 import { SsoProjectService } from './services/sso-project.service';
+import { SsoAdminService } from './services/sso-admin.service';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -66,6 +67,7 @@ export const { SsoModule } = createNestModule({
     SsoCacheService,
     SsoTokensService,
     SsoProjectService,
+    SsoAdminService,
     JwtService,
   ],
   wrapForRootAsync: (asyncModuleOptions) => {

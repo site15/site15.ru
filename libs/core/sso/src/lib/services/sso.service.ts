@@ -21,6 +21,7 @@ import { SsoRequest } from '../types/sso-request';
 import { SsoCookieService } from './sso-cookie.service';
 import { SsoTokensService } from './sso-tokens.service';
 import { SsoUsersService } from './sso-users.service';
+import { SsoCacheService } from './sso-cache.service';
 
 @Injectable()
 export class SsoService {
@@ -34,7 +35,8 @@ export class SsoService {
     private readonly ssoUsersService: SsoUsersService,
     private readonly ssoCookieService: SsoCookieService,
     private readonly translatesAsyncLocalStorageContext: TranslatesAsyncLocalStorageContext,
-    private readonly ssoTokensService: SsoTokensService
+    private readonly ssoTokensService: SsoTokensService,
+    private readonly ssoCacheService: SsoCacheService
   ) {}
 
   signIn({
@@ -60,14 +62,17 @@ export class SsoService {
   }) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { fingerprint, confirmPassword, ...data } = signUpArgs;
-    const user = await this.ssoUsersService.create({
+    let user = await this.ssoUsersService.create({
       user: {
         ...data,
-        emailVerifiedAt: this.ssoConfiguration.twoFactorCodeGenerate
-          ? null
-          : new Date(),
+        emailVerifiedAt:
+          this.ssoConfiguration.twoFactorCodeGenerate &&
+          this.ssoConfiguration.sendNotification
+            ? null
+            : new Date(),
       },
       projectId,
+      roles: this.ssoStaticEnvironments.userDefaultRoles,
     });
 
     if (this.ssoConfiguration.twoFactorCodeGenerate) {
@@ -102,7 +107,17 @@ export class SsoService {
         projectId,
       };
       if (this.ssoConfiguration.sendNotification) {
-        await this.ssoConfiguration.sendNotification(sendNotificationOptions);
+        const result = await this.ssoConfiguration.sendNotification(
+          sendNotificationOptions
+        );
+        if (!result) {
+          user = await this.prismaClient.ssoUser.update({
+            data: {
+              emailVerifiedAt: new Date(),
+            },
+            where: { id: user.id, projectId },
+          });
+        }
       } else {
         this.logger.debug({
           sendNotification: sendNotificationOptions,
@@ -120,7 +135,8 @@ export class SsoService {
     code: string;
     projectId: string;
   }) {
-    const result = this.ssoConfiguration.twoFactorCodeValidate
+    const twoFactorCodeValidateResult = this.ssoConfiguration
+      .twoFactorCodeValidate
       ? await this.ssoConfiguration.twoFactorCodeValidate({
           code,
           projectId,
@@ -128,22 +144,28 @@ export class SsoService {
         })
       : null;
 
-    if (!result) {
-      return result;
+    if (!twoFactorCodeValidateResult) {
+      return twoFactorCodeValidateResult;
     }
 
     this.logger.debug({
       completeSignUp: {
         code,
         projectId,
-        result,
+        result: twoFactorCodeValidateResult,
       },
     });
 
-    return await this.prismaClient.ssoUser.update({
-      where: { id: result.userId, projectId },
+    const result = await this.prismaClient.ssoUser.update({
+      where: { id: twoFactorCodeValidateResult.userId, projectId },
       data: { emailVerifiedAt: new Date(), updatedAt: new Date() },
     });
+
+    await this.ssoCacheService.clearCacheByUserId(
+      twoFactorCodeValidateResult.userId
+    );
+
+    return result;
   }
 
   async forgotPassword({

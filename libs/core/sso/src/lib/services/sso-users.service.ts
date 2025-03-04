@@ -8,6 +8,7 @@ import { SSO_FEATURE } from '../sso.constants';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { SsoPasswordService } from './sso-password.service';
 import { SsoCacheService } from './sso-cache.service';
+import { SsoStaticEnvironments } from '../sso.environments';
 
 @Injectable()
 export class SsoUsersService {
@@ -18,7 +19,8 @@ export class SsoUsersService {
     private readonly prismaClient: PrismaClient,
     private readonly ssoPasswordService: SsoPasswordService,
     private readonly prismaToolsService: PrismaToolsService,
-    private readonly ssoCacheService: SsoCacheService
+    private readonly ssoCacheService: SsoCacheService,
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments
   ) {}
 
   async getByEmail({ email, projectId }: { email: string; projectId: string }) {
@@ -49,15 +51,15 @@ export class SsoUsersService {
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
-        throw new SsoError(SsoErrorEnum.UserNotFound);
-      }
       this.logger.debug({
         getById: {
           id,
           projectId,
         },
       });
+      if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
+        throw new SsoError(SsoErrorEnum.UserNotFound);
+      }
       this.logger.error(err, err.stack);
       throw err;
     }
@@ -102,10 +104,29 @@ export class SsoUsersService {
   async create({
     user,
     projectId,
+    roles,
   }: {
     user: CreateSsoUserDto;
     projectId: string;
+    roles?: string[];
   }) {
+    if (
+      roles?.length &&
+      roles.find(
+        (r) => !this.ssoStaticEnvironments.userAvailableRoles?.includes(r)
+      )
+    ) {
+      this.logger.debug({
+        create: {
+          user,
+          projectId,
+          roles,
+          userAvailableRoles: this.ssoStaticEnvironments.userAvailableRoles,
+        },
+      });
+      throw new SsoError(SsoErrorEnum.NonExistentRoleSpecified);
+    }
+
     const hashedPassword = await this.ssoPasswordService.createPasswordHash(
       user.password
     );
@@ -116,6 +137,7 @@ export class SsoUsersService {
           username: user.username,
           password: hashedPassword,
           projectId: projectId,
+          roles: roles ? roles.join(',') : null,
         },
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -161,6 +183,7 @@ export class SsoUsersService {
     const hashedPassword = await this.ssoPasswordService.createPasswordHash(
       password
     );
+
     await this.prismaClient.ssoUser.update({
       data: {
         password: hashedPassword,
@@ -168,7 +191,9 @@ export class SsoUsersService {
       },
       where: { id, projectId },
     });
+
     await this.ssoCacheService.clearCacheByUserId(id);
+
     return await this.getById({ id, projectId });
   }
 
@@ -223,7 +248,9 @@ export class SsoUsersService {
       },
       where: { id: user.id },
     });
+
     await this.ssoCacheService.clearCacheByUserId(updatedUser.id);
+
     return this.getById({ id: updatedUser.id, projectId });
   }
 }

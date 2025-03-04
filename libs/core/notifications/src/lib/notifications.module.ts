@@ -83,6 +83,10 @@ export const { NotificationsModule } = createNestModule({
         ...(staticConfiguration?.guards || []),
         NotificationsGuard
       )(ctrl);
+
+      if (staticConfiguration?.mutateController) {
+        staticConfiguration.mutateController(ctrl);
+      }
     }
   },
 });

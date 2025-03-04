@@ -248,7 +248,9 @@ describe('Sso (e2e)', () => {
         {
           headers: {
             'x-client-id': project.randomUser.id,
-            Authorization: `Bearer ${userTokens.accessToken}`,
+            ...(userTokens.accessToken
+              ? { Authorization: `Bearer ${userTokens.accessToken}` }
+              : {}),
           },
         }
       );
@@ -289,7 +291,9 @@ describe('Sso (e2e)', () => {
         {
           headers: {
             'x-client-id': project.randomUser.id,
-            Authorization: `Bearer ${userTokens.accessToken}`,
+            ...(userTokens.accessToken
+              ? { Authorization: `Bearer ${userTokens.accessToken}` }
+              : {}),
           },
         }
       );
@@ -323,7 +327,9 @@ describe('Sso (e2e)', () => {
         {
           headers: {
             'x-client-id': project.randomUser.id,
-            Authorization: `Bearer ${userTokens.accessToken}`,
+            ...(userTokens.accessToken
+              ? { Authorization: `Bearer ${userTokens.accessToken}` }
+              : {}),
           },
         }
       );
@@ -436,7 +442,9 @@ describe('Sso (e2e)', () => {
       {
         headers: {
           'x-client-id': project.randomUser.id,
-          Authorization: `Bearer ${userTokens.accessToken}`,
+          ...(userTokens.accessToken
+            ? { Authorization: `Bearer ${userTokens.accessToken}` }
+            : {}),
         },
       }
     );
@@ -450,7 +458,9 @@ describe('Sso (e2e)', () => {
         {
           headers: {
             'x-client-id': project.randomUser.id,
-            Authorization: `Bearer ${userTokens.accessToken}`,
+            ...(userTokens.accessToken
+              ? { Authorization: `Bearer ${userTokens.accessToken}` }
+              : {}),
           },
         }
       );

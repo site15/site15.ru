@@ -8,11 +8,13 @@ import {
   Configuration,
   FakeEndpointApi,
   FilesApi,
+  NotificationsApi,
   SsoApi,
+  SsoProject,
   TimeApi,
+  TokensResponse,
   WebhookApi,
   WebhookUser,
-  NotificationsApi,
 } from '@nestjs-mod-sso/app-rest-sdk';
 import axios, { AxiosInstance } from 'axios';
 import { Observable, finalize } from 'rxjs';
@@ -31,6 +33,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
   authorizationTokens?: AuthToken;
   authData?: AuthResponse['data'];
+  ssoTokensResponse?: TokensResponse;
 
   private webhookProfile?: WebhookUser;
   private authProfile?: AuthProfileDto;
@@ -63,6 +66,9 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     ? GenerateRandomUserResult
     : GenerateRandomUserResult | undefined;
 
+  private projectHelper?: RestClientHelper<'strict'>;
+  private project?: SsoProject;
+
   constructor(
     private readonly options?: {
       serverUrl?: string;
@@ -73,9 +79,15 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       activeLang?: string;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       headers?: any;
+      skipCreateProjectHelper?: boolean;
     }
   ) {
     this.randomUser = options?.randomUser as GenerateRandomUserResult;
+    if (!options?.skipCreateProjectHelper) {
+      this.projectHelper = new RestClientHelper({
+        skipCreateProjectHelper: true,
+      });
+    }
     this.createApiClients();
     this.setAuthorizationHeadersFromAuthorizationTokens();
   }
@@ -260,6 +272,11 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     if (!this.randomUser || options) {
       this.randomUser = await generateRandomUser(undefined, options);
     }
+
+    if (this.projectHelper) {
+      await this.projectHelper.generateRandomUser();
+    }
+
     return this;
   }
 
@@ -269,8 +286,10 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     }
     const supabaseClient = await this.getSupabaseClient();
     const authorizerClient = await this.getAuthorizerClient();
+    let useSso = true;
 
     if (supabaseClient) {
+      useSso = false;
       const signUpResult = await supabaseClient.auth.signUp({
         email: this.randomUser.email,
         password: this.randomUser.password,
@@ -282,7 +301,9 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
       this.authData = signUpResult.data;
     }
+
     if (authorizerClient) {
+      useSso = false;
       this.authorizationTokens = (
         await authorizerClient.signup({
           email: this.randomUser.email,
@@ -291,6 +312,67 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         })
       ).data;
     }
+
+    if (useSso && this.projectHelper) {
+      if (!this.project) {
+        const { data: createOneResult } = await this.projectHelper
+          .getSsoApi()
+          .ssoProjectsControllerCreateOne(
+            {
+              clientId: this.projectHelper.randomUser.id,
+              clientSecret: this.projectHelper.randomUser.password,
+            },
+            {
+              headers: {
+                'x-admin-secret': process.env['SERVER_SSO_ADMIN_SECRET'],
+              },
+            }
+          );
+        this.project = createOneResult;
+      }
+
+      const { data: signUpResult } = await this.getSsoApi().ssoControllerSignUp(
+        {
+          username: this.randomUser.username,
+          email: this.randomUser.email,
+          password: this.randomUser.password,
+          confirmPassword: this.randomUser.password,
+          fingerprint: this.randomUser.id,
+        },
+        {
+          headers: {
+            'x-client-id': this.projectHelper.randomUser.id,
+          },
+        }
+      );
+
+      this.ssoTokensResponse = signUpResult;
+
+      const { data: findManyResult } = await this.projectHelper
+        .getSsoApi()
+        .ssoUsersControllerFindMany(
+          undefined,
+          undefined,
+          this.randomUser.email,
+          undefined,
+          {
+            headers: {
+              'x-admin-secret': process.env['SERVER_SSO_ADMIN_SECRET'],
+            },
+          }
+        );
+
+      await this.projectHelper.getSsoApi().ssoUsersControllerUpdateOne(
+        findManyResult.ssoUsers[0].id,
+        {
+          emailVerifiedAt: new Date().toISOString(),
+        },
+        {
+          headers: { 'x-admin-secret': process.env['SERVER_SSO_ADMIN_SECRET'] },
+        }
+      );
+    }
+
     this.setAuthorizationHeadersFromAuthorizationTokens();
 
     await this.loadProfile();
@@ -299,7 +381,9 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   }
 
   async login(
-    options?: Partial<Pick<GenerateRandomUserResult, 'email' | 'password'>>
+    options?: Partial<
+      Pick<GenerateRandomUserResult, 'id' | 'email' | 'password'>
+    >
   ) {
     if (!this.randomUser) {
       this.randomUser = await generateRandomUser();
@@ -307,15 +391,19 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     const loginOptions = {
       email: options?.email || this.randomUser.email,
       password: options?.password || this.randomUser.password,
+      id: options?.id || this.randomUser.id,
     };
 
     const supabaseClient = await this.getSupabaseClient();
     const authorizerClient = await this.getAuthorizerClient();
+    let useSso = true;
 
     if (supabaseClient) {
-      const loginResult = await supabaseClient.auth.signInWithPassword(
-        loginOptions
-      );
+      useSso = false;
+      const loginResult = await supabaseClient.auth.signInWithPassword({
+        email: loginOptions.email,
+        password: loginOptions.password,
+      });
 
       if (loginResult.error) {
         throw new Error(loginResult.error.message);
@@ -331,13 +419,34 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     }
 
     if (authorizerClient) {
-      const loginResult = await authorizerClient.login(loginOptions);
+      useSso = false;
+      const loginResult = await authorizerClient.login({
+        email: loginOptions.email,
+        password: loginOptions.password,
+      });
 
       if (loginResult.errors.length) {
         throw new Error(loginResult.errors[0].message);
       }
 
       this.authorizationTokens = loginResult.data;
+
+      this.setAuthorizationHeadersFromAuthorizationTokens();
+
+      await this.loadProfile();
+
+      return this;
+    }
+
+    if (useSso && this.projectHelper) {
+      useSso = false;
+      const { data: loginResult } = await this.getSsoApi().ssoControllerSignIn({
+        email: loginOptions.email,
+        fingerprint: loginOptions.id,
+        password: loginOptions.password,
+      });
+
+      this.ssoTokensResponse = loginResult;
 
       this.setAuthorizationHeadersFromAuthorizationTokens();
 
@@ -420,28 +529,66 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   async logout() {
     const supabaseClient = await this.getSupabaseClient();
     const authorizerClient = await this.getAuthorizerClient();
+    let useSso = true;
+
     if (supabaseClient) {
+      useSso = false;
       await supabaseClient.auth.signOut({ scope: 'local' });
     }
+
     if (authorizerClient) {
-      await authorizerClient.logout({
-        Authorization: this.getAuthorizationHeaders().Authorization,
+      useSso = false;
+      await authorizerClient.logout(
+        this.getAuthorizationHeaders().Authorization
+          ? {
+              Authorization: this.getAuthorizationHeaders().Authorization,
+            }
+          : {}
+      );
+    }
+
+    if (useSso && this.projectHelper) {
+      useSso = false;
+      await this.getSsoApi().ssoControllerSignOut({
+        refreshToken: this.getRefreshToken(),
       });
+      this.ssoTokensResponse = undefined;
+
+      this.setAuthorizationHeadersFromAuthorizationTokens();
+
+      await this.loadProfile();
+
+      return this;
     }
     return this;
   }
 
+  getRefreshToken(): string | undefined {
+    return this.ssoTokensResponse?.refreshToken;
+  }
+
   getAuthorizationHeaders() {
+    const accessToken = this.getAccessToken();
     return {
       ...this.options?.headers,
-      Authorization: `Bearer ${
-        this.authData?.session?.access_token ||
-        this.authorizationTokens?.access_token
-      }`,
+      ...(this.projectHelper?.randomUser?.id
+        ? {
+            'x-client-id': this.projectHelper.randomUser.id,
+          }
+        : {}),
+      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
       ...(this.options?.activeLang
         ? { ['Accept-Language']: this.options?.activeLang }
         : {}),
     };
+  }
+
+  getAccessToken() {
+    return (
+      this.authData?.session?.access_token ||
+      this.authorizationTokens?.access_token ||
+      this.ssoTokensResponse?.accessToken
+    );
   }
 
   private createApiClients() {

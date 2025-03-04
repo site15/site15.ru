@@ -31,7 +31,7 @@ export class AuthTimezoneService {
       return data;
     }
     try {
-      if (data && timezone) {
+      if (data) {
         if (this.isValidDate(data)) {
           data = this.convertPrimitive(data, timezone);
         } else {
@@ -89,7 +89,11 @@ export class AuthTimezoneService {
     return data;
   }
 
-  private convertComplexObject(data: TData, timezone: number, depth: number) {
+  private convertComplexObject(
+    data: TData,
+    timezone: number | null | undefined,
+    depth: number
+  ) {
     const keys = Object.keys(data as object);
     for (const key of keys) {
       (data as TObject)[key] = this.convertObject(
@@ -100,14 +104,14 @@ export class AuthTimezoneService {
     }
   }
 
-  private convertPrimitive(data: unknown, timezone: number) {
+  private convertPrimitive(data: unknown, timezone: number | null | undefined) {
     if (this.isValidStringDate(data) && typeof data === 'string') {
       data = new Date(data);
     }
     if (this.isValidDate(data)) {
       data = data as Date;
     }
-    data = addHours(data as Date, timezone);
+    data = addHours(data as Date, timezone || 0);
     return data;
   }
 

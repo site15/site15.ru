@@ -82,14 +82,14 @@ export class SsoController {
         },
       });
       throw new SsoError(SsoErrorEnum.EmailNotVerified);
+    } else {
+      await this.ssoEventsService.send({
+        SignIn: { signInArgs },
+        userId: user.id,
+        userIp,
+        userAgent,
+      });
     }
-
-    await this.ssoEventsService.send({
-      SignIn: { signInArgs },
-      userId: user.id,
-      userIp,
-      userAgent,
-    });
 
     const cookieWithJwtToken =
       await this.ssoCookieService.getCookieWithJwtToken({
@@ -127,12 +127,22 @@ export class SsoController {
       projectId: ssoRequest.ssoProject.id,
     });
 
-    await this.ssoEventsService.send({
-      SignUp: { signUpArgs: signUpArgs },
-      userId: user.id,
-      userIp,
-      userAgent,
-    });
+    if (user.emailVerifiedAt === null) {
+      this.logger.debug({
+        signUp: {
+          signUpArgs,
+          projectId: ssoRequest.ssoProject.id,
+        },
+      });
+      throw new SsoError(SsoErrorEnum.EmailNotVerified);
+    } else {
+      await this.ssoEventsService.send({
+        SignUp: { signUpArgs: signUpArgs },
+        userId: user.id,
+        userIp,
+        userAgent,
+      });
+    }
 
     const cookieWithJwtToken =
       await this.ssoCookieService.getCookieWithJwtToken({
@@ -174,6 +184,13 @@ export class SsoController {
     if (!user) {
       throw new SsoError(SsoErrorEnum.UserNotFound);
     }
+
+    await this.ssoEventsService.send({
+      CompleteSignUp: { completeSignUpArgs },
+      userId: user.id,
+      userIp,
+      userAgent,
+    });
 
     const cookieWithJwtToken =
       await this.ssoCookieService.getCookieWithJwtToken({

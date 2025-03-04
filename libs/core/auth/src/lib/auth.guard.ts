@@ -93,7 +93,7 @@ export class AuthGuard implements CanActivate {
         )}, externalUser: ${JSON.stringify(
           req.externalUser
         )}, externalUserId: ${JSON.stringify(
-          JSON.stringify(req.externalUserId)
+          req.externalUserId
         )}, skipEmptyAuthUser: ${JSON.stringify(req.skipEmptyAuthUser)}`
       );
 
@@ -119,7 +119,7 @@ export class AuthGuard implements CanActivate {
       this.authStaticEnvironments.adminEmail &&
       req.externalUser?.email === this.authStaticEnvironments.adminEmail
     ) {
-      req.externalUser.role = AUTH_ADMIN_ROLE;
+      req.externalUser.roles = [AUTH_ADMIN_ROLE];
     }
   }
 
@@ -155,7 +155,14 @@ export class AuthGuard implements CanActivate {
       req.authUser =
         authUser ||
         (await this.prismaClient.authUser.create({
-          data: { externalUserId, userRole: 'User' },
+          data: {
+            externalUserId,
+            userRole: req.externalUser?.roles
+              .map((s) => s.toLowerCase())
+              .includes(AuthRole.Admin.toLowerCase())
+              ? AuthRole.Admin
+              : AuthRole.User,
+          },
         }));
 
       if (req.authUser.lang) {

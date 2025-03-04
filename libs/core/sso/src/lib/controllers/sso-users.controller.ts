@@ -30,6 +30,7 @@ import { SSO_FEATURE } from '../sso.constants';
 import { SsoCheckIsAdmin } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
+import { SsoCacheService } from '../services/sso-cache.service';
 
 @ApiExtraModels(SsoError, ValidationError)
 @ApiBadRequestResponse({
@@ -43,7 +44,8 @@ export class SsoUsersController {
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
-    private readonly ssoPasswordService: SsoPasswordService
+    private readonly ssoPasswordService: SsoPasswordService,
+    private readonly ssoCacheService: SsoCacheService
   ) {}
 
   @Get()
@@ -146,6 +148,9 @@ export class SsoUsersController {
         id,
       },
     });
+
+    await this.ssoCacheService.clearCacheByUserId(id);
+
     return result;
   }
 
@@ -160,6 +165,9 @@ export class SsoUsersController {
         id,
       },
     });
+
+    await this.ssoCacheService.clearCacheByUserId(id);
+
     return { message: getText('ok') };
   }
 

@@ -2,6 +2,8 @@ import { AuthConfiguration, AuthRequest, AuthUser } from '@nestjs-mod-sso/auth';
 import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
 import {
   SSO_FEATURE,
+  SsoAdminService,
+  SsoCacheService,
   SsoError,
   SsoProjectService,
   SsoRequest,
@@ -27,7 +29,9 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     private readonly webhookUsersService: WebhookUsersService,
     private readonly ssoTokensService: SsoTokensService,
     private readonly ssoUsersService: SsoUsersService,
-    private readonly ssoProjectService: SsoProjectService
+    private readonly ssoProjectService: SsoProjectService,
+    private readonly ssoAdminService: SsoAdminService,
+    private readonly ssoCacheService: SsoCacheService
   ) {}
 
   async checkAccessValidator(
@@ -54,7 +58,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     if (!req.ssoUser?.id) {
       const token = req.headers?.authorization?.split(' ')[1];
 
-      if (token) {
+      if (token && token !== 'undefined') {
         // check user in sso
         try {
           const tokenData =
@@ -105,10 +109,14 @@ export class SsoAuthConfiguration implements AuthConfiguration {
       if (req.ssoUser?.email && req.ssoUser?.roles) {
         req.externalUser = {
           email: req.ssoUser.email,
-          role: req.ssoUser.roles?.split(',')?.[0],
+          roles: req.ssoUser.roles?.split(','),
         };
       }
 
+      req.skipEmptyAuthUser = true;
+    }
+
+    if (this.ssoAdminService.checkAdminInRequest(req)) {
       req.skipEmptyAuthUser = true;
     }
   }
@@ -139,10 +147,11 @@ export class SsoAuthConfiguration implements AuthConfiguration {
             email: user.email.toLowerCase(),
           },
           projectId: adminProject.id,
+          roles: this.ssoStaticEnvironments.adminDefaultRoles,
         });
 
         await this.prismaClient.ssoUser.update({
-          data: { roles: 'admin', emailVerifiedAt: new Date() },
+          data: { emailVerifiedAt: new Date() },
           where: {
             email_projectId: {
               email: user.email,
@@ -150,6 +159,9 @@ export class SsoAuthConfiguration implements AuthConfiguration {
             },
           },
         });
+
+        await this.ssoCacheService.clearCacheByUserId(signupUserResult.id);
+
         this.logger.debug(
           `Admin with email: ${signupUserResult.email} successfully created!`
         );

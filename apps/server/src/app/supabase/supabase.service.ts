@@ -118,7 +118,7 @@ export class SupabaseService implements OnModuleInit {
     if (!req.supabaseUser?.id) {
       const token = req.headers?.authorization?.split(' ')[1];
 
-      if (token) {
+      if (token && token !== 'undefined') {
         // check user in supabase
         try {
           const getProfileResult = await this.supabaseClient.auth.getUser(

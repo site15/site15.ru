@@ -6,19 +6,17 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { SsoAdminService } from './services/sso-admin.service';
 import { SsoCacheService } from './services/sso-cache.service';
 import { SsoProjectService } from './services/sso-project.service';
 import { SsoTokensService } from './services/sso-tokens.service';
-import { SsoConfiguration } from './sso.configuration';
 import {
   AllowEmptySsoUser,
   SsoCheckHaveClientSecret,
   SsoCheckIsAdmin,
 } from './sso.decorators';
-import { SsoStaticEnvironments } from './sso.environments';
 import { SsoError, SsoErrorEnum } from './sso.errors';
 import { SsoRequest } from './types/sso-request';
-import e from 'express';
 
 @Injectable()
 export class SsoGuard implements CanActivate {
@@ -26,11 +24,10 @@ export class SsoGuard implements CanActivate {
 
   constructor(
     private readonly reflector: Reflector,
-    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
-    private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoCacheService: SsoCacheService,
     private readonly ssoTokensService: SsoTokensService,
-    private readonly ssoProjectService: SsoProjectService
+    private readonly ssoProjectService: SsoProjectService,
+    private readonly ssoAdminService: SsoAdminService
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -58,20 +55,21 @@ export class SsoGuard implements CanActivate {
           })
         : undefined;
 
-      req.ssoIsAdmin = this.checkAdminInRequest(req);
-
-      if (checkHaveClientSecret && !req.ssoClientSecret) {
-        throw new SsoError(SsoErrorEnum.Forbidden);
-      }
+      req.ssoIsAdmin = this.ssoAdminService.checkAdminInRequest(req);
 
       if (checkSsoIsAdmin) {
         if (!req.ssoIsAdmin) {
           throw new SsoError(SsoErrorEnum.Forbidden);
         }
-      } else {
-        if (!req.ssoUser && !req.skipEmptySsoUser) {
-          throw new SsoError(SsoErrorEnum.Forbidden);
-        }
+        return true;
+      }
+
+      if (checkHaveClientSecret && !req.ssoClientSecret) {
+        throw new SsoError(SsoErrorEnum.Forbidden);
+      }
+
+      if (!req.ssoUser && !req.skipEmptySsoUser) {
+        throw new SsoError(SsoErrorEnum.Forbidden);
       }
 
       return true;
@@ -88,7 +86,9 @@ export class SsoGuard implements CanActivate {
           req.ssoClientId
         }, ssoAccessTokenData: ${JSON.stringify(
           req.ssoAccessTokenData
-        )}, ssoUser: ${JSON.stringify(req.ssoUser)}`
+        )}, ssoUser: ${JSON.stringify(req.ssoUser)}, ssoIsAdmin: ${
+          req.ssoIsAdmin
+        }`
       );
 
       if (!result) {
@@ -104,24 +104,12 @@ export class SsoGuard implements CanActivate {
           req.ssoClientId
         }, ssoAccessTokenData: ${JSON.stringify(
           req.ssoAccessTokenData
-        )}, ssoUser: ${JSON.stringify(req.ssoUser)}`
+        )}, ssoUser: ${JSON.stringify(req.ssoUser)}, ssoIsAdmin: ${
+          req.ssoIsAdmin
+        }`
       );
       throw err;
     }
-  }
-
-  private checkAdminInRequest(req: SsoRequest) {
-    if (
-      this.ssoConfiguration.adminSecretHeaderName &&
-      req.headers?.[this.ssoConfiguration.adminSecretHeaderName]
-    ) {
-      return (
-        req.headers?.[this.ssoConfiguration.adminSecretHeaderName] ===
-        this.ssoStaticEnvironments.adminSecret
-      );
-    }
-
-    return undefined;
   }
 
   private getRequestFromExecutionContext(context: ExecutionContext) {

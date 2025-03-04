@@ -7,12 +7,11 @@ import {
 } from '@nestjs/common';
 import { isObservable, Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
+import { AuthStaticEnvironments } from '../auth.environments';
 import { AuthCacheService } from '../services/auth-cache.service';
 import { AuthTimezoneService, TData } from '../services/auth-timezone.service';
+import { AuthAsyncLocalStorageContext } from '../types/auth-async-local-storage-data';
 import { AuthRequest } from '../types/auth-request';
-import { AuthStaticEnvironments } from '../auth.environments';
-import { AsyncLocalStorage } from 'node:async_hooks';
-import { AuthAsyncLocalStorageData } from '../types/auth-async-local-storage-data';
 
 @Injectable()
 export class AuthTimezoneInterceptor implements NestInterceptor<TData, TData> {
@@ -20,7 +19,7 @@ export class AuthTimezoneInterceptor implements NestInterceptor<TData, TData> {
     private readonly authTimezoneService: AuthTimezoneService,
     private readonly authCacheService: AuthCacheService,
     private readonly authStaticEnvironments: AuthStaticEnvironments,
-    private readonly asyncLocalStorage: AsyncLocalStorage<AuthAsyncLocalStorageData>
+    private readonly asyncLocalStorage: AuthAsyncLocalStorageContext
   ) {}
 
   intercept(context: ExecutionContext, next: CallHandler) {
@@ -40,7 +39,7 @@ export class AuthTimezoneInterceptor implements NestInterceptor<TData, TData> {
       observable: Observable<any>
     ) =>
       new Observable((observer) => {
-        this.asyncLocalStorage.run(store, () => {
+        this.asyncLocalStorage.runWith(store, () => {
           observable.subscribe({
             next: (res) => observer.next(res),
             error: (error) => observer.error(error),
@@ -50,7 +49,7 @@ export class AuthTimezoneInterceptor implements NestInterceptor<TData, TData> {
       });
 
     const run = () => {
-      const result = this.asyncLocalStorage.run(store, () => next.handle());
+      const result = this.asyncLocalStorage.runWith(store, () => next.handle());
 
       if (isObservable(result)) {
         return wrapObservableForWorkWithAsyncLocalStorage(result).pipe(

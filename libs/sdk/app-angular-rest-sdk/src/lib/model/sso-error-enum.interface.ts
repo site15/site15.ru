@@ -23,7 +23,8 @@ export type SsoErrorEnumInterface =
   | 'SSO-011'
   | 'SSO-012'
   | 'SSO-013'
-  | 'SSO-014';
+  | 'SSO-014'
+  | 'SSO-015';
 
 export const SsoErrorEnumInterface = {
   SSO_000: 'SSO-000' as SsoErrorEnumInterface,
@@ -41,4 +42,5 @@ export const SsoErrorEnumInterface = {
   SSO_012: 'SSO-012' as SsoErrorEnumInterface,
   SSO_013: 'SSO-013' as SsoErrorEnumInterface,
   SSO_014: 'SSO-014' as SsoErrorEnumInterface,
+  SSO_015: 'SSO-015' as SsoErrorEnumInterface,
 };

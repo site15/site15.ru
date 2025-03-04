@@ -10,6 +10,7 @@ import {
 } from '@nestjs-mod-sso/notifications';
 import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
 import {
+  SsoCheckIsAdmin,
   SsoGuard,
   SsoModule,
   SsoRequest,
@@ -269,7 +270,13 @@ bootstrapNestApplication({
             featureModuleName: NOTIFICATIONS_FEATURE,
           }),
         ],
-        staticConfiguration: { guards: [SsoGuard] },
+        staticConfiguration: {
+          guards: [SsoGuard],
+          mutateController: (ctrl) => {
+            SsoCheckIsAdmin()(ctrl);
+            return ctrl;
+          },
+        },
         configuration: {
           checkAccessValidator: async (ctx: ExecutionContext) => {
             const req = getRequestFromExecutionContext(ctx) as SsoRequest &

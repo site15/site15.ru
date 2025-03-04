@@ -85,7 +85,7 @@ export class WebhookWithAuthAuthorizerConfiguration
       if (authorizerUser?.email && authorizerUser?.roles) {
         req.externalUser = {
           email: authorizerUser?.email,
-          role: authorizerUser?.roles[0],
+          roles: authorizerUser?.roles,
         };
       }
     }

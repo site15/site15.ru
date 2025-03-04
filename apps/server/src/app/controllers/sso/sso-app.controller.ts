@@ -43,7 +43,7 @@ export class AppController {
   @ApiCreatedResponse({ type: AppDemo })
   async demoCreateOne(
     @CurrentSsoUser()
-    externalUser: {
+    externalUser?: {
       id: string;
     }
   ) {
@@ -53,7 +53,7 @@ export class AppController {
 
     await this.webhookService.sendEvent({
       eventBody: result,
-      eventHeaders: { ['external-user-id']: externalUser.id },
+      eventHeaders: { ['external-user-id']: externalUser?.id },
       eventName: AppDemoEventName['app-demo.create'],
     });
 
@@ -71,15 +71,15 @@ export class AppController {
   @Delete('/demo/:id')
   @ApiOkResponse({ type: AppDemo })
   async demoDeleteOne(
+    @Param('id', new ParseUUIDPipe()) id: string,
     @CurrentSsoUser()
-    externalUser: { id: string },
-    @Param('id', new ParseUUIDPipe()) id: string
+    externalUser?: { id: string }
   ) {
     const result = await this.appPrismaClient.appDemo.delete({ where: { id } });
 
     await this.webhookService.sendEvent({
       eventBody: result,
-      eventHeaders: { ['external-user-id']: externalUser.id },
+      eventHeaders: { ['external-user-id']: externalUser?.id },
       eventName: AppDemoEventName['app-demo.delete'],
     });
 
@@ -89,9 +89,9 @@ export class AppController {
   @Put('/demo/:id')
   @ApiOkResponse({ type: AppDemo })
   async demoUpdateOne(
+    @Param('id', new ParseUUIDPipe()) id: string,
     @CurrentSsoUser()
-    externalUser: { id: string },
-    @Param('id', new ParseUUIDPipe()) id: string
+    externalUser?: { id: string }
   ) {
     const result = await this.appPrismaClient.appDemo.update({
       data: { name: 'new demo name' + randomUUID(), updatedAt: new Date() },
@@ -100,7 +100,7 @@ export class AppController {
 
     await this.webhookService.sendEvent({
       eventBody: result,
-      eventHeaders: { ['external-user-id']: externalUser.id },
+      eventHeaders: { ['external-user-id']: externalUser?.id },
       eventName: AppDemoEventName['app-demo.update'],
     });
 
