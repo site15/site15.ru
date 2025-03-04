@@ -45,11 +45,9 @@ import { SignUpArgsInterface } from '../model/sign-up-args.interface';
 // @ts-ignore
 import { SsoControllerSignIn400ResponseInterface } from '../model/sso-controller-sign-in400-response.interface';
 // @ts-ignore
-import { SsoProjectInterface } from '../model/sso-project.interface';
+import { SsoProjectDtoInterface } from '../model/sso-project-dto.interface';
 // @ts-ignore
 import { SsoUserDtoInterface } from '../model/sso-user-dto.interface';
-// @ts-ignore
-import { SsoUserInterface } from '../model/sso-user.interface';
 // @ts-ignore
 import { StatusResponseInterface } from '../model/status-response.interface';
 // @ts-ignore
@@ -1287,7 +1285,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<SsoProjectInterface>;
+  ): Observable<SsoProjectDtoInterface>;
   public ssoProjectsControllerCreateOne(
     createSsoProjectDtoInterface: CreateSsoProjectDtoInterface,
     observe?: 'response',
@@ -1297,7 +1295,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpResponse<SsoProjectInterface>>;
+  ): Observable<HttpResponse<SsoProjectDtoInterface>>;
   public ssoProjectsControllerCreateOne(
     createSsoProjectDtoInterface: CreateSsoProjectDtoInterface,
     observe?: 'events',
@@ -1307,7 +1305,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpEvent<SsoProjectInterface>>;
+  ): Observable<HttpEvent<SsoProjectDtoInterface>>;
   public ssoProjectsControllerCreateOne(
     createSsoProjectDtoInterface: CreateSsoProjectDtoInterface,
     observe: any = 'body',
@@ -1381,7 +1379,7 @@ export class SsoRestService {
     }
 
     let localVarPath = `/api/sso/projects`;
-    return this.httpClient.request<SsoProjectInterface>(
+    return this.httpClient.request<SsoProjectDtoInterface>(
       'post',
       `${this.configuration.basePath}${localVarPath}`,
       {
@@ -1677,7 +1675,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<SsoProjectInterface>;
+  ): Observable<SsoProjectDtoInterface>;
   public ssoProjectsControllerFindOne(
     id: string,
     observe?: 'response',
@@ -1687,7 +1685,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpResponse<SsoProjectInterface>>;
+  ): Observable<HttpResponse<SsoProjectDtoInterface>>;
   public ssoProjectsControllerFindOne(
     id: string,
     observe?: 'events',
@@ -1697,7 +1695,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpEvent<SsoProjectInterface>>;
+  ): Observable<HttpEvent<SsoProjectDtoInterface>>;
   public ssoProjectsControllerFindOne(
     id: string,
     observe: any = 'body',
@@ -1765,7 +1763,7 @@ export class SsoRestService {
       dataType: 'string',
       dataFormat: undefined,
     })}`;
-    return this.httpClient.request<SsoProjectInterface>(
+    return this.httpClient.request<SsoProjectDtoInterface>(
       'get',
       `${this.configuration.basePath}${localVarPath}`,
       {
@@ -1796,7 +1794,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<SsoProjectInterface>;
+  ): Observable<SsoProjectDtoInterface>;
   public ssoProjectsControllerUpdateOne(
     id: string,
     updateSsoProjectDtoInterface: UpdateSsoProjectDtoInterface,
@@ -1807,7 +1805,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpResponse<SsoProjectInterface>>;
+  ): Observable<HttpResponse<SsoProjectDtoInterface>>;
   public ssoProjectsControllerUpdateOne(
     id: string,
     updateSsoProjectDtoInterface: UpdateSsoProjectDtoInterface,
@@ -1818,7 +1816,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpEvent<SsoProjectInterface>>;
+  ): Observable<HttpEvent<SsoProjectDtoInterface>>;
   public ssoProjectsControllerUpdateOne(
     id: string,
     updateSsoProjectDtoInterface: UpdateSsoProjectDtoInterface,
@@ -1906,7 +1904,7 @@ export class SsoRestService {
       dataType: 'string',
       dataFormat: undefined,
     })}`;
-    return this.httpClient.request<SsoProjectInterface>(
+    return this.httpClient.request<SsoProjectDtoInterface>(
       'put',
       `${this.configuration.basePath}${localVarPath}`,
       {
@@ -2202,7 +2200,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<SsoUserInterface>;
+  ): Observable<SsoUserDtoInterface>;
   public ssoUsersControllerFindOne(
     id: string,
     observe?: 'response',
@@ -2212,7 +2210,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpResponse<SsoUserInterface>>;
+  ): Observable<HttpResponse<SsoUserDtoInterface>>;
   public ssoUsersControllerFindOne(
     id: string,
     observe?: 'events',
@@ -2222,7 +2220,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpEvent<SsoUserInterface>>;
+  ): Observable<HttpEvent<SsoUserDtoInterface>>;
   public ssoUsersControllerFindOne(
     id: string,
     observe: any = 'body',
@@ -2290,7 +2288,7 @@ export class SsoRestService {
       dataType: 'string',
       dataFormat: undefined,
     })}`;
-    return this.httpClient.request<SsoUserInterface>(
+    return this.httpClient.request<SsoUserDtoInterface>(
       'get',
       `${this.configuration.basePath}${localVarPath}`,
       {
@@ -2321,7 +2319,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<SsoUserInterface>;
+  ): Observable<SsoUserDtoInterface>;
   public ssoUsersControllerUpdateOne(
     id: string,
     updateSsoUserDtoInterface: UpdateSsoUserDtoInterface,
@@ -2332,7 +2330,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpResponse<SsoUserInterface>>;
+  ): Observable<HttpResponse<SsoUserDtoInterface>>;
   public ssoUsersControllerUpdateOne(
     id: string,
     updateSsoUserDtoInterface: UpdateSsoUserDtoInterface,
@@ -2343,7 +2341,7 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpEvent<SsoUserInterface>>;
+  ): Observable<HttpEvent<SsoUserDtoInterface>>;
   public ssoUsersControllerUpdateOne(
     id: string,
     updateSsoUserDtoInterface: UpdateSsoUserDtoInterface,
@@ -2431,7 +2429,7 @@ export class SsoRestService {
       dataType: 'string',
       dataFormat: undefined,
     })}`;
-    return this.httpClient.request<SsoUserInterface>(
+    return this.httpClient.request<SsoUserDtoInterface>(
       'put',
       `${this.configuration.basePath}${localVarPath}`,
       {

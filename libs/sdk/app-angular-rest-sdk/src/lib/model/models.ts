@@ -43,6 +43,7 @@ export * from './sso-controller-sign-in400-response.interface';
 export * from './sso-entities.interface';
 export * from './sso-error-enum.interface';
 export * from './sso-error.interface';
+export * from './sso-project-dto.interface';
 export * from './sso-project.interface';
 export * from './sso-project-scalar-field-enum.interface';
 export * from './sso-refresh-session.interface';

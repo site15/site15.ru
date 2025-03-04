@@ -26,7 +26,7 @@ import { Prisma, PrismaClient } from '@prisma/sso-client';
 import { isUUID } from 'class-validator';
 import { CurrentLocale, TranslatesService } from 'nestjs-translates';
 import { CreateSsoProjectDto } from '../generated/rest/dto/create-sso-project.dto';
-import { SsoProject } from '../generated/rest/dto/sso-project.entity';
+import { SsoProjectDto } from '../generated/rest/dto/sso-project.dto';
 import { UpdateSsoProjectDto } from '../generated/rest/dto/update-sso-project.dto';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoCheckIsAdmin } from '../sso.decorators';
@@ -123,7 +123,7 @@ export class SsoProjectsController {
   }
 
   @Post()
-  @ApiCreatedResponse({ type: SsoProject })
+  @ApiCreatedResponse({ type: SsoProjectDto })
   async createOne(@Body() args: CreateSsoProjectDto) {
     return await this.prismaClient.ssoProject.create({
       data: {
@@ -133,7 +133,7 @@ export class SsoProjectsController {
   }
 
   @Put(':id')
-  @ApiOkResponse({ type: SsoProject })
+  @ApiOkResponse({ type: SsoProjectDto })
   async updateOne(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoProjectDto
@@ -162,7 +162,7 @@ export class SsoProjectsController {
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: SsoProject })
+  @ApiOkResponse({ type: SsoProjectDto })
   async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return await this.prismaClient.ssoProject.findFirstOrThrow({
       where: {

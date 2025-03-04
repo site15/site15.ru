@@ -63,6 +63,7 @@ model/sso-controller-sign-in400-response.interface.ts
 model/sso-entities.interface.ts
 model/sso-error-enum.interface.ts
 model/sso-error.interface.ts
+model/sso-project-dto.interface.ts
 model/sso-project-scalar-field-enum.interface.ts
 model/sso-project.interface.ts
 model/sso-refresh-session.interface.ts

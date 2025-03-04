@@ -514,10 +514,10 @@ export interface FindManyResponseMeta {
 export interface FindManySsoProjectResponse {
   /**
    *
-   * @type {Array<SsoProject>}
+   * @type {Array<SsoProjectDto>}
    * @memberof FindManySsoProjectResponse
    */
-  ssoProjects: Array<SsoProject>;
+  ssoProjects: Array<SsoProjectDto>;
   /**
    *
    * @type {FindManyResponseMeta}
@@ -533,10 +533,10 @@ export interface FindManySsoProjectResponse {
 export interface FindManySsoUserResponse {
   /**
    *
-   * @type {Array<SsoUser>}
+   * @type {Array<SsoUserDto>}
    * @memberof FindManySsoUserResponse
    */
-  ssoUsers: Array<SsoUser>;
+  ssoUsers: Array<SsoUserDto>;
   /**
    *
    * @type {FindManyResponseMeta}
@@ -1277,6 +1277,43 @@ export interface SsoProject {
    * @memberof SsoProject
    */
   SsoUser?: Array<SsoUser>;
+}
+/**
+ *
+ * @export
+ * @interface SsoProjectDto
+ */
+export interface SsoProjectDto {
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProjectDto
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProjectDto
+   */
+  clientId: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProjectDto
+   */
+  clientSecret: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProjectDto
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoProjectDto
+   */
+  updatedAt: string;
 }
 /**
  *
@@ -6287,7 +6324,7 @@ export const SsoApiFp = function (configuration?: Configuration) {
       createSsoProjectDto: CreateSsoProjectDto,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProject>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProjectDto>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoProjectsControllerCreateOne(
@@ -6389,7 +6426,7 @@ export const SsoApiFp = function (configuration?: Configuration) {
       id: string,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProject>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProjectDto>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoProjectsControllerFindOne(
@@ -6421,7 +6458,7 @@ export const SsoApiFp = function (configuration?: Configuration) {
       updateSsoProjectDto: UpdateSsoProjectDto,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProject>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProjectDto>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoProjectsControllerUpdateOne(
@@ -6524,7 +6561,7 @@ export const SsoApiFp = function (configuration?: Configuration) {
       id: string,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoUser>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoUserDto>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoUsersControllerFindOne(id, options);
@@ -6553,7 +6590,7 @@ export const SsoApiFp = function (configuration?: Configuration) {
       updateSsoUserDto: UpdateSsoUserDto,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoUser>
+      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoUserDto>
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoUsersControllerUpdateOne(
@@ -6729,7 +6766,7 @@ export const SsoApiFactory = function (
     ssoProjectsControllerCreateOne(
       createSsoProjectDto: CreateSsoProjectDto,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<SsoProject> {
+    ): AxiosPromise<SsoProjectDto> {
       return localVarFp
         .ssoProjectsControllerCreateOne(createSsoProjectDto, options)
         .then((request) => request(axios, basePath));
@@ -6783,7 +6820,7 @@ export const SsoApiFactory = function (
     ssoProjectsControllerFindOne(
       id: string,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<SsoProject> {
+    ): AxiosPromise<SsoProjectDto> {
       return localVarFp
         .ssoProjectsControllerFindOne(id, options)
         .then((request) => request(axios, basePath));
@@ -6799,7 +6836,7 @@ export const SsoApiFactory = function (
       id: string,
       updateSsoProjectDto: UpdateSsoProjectDto,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<SsoProject> {
+    ): AxiosPromise<SsoProjectDto> {
       return localVarFp
         .ssoProjectsControllerUpdateOne(id, updateSsoProjectDto, options)
         .then((request) => request(axios, basePath));
@@ -6847,7 +6884,7 @@ export const SsoApiFactory = function (
     ssoUsersControllerFindOne(
       id: string,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<SsoUser> {
+    ): AxiosPromise<SsoUserDto> {
       return localVarFp
         .ssoUsersControllerFindOne(id, options)
         .then((request) => request(axios, basePath));
@@ -6863,7 +6900,7 @@ export const SsoApiFactory = function (
       id: string,
       updateSsoUserDto: UpdateSsoUserDto,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<SsoUser> {
+    ): AxiosPromise<SsoUserDto> {
       return localVarFp
         .ssoUsersControllerUpdateOne(id, updateSsoUserDto, options)
         .then((request) => request(axios, basePath));

@@ -7,10 +7,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SsoProjectDtoInterface } from './sso-project-dto.interface';
 import { FindManyResponseMetaInterface } from './find-many-response-meta.interface';
-import { SsoProjectInterface } from './sso-project.interface';
 
 export interface FindManySsoProjectResponseInterface {
-  ssoProjects: Array<SsoProjectInterface>;
+  ssoProjects: Array<SsoProjectDtoInterface>;
   meta: FindManyResponseMetaInterface;
 }

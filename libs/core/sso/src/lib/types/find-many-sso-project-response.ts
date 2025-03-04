@@ -1,10 +1,10 @@
 import { FindManyResponseMeta } from '@nestjs-mod-sso/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { SsoProject } from '../generated/rest/dto/sso-project.entity';
+import { SsoProjectDto } from '../generated/rest/dto/sso-project.dto';
 
 export class FindManySsoProjectResponse {
-  @ApiProperty({ type: () => [SsoProject] })
-  ssoProjects!: SsoProject[];
+  @ApiProperty({ type: () => [SsoProjectDto] })
+  ssoProjects!: SsoProjectDto[];
 
   @ApiProperty({ type: () => FindManyResponseMeta })
   meta!: FindManyResponseMeta;

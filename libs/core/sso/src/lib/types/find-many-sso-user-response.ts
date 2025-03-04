@@ -1,10 +1,10 @@
 import { FindManyResponseMeta } from '@nestjs-mod-sso/common';
 import { ApiProperty } from '@nestjs/swagger';
-import { SsoUser } from '../generated/rest/dto/sso-user.entity';
+import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 
 export class FindManySsoUserResponse {
-  @ApiProperty({ type: () => [SsoUser] })
-  ssoUsers!: SsoUser[];
+  @ApiProperty({ type: () => [SsoUserDto] })
+  ssoUsers!: SsoUserDto[];
 
   @ApiProperty({ type: () => FindManyResponseMeta })
   meta!: FindManyResponseMeta;

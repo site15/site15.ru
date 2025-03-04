@@ -61,6 +61,7 @@ export * from './lib/model/sso-controller-sign-in400-response.interface';
 export * from './lib/model/sso-entities.interface';
 export * from './lib/model/sso-error-enum.interface';
 export * from './lib/model/sso-error.interface';
+export * from './lib/model/sso-project-dto.interface';
 export * from './lib/model/sso-project-scalar-field-enum.interface';
 export * from './lib/model/sso-project.interface';
 export * from './lib/model/sso-refresh-session.interface';

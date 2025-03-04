@@ -23,14 +23,14 @@ import {
 } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
-import { SsoUser } from '../generated/rest/dto/sso-user.entity';
+import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 import { UpdateSsoUserDto } from '../generated/rest/dto/update-sso-user.dto';
+import { SsoCacheService } from '../services/sso-cache.service';
 import { SsoPasswordService } from '../services/sso-password.service';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoCheckIsAdmin } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
-import { SsoCacheService } from '../services/sso-cache.service';
 
 @ApiExtraModels(SsoError, ValidationError)
 @ApiBadRequestResponse({
@@ -127,7 +127,7 @@ export class SsoUsersController {
   }
 
   @Put(':id')
-  @ApiOkResponse({ type: SsoUser })
+  @ApiOkResponse({ type: SsoUserDto })
   async updateOne(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoUserDto
@@ -172,7 +172,7 @@ export class SsoUsersController {
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: SsoUser })
+  @ApiOkResponse({ type: SsoUserDto })
   async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     return await this.prismaClient.ssoUser.findFirstOrThrow({
       where: {
