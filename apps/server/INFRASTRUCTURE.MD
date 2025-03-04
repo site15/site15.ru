@@ -992,6 +992,23 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 |`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 
+### PgFlyway
+PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
+
+#### Environments
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```sso```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
 ### InfrastructureMarkdownReportGenerator
 Infrastructure markdown report generator.
 
@@ -1049,6 +1066,13 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 | ------ | ----------- | ----- |
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
 
+#### Modules that use feature configuration
+##### Feature module name: auth
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
+
 #### Modules that use feature environments
 ##### Feature module name: app
 
@@ -1083,6 +1107,13 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
 |`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Modules that use feature environments
+##### Feature module name: auth
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
 
 ### DockerComposeRedis
 The open-source, in-memory data store used by millions of developers as a cache, vector database, document database, streaming engine, and message broker. (Generator for redis in docker-compose.yml for https://www.npmjs.com/package/@nestjs-mod/docker-compose)

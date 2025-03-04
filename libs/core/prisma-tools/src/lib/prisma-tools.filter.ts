@@ -8,7 +8,6 @@ import {
 import { BaseExceptionFilter } from '@nestjs/core';
 import { PrismaToolsStaticEnvironments } from './prisma-tools.environments';
 import { PrismaToolsService } from './prisma-tools.service';
-import { Socket } from 'node:net';
 
 @Catch()
 export class PrismaToolsExceptionsFilter extends BaseExceptionFilter {

@@ -1,5 +1,4 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional } from 'class-validator';
 import { getText } from 'nestjs-translates';
 
 export enum FilesErrorEnum {

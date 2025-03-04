@@ -351,6 +351,19 @@ bootstrapNestApplication({
           ),
         },
       }),
+      DockerComposePostgreSQL.forFeatureAsync({
+        featureModuleName: AUTH_FEATURE,
+        featureConfiguration: {
+          nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
+        },
+      }),
+      PgFlyway.forRoot({
+        staticConfiguration: {
+          featureName: AUTH_FEATURE,
+          migrationsFolder: join(rootFolder, AUTH_FOLDER, 'src', 'migrations'),
+          nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
+        },
+      }),
     ],
   },
 });

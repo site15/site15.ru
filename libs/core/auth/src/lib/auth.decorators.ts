@@ -14,10 +14,9 @@ import { AuthRole } from '@prisma/auth-client';
 import { AuthRequest } from './types/auth-request';
 
 import { applyDecorators } from '@nestjs/common';
+import { URL } from 'node:url';
 import { AuthGuard } from './auth.guard';
 import { AuthTimezoneInterceptor } from './interceptors/auth-timezone.interceptor';
-import { url } from 'node:inspector';
-import { URL } from 'node:url';
 
 export const AllowEmptyAuthUser = Reflector.createDecorator();
 export const SkipAuthGuard = Reflector.createDecorator<true>();
