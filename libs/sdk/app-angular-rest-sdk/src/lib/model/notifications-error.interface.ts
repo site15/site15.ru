@@ -12,7 +12,7 @@ import { NotificationsErrorEnumInterface } from './notifications-error-enum.inte
 
 export interface NotificationsErrorInterface {
   /**
-   * Notificationserror (NOTIFICATIONS-000), Tenant ID not set (NOTIFICATIONS-001), User ID not set (NOTIFICATIONS-002), Forbidden (NOTIFICATIONS-003)
+   * Notifications error (NOTIFICATIONS-000), Tenant ID not set (NOTIFICATIONS-001), User ID not set (NOTIFICATIONS-002), Forbidden (NOTIFICATIONS-003)
    */
   message: string;
   code: NotificationsErrorEnumInterface;

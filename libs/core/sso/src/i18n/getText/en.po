@@ -1,0 +1,58 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgid "$constraint1 do not match to $property"
+msgstr "$constraint1 do not match to $property"
+
+msgid "Access token expired"
+msgstr "Access token expired"
+
+msgid "Activate email not processed"
+msgstr "Activate email not processed"
+
+msgid "Activate email processed"
+msgstr "Activate email processed"
+
+msgid "Email not verified"
+msgstr "Email not verified"
+
+msgid "Forbidden"
+msgstr "Forbidden"
+
+msgid "Invalid refresh session"
+msgstr "Invalid refresh session"
+
+msgid "Non-existent role specified"
+msgstr "Non-existent role specified"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "Refresh token not provided"
+msgstr "Refresh token not provided"
+
+msgid "Session expired"
+msgstr "Session expired"
+
+msgid "Sso error"
+msgstr "Sso error"
+
+msgid "User is exists"
+msgstr "User is exists"
+
+msgid "User not found"
+msgstr "User not found"
+
+msgid "Wrong activate email code"
+msgstr "Wrong activate email code"
+
+msgid "Wrong old password"
+msgstr "Wrong old password"
+
+msgid "Wrong password"
+msgstr "Wrong password"

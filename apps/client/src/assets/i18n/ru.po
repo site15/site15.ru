@@ -22,6 +22,9 @@ msgstr "Демо"
 msgid "Webhooks"
 msgstr "Вебхуки"
 
+msgid "Projects and users"
+msgstr "Проекты и пользователи"
+
 msgid "Profile"
 msgstr "Профиль"
 
@@ -33,6 +36,9 @@ msgstr "Зарегистрироваться"
 
 msgid "Sign-in"
 msgstr "Войти"
+
+msgid "Projects"
+msgstr "Проекты"
 
 msgid ""
 "Dev/Watch mode: the infrastructure is running using docker-compose, "

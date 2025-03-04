@@ -1,0 +1,19 @@
+{
+    "$constraint1 do not match to $property": "$constraint1 не соответствует $property",
+    "Access token expired": "Срок действия токена доступа истек",
+    "Activate email not processed": "Активация электронной почты не обработана",
+    "Activate email processed": "Активация электронной почты выполнена",
+    "Email not verified": "Электронная почта не подтверждена",
+    "Forbidden": "Запрещено",
+    "Invalid refresh session": "Некорректная сессия обновления",
+    "Non-existent role specified": "Указана несуществующая роль",
+    "ok": "ок",
+    "Refresh token not provided": "Обновляющий токен не предоставлен",
+    "Session expired": "Сессия истекла",
+    "Sso error": "Ошибка SSO",
+    "User is exists": "Пользователь существует",
+    "User not found": "Пользователь не найден",
+    "Wrong activate email code": "Неправильный код активации электронной почты",
+    "Wrong old password": "Старый пароль неверен",
+    "Wrong password": "Неверный пароль"
+}

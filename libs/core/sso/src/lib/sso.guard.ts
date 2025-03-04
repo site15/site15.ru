@@ -17,6 +17,7 @@ import {
 } from './sso.decorators';
 import { SsoError, SsoErrorEnum } from './sso.errors';
 import { SsoRequest } from './types/sso-request';
+import { SsoRole } from './types/sso-role';
 
 @Injectable()
 export class SsoGuard implements CanActivate {
@@ -58,7 +59,10 @@ export class SsoGuard implements CanActivate {
       req.ssoIsAdmin = this.ssoAdminService.checkAdminInRequest(req);
 
       if (checkSsoIsAdmin) {
-        if (!req.ssoIsAdmin) {
+        if (
+          !req.ssoIsAdmin &&
+          !req.ssoUser?.roles?.split(',').includes(SsoRole.admin)
+        ) {
           throw new SsoError(SsoErrorEnum.Forbidden);
         }
         return true;

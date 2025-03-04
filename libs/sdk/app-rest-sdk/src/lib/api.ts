@@ -661,7 +661,7 @@ export interface NotificationsEntities {
  */
 export interface NotificationsError {
   /**
-   * Notificationserror (NOTIFICATIONS-000), Tenant ID not set (NOTIFICATIONS-001), User ID not set (NOTIFICATIONS-002), Forbidden (NOTIFICATIONS-003)
+   * Notifications error (NOTIFICATIONS-000), Tenant ID not set (NOTIFICATIONS-001), User ID not set (NOTIFICATIONS-002), Forbidden (NOTIFICATIONS-003)
    * @type {string}
    * @memberof NotificationsError
    */

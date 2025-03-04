@@ -1,3 +1,4 @@
+import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -6,9 +7,8 @@ import ms from 'ms';
 import { randomUUID } from 'node:crypto';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
-import { SsoAccessTokenData } from '../types/sso-request';
-import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
+import { SsoAccessTokenData } from '../types/sso-request';
 
 @Injectable()
 export class SsoTokensService {
@@ -231,10 +231,19 @@ export class SsoTokensService {
     if (accessToken === 'undefined') {
       accessToken = undefined;
     }
-    return accessToken
-      ? await this.jwtService.verifyAsync<SsoAccessTokenData>(accessToken, {
-          secret: this.ssoStaticEnvironments.jwtSecretKey,
-        })
-      : undefined;
+    try {
+      return accessToken
+        ? await this.jwtService.verifyAsync<SsoAccessTokenData>(accessToken, {
+            secret: this.ssoStaticEnvironments.jwtSecretKey,
+          })
+        : undefined;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (err.message.includes('jwt expired')) {
+        throw new SsoError(SsoErrorEnum.AccessTokenExpired);
+      }
+      this.logger.error(err, err.stack);
+      throw new SsoError(SsoErrorEnum.BadAccessToken);
+    }
   }
 }

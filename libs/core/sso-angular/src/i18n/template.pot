@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgid "input search text"
+msgstr "input search text"
+
+msgid "Create new"
+msgstr "Create new"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Create"
+msgstr "Create"
+
+msgid "sso-project.form.fields.client-id"
+msgstr "Client ID"
+
+msgid "sso-project.form.fields.client-secret"
+msgstr "Client secret"
+
+msgid "sso-project.update-modal.title"
+msgstr "Edit project #{{ id }}"
+
+msgid "sso-project.create-modal.title"
+msgstr "Create project"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "sso-project.delete-modal.title"
+msgstr "Delete project #{{ id }}"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "sso-project.grid.columns.id"
+msgstr "ID"
+
+msgid "sso-project.grid.columns.client-id"
+msgstr "Client ID"
+
+msgid "sso-project.grid.columns.client-secret"
+msgstr "Client secret"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "id not set"
+msgstr "ID not set"
+
+msgid "Sign-in"
+msgstr "Sign in"
+
+msgid "Sign-up"
+msgstr "Sign up"
+
+msgid "sso.sign-up-form.fields.email"
+msgstr "Email"
+
+msgid "sso.sign-up-form.fields.password"
+msgstr "Password"
+
+msgid "sso.sign-up-form.fields.confirm-password"
+msgstr "Confirm password"
+
+msgid "sso.sign-in-form.fields.email"
+msgstr "Email"
+
+msgid "sso.sign-in-form.fields.password"
+msgstr "Password"
+
+msgid "sso.profile-form.fields.picture"
+msgstr "Picture"
+
+msgid "sso.profile-form.fields.old-password"
+msgstr "Old password"
+
+msgid "sso.profile-form.fields.new-password"
+msgstr "New password"
+
+msgid "sso.profile-form.fields.confirm-new-password"
+msgstr "Confirm new password"
+
+msgid "Validation errors"
+msgstr "Validation errors"
+
+msgid "Profile data updated successfully!"
+msgstr "Profile data updated successfully!"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "field \"{{label}}\""
+msgstr "field \"{{label}}\""

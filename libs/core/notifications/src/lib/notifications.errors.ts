@@ -13,7 +13,7 @@ export const NOTIFICATIONS_ERROR_ENUM_TITLES: Record<
   NotificationsErrorEnum,
   string
 > = {
-  [NotificationsErrorEnum.COMMON]: getText('Notificationserror'),
+  [NotificationsErrorEnum.COMMON]: getText('Notifications error'),
   [NotificationsErrorEnum.EXTERNAL_TENANT_ID_NOT_SET]:
     getText('Tenant ID not set'),
   [NotificationsErrorEnum.EXTERNAL_USER_ID_NOT_SET]: getText('User ID not set'),

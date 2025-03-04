@@ -6,7 +6,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
-import { SsoError } from './sso.errors';
+import { SsoError, SsoErrorEnum } from './sso.errors';
 
 @Catch(SsoError)
 export class SsoExceptionsFilter extends BaseExceptionFilter {
@@ -22,7 +22,9 @@ export class SsoExceptionsFilter extends BaseExceptionFilter {
             message: exception.message,
             metadata: exception.metadata,
           },
-          HttpStatus.BAD_REQUEST
+          exception.code === SsoErrorEnum.AccessTokenExpired
+            ? HttpStatus.UNAUTHORIZED
+            : HttpStatus.BAD_REQUEST
         ),
         host
       );

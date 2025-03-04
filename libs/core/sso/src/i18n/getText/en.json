@@ -1,0 +1,19 @@
+{
+    "$constraint1 do not match to $property": "$constraint1 do not match to $property",
+    "Access token expired": "Access token expired",
+    "Activate email not processed": "Activate email not processed",
+    "Activate email processed": "Activate email processed",
+    "Email not verified": "Email not verified",
+    "Forbidden": "Forbidden",
+    "Invalid refresh session": "Invalid refresh session",
+    "Non-existent role specified": "Non-existent role specified",
+    "ok": "ok",
+    "Refresh token not provided": "Refresh token not provided",
+    "Session expired": "Session expired",
+    "Sso error": "Sso error",
+    "User is exists": "User is exists",
+    "User not found": "User not found",
+    "Wrong activate email code": "Wrong activate email code",
+    "Wrong old password": "Wrong old password",
+    "Wrong password": "Wrong password"
+}

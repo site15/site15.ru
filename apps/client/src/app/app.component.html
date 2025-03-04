@@ -16,6 +16,13 @@
       </a>
       @if (authUser$|async; as authUser) {
       <li nz-menu-item routerLink="/webhooks" transloco="Webhooks"></li>
+      @if (authUser.roles?.includes('admin')) {
+      <li
+        nz-menu-item
+        routerLink="/projects"
+        transloco="Projects and users"
+      ></li>
+      }
       <li
         nz-submenu
         [nzTitle]="'You are logged in as {{email}}' | transloco : authUser"

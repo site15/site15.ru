@@ -7,6 +7,7 @@ import {
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
 import ms from 'ms';
+import { SsoRole } from './types/sso-role';
 
 @EnvModel()
 export class SsoStaticEnvironments {
@@ -34,7 +35,7 @@ export class SsoStaticEnvironments {
 
   @EnvModelProperty({
     description: 'Available user roles',
-    default: ['user', 'admin'],
+    default: [SsoRole.user, SsoRole.admin],
     transform: new ArrayOfStringTransformer(),
     hidden: true,
   })
@@ -43,7 +44,7 @@ export class SsoStaticEnvironments {
 
   @EnvModelProperty({
     description: 'Default roles for new user',
-    default: ['user'],
+    default: [SsoRole.user],
     transform: new ArrayOfStringTransformer(),
     hidden: true,
   })
@@ -52,7 +53,7 @@ export class SsoStaticEnvironments {
 
   @EnvModelProperty({
     description: 'Default roles for admin',
-    default: ['admin'],
+    default: [SsoRole.admin],
     transform: new ArrayOfStringTransformer(),
     hidden: true,
   })

@@ -10,6 +10,7 @@ import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { WebhooksComponent } from './pages/webhooks/webhooks.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ProjectsComponent } from './pages/projects/projects.component';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +23,16 @@ export const appRoutes: Route[] = [
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
         roles: ['Admin', 'User'],
+      }),
+    },
+  },
+  {
+    path: 'projects',
+    component: ProjectsComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+        roles: ['Admin'],
       }),
     },
   },

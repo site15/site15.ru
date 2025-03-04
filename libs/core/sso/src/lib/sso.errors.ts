@@ -1,5 +1,4 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional } from 'class-validator';
 import { getText } from 'nestjs-translates';
 
 export enum SsoErrorEnum {
@@ -19,6 +18,7 @@ export enum SsoErrorEnum {
   Forbidden = 'SSO-013',
   WrongOldPassword = 'SSO-014',
   NonExistentRoleSpecified = 'SSO-015',
+  BadAccessToken = 'SSO-016',
 }
 
 export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
@@ -42,6 +42,7 @@ export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
   [SsoErrorEnum.NonExistentRoleSpecified]: getText(
     'Non-existent role specified'
   ),
+  [SsoErrorEnum.BadAccessToken]: getText('Bad access token'),
 };
 
 export class SsoError<T = unknown> extends Error {

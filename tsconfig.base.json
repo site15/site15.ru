@@ -33,16 +33,17 @@
       "@nestjs-mod-sso/common-angular": ["libs/common-angular/src/index.ts"],
       "@nestjs-mod-sso/files": ["libs/core/files/src/index.ts"],
       "@nestjs-mod-sso/files-angular": ["libs/core/files-angular/src/index.ts"],
+      "@nestjs-mod-sso/notifications": ["libs/core/notifications/src/index.ts"],
       "@nestjs-mod-sso/prisma-tools": ["libs/core/prisma-tools/src/index.ts"],
       "@nestjs-mod-sso/sso": ["libs/core/sso/src/index.ts"],
+      "@nestjs-mod-sso/sso-angular": ["libs/core/sso-angular/src/index.ts"],
       "@nestjs-mod-sso/testing": ["libs/testing/src/index.ts"],
+      "@nestjs-mod-sso/two-factor": ["libs/core/two-factor/src/index.ts"],
       "@nestjs-mod-sso/validation": ["libs/core/validation/src/index.ts"],
       "@nestjs-mod-sso/webhook": ["libs/feature/webhook/src/index.ts"],
       "@nestjs-mod-sso/webhook-angular": [
         "libs/feature/webhook-angular/src/index.ts"
-      ],
-      "@nestjs-mod-sso/notifications": ["libs/core/notifications/src/index.ts"],
-      "@nestjs-mod-sso/two-factor": ["libs/core/two-factor/src/index.ts"]
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
