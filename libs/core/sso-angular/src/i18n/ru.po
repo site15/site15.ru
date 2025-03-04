@@ -7,11 +7,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
+msgid "Users for project #{{projectId}}"
+msgstr "Пользователи проекта #{{projectId}}"
+
 msgid "input search text"
 msgstr "введите текст поиска"
-
-msgid "Create new"
-msgstr "Создать"
 
 msgid "Action"
 msgstr "Действия"
@@ -22,11 +22,53 @@ msgstr "Изменить"
 msgid "Delete"
 msgstr "Удалить"
 
+msgid "Create new"
+msgstr "Создать"
+
 msgid "Save"
 msgstr "Сохранить"
 
 msgid "Create"
 msgstr "Создать"
+
+msgid "sso-user.form.fields.app-data"
+msgstr "Дополнительные данные"
+
+msgid "sso-user.form.fields.birthdate"
+msgstr "День рождения"
+
+msgid "sso-user.form.fields.email"
+msgstr "Почта"
+
+msgid "sso-user.form.fields.email-verified-at"
+msgstr "Дата подтверждения почты"
+
+msgid "sso-user.form.fields.firstname"
+msgstr "Имя"
+
+msgid "sso-user.form.fields.gender"
+msgstr "Пол"
+
+msgid "sso-user.form.fields.lastname"
+msgstr "Фамилия"
+
+msgid "sso-user.form.fields.phone"
+msgstr "Телефон"
+
+msgid "sso-user.form.fields.phone-verified-at"
+msgstr "Дата подтверждения телефона"
+
+msgid "sso-user.form.fields.picture"
+msgstr "Изображение"
+
+msgid "sso-user.form.fields.revoked-at"
+msgstr "Дата отключения"
+
+msgid "sso-user.form.fields.roles"
+msgstr "Роли"
+
+msgid "sso-user.form.fields.username"
+msgstr "Имя пользователя"
 
 msgid "sso-project.form.fields.client-id"
 msgstr "Идентификатор клиента"
@@ -34,23 +76,74 @@ msgstr "Идентификатор клиента"
 msgid "sso-project.form.fields.client-secret"
 msgstr "Секретный ключ клиента"
 
-msgid "sso-project.update-modal.title"
-msgstr "Изменить проект #{{ id }}"
+msgid "sso-user.update-modal.title"
+msgstr "Изменить пользователя #{{ id }}"
 
-msgid "sso-project.create-modal.title"
-msgstr "Создать проект"
+msgid "sso-user.create-modal.title"
+msgstr "Создать пользователя"
 
 msgid "Cancel"
 msgstr "Отмена"
 
-msgid "sso-project.delete-modal.title"
-msgstr "Удалить проект #{{ id }}"
+msgid "sso-user.delete-modal.title"
+msgstr "Удалить пользователя #{{ id }}"
 
 msgid "Yes"
 msgstr "Да"
 
 msgid "No"
 msgstr "Нет"
+
+msgid "sso-user.grid.columns.id"
+msgstr "ИД."
+
+msgid "sso-user.grid.columns.app-data"
+msgstr "Дополнительные данные"
+
+msgid "sso-user.grid.columns.birthdate"
+msgstr "День рождения"
+
+msgid "sso-user.grid.columns.email"
+msgstr "Почта"
+
+msgid "sso-user.grid.columns.email-verified-at"
+msgstr "Дата подтверждения почты"
+
+msgid "sso-user.grid.columns.firstname"
+msgstr "Имя"
+
+msgid "sso-user.grid.columns.gender"
+msgstr "Пол"
+
+msgid "sso-user.grid.columns.lastname"
+msgstr "Фамилия"
+
+msgid "sso-user.grid.columns.phone"
+msgstr "Телефон"
+
+msgid "sso-user.grid.columns.phone-verified-at"
+msgstr "Дата подтверждения телефона"
+
+msgid "sso-user.grid.columns.picture"
+msgstr "Изображение"
+
+msgid "sso-user.grid.columns.revoked-at"
+msgstr "Дата отключения"
+
+msgid "sso-user.grid.columns.roles"
+msgstr "Роли"
+
+msgid "sso-user.grid.columns.username"
+msgstr "Имя пользователя"
+
+msgid "sso-project.update-modal.title"
+msgstr "Изменить проект #{{ id }}"
+
+msgid "sso-project.create-modal.title"
+msgstr "Создать проект"
+
+msgid "sso-project.delete-modal.title"
+msgstr "Удалить проект #{{ id }}"
 
 msgid "sso-project.grid.columns.id"
 msgstr "ИД."

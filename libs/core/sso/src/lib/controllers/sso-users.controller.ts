@@ -1,4 +1,4 @@
-import { FindManyArgs, StatusResponse } from '@nestjs-mod-sso/common';
+import { StatusResponse } from '@nestjs-mod-sso/common';
 import { Prisma, PrismaClient } from '@prisma/sso-client';
 
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
@@ -30,6 +30,7 @@ import { SsoPasswordService } from '../services/sso-password.service';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoCheckIsAdmin } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
+import { FindManySsoUserArgs } from '../types/find-many-sso-user-args';
 import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
 
 @ApiExtraModels(SsoError, ValidationError)
@@ -50,13 +51,14 @@ export class SsoUsersController {
 
   @Get()
   @ApiOkResponse({ type: FindManySsoUserResponse })
-  async findMany(@Query() args: FindManyArgs) {
+  async findMany(@Query() args: FindManySsoUserArgs) {
     const { take, skip, curPage, perPage } =
       this.prismaToolsService.getFirstSkipFromCurPerPage({
         curPage: args.curPage,
         perPage: args.perPage,
       });
     const searchText = args.searchText;
+    const projectId = args.projectId;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')
@@ -72,24 +74,35 @@ export class SsoUsersController {
         }),
         {}
       );
+
     const result = await this.prismaClient.$transaction(async (prisma) => {
       return {
         ssoUsers: await prisma.ssoUser.findMany({
           where: {
-            ...(isUUID(searchText)
-              ? {
-                  OR: [{ id: { equals: searchText } }],
-                }
-              : {
-                  OR: [
-                    { email: { contains: searchText, mode: 'insensitive' } },
-                    { username: { contains: searchText, mode: 'insensitive' } },
-                    {
-                      firstname: { contains: searchText, mode: 'insensitive' },
-                    },
-                    { lastname: { contains: searchText, mode: 'insensitive' } },
-                  ],
-                }),
+            projectId: { equals: projectId },
+            ...(searchText
+              ? isUUID(searchText)
+                ? {
+                    OR: [{ id: { equals: searchText } }],
+                  }
+                : {
+                    OR: [
+                      { email: { contains: searchText, mode: 'insensitive' } },
+                      {
+                        username: { contains: searchText, mode: 'insensitive' },
+                      },
+                      {
+                        firstname: {
+                          contains: searchText,
+                          mode: 'insensitive',
+                        },
+                      },
+                      {
+                        lastname: { contains: searchText, mode: 'insensitive' },
+                      },
+                    ],
+                  }
+              : {}),
           },
           take,
           skip,
@@ -97,20 +110,30 @@ export class SsoUsersController {
         }),
         totalResults: await prisma.ssoUser.count({
           where: {
-            ...(isUUID(searchText)
-              ? {
-                  OR: [{ id: { equals: searchText } }],
-                }
-              : {
-                  OR: [
-                    { email: { contains: searchText, mode: 'insensitive' } },
-                    { username: { contains: searchText, mode: 'insensitive' } },
-                    {
-                      firstname: { contains: searchText, mode: 'insensitive' },
-                    },
-                    { lastname: { contains: searchText, mode: 'insensitive' } },
-                  ],
-                }),
+            projectId: { equals: projectId },
+            ...(searchText
+              ? isUUID(searchText)
+                ? {
+                    OR: [{ id: { equals: searchText } }],
+                  }
+                : {
+                    OR: [
+                      { email: { contains: searchText, mode: 'insensitive' } },
+                      {
+                        username: { contains: searchText, mode: 'insensitive' },
+                      },
+                      {
+                        firstname: {
+                          contains: searchText,
+                          mode: 'insensitive',
+                        },
+                      },
+                      {
+                        lastname: { contains: searchText, mode: 'insensitive' },
+                      },
+                    ],
+                  }
+              : {}),
           },
         }),
       };

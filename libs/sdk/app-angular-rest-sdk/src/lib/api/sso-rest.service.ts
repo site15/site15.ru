@@ -2038,6 +2038,7 @@ export class SsoRestService {
   }
 
   /**
+   * @param projectId
    * @param curPage
    * @param perPage
    * @param searchText
@@ -2046,6 +2047,7 @@ export class SsoRestService {
    * @param reportProgress flag to report request and response progress.
    */
   public ssoUsersControllerFindMany(
+    projectId: string,
     curPage?: number,
     perPage?: number,
     searchText?: string,
@@ -2059,6 +2061,7 @@ export class SsoRestService {
     }
   ): Observable<FindManySsoUserResponseInterface>;
   public ssoUsersControllerFindMany(
+    projectId: string,
     curPage?: number,
     perPage?: number,
     searchText?: string,
@@ -2072,6 +2075,7 @@ export class SsoRestService {
     }
   ): Observable<HttpResponse<FindManySsoUserResponseInterface>>;
   public ssoUsersControllerFindMany(
+    projectId: string,
     curPage?: number,
     perPage?: number,
     searchText?: string,
@@ -2085,6 +2089,7 @@ export class SsoRestService {
     }
   ): Observable<HttpEvent<FindManySsoUserResponseInterface>>;
   public ssoUsersControllerFindMany(
+    projectId: string,
     curPage?: number,
     perPage?: number,
     searchText?: string,
@@ -2097,6 +2102,12 @@ export class SsoRestService {
       transferCache?: boolean;
     }
   ): Observable<any> {
+    if (projectId === null || projectId === undefined) {
+      throw new Error(
+        'Required parameter projectId was null or undefined when calling ssoUsersControllerFindMany.'
+      );
+    }
+
     let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
     if (curPage !== undefined && curPage !== null) {
       localVarQueryParameters = this.addToHttpParams(
@@ -2124,6 +2135,13 @@ export class SsoRestService {
         localVarQueryParameters,
         <any>sort,
         'sort'
+      );
+    }
+    if (projectId !== undefined && projectId !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>projectId,
+        'projectId'
       );
     }
 

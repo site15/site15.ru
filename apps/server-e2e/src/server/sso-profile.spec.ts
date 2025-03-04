@@ -29,6 +29,8 @@ describe('Sso profile (e2e)', () => {
     const { data: findManyResult } = await user
       .getSsoApi()
       .ssoUsersControllerFindMany(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        process.env.SERVER_SSO_DEFAULT_CLIENT_ID!,
         undefined,
         undefined,
         user.randomUser.email,

@@ -57,3 +57,6 @@ msgstr "Старый пароль неверен"
 
 msgid "Wrong password"
 msgstr "Неверный пароль"
+
+msgid "Bad access token"
+msgstr "Плохой токен доступа"

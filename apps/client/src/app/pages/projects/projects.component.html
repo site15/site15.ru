@@ -3,4 +3,11 @@
 </nz-breadcrumb>
 <nz-row class="inner-content">
   <sso-project-grid nz-col [nzSpan]="24" #projectGrid> </sso-project-grid>
+  <sso-user-grid
+    *ngIf="(projectGrid.selectedIds$ | async)?.[0] as projectId"
+    nz-col
+    [nzSpan]="24"
+    [projectId]="projectId"
+  >
+  </sso-user-grid>
 </nz-row>

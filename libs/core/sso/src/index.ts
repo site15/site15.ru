@@ -49,6 +49,7 @@ export * from './lib/services/sso-users.service';
 export * from './lib/services/sso.service';
 export * from './lib/types/auth-event';
 export * from './lib/types/find-many-sso-project-response';
+export * from './lib/types/find-many-sso-user-args';
 export * from './lib/types/find-many-sso-user-response';
 export * from './lib/types/forgot-password.dto';
 export * from './lib/types/refresh-tokens.dto';

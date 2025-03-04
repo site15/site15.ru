@@ -1183,7 +1183,7 @@ export interface SsoEntities {
  */
 export interface SsoError {
   /**
-   * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015)
+   * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015), Bad access token (SSO-016)
    * @type {string}
    * @memberof SsoError
    */
@@ -1225,6 +1225,7 @@ export const SsoErrorEnum = {
   Sso013: 'SSO-013',
   Sso014: 'SSO-014',
   Sso015: 'SSO-015',
+  Sso016: 'SSO-016',
 } as const;
 
 export type SsoErrorEnum = (typeof SsoErrorEnum)[keyof typeof SsoErrorEnum];
@@ -5868,6 +5869,7 @@ export const SsoApiAxiosParamCreator = function (
     },
     /**
      *
+     * @param {string} projectId
      * @param {number} [curPage]
      * @param {number} [perPage]
      * @param {string} [searchText]
@@ -5876,12 +5878,15 @@ export const SsoApiAxiosParamCreator = function (
      * @throws {RequiredError}
      */
     ssoUsersControllerFindMany: async (
+      projectId: string,
       curPage?: number,
       perPage?: number,
       searchText?: string,
       sort?: string,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
+      // verify required parameter 'projectId' is not null or undefined
+      assertParamExists('ssoUsersControllerFindMany', 'projectId', projectId);
       const localVarPath = `/api/sso/users`;
       // use dummy base URL string because the URL constructor only accepts absolute URLs.
       const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5912,6 +5917,10 @@ export const SsoApiAxiosParamCreator = function (
 
       if (sort !== undefined) {
         localVarQueryParameter['sort'] = sort;
+      }
+
+      if (projectId !== undefined) {
+        localVarQueryParameter['projectId'] = projectId;
       }
 
       setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -6511,6 +6520,7 @@ export const SsoApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @param {string} projectId
      * @param {number} [curPage]
      * @param {number} [perPage]
      * @param {string} [searchText]
@@ -6519,6 +6529,7 @@ export const SsoApiFp = function (configuration?: Configuration) {
      * @throws {RequiredError}
      */
     async ssoUsersControllerFindMany(
+      projectId: string,
       curPage?: number,
       perPage?: number,
       searchText?: string,
@@ -6532,6 +6543,7 @@ export const SsoApiFp = function (configuration?: Configuration) {
     > {
       const localVarAxiosArgs =
         await localVarAxiosParamCreator.ssoUsersControllerFindMany(
+          projectId,
           curPage,
           perPage,
           searchText,
@@ -6857,6 +6869,7 @@ export const SsoApiFactory = function (
     },
     /**
      *
+     * @param {string} projectId
      * @param {number} [curPage]
      * @param {number} [perPage]
      * @param {string} [searchText]
@@ -6865,6 +6878,7 @@ export const SsoApiFactory = function (
      * @throws {RequiredError}
      */
     ssoUsersControllerFindMany(
+      projectId: string,
       curPage?: number,
       perPage?: number,
       searchText?: string,
@@ -6872,7 +6886,14 @@ export const SsoApiFactory = function (
       options?: RawAxiosRequestConfig
     ): AxiosPromise<FindManySsoUserResponse> {
       return localVarFp
-        .ssoUsersControllerFindMany(curPage, perPage, searchText, sort, options)
+        .ssoUsersControllerFindMany(
+          projectId,
+          curPage,
+          perPage,
+          searchText,
+          sort,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
     /**
@@ -7175,6 +7196,7 @@ export class SsoApi extends BaseAPI {
 
   /**
    *
+   * @param {string} projectId
    * @param {number} [curPage]
    * @param {number} [perPage]
    * @param {string} [searchText]
@@ -7184,6 +7206,7 @@ export class SsoApi extends BaseAPI {
    * @memberof SsoApi
    */
   public ssoUsersControllerFindMany(
+    projectId: string,
     curPage?: number,
     perPage?: number,
     searchText?: string,
@@ -7191,7 +7214,14 @@ export class SsoApi extends BaseAPI {
     options?: RawAxiosRequestConfig
   ) {
     return SsoApiFp(this.configuration)
-      .ssoUsersControllerFindMany(curPage, perPage, searchText, sort, options)
+      .ssoUsersControllerFindMany(
+        projectId,
+        curPage,
+        perPage,
+        searchText,
+        sort,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 

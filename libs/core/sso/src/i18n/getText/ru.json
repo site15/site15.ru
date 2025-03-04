@@ -15,5 +15,6 @@
     "User not found": "Пользователь не найден",
     "Wrong activate email code": "Неправильный код активации электронной почты",
     "Wrong old password": "Старый пароль неверен",
-    "Wrong password": "Неверный пароль"
+    "Wrong password": "Неверный пароль",
+    "Bad access token": "Плохой токен доступа"
 }

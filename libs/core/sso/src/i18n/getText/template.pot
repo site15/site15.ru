@@ -56,3 +56,6 @@ msgstr "Wrong old password"
 
 msgid "Wrong password"
 msgstr "Wrong password"
+
+msgid "Bad access token"
+msgstr "Bad access token"

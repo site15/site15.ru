@@ -1,6 +1,10 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { SsoProjectGridComponent } from '@nestjs-mod-sso/sso-angular';
+import {
+  SsoProjectGridComponent,
+  SsoUserGridComponent,
+} from '@nestjs-mod-sso/sso-angular';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -11,9 +15,12 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
   imports: [
     NzBreadCrumbModule,
     SsoProjectGridComponent,
+    SsoUserGridComponent,
     NzGridModule,
     NzLayoutModule,
     TranslocoDirective,
+    AsyncPipe,
+    NgIf,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  SsoProjectDtoInterface,
-  SsoProjectInterface,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { SsoProjectDtoInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { BROWSER_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common-angular';
 import { addHours } from 'date-fns';
 
@@ -14,7 +11,7 @@ export interface SsoProjectModel
 
 @Injectable({ providedIn: 'root' })
 export class SsoProjectMapperService {
-  toModel(item?: SsoProjectInterface): SsoProjectModel {
+  toModel(item?: SsoProjectDtoInterface): SsoProjectModel {
     return {
       ...item,
       createdAt: item?.createdAt

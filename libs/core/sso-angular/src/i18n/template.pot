@@ -6,11 +6,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
+msgid "Users for project #{{projectId}}"
+msgstr "Users for project #{{projectId}}"
+
 msgid "input search text"
 msgstr "input search text"
-
-msgid "Create new"
-msgstr "Create new"
 
 msgid "Action"
 msgstr "Action"
@@ -21,17 +21,119 @@ msgstr "Edit"
 msgid "Delete"
 msgstr "Delete"
 
+msgid "Create new"
+msgstr "Create new"
+
 msgid "Save"
 msgstr "Save"
 
 msgid "Create"
 msgstr "Create"
 
+msgid "sso-user.form.fields.app-data"
+msgstr "Additional data"
+
+msgid "sso-user.form.fields.birthdate"
+msgstr "Birth date"
+
+msgid "sso-user.form.fields.email"
+msgstr "Email"
+
+msgid "sso-user.form.fields.email-verified-at"
+msgstr "Email verified at"
+
+msgid "sso-user.form.fields.firstname"
+msgstr "First name"
+
+msgid "sso-user.form.fields.gender"
+msgstr "Gender"
+
+msgid "sso-user.form.fields.lastname"
+msgstr "Last name"
+
+msgid "sso-user.form.fields.phone"
+msgstr "Phone"
+
+msgid "sso-user.form.fields.phone-verified-at"
+msgstr "Phone verified at"
+
+msgid "sso-user.form.fields.picture"
+msgstr "Picture"
+
+msgid "sso-user.form.fields.revoked-at"
+msgstr "Revoked at"
+
+msgid "sso-user.form.fields.roles"
+msgstr "Roles"
+
+msgid "sso-user.form.fields.username"
+msgstr "Username"
+
 msgid "sso-project.form.fields.client-id"
-msgstr "Client ID"
+msgstr "Client id"
 
 msgid "sso-project.form.fields.client-secret"
 msgstr "Client secret"
+
+msgid "sso-user.update-modal.title"
+msgstr "Edit user #{{ id }}"
+
+msgid "sso-user.create-modal.title"
+msgstr "Create user"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "sso-user.delete-modal.title"
+msgstr "Delete user #{{ id }}"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "sso-user.grid.columns.id"
+msgstr "ID"
+
+msgid "sso-user.grid.columns.app-data"
+msgstr "Additional data"
+
+msgid "sso-user.grid.columns.birthdate"
+msgstr "Birth date"
+
+msgid "sso-user.grid.columns.email"
+msgstr "Email"
+
+msgid "sso-user.grid.columns.email-verified-at"
+msgstr "Email verified at"
+
+msgid "sso-user.grid.columns.firstname"
+msgstr "First name"
+
+msgid "sso-user.grid.columns.gender"
+msgstr "Gender"
+
+msgid "sso-user.grid.columns.lastname"
+msgstr "Last name"
+
+msgid "sso-user.grid.columns.phone"
+msgstr "Phone"
+
+msgid "sso-user.grid.columns.phone-verified-at"
+msgstr "Phone verified at"
+
+msgid "sso-user.grid.columns.picture"
+msgstr "Picture"
+
+msgid "sso-user.grid.columns.revoked-at"
+msgstr "Revoked at"
+
+msgid "sso-user.grid.columns.roles"
+msgstr "Roles"
+
+msgid "sso-user.grid.columns.username"
+msgstr "Username"
 
 msgid "sso-project.update-modal.title"
 msgstr "Edit project #{{ id }}"
@@ -39,17 +141,8 @@ msgstr "Edit project #{{ id }}"
 msgid "sso-project.create-modal.title"
 msgstr "Create project"
 
-msgid "Cancel"
-msgstr "Cancel"
-
 msgid "sso-project.delete-modal.title"
 msgstr "Delete project #{{ id }}"
-
-msgid "Yes"
-msgstr "Yes"
-
-msgid "No"
-msgstr "No"
 
 msgid "sso-project.grid.columns.id"
 msgstr "ID"
