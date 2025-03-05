@@ -56,19 +56,22 @@ export class SsoGuard implements CanActivate {
           );
 
         if (!refreshSession?.enabled) {
-          throw new SsoError(SsoErrorEnum.YouAreBlocked);
+          throw new SsoError(SsoErrorEnum.YourSessionHasBeenBlocked);
         }
+
+        await this.ssoTokensService.verifyRefreshSession({
+          oldRefreshSession: refreshSession,
+        });
       }
 
       req.ssoUser = req.ssoAccessTokenData?.userId
         ? await this.ssoCacheService.getCachedUser({
             userId: req.ssoAccessTokenData?.userId,
-            projectId: req.ssoProject.id,
           })
         : undefined;
 
       if (req.ssoUser && req.ssoUser.revokedAt) {
-        throw new SsoError(SsoErrorEnum.YouAreBlocked);
+        throw new SsoError(SsoErrorEnum.YourSessionHasBeenBlocked);
       }
 
       req.ssoIsAdmin = this.ssoAdminService.checkAdminInRequest(req);

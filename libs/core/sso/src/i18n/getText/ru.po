@@ -26,7 +26,7 @@ msgid "Forbidden"
 msgstr "Запрещено"
 
 msgid "Invalid refresh session"
-msgstr "Некорректная сессия обновления"
+msgstr "Ошибка проверки сеанса"
 
 msgid "Non-existent role specified"
 msgstr "Указана несуществующая роль"
@@ -38,7 +38,7 @@ msgid "Refresh token not provided"
 msgstr "Обновляющий токен не предоставлен"
 
 msgid "Session expired"
-msgstr "Сессия истекла"
+msgstr "Сеанс завершен"
 
 msgid "Sso error"
 msgstr "Ошибка SSO"

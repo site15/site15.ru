@@ -23,13 +23,7 @@ export class SsoCacheService {
     await this.keyvService.delete(this.getUserCacheKey({ userId }));
   }
 
-  async getCachedUser({
-    userId,
-    projectId,
-  }: {
-    userId: string;
-    projectId: string;
-  }) {
+  async getCachedUser({ userId }: { userId: string }) {
     const cached = await this.keyvService.get<SsoUser>(
       this.getUserCacheKey({ userId })
     );
@@ -39,7 +33,6 @@ export class SsoCacheService {
     const user = await this.prismaClient.ssoUser.findFirst({
       where: {
         id: userId,
-        projectId,
       },
     });
     if (user) {

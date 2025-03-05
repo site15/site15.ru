@@ -5,10 +5,10 @@ import { PrismaClient } from '@prisma/sso-client';
 import { CreateSsoUserDto } from '../generated/rest/dto/create-sso-user.dto';
 import { SsoUser } from '../generated/rest/dto/sso-user.entity';
 import { SSO_FEATURE } from '../sso.constants';
-import { SsoError, SsoErrorEnum } from '../sso.errors';
-import { SsoPasswordService } from './sso-password.service';
-import { SsoCacheService } from './sso-cache.service';
 import { SsoStaticEnvironments } from '../sso.environments';
+import { SsoError, SsoErrorEnum } from '../sso.errors';
+import { SsoCacheService } from './sso-cache.service';
+import { SsoPasswordService } from './sso-password.service';
 
 @Injectable()
 export class SsoUsersService {
@@ -144,7 +144,6 @@ export class SsoUsersService {
       // fill cache
       await this.ssoCacheService.getCachedUser({
         userId: result.id,
-        projectId,
       });
 
       return result;

@@ -96,6 +96,7 @@ export const { SsoModule } = createNestModule({
 
     // all routes
     for (const ctrl of [
+      SsoRefreshSessionsController,
       SsoProjectsController,
       SsoUsersController,
       SsoController,

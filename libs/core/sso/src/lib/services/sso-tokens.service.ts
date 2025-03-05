@@ -91,6 +91,8 @@ export class SsoTokensService {
         expiresAt,
         projectId,
         enabled: true,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        userData: currentRefreshSession.userData as any,
       },
     });
 
@@ -129,7 +131,6 @@ export class SsoTokensService {
     newIp?: string;
   }) {
     const nowTime = new Date();
-
     if (!oldRefreshSession.expiresAt || nowTime > oldRefreshSession.expiresAt) {
       this.logger.debug({
         nowTime,
