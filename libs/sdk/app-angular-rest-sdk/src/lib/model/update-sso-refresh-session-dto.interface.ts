@@ -13,7 +13,7 @@ export interface UpdateSsoRefreshSessionDtoInterface {
   userAgent?: string | null;
   fingerprint?: string | null;
   userIp?: string | null;
-  expiresIn?: number | null;
+  expiresAt?: string | null;
   userData?: object | null;
   enabled?: boolean;
 }

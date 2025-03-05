@@ -2,7 +2,7 @@ import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client'
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
-  IsInt,
+  IsDateString,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -40,14 +40,14 @@ export class CreateSsoRefreshSessionDto {
   @IsString()
   userIp?: string | null;
   @ApiProperty({
-    type: 'integer',
-    format: 'int64',
+    type: 'string',
+    format: 'date-time',
     required: false,
     nullable: true,
   })
   @IsOptional()
-  @IsInt()
-  expiresIn?: bigint | null;
+  @IsDateString()
+  expiresAt?: Date | null;
   @ApiProperty({
     type: () => Object,
     required: false,

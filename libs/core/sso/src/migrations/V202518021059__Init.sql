@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS "SsoRefreshSession"(
     "userAgent" varchar(254),
     "fingerprint" varchar(254),
     "userIp" varchar(128),
-    "expiresIn" bigint,
+    "expiresAt" timestamp,
     "userData" jsonb,
     "enabled" boolean NOT NULL,
     "userId" uuid NOT NULL,

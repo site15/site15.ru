@@ -12,21 +12,21 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  noDependencies                  = "false"
-  classValidation                 = "true"
-  annotateAllDtoProperties        = "true"
-  createDtoPrefix                 = "Create"
-  definiteAssignmentAssertion     = "true"
   fileNamingStyle                 = "kebab"
   updateDtoPrefix                 = "Update"
-  entitySuffix                    = ""
-  flatResourceStructure           = "false"
-  dtoSuffix                       = "Dto"
-  reExport                        = "false"
-  outputToNestJsResourceStructure = "false"
-  entityPrefix                    = ""
-  exportRelationModifierClasses   = "true"
   prettier                        = "true"
+  definiteAssignmentAssertion     = "true"
+  classValidation                 = "true"
+  flatResourceStructure           = "false"
+  reExport                        = "false"
+  noDependencies                  = "false"
+  annotateAllDtoProperties        = "true"
+  entitySuffix                    = ""
+  createDtoPrefix                 = "Create"
+  exportRelationModifierClasses   = "true"
+  outputToNestJsResourceStructure = "false"
+  dtoSuffix                       = "Dto"
+  entityPrefix                    = ""
 }
 
 model SsoProject {
@@ -101,7 +101,7 @@ model SsoRefreshSession {
   /// @DtoEntityHidden
   fingerprint  String?    @db.VarChar(254)
   userIp       String?    @db.VarChar(128)
-  expiresIn    BigInt?
+  expiresAt    DateTime?  @db.Timestamp(6)
   userData     Json?
   enabled      Boolean
   userId       String     @db.Uuid

@@ -12,7 +12,7 @@ export interface SsoRefreshSessionDtoInterface {
   id: string;
   userAgent: string | null;
   userIp: string | null;
-  expiresIn: number | null;
+  expiresAt: string | null;
   userData: object | null;
   enabled: boolean;
   createdAt: string;

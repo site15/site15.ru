@@ -12,21 +12,21 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  exportRelationModifierClasses   = "true"
-  classValidation                 = "true"
-  fileNamingStyle                 = "kebab"
-  noDependencies                  = "false"
-  annotateAllDtoProperties        = "true"
-  prettier                        = "true"
-  createDtoPrefix                 = "Create"
-  flatResourceStructure           = "false"
-  dtoSuffix                       = "Dto"
   entitySuffix                    = ""
-  outputToNestJsResourceStructure = "false"
-  updateDtoPrefix                 = "Update"
-  reExport                        = "false"
-  definiteAssignmentAssertion     = "true"
+  fileNamingStyle                 = "kebab"
+  exportRelationModifierClasses   = "true"
+  dtoSuffix                       = "Dto"
+  createDtoPrefix                 = "Create"
+  annotateAllDtoProperties        = "true"
+  noDependencies                  = "false"
+  prettier                        = "true"
   entityPrefix                    = ""
+  flatResourceStructure           = "false"
+  reExport                        = "false"
+  updateDtoPrefix                 = "Update"
+  outputToNestJsResourceStructure = "false"
+  definiteAssignmentAssertion     = "true"
+  classValidation                 = "true"
 }
 
 model TwoFactorUser {
@@ -55,7 +55,7 @@ model TwoFactorCode {
   attempt          Int
   used             Boolean
   userId           String        @db.Uuid
-  externalTenantId String        @unique(map: "IDX_TWO_FACTOR_CODES__EXTERNAL_TENANT_ID") @db.Uuid
+  externalTenantId String        @db.Uuid
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
   createdAt        DateTime      @default(now()) @db.Timestamp(6)
@@ -64,8 +64,9 @@ model TwoFactorCode {
   updatedAt        DateTime      @default(now()) @db.Timestamp(6)
   TwoFactorUser    TwoFactorUser @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_TWO_FACTOR_CODES__USER_ID")
 
-  @@unique([userId, externalTenantId], map: "IDX_TWO_FACTOR_CODES__USER_ID")
   @@unique([userId, operationName, type, code, externalTenantId], map: "UQ_TWO_FACTOR_CODES")
+  @@index([userId, externalTenantId], map: "IDX_TWO_FACTOR_CODES__USER_ID")
+  @@index([externalTenantId], map: "IDX_TWO_FACTOR_CODES__EXTERNAL_TENANT_ID")
 }
 
 model migrations_two_factor {

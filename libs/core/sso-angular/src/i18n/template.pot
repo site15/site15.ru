@@ -81,8 +81,8 @@ msgstr "Username"
 msgid "sso-session.form.fields.enabled"
 msgstr "Enabled"
 
-msgid "sso-session.form.fields.expires-in"
-msgstr "Expires in"
+msgid "sso-session.form.fields.expires-at"
+msgstr "Expires at"
 
 msgid "sso-session.form.fields.fingerprint"
 msgstr "Fingerprint"
@@ -153,8 +153,8 @@ msgstr "Fingerprint"
 msgid "sso-session.grid.columns.user-ip"
 msgstr "IP address"
 
-msgid "sso-session.grid.columns.expires-in"
-msgstr "Expires in"
+msgid "sso-session.grid.columns.expires-at"
+msgstr "Expires at"
 
 msgid "sso-session.grid.columns.user-data"
 msgstr "User data"

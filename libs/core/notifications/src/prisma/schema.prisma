@@ -12,21 +12,21 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  updateDtoPrefix                 = "Update"
-  prettier                        = "true"
-  annotateAllDtoProperties        = "true"
-  definiteAssignmentAssertion     = "true"
-  entityPrefix                    = ""
-  classValidation                 = "true"
-  reExport                        = "false"
   exportRelationModifierClasses   = "true"
-  fileNamingStyle                 = "kebab"
-  flatResourceStructure           = "false"
-  dtoSuffix                       = "Dto"
-  outputToNestJsResourceStructure = "false"
-  noDependencies                  = "false"
-  createDtoPrefix                 = "Create"
+  entityPrefix                    = ""
+  reExport                        = "false"
+  definiteAssignmentAssertion     = "true"
   entitySuffix                    = ""
+  annotateAllDtoProperties        = "true"
+  flatResourceStructure           = "false"
+  outputToNestJsResourceStructure = "false"
+  classValidation                 = "true"
+  updateDtoPrefix                 = "Update"
+  noDependencies                  = "false"
+  fileNamingStyle                 = "kebab"
+  createDtoPrefix                 = "Create"
+  prettier                        = "true"
+  dtoSuffix                       = "Dto"
 }
 
 model NotificationsUser {
@@ -63,7 +63,7 @@ model NotificationsEvent {
   recipientGroupId                                                        String             @db.Uuid
   recipientUserId                                                         String             @db.Uuid
   recipientData                                                           Json?
-  externalTenantId                                                        String             @unique(map: "IDX_NOTIFICATIONS__EXTERNAL_TENANT_ID") @db.Uuid
+  externalTenantId                                                        String             @db.Uuid
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
   createdAt                                                               DateTime           @default(now()) @db.Timestamp(6)
@@ -73,10 +73,11 @@ model NotificationsEvent {
   NotificationsUser_NotificationsEvent_recipientUserIdToNotificationsUser NotificationsUser  @relation("NotificationsEvent_recipientUserIdToNotificationsUser", fields: [recipientUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_NOTIFICATIONS__RECIPIENT_USER_ID")
   NotificationsUser_NotificationsEvent_senderUserIdToNotificationsUser    NotificationsUser? @relation("NotificationsEvent_senderUserIdToNotificationsUser", fields: [senderUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_NOTIFICATIONS__SENDER_USER_ID")
 
-  @@unique([recipientGroupId, externalTenantId], map: "IDX_NOTIFICATIONS__RECIPIENT_GROUP_ID")
-  @@unique([recipientUserId, externalTenantId], map: "IDX_NOTIFICATIONS__RECIPIENT_USER_ID")
-  @@unique([senderUserId, externalTenantId], map: "IDX_NOTIFICATIONS__SENDER_USER_ID")
   @@unique([senderUserId, recipientUserId, operationName, type, html, subject, externalTenantId], map: "UQ_NOTIFICATIONS")
+  @@index([recipientGroupId, externalTenantId], map: "IDX_NOTIFICATIONS__RECIPIENT_GROUP_ID")
+  @@index([recipientUserId, externalTenantId], map: "IDX_NOTIFICATIONS__RECIPIENT_USER_ID")
+  @@index([senderUserId, externalTenantId], map: "IDX_NOTIFICATIONS__SENDER_USER_ID")
+  @@index([externalTenantId], map: "IDX_NOTIFICATIONS__EXTERNAL_TENANT_ID")
 }
 
 model migrations_notifications {

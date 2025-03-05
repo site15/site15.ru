@@ -3,6 +3,7 @@ import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaClient, SsoRefreshSession, SsoUser } from '@prisma/sso-client';
+import { addMilliseconds } from 'date-fns';
 import ms from 'ms';
 import { randomUUID } from 'node:crypto';
 import { SSO_FEATURE } from '../sso.constants';
@@ -35,10 +36,10 @@ export class SsoTokensService {
     fingerprint: string;
     projectId: string;
   }) {
-    const refTokenExpiresInMilliseconds =
-      new Date().getTime() +
-      ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn);
-
+    const expiresAt = addMilliseconds(
+      new Date(),
+      ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn)
+    );
     let currentRefreshSession: SsoRefreshSession & { SsoUser: SsoUser };
     try {
       currentRefreshSession =
@@ -83,7 +84,7 @@ export class SsoTokensService {
         userIp,
         userAgent,
         fingerprint,
-        expiresIn: refTokenExpiresInMilliseconds,
+        expiresAt,
         projectId,
         enabled: true,
       },
@@ -119,9 +120,9 @@ export class SsoTokensService {
     newFingerprint?: string;
     newIp?: string;
   }) {
-    const nowTime = new Date().getTime();
+    const nowTime = new Date();
 
-    if (!oldRefreshSession.expiresIn || nowTime > oldRefreshSession.expiresIn) {
+    if (!oldRefreshSession.expiresAt || nowTime > oldRefreshSession.expiresAt) {
       this.logger.debug({
         nowTime,
         oldRefreshSession,
@@ -155,9 +156,10 @@ export class SsoTokensService {
     },
     projectId: string
   ) {
-    const refTokenExpiresInMilliseconds =
-      new Date().getTime() +
-      ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn);
+    const expiresAt = addMilliseconds(
+      new Date(),
+      ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn)
+    );
     try {
       await this.prismaClient.ssoRefreshSession.updateMany({
         data: {
@@ -180,7 +182,7 @@ export class SsoTokensService {
         userIp,
         userAgent,
         fingerprint,
-        expiresIn: refTokenExpiresInMilliseconds,
+        expiresAt,
         projectId,
         enabled: true,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

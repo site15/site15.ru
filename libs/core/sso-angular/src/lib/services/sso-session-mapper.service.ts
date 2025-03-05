@@ -4,15 +4,19 @@ import {
   BROWSER_TIMEZONE_OFFSET,
   safeParseJson,
 } from '@nestjs-mod-sso/common-angular';
-import { addHours } from 'date-fns';
+import { addHours, format } from 'date-fns';
 
 export interface SsoSessionModel
   extends Partial<
-    Omit<SsoRefreshSessionDtoInterface, 'createdAt' | 'updatedAt' | 'userData'>
+    Omit<
+      SsoRefreshSessionDtoInterface,
+      'createdAt' | 'updatedAt' | 'userData' | 'expiresAt'
+    >
   > {
   userData?: string | null;
   createdAt?: Date | null;
   updatedAt?: Date | null;
+  expiresAt?: Date | null;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -21,6 +25,9 @@ export class SsoSessionMapperService {
     return {
       ...item,
       userData: item?.userData ? JSON.stringify(item.userData) : '',
+      expiresAt: item?.expiresAt
+        ? addHours(new Date(item.expiresAt), BROWSER_TIMEZONE_OFFSET)
+        : null,
       createdAt: item?.createdAt
         ? addHours(new Date(item.createdAt), BROWSER_TIMEZONE_OFFSET)
         : null,
@@ -41,8 +48,10 @@ export class SsoSessionMapperService {
       userData: data.userData ? safeParseJson(data.userData) : null,
       userAgent: data.userAgent || '',
       userIp: data.userIp || '',
-      expiresIn: data.expiresIn || undefined,
-      enabled: data.enabled || undefined,
+      expiresAt: data.expiresAt
+        ? format(new Date(data.expiresAt), 'yyyy-MM-dd HH:mm:ss')
+        : undefined,
+      enabled: data.enabled === true,
     };
   }
 }

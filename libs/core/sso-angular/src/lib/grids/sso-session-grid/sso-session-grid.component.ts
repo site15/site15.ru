@@ -80,7 +80,7 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
     SsoRefreshSessionScalarFieldEnumInterface.userAgent,
     SsoRefreshSessionScalarFieldEnumInterface.fingerprint,
     SsoRefreshSessionScalarFieldEnumInterface.userIp,
-    SsoRefreshSessionScalarFieldEnumInterface.expiresIn,
+    SsoRefreshSessionScalarFieldEnumInterface.expiresAt,
     SsoRefreshSessionScalarFieldEnumInterface.userData,
     SsoRefreshSessionScalarFieldEnumInterface.enabled,
   ];
@@ -97,8 +97,8 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
     [SsoRefreshSessionScalarFieldEnumInterface.userIp]: marker(
       'sso-session.grid.columns.user-ip'
     ),
-    [SsoRefreshSessionScalarFieldEnumInterface.expiresIn]: marker(
-      'sso-session.grid.columns.expires-in'
+    [SsoRefreshSessionScalarFieldEnumInterface.expiresAt]: marker(
+      'sso-session.grid.columns.expires-at'
     ),
     [SsoRefreshSessionScalarFieldEnumInterface.userData]: marker(
       'sso-session.grid.columns.user-data'

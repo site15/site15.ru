@@ -7,20 +7,6 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class TwoFactorCodeUserIdExternalTenantIdUniqueInputDto {
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  userId!: string;
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  externalTenantId!: string;
-}
 export class TwoFactorCodeUserIdOperationNameTypeCodeExternalTenantIdUniqueInputDto {
   @ApiProperty({
     type: 'string',
@@ -55,7 +41,6 @@ export class TwoFactorCodeUserIdOperationNameTypeCodeExternalTenantIdUniqueInput
 }
 
 @ApiExtraModels(
-  TwoFactorCodeUserIdExternalTenantIdUniqueInputDto,
   TwoFactorCodeUserIdOperationNameTypeCodeExternalTenantIdUniqueInputDto
 )
 export class ConnectTwoFactorCodeDto {
@@ -67,23 +52,6 @@ export class ConnectTwoFactorCodeDto {
   @IsOptional()
   @IsString()
   id?: string;
-  @ApiProperty({
-    type: 'string',
-    required: false,
-    nullable: true,
-  })
-  @IsOptional()
-  @IsString()
-  externalTenantId?: string;
-  @ApiProperty({
-    type: TwoFactorCodeUserIdExternalTenantIdUniqueInputDto,
-    required: false,
-    nullable: true,
-  })
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => TwoFactorCodeUserIdExternalTenantIdUniqueInputDto)
-  userId_externalTenantId?: TwoFactorCodeUserIdExternalTenantIdUniqueInputDto;
   @ApiProperty({
     type: TwoFactorCodeUserIdOperationNameTypeCodeExternalTenantIdUniqueInputDto,
     required: false,

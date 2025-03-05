@@ -82,7 +82,7 @@ msgstr "Имя пользователя"
 msgid "sso-session.form.fields.enabled"
 msgstr "Активен"
 
-msgid "sso-session.form.fields.expires-in"
+msgid "sso-session.form.fields.expires-at"
 msgstr "Дата истечения"
 
 msgid "sso-session.form.fields.fingerprint"
@@ -154,7 +154,7 @@ msgstr "Отпечаток"
 msgid "sso-session.grid.columns.user-ip"
 msgstr "ИП-адрес"
 
-msgid "sso-session.grid.columns.expires-in"
+msgid "sso-session.grid.columns.expires-at"
 msgstr "Дата истечения"
 
 msgid "sso-session.grid.columns.user-data"

@@ -66,9 +66,10 @@
       "
       [class.selected]="selectedIds[0] === data.id"
     >
-      @for (key of keys; track $index) { @if (data[key] &&
-      [SsoSessionScalarFieldEnumInterface.createdAt,SsoSessionScalarFieldEnumInterface.updatedAt].includes(key))
-      {
+      @for (key of keys; track $index) { @if (data[key] && [
+      SsoSessionScalarFieldEnumInterface.createdAt,
+      SsoSessionScalarFieldEnumInterface.updatedAt,
+      SsoSessionScalarFieldEnumInterface.expiresAt].includes(key)) {
       <td>
         {{
           +data[key]

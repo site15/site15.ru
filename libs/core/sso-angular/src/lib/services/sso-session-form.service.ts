@@ -44,17 +44,17 @@ export class SsoSessionFormService {
           },
         },
         {
-          key: SsoRefreshSessionScalarFieldEnumInterface.expiresIn,
-          type: 'input',
+          key: SsoRefreshSessionScalarFieldEnumInterface.expiresAt,
+          type: 'date-input',
           validation: {
             show: true,
           },
           props: {
             type: 'number',
             label: this.translocoService.translate(
-              `sso-session.form.fields.expires-in`
+              `sso-session.form.fields.expires-at`
             ),
-            placeholder: 'expiresIn',
+            placeholder: 'expiresAt',
             required: false,
           },
         },

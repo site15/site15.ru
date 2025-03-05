@@ -1385,10 +1385,10 @@ export interface SsoRefreshSession {
   userIp: string | null;
   /**
    *
-   * @type {number}
+   * @type {string}
    * @memberof SsoRefreshSession
    */
-  expiresIn: number | null;
+  expiresAt: string | null;
   /**
    *
    * @type {object}
@@ -1464,10 +1464,10 @@ export interface SsoRefreshSessionDto {
   userIp: string | null;
   /**
    *
-   * @type {number}
+   * @type {string}
    * @memberof SsoRefreshSessionDto
    */
-  expiresIn: number | null;
+  expiresAt: string | null;
   /**
    *
    * @type {object}
@@ -1505,7 +1505,7 @@ export const SsoRefreshSessionScalarFieldEnum = {
   UserAgent: 'userAgent',
   Fingerprint: 'fingerprint',
   UserIp: 'userIp',
-  ExpiresIn: 'expiresIn',
+  ExpiresAt: 'expiresAt',
   UserData: 'userData',
   Enabled: 'enabled',
   UserId: 'userId',
@@ -2115,10 +2115,10 @@ export interface UpdateSsoRefreshSessionDto {
   userIp?: string | null;
   /**
    *
-   * @type {number}
+   * @type {string}
    * @memberof UpdateSsoRefreshSessionDto
    */
-  expiresIn?: number | null;
+  expiresAt?: string | null;
   /**
    *
    * @type {object}

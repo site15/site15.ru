@@ -14,7 +14,7 @@ export type SsoRefreshSessionScalarFieldEnumInterface =
   | 'userAgent'
   | 'fingerprint'
   | 'userIp'
-  | 'expiresIn'
+  | 'expiresAt'
   | 'userData'
   | 'enabled'
   | 'userId'
@@ -28,7 +28,7 @@ export const SsoRefreshSessionScalarFieldEnumInterface = {
   userAgent: 'userAgent' as SsoRefreshSessionScalarFieldEnumInterface,
   fingerprint: 'fingerprint' as SsoRefreshSessionScalarFieldEnumInterface,
   userIp: 'userIp' as SsoRefreshSessionScalarFieldEnumInterface,
-  expiresIn: 'expiresIn' as SsoRefreshSessionScalarFieldEnumInterface,
+  expiresAt: 'expiresAt' as SsoRefreshSessionScalarFieldEnumInterface,
   userData: 'userData' as SsoRefreshSessionScalarFieldEnumInterface,
   enabled: 'enabled' as SsoRefreshSessionScalarFieldEnumInterface,
   userId: 'userId' as SsoRefreshSessionScalarFieldEnumInterface,

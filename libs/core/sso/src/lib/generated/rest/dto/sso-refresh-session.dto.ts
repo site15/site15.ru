@@ -17,11 +17,11 @@ export class SsoRefreshSessionDto {
   })
   userIp!: string | null;
   @ApiProperty({
-    type: 'integer',
-    format: 'int64',
+    type: 'string',
+    format: 'date-time',
     nullable: true,
   })
-  expiresIn!: bigint | null;
+  expiresAt!: Date | null;
   @ApiProperty({
     type: () => Object,
     nullable: true,
