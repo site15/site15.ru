@@ -30,10 +30,15 @@ generator prismaClassGenerator {
 }
 
 model NotificationsUser {
+  /// @DtoCreateHidden
   id                                                                       String               @id(map: "PK_NOTIFICATIONS_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   externalTenantId                                                         String               @db.Uuid
   externalUserId                                                           String               @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                                                DateTime             @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                                                DateTime             @default(now()) @db.Timestamp(6)
   NotificationsEvent_NotificationsEvent_recipientUserIdToNotificationsUser NotificationsEvent[] @relation("NotificationsEvent_recipientUserIdToNotificationsUser")
   NotificationsEvent_NotificationsEvent_senderUserIdToNotificationsUser    NotificationsEvent[] @relation("NotificationsEvent_senderUserIdToNotificationsUser")
@@ -43,6 +48,7 @@ model NotificationsUser {
 }
 
 model NotificationsEvent {
+  /// @DtoCreateHidden
   id                                                                      String             @id(map: "PK_NOTIFICATIONS_EVENTS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   type                                                                    String             @db.VarChar(512)
   operationName                                                           String             @db.VarChar(512)
@@ -58,7 +64,11 @@ model NotificationsEvent {
   recipientUserId                                                         String             @db.Uuid
   recipientData                                                           Json?
   externalTenantId                                                        String             @unique(map: "IDX_NOTIFICATIONS__EXTERNAL_TENANT_ID") @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                                               DateTime           @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                                               DateTime           @default(now()) @db.Timestamp(6)
   NotificationsUser_NotificationsEvent_recipientUserIdToNotificationsUser NotificationsUser  @relation("NotificationsEvent_recipientUserIdToNotificationsUser", fields: [recipientUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_NOTIFICATIONS__RECIPIENT_USER_ID")
   NotificationsUser_NotificationsEvent_senderUserIdToNotificationsUser    NotificationsUser? @relation("NotificationsEvent_senderUserIdToNotificationsUser", fields: [senderUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_NOTIFICATIONS__SENDER_USER_ID")

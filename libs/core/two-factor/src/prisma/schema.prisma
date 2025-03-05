@@ -30,10 +30,15 @@ generator prismaClassGenerator {
 }
 
 model TwoFactorUser {
+  /// @DtoCreateHidden
   id               String          @id(map: "PK_TWO_FACTOR_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   externalTenantId String          @db.Uuid
   externalUserId   String          @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt        DateTime        @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt        DateTime        @default(now()) @db.Timestamp(6)
   TwoFactorCode    TwoFactorCode[]
 
@@ -42,6 +47,7 @@ model TwoFactorUser {
 }
 
 model TwoFactorCode {
+  /// @DtoCreateHidden
   id               String        @id(map: "PK_TWO_FACTOR_CODES") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   type             String        @db.VarChar(512)
   operationName    String        @db.VarChar(512)
@@ -50,7 +56,11 @@ model TwoFactorCode {
   used             Boolean
   userId           String        @db.Uuid
   externalTenantId String        @unique(map: "IDX_TWO_FACTOR_CODES__EXTERNAL_TENANT_ID") @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt        DateTime      @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt        DateTime      @default(now()) @db.Timestamp(6)
   TwoFactorUser    TwoFactorUser @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_TWO_FACTOR_CODES__USER_ID")
 

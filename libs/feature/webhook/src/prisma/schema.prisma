@@ -30,6 +30,7 @@ generator prismaClassGenerator {
 }
 
 model Webhook {
+  /// @DtoCreateHidden
   id                                         String       @id(map: "PK_WEBHOOK") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   eventName                                  String       @db.VarChar(512)
   endpoint                                   String       @db.VarChar(512)
@@ -62,6 +63,7 @@ model Webhook {
 }
 
 model WebhookLog {
+  /// @DtoCreateHidden
   id               String        @id(map: "PK_WEBHOOK_LOG") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   request          Json
   responseStatus   String        @db.VarChar(20)
@@ -85,6 +87,7 @@ model WebhookLog {
 }
 
 model WebhookUser {
+  /// @DtoCreateHidden
   id                                     String      @id(map: "PK_WEBHOOK_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   externalTenantId                       String      @db.Uuid
   externalUserId                         String      @db.Uuid

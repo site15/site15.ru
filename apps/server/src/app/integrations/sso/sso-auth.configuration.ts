@@ -5,6 +5,7 @@ import {
   SsoAdminService,
   SsoCacheService,
   SsoError,
+  SsoErrorEnum,
   SsoProjectService,
   SsoRequest,
   SsoStaticEnvironments,
@@ -166,7 +167,11 @@ export class SsoAuthConfiguration implements AuthConfiguration {
           `Admin with email: ${signupUserResult.email} successfully created!`
         );
       } catch (err) {
-        this.logger.error(err, err.stack);
+        if (
+          !(err instanceof SsoError && err.code === SsoErrorEnum.EmailIsExists)
+        ) {
+          this.logger.error(err, err.stack);
+        }
       }
     }
   }

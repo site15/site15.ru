@@ -234,9 +234,9 @@ test.describe('Work with profile as "User" role (timezone', () => {
 
     await page.reload({ waitUntil: 'networkidle' });
 
-    const newServerTime = await page.locator('#serverTime').innerText();
-
     await setTimeout(3000);
+
+    const newServerTime = await page.locator('#serverTime').innerText();
 
     const oldTimeIsPM =
       oldServerTime

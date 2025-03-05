@@ -30,6 +30,7 @@ generator prismaClassGenerator {
 }
 
 model AppDemo {
+  /// @DtoCreateHidden
   id        String   @id(map: "PK_APP_DEMO") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name      String   @unique(map: "UQ_APP_DEMO") @db.VarChar(128)
   /// @DtoCreateHidden

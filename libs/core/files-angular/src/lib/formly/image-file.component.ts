@@ -57,6 +57,10 @@ export class ImageFileComponent
   ngOnInit(): void {
     if (this.formControl.value) {
       this.switchToReloadMode();
+      if (!this.formControl.value.split) {
+        throw new Error('File not uploaded!');
+      }
+
       this.fileList$.next([
         {
           uid: this.formControl.value,

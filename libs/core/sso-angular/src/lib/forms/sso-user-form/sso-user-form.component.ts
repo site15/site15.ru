@@ -27,6 +27,7 @@ import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 import {
   BehaviorSubject,
   catchError,
+  map,
   mergeMap,
   of,
   tap,
@@ -38,6 +39,7 @@ import {
   SsoUserModel,
 } from '../../services/sso-user-mapper.service';
 import { SsoUserService } from '../../services/sso-user.service';
+import { FilesService } from '@nestjs-mod-sso/files-angular';
 
 @UntilDestroy()
 @Component({
@@ -84,7 +86,8 @@ export class SsoUserFormComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly ssoUserFormService: SsoUserFormService,
     private readonly ssoUserMapperService: SsoUserMapperService,
-    private readonly validationService: ValidationService
+    private readonly validationService: ValidationService,
+    private readonly filesService: FilesService
   ) {}
 
   ngOnInit(): void {
@@ -142,15 +145,38 @@ export class SsoUserFormComponent implements OnInit {
         () => new Error(this.translocoService.translate('id not set'))
       );
     }
-    return this.ssoUserService
-      .updateOne(this.id, this.ssoUserMapperService.toJson(this.form.value))
-      .pipe(
-        catchError((err) =>
-          this.validationService.catchAndProcessServerError(err, (options) =>
-            this.setFormlyFields(options)
-          )
+    const data = this.ssoUserMapperService.toJson(this.form.value);
+    const oldData = data;
+    return (
+      data.picture
+        ? this.filesService.getPresignedUrlAndUploadFile(data.picture)
+        : of('')
+    ).pipe(
+      mergeMap((picture) =>
+        !this.id
+          ? throwError(
+              () => new Error(this.translocoService.translate('id not set'))
+            )
+          : this.ssoUserService.updateOne(this.id, { ...data, picture })
+      ),
+      mergeMap((newData) => {
+        if (
+          oldData.picture &&
+          typeof oldData.picture === 'string' &&
+          newData.picture !== oldData.picture
+        ) {
+          return this.filesService
+            .deleteFile(oldData.picture)
+            .pipe(map(() => newData));
+        }
+        return of(newData);
+      }),
+      catchError((err) =>
+        this.validationService.catchAndProcessServerError(err, (options) =>
+          this.setFormlyFields(options)
         )
-      );
+      )
+    );
   }
 
   findOne() {

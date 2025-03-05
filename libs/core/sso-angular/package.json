@@ -16,7 +16,8 @@
         "@jsverse/transloco-locale": "^7.0.1",
         "date-fns": "^4.1.0",
         "lodash": "^4.17.21",
-        "@jsverse/transloco-keys-manager": "^6.0.0"
+        "@jsverse/transloco-keys-manager": "^6.0.0",
+    "@nestjs-mod-sso/files-angular": "0.0.1"
     },
     "sideEffects": false,
     "i18n": [

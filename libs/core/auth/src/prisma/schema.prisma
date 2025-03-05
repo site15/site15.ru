@@ -30,6 +30,7 @@ generator prismaClassGenerator {
 }
 
 model AuthUser {
+  /// @DtoCreateHidden
   id             String   @id(map: "PK_AUTH_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   externalUserId String   @unique(map: "UQ_AUTH_USER") @db.Uuid
   userRole       AuthRole

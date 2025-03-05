@@ -26,11 +26,23 @@ describe('Sso profile (e2e)', () => {
   });
 
   it('As admin set current date to emailVerifiedAt column', async () => {
+    const { data: findManyProjectsResult } = await user
+      .getSsoApi()
+      .ssoProjectsControllerFindMany(
+        undefined,
+        undefined,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        process.env.SERVER_SSO_DEFAULT_CLIENT_ID!,
+        undefined,
+        {
+          headers: { 'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET },
+        }
+      );
+
     const { data: findManyResult } = await user
       .getSsoApi()
       .ssoUsersControllerFindMany(
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        process.env.SERVER_SSO_DEFAULT_CLIENT_ID!,
+        findManyProjectsResult.ssoProjects[0].id,
         undefined,
         undefined,
         user.randomUser.email,

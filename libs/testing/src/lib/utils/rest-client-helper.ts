@@ -352,7 +352,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         .getSsoApi()
         .ssoUsersControllerFindMany(
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          process.env['SERVER_SSO_DEFAULT_CLIENT_ID']!,
+          this.project.id || process.env['SERVER_SSO_DEFAULT_CLIENT_ID']!,
           undefined,
           undefined,
           this.randomUser.email,
