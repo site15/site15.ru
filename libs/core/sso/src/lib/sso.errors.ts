@@ -19,6 +19,7 @@ export enum SsoErrorEnum {
   WrongOldPassword = 'SSO-014',
   NonExistentRoleSpecified = 'SSO-015',
   BadAccessToken = 'SSO-016',
+  YouAreBlocked = 'SSO-017',
 }
 
 export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
@@ -43,6 +44,7 @@ export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
     'Non-existent role specified'
   ),
   [SsoErrorEnum.BadAccessToken]: getText('Bad access token'),
+  [SsoErrorEnum.YouAreBlocked]: getText('You are blocked'),
 };
 
 export class SsoError<T = unknown> extends Error {

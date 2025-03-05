@@ -10,13 +10,16 @@ import { UseFilters, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { TranslatesModule } from 'nestjs-translates';
 import { SsoProjectsController } from './controllers/sso-projects.controller';
+import { SsoRefreshSessionsController } from './controllers/sso-sessions.controller';
 import { SsoUsersController } from './controllers/sso-users.controller';
 import { SsoController } from './controllers/sso.controller';
+import { SsoAdminService } from './services/sso-admin.service';
 import { SsoServiceBootstrap } from './services/sso-bootstrap.service';
 import { SsoCacheService } from './services/sso-cache.service';
 import { SsoCookieService } from './services/sso-cookie.service';
 import { SsoEventsService } from './services/sso-events.service';
 import { SsoPasswordService } from './services/sso-password.service';
+import { SsoProjectService } from './services/sso-project.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoUsersService } from './services/sso-users.service';
 import { SsoService } from './services/sso.service';
@@ -25,8 +28,6 @@ import { SSO_FEATURE, SSO_MODULE } from './sso.constants';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
-import { SsoProjectService } from './services/sso-project.service';
-import { SsoAdminService } from './services/sso-admin.service';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -56,7 +57,12 @@ export const { SsoModule } = createNestModule({
     }),
     TranslatesModule,
   ],
-  controllers: [SsoController, SsoUsersController, SsoProjectsController],
+  controllers: [
+    SsoController,
+    SsoUsersController,
+    SsoProjectsController,
+    SsoRefreshSessionsController,
+  ],
   providers: [SsoServiceBootstrap],
   sharedProviders: [
     SsoService,

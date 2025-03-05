@@ -56,6 +56,10 @@ export class SsoGuard implements CanActivate {
           })
         : undefined;
 
+      if (req.ssoUser && req.ssoUser.revokedAt) {
+        throw new SsoError(SsoErrorEnum.YouAreBlocked);
+      }
+
       req.ssoIsAdmin = this.ssoAdminService.checkAdminInRequest(req);
 
       if (checkSsoIsAdmin) {

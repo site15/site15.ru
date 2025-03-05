@@ -528,6 +528,25 @@ export interface FindManySsoProjectResponse {
 /**
  *
  * @export
+ * @interface FindManySsoRefreshSessionResponse
+ */
+export interface FindManySsoRefreshSessionResponse {
+  /**
+   *
+   * @type {Array<SsoRefreshSessionDto>}
+   * @memberof FindManySsoRefreshSessionResponse
+   */
+  ssoRefreshSessions: Array<SsoRefreshSessionDto>;
+  /**
+   *
+   * @type {FindManyResponseMeta}
+   * @memberof FindManySsoRefreshSessionResponse
+   */
+  meta: FindManyResponseMeta;
+}
+/**
+ *
+ * @export
  * @interface FindManySsoUserResponse
  */
 export interface FindManySsoUserResponse {
@@ -1415,6 +1434,61 @@ export interface SsoRefreshSession {
 /**
  *
  * @export
+ * @interface SsoRefreshSessionDto
+ */
+export interface SsoRefreshSessionDto {
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSessionDto
+   */
+  id: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSessionDto
+   */
+  userAgent: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSessionDto
+   */
+  userIp: string | null;
+  /**
+   *
+   * @type {number}
+   * @memberof SsoRefreshSessionDto
+   */
+  expiresIn: number | null;
+  /**
+   *
+   * @type {object}
+   * @memberof SsoRefreshSessionDto
+   */
+  userData: object | null;
+  /**
+   *
+   * @type {boolean}
+   * @memberof SsoRefreshSessionDto
+   */
+  enabled: boolean;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSessionDto
+   */
+  createdAt: string;
+  /**
+   *
+   * @type {string}
+   * @memberof SsoRefreshSessionDto
+   */
+  updatedAt: string;
+}
+/**
+ *
+ * @export
  * @interface SsoUser
  */
 export interface SsoUser {
@@ -1977,6 +2051,55 @@ export interface UpdateSsoProjectDto {
    * @memberof UpdateSsoProjectDto
    */
   clientSecret?: string;
+}
+/**
+ *
+ * @export
+ * @interface UpdateSsoRefreshSessionDto
+ */
+export interface UpdateSsoRefreshSessionDto {
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoRefreshSessionDto
+   */
+  refreshToken?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoRefreshSessionDto
+   */
+  userAgent?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoRefreshSessionDto
+   */
+  fingerprint?: string | null;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateSsoRefreshSessionDto
+   */
+  userIp?: string | null;
+  /**
+   *
+   * @type {number}
+   * @memberof UpdateSsoRefreshSessionDto
+   */
+  expiresIn?: number | null;
+  /**
+   *
+   * @type {object}
+   * @memberof UpdateSsoRefreshSessionDto
+   */
+  userData?: object | null;
+  /**
+   *
+   * @type {boolean}
+   * @memberof UpdateSsoRefreshSessionDto
+   */
+  enabled?: boolean;
 }
 /**
  *
@@ -5824,17 +5947,91 @@ export const SsoApiAxiosParamCreator = function (
     },
     /**
      *
+     * @param {string} userId
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoRefreshSessionsControllerFindMany: async (
+      userId: string,
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'userId' is not null or undefined
+      assertParamExists(
+        'ssoRefreshSessionsControllerFindMany',
+        'userId',
+        userId
+      );
+      const localVarPath = `/api/sso/sessions`;
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      if (curPage !== undefined) {
+        localVarQueryParameter['curPage'] = curPage;
+      }
+
+      if (perPage !== undefined) {
+        localVarQueryParameter['perPage'] = perPage;
+      }
+
+      if (searchText !== undefined) {
+        localVarQueryParameter['searchText'] = searchText;
+      }
+
+      if (sort !== undefined) {
+        localVarQueryParameter['sort'] = sort;
+      }
+
+      if (userId !== undefined) {
+        localVarQueryParameter['userId'] = userId;
+      }
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    ssoUsersControllerDeleteOne: async (
+    ssoRefreshSessionsControllerFindOne: async (
       id: string,
       options: RawAxiosRequestConfig = {}
     ): Promise<RequestArgs> => {
       // verify required parameter 'id' is not null or undefined
-      assertParamExists('ssoUsersControllerDeleteOne', 'id', id);
-      const localVarPath = `/api/sso/users/{id}`.replace(
+      assertParamExists('ssoRefreshSessionsControllerFindOne', 'id', id);
+      const localVarPath = `/api/sso/sessions/{id}`.replace(
         `{${'id'}}`,
         encodeURIComponent(String(id))
       );
@@ -5846,7 +6043,7 @@ export const SsoApiAxiosParamCreator = function (
       }
 
       const localVarRequestOptions = {
-        method: 'DELETE',
+        method: 'GET',
         ...baseOptions,
         ...options,
       };
@@ -5861,6 +6058,66 @@ export const SsoApiAxiosParamCreator = function (
         ...headersFromBaseOptions,
         ...options.headers,
       };
+
+      return {
+        url: toPathString(localVarUrlObj),
+        options: localVarRequestOptions,
+      };
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateSsoRefreshSessionDto} updateSsoRefreshSessionDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoRefreshSessionsControllerUpdateOne: async (
+      id: string,
+      updateSsoRefreshSessionDto: UpdateSsoRefreshSessionDto,
+      options: RawAxiosRequestConfig = {}
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'id' is not null or undefined
+      assertParamExists('ssoRefreshSessionsControllerUpdateOne', 'id', id);
+      // verify required parameter 'updateSsoRefreshSessionDto' is not null or undefined
+      assertParamExists(
+        'ssoRefreshSessionsControllerUpdateOne',
+        'updateSsoRefreshSessionDto',
+        updateSsoRefreshSessionDto
+      );
+      const localVarPath = `/api/sso/sessions/{id}`.replace(
+        `{${'id'}}`,
+        encodeURIComponent(String(id))
+      );
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+      let baseOptions;
+      if (configuration) {
+        baseOptions = configuration.baseOptions;
+      }
+
+      const localVarRequestOptions = {
+        method: 'PUT',
+        ...baseOptions,
+        ...options,
+      };
+      const localVarHeaderParameter = {} as any;
+      const localVarQueryParameter = {} as any;
+
+      localVarHeaderParameter['Content-Type'] = 'application/json';
+
+      setSearchParams(localVarUrlObj, localVarQueryParameter);
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {};
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      };
+      localVarRequestOptions.data = serializeDataIfNeeded(
+        updateSsoRefreshSessionDto,
+        localVarRequestOptions,
+        configuration
+      );
 
       return {
         url: toPathString(localVarUrlObj),
@@ -6490,24 +6747,108 @@ export const SsoApiFp = function (configuration?: Configuration) {
     },
     /**
      *
+     * @param {string} userId
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoRefreshSessionsControllerFindMany(
+      userId: string,
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<FindManySsoRefreshSessionResponse>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoRefreshSessionsControllerFindMany(
+          userId,
+          curPage,
+          perPage,
+          searchText,
+          sort,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoRefreshSessionsControllerFindMany']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    async ssoUsersControllerDeleteOne(
+    async ssoRefreshSessionsControllerFindOne(
       id: string,
       options?: RawAxiosRequestConfig
     ): Promise<
-      (axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<SsoRefreshSessionDto>
     > {
       const localVarAxiosArgs =
-        await localVarAxiosParamCreator.ssoUsersControllerDeleteOne(
+        await localVarAxiosParamCreator.ssoRefreshSessionsControllerFindOne(
           id,
           options
         );
       const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
       const localVarOperationServerBasePath =
-        operationServerMap['SsoApi.ssoUsersControllerDeleteOne']?.[
+        operationServerMap['SsoApi.ssoRefreshSessionsControllerFindOne']?.[
+          localVarOperationServerIndex
+        ]?.url;
+      return (axios, basePath) =>
+        createRequestFunction(
+          localVarAxiosArgs,
+          globalAxios,
+          BASE_PATH,
+          configuration
+        )(axios, localVarOperationServerBasePath || basePath);
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateSsoRefreshSessionDto} updateSsoRefreshSessionDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    async ssoRefreshSessionsControllerUpdateOne(
+      id: string,
+      updateSsoRefreshSessionDto: UpdateSsoRefreshSessionDto,
+      options?: RawAxiosRequestConfig
+    ): Promise<
+      (
+        axios?: AxiosInstance,
+        basePath?: string
+      ) => AxiosPromise<SsoRefreshSessionDto>
+    > {
+      const localVarAxiosArgs =
+        await localVarAxiosParamCreator.ssoRefreshSessionsControllerUpdateOne(
+          id,
+          updateSsoRefreshSessionDto,
+          options
+        );
+      const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+      const localVarOperationServerBasePath =
+        operationServerMap['SsoApi.ssoRefreshSessionsControllerUpdateOne']?.[
           localVarOperationServerIndex
         ]?.url;
       return (axios, basePath) =>
@@ -6855,16 +7196,65 @@ export const SsoApiFactory = function (
     },
     /**
      *
+     * @param {string} userId
+     * @param {number} [curPage]
+     * @param {number} [perPage]
+     * @param {string} [searchText]
+     * @param {string} [sort]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoRefreshSessionsControllerFindMany(
+      userId: string,
+      curPage?: number,
+      perPage?: number,
+      searchText?: string,
+      sort?: string,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<FindManySsoRefreshSessionResponse> {
+      return localVarFp
+        .ssoRefreshSessionsControllerFindMany(
+          userId,
+          curPage,
+          perPage,
+          searchText,
+          sort,
+          options
+        )
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      */
-    ssoUsersControllerDeleteOne(
+    ssoRefreshSessionsControllerFindOne(
       id: string,
       options?: RawAxiosRequestConfig
-    ): AxiosPromise<StatusResponse> {
+    ): AxiosPromise<SsoRefreshSessionDto> {
       return localVarFp
-        .ssoUsersControllerDeleteOne(id, options)
+        .ssoRefreshSessionsControllerFindOne(id, options)
+        .then((request) => request(axios, basePath));
+    },
+    /**
+     *
+     * @param {string} id
+     * @param {UpdateSsoRefreshSessionDto} updateSsoRefreshSessionDto
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    ssoRefreshSessionsControllerUpdateOne(
+      id: string,
+      updateSsoRefreshSessionDto: UpdateSsoRefreshSessionDto,
+      options?: RawAxiosRequestConfig
+    ): AxiosPromise<SsoRefreshSessionDto> {
+      return localVarFp
+        .ssoRefreshSessionsControllerUpdateOne(
+          id,
+          updateSsoRefreshSessionDto,
+          options
+        )
         .then((request) => request(axios, basePath));
     },
     /**
@@ -7180,17 +7570,70 @@ export class SsoApi extends BaseAPI {
 
   /**
    *
+   * @param {string} userId
+   * @param {number} [curPage]
+   * @param {number} [perPage]
+   * @param {string} [searchText]
+   * @param {string} [sort]
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoRefreshSessionsControllerFindMany(
+    userId: string,
+    curPage?: number,
+    perPage?: number,
+    searchText?: string,
+    sort?: string,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoRefreshSessionsControllerFindMany(
+        userId,
+        curPage,
+        perPage,
+        searchText,
+        sort,
+        options
+      )
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
    * @param {string} id
    * @param {*} [options] Override http request option.
    * @throws {RequiredError}
    * @memberof SsoApi
    */
-  public ssoUsersControllerDeleteOne(
+  public ssoRefreshSessionsControllerFindOne(
     id: string,
     options?: RawAxiosRequestConfig
   ) {
     return SsoApiFp(this.configuration)
-      .ssoUsersControllerDeleteOne(id, options)
+      .ssoRefreshSessionsControllerFindOne(id, options)
+      .then((request) => request(this.axios, this.basePath));
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @param {UpdateSsoRefreshSessionDto} updateSsoRefreshSessionDto
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof SsoApi
+   */
+  public ssoRefreshSessionsControllerUpdateOne(
+    id: string,
+    updateSsoRefreshSessionDto: UpdateSsoRefreshSessionDto,
+    options?: RawAxiosRequestConfig
+  ) {
+    return SsoApiFp(this.configuration)
+      .ssoRefreshSessionsControllerUpdateOne(
+        id,
+        updateSsoRefreshSessionDto,
+        options
+      )
       .then((request) => request(this.axios, this.basePath));
   }
 

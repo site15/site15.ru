@@ -31,6 +31,8 @@ import { CreateSsoProjectDtoInterface } from '../model/create-sso-project-dto.in
 // @ts-ignore
 import { FindManySsoProjectResponseInterface } from '../model/find-many-sso-project-response.interface';
 // @ts-ignore
+import { FindManySsoRefreshSessionResponseInterface } from '../model/find-many-sso-refresh-session-response.interface';
+// @ts-ignore
 import { FindManySsoUserResponseInterface } from '../model/find-many-sso-user-response.interface';
 // @ts-ignore
 import { ForgotPasswordArgsInterface } from '../model/forgot-password-args.interface';
@@ -47,6 +49,8 @@ import { SsoControllerSignIn400ResponseInterface } from '../model/sso-controller
 // @ts-ignore
 import { SsoProjectDtoInterface } from '../model/sso-project-dto.interface';
 // @ts-ignore
+import { SsoRefreshSessionDtoInterface } from '../model/sso-refresh-session-dto.interface';
+// @ts-ignore
 import { SsoUserDtoInterface } from '../model/sso-user-dto.interface';
 // @ts-ignore
 import { StatusResponseInterface } from '../model/status-response.interface';
@@ -56,6 +60,8 @@ import { TokensResponseInterface } from '../model/tokens-response.interface';
 import { UpdateProfileArgsInterface } from '../model/update-profile-args.interface';
 // @ts-ignore
 import { UpdateSsoProjectDtoInterface } from '../model/update-sso-project-dto.interface';
+// @ts-ignore
+import { UpdateSsoRefreshSessionDtoInterface } from '../model/update-sso-refresh-session-dto.interface';
 // @ts-ignore
 import { UpdateSsoUserDtoInterface } from '../model/update-sso-user-dto.interface';
 
@@ -1921,12 +1927,20 @@ export class SsoRestService {
   }
 
   /**
-   * @param id
+   * @param userId
+   * @param curPage
+   * @param perPage
+   * @param searchText
+   * @param sort
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public ssoUsersControllerDeleteOne(
-    id: string,
+  public ssoRefreshSessionsControllerFindMany(
+    userId: string,
+    curPage?: number,
+    perPage?: number,
+    searchText?: string,
+    sort?: string,
     observe?: 'body',
     reportProgress?: boolean,
     options?: {
@@ -1934,9 +1948,13 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<StatusResponseInterface>;
-  public ssoUsersControllerDeleteOne(
-    id: string,
+  ): Observable<FindManySsoRefreshSessionResponseInterface>;
+  public ssoRefreshSessionsControllerFindMany(
+    userId: string,
+    curPage?: number,
+    perPage?: number,
+    searchText?: string,
+    sort?: string,
     observe?: 'response',
     reportProgress?: boolean,
     options?: {
@@ -1944,9 +1962,13 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpResponse<StatusResponseInterface>>;
-  public ssoUsersControllerDeleteOne(
-    id: string,
+  ): Observable<HttpResponse<FindManySsoRefreshSessionResponseInterface>>;
+  public ssoRefreshSessionsControllerFindMany(
+    userId: string,
+    curPage?: number,
+    perPage?: number,
+    searchText?: string,
+    sort?: string,
     observe?: 'events',
     reportProgress?: boolean,
     options?: {
@@ -1954,9 +1976,13 @@ export class SsoRestService {
       context?: HttpContext;
       transferCache?: boolean;
     }
-  ): Observable<HttpEvent<StatusResponseInterface>>;
-  public ssoUsersControllerDeleteOne(
-    id: string,
+  ): Observable<HttpEvent<FindManySsoRefreshSessionResponseInterface>>;
+  public ssoRefreshSessionsControllerFindMany(
+    userId: string,
+    curPage?: number,
+    perPage?: number,
+    searchText?: string,
+    sort?: string,
     observe: any = 'body',
     reportProgress: boolean = false,
     options?: {
@@ -1965,9 +1991,46 @@ export class SsoRestService {
       transferCache?: boolean;
     }
   ): Observable<any> {
-    if (id === null || id === undefined) {
+    if (userId === null || userId === undefined) {
       throw new Error(
-        'Required parameter id was null or undefined when calling ssoUsersControllerDeleteOne.'
+        'Required parameter userId was null or undefined when calling ssoRefreshSessionsControllerFindMany.'
+      );
+    }
+
+    let localVarQueryParameters = new HttpParams({ encoder: this.encoder });
+    if (curPage !== undefined && curPage !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>curPage,
+        'curPage'
+      );
+    }
+    if (perPage !== undefined && perPage !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>perPage,
+        'perPage'
+      );
+    }
+    if (searchText !== undefined && searchText !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>searchText,
+        'searchText'
+      );
+    }
+    if (sort !== undefined && sort !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>sort,
+        'sort'
+      );
+    }
+    if (userId !== undefined && userId !== null) {
+      localVarQueryParameters = this.addToHttpParams(
+        localVarQueryParameters,
+        <any>userId,
+        'userId'
       );
     }
 
@@ -2013,7 +2076,117 @@ export class SsoRestService {
       }
     }
 
-    let localVarPath = `/api/sso/users/${this.configuration.encodeParam({
+    let localVarPath = `/api/sso/sessions`;
+    return this.httpClient.request<FindManySsoRefreshSessionResponseInterface>(
+      'get',
+      `${this.configuration.basePath}${localVarPath}`,
+      {
+        context: localVarHttpContext,
+        params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        transferCache: localVarTransferCache,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * @param id
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public ssoRefreshSessionsControllerFindOne(
+    id: string,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    }
+  ): Observable<SsoRefreshSessionDtoInterface>;
+  public ssoRefreshSessionsControllerFindOne(
+    id: string,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    }
+  ): Observable<HttpResponse<SsoRefreshSessionDtoInterface>>;
+  public ssoRefreshSessionsControllerFindOne(
+    id: string,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    }
+  ): Observable<HttpEvent<SsoRefreshSessionDtoInterface>>;
+  public ssoRefreshSessionsControllerFindOne(
+    id: string,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    }
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling ssoRefreshSessionsControllerFindOne.'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarHttpHeaderAcceptSelected: string | undefined =
+      options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected =
+        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set(
+        'Accept',
+        localVarHttpHeaderAcceptSelected
+      );
+    }
+
+    let localVarHttpContext: HttpContext | undefined =
+      options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let localVarTransferCache: boolean | undefined =
+      options && options.transferCache;
+    if (localVarTransferCache === undefined) {
+      localVarTransferCache = true;
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (
+        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
+      ) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/api/sso/sessions/${this.configuration.encodeParam({
       name: 'id',
       value: id,
       in: 'path',
@@ -2022,11 +2195,153 @@ export class SsoRestService {
       dataType: 'string',
       dataFormat: undefined,
     })}`;
-    return this.httpClient.request<StatusResponseInterface>(
-      'delete',
+    return this.httpClient.request<SsoRefreshSessionDtoInterface>(
+      'get',
       `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        transferCache: localVarTransferCache,
+        reportProgress: reportProgress,
+      }
+    );
+  }
+
+  /**
+   * @param id
+   * @param updateSsoRefreshSessionDtoInterface
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public ssoRefreshSessionsControllerUpdateOne(
+    id: string,
+    updateSsoRefreshSessionDtoInterface: UpdateSsoRefreshSessionDtoInterface,
+    observe?: 'body',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    }
+  ): Observable<SsoRefreshSessionDtoInterface>;
+  public ssoRefreshSessionsControllerUpdateOne(
+    id: string,
+    updateSsoRefreshSessionDtoInterface: UpdateSsoRefreshSessionDtoInterface,
+    observe?: 'response',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    }
+  ): Observable<HttpResponse<SsoRefreshSessionDtoInterface>>;
+  public ssoRefreshSessionsControllerUpdateOne(
+    id: string,
+    updateSsoRefreshSessionDtoInterface: UpdateSsoRefreshSessionDtoInterface,
+    observe?: 'events',
+    reportProgress?: boolean,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    }
+  ): Observable<HttpEvent<SsoRefreshSessionDtoInterface>>;
+  public ssoRefreshSessionsControllerUpdateOne(
+    id: string,
+    updateSsoRefreshSessionDtoInterface: UpdateSsoRefreshSessionDtoInterface,
+    observe: any = 'body',
+    reportProgress: boolean = false,
+    options?: {
+      httpHeaderAccept?: 'application/json';
+      context?: HttpContext;
+      transferCache?: boolean;
+    }
+  ): Observable<any> {
+    if (id === null || id === undefined) {
+      throw new Error(
+        'Required parameter id was null or undefined when calling ssoRefreshSessionsControllerUpdateOne.'
+      );
+    }
+    if (
+      updateSsoRefreshSessionDtoInterface === null ||
+      updateSsoRefreshSessionDtoInterface === undefined
+    ) {
+      throw new Error(
+        'Required parameter updateSsoRefreshSessionDtoInterface was null or undefined when calling ssoRefreshSessionsControllerUpdateOne.'
+      );
+    }
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarHttpHeaderAcceptSelected: string | undefined =
+      options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = ['application/json'];
+      localVarHttpHeaderAcceptSelected =
+        this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set(
+        'Accept',
+        localVarHttpHeaderAcceptSelected
+      );
+    }
+
+    let localVarHttpContext: HttpContext | undefined =
+      options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+    let localVarTransferCache: boolean | undefined =
+      options && options.transferCache;
+    if (localVarTransferCache === undefined) {
+      localVarTransferCache = true;
+    }
+
+    // to determine the Content-Type header
+    const consumes: string[] = ['application/json'];
+    const httpContentTypeSelected: string | undefined =
+      this.configuration.selectHeaderContentType(consumes);
+    if (httpContentTypeSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set(
+        'Content-Type',
+        httpContentTypeSelected
+      );
+    }
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (
+        this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)
+      ) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/api/sso/sessions/${this.configuration.encodeParam({
+      name: 'id',
+      value: id,
+      in: 'path',
+      style: 'simple',
+      explode: false,
+      dataType: 'string',
+      dataFormat: undefined,
+    })}`;
+    return this.httpClient.request<SsoRefreshSessionDtoInterface>(
+      'put',
+      `${this.configuration.basePath}${localVarPath}`,
+      {
+        context: localVarHttpContext,
+        body: updateSsoRefreshSessionDtoInterface,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

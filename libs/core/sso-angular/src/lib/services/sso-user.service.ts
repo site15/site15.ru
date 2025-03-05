@@ -52,8 +52,4 @@ export class SsoUserService {
       .ssoUsersControllerUpdateOne(id, data)
       .pipe(map(this.ssoUserMapperService.toModel));
   }
-
-  deleteOne(id: string) {
-    return this.ssoRestService.ssoUsersControllerDeleteOne(id);
-  }
 }

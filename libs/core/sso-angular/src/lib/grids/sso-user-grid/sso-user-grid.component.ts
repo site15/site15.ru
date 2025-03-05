@@ -279,28 +279,4 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
       ],
     });
   }
-
-  showDeleteModal(id?: string) {
-    if (!id) {
-      return;
-    }
-    this.nzModalService.confirm({
-      nzTitle: this.translocoService.translate(`sso-user.delete-modal.title`, {
-        id,
-      }),
-      nzOkText: this.translocoService.translate('Yes'),
-      nzCancelText: this.translocoService.translate('No'),
-      nzOnOk: () => {
-        this.ssoUserService
-          .deleteOne(id)
-          .pipe(
-            tap(() => {
-              this.loadMany({ force: true });
-            }),
-            untilDestroyed(this)
-          )
-          .subscribe();
-      },
-    });
-  }
 }

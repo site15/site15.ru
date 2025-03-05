@@ -1,4 +1,3 @@
-import { StatusResponse } from '@nestjs-mod-sso/common';
 import { Prisma, PrismaClient } from '@prisma/sso-client';
 
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
@@ -7,7 +6,6 @@ import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   ParseUUIDPipe,
@@ -22,7 +20,6 @@ import {
   refs,
 } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
-import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 import { UpdateSsoUserDto } from '../generated/rest/dto/update-sso-user.dto';
 import { SsoCacheService } from '../services/sso-cache.service';
@@ -175,23 +172,6 @@ export class SsoUsersController {
     await this.ssoCacheService.clearCacheByUserId(id);
 
     return result;
-  }
-
-  @Delete(':id')
-  @ApiOkResponse({ type: StatusResponse })
-  async deleteOne(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @InjectTranslateFunction() getText: TranslateFunction
-  ) {
-    await this.prismaClient.ssoUser.delete({
-      where: {
-        id,
-      },
-    });
-
-    await this.ssoCacheService.clearCacheByUserId(id);
-
-    return { message: getText('ok') };
   }
 
   @Get(':id')
