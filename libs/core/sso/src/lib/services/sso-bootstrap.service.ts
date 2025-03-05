@@ -4,6 +4,7 @@ import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
+import { SsoCacheService } from './sso-cache.service';
 
 @Injectable()
 export class SsoServiceBootstrap implements OnApplicationBootstrap {
@@ -12,7 +13,8 @@ export class SsoServiceBootstrap implements OnApplicationBootstrap {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly ssoStaticEnvironments: SsoStaticEnvironments
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
+    private readonly ssoCacheService: SsoCacheService
   ) {}
 
   async onApplicationBootstrap() {
@@ -42,6 +44,9 @@ export class SsoServiceBootstrap implements OnApplicationBootstrap {
               clientSecret: this.ssoStaticEnvironments.defaultClientSecret,
             },
           });
+          await this.ssoCacheService.getCachedProject(
+            this.ssoStaticEnvironments.defaultClientId
+          );
           this.logger.log('Defaul projects created!');
         }
       }

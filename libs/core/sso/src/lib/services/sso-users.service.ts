@@ -131,7 +131,7 @@ export class SsoUsersService {
       user.password
     );
     try {
-      return await this.prismaClient.ssoUser.create({
+      const result = await this.prismaClient.ssoUser.create({
         data: {
           ...user,
           username: user.username,
@@ -140,6 +140,14 @@ export class SsoUsersService {
           roles: roles ? roles.join(',') : null,
         },
       });
+
+      // fill cache
+      await this.ssoCacheService.getCachedUser({
+        userId: result.id,
+        projectId,
+      });
+
+      return result;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (
@@ -192,7 +200,7 @@ export class SsoUsersService {
       where: { id, projectId },
     });
 
-    await this.ssoCacheService.clearCacheByUserId(id);
+    await this.ssoCacheService.clearCacheByUserId({ userId: id });
 
     return await this.getById({ id, projectId });
   }
@@ -249,7 +257,7 @@ export class SsoUsersService {
       where: { id: user.id },
     });
 
-    await this.ssoCacheService.clearCacheByUserId(updatedUser.id);
+    await this.ssoCacheService.clearCacheByUserId({ userId: updatedUser.id });
 
     return this.getById({ id: updatedUser.id, projectId });
   }

@@ -33,6 +33,7 @@ import { SsoCheckIsAdmin } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoProjectResponse } from '../types/find-many-sso-project-response';
 import { SsoEntities } from '../types/sso-entities';
+import { SsoCacheService } from '../services/sso-cache.service';
 
 @ApiExtraModels(SsoError, SsoEntities, ValidationError)
 @ApiBadRequestResponse({
@@ -46,7 +47,8 @@ export class SsoProjectsController {
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
-    private readonly translatesService: TranslatesService
+    private readonly translatesService: TranslatesService,
+    private readonly ssoCacheService: SsoCacheService
   ) {}
 
   @Get()
@@ -125,11 +127,16 @@ export class SsoProjectsController {
   @Post()
   @ApiCreatedResponse({ type: SsoProjectDto })
   async createOne(@Body() args: CreateSsoProjectDto) {
-    return await this.prismaClient.ssoProject.create({
+    const result = await this.prismaClient.ssoProject.create({
       data: {
         ...args,
       },
     });
+
+    // fill cache
+    await this.ssoCacheService.getCachedProject(result.clientId);
+
+    return result;
   }
 
   @Put(':id')
@@ -138,12 +145,16 @@ export class SsoProjectsController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoProjectDto
   ) {
-    return await this.prismaClient.ssoProject.update({
+    const result = await this.prismaClient.ssoProject.update({
       data: { ...args, updatedAt: new Date() },
       where: {
         id,
       },
     });
+
+    await this.ssoCacheService.clearCacheProjectByClientId(result.clientId);
+
+    return result;
   }
 
   @Delete(':id')

@@ -27,6 +27,7 @@ import { SsoError } from '../sso.errors';
 import { FindManySsoRefreshSessionArgs } from '../types/find-many-sso-refresh-session-args';
 import { FindManySsoRefreshSessionResponse } from '../types/find-many-sso-refresh-session-response';
 import { SsoEntities } from '../types/sso-entities';
+import { SsoCacheService } from '../services/sso-cache.service';
 
 @ApiExtraModels(SsoError, SsoEntities, ValidationError)
 @ApiBadRequestResponse({
@@ -39,7 +40,8 @@ export class SsoRefreshSessionsController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly prismaToolsService: PrismaToolsService
+    private readonly prismaToolsService: PrismaToolsService,
+    private readonly ssoCacheService: SsoCacheService
   ) {}
 
   @Get()
@@ -142,12 +144,16 @@ export class SsoRefreshSessionsController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoRefreshSessionDto
   ) {
-    return await this.prismaClient.ssoRefreshSession.update({
+    const result = await this.prismaClient.ssoRefreshSession.update({
       data: { ...args, updatedAt: new Date() },
       where: {
         id,
       },
     });
+
+    await this.ssoCacheService.clearCacheByRefreshSession(result.refreshToken);
+
+    return result;
   }
 
   @Get(':id')

@@ -1,7 +1,12 @@
 import { KeyvService } from '@nestjs-mod/keyv';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, SsoProject, SsoUser } from '@prisma/sso-client';
+import {
+  PrismaClient,
+  SsoProject,
+  SsoRefreshSession,
+  SsoUser,
+} from '@prisma/sso-client';
 import { SsoConfiguration } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 
@@ -14,8 +19,8 @@ export class SsoCacheService {
     private readonly keyvService: KeyvService
   ) {}
 
-  async clearCacheByUserId(userId: string) {
-    await this.keyvService.delete(this.getUserCacheKey(userId));
+  async clearCacheByUserId({ userId }: { userId: string }) {
+    await this.keyvService.delete(this.getUserCacheKey({ userId }));
   }
 
   async getCachedUser({
@@ -26,7 +31,7 @@ export class SsoCacheService {
     projectId: string;
   }) {
     const cached = await this.keyvService.get<SsoUser>(
-      this.getUserCacheKey(userId)
+      this.getUserCacheKey({ userId })
     );
     if (cached) {
       return cached as SsoUser;
@@ -41,7 +46,7 @@ export class SsoCacheService {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...cachedUser } = user;
       await this.keyvService.set(
-        this.getUserCacheKey(userId),
+        this.getUserCacheKey({ userId }),
         cachedUser,
         this.ssoConfiguration.cacheTTL
       );
@@ -50,13 +55,13 @@ export class SsoCacheService {
     return undefined;
   }
 
-  private getUserCacheKey(userId: string): string {
+  private getUserCacheKey({ userId }: { userId: string }): string {
     return `ssoUser.${userId}`;
   }
 
   //
 
-  async clearCacheByClientId(clientId: string) {
+  async clearCacheProjectByClientId(clientId: string) {
     await this.keyvService.delete(this.getProjectCacheKey(clientId));
   }
 
@@ -85,5 +90,37 @@ export class SsoCacheService {
 
   private getProjectCacheKey(clientId: string): string {
     return `ssoProject.${clientId}`;
+  }
+  //
+
+  async clearCacheByRefreshSession(refreshToken: string) {
+    await this.keyvService.delete(this.getRefreshSessionCacheKey(refreshToken));
+  }
+
+  async getCachedRefreshSession(refreshToken: string) {
+    const cached = await this.keyvService.get<SsoRefreshSession>(
+      this.getRefreshSessionCacheKey(refreshToken)
+    );
+    if (cached) {
+      return cached as SsoRefreshSession;
+    }
+    const refreshSession = await this.prismaClient.ssoRefreshSession.findFirst({
+      where: {
+        refreshToken,
+      },
+    });
+    if (refreshSession) {
+      await this.keyvService.set(
+        this.getRefreshSessionCacheKey(refreshToken),
+        refreshSession,
+        this.ssoConfiguration.cacheTTL
+      );
+      return refreshSession;
+    }
+    return undefined;
+  }
+
+  private getRefreshSessionCacheKey(refreshToken: string): string {
+    return `ssoRefreshSession.${refreshToken}`;
   }
 }

@@ -4,6 +4,7 @@ import { SsoUser } from '../generated/rest/dto/sso-user.entity';
 export type SsoAccessTokenData = {
   userId: string;
   roles: string;
+  refreshToken: string;
 };
 
 export type SsoRequest = {

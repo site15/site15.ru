@@ -12,7 +12,7 @@ import {
   SsoTokensService,
   SsoUsersService,
 } from '@nestjs-mod-sso/sso';
-import { WebhookUsersService, WebhookRequest } from '@nestjs-mod-sso/webhook';
+import { WebhookRequest, WebhookUsersService } from '@nestjs-mod-sso/webhook';
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
@@ -140,6 +140,10 @@ export class SsoAuthConfiguration implements AuthConfiguration {
         where: { clientId: this.ssoStaticEnvironments.defaultClientId },
       });
 
+      await this.ssoCacheService.clearCacheProjectByClientId(
+        this.ssoStaticEnvironments.defaultClientId
+      );
+
       try {
         const signupUserResult = await this.ssoService.create({
           user: {
@@ -161,7 +165,9 @@ export class SsoAuthConfiguration implements AuthConfiguration {
           },
         });
 
-        await this.ssoCacheService.clearCacheByUserId(signupUserResult.id);
+        await this.ssoCacheService.clearCacheByUserId({
+          userId: signupUserResult.id,
+        });
 
         this.logger.debug(
           `Admin with email: ${signupUserResult.email} successfully created!`

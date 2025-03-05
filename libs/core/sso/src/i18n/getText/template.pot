@@ -60,5 +60,5 @@ msgstr "Wrong password"
 msgid "Bad access token"
 msgstr "Bad access token"
 
-msgid "You are blocked"
-msgstr "You are blocked"
+msgid "Your session has been blocked"
+msgstr "Your session has been blocked"

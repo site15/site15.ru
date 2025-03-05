@@ -172,7 +172,7 @@
     "Wrong old password": "Старый пароль неверен",
     "Wrong password": "Неверный пароль",
     "Bad access token": "Плохой токен доступа",
-    "You are blocked": "Вы заблокированы"
+    "Your session has been blocked": "Ваш сеанс заблокирован"
   },
   "sso-angular": {
     "Users for project #{{projectId}}": "Пользователи проекта #{{projectId}}",
@@ -295,7 +295,7 @@
     "Wrong old password": "Старый пароль неверен",
     "Wrong password": "Неверный пароль",
     "Bad access token": "Плохой токен доступа",
-    "You are blocked": "Вы заблокированы"
+    "Your session has been blocked": "Ваш сеанс заблокирован"
   },
   "two-factor": {
     "Number of attempts of two factor code has been exhausted": "Количество попыток ввода двухфакторного кода исчерпано",

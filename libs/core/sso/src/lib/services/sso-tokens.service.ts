@@ -10,6 +10,7 @@ import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { SsoAccessTokenData } from '../types/sso-request';
+import { SsoCacheService } from './sso-cache.service';
 
 @Injectable()
 export class SsoTokensService {
@@ -20,7 +21,8 @@ export class SsoTokensService {
     private readonly jwtService: JwtService,
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly prismaToolsService: PrismaToolsService
+    private readonly prismaToolsService: PrismaToolsService,
+    private readonly ssoCacheService: SsoCacheService
   ) {}
 
   async getAccessAndRefreshTokensByRefreshToken({
@@ -76,10 +78,12 @@ export class SsoTokensService {
       newIp: userIp,
     });
 
+    refreshToken = randomUUID();
+
     const session = await this.prismaClient.ssoRefreshSession.create({
       include: { SsoUser: true },
       data: {
-        refreshToken: randomUUID(),
+        refreshToken,
         userId: currentRefreshSession.userId,
         userIp,
         userAgent,
@@ -90,10 +94,14 @@ export class SsoTokensService {
       },
     });
 
+    // fill cache
+    await this.ssoCacheService.getCachedRefreshSession(refreshToken);
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const accessToken = this.jwtService.sign(
       {
         userId: session.userId,
+        refreshToken,
         ...(currentRefreshSession.SsoUser.roles
           ? { roles: currentRefreshSession.SsoUser.roles }
           : {}),
@@ -161,23 +169,34 @@ export class SsoTokensService {
       ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn)
     );
     try {
-      await this.prismaClient.ssoRefreshSession.updateMany({
-        data: {
-          enabled: false,
-        },
+      const sessions = await this.prismaClient.ssoRefreshSession.findMany({
+        select: { id: true, refreshToken: true },
         where: {
           userId,
           fingerprint,
           projectId,
         },
       });
+
+      for (const session of sessions) {
+        await this.prismaClient.ssoRefreshSession.update({
+          data: { enabled: false },
+          where: { id: session.id, projectId },
+        });
+
+        await this.ssoCacheService.clearCacheByRefreshSession(
+          session.refreshToken
+        );
+      }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       this.logger.error(err, err.stack);
     }
+    const refreshToken = randomUUID();
     const session = await this.prismaClient.ssoRefreshSession.create({
       data: {
-        refreshToken: randomUUID(),
+        refreshToken,
         userId,
         userIp,
         userAgent,
@@ -191,7 +210,7 @@ export class SsoTokensService {
     });
     return {
       accessToken: this.jwtService.sign(
-        { userId, ...(roles ? { roles } : {}) },
+        { userId, refreshToken, ...(roles ? { roles } : {}) },
         {
           expiresIn: this.ssoStaticEnvironments.jwtAccessTokenExpiresIn,
           secret: this.ssoStaticEnvironments.jwtSecretKey,
@@ -222,6 +241,9 @@ export class SsoTokensService {
         data: { enabled: false },
         where: { refreshToken, projectId },
       });
+
+      await this.ssoCacheService.clearCacheByRefreshSession(refreshToken);
+
       return refreshSession;
     } catch (err) {
       this.logger.debug({ refreshToken, projectId });

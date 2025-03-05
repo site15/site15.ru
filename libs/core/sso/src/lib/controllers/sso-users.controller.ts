@@ -169,7 +169,7 @@ export class SsoUsersController {
       },
     });
 
-    await this.ssoCacheService.clearCacheByUserId(id);
+    await this.ssoCacheService.clearCacheByUserId({ userId: id });
 
     return result;
   }

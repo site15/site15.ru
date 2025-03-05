@@ -117,6 +117,7 @@ export class SsoService {
             },
             where: { id: user.id, projectId },
           });
+          await this.ssoCacheService.clearCacheByUserId({ userId: user.id });
         }
       } else {
         this.logger.debug({
@@ -161,9 +162,9 @@ export class SsoService {
       data: { emailVerifiedAt: new Date(), updatedAt: new Date() },
     });
 
-    await this.ssoCacheService.clearCacheByUserId(
-      twoFactorCodeValidateResult.userId
-    );
+    await this.ssoCacheService.clearCacheByUserId({
+      userId: twoFactorCodeValidateResult.userId,
+    });
 
     return result;
   }

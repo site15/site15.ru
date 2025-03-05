@@ -49,6 +49,17 @@ export class SsoGuard implements CanActivate {
           req.headers['authorization']?.split(' ')?.[1]
         );
 
+      if (req.ssoAccessTokenData?.refreshToken) {
+        const refreshSession =
+          await this.ssoCacheService.getCachedRefreshSession(
+            req.ssoAccessTokenData?.refreshToken
+          );
+
+        if (!refreshSession?.enabled) {
+          throw new SsoError(SsoErrorEnum.YouAreBlocked);
+        }
+      }
+
       req.ssoUser = req.ssoAccessTokenData?.userId
         ? await this.ssoCacheService.getCachedUser({
             userId: req.ssoAccessTokenData?.userId,

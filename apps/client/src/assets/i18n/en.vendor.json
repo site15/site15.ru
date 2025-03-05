@@ -173,7 +173,7 @@
     "Wrong old password": "Wrong old password",
     "Wrong password": "Wrong password",
     "Bad access token": "Bad access token",
-    "You are blocked": "You are blocked"
+    "Your session has been blocked": "Your session has been blocked"
   },
   "sso-angular": {
     "Users for project #{{projectId}}": "Users for project #{{projectId}}",
@@ -295,7 +295,7 @@
     "Wrong old password": "Wrong old password",
     "Wrong password": "Wrong password",
     "Bad access token": "Bad access token",
-    "You are blocked": "You are blocked"
+    "Your session has been blocked": "Your session has been blocked"
   },
   "two-factor": {
     "Number of attempts of two factor code has been exhausted": "Number of attempts of two factor code has been exhausted",

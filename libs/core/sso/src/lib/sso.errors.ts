@@ -44,7 +44,7 @@ export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
     'Non-existent role specified'
   ),
   [SsoErrorEnum.BadAccessToken]: getText('Bad access token'),
-  [SsoErrorEnum.YouAreBlocked]: getText('You are blocked'),
+  [SsoErrorEnum.YouAreBlocked]: getText('Your session has been blocked'),
 };
 
 export class SsoError<T = unknown> extends Error {
