@@ -59,7 +59,7 @@ export class SsoGuard implements CanActivate {
           throw new SsoError(SsoErrorEnum.YourSessionHasBeenBlocked);
         }
 
-        await this.ssoTokensService.verifyRefreshSession({
+        this.ssoTokensService.verifyRefreshSession({
           oldRefreshSession: refreshSession,
         });
       }

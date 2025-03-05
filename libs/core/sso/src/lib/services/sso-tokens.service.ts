@@ -72,7 +72,8 @@ export class SsoTokensService {
     } catch (err: any) {
       this.logger.error(err, err.stack);
     }
-    await this.verifyRefreshSession({
+
+    this.verifyRefreshSession({
       oldRefreshSession: currentRefreshSession,
       newFingerprint: fingerprint,
       newIp: userIp,
@@ -121,7 +122,7 @@ export class SsoTokensService {
     };
   }
 
-  async verifyRefreshSession({
+  verifyRefreshSession({
     oldRefreshSession,
     newFingerprint,
     newIp,
@@ -131,7 +132,13 @@ export class SsoTokensService {
     newIp?: string;
   }) {
     const nowTime = new Date();
-    if (!oldRefreshSession.expiresAt || nowTime > oldRefreshSession.expiresAt) {
+    this.logger.debug({
+      verifyRefreshSession: { expiresAt: oldRefreshSession.expiresAt, nowTime },
+    });
+    if (
+      !oldRefreshSession.expiresAt ||
+      +nowTime > +oldRefreshSession.expiresAt
+    ) {
       this.logger.debug({
         nowTime,
         oldRefreshSession,
@@ -234,7 +241,7 @@ export class SsoTokensService {
           where: { refreshToken, projectId, enabled: true },
         });
 
-      await this.verifyRefreshSession({
+      this.verifyRefreshSession({
         oldRefreshSession: refreshSession,
       });
 
