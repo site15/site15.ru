@@ -17,7 +17,6 @@ import {
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { ValidationService } from '@nestjs-mod-sso/common-angular';
-import { FilesService } from '@nestjs-mod-sso/files-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -28,18 +27,17 @@ import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 import {
   BehaviorSubject,
   catchError,
-  map,
   mergeMap,
   of,
   tap,
   throwError,
 } from 'rxjs';
-import { SsoUserFormService } from '../../services/sso-user-form.service';
+import { SsoSessionFormService } from '../../services/sso-session-form.service';
 import {
-  SsoUserMapperService,
-  SsoUserModel,
-} from '../../services/sso-user-mapper.service';
-import { SsoUserService } from '../../services/sso-user.service';
+  SsoSessionMapperService,
+  SsoSessionModel,
+} from '../../services/sso-session-mapper.service';
+import { SsoSessionService } from '../../services/sso-session.service';
 
 @UntilDestroy()
 @Component({
@@ -53,11 +51,11 @@ import { SsoUserService } from '../../services/sso-user.service';
     AsyncPipe,
     TranslocoPipe,
   ],
-  selector: 'sso-user-form',
-  templateUrl: './sso-user-form.component.html',
+  selector: 'sso-session-form',
+  templateUrl: './sso-session-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SsoUserFormComponent implements OnInit {
+export class SsoSessionFormComponent implements OnInit {
   @Input()
   id?: string;
 
@@ -65,13 +63,13 @@ export class SsoUserFormComponent implements OnInit {
   hideButtons?: boolean;
 
   @Output()
-  afterFind = new EventEmitter<SsoUserModel>();
+  afterFind = new EventEmitter<SsoSessionModel>();
 
   @Output()
-  afterCreate = new EventEmitter<SsoUserModel>();
+  afterCreate = new EventEmitter<SsoSessionModel>();
 
   @Output()
-  afterUpdate = new EventEmitter<SsoUserModel>();
+  afterUpdate = new EventEmitter<SsoSessionModel>();
 
   form = new UntypedFormGroup({});
   formlyModel$ = new BehaviorSubject<object | null>(null);
@@ -80,19 +78,18 @@ export class SsoUserFormComponent implements OnInit {
   constructor(
     @Optional()
     @Inject(NZ_MODAL_DATA)
-    private readonly nzModalData: SsoUserFormComponent,
-    private readonly ssoUserService: SsoUserService,
+    private readonly nzModalData: SsoSessionFormComponent,
+    private readonly ssoSessionService: SsoSessionService,
     private readonly nzMessageService: NzMessageService,
     private readonly translocoService: TranslocoService,
-    private readonly ssoUserFormService: SsoUserFormService,
-    private readonly ssoUserMapperService: SsoUserMapperService,
-    private readonly validationService: ValidationService,
-    private readonly filesService: FilesService
+    private readonly ssoSessionFormService: SsoSessionFormService,
+    private readonly ssoSessionMapperService: SsoSessionMapperService,
+    private readonly validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
     Object.assign(this, this.nzModalData);
-    this.ssoUserFormService
+    this.ssoSessionFormService
       .init()
       .pipe(
         mergeMap(() => {
@@ -145,38 +142,15 @@ export class SsoUserFormComponent implements OnInit {
         () => new Error(this.translocoService.translate('id not set'))
       );
     }
-    const data = this.ssoUserMapperService.toJson(this.form.value);
-    const oldData = data;
-    return (
-      data.picture
-        ? this.filesService.getPresignedUrlAndUploadFile(data.picture)
-        : of('')
-    ).pipe(
-      mergeMap((picture) =>
-        !this.id
-          ? throwError(
-              () => new Error(this.translocoService.translate('id not set'))
-            )
-          : this.ssoUserService.updateOne(this.id, { ...data, picture })
-      ),
-      mergeMap((newData) => {
-        if (
-          oldData.picture &&
-          typeof oldData.picture === 'string' &&
-          newData.picture !== oldData.picture
-        ) {
-          return this.filesService
-            .deleteFile(oldData.picture)
-            .pipe(map(() => newData));
-        }
-        return of(newData);
-      }),
-      catchError((err) =>
-        this.validationService.catchAndProcessServerError(err, (options) =>
-          this.setFormlyFields(options)
+    return this.ssoSessionService
+      .updateOne(this.id, this.ssoSessionMapperService.toJson(this.form.value))
+      .pipe(
+        catchError((err) =>
+          this.validationService.catchAndProcessServerError(err, (options) =>
+            this.setFormlyFields(options)
+          )
         )
-      )
-    );
+      );
   }
 
   findOne() {
@@ -185,9 +159,9 @@ export class SsoUserFormComponent implements OnInit {
         () => new Error(this.translocoService.translate('id not set'))
       );
     }
-    return this.ssoUserService.findOne(this.id).pipe(
+    return this.ssoSessionService.findOne(this.id).pipe(
       tap((result) => {
-        this.setFieldsAndModel(this.ssoUserMapperService.toForm(result));
+        this.setFieldsAndModel(this.ssoSessionMapperService.toForm(result));
       })
     );
   }
@@ -195,6 +169,8 @@ export class SsoUserFormComponent implements OnInit {
   private setFormlyFields(options?: {
     errors?: ValidationErrorMetadataInterface[];
   }) {
-    this.formlyFields$.next(this.ssoUserFormService.getFormlyFields(options));
+    this.formlyFields$.next(
+      this.ssoSessionFormService.getFormlyFields(options)
+    );
   }
 }

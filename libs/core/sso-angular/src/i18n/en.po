@@ -18,11 +18,14 @@ msgstr "Action"
 msgid "Edit"
 msgstr "Edit"
 
-msgid "Delete"
-msgstr "Delete"
+msgid "Sessions for user #{{userId}}"
+msgstr "Sessions for user #{{userId}}"
 
 msgid "Create new"
 msgstr "Create new"
+
+msgid "Delete"
+msgstr "Delete"
 
 msgid "Save"
 msgstr "Save"
@@ -48,6 +51,12 @@ msgstr "First name"
 msgid "sso-user.form.fields.gender"
 msgstr "Gender"
 
+msgid "Male"
+msgstr "Male"
+
+msgid "Female"
+msgstr "Female"
+
 msgid "sso-user.form.fields.lastname"
 msgstr "Last name"
 
@@ -69,6 +78,24 @@ msgstr "Roles"
 msgid "sso-user.form.fields.username"
 msgstr "Username"
 
+msgid "sso-session.form.fields.enabled"
+msgstr "Enabled"
+
+msgid "sso-session.form.fields.expires-in"
+msgstr "Expires in"
+
+msgid "sso-session.form.fields.fingerprint"
+msgstr "Fingerprint"
+
+msgid "sso-session.form.fields.user-agent"
+msgstr "User agent"
+
+msgid "sso-session.form.fields.user-data"
+msgstr "User data"
+
+msgid "sso-session.form.fields.user-ip"
+msgstr "IP address"
+
 msgid "sso-project.form.fields.client-id"
 msgstr "Client id"
 
@@ -84,29 +111,11 @@ msgstr "Create user"
 msgid "Cancel"
 msgstr "Cancel"
 
-msgid "sso-user.delete-modal.title"
-msgstr "Delete user #{{ id }}"
-
-msgid "Yes"
-msgstr "Yes"
-
-msgid "No"
-msgstr "No"
-
 msgid "sso-user.grid.columns.id"
 msgstr "ID"
 
-msgid "sso-user.grid.columns.app-data"
-msgstr "Additional data"
-
-msgid "sso-user.grid.columns.birthdate"
-msgstr "Birth date"
-
 msgid "sso-user.grid.columns.email"
 msgstr "Email"
-
-msgid "sso-user.grid.columns.email-verified-at"
-msgstr "Email verified at"
 
 msgid "sso-user.grid.columns.firstname"
 msgstr "First name"
@@ -114,26 +123,44 @@ msgstr "First name"
 msgid "sso-user.grid.columns.gender"
 msgstr "Gender"
 
-msgid "sso-user.grid.columns.lastname"
-msgstr "Last name"
-
 msgid "sso-user.grid.columns.phone"
 msgstr "Phone"
 
-msgid "sso-user.grid.columns.phone-verified-at"
-msgstr "Phone verified at"
-
 msgid "sso-user.grid.columns.picture"
 msgstr "Picture"
-
-msgid "sso-user.grid.columns.revoked-at"
-msgstr "Revoked at"
 
 msgid "sso-user.grid.columns.roles"
 msgstr "Roles"
 
 msgid "sso-user.grid.columns.username"
 msgstr "Username"
+
+msgid "sso-session.update-modal.title"
+msgstr "Eedit session #{{ id }}"
+
+msgid "sso-session.create-modal.title"
+msgstr "Create session"
+
+msgid "sso-session.grid.columns.id"
+msgstr "ID"
+
+msgid "sso-session.grid.columns.user-agent"
+msgstr "User agent"
+
+msgid "sso-session.grid.columns.fingerprint"
+msgstr "Fingerprint"
+
+msgid "sso-session.grid.columns.user-ip"
+msgstr "IP address"
+
+msgid "sso-session.grid.columns.expires-in"
+msgstr "Expires in"
+
+msgid "sso-session.grid.columns.user-data"
+msgstr "User data"
+
+msgid "sso-session.grid.columns.enabled"
+msgstr "Enabled"
 
 msgid "sso-project.update-modal.title"
 msgstr "Edit project #{{ id }}"
@@ -143,6 +170,12 @@ msgstr "Create project"
 
 msgid "sso-project.delete-modal.title"
 msgstr "Delete project #{{ id }}"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
 
 msgid "sso-project.grid.columns.id"
 msgstr "ID"
@@ -158,6 +191,27 @@ msgstr "Success"
 
 msgid "id not set"
 msgstr "ID not set"
+
+msgid "sso-user.delete-modal.title"
+msgstr "Delete user #{{ id }}"
+
+msgid "sso-user.grid.columns.app-data"
+msgstr "Additional data"
+
+msgid "sso-user.grid.columns.birthdate"
+msgstr "Birth date"
+
+msgid "sso-user.grid.columns.email-verified-at"
+msgstr "Email verified at"
+
+msgid "sso-user.grid.columns.lastname"
+msgstr "Last name"
+
+msgid "sso-user.grid.columns.phone-verified-at"
+msgstr "Phone verified at"
+
+msgid "sso-user.grid.columns.revoked-at"
+msgstr "Revoked at"
 
 msgid "Sign-in"
 msgstr "Sign in"

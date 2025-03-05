@@ -101,7 +101,7 @@ export class SsoUserFormService {
         },
         {
           key: SsoUserScalarFieldEnumInterface.gender,
-          type: 'input',
+          type: 'select',
           validation: {
             show: true,
           },
@@ -111,6 +111,16 @@ export class SsoUserFormService {
             ),
             placeholder: 'gender',
             required: false,
+            options: [
+              {
+                value: 'm',
+                label: this.translocoService.translate('Male'),
+              },
+              {
+                value: 'f',
+                label: this.translocoService.translate('Female'),
+              },
+            ],
           },
         },
         {

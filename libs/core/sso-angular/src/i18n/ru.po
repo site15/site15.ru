@@ -19,11 +19,14 @@ msgstr "Действия"
 msgid "Edit"
 msgstr "Изменить"
 
-msgid "Delete"
-msgstr "Удалить"
+msgid "Sessions for user #{{userId}}"
+msgstr "Сеансы пользователя #{{userId}}"
 
 msgid "Create new"
 msgstr "Создать"
+
+msgid "Delete"
+msgstr "Удалить"
 
 msgid "Save"
 msgstr "Сохранить"
@@ -49,6 +52,12 @@ msgstr "Имя"
 msgid "sso-user.form.fields.gender"
 msgstr "Пол"
 
+msgid "Male"
+msgstr "Мужской"
+
+msgid "Female"
+msgstr "Женский"
+
 msgid "sso-user.form.fields.lastname"
 msgstr "Фамилия"
 
@@ -70,6 +79,24 @@ msgstr "Роли"
 msgid "sso-user.form.fields.username"
 msgstr "Имя пользователя"
 
+msgid "sso-session.form.fields.enabled"
+msgstr "Активен"
+
+msgid "sso-session.form.fields.expires-in"
+msgstr "Дата истечения"
+
+msgid "sso-session.form.fields.fingerprint"
+msgstr "Отпечаток"
+
+msgid "sso-session.form.fields.user-agent"
+msgstr "Юзер агент"
+
+msgid "sso-session.form.fields.user-data"
+msgstr "Пользовательские данные"
+
+msgid "sso-session.form.fields.user-ip"
+msgstr "ИП-адрес"
+
 msgid "sso-project.form.fields.client-id"
 msgstr "Идентификатор клиента"
 
@@ -85,29 +112,11 @@ msgstr "Создать пользователя"
 msgid "Cancel"
 msgstr "Отмена"
 
-msgid "sso-user.delete-modal.title"
-msgstr "Удалить пользователя #{{ id }}"
-
-msgid "Yes"
-msgstr "Да"
-
-msgid "No"
-msgstr "Нет"
-
 msgid "sso-user.grid.columns.id"
 msgstr "ИД."
 
-msgid "sso-user.grid.columns.app-data"
-msgstr "Дополнительные данные"
-
-msgid "sso-user.grid.columns.birthdate"
-msgstr "День рождения"
-
 msgid "sso-user.grid.columns.email"
 msgstr "Почта"
-
-msgid "sso-user.grid.columns.email-verified-at"
-msgstr "Дата подтверждения почты"
 
 msgid "sso-user.grid.columns.firstname"
 msgstr "Имя"
@@ -115,26 +124,44 @@ msgstr "Имя"
 msgid "sso-user.grid.columns.gender"
 msgstr "Пол"
 
-msgid "sso-user.grid.columns.lastname"
-msgstr "Фамилия"
-
 msgid "sso-user.grid.columns.phone"
 msgstr "Телефон"
 
-msgid "sso-user.grid.columns.phone-verified-at"
-msgstr "Дата подтверждения телефона"
-
 msgid "sso-user.grid.columns.picture"
 msgstr "Изображение"
-
-msgid "sso-user.grid.columns.revoked-at"
-msgstr "Дата отключения"
 
 msgid "sso-user.grid.columns.roles"
 msgstr "Роли"
 
 msgid "sso-user.grid.columns.username"
 msgstr "Имя пользователя"
+
+msgid "sso-session.update-modal.title"
+msgstr "Изменить сеанс #{{ id }}"
+
+msgid "sso-session.create-modal.title"
+msgstr "Создать сеанс"
+
+msgid "sso-session.grid.columns.id"
+msgstr "ИД."
+
+msgid "sso-session.grid.columns.user-agent"
+msgstr "Юзер агент"
+
+msgid "sso-session.grid.columns.fingerprint"
+msgstr "Отпечаток"
+
+msgid "sso-session.grid.columns.user-ip"
+msgstr "ИП-адрес"
+
+msgid "sso-session.grid.columns.expires-in"
+msgstr "Дата истечения"
+
+msgid "sso-session.grid.columns.user-data"
+msgstr "Пользовательские данные"
+
+msgid "sso-session.grid.columns.enabled"
+msgstr "Активен"
 
 msgid "sso-project.update-modal.title"
 msgstr "Изменить проект #{{ id }}"
@@ -144,6 +171,12 @@ msgstr "Создать проект"
 
 msgid "sso-project.delete-modal.title"
 msgstr "Удалить проект #{{ id }}"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
 
 msgid "sso-project.grid.columns.id"
 msgstr "ИД."
@@ -159,6 +192,27 @@ msgstr "Успешно"
 
 msgid "id not set"
 msgstr "ИД. не установлен"
+
+msgid "sso-user.delete-modal.title"
+msgstr "Удалить пользователя #{{ id }}"
+
+msgid "sso-user.grid.columns.app-data"
+msgstr "Дополнительные данные"
+
+msgid "sso-user.grid.columns.birthdate"
+msgstr "День рождения"
+
+msgid "sso-user.grid.columns.email-verified-at"
+msgstr "Дата подтверждения почты"
+
+msgid "sso-user.grid.columns.lastname"
+msgstr "Фамилия"
+
+msgid "sso-user.grid.columns.phone-verified-at"
+msgstr "Дата подтверждения телефона"
+
+msgid "sso-user.grid.columns.revoked-at"
+msgstr "Дата отключения"
 
 msgid "Sign-in"
 msgstr "Войти"

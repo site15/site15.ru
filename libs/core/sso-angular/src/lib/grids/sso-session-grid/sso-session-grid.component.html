@@ -1,6 +1,6 @@
 <div class="table-operations" nz-row nzJustify="space-between">
   <div nz-col nzSpan="8">
-    {{ 'Users for project #{{projectId}}' | transloco:{projectId} }}
+    {{ 'Sessions for user #{{userId}}' | transloco:{userId} }}
   </div>
   <div nz-col nzSpan="8">
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
@@ -66,12 +66,9 @@
       "
       [class.selected]="selectedIds[0] === data.id"
     >
-      @for (key of keys; track $index) { @if (data[key] && [
-      SsoUserScalarFieldEnumInterface.createdAt,
-      SsoUserScalarFieldEnumInterface.updatedAt,
-      SsoUserScalarFieldEnumInterface.birthdate,
-      SsoUserScalarFieldEnumInterface.emailVerifiedAt,
-      SsoUserScalarFieldEnumInterface.phoneVerifiedAt].includes(key)) {
+      @for (key of keys; track $index) { @if (data[key] &&
+      [SsoSessionScalarFieldEnumInterface.createdAt,SsoSessionScalarFieldEnumInterface.updatedAt].includes(key))
+      {
       <td>
         {{
           +data[key]
@@ -80,14 +77,7 @@
       </td>
       } @else{
       <td>
-        @if (key===SsoUserScalarFieldEnumInterface.picture && data[key]){
-        <img
-          style="max-height: 40px; max-height: 40px"
-          [src]="(minioURL$ | async) + data[key]"
-        />
-        }@else{
         {{ data[key] }}
-        }
       </td>
       } }
       <td>

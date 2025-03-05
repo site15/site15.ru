@@ -16,5 +16,6 @@
     "Wrong activate email code": "Wrong activate email code",
     "Wrong old password": "Wrong old password",
     "Wrong password": "Wrong password",
-    "Bad access token": "Bad access token"
+    "Bad access token": "Bad access token",
+    "You are blocked": "You are blocked"
 }

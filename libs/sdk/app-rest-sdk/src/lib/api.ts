@@ -1193,6 +1193,12 @@ export interface SsoEntities {
    * @memberof SsoEntities
    */
   ssoUser: SsoUserScalarFieldEnum;
+  /**
+   *
+   * @type {SsoRefreshSessionScalarFieldEnum}
+   * @memberof SsoEntities
+   */
+  SsoRefreshSession: SsoRefreshSessionScalarFieldEnum;
 }
 
 /**
@@ -1202,7 +1208,7 @@ export interface SsoEntities {
  */
 export interface SsoError {
   /**
-   * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015), Bad access token (SSO-016)
+   * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015), Bad access token (SSO-016), You are blocked (SSO-017)
    * @type {string}
    * @memberof SsoError
    */
@@ -1245,6 +1251,7 @@ export const SsoErrorEnum = {
   Sso014: 'SSO-014',
   Sso015: 'SSO-015',
   Sso016: 'SSO-016',
+  Sso017: 'SSO-017',
 } as const;
 
 export type SsoErrorEnum = (typeof SsoErrorEnum)[keyof typeof SsoErrorEnum];
@@ -1486,6 +1493,30 @@ export interface SsoRefreshSessionDto {
    */
   updatedAt: string;
 }
+/**
+ *
+ * @export
+ * @enum {string}
+ */
+
+export const SsoRefreshSessionScalarFieldEnum = {
+  Id: 'id',
+  RefreshToken: 'refreshToken',
+  UserAgent: 'userAgent',
+  Fingerprint: 'fingerprint',
+  UserIp: 'userIp',
+  ExpiresIn: 'expiresIn',
+  UserData: 'userData',
+  Enabled: 'enabled',
+  UserId: 'userId',
+  ProjectId: 'projectId',
+  CreatedAt: 'createdAt',
+  UpdatedAt: 'updatedAt',
+} as const;
+
+export type SsoRefreshSessionScalarFieldEnum =
+  (typeof SsoRefreshSessionScalarFieldEnum)[keyof typeof SsoRefreshSessionScalarFieldEnum];
+
 /**
  *
  * @export

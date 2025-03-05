@@ -7,11 +7,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { SsoRefreshSessionScalarFieldEnumInterface } from './sso-refresh-session-scalar-field-enum.interface';
 import { SsoProjectScalarFieldEnumInterface } from './sso-project-scalar-field-enum.interface';
 import { SsoUserScalarFieldEnumInterface } from './sso-user-scalar-field-enum.interface';
 
 export interface SsoEntitiesInterface {
   ssoProject: SsoProjectScalarFieldEnumInterface;
   ssoUser: SsoUserScalarFieldEnumInterface;
+  SsoRefreshSession: SsoRefreshSessionScalarFieldEnumInterface;
 }
 export namespace SsoEntitiesInterface {}

@@ -60,3 +60,6 @@ msgstr "Неверный пароль"
 
 msgid "Bad access token"
 msgstr "Плохой токен доступа"
+
+msgid "You are blocked"
+msgstr "Вы заблокированы"

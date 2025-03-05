@@ -66,6 +66,7 @@ export * from './lib/model/sso-project-dto.interface';
 export * from './lib/model/sso-project-scalar-field-enum.interface';
 export * from './lib/model/sso-project.interface';
 export * from './lib/model/sso-refresh-session-dto.interface';
+export * from './lib/model/sso-refresh-session-scalar-field-enum.interface';
 export * from './lib/model/sso-refresh-session.interface';
 export * from './lib/model/sso-user-dto.interface';
 export * from './lib/model/sso-user-scalar-field-enum.interface';

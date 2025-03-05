@@ -16,5 +16,6 @@
     "Wrong activate email code": "Неправильный код активации электронной почты",
     "Wrong old password": "Старый пароль неверен",
     "Wrong password": "Неверный пароль",
-    "Bad access token": "Плохой токен доступа"
+    "Bad access token": "Плохой токен доступа",
+    "You are blocked": "Вы заблокированы"
 }

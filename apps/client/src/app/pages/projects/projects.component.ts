@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
 import {
   SsoProjectGridComponent,
+  SsoSessionGridComponent,
   SsoUserGridComponent,
 } from '@nestjs-mod-sso/sso-angular';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
@@ -16,6 +17,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     NzBreadCrumbModule,
     SsoProjectGridComponent,
     SsoUserGridComponent,
+    SsoSessionGridComponent,
     NzGridModule,
     NzLayoutModule,
     TranslocoDirective,

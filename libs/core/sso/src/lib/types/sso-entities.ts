@@ -13,4 +13,10 @@ export class SsoEntities {
     enumName: 'SsoUserScalarFieldEnum',
   })
   ssoUser!: Prisma.SsoUserScalarFieldEnum;
+
+  @ApiProperty({
+    enum: Prisma.SsoRefreshSessionScalarFieldEnum,
+    enumName: 'SsoRefreshSessionScalarFieldEnum',
+  })
+  SsoRefreshSession!: Prisma.SsoRefreshSessionScalarFieldEnum;
 }
