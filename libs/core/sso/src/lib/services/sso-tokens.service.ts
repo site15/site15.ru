@@ -132,16 +132,15 @@ export class SsoTokensService {
     newIp?: string;
   }) {
     const nowTime = new Date();
-    this.logger.debug({
-      verifyRefreshSession: { expiresAt: oldRefreshSession.expiresAt, nowTime },
-    });
     if (
       !oldRefreshSession.expiresAt ||
-      +nowTime > +oldRefreshSession.expiresAt
+      +nowTime > +new Date(oldRefreshSession.expiresAt)
     ) {
       this.logger.debug({
-        nowTime,
-        oldRefreshSession,
+        verifyRefreshSession: {
+          expiresAt: oldRefreshSession.expiresAt,
+          nowTime,
+        },
       });
       throw new SsoError(SsoErrorEnum.SessionExpired);
     }
@@ -238,12 +237,11 @@ export class SsoTokensService {
     try {
       const refreshSession =
         await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
-          where: { refreshToken, projectId, enabled: true },
+          where: {
+            refreshToken,
+            projectId,
+          },
         });
-
-      this.verifyRefreshSession({
-        oldRefreshSession: refreshSession,
-      });
 
       this.prismaClient.ssoRefreshSession.updateMany({
         data: { enabled: false },

@@ -3,6 +3,7 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { SsoRequest } from './types/sso-request';
 
+export const SkipValidateRefreshSession = Reflector.createDecorator();
 export const AllowEmptySsoUser = Reflector.createDecorator();
 export const SsoCheckIsAdmin = Reflector.createDecorator<true>();
 export const SsoCheckHaveClientSecret = Reflector.createDecorator<true>();

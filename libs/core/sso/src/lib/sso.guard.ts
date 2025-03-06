@@ -12,6 +12,7 @@ import { SsoProjectService } from './services/sso-project.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import {
   AllowEmptySsoUser,
+  SkipValidateRefreshSession,
   SsoCheckHaveClientSecret,
   SsoCheckIsAdmin,
 } from './sso.decorators';
@@ -32,8 +33,12 @@ export class SsoGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const { allowEmptyUserMetadata, checkSsoIsAdmin, checkHaveClientSecret } =
-      this.getHandlersReflectMetadata(context);
+    const {
+      allowEmptyUserMetadata,
+      checkSsoIsAdmin,
+      checkHaveClientSecret,
+      skipValidateRefreshSession,
+    } = this.getHandlersReflectMetadata(context);
 
     const req = this.getRequestFromExecutionContext(context);
 
@@ -41,15 +46,12 @@ export class SsoGuard implements CanActivate {
       req.skipEmptySsoUser = true;
     }
 
-    const func = async () => {
+    const validate = async () => {
       await this.ssoProjectService.getProjectByRequest(req);
 
-      req.ssoAccessTokenData =
-        await this.ssoTokensService.verifyAndDecodeAccessToken(
-          req.headers['authorization']?.split(' ')?.[1]
-        );
+      req.ssoAccessTokenData = await this.verifyAndDecodeAccessToken(req);
 
-      if (req.ssoAccessTokenData?.refreshToken) {
+      if (!skipValidateRefreshSession && req.ssoAccessTokenData?.refreshToken) {
         const refreshSession =
           await this.ssoCacheService.getCachedRefreshSession(
             req.ssoAccessTokenData?.refreshToken
@@ -70,9 +72,7 @@ export class SsoGuard implements CanActivate {
           })
         : undefined;
 
-      if (req.ssoUser && req.ssoUser.revokedAt) {
-        throw new SsoError(SsoErrorEnum.YourSessionHasBeenBlocked);
-      }
+      this.checkRevokedAtOfUser(req);
 
       req.ssoIsAdmin = this.ssoAdminService.checkAdminInRequest(req);
 
@@ -93,11 +93,11 @@ export class SsoGuard implements CanActivate {
       if (!req.ssoUser && !req.skipEmptySsoUser) {
         throw new SsoError(SsoErrorEnum.Forbidden);
       }
-
       return true;
     };
+
     try {
-      const result = await func();
+      const result = await validate();
 
       this.logger.debug(
         `${context.getClass().name}.${
@@ -134,6 +134,27 @@ export class SsoGuard implements CanActivate {
     }
   }
 
+  private async verifyAndDecodeAccessToken(req: SsoRequest) {
+    return await this.ssoTokensService.verifyAndDecodeAccessToken(
+      req.headers['authorization']?.split(' ')?.[1]
+    );
+  }
+
+  private checkRevokedAtOfUser(req: SsoRequest) {
+    if (req.ssoUser && req.ssoUser.revokedAt) {
+      const nowTime = new Date();
+      if (+nowTime > +new Date(req.ssoUser.revokedAt)) {
+        this.logger.debug({
+          checkRevokedAtOfUser: {
+            revokedAt: req.ssoUser.revokedAt,
+            nowTime,
+          },
+        });
+        throw new SsoError(SsoErrorEnum.YourSessionHasBeenBlocked);
+      }
+    }
+  }
+
   private getRequestFromExecutionContext(context: ExecutionContext) {
     const req = getRequestFromExecutionContext(context) as SsoRequest;
     req.headers = req.headers || {};
@@ -141,6 +162,14 @@ export class SsoGuard implements CanActivate {
   }
 
   private getHandlersReflectMetadata(context: ExecutionContext) {
+    const skipValidateRefreshSession = Boolean(
+      (typeof context.getHandler === 'function' &&
+        this.reflector.get(SkipValidateRefreshSession, context.getHandler())) ||
+        (typeof context.getClass === 'function' &&
+          this.reflector.get(SkipValidateRefreshSession, context.getClass())) ||
+        undefined
+    );
+
     const allowEmptyUserMetadata = Boolean(
       (typeof context.getHandler === 'function' &&
         this.reflector.get(AllowEmptySsoUser, context.getHandler())) ||
@@ -167,6 +196,7 @@ export class SsoGuard implements CanActivate {
       allowEmptyUserMetadata,
       checkSsoIsAdmin,
       checkHaveClientSecret,
+      skipValidateRefreshSession,
     };
   }
 }

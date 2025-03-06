@@ -28,7 +28,11 @@ import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 import { SsoCookieService } from '../services/sso-cookie.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SsoService } from '../services/sso.service';
-import { AllowEmptySsoUser, CurrentSsoRequest } from '../sso.decorators';
+import {
+  AllowEmptySsoUser,
+  CurrentSsoRequest,
+  SkipValidateRefreshSession,
+} from '../sso.decorators';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
 import {
   CompleteForgotPasswordArgs,
@@ -212,6 +216,7 @@ export class SsoController {
     response.send(result);
   }
 
+  @SkipValidateRefreshSession()
   @ApiOkResponse({ type: StatusResponse })
   @HttpCode(HttpStatus.OK)
   @Post('sign-out')
