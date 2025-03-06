@@ -9,15 +9,8 @@ import {
   RestClientConfiguration,
 } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { MINIO_URL } from '@nestjs-mod-sso/files-angular';
-import {
-  authorizerURL,
-  minioURL,
-} from '../environments/environment.authorizer';
+import { minioURL } from '../environments/environment';
 import { AppComponent } from './app.component';
-import {
-  AUTHORIZER_URL,
-  provideAuthorizerAuthConfiguration,
-} from './integrations/authorizer-auth.configuration';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -57,14 +50,9 @@ describe('AppComponent', () => {
         provideTranslocoMessageformat({
           locales: ['en-US', 'ru-RU'],
         }),
-        provideAuthorizerAuthConfiguration(),
         {
           provide: MINIO_URL,
           useValue: minioURL,
-        },
-        {
-          provide: AUTHORIZER_URL,
-          useValue: authorizerURL,
         },
       ],
       imports: [

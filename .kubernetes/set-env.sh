@@ -41,16 +41,6 @@ fi
 if [ -z "${SERVER_PORT}" ]; then
     export SERVER_PORT=9191
 fi
-# server: app database
-if [ -z "${SERVER_APP_DATABASE_PASSWORD}" ]; then
-    export SERVER_APP_DATABASE_PASSWORD=app_password
-fi
-if [ -z "${SERVER_APP_DATABASE_USERNAME}" ]; then
-    export SERVER_APP_DATABASE_USERNAME=${NAMESPACE}_app
-fi
-if [ -z "${SERVER_APP_DATABASE_NAME}" ]; then
-    export SERVER_APP_DATABASE_NAME=${NAMESPACE}_app
-fi
 # server: webhook database
 if [ -z "${SERVER_WEBHOOK_DATABASE_PASSWORD}" ]; then
     export SERVER_WEBHOOK_DATABASE_PASSWORD=webhook_password
@@ -70,16 +60,6 @@ if [ -z "${SERVER_AUTH_DATABASE_USERNAME}" ]; then
 fi
 if [ -z "${SERVER_AUTH_DATABASE_NAME}" ]; then
     export SERVER_AUTH_DATABASE_NAME=${NAMESPACE}_auth
-fi
-# server: authorizer database
-if [ -z "${SERVER_AUTHORIZER_DATABASE_PASSWORD}" ]; then
-    export SERVER_AUTHORIZER_DATABASE_PASSWORD=authorizer_password
-fi
-if [ -z "${SERVER_AUTHORIZER_DATABASE_USERNAME}" ]; then
-    export SERVER_AUTHORIZER_DATABASE_USERNAME=${NAMESPACE}_authorizer
-fi
-if [ -z "${SERVER_AUTHORIZER_DATABASE_NAME}" ]; then
-    export SERVER_AUTHORIZER_DATABASE_NAME=${NAMESPACE}_authorizer
 fi
 
 # client

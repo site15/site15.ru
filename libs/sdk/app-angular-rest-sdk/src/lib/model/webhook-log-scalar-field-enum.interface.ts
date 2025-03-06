@@ -21,12 +21,20 @@ export type WebhookLogScalarFieldEnumInterface =
 
 export const WebhookLogScalarFieldEnumInterface = {
   id: 'id' as WebhookLogScalarFieldEnumInterface,
+
   request: 'request' as WebhookLogScalarFieldEnumInterface,
+
   responseStatus: 'responseStatus' as WebhookLogScalarFieldEnumInterface,
+
   response: 'response' as WebhookLogScalarFieldEnumInterface,
+
   webhookStatus: 'webhookStatus' as WebhookLogScalarFieldEnumInterface,
+
   webhookId: 'webhookId' as WebhookLogScalarFieldEnumInterface,
+
   externalTenantId: 'externalTenantId' as WebhookLogScalarFieldEnumInterface,
+
   createdAt: 'createdAt' as WebhookLogScalarFieldEnumInterface,
+
   updatedAt: 'updatedAt' as WebhookLogScalarFieldEnumInterface,
 };

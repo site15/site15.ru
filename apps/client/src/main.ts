@@ -1,20 +1,8 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { supabaseAppConfig } from './app/supabase-app.config';
-import {
-  minioURL,
-  authorizerURL,
-  supabaseKey,
-  supabaseURL,
-} from './environments/environment';
-import { authorizerAppConfig } from './app/authorizer-app.config';
+import { minioURL } from './environments/environment';
 import { ssoAppConfig } from './app/sso-app.config';
 
-bootstrapApplication(
-  AppComponent,
-  authorizerURL
-    ? authorizerAppConfig({ authorizerURL, minioURL })
-    : supabaseKey
-    ? supabaseAppConfig({ minioURL, supabaseKey, supabaseURL })
-    : ssoAppConfig({ minioURL })
-).catch((err) => console.error(err));
+bootstrapApplication(AppComponent, ssoAppConfig({ minioURL })).catch((err) =>
+  console.error(err)
+);

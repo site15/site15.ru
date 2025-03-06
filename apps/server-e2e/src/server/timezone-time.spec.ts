@@ -41,49 +41,47 @@ describe('Get server time from rest api and ws (timezone)', () => {
   });
 
   it('should return time from ws in two different time zones (skip in vercel)', async () => {
-    if (!process.env.SERVER_SUPABASE_KEY) {
-      await restClientHelper
-        .getAuthApi()
-        .authControllerUpdateProfile({ timezone: null });
+    await restClientHelper
+      .getAuthApi()
+      .authControllerUpdateProfile({ timezone: null });
 
-      const last3ChangeTimeEvents = await lastValueFrom(
-        restClientHelper
-          .webSocket<string>({
-            path: `/ws/time?token=${restClientHelper.getAccessToken()}`,
-            eventName: 'ChangeTimeStream',
-          })
-          .pipe(take(3), toArray())
-      );
+    const last3ChangeTimeEvents = await lastValueFrom(
+      restClientHelper
+        .webSocket<string>({
+          path: `/ws/time?token=${restClientHelper.getAccessToken()}`,
+          eventName: 'ChangeTimeStream',
+        })
+        .pipe(take(3), toArray())
+    );
 
-      expect(last3ChangeTimeEvents).toHaveLength(3);
+    expect(last3ChangeTimeEvents).toHaveLength(3);
 
-      await restClientHelper
-        .getAuthApi()
-        .authControllerUpdateProfile({ timezone: -3 });
+    await restClientHelper
+      .getAuthApi()
+      .authControllerUpdateProfile({ timezone: -3 });
 
-      const newLast3ChangeTimeEvents = await lastValueFrom(
-        restClientHelper
-          .webSocket<string>({
-            path: `/ws/time?token=${restClientHelper.getAccessToken()}`,
-            eventName: 'ChangeTimeStream',
-          })
-          .pipe(take(3), toArray())
-      );
+    const newLast3ChangeTimeEvents = await lastValueFrom(
+      restClientHelper
+        .webSocket<string>({
+          path: `/ws/time?token=${restClientHelper.getAccessToken()}`,
+          eventName: 'ChangeTimeStream',
+        })
+        .pipe(take(3), toArray())
+    );
 
-      expect(newLast3ChangeTimeEvents).toHaveLength(3);
+    expect(newLast3ChangeTimeEvents).toHaveLength(3);
 
-      expect(
-        +new Date(last3ChangeTimeEvents[0].data as unknown as string) -
-          +new Date(newLast3ChangeTimeEvents[0].data as unknown as string)
-      ).toBeGreaterThanOrEqual(3 * 60 * 1000);
-      expect(
-        +new Date(last3ChangeTimeEvents[1].data as unknown as string) -
-          +new Date(newLast3ChangeTimeEvents[1].data as unknown as string)
-      ).toBeGreaterThanOrEqual(3 * 60 * 1000);
-      expect(
-        +new Date(last3ChangeTimeEvents[2].data as unknown as string) -
-          +new Date(newLast3ChangeTimeEvents[2].data as unknown as string)
-      ).toBeGreaterThanOrEqual(3 * 60 * 1000);
-    }
+    expect(
+      +new Date(last3ChangeTimeEvents[0].data as unknown as string) -
+        +new Date(newLast3ChangeTimeEvents[0].data as unknown as string)
+    ).toBeGreaterThanOrEqual(3 * 60 * 1000);
+    expect(
+      +new Date(last3ChangeTimeEvents[1].data as unknown as string) -
+        +new Date(newLast3ChangeTimeEvents[1].data as unknown as string)
+    ).toBeGreaterThanOrEqual(3 * 60 * 1000);
+    expect(
+      +new Date(last3ChangeTimeEvents[2].data as unknown as string) -
+        +new Date(newLast3ChangeTimeEvents[2].data as unknown as string)
+    ).toBeGreaterThanOrEqual(3 * 60 * 1000);
   });
 });

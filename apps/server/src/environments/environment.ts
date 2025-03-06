@@ -32,7 +32,6 @@ import {
 } from '@nestjs-mod/terminus';
 import { Injectable } from '@nestjs/common';
 import { MemoryHealthIndicator, PrismaHealthIndicator } from '@nestjs/terminus';
-import { PrismaClient as AppPrismaClient } from '@prisma/app-client';
 import { PrismaClient as NotificationsPrismaClient } from '@prisma/notifications-client';
 import { PrismaClient as SsoPrismaClient } from '@prisma/sso-client';
 import { PrismaClient as TwoFactorPrismaClient } from '@prisma/two-factor-client';
@@ -41,7 +40,6 @@ import { existsSync } from 'fs';
 import { getText } from 'nestjs-translates';
 import { join } from 'path';
 import { createClient } from 'redis';
-import { APP_FEATURE } from '../app/app.constants';
 import { SsoAppModule } from '../app/sso-app.module';
 
 let rootFolder = join(__dirname, '..', '..', '..');
@@ -139,15 +137,6 @@ export class PrismaTerminusHealthCheckConfiguration
         this.memoryHealthIndicator.checkHeap('memory_heap', 150 * 1024 * 1024),
     },
     {
-      name: `database_${APP_FEATURE}`,
-      check: () =>
-        this.prismaHealthIndicator.pingCheck(
-          `database_${APP_FEATURE}`,
-          this.appPrismaClient,
-          { timeout: 60 * 1000 }
-        ),
-    },
-    {
       name: `database_${WEBHOOK_FEATURE}`,
       check: () =>
         this.prismaHealthIndicator.pingCheck(
@@ -188,8 +177,6 @@ export class PrismaTerminusHealthCheckConfiguration
   constructor(
     private readonly memoryHealthIndicator: MemoryHealthIndicator,
     private readonly prismaHealthIndicator: PrismaHealthIndicator,
-    @InjectPrismaClient(APP_FEATURE)
-    private readonly appPrismaClient: AppPrismaClient,
     @InjectPrismaClient(WEBHOOK_FEATURE)
     private readonly webhookPrismaClient: WebhookPrismaClient,
     @InjectPrismaClient(SSO_FEATURE)
@@ -204,10 +191,6 @@ export class PrismaTerminusHealthCheckConfiguration
 export const MainTerminusHealthCheckModule =
   TerminusHealthCheckModule.forRootAsync({
     imports: [
-      PrismaModule.forFeature({
-        featureModuleName: TERMINUS_MODULE_NAME,
-        contextName: APP_FEATURE,
-      }),
       PrismaModule.forFeature({
         featureModuleName: TERMINUS_MODULE_NAME,
         contextName: WEBHOOK_FEATURE,

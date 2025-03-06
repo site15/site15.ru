@@ -16,14 +16,10 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { TranslatesModule } from 'nestjs-translates';
 import { join } from 'path';
 import { APP_FEATURE } from './app.constants';
-import { AuthorizerController } from './controllers/sso/authorizer.controller';
-import { AppController } from './controllers/sso/sso-app.controller';
-import { FakeEndpointController } from './controllers/sso/sso-fake-endoint.controller';
 import { TimeController } from './controllers/sso/sso-time.controller';
 import { SsoAuthConfiguration } from './integrations/sso/sso-auth.configuration';
 import { SsoClientModule } from './integrations/sso/sso-client.guard';
 import { SsoWithMinioFilesConfiguration } from './integrations/sso/sso-with-minio-files.configuration';
-import { AppService } from './services/app.service';
 
 export const { AppModule: SsoAppModule } = createNestModule({
   moduleName: 'AppModule',
@@ -77,10 +73,6 @@ export const { AppModule: SsoAppModule } = createNestModule({
       contextName: SSO_FEATURE,
       featureModuleName: APP_FEATURE,
     }),
-    PrismaModule.forFeature({
-      contextName: APP_FEATURE,
-      featureModuleName: APP_FEATURE,
-    }),
     TranslatesModule.forRootDefault({
       localePaths: [
         join(__dirname, 'assets', 'i18n'),
@@ -118,13 +110,6 @@ export const { AppModule: SsoAppModule } = createNestModule({
         ]),
     TwoFactorModule.forRoot(),
   ],
-  controllers: [
-    AppController,
-    TimeController,
-    FakeEndpointController,
-    SsoController,
-    // todo: remove
-    AuthorizerController,
-  ],
-  providers: [AppService, TimeController],
+  controllers: [TimeController, SsoController],
+  providers: [TimeController],
 });

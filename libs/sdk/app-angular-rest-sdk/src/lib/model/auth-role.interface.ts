@@ -12,5 +12,6 @@ export type AuthRoleInterface = 'Admin' | 'User';
 
 export const AuthRoleInterface = {
   Admin: 'Admin' as AuthRoleInterface,
+
   User: 'User' as AuthRoleInterface,
 };

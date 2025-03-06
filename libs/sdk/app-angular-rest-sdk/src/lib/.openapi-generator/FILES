@@ -1,12 +1,10 @@
 .gitignore
 .openapi-generator-ignore
 README.md
+api.base.service.ts
 api.module.ts
 api/api.ts
-api/app-rest.service.ts
 api/auth-rest.service.ts
-api/authorizer-rest.service.ts
-api/fake-endpoint-rest.service.ts
 api/files-rest.service.ts
 api/notifications-rest.service.ts
 api/sso-rest.service.ts
@@ -17,8 +15,6 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/app-data.interface.ts
-model/app-demo.interface.ts
 model/auth-controller-profile400-response.interface.ts
 model/auth-entities.interface.ts
 model/auth-error-enum.interface.ts
@@ -27,7 +23,6 @@ model/auth-profile-dto.interface.ts
 model/auth-role.interface.ts
 model/auth-user-scalar-field-enum.interface.ts
 model/auth-user.interface.ts
-model/authorizer-client-id.interface.ts
 model/complete-forgot-password-args.interface.ts
 model/complete-sign-up-args.interface.ts
 model/create-sso-project-dto.interface.ts

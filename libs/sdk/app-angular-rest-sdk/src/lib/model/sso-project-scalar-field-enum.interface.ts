@@ -17,8 +17,12 @@ export type SsoProjectScalarFieldEnumInterface =
 
 export const SsoProjectScalarFieldEnumInterface = {
   id: 'id' as SsoProjectScalarFieldEnumInterface,
+
   clientId: 'clientId' as SsoProjectScalarFieldEnumInterface,
+
   clientSecret: 'clientSecret' as SsoProjectScalarFieldEnumInterface,
+
   createdAt: 'createdAt' as SsoProjectScalarFieldEnumInterface,
+
   updatedAt: 'updatedAt' as SsoProjectScalarFieldEnumInterface,
 };

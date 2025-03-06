@@ -1,5 +1,3 @@
-export * from './app-data.interface';
-export * from './app-demo.interface';
 export * from './auth-controller-profile400-response.interface';
 export * from './auth-entities.interface';
 export * from './auth-error-enum.interface';
@@ -8,7 +6,6 @@ export * from './auth-profile-dto.interface';
 export * from './auth-role.interface';
 export * from './auth-user.interface';
 export * from './auth-user-scalar-field-enum.interface';
-export * from './authorizer-client-id.interface';
 export * from './complete-forgot-password-args.interface';
 export * from './complete-sign-up-args.interface';
 export * from './create-sso-project-dto.interface';

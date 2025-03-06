@@ -62,17 +62,6 @@ test.describe('basic usage (ru)', () => {
     ).toContainText(`RU`);
   });
 
-  test('has serverMessage', async () => {
-    await page.goto('/', {
-      timeout: 7000,
-    });
-
-    await setTimeout(4000);
-
-    expect(await page.locator('#serverMessage').innerText()).toContain(
-      'Привет АПИ'
-    );
-  });
   test('has serverTime format should be equal to "21 дек. 2024 г., 13:56:00" without "13:56:00"', async () => {
     await page.goto('/', {
       timeout: 7000,

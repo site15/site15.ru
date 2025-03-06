@@ -14,10 +14,10 @@ Utilities for setting global application parameters, such as project name, descr
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`applicationPackageJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/package.json```|
-|`packageJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/package.json```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/project.json```|
-|`envFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/.env```|
+|`applicationPackageJsonFile`|**optional**|```/usr/src/app/apps/server/package.json```|
+|`packageJsonFile`|**optional**|```/usr/src/app/package.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/apps/server/project.json```|
+|`envFile`|**optional**|```/usr/src/app/.env```|
 
 ### DefaultNestApplicationInitializer
 Default NestJS application initializer.
@@ -41,7 +41,7 @@ Terminus integration provides readiness/liveness health checks for NestJS-mod (W
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`standardHealthIndicators`|**optional**|[ ```{"name":"memory_heap"}```, ```{"name":"database_app"}```, ```{"name":"database_webhook"}```, ```{"name":"database_sso"}```, ```{"name":"database_two-factor"}```, ```{"name":"database_notifications"}``` ]|
+|`standardHealthIndicators`|**optional**|[ ```{"name":"memory_heap"}```, ```{"name":"database_webhook"}```, ```{"name":"database_sso"}```, ```{"name":"database_two-factor"}```, ```{"name":"database_notifications"}``` ]|
 
 ## Core modules
 
@@ -68,7 +68,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(auth)
 
@@ -76,16 +76,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```auth```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/auth/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/auth/project.json```|
 
 #### Environments(notifications)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(notifications)
 
@@ -93,16 +93,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/notifications/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/notifications/project.json```|
 
 #### Environments(sso)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(sso)
 
@@ -110,16 +110,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 #### Environments(two-factor)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(two-factor)
 
@@ -127,16 +127,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/two-factor/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/two-factor/project.json```|
 
 #### Environments(webhook)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(webhook)
 
@@ -144,26 +144,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/feature/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
-
-#### Environments(app)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
-
-#### Static configuration(app)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```app```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/feature/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -175,7 +159,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(auth)
 
@@ -183,16 +167,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```auth```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/auth/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/auth/project.json```|
 
 #### Environments(notifications)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(notifications)
 
@@ -200,16 +184,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/notifications/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/notifications/project.json```|
 
 #### Environments(sso)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(sso)
 
@@ -217,16 +201,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 #### Environments(two-factor)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(two-factor)
 
@@ -234,16 +218,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/two-factor/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/two-factor/project.json```|
 
 #### Environments(webhook)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(webhook)
 
@@ -251,26 +235,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/feature/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
-
-#### Environments(app)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
-
-#### Static configuration(app)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```app```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/feature/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -282,7 +250,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(auth)
 
@@ -290,16 +258,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```auth```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/auth/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/auth/project.json```|
 
 #### Environments(notifications)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(notifications)
 
@@ -307,16 +275,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/notifications/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/notifications/project.json```|
 
 #### Environments(sso)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(sso)
 
@@ -324,16 +292,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 #### Environments(two-factor)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(two-factor)
 
@@ -341,16 +309,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/two-factor/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/two-factor/project.json```|
 
 #### Environments(webhook)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(webhook)
 
@@ -358,26 +326,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/feature/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
-
-#### Environments(app)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
-
-#### Static configuration(app)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```app```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/feature/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -389,7 +341,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(auth)
 
@@ -397,16 +349,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```auth```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/auth/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/auth/project.json```|
 
 #### Environments(notifications)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(notifications)
 
@@ -414,16 +366,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/notifications/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/notifications/project.json```|
 
 #### Environments(sso)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(sso)
 
@@ -431,16 +383,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 #### Environments(two-factor)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(two-factor)
 
@@ -448,16 +400,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/two-factor/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/two-factor/project.json```|
 
 #### Environments(webhook)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(webhook)
 
@@ -465,26 +417,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/feature/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
-
-#### Environments(app)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
-
-#### Static configuration(app)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```app```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/feature/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -496,7 +432,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(auth)
 
@@ -504,16 +440,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```auth```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/auth/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/auth/project.json```|
 
 #### Environments(notifications)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(notifications)
 
@@ -521,16 +457,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/notifications/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/notifications/project.json```|
 
 #### Environments(sso)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(sso)
 
@@ -538,16 +474,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 #### Environments(two-factor)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(two-factor)
 
@@ -555,16 +491,16 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/core/two-factor/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/two-factor/project.json```|
 
 #### Environments(webhook)
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration(webhook)
 
@@ -572,133 +508,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/usr/src/app/libs/feature/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
-
-#### Environments(app)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
-
-#### Static configuration(app)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```app```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-
-### PrismaModule
-Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
-
-#### Shared providers
-`PrismaClientFactoryService`, `PrismaClient`
-
-#### Environments(auth)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
-
-#### Static configuration(auth)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```auth```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
-
-#### Environments(notifications)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
-
-#### Static configuration(notifications)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/project.json```|
-
-#### Environments(sso)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
-
-#### Static configuration(sso)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
-
-#### Environments(two-factor)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
-
-#### Static configuration(two-factor)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
-
-#### Environments(app)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
-
-#### Static configuration(app)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```app```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/src/prisma/app-schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x``` ]|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/feature/webhook/project.json```|
 
 ### KeyvModule
 Simple key-value storage with support for multiple backends, and a consistent interface for NestJS-mod (Wrapper for https://www.npmjs.com/package/keyv)
@@ -710,7 +523,7 @@ Simple key-value storage with support for multiple backends, and a consistent in
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`url`|`obj['url']`, `process.env['SERVER_KEYV_URL']`|**optional**|```redis://:CHmeOQrZWUHwgahrfzsrzuREOxgAENsC@localhost:6379```|
+|`url`|`obj['url']`, `process.env['SERVER_KEYV_URL']`|**optional**|-|
 
 #### Static configuration
 
@@ -728,10 +541,10 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`minioServerHost`|`obj['minioServerHost']`, `process.env['SERVER_MINIO_SERVER_HOST']`|**isNotEmpty** (minioServerHost should not be empty)|```localhost```|
+|`minioServerHost`|`obj['minioServerHost']`, `process.env['SERVER_MINIO_SERVER_HOST']`|**isNotEmpty** (minioServerHost should not be empty)|-|
 |`minioServerPort`|`obj['minioServerPort']`, `process.env['SERVER_MINIO_SERVER_PORT']`|**optional**|```9000```|
-|`minioAccessKey`|`obj['minioAccessKey']`, `process.env['SERVER_MINIO_ACCESS_KEY']`|**isNotEmpty** (minioAccessKey should not be empty)|```FWGmrAGaeMKM```|
-|`minioSecretKey`|`obj['minioSecretKey']`, `process.env['SERVER_MINIO_SECRET_KEY']`|**isNotEmpty** (minioSecretKey should not be empty)|```QatVJuLoZRARlJguoZMpoKvZMJHzvuOR```|
+|`minioAccessKey`|`obj['minioAccessKey']`, `process.env['SERVER_MINIO_ACCESS_KEY']`|**isNotEmpty** (minioAccessKey should not be empty)|-|
+|`minioSecretKey`|`obj['minioSecretKey']`, `process.env['SERVER_MINIO_SECRET_KEY']`|**isNotEmpty** (minioSecretKey should not be empty)|-|
 |`minioUseSSL`|`obj['minioUseSSL']`, `process.env['SERVER_MINIO_USE_SSL']`|**optional**|```false```|
 |`minioDefaultUserId`|`obj['minioDefaultUserId']`, `process.env['SERVER_MINIO_DEFAULT_USER_ID']`|**optional**|```default```|
 
@@ -764,16 +577,16 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 | ------ | ------- | ----------- | ----- |
 |`useGuards`|`obj['useGuards']`, `process.env['SERVER_SSO_USE_GUARDS']`|**optional**|```true```|
 |`useFilters`|`obj['useFilters']`, `process.env['SERVER_SSO_USE_FILTERS']`|**optional**|```true```|
-|`templatesVarSsoServerUrl`|`obj['templatesVarSsoServerUrl']`, `process.env['SERVER_SSO_TEMPLATES_VAR_SSO_SERVER_URL']`|**isNotEmpty** (templatesVarSsoServerUrl should not be empty)|```http://localhost```|
+|`templatesVarSsoServerUrl`|`obj['templatesVarSsoServerUrl']`, `process.env['SERVER_SSO_TEMPLATES_VAR_SSO_SERVER_URL']`|**isNotEmpty** (templatesVarSsoServerUrl should not be empty)|-|
 |`userAvailableRoles`|`obj['userAvailableRoles']`, `process.env['SERVER_SSO_USER_AVAILABLE_ROLES']`|**optional**|[ ```user```, ```admin``` ]|
 |`userDefaultRoles`|`obj['userDefaultRoles']`, `process.env['SERVER_SSO_USER_DEFAULT_ROLES']`|**optional**|[ ```user``` ]|
 |`adminDefaultRoles`|`obj['adminDefaultRoles']`, `process.env['SERVER_SSO_ADMIN_DEFAULT_ROLES']`|**optional**|[ ```admin``` ]|
 |`jwtSecretKey`|`obj['jwtSecretKey']`, `process.env['SERVER_SSO_JWT_SECRET_KEY']`|**optional**|```AcJwUY9AP6FPf8XnfwbSuW7ZjwoaPiFJ```|
 |`jwtAccessTokenExpiresIn`|`obj['jwtAccessTokenExpiresIn']`, `process.env['SERVER_SSO_JWT_ACCESS_TOKEN_EXPIRES_IN']`|**isNotEmpty** (jwtAccessTokenExpiresIn should not be empty)|```30m```|
 |`jwtRefreshTokenExpiresIn`|`obj['jwtRefreshTokenExpiresIn']`, `process.env['SERVER_SSO_JWT_REFRESH_TOKEN_EXPIRES_IN']`|**isNotEmpty** (jwtRefreshTokenExpiresIn should not be empty)|```24h```|
-|`adminSecret`|`obj['adminSecret']`, `process.env['SERVER_SSO_ADMIN_SECRET']`|**optional**|```VfKSfPPljhHBXCEohnitursmgDxfAyiD```|
-|`defaultClientId`|`obj['defaultClientId']`, `process.env['SERVER_SSO_DEFAULT_CLIENT_ID']`|**optional**|```KzMRNEZTetzatIgQPVSDYfeGyaZrbLzkcxNc```|
-|`defaultClientSecret`|`obj['defaultClientSecret']`, `process.env['SERVER_SSO_DEFAULT_CLIENT_SECRET']`|**optional**|```qaHkVpAtUVIpDdLXMlAOzsBfMRJblWoHpXguYQRBuSEBpGKbWt```|
+|`adminSecret`|`obj['adminSecret']`, `process.env['SERVER_SSO_ADMIN_SECRET']`|**optional**|-|
+|`defaultClientId`|`obj['defaultClientId']`, `process.env['SERVER_SSO_DEFAULT_CLIENT_ID']`|**optional**|-|
+|`defaultClientSecret`|`obj['defaultClientSecret']`, `process.env['SERVER_SSO_DEFAULT_CLIENT_SECRET']`|**optional**|-|
 
 #### Static configuration
 
@@ -835,7 +648,7 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 |`autoCreateUser`|`obj['autoCreateUser']`, `process.env['SERVER_WEBHOOK_AUTO_CREATE_USER']`|**optional**|```true```|
 |`checkHeaders`|`obj['checkHeaders']`, `process.env['SERVER_WEBHOOK_CHECK_HEADERS']`|**optional**|```false```|
 |`skipGuardErrors`|`obj['skipGuardErrors']`, `process.env['SERVER_WEBHOOK_SKIP_GUARD_ERRORS']`|**optional**|```false```|
-|`superAdminExternalUserId`|`obj['superAdminExternalUserId']`, `process.env['SERVER_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID']`|**optional**|```248ec37f-628d-43f0-8de2-f58da037dd0f```|
+|`superAdminExternalUserId`|`obj['superAdminExternalUserId']`, `process.env['SERVER_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID']`|**optional**|-|
 
 ## Integration modules
 
@@ -865,7 +678,7 @@ Production process manager for Node.JS applications with a built-in load balance
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/ecosystem.config.json```|
+|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/usr/src/app/ecosystem.config.json```|
 |`applicationScriptFile`|**isNotEmpty** (applicationScriptFile should not be empty)|```dist/apps/server/main.js```|
 
 ### DockerCompose
@@ -878,7 +691,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/docker-compose.yml```|
+|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/usr/src/app/apps/server/docker-compose.yml```|
 
 #### Modules that use feature configuration
 ##### Feature module name: SERVER_POSTGRE_SQL
@@ -894,7 +707,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`services`|**optional**|```{"server-redis":{"image":"bitnami/redis:7.4.1","container_name":"server-redis","volumes":["server-redis-volume:/bitnami/redis/data"],"ports":["6379:6379"],"networks":["server-network"],"environment":{"REDIS_DATABASE":"0","REDIS_PASSWORD":"CHmeOQrZWUHwgahrfzsrzuREOxgAENsC","REDIS_DISABLE_COMMANDS":"FLUSHDB,FLUSHALL","REDIS_IO_THREADS":2,"REDIS_IO_THREADS_DO_READS":"yes"},"keysOfEnvironmentsWithStaticValue":["disableCommands","featureName","image","ioThreads","ioThreadsDoReads","networks"],"healthcheck":{"test":["CMD-SHELL","redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
+|`services`|**optional**|```{"server-redis":{"image":"bitnami/redis:7.4.1","container_name":"server-redis","volumes":["server-redis-volume:/bitnami/redis/data"],"ports":["6379:6379"],"networks":["server-network"],"environment":{"REDIS_DISABLE_COMMANDS":"FLUSHDB,FLUSHALL","REDIS_IO_THREADS":2,"REDIS_IO_THREADS_DO_READS":"yes"},"keysOfEnvironmentsWithStaticValue":["disableCommands","featureName","image","ioThreads","ioThreadsDoReads","networks"],"healthcheck":{"test":["CMD-SHELL","redis-cli ping | grep PONG"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
 |`networks`|**optional**|```{"server-network":{"driver":"bridge"}}```|
 |`volumes`|**optional**|```{"server-redis-volume":{"name":"server-redis-volume"}}```|
 
@@ -903,7 +716,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`services`|**optional**|```{"server-minio":{"image":"bitnami/minio:2024.11.7","container_name":"server-minio","volumes":["server-minio-volume:/bitnami/minio/data"],"ports":["9000:9000","9001:9001"],"networks":["server-network"],"environment":{"MINIO_ROOT_USER":"FWGmrAGaeMKM","MINIO_ROOT_PASSWORD":"QatVJuLoZRARlJguoZMpoKvZMJHzvuOR"},"keysOfEnvironmentsWithStaticValue":["featureName","image","networks","nginxBucketsLocations","nginxConfigContent","nginxConfigFolder","nginxLogsFolder"],"healthcheck":{"test":["CMD-SHELL","mc","ready","local"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
+|`services`|**optional**|```{"server-minio":{"image":"bitnami/minio:2024.11.7","container_name":"server-minio","volumes":["server-minio-volume:/bitnami/minio/data"],"ports":["9000:9000","9001:9001"],"networks":["server-network"],"environment":{},"keysOfEnvironmentsWithStaticValue":["featureName","image","networks","nginxBucketsLocations","nginxConfigContent","nginxConfigFolder","nginxLogsFolder"],"healthcheck":{"test":["CMD-SHELL","mc","ready","local"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
 |`networks`|**optional**|```{"server-network":{"driver":"bridge"}}```|
 |`volumes`|**optional**|```{"server-minio-volume":{"name":"server-minio-volume"}}```|
 
@@ -914,15 +727,15 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/usr/src/app/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -931,15 +744,15 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/usr/src/app/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -948,15 +761,15 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/usr/src/app/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -965,15 +778,15 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/usr/src/app/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -982,32 +795,15 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Static configuration
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
-
-### PgFlyway
-PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
-
-#### Environments
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
-
-#### Static configuration
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/usr/src/app/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 ### InfrastructureMarkdownReportGenerator
 Infrastructure markdown report generator.
@@ -1019,7 +815,7 @@ Infrastructure markdown report generator.
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`markdownFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/INFRASTRUCTURE.MD```|
+|`markdownFile`|**optional**|```/usr/src/app/apps/server/INFRASTRUCTURE.MD```|
 |`skipEmptySettings`|**optional**|```true```|
 |`style`|**optional**|```pretty```|
 
@@ -1030,7 +826,7 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`rootDatabaseUrl`|`obj['rootDatabaseUrl']`, `process.env['SERVER_ROOT_DATABASE_URL']`|**isNotEmpty** (rootDatabaseUrl should not be empty)|```postgres://postgres:postgres_password@localhost:5432/postgres?schema=public```|
+|`rootDatabaseUrl`|`obj['rootDatabaseUrl']`, `process.env['SERVER_ROOT_DATABASE_URL']`|**isNotEmpty** (rootDatabaseUrl should not be empty)|-|
 
 #### Feature environments
 
@@ -1043,77 +839,70 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/sso/project.json```|
 
 #### Modules that use feature configuration
 ##### Feature module name: two-factor
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/two-factor/project.json```|
 
 #### Modules that use feature configuration
 ##### Feature module name: notifications
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/notifications/project.json```|
 
 #### Modules that use feature configuration
 ##### Feature module name: webhook
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/feature/webhook/project.json```|
 
 #### Modules that use feature configuration
 ##### Feature module name: auth
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/auth/project.json```|
-
-#### Modules that use feature environments
-##### Feature module name: app
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_APP_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://app:app_password@localhost:5432/app?schema=public```|
+|`nxProjectJsonFile`|**optional**|```/usr/src/app/libs/core/auth/project.json```|
 
 #### Modules that use feature environments
 ##### Feature module name: sso
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Modules that use feature environments
 ##### Feature module name: two-factor
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Modules that use feature environments
 ##### Feature module name: notifications
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Modules that use feature environments
 ##### Feature module name: webhook
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 #### Modules that use feature environments
 ##### Feature module name: auth
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://auth:auth_password@localhost:5432/auth?schema=public```|
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_AUTH_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|-|
 
 ### DockerComposeRedis
 The open-source, in-memory data store used by millions of developers as a cache, vector database, document database, streaming engine, and message broker. (Generator for redis in docker-compose.yml for https://www.npmjs.com/package/@nestjs-mod/docker-compose)
@@ -1122,7 +911,7 @@ The open-source, in-memory data store used by millions of developers as a cache,
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`redisUrl`|`obj['redisUrl']`, `process.env['SERVER_REDIS_URL']`|**isNotEmpty** (redisUrl should not be empty)|```redis://:CHmeOQrZWUHwgahrfzsrzuREOxgAENsC@localhost:6379```|
+|`redisUrl`|`obj['redisUrl']`, `process.env['SERVER_REDIS_URL']`|**isNotEmpty** (redisUrl should not be empty)|-|
 
 #### Static configuration
 
@@ -1137,8 +926,8 @@ MinIO is a high-performance, S3 compatible object storage. (Generator for minio 
 
 | Key    | Sources | Constraints | Value |
 | ------ | ------- | ----------- | ----- |
-|`minioRootUser`|`obj['minioRootUser']`, `process.env['SERVER_MINIO_ROOT_USER']`|**isNotEmpty** (minioRootUser should not be empty)|```FWGmrAGaeMKM```|
-|`minioRootPassword`|`obj['minioRootPassword']`, `process.env['SERVER_MINIO_ROOT_PASSWORD']`|**isNotEmpty** (minioRootPassword should not be empty)|```QatVJuLoZRARlJguoZMpoKvZMJHzvuOR```|
+|`minioRootUser`|`obj['minioRootUser']`, `process.env['SERVER_MINIO_ROOT_USER']`|**isNotEmpty** (minioRootUser should not be empty)|-|
+|`minioRootPassword`|`obj['minioRootPassword']`, `process.env['SERVER_MINIO_ROOT_PASSWORD']`|**isNotEmpty** (minioRootPassword should not be empty)|-|
 
 #### Static configuration
 

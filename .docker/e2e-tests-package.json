@@ -17,17 +17,10 @@
     "nx": "20.0.3",
     "ts-jest": "^29.1.0"
   },
-  "overrides": {
-    "@supabase/supabase-js": {
-      "@supabase/gotrue-js": "2.61.0"
-    }
-  },
   "dependencies": {
-    "@supabase/supabase-js": "2.47.10",
     "date-fns": "^4.1.0",
     "env-var": "^7.5.0",
     "class-validator": "^0.14.1",
-    "@authorizerdev/authorizer-js": "^2.0.3",
     "@faker-js/faker": "^9.2.0",
     "express": "~4.21.1",
     "dotenv": "^16.4.5",

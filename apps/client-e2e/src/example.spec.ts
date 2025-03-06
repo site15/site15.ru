@@ -35,18 +35,6 @@ test.describe('basic usage', () => {
     expect(await page.locator('.logo').innerText()).toContain('client');
   });
 
-  test('has serverMessage', async () => {
-    await page.goto('/', {
-      timeout: 7000,
-    });
-
-    await setTimeout(4000);
-
-    expect(await page.locator('#serverMessage').innerText()).toContain(
-      'Hello API'
-    );
-  });
-
   test('has serverTime format should be equal to "Dec 21, 2024, 1:56:00 PM" without "1:56:00"', async () => {
     await page.goto('/', {
       timeout: 7000,

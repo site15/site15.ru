@@ -30,21 +30,38 @@ export type SsoErrorEnumInterface =
 
 export const SsoErrorEnumInterface = {
   SSO_000: 'SSO-000' as SsoErrorEnumInterface,
+
   SSO_001: 'SSO-001' as SsoErrorEnumInterface,
+
   SSO_002: 'SSO-002' as SsoErrorEnumInterface,
+
   SSO_003: 'SSO-003' as SsoErrorEnumInterface,
+
   SSO_004: 'SSO-004' as SsoErrorEnumInterface,
+
   SSO_005: 'SSO-005' as SsoErrorEnumInterface,
+
   SSO_006: 'SSO-006' as SsoErrorEnumInterface,
+
   SSO_007: 'SSO-007' as SsoErrorEnumInterface,
+
   SSO_008: 'SSO-008' as SsoErrorEnumInterface,
+
   SSO_009: 'SSO-009' as SsoErrorEnumInterface,
+
   SSO_010: 'SSO-010' as SsoErrorEnumInterface,
+
   SSO_011: 'SSO-011' as SsoErrorEnumInterface,
+
   SSO_012: 'SSO-012' as SsoErrorEnumInterface,
+
   SSO_013: 'SSO-013' as SsoErrorEnumInterface,
+
   SSO_014: 'SSO-014' as SsoErrorEnumInterface,
+
   SSO_015: 'SSO-015' as SsoErrorEnumInterface,
+
   SSO_016: 'SSO-016' as SsoErrorEnumInterface,
+
   SSO_017: 'SSO-017' as SsoErrorEnumInterface,
 };

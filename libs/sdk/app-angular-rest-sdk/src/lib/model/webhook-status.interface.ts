@@ -17,8 +17,12 @@ export type WebhookStatusInterface =
 
 export const WebhookStatusInterface = {
   Pending: 'Pending' as WebhookStatusInterface,
+
   Process: 'Process' as WebhookStatusInterface,
+
   Success: 'Success' as WebhookStatusInterface,
+
   Error: 'Error' as WebhookStatusInterface,
+
   Timeout: 'Timeout' as WebhookStatusInterface,
 };

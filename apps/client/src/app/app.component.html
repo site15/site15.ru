@@ -5,7 +5,6 @@
     </div>
     <ul nz-menu nzTheme="dark" nzMode="horizontal">
       <li nz-menu-item routerLink="/home" transloco="Home"></li>
-      <li nz-menu-item routerLink="/demo" transloco="Demo"></li>
       @if (authUser$|async; as authUser) {
       <li nz-menu-item routerLink="/webhooks" transloco="Webhooks"></li>
       @if (authUser.roles?.includes('admin')) {
@@ -68,7 +67,7 @@
     <router-outlet></router-outlet>
   </nz-content>
   <nz-footer class="flex justify-between">
-    <div id="serverMessage">{{ serverMessage$ | async }}</div>
+    <div id="serverMessage"></div>
     <div id="serverTime">
       {{
         (serverTime$ | async)!

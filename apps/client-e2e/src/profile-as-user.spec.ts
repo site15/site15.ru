@@ -31,10 +31,6 @@ test.describe('Work with profile as "User" role', () => {
       timeout: 7000,
     });
     await page.evaluate(
-      (authorizerURL) => localStorage.setItem('authorizerURL', authorizerURL),
-      get('SERVER_AUTHORIZER_URL').asString() || ''
-    );
-    await page.evaluate(
       (minioURL) => localStorage.setItem('minioURL', minioURL),
       get('SERVER_MINIO_URL').required().asString()
     );

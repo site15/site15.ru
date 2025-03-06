@@ -2,7 +2,6 @@ import { HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import {
-  AppRestService,
   AuthRestService,
   FilesRestService,
   SsoRestService,
@@ -26,7 +25,6 @@ export class AppInitializer {
   constructor(
     @Inject(AUTH_CONFIGURATION_TOKEN)
     private readonly authConfiguration: AuthConfiguration,
-    private readonly appRestService: AppRestService,
     private readonly webhookRestService: WebhookRestService,
     private readonly timeRestService: TimeRestService,
     private readonly authService: AuthService,
@@ -68,9 +66,6 @@ export class AppInitializer {
           const authorizationHeaders =
             this.authConfiguration.getAuthorizationHeaders?.();
           if (authorizationHeaders) {
-            this.appRestService.defaultHeaders = new HttpHeaders(
-              authorizationHeaders
-            );
             this.webhookRestService.defaultHeaders = new HttpHeaders(
               authorizationHeaders
             );

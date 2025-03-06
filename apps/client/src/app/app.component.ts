@@ -9,10 +9,7 @@ import {
 } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import {
-  AppRestService,
-  TimeRestService,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { TimeRestService } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AuthActiveLangService,
   AuthService,
@@ -30,15 +27,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import {
-  BehaviorSubject,
-  map,
-  merge,
-  mergeMap,
-  Observable,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, map, merge, Observable, switchMap, tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -61,7 +50,6 @@ import {
 })
 export class AppComponent implements OnInit {
   title = marker('client');
-  serverMessage$ = new BehaviorSubject('');
   serverTime$ = new BehaviorSubject<Date>(new Date());
   authUser$?: Observable<AuthUser | undefined>;
   lang$ = new BehaviorSubject<string>('');
@@ -69,7 +57,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly timeRestService: TimeRestService,
-    private readonly appRestService: AppRestService,
     private readonly authService: AuthService,
     private readonly router: Router,
     private readonly translocoService: TranslocoService,
@@ -82,7 +69,6 @@ export class AppComponent implements OnInit {
     this.loadAvailableLangs();
     this.subscribeToLangChanges();
 
-    this.fillServerMessage().pipe(untilDestroyed(this)).subscribe();
     this.fillServerTime().pipe(untilDestroyed(this)).subscribe();
   }
 
@@ -113,7 +99,6 @@ export class AppComponent implements OnInit {
     this.translocoService.langChanges$
       .pipe(
         tap((lang) => this.lang$.next(lang)),
-        mergeMap(() => this.fillServerMessage()),
         untilDestroyed(this)
       )
       .subscribe();
@@ -148,11 +133,5 @@ export class AppComponent implements OnInit {
         )
       )
     );
-  }
-
-  private fillServerMessage() {
-    return this.appRestService
-      .appControllerGetData()
-      .pipe(tap((result) => this.serverMessage$.next(result.message)));
   }
 }

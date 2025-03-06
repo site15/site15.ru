@@ -29,23 +29,39 @@ export type NotificationsEventScalarFieldEnumInterface =
 
 export const NotificationsEventScalarFieldEnumInterface = {
   id: 'id' as NotificationsEventScalarFieldEnumInterface,
+
   type: 'type' as NotificationsEventScalarFieldEnumInterface,
+
   operationName: 'operationName' as NotificationsEventScalarFieldEnumInterface,
+
   subject: 'subject' as NotificationsEventScalarFieldEnumInterface,
+
   html: 'html' as NotificationsEventScalarFieldEnumInterface,
+
   text: 'text' as NotificationsEventScalarFieldEnumInterface,
+
   attempt: 'attempt' as NotificationsEventScalarFieldEnumInterface,
+
   used: 'used' as NotificationsEventScalarFieldEnumInterface,
+
   error: 'error' as NotificationsEventScalarFieldEnumInterface,
+
   senderUserId: 'senderUserId' as NotificationsEventScalarFieldEnumInterface,
+
   senderData: 'senderData' as NotificationsEventScalarFieldEnumInterface,
+
   recipientGroupId:
     'recipientGroupId' as NotificationsEventScalarFieldEnumInterface,
+
   recipientUserId:
     'recipientUserId' as NotificationsEventScalarFieldEnumInterface,
+
   recipientData: 'recipientData' as NotificationsEventScalarFieldEnumInterface,
+
   externalTenantId:
     'externalTenantId' as NotificationsEventScalarFieldEnumInterface,
+
   createdAt: 'createdAt' as NotificationsEventScalarFieldEnumInterface,
+
   updatedAt: 'updatedAt' as NotificationsEventScalarFieldEnumInterface,
 };

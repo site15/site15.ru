@@ -34,7 +34,6 @@ services:
     environment:
       NX_SKIP_NX_CACHE: 'true'
       SERVER_ROOT_DATABASE_URL: 'postgres://postgres:postgres_password@nestjs-mod-sso-postgre-sql:5432/postgres?schema=public'
-      SERVER_APP_DATABASE_URL: 'postgres://master_app:app_password@nestjs-mod-sso-postgre-sql:5432/master_app?schema=public'
     depends_on:
       nestjs-mod-sso-postgre-sql:
         condition: 'service_healthy'

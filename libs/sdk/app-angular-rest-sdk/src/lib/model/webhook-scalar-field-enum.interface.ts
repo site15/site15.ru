@@ -24,15 +24,26 @@ export type WebhookScalarFieldEnumInterface =
 
 export const WebhookScalarFieldEnumInterface = {
   id: 'id' as WebhookScalarFieldEnumInterface,
+
   eventName: 'eventName' as WebhookScalarFieldEnumInterface,
+
   endpoint: 'endpoint' as WebhookScalarFieldEnumInterface,
+
   enabled: 'enabled' as WebhookScalarFieldEnumInterface,
+
   headers: 'headers' as WebhookScalarFieldEnumInterface,
+
   requestTimeout: 'requestTimeout' as WebhookScalarFieldEnumInterface,
+
   externalTenantId: 'externalTenantId' as WebhookScalarFieldEnumInterface,
+
   createdBy: 'createdBy' as WebhookScalarFieldEnumInterface,
+
   updatedBy: 'updatedBy' as WebhookScalarFieldEnumInterface,
+
   createdAt: 'createdAt' as WebhookScalarFieldEnumInterface,
+
   updatedAt: 'updatedAt' as WebhookScalarFieldEnumInterface,
+
   workUntilDate: 'workUntilDate' as WebhookScalarFieldEnumInterface,
 };

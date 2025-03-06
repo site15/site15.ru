@@ -51,7 +51,6 @@ import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
-import { APP_FEATURE } from './app/app.constants';
 import {
   appFolder,
   AppModule,
@@ -63,6 +62,7 @@ import {
   MainWebhookModule,
   rootFolder,
 } from './environments/environment';
+import { APP_FEATURE } from './app/app.constants';
 
 bootstrapNestApplication({
   project: {
@@ -115,27 +115,6 @@ bootstrapNestApplication({
     ],
     core: [
       PrismaToolsModule.forRoot(),
-      PrismaModule.forRoot({
-        contextName: APP_FEATURE,
-        staticConfiguration: {
-          featureName: APP_FEATURE,
-          schemaFile: join(
-            appFolder,
-            'src',
-            'prisma',
-            `${APP_FEATURE}-${PRISMA_SCHEMA_FILE}`
-          ),
-          prismaModule: isInfrastructureMode()
-            ? import(`@nestjs-mod/prisma`)
-            : import(`@prisma/app-client`),
-          addMigrationScripts: false,
-          binaryTargets: [
-            'native',
-            'rhel-openssl-3.0.x',
-            'linux-musl-openssl-3.0.x',
-          ],
-        },
-      }),
       PrismaModule.forRoot({
         contextName: WEBHOOK_FEATURE,
         staticConfiguration: {
@@ -313,21 +292,12 @@ bootstrapNestApplication({
         },
       }),
       DockerComposePostgreSQL.forRoot(),
-      DockerComposePostgreSQL.forFeature({
-        featureModuleName: APP_FEATURE,
-      }),
       ...infrastructuresModules,
       DockerComposeRedis.forRoot({
         staticConfiguration: { image: 'bitnami/redis:7.4.1' },
       }),
       DockerComposeMinio.forRoot({
         staticConfiguration: { image: 'bitnami/minio:2024.11.7' },
-      }),
-      PgFlyway.forRoot({
-        staticConfiguration: {
-          featureName: APP_FEATURE,
-          migrationsFolder: join(appFolder, 'src', 'migrations'),
-        },
       }),
       DockerComposePostgreSQL.forFeatureAsync({
         featureModuleName: WEBHOOK_FEATURE,

@@ -1,12 +1,8 @@
-import { AuthToken, Authorizer } from '@authorizerdev/authorizer-js';
 import {
-  AppApi,
   AuthApi,
   AuthProfileDto,
   AuthRole,
-  AuthorizerApi,
   Configuration,
-  FakeEndpointApi,
   FilesApi,
   NotificationsApi,
   SsoApi,
@@ -24,42 +20,26 @@ import {
 } from './generate-random-user';
 import { getUrls } from './get-urls';
 
-import { AuthResponse } from '@supabase/supabase-js';
 import WebSocket from 'ws';
-import { TestingSupabaseService } from './supabase.service';
 
 export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
-  private authorizerClientID!: string;
-
-  authorizationTokens?: AuthToken;
-  authData?: AuthResponse['data'];
   ssoTokensResponse?: TokensResponse;
 
   private webhookProfile?: WebhookUser;
   private authProfile?: AuthProfileDto;
 
-  private authorizer?: Authorizer;
-
-  private testingSupabaseService?: TestingSupabaseService;
-
   private ssoApi?: SsoApi;
   private webhookApi?: WebhookApi;
-  private appApi?: AppApi;
-  private authorizerApi?: AuthorizerApi;
   private filesApi?: FilesApi;
   private timeApi?: TimeApi;
   private authApi?: AuthApi;
-  private fakeEndpointApi?: FakeEndpointApi;
   private notificationsApi?: NotificationsApi;
 
   private ssoApiAxios?: AxiosInstance;
   private webhookApiAxios?: AxiosInstance;
-  private appApiAxios?: AxiosInstance;
-  private authorizerApiAxios?: AxiosInstance;
   private filesApiAxios?: AxiosInstance;
   private timeApiAxios?: AxiosInstance;
   private authApiAxios?: AxiosInstance;
-  private fakeEndpointApiAxios?: AxiosInstance;
   private notificationsApiAxios?: AxiosInstance;
 
   randomUser: T extends 'strict'
@@ -72,9 +52,6 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   constructor(
     private readonly options?: {
       serverUrl?: string;
-      authorizerURL?: string;
-      supabaseUrl?: string;
-      supabaseKey?: string;
       randomUser?: GenerateRandomUserResult;
       activeLang?: string;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -154,13 +131,6 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     );
   }
 
-  getAuthorizerApi() {
-    if (!this.authorizerApi) {
-      throw new Error('authorizerApi not set');
-    }
-    return this.authorizerApi;
-  }
-
   getSsoApi() {
     if (!this.ssoApi) {
       throw new Error('ssoApi not set');
@@ -173,13 +143,6 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       throw new Error('webhookApi not set');
     }
     return this.webhookApi;
-  }
-
-  getAppApi() {
-    if (!this.appApi) {
-      throw new Error('appApi not set');
-    }
-    return this.appApi;
   }
 
   getFilesApi() {
@@ -210,50 +173,12 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     return this.notificationsApi;
   }
 
-  async getAuthorizerClient() {
-    const authorizerURL = this.getAuthorizerUrl();
-    if (!this.authorizerClientID && this.authorizerApi && authorizerURL) {
-      this.authorizerClientID = (
-        await this.authorizerApi.authorizerControllerGetAuthorizerClientID()
-      ).data.clientID;
-
-      this.authorizer = new Authorizer({
-        authorizerURL,
-        clientID: this.authorizerClientID,
-        redirectURL: this.getServerUrl(),
-      });
-    }
-    return this.authorizer;
-  }
-
   async setRoles(userId: string, role: AuthRole) {
     await this.getAuthApi().authUsersControllerUpdateOne(userId, {
       userRole: role,
     });
 
     return this;
-  }
-
-  getFakeEndpointApi() {
-    if (!this.fakeEndpointApi) {
-      throw new Error('fakeEndpointApi not set');
-    }
-    return this.fakeEndpointApi;
-  }
-
-  async getSupabaseClient() {
-    const supabaseUrl = this.getSupabaseUrl();
-    const supabaseKey = this.getSupabaseKey();
-    if (!supabaseUrl || !supabaseKey) {
-      return null;
-    }
-    if (!this.testingSupabaseService) {
-      this.testingSupabaseService = new TestingSupabaseService(
-        supabaseUrl,
-        supabaseKey
-      );
-    }
-    return this.testingSupabaseService;
   }
 
   async createAndLoginAsUser(
@@ -284,36 +209,8 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     if (!this.randomUser) {
       this.randomUser = await generateRandomUser();
     }
-    const supabaseClient = await this.getSupabaseClient();
-    const authorizerClient = await this.getAuthorizerClient();
-    let useSso = true;
 
-    if (supabaseClient) {
-      useSso = false;
-      const signUpResult = await supabaseClient.auth.signUp({
-        email: this.randomUser.email,
-        password: this.randomUser.password,
-      });
-
-      if (signUpResult.error) {
-        throw new Error(signUpResult.error.message);
-      }
-
-      this.authData = signUpResult.data;
-    }
-
-    if (authorizerClient) {
-      useSso = false;
-      this.authorizationTokens = (
-        await authorizerClient.signup({
-          email: this.randomUser.email,
-          confirm_password: this.randomUser.password,
-          password: this.randomUser.password,
-        })
-      ).data;
-    }
-
-    if (useSso && this.projectHelper) {
+    if (this.projectHelper) {
       if (!this.project) {
         const { data: createOneResult } = await this.projectHelper
           .getSsoApi()
@@ -396,52 +293,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       id: options?.id || this.randomUser.id,
     };
 
-    const supabaseClient = await this.getSupabaseClient();
-    const authorizerClient = await this.getAuthorizerClient();
-    let useSso = true;
-
-    if (supabaseClient) {
-      useSso = false;
-      const loginResult = await supabaseClient.auth.signInWithPassword({
-        email: loginOptions.email,
-        password: loginOptions.password,
-      });
-
-      if (loginResult.error) {
-        throw new Error(loginResult.error.message);
-      }
-
-      this.authData = loginResult.data;
-
-      this.setAuthorizationHeadersFromAuthorizationTokens();
-
-      await this.loadProfile();
-
-      return this;
-    }
-
-    if (authorizerClient) {
-      useSso = false;
-      const loginResult = await authorizerClient.login({
-        email: loginOptions.email,
-        password: loginOptions.password,
-      });
-
-      if (loginResult.errors.length) {
-        throw new Error(loginResult.errors[0].message);
-      }
-
-      this.authorizationTokens = loginResult.data;
-
-      this.setAuthorizationHeadersFromAuthorizationTokens();
-
-      await this.loadProfile();
-
-      return this;
-    }
-
-    if (useSso && this.projectHelper) {
-      useSso = false;
+    if (this.projectHelper) {
       const { data: loginResult } = await this.getSsoApi().ssoControllerSignIn({
         email: loginOptions.email,
         fingerprint: loginOptions.id,
@@ -484,18 +336,6 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         this.getAuthorizationHeaders()
       );
     }
-    if (this.appApiAxios) {
-      Object.assign(
-        this.appApiAxios.defaults.headers.common,
-        this.getAuthorizationHeaders()
-      );
-    }
-    if (this.authorizerApiAxios) {
-      Object.assign(
-        this.authorizerApiAxios.defaults.headers.common,
-        this.getAuthorizationHeaders()
-      );
-    }
     if (this.filesApiAxios) {
       Object.assign(
         this.filesApiAxios.defaults.headers.common,
@@ -514,12 +354,6 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         this.getAuthorizationHeaders()
       );
     }
-    if (this.fakeEndpointApiAxios) {
-      Object.assign(
-        this.fakeEndpointApiAxios.defaults.headers.common,
-        this.getAuthorizationHeaders()
-      );
-    }
     if (this.notificationsApiAxios) {
       Object.assign(
         this.notificationsApiAxios.defaults.headers.common,
@@ -529,28 +363,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   }
 
   async logout() {
-    const supabaseClient = await this.getSupabaseClient();
-    const authorizerClient = await this.getAuthorizerClient();
-    let useSso = true;
-
-    if (supabaseClient) {
-      useSso = false;
-      await supabaseClient.auth.signOut({ scope: 'local' });
-    }
-
-    if (authorizerClient) {
-      useSso = false;
-      await authorizerClient.logout(
-        this.getAuthorizationHeaders().Authorization
-          ? {
-              Authorization: this.getAuthorizationHeaders().Authorization,
-            }
-          : {}
-      );
-    }
-
-    if (useSso && this.projectHelper) {
-      useSso = false;
+    if (this.projectHelper) {
       await this.getSsoApi().ssoControllerSignOut({
         refreshToken: this.getRefreshToken(),
       });
@@ -586,24 +399,10 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   }
 
   getAccessToken() {
-    return (
-      this.authData?.session?.access_token ||
-      this.authorizationTokens?.access_token ||
-      this.ssoTokensResponse?.accessToken
-    );
+    return this.ssoTokensResponse?.accessToken;
   }
 
   private createApiClients() {
-    this.authorizerApiAxios = axios.create();
-    this.authorizerApi = new AuthorizerApi(
-      new Configuration({
-        basePath: this.getServerUrl(),
-      }),
-      undefined,
-      this.authorizerApiAxios
-    );
-    //
-
     this.webhookApiAxios = axios.create();
     this.webhookApi = new WebhookApi(
       new Configuration({
@@ -621,16 +420,6 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       }),
       undefined,
       this.ssoApiAxios
-    );
-    //
-
-    this.appApiAxios = axios.create();
-    this.appApi = new AppApi(
-      new Configuration({
-        basePath: this.getServerUrl(),
-      }),
-      undefined,
-      this.appApiAxios
     );
     //
 
@@ -664,16 +453,6 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     );
     //
 
-    this.fakeEndpointApiAxios = axios.create();
-    this.fakeEndpointApi = new FakeEndpointApi(
-      new Configuration({
-        basePath: this.getServerUrl(),
-      }),
-      undefined,
-      this.fakeEndpointApiAxios
-    );
-    //
-
     this.notificationsApiAxios = axios.create();
     this.notificationsApi = new NotificationsApi(
       new Configuration({
@@ -686,17 +465,5 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
   private getServerUrl(): string {
     return this.options?.serverUrl || getUrls().serverUrl;
-  }
-
-  private getAuthorizerUrl() {
-    return this.options?.authorizerURL || getUrls().authorizerUrl;
-  }
-
-  private getSupabaseUrl() {
-    return this.options?.supabaseUrl || getUrls().supabaseUrl;
-  }
-
-  private getSupabaseKey() {
-    return this.options?.supabaseKey || getUrls().supabaseKey;
   }
 }
