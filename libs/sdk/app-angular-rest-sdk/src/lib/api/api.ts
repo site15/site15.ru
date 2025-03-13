@@ -12,12 +12,4 @@ export * from './time-rest.service';
 import { TimeRestService } from './time-rest.service';
 export * from './webhook-rest.service';
 import { WebhookRestService } from './webhook-rest.service';
-export const APIS = [
-  AuthRestService,
-  FilesRestService,
-  NotificationsRestService,
-  SsoRestService,
-  TerminusHealthCheckRestService,
-  TimeRestService,
-  WebhookRestService,
-];
+export const APIS = [AuthRestService, FilesRestService, NotificationsRestService, SsoRestService, TerminusHealthCheckRestService, TimeRestService, WebhookRestService];

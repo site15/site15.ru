@@ -4,3 +4,5 @@
 /.nx/cache
 /.nx/workspace-data
 .angular
+/libs/sdk/app-rest-sdk/src/lib
+/libs/sdk/app-angular-rest-sdk/src/lib
