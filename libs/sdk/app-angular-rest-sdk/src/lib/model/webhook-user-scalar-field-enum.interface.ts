@@ -18,14 +18,9 @@ export type WebhookUserScalarFieldEnumInterface =
 
 export const WebhookUserScalarFieldEnumInterface = {
   id: 'id' as WebhookUserScalarFieldEnumInterface,
-
   externalTenantId: 'externalTenantId' as WebhookUserScalarFieldEnumInterface,
-
   externalUserId: 'externalUserId' as WebhookUserScalarFieldEnumInterface,
-
   userRole: 'userRole' as WebhookUserScalarFieldEnumInterface,
-
   createdAt: 'createdAt' as WebhookUserScalarFieldEnumInterface,
-
   updatedAt: 'updatedAt' as WebhookUserScalarFieldEnumInterface,
 };

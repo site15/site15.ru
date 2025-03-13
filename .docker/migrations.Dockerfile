@@ -1,40 +1,33 @@
-FROM node:22-bullseye-slim AS builder
-WORKDIR /usr/src/app
+FROM node:22-alpine AS base
+RUN corepack enable
 
-# Disable nx daemon
+COPY . /app
+WORKDIR /app
+
+FROM base AS build
+ENV CI=TRUE
 ENV NX_DAEMON=false
-
 ENV NX_PARALLEL=1
 ENV NX_SKIP_NX_CACHE=true
+RUN apk update && apk add --no-cache jq && \
+    echo '' > .env && \
+    echo $(cat nx.json | jq 'del(.targetDefaults)') > nx.json && \
+    echo $(cat nx.json | jq 'del(.plugins)') > nx.json && \
+    echo $(cat nx.json | jq 'del(.generators)') > nx.json && \
+    echo $(cat nx.json | jq 'del(.release)') > nx.json && \
+    echo $(cat package.json | jq 'del(.devDependencies)') > package.json && \
+    echo $(cat package.json | jq 'del(.dependencies)') > package.json && \
+    rm -rf package-lock.json && \
+    npm install --save nx@20.5.0 rucken pg-flyway
 
-# Copy all files in repository to image
-COPY --chown=node:node . .
-
-# Copy the settings
-COPY ./.docker/migrations-package.json package.json
-COPY ./.docker/.dockerignore .dockerignore
-COPY ./.docker/nx.json nx.json
-
-# Install dependencies
-RUN rm -rf yarn.lock node_modules && yarn install && rm -rf /var/cache/apk/* && rm -rf /usr/local/share/.cache/yarn/*
-# Some utilities require a ".env" file
-RUN echo '' > .env
-
-FROM node:22-bullseye-slim
-WORKDIR /usr/src/app
-
-# Copy node_modules
-COPY --from=builder /usr/src/app/node_modules /usr/src/app/node_modules
-# Copy the settings
-COPY --from=builder /usr/src/app/.docker/.dockerignore /usr/src/app/.dockerignore
-COPY --from=builder /usr/src/app/.docker/nx.json /usr/src/app/nx.json
-COPY --from=builder /usr/src/app/package.json /usr/src/app/package.json
-COPY --from=builder /usr/src/app/rucken.json /usr/src/app/rucken.json
-COPY --from=builder /usr/src/app/tsconfig.base.json /usr/src/app/tsconfig.base.json
-COPY --from=builder /usr/src/app/.env /usr/src/app/.env
-
-# Copy folders with migrations
-# COPY --chown=node:node ./apps ./apps
-# COPY --chown=node:node ./libs ./libs
-
-CMD ["npm","run", "db:create-and-fill"]
+FROM base
+RUN apk update && apk add --no-cache openssl
+COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/package.json /app/package.json
+COPY --from=build /app/nx.json /app/nx.json
+COPY --from=build /app/.env /app/.env
+CMD ["npm", "run", "db:create-and-fill"]
+# docker build -t nestjs-mod-migrations -f ./.docker/migrations.Dockerfile .
+# docker images
+# docker run --network=host b2482e26edc8
+# 202MB

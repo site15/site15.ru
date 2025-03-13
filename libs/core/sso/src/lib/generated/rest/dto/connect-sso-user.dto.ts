@@ -44,7 +44,6 @@ export class ConnectSsoUserDto {
   @ApiProperty({
     type: 'string',
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @IsString()
@@ -52,7 +51,6 @@ export class ConnectSsoUserDto {
   @ApiProperty({
     type: SsoUserEmailProjectIdUniqueInputDto,
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @ValidateNested()
@@ -61,7 +59,6 @@ export class ConnectSsoUserDto {
   @ApiProperty({
     type: SsoUserUsernameProjectIdUniqueInputDto,
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @ValidateNested()

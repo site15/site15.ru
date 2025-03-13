@@ -47,7 +47,6 @@ export class ConnectTwoFactorCodeDto {
   @ApiProperty({
     type: 'string',
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @IsString()
@@ -55,7 +54,6 @@ export class ConnectTwoFactorCodeDto {
   @ApiProperty({
     type: TwoFactorCodeUserIdOperationNameTypeCodeExternalTenantIdUniqueInputDto,
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @ValidateNested()

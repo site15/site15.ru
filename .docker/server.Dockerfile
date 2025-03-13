@@ -1,55 +1,72 @@
-ARG BASE_SERVER_IMAGE_TAG=latest
-ARG REGISTRY=ghcr.io
-ARG BASE_SERVER_IMAGE_NAME=nestjs-mod/nestjs-mod-sso-base-server
+FROM node:22-alpine AS base
+RUN corepack enable
 
-FROM ${REGISTRY}/${BASE_SERVER_IMAGE_NAME}:${BASE_SERVER_IMAGE_TAG} AS builder
-WORKDIR /usr/src/app
+COPY . /app
+WORKDIR /app
 
-# Disable nx daemon
+FROM base AS build
+ENV CI=TRUE
 ENV NX_DAEMON=false
-
 ENV NX_PARALLEL=1
 ENV NX_SKIP_NX_CACHE=true
+RUN --mount=type=cache,id=npm,target=/root/.npm npm ci --no-audit && \
+    apk update && apk add --no-cache openssl jq && \
+    echo '' > .env && \
+    echo $(cat nx.json | jq 'del(.targetDefaults)') > nx.json && \
+    echo $(cat nx.json | jq 'del(.plugins)') > nx.json && \
+    echo $(cat nx.json | jq 'del(.generators)') > nx.json && \
+    echo $(cat nx.json | jq 'del(.release)') > nx.json && \
+    ./node_modules/.bin/nx run-many --all -t=prisma-generate --parallel=1 && \
+    ./node_modules/.bin/nx run-many -p app-rest-sdk server client -t=build --configuration=production --parallel=1
 
-# Copy the generated code
-COPY --chown=node:node ./dist ./dist
-# Copy prisma schema files
-COPY --chown=node:node ./apps ./apps
-COPY --chown=node:node ./libs ./libs
-# Copy the application's package.json file to use its information at runtime.
-COPY --chown=node:node ./apps/server/package.json ./dist/apps/server/package.json
+FROM base AS prod-deps
+ENV CI=TRUE
+ENV NX_DAEMON=false
+ENV NX_PARALLEL=1
+ENV NX_SKIP_NX_CACHE=true
+RUN --mount=type=cache,id=npm,target=/root/.npm npm ci --no-audit --production && \
+    apk update && apk add --no-cache openssl jq dumb-init && \
+    echo '' > .env && \
+    echo $(cat nx.json | jq 'del(.targetDefaults)') > nx.json && \
+    echo $(cat nx.json | jq 'del(.plugins)') > nx.json && \
+    echo $(cat nx.json | jq 'del(.generators)') > nx.json && \
+    echo $(cat nx.json | jq 'del(.release)') > nx.json && \
+    npm install --save-dev nx@20.5.0 prisma@5.22.0 @brakebein/prisma-generator-nestjs-dto@1.24.0-beta5 -D && \
+    npm uninstall --save @ant-design/icons-angular \
+    @angular/animations \
+    @angular/common \
+    @angular/compiler \
+    @angular/core \
+    @angular/forms \
+    @angular/platform-browser \
+    @angular/platform-browser-dynamic \
+    @angular/platform-server \
+    @angular/router \
+    @angular/ssr \
+    @jsverse/transloco \
+    @jsverse/transloco-keys-manager \
+    @jsverse/transloco-locale \
+    @jsverse/transloco-messageformat \
+    @ngneat/until-destroy \
+    @ngx-formly/core \
+    @ngx-formly/ng-zorro-antd \
+    ng-zorro-antd && \
+    ./node_modules/.bin/nx run-many --all -t=prisma-generate --parallel=1
 
-# Generating additional code
-RUN npm run prisma:generate -- --verbose
-# Remove unnecessary packages
-RUN rm -rf /usr/src/app/node_modules/@nx && \
-    rm -rf /usr/src/app/node_modules/@brakebein/prisma-generator-nestjs-dto@1.24.0-beta5 && \
-    rm -rf /usr/src/app/node_modules/@angular  && \
-    rm -rf /usr/src/app/node_modules/@swc  && \
-    rm -rf /usr/src/app/node_modules/@babel  && \
-    rm -rf /usr/src/app/node_modules/@angular-devkit && \
-    rm -rf /usr/src/app/node_modules/@ngneat && \
-    rm -rf /usr/src/app/node_modules/@types && \
-    rm -rf /usr/src/app/node_modules/@ng-packagr && \
-    rm -rf /usr/src/app/apps && \
-    rm -rf /usr/src/app/libs
-
-FROM node:22-alpine
-WORKDIR /usr/src/app
-
-RUN apk update \
-  && apk add --no-cache openssl
-
-# Set server port
+FROM base
 ENV SERVER_PORT=8080
+ENV CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID=248ec37f-628d-43f0-8de2-f58da037dd0f
+ENV CLIENT_MINIO_URL=http://localhost:9000
+COPY --from=prod-deps /usr/bin/dumb-init /usr/bin/dumb-init
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/dist /app/dist 
+RUN apk update && apk add --no-cache openssl && \
+    find /app/dist -type f -name "*.js" -print0 | xargs -0 sed -i "s/___CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID___/$CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID/g" && \
+    find /app/dist -type f -name "*.js" -print0 | xargs -0 sed -i "s#___CLIENT_MINIO_URL___#$CLIENT_MINIO_URL#"
 
-# Copy all project files
-COPY --from=builder /usr/src/app/ /usr/src/app/
-# Copy utility for "To work as a PID 1"
-COPY --from=builder /usr/bin/dumb-init /usr/bin/dumb-init
-
-# Expose server port
 EXPOSE 8080
-
-# Run server
 CMD ["dumb-init","node", "dist/apps/server/main.js"]
+# docker build -t nestjs-mod-sso -f ./.docker/server.Dockerfile .
+# docker images
+# docker run --network=host b2482e26edc8
+# 1.78GB

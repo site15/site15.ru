@@ -24,26 +24,15 @@ export type SsoRefreshSessionScalarFieldEnumInterface =
 
 export const SsoRefreshSessionScalarFieldEnumInterface = {
   id: 'id' as SsoRefreshSessionScalarFieldEnumInterface,
-
   refreshToken: 'refreshToken' as SsoRefreshSessionScalarFieldEnumInterface,
-
   userAgent: 'userAgent' as SsoRefreshSessionScalarFieldEnumInterface,
-
   fingerprint: 'fingerprint' as SsoRefreshSessionScalarFieldEnumInterface,
-
   userIp: 'userIp' as SsoRefreshSessionScalarFieldEnumInterface,
-
   expiresAt: 'expiresAt' as SsoRefreshSessionScalarFieldEnumInterface,
-
   userData: 'userData' as SsoRefreshSessionScalarFieldEnumInterface,
-
   enabled: 'enabled' as SsoRefreshSessionScalarFieldEnumInterface,
-
   userId: 'userId' as SsoRefreshSessionScalarFieldEnumInterface,
-
   projectId: 'projectId' as SsoRefreshSessionScalarFieldEnumInterface,
-
   createdAt: 'createdAt' as SsoRefreshSessionScalarFieldEnumInterface,
-
   updatedAt: 'updatedAt' as SsoRefreshSessionScalarFieldEnumInterface,
 };

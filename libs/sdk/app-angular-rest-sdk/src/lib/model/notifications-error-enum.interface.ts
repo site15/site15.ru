@@ -16,10 +16,7 @@ export type NotificationsErrorEnumInterface =
 
 export const NotificationsErrorEnumInterface = {
   NOTIFICATIONS_000: 'NOTIFICATIONS-000' as NotificationsErrorEnumInterface,
-
   NOTIFICATIONS_001: 'NOTIFICATIONS-001' as NotificationsErrorEnumInterface,
-
   NOTIFICATIONS_002: 'NOTIFICATIONS-002' as NotificationsErrorEnumInterface,
-
   NOTIFICATIONS_003: 'NOTIFICATIONS-003' as NotificationsErrorEnumInterface,
 };

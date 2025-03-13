@@ -27,7 +27,6 @@ export class ConnectNotificationsUserDto {
   @ApiProperty({
     type: 'string',
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @IsString()
@@ -35,7 +34,6 @@ export class ConnectNotificationsUserDto {
   @ApiProperty({
     type: NotificationsUserExternalTenantIdExternalUserIdUniqueInputDto,
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @ValidateNested()

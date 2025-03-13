@@ -30,38 +30,21 @@ export type SsoUserScalarFieldEnumInterface =
 
 export const SsoUserScalarFieldEnumInterface = {
   id: 'id' as SsoUserScalarFieldEnumInterface,
-
   email: 'email' as SsoUserScalarFieldEnumInterface,
-
   phone: 'phone' as SsoUserScalarFieldEnumInterface,
-
   username: 'username' as SsoUserScalarFieldEnumInterface,
-
   password: 'password' as SsoUserScalarFieldEnumInterface,
-
   roles: 'roles' as SsoUserScalarFieldEnumInterface,
-
   firstname: 'firstname' as SsoUserScalarFieldEnumInterface,
-
   lastname: 'lastname' as SsoUserScalarFieldEnumInterface,
-
   gender: 'gender' as SsoUserScalarFieldEnumInterface,
-
   birthdate: 'birthdate' as SsoUserScalarFieldEnumInterface,
-
   picture: 'picture' as SsoUserScalarFieldEnumInterface,
-
   appData: 'appData' as SsoUserScalarFieldEnumInterface,
-
   revokedAt: 'revokedAt' as SsoUserScalarFieldEnumInterface,
-
   emailVerifiedAt: 'emailVerifiedAt' as SsoUserScalarFieldEnumInterface,
-
   phoneVerifiedAt: 'phoneVerifiedAt' as SsoUserScalarFieldEnumInterface,
-
   projectId: 'projectId' as SsoUserScalarFieldEnumInterface,
-
   createdAt: 'createdAt' as SsoUserScalarFieldEnumInterface,
-
   updatedAt: 'updatedAt' as SsoUserScalarFieldEnumInterface,
 };

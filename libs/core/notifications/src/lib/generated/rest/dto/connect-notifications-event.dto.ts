@@ -59,7 +59,6 @@ export class ConnectNotificationsEventDto {
   @ApiProperty({
     type: 'string',
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @IsString()
@@ -67,7 +66,6 @@ export class ConnectNotificationsEventDto {
   @ApiProperty({
     type: NotificationsEventSenderUserIdRecipientUserIdOperationNameTypeHtmlSubjectExternalTenantIdUniqueInputDto,
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @ValidateNested()

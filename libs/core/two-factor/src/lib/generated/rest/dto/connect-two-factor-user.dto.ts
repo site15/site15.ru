@@ -27,7 +27,6 @@ export class ConnectTwoFactorUserDto {
   @ApiProperty({
     type: 'string',
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @IsString()
@@ -35,7 +34,6 @@ export class ConnectTwoFactorUserDto {
   @ApiProperty({
     type: TwoFactorUserExternalTenantIdExternalUserIdUniqueInputDto,
     required: false,
-    nullable: true,
   })
   @IsOptional()
   @ValidateNested()

@@ -1,8 +1,4 @@
-import {
-  HttpHeaders,
-  HttpParams,
-  HttpParameterCodec,
-} from '@angular/common/http';
+import { HttpParameterCodec } from '@angular/common/http';
 import { Param } from './param';
 
 export interface RestClientConfigurationParameters {
@@ -162,25 +158,6 @@ export class RestClientConfiguration {
   public lookupCredential(key: string): string | undefined {
     const value = this.credentials[key];
     return typeof value === 'function' ? value() : value;
-  }
-
-  public addCredentialToHeaders(
-    credentialKey: string,
-    headerName: string,
-    headers: HttpHeaders,
-    prefix?: string
-  ): HttpHeaders {
-    const value = this.lookupCredential(credentialKey);
-    return value ? headers.set(headerName, (prefix ?? '') + value) : headers;
-  }
-
-  public addCredentialToQuery(
-    credentialKey: string,
-    paramName: string,
-    query: HttpParams
-  ): HttpParams {
-    const value = this.lookupCredential(credentialKey);
-    return value ? query.set(paramName, value) : query;
   }
 
   private defaultEncodeParam(param: Param): string {

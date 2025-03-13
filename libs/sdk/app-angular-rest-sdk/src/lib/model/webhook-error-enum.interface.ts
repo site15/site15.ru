@@ -18,14 +18,9 @@ export type WebhookErrorEnumInterface =
 
 export const WebhookErrorEnumInterface = {
   WEBHOOK_000: 'WEBHOOK-000' as WebhookErrorEnumInterface,
-
   WEBHOOK_001: 'WEBHOOK-001' as WebhookErrorEnumInterface,
-
   WEBHOOK_002: 'WEBHOOK-002' as WebhookErrorEnumInterface,
-
   WEBHOOK_003: 'WEBHOOK-003' as WebhookErrorEnumInterface,
-
   WEBHOOK_004: 'WEBHOOK-004' as WebhookErrorEnumInterface,
-
   WEBHOOK_005: 'WEBHOOK-005' as WebhookErrorEnumInterface,
 };

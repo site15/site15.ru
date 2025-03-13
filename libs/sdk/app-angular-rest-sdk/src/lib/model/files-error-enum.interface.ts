@@ -12,6 +12,5 @@ export type FilesErrorEnumInterface = 'FILES-000' | 'FILES-001';
 
 export const FilesErrorEnumInterface = {
   FILES_000: 'FILES-000' as FilesErrorEnumInterface,
-
   FILES_001: 'FILES-001' as FilesErrorEnumInterface,
 };

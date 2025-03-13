@@ -57,11 +57,8 @@ services:
     networks:
       - 'nestjs-mod-sso-network'
     environment:
-      REDIS_DATABASE: '${SERVER_REDIS_REDIS_DATABASE}'
+      REDIS_DATABASE: '0'
       REDIS_PASSWORD: '${SERVER_REDIS_REDIS_PASSWORD}'
-      REDIS_DISABLE_COMMANDS: '${SERVER_REDIS_REDIS_DISABLE_COMMANDS}'
-      REDIS_IO_THREADS: '${SERVER_REDIS_REDIS_IO_THREADS}'
-      REDIS_IO_THREADS_DO_READS: '${SERVER_REDIS_REDIS_IO_THREADS_DO_READS}'
     healthcheck:
       test:
         - 'CMD-SHELL'
@@ -72,12 +69,16 @@ services:
     tty: true
     restart: 'always'
   nestjs-mod-sso-postgre-sql-migrations:
-    image: 'ghcr.io/nestjs-mod/nestjs-mod-sso-migrations:${ROOT_VERSION}'
+    image: nestjs-mod-migrations
+    build:
+      dockerfile: ./.docker/migrations.Dockerfile
+      context: ..
     container_name: 'nestjs-mod-sso-postgre-sql-migrations'
     networks:
       - 'nestjs-mod-sso-network'
     tty: true
     environment:
+      ENV COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
       NX_SKIP_NX_CACHE: 'true'
       SERVER_ROOT_DATABASE_URL: '${SERVER_ROOT_DATABASE_URL}'
       SERVER_WEBHOOK_DATABASE_URL: '${SERVER_WEBHOOK_DATABASE_URL}'
@@ -88,13 +89,14 @@ services:
     depends_on:
       nestjs-mod-sso-postgre-sql:
         condition: 'service_healthy'
-    working_dir: '/usr/src/app'
-    volumes:
-      - './../apps:/usr/src/app/apps'
-      - './../libs:/usr/src/app/libs'
   nestjs-mod-sso-server:
-    image: 'ghcr.io/nestjs-mod/nestjs-mod-sso-server:${SERVER_VERSION}'
+    image: nestjs-mod-sso
+    build:
+      dockerfile: ./.docker/server.Dockerfile
+      context: ..
     container_name: 'nestjs-mod-sso-server'
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
     networks:
       - 'nestjs-mod-sso-network'
     extra_hosts:
@@ -103,15 +105,17 @@ services:
       test:
         [
           'CMD-SHELL',
-          'npx -y wait-on --timeout= --interval=1000 --window --verbose --log http://localhost:${SERVER_PORT}/api/health',
+          './node_modules/.bin/wait-on --timeout= --interval=1000 --window --verbose --log http://localhost:${SERVER_PORT}/api/health',
         ]
       interval: 30s
       timeout: 10s
       retries: 10
     tty: true
     environment:
+      ENV COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
       NODE_TLS_REJECT_UNAUTHORIZED: '0'
       SERVER_PORT: '${SERVER_PORT}'
+      SERVER_SSO_ADMIN_SECRET: '${SERVER_SSO_ADMIN_SECRET}'
       SERVER_WEBHOOK_DATABASE_URL: '${SERVER_WEBHOOK_DATABASE_URL}'
       SERVER_AUTH_DATABASE_URL: '${SERVER_AUTH_DATABASE_URL}'
       SERVER_NOTIFICATIONS_DATABASE_URL: '${SERVER_NOTIFICATIONS_DATABASE_URL}'
@@ -140,77 +144,13 @@ services:
         condition: service_healthy
       nestjs-mod-sso-postgre-sql-migrations:
         condition: service_completed_successfully
-  nestjs-mod-sso-nginx:
-    image: 'ghcr.io/nestjs-mod/nestjs-mod-sso-nginx:${CLIENT_VERSION}'
-    container_name: 'nestjs-mod-sso-nginx'
-    networks:
-      - 'nestjs-mod-sso-network'
-    healthcheck:
-      test:
-        [
-          'CMD-SHELL',
-          'curl -so /dev/null http://localhost:${NGINX_PORT} || exit 1',
-        ]
-      interval: 30s
-      timeout: 10s
-      retries: 10
-    environment:
-      SERVER_PORT: '${SERVER_PORT}'
-      NGINX_PORT: '${NGINX_PORT}'
-      CLIENT_MINIO_URL: '${CLIENT_MINIO_URL}'
-      CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID: '${CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID}'
-    restart: 'always'
-    depends_on:
-      nestjs-mod-sso-server:
-        condition: service_healthy
-    ports:
-      - '${NGINX_PORT}:${NGINX_PORT}'
-  nestjs-mod-sso-e2e-tests:
-    image: 'ghcr.io/nestjs-mod/nestjs-mod-sso-e2e-tests:${ROOT_VERSION}'
-    container_name: 'nestjs-mod-sso-e2e-tests'
-    networks:
-      - 'nestjs-mod-sso-network'
-    environment:
-      IS_DOCKER_COMPOSE: 'true'
-      BASE_URL: 'http://nestjs-mod-sso-nginx:${NGINX_PORT}'
-      SERVER_MINIO_URL: 'http://nestjs-mod-sso-minio:9000'
-      CLIENT_URL: 'http://nestjs-mod-sso-nginx:${NGINX_PORT}'
-      SERVER_URL: 'http://localhost:9090/api'
-      SERVER_AUTH_ADMIN_EMAIL: '${SERVER_AUTH_ADMIN_EMAIL}'
-      SERVER_AUTH_ADMIN_USERNAME: '${SERVER_AUTH_ADMIN_USERNAME}'
-      SERVER_AUTH_ADMIN_PASSWORD: '${SERVER_AUTH_ADMIN_PASSWORD}'
-    depends_on:
-      nestjs-mod-sso-nginx:
-        condition: service_healthy
-    working_dir: '/usr/src/app'
-    volumes:
-      - './../apps:/usr/src/app/apps'
-      - './../libs:/usr/src/app/libs'
-  nestjs-mod-sso-https-portal:
-    image: steveltn/https-portal:1
-    container_name: 'nestjs-mod-sso-https-portal'
-    networks:
-      - 'nestjs-mod-sso-network'
-    ports:
-      - '80:80'
-      - '443:443'
-    links:
-      - nestjs-mod-sso-nginx
-    restart: always
-    environment:
-      STAGE: '${HTTPS_PORTAL_STAGE}'
-      DOMAINS: '${SERVER_DOMAIN} -> http://nestjs-mod-sso-nginx:${NGINX_PORT}'
-    depends_on:
-      nestjs-mod-sso-nginx:
-        condition: service_healthy
-    volumes:
-      - nestjs-mod-sso-https-portal-volume:/var/lib/https-portal
 volumes:
   nestjs-mod-sso-postgre-sql-volume:
     name: 'nestjs-mod-sso-postgre-sql-volume'
-  nestjs-mod-sso-https-portal-volume:
-    name: 'nestjs-mod-sso-https-portal-volume'
   nestjs-mod-sso-minio-volume:
     name: 'nestjs-mod-sso-minio-volume'
   nestjs-mod-sso-redis-volume:
     name: 'nestjs-mod-sso-redis-volume'
+# docker system prune --all
+# docker compose -f ./docker-compose-full.yml --env-file ./docker-compose-full.env --compatibility up -d
+# docker compose -f ./docker-compose-full.yml --env-file ./docker-compose-full.env --compatibility up -d --no-build

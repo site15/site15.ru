@@ -11,6 +11,7 @@ import {
 import { MINIO_URL } from '@nestjs-mod-sso/files-angular';
 import { minioURL } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { provideSsoAuthConfiguration } from './integrations/sso-auth.configuration';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -54,6 +55,7 @@ describe('AppComponent', () => {
           provide: MINIO_URL,
           useValue: minioURL,
         },
+        provideSsoAuthConfiguration(),
       ],
       imports: [
         AppComponent,

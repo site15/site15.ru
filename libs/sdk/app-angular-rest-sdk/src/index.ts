@@ -1,4 +1,3 @@
-export * from './lib/api.base.service';
 export * from './lib/api.module';
 export * from './lib/configuration';
 export * from './lib/encoder';

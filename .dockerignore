@@ -4,3 +4,7 @@ tmp
 .angular
 .env
 .nx
+.gitignore
+*.md
+*.webm
+**/*.webm
