@@ -31,7 +31,7 @@ RUN --mount=type=cache,id=npm,target=/root/.npm npm ci --no-audit --production &
     echo $(cat nx.json | jq 'del(.plugins)') > nx.json && \
     echo $(cat nx.json | jq 'del(.generators)') > nx.json && \
     echo $(cat nx.json | jq 'del(.release)') > nx.json && \
-    npm install --save-dev nx@20.5.0 prisma@5.22.0 @brakebein/prisma-generator-nestjs-dto@1.24.0-beta5 -D && \
+    npm install --save-dev nx@20.3.3 prisma@5.22.0 @brakebein/prisma-generator-nestjs-dto@1.25.1 -D && \
     npm uninstall --save @ant-design/icons-angular \
     @angular/animations \
     @angular/common \

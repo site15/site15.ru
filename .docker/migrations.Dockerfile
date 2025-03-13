@@ -18,7 +18,7 @@ RUN apk update && apk add --no-cache jq && \
     echo $(cat package.json | jq 'del(.devDependencies)') > package.json && \
     echo $(cat package.json | jq 'del(.dependencies)') > package.json && \
     rm -rf package-lock.json && \
-    npm install --save nx@20.5.0 rucken pg-flyway
+    npm install --save nx@20.3.3 rucken pg-flyway
 
 FROM base
 RUN apk update && apk add --no-cache openssl
