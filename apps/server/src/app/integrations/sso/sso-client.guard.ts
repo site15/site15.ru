@@ -6,6 +6,7 @@ import {
   SsoModule,
   SsoProjectService,
   SsoRequest,
+  SsoRole,
   SsoTokensService,
   SsoUsersService,
 } from '@nestjs-mod-sso/sso';
@@ -25,6 +26,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
+import { WebhookRole } from '@prisma/webhook-client';
 
 @Injectable()
 export class SsoClientGuard implements CanActivate {
@@ -88,9 +90,9 @@ export class SsoClientGuard implements CanActivate {
       req.webhookUser = await this.webhookUsersService.createUserIfNotExists({
         externalUserId: req?.ssoUser?.id,
         externalTenantId: req?.ssoProject?.id,
-        userRole: req.ssoUser?.roles?.split(',').includes('admin')
-          ? 'Admin'
-          : 'User',
+        userRole: req.ssoUser?.roles?.split(',').includes(SsoRole.admin)
+          ? WebhookRole.Admin
+          : WebhookRole.User,
       });
 
       if (req.webhookUser) {
@@ -101,7 +103,7 @@ export class SsoClientGuard implements CanActivate {
       // files
       req.filesUser = {
         userRole:
-          req.webhookUser?.userRole === 'Admin'
+          req.webhookUser?.userRole === WebhookRole.Admin
             ? FilesRole.Admin
             : FilesRole.User,
       };

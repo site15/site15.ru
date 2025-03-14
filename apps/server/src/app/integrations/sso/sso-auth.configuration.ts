@@ -8,6 +8,7 @@ import {
   SsoErrorEnum,
   SsoProjectService,
   SsoRequest,
+  SsoRole,
   SsoStaticEnvironments,
   SsoTokensService,
   SsoUsersService,
@@ -17,7 +18,7 @@ import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';
-
+import { WebhookRole } from '@prisma/webhook-client';
 @Injectable()
 export class SsoAuthConfiguration implements AuthConfiguration {
   private logger = new Logger(SsoAuthConfiguration.name);
@@ -89,9 +90,9 @@ export class SsoAuthConfiguration implements AuthConfiguration {
       req.webhookUser = await this.webhookUsersService.createUserIfNotExists({
         externalUserId: req?.ssoUser?.id,
         externalTenantId: req?.ssoProject?.id,
-        userRole: req.ssoUser?.roles?.split(',').includes('admin')
-          ? 'Admin'
-          : 'User',
+        userRole: req.ssoUser?.roles?.split(',').includes(SsoRole.admin)
+          ? WebhookRole.Admin
+          : WebhookRole.User,
       });
 
       if (req.webhookUser) {
@@ -102,7 +103,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
       // files
       req.filesUser = {
         userRole:
-          req.webhookUser?.userRole === 'Admin'
+          req.webhookUser?.userRole === WebhookRole.Admin
             ? FilesRole.Admin
             : FilesRole.User,
       };

@@ -35,7 +35,7 @@ export class SsoStaticEnvironments {
 
   @EnvModelProperty({
     description: 'Available user roles',
-    default: [SsoRole.user, SsoRole.admin],
+    default: Object.keys(SsoRole),
     transform: new ArrayOfStringTransformer(),
     hidden: true,
   })

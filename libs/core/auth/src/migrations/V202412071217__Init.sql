@@ -2,6 +2,7 @@ DO $$
 BEGIN
     CREATE TYPE "AuthRole" AS enum(
         'Admin',
+        'Manager',
         'User'
 );
 EXCEPTION

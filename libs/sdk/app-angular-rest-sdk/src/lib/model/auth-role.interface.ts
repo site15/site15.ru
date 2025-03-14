@@ -9,10 +9,11 @@
  */
 
 
-export type AuthRoleInterface = 'Admin' | 'User';
+export type AuthRoleInterface = 'Admin' | 'Manager' | 'User';
 
 export const AuthRoleInterface = {
     Admin: 'Admin' as AuthRoleInterface,
+    Manager: 'Manager' as AuthRoleInterface,
     User: 'User' as AuthRoleInterface
 };
 

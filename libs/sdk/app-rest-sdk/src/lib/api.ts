@@ -142,6 +142,7 @@ export interface AuthProfileDto {
 
 export const AuthRole = {
     Admin: 'Admin',
+    Manager: 'Manager',
     User: 'User'
 } as const;
 

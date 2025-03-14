@@ -112,8 +112,8 @@ export class SsoUsersService {
   }) {
     if (
       roles?.length &&
-      roles.find(
-        (r) => !this.ssoStaticEnvironments.userAvailableRoles?.includes(r)
+      !roles.find((r) =>
+        this.ssoStaticEnvironments.userAvailableRoles?.includes(r)
       )
     ) {
       this.logger.debug({
@@ -121,8 +121,11 @@ export class SsoUsersService {
           user,
           projectId,
           roles,
-          userAvailableRoles: this.ssoStaticEnvironments.userAvailableRoles,
         },
+        userAvailableRoles: this.ssoStaticEnvironments.userAvailableRoles,
+        result: roles.find((r) =>
+          this.ssoStaticEnvironments.userAvailableRoles?.includes(r)
+        ),
       });
       throw new SsoError(SsoErrorEnum.NonExistentRoleSpecified);
     }

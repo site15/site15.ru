@@ -12,21 +12,21 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  flatResourceStructure           = "false"
-  reExport                        = "false"
-  classValidation                 = "true"
-  createDtoPrefix                 = "Create"
-  entitySuffix                    = ""
-  dtoSuffix                       = "Dto"
-  exportRelationModifierClasses   = "true"
-  updateDtoPrefix                 = "Update"
-  definiteAssignmentAssertion     = "true"
-  prettier                        = "true"
   entityPrefix                    = ""
+  prettier                        = "true"
+  entitySuffix                    = ""
+  createDtoPrefix                 = "Create"
   noDependencies                  = "false"
+  classValidation                 = "true"
+  definiteAssignmentAssertion     = "true"
   fileNamingStyle                 = "kebab"
+  exportRelationModifierClasses   = "true"
+  reExport                        = "false"
   annotateAllDtoProperties        = "true"
   outputToNestJsResourceStructure = "false"
+  updateDtoPrefix                 = "Update"
+  dtoSuffix                       = "Dto"
+  flatResourceStructure           = "false"
 }
 
 model AuthUser {
@@ -64,5 +64,6 @@ model migrations_auth {
 
 enum AuthRole {
   Admin
+  Manager
   User
 }
