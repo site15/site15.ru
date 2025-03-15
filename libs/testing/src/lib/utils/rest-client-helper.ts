@@ -21,7 +21,6 @@ import {
 import { getUrls } from './get-urls';
 
 import WebSocket from 'ws';
-import { log } from 'console';
 
 export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   ssoTokensResponse?: TokensResponse;

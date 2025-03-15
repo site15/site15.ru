@@ -19,6 +19,7 @@ import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';
 import { WebhookRole } from '@prisma/webhook-client';
+
 @Injectable()
 export class SsoAuthConfiguration implements AuthConfiguration {
   private logger = new Logger(SsoAuthConfiguration.name);
