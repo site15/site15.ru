@@ -46,6 +46,7 @@ export class SsoServiceBootstrap implements OnModuleInit {
         if (!existsProject) {
           await this.prismaClient.ssoProject.create({
             data: {
+              public: false,
               name: this.ssoStaticEnvironments.defaultClientName,
               clientId: this.ssoStaticEnvironments.defaultClientId,
               clientSecret: this.ssoStaticEnvironments.defaultClientSecret,

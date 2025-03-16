@@ -71,6 +71,21 @@ export class SsoProjectFormService {
             required: true,
           },
         },
+        {
+          key: SsoProjectScalarFieldEnumInterface.public,
+          type: 'checkbox',
+          validation: {
+            show: true,
+          },
+          defaultValue: false,
+          props: {
+            label: this.translocoService.translate(
+              `sso-project.form.fields.public`
+            ),
+            placeholder: 'public',
+            required: true,
+          },
+        },
       ],
       options?.errors || []
     );

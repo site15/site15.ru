@@ -106,6 +106,9 @@ msgstr "Идентификатор клиента"
 msgid "sso-project.form.fields.client-secret"
 msgstr "Секретный ключ клиента"
 
+msgid "sso-project.form.fields.public"
+msgstr "Публичный"
+
 msgid "sso-user.update-modal.title"
 msgstr "Изменить пользователя #{{ id }}"
 
@@ -192,6 +195,9 @@ msgstr "Идентификатор клиента"
 
 msgid "sso-project.grid.columns.client-secret"
 msgstr "Секретный ключ клиента"
+
+msgid "sso-project.grid.columns.public"
+msgstr "Публичный"
 
 msgid "Success"
 msgstr "Успешно"

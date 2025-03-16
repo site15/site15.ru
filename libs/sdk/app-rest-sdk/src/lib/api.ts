@@ -281,6 +281,12 @@ export interface CreateSsoProjectDto {
      * @memberof CreateSsoProjectDto
      */
     'clientSecret': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateSsoProjectDto
+     */
+    'public': boolean;
 }
 /**
  * 
@@ -1262,6 +1268,12 @@ export interface SsoProject {
     'clientSecret': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof SsoProject
+     */
+    'public': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof SsoProject
      */
@@ -1317,6 +1329,12 @@ export interface SsoProjectDto {
     'clientSecret': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof SsoProjectDto
+     */
+    'public': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof SsoProjectDto
      */
@@ -1339,6 +1357,7 @@ export const SsoProjectScalarFieldEnum = {
     Name: 'name',
     ClientId: 'clientId',
     ClientSecret: 'clientSecret',
+    Public: 'public',
     CreatedAt: 'createdAt',
     UpdatedAt: 'updatedAt'
 } as const;
@@ -2064,6 +2083,12 @@ export interface UpdateSsoProjectDto {
      * @memberof UpdateSsoProjectDto
      */
     'clientSecret'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateSsoProjectDto
+     */
+    'public'?: boolean;
 }
 /**
  * 

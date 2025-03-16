@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateSsoProjectDto {
   @ApiProperty({
@@ -20,4 +20,10 @@ export class CreateSsoProjectDto {
   @IsNotEmpty()
   @IsString()
   clientSecret!: string;
+  @ApiProperty({
+    type: 'boolean',
+  })
+  @IsNotEmpty()
+  @IsBoolean()
+  public!: boolean;
 }

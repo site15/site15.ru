@@ -16,6 +16,7 @@ export interface SsoProjectInterface {
     name: string;
     clientId: string;
     clientSecret: string;
+    'public': boolean;
     createdAt: string;
     updatedAt: string;
     SsoRefreshSession?: Array<SsoRefreshSessionInterface>;

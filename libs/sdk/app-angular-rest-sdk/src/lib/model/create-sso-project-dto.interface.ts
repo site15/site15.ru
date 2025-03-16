@@ -13,5 +13,6 @@ export interface CreateSsoProjectDtoInterface {
     name: string;
     clientId: string;
     clientSecret: string;
+    'public': boolean;
 }
 

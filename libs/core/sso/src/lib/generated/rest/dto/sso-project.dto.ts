@@ -18,6 +18,10 @@ export class SsoProjectDto {
   })
   clientSecret!: string;
   @ApiProperty({
+    type: 'boolean',
+  })
+  public!: boolean;
+  @ApiProperty({
     type: 'string',
     format: 'date-time',
   })

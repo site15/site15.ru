@@ -31,6 +31,7 @@ export class SsoProjectMapperService {
 
   toJson(data: SsoProjectModel) {
     return {
+      public: data.public === true,
       name: data.name || '',
       clientId: data.clientId || '',
       clientSecret: data.clientSecret || '',

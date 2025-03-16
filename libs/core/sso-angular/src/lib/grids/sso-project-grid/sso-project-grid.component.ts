@@ -74,6 +74,7 @@ export class SsoProjectGridComponent implements OnInit {
     SsoProjectScalarFieldEnumInterface.name,
     SsoProjectScalarFieldEnumInterface.clientId,
     SsoProjectScalarFieldEnumInterface.clientSecret,
+    SsoProjectScalarFieldEnumInterface.public,
   ];
   columns = {
     [SsoProjectScalarFieldEnumInterface.id]: marker(
@@ -87,6 +88,9 @@ export class SsoProjectGridComponent implements OnInit {
     ),
     [SsoProjectScalarFieldEnumInterface.clientSecret]: marker(
       'sso-project.grid.columns.client-secret'
+    ),
+    [SsoProjectScalarFieldEnumInterface.public]: marker(
+      'sso-project.grid.columns.public'
     ),
   };
   SsoProjectScalarFieldEnumInterface = SsoProjectScalarFieldEnumInterface;

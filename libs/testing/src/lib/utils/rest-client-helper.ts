@@ -216,6 +216,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
           .getSsoApi()
           .ssoProjectsControllerCreateOne(
             {
+              public: false,
               name: this.projectHelper.randomUser.uniqId,
               clientId: this.projectHelper.randomUser.id,
               clientSecret: this.projectHelper.randomUser.password,

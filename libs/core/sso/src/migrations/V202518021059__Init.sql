@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS "SsoProject"(
     "name" varchar(255) NOT NULL,
     "clientId" varchar(100) NOT NULL,
     "clientSecret" varchar(255) NOT NULL,
+    "public" boolean NOT NULL,
     "createdAt" timestamp DEFAULT now() NOT NULL,
     "updatedAt" timestamp DEFAULT now() NOT NULL
 );
@@ -17,7 +18,10 @@ EXCEPTION
 END
 $$;
 
+CREATE INDEX IF NOT EXISTS "IDX_SSO_PROJECTS__PUBLIC" ON "SsoProject"("public");
+
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_PROJECTS__CLIENT_ID" ON "SsoProject"("clientId");
+
 
 CREATE TABLE IF NOT EXISTS "SsoUser"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,

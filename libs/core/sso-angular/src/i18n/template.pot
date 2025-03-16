@@ -105,6 +105,9 @@ msgstr "Client id"
 msgid "sso-project.form.fields.client-secret"
 msgstr "Client secret"
 
+msgid "sso-project.form.fields.public"
+msgstr "Public"
+
 msgid "sso-user.update-modal.title"
 msgstr "Edit user #{{ id }}"
 
@@ -191,6 +194,9 @@ msgstr "Client ID"
 
 msgid "sso-project.grid.columns.client-secret"
 msgstr "Client secret"
+
+msgid "sso-project.grid.columns.public"
+msgstr "Public"
 
 msgid "Success"
 msgstr "Success"

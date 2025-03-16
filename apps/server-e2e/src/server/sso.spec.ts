@@ -25,6 +25,7 @@ describe('Sso (e2e)', () => {
     try {
       await user.getSsoApi().ssoProjectsControllerCreateOne(
         {
+          public: false,
           name: project.randomUser.uniqId,
           clientId: project.randomUser.id,
           clientSecret: project.randomUser.password,
@@ -47,6 +48,7 @@ describe('Sso (e2e)', () => {
       .getSsoApi()
       .ssoProjectsControllerCreateOne(
         {
+          public: false,
           name: project.randomUser.uniqId,
           clientId: project.randomUser.id,
           clientSecret: project.randomUser.password,

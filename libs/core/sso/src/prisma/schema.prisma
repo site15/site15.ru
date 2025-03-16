@@ -12,19 +12,19 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  exportRelationModifierClasses   = "true"
-  updateDtoPrefix                 = "Update"
-  flatResourceStructure           = "false"
-  outputToNestJsResourceStructure = "false"
-  definiteAssignmentAssertion     = "true"
-  annotateAllDtoProperties        = "true"
-  entitySuffix                    = ""
-  prettier                        = "true"
   noDependencies                  = "false"
-  createDtoPrefix                 = "Create"
-  reExport                        = "false"
+  entitySuffix                    = ""
   fileNamingStyle                 = "kebab"
+  outputToNestJsResourceStructure = "false"
+  flatResourceStructure           = "false"
   entityPrefix                    = ""
+  definiteAssignmentAssertion     = "true"
+  exportRelationModifierClasses   = "true"
+  reExport                        = "false"
+  annotateAllDtoProperties        = "true"
+  prettier                        = "true"
+  createDtoPrefix                 = "Create"
+  updateDtoPrefix                 = "Update"
   classValidation                 = "true"
   dtoSuffix                       = "Dto"
 }
@@ -35,6 +35,7 @@ model SsoProject {
   name              String              @db.VarChar(255)
   clientId          String              @unique(map: "UQ_SSO_PROJECTS__CLIENT_ID") @db.VarChar(100)
   clientSecret      String              @db.VarChar(255)
+  public            Boolean
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
   createdAt         DateTime            @default(now()) @db.Timestamp(6)
@@ -43,6 +44,8 @@ model SsoProject {
   updatedAt         DateTime            @default(now()) @db.Timestamp(6)
   SsoRefreshSession SsoRefreshSession[]
   SsoUser           SsoUser[]
+
+  @@index([public], map: "IDX_SSO_PROJECTS__PUBLIC")
 }
 
 model SsoUser {
