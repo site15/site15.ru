@@ -34,6 +34,7 @@ model/find-many-notification-response.interface.ts
 model/find-many-response-meta.interface.ts
 model/find-many-sso-project-response.interface.ts
 model/find-many-sso-refresh-session-response.interface.ts
+model/find-many-sso-role-response.interface.ts
 model/find-many-sso-user-response.interface.ts
 model/find-many-webhook-log-response.interface.ts
 model/find-many-webhook-response.interface.ts

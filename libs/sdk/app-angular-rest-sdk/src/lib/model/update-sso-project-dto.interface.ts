@@ -10,6 +10,7 @@
 
 
 export interface UpdateSsoProjectDtoInterface { 
+    name?: string;
     clientId?: string;
     clientSecret?: string;
 }

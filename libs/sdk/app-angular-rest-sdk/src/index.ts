@@ -32,6 +32,7 @@ export * from './lib/model/find-many-notification-response.interface';
 export * from './lib/model/find-many-response-meta.interface';
 export * from './lib/model/find-many-sso-project-response.interface';
 export * from './lib/model/find-many-sso-refresh-session-response.interface';
+export * from './lib/model/find-many-sso-role-response.interface';
 export * from './lib/model/find-many-sso-user-response.interface';
 export * from './lib/model/find-many-webhook-log-response.interface';
 export * from './lib/model/find-many-webhook-response.interface';

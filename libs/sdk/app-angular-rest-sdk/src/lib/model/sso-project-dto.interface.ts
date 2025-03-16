@@ -11,6 +11,7 @@
 
 export interface SsoProjectDtoInterface { 
     id: string;
+    name: string;
     clientId: string;
     clientSecret: string;
     createdAt: string;

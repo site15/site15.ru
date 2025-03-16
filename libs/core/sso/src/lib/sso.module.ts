@@ -28,6 +28,7 @@ import { SSO_FEATURE, SSO_MODULE } from './sso.constants';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
+import { SsoRolesController } from './controllers/sso-roles.controller';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -62,6 +63,7 @@ export const { SsoModule } = createNestModule({
     SsoUsersController,
     SsoProjectsController,
     SsoRefreshSessionsController,
+    SsoRolesController,
   ],
   providers: [SsoServiceBootstrap],
   sharedProviders: [
@@ -96,10 +98,11 @@ export const { SsoModule } = createNestModule({
 
     // all routes
     for (const ctrl of [
-      SsoRefreshSessionsController,
-      SsoProjectsController,
-      SsoUsersController,
       SsoController,
+      SsoUsersController,
+      SsoProjectsController,
+      SsoRefreshSessionsController,
+      SsoRolesController,
     ]) {
       if (staticEnvironments?.useFilters) {
         UseFilters(SsoExceptionsFilter)(ctrl);

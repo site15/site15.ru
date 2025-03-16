@@ -29,6 +29,7 @@ describe('Sso with check notifications (e2e)', () => {
     const { data: createOneResult } = await admin
       .getSsoApi()
       .ssoProjectsControllerCreateOne({
+        name: project.randomUser.uniqId,
         clientId: project.randomUser.id,
         clientSecret: project.randomUser.password,
       });

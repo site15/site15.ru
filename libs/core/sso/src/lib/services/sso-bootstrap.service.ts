@@ -1,13 +1,18 @@
 import { isInfrastructureMode } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
-import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  OnApplicationBootstrap,
+  OnModuleInit,
+} from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoCacheService } from './sso-cache.service';
 
 @Injectable()
-export class SsoServiceBootstrap implements OnApplicationBootstrap {
+export class SsoServiceBootstrap implements OnModuleInit {
   private readonly logger = new Logger(SsoServiceBootstrap.name);
 
   constructor(
@@ -17,7 +22,7 @@ export class SsoServiceBootstrap implements OnApplicationBootstrap {
     private readonly ssoCacheService: SsoCacheService
   ) {}
 
-  async onApplicationBootstrap() {
+  async onModuleInit() {
     if (isInfrastructureMode()) {
       return;
     }
@@ -28,18 +33,20 @@ export class SsoServiceBootstrap implements OnApplicationBootstrap {
   private async createDefaultProjects() {
     try {
       if (
+        this.ssoStaticEnvironments.defaultClientName &&
         this.ssoStaticEnvironments.defaultClientId &&
         this.ssoStaticEnvironments.defaultClientSecret
       ) {
-        const existsUser = await this.prismaClient.ssoProject.findFirst({
+        const existsProject = await this.prismaClient.ssoProject.findFirst({
           where: {
             clientId: this.ssoStaticEnvironments.defaultClientId,
             clientSecret: this.ssoStaticEnvironments.defaultClientSecret,
           },
         });
-        if (!existsUser) {
+        if (!existsProject) {
           await this.prismaClient.ssoProject.create({
             data: {
+              name: this.ssoStaticEnvironments.defaultClientName,
               clientId: this.ssoStaticEnvironments.defaultClientId,
               clientSecret: this.ssoStaticEnvironments.defaultClientSecret,
             },

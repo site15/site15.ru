@@ -9,9 +9,9 @@
  */
 
 
-export interface CreateSsoProjectDtoInterface { 
-    name: string;
-    clientId: string;
-    clientSecret: string;
+export interface FindManySsoRoleResponseInterface { 
+    userAvailableRoles: Array<string>;
+    userDefaultRoles: Array<string>;
+    adminDefaultRoles: Array<string>;
 }
 

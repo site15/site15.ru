@@ -71,12 +71,16 @@ export class SsoProjectGridComponent implements OnInit {
   selectedIds$ = new BehaviorSubject<string[]>([]);
   keys = [
     SsoProjectScalarFieldEnumInterface.id,
+    SsoProjectScalarFieldEnumInterface.name,
     SsoProjectScalarFieldEnumInterface.clientId,
     SsoProjectScalarFieldEnumInterface.clientSecret,
   ];
   columns = {
     [SsoProjectScalarFieldEnumInterface.id]: marker(
       'sso-project.grid.columns.id'
+    ),
+    [SsoProjectScalarFieldEnumInterface.name]: marker(
+      'sso-project.grid.columns.name'
     ),
     [SsoProjectScalarFieldEnumInterface.clientId]: marker(
       'sso-project.grid.columns.client-id'

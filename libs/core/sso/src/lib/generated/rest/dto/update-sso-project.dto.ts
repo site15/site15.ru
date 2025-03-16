@@ -8,6 +8,13 @@ export class UpdateSsoProjectDto {
   })
   @IsOptional()
   @IsString()
+  name?: string;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
   clientId?: string;
   @ApiProperty({
     type: 'string',

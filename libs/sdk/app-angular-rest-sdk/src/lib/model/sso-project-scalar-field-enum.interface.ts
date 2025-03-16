@@ -9,10 +9,11 @@
  */
 
 
-export type SsoProjectScalarFieldEnumInterface = 'id' | 'clientId' | 'clientSecret' | 'createdAt' | 'updatedAt';
+export type SsoProjectScalarFieldEnumInterface = 'id' | 'name' | 'clientId' | 'clientSecret' | 'createdAt' | 'updatedAt';
 
 export const SsoProjectScalarFieldEnumInterface = {
     id: 'id' as SsoProjectScalarFieldEnumInterface,
+    name: 'name' as SsoProjectScalarFieldEnumInterface,
     clientId: 'clientId' as SsoProjectScalarFieldEnumInterface,
     clientSecret: 'clientSecret' as SsoProjectScalarFieldEnumInterface,
     createdAt: 'createdAt' as SsoProjectScalarFieldEnumInterface,

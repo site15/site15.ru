@@ -7,6 +7,12 @@ export class CreateSsoProjectDto {
   })
   @IsNotEmpty()
   @IsString()
+  name!: string;
+  @ApiProperty({
+    type: 'string',
+  })
+  @IsNotEmpty()
+  @IsString()
   clientId!: string;
   @ApiProperty({
     type: 'string',

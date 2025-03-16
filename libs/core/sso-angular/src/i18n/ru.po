@@ -97,6 +97,9 @@ msgstr "Пользовательские данные"
 msgid "sso-session.form.fields.user-ip"
 msgstr "ИП-адрес"
 
+msgid "sso-project.form.fields.name"
+msgstr "Название"
+
 msgid "sso-project.form.fields.client-id"
 msgstr "Идентификатор клиента"
 
@@ -180,6 +183,9 @@ msgstr "Нет"
 
 msgid "sso-project.grid.columns.id"
 msgstr "ИД."
+
+msgid "sso-project.grid.columns.name"
+msgstr "Название"
 
 msgid "sso-project.grid.columns.client-id"
 msgstr "Идентификатор клиента"

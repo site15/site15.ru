@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SsoConfiguration } from '../sso.configuration';
 import { SsoStaticEnvironments } from '../sso.environments';
+import { SsoError } from '../sso.errors';
 import { SsoRequest } from '../types/sso-request';
 import { SsoCacheService } from './sso-cache.service';
 
@@ -33,6 +34,8 @@ export class SsoProjectService {
       );
       if (project) {
         req.ssoProject = project;
+      } else {
+        throw new SsoError('Project not found');
       }
     }
     return req.ssoProject;

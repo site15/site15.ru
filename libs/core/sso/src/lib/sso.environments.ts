@@ -90,6 +90,11 @@ export class SsoStaticEnvironments {
   adminSecret?: string;
 
   @EnvModelProperty({
+    description: 'Default client name',
+  })
+  defaultClientName?: string;
+
+  @EnvModelProperty({
     description: 'Default client ID',
   })
   defaultClientId?: string;

@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS "SsoProject"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    "clientId" text NOT NULL,
-    "clientSecret" text NOT NULL,
+    "name" varchar(255) NOT NULL,
+    "clientId" varchar(100) NOT NULL,
+    "clientSecret" varchar(255) NOT NULL,
     "createdAt" timestamp DEFAULT now() NOT NULL,
     "updatedAt" timestamp DEFAULT now() NOT NULL
 );
@@ -20,13 +21,13 @@ CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_PROJECTS__CLIENT_ID" ON "SsoProject"("
 
 CREATE TABLE IF NOT EXISTS "SsoUser"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
-    email varchar(254) NOT NULL,
-    phone varchar(254),
-    username varchar(254),
-    password varchar(254) NOT NULL,
-    "roles" varchar(254),
-    "firstname" varchar(254),
-    "lastname" varchar(254),
+    email varchar(255) NOT NULL,
+    phone varchar(255),
+    username varchar(255),
+    password varchar(255) NOT NULL,
+    "roles" varchar(255),
+    "firstname" varchar(255),
+    "lastname" varchar(255),
     "gender" varchar(1),
     "birthdate" timestamp,
     "picture" text,
@@ -68,8 +69,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_USERS__USERNAME" ON "SsoUser"(username
 CREATE TABLE IF NOT EXISTS "SsoRefreshSession"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     "refreshToken" uuid NOT NULL,
-    "userAgent" varchar(254),
-    "fingerprint" varchar(254),
+    "userAgent" varchar(255),
+    "fingerprint" varchar(255),
     "userIp" varchar(128),
     "expiresAt" timestamp,
     "userData" jsonb,

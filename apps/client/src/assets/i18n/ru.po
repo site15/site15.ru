@@ -7,17 +7,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-msgid "Source code"
-msgstr "Исходный код"
-
 msgid "You are logged in as {{email}}"
 msgstr "Вы вошли в систему как {{email}}"
 
+msgid "Source code"
+msgstr "Исходный код"
+
 msgid "Home"
 msgstr "Домашняя страница"
-
-msgid "Demo"
-msgstr "Демо"
 
 msgid "Webhooks"
 msgstr "Вебхуки"
@@ -76,30 +73,8 @@ msgstr ""
 "Режим Docker-compose prod: инфраструктура и приложения, встроенные в образы "
 "Docker, запускаются с помощью docker-compose"
 
-
-msgid "Prepare"
-msgstr "Подготовка"
-
 msgid "Hello Static"
 msgstr "Привет Статика"
-
-msgid "Create new"
-msgstr "Создать"
-
-msgid "Action"
-msgstr "Действия"
-
-msgid "Edit"
-msgstr "Изменить"
-
-msgid "Delete"
-msgstr "Удалить"
-
-msgid "Save"
-msgstr "Сохранить"
-
-msgid "Create"
-msgstr "Создать"
 
 msgid "en"
 msgstr "EN"
@@ -115,54 +90,6 @@ msgstr "Русский"
 
 msgid "client"
 msgstr "клиент"
-
-msgid "Update demo"
-msgstr "Обновить демо"
-
-msgid "Create demo"
-msgstr "Создать демо"
-
-msgid "Cancel"
-msgstr "Отмена"
-
-msgid "Delete demo #{{id}}"
-msgstr "Удалить демо #{{id}}"
-
-msgid "Yes"
-msgstr "Да"
-
-msgid "No"
-msgstr "Нет"
-
-msgid "app-demo.grid.columns.id"
-msgstr "ИД."
-
-msgid "app-demo.grid.columns.name"
-msgstr "Название"
-
-msgid "app-demo.grid.columns.created-at"
-msgstr "Дата создания"
-
-msgid "app-demo.grid.columns.updated-at"
-msgstr "Дата обновления"
-
-msgid "demo.form.fields.name"
-msgstr "Название"
-
-msgid "read-only field, set and updated on the backend"
-msgstr "поле только для чтения, устанавливается и обновляется на бэкэнде"
-
-msgid "Success"
-msgstr "Успешно"
-
-msgid "Validation errors"
-msgstr "Ошибка при проверке данных"
-
-msgid "id not set"
-msgstr "идентификатор не установлен"
-
-msgid "Unauthorized"
-msgstr "Неавторизован"
 
 msgid "auth.sign-in-form.fields.timezone"
 msgstr "Часовой пояс"
@@ -283,3 +210,75 @@ msgstr "UTC+13:00: Самоа, Тонга"
 
 msgid "UTC+14:00: Date Line (east)"
 msgstr "UTC+14:00: Линия перемены дат (восток)"
+
+msgid "Demo"
+msgstr "Демо"
+
+msgid "Prepare"
+msgstr "Подготовка"
+
+msgid "Create new"
+msgstr "Создать"
+
+msgid "Action"
+msgstr "Действия"
+
+msgid "Edit"
+msgstr "Изменить"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Create"
+msgstr "Создать"
+
+msgid "Update demo"
+msgstr "Обновить демо"
+
+msgid "Create demo"
+msgstr "Создать демо"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Delete demo #{{id}}"
+msgstr "Удалить демо #{{id}}"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "app-demo.grid.columns.id"
+msgstr "ИД."
+
+msgid "app-demo.grid.columns.name"
+msgstr "Название"
+
+msgid "app-demo.grid.columns.created-at"
+msgstr "Дата создания"
+
+msgid "app-demo.grid.columns.updated-at"
+msgstr "Дата обновления"
+
+msgid "demo.form.fields.name"
+msgstr "Название"
+
+msgid "read-only field, set and updated on the backend"
+msgstr "поле только для чтения, устанавливается и обновляется на бэкэнде"
+
+msgid "Success"
+msgstr "Успешно"
+
+msgid "Validation errors"
+msgstr "Ошибка при проверке данных"
+
+msgid "id not set"
+msgstr "идентификатор не установлен"
+
+msgid "Unauthorized"
+msgstr "Неавторизован"

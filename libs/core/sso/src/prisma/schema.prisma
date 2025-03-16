@@ -12,28 +12,29 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
+  exportRelationModifierClasses   = "true"
+  updateDtoPrefix                 = "Update"
+  flatResourceStructure           = "false"
+  outputToNestJsResourceStructure = "false"
+  definiteAssignmentAssertion     = "true"
+  annotateAllDtoProperties        = "true"
+  entitySuffix                    = ""
+  prettier                        = "true"
+  noDependencies                  = "false"
+  createDtoPrefix                 = "Create"
   reExport                        = "false"
   fileNamingStyle                 = "kebab"
   entityPrefix                    = ""
-  dtoSuffix                       = "Dto"
-  definiteAssignmentAssertion     = "true"
-  noDependencies                  = "false"
-  entitySuffix                    = ""
-  exportRelationModifierClasses   = "true"
-  createDtoPrefix                 = "Create"
   classValidation                 = "true"
-  prettier                        = "true"
-  flatResourceStructure           = "false"
-  outputToNestJsResourceStructure = "false"
-  updateDtoPrefix                 = "Update"
-  annotateAllDtoProperties        = "true"
+  dtoSuffix                       = "Dto"
 }
 
 model SsoProject {
   /// @DtoCreateHidden
   id                String              @id(map: "PK_SSO_PROJECTS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  clientId          String              @unique(map: "UQ_SSO_PROJECTS__CLIENT_ID")
-  clientSecret      String
+  name              String              @db.VarChar(255)
+  clientId          String              @unique(map: "UQ_SSO_PROJECTS__CLIENT_ID") @db.VarChar(100)
+  clientSecret      String              @db.VarChar(255)
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
   createdAt         DateTime            @default(now()) @db.Timestamp(6)
@@ -47,14 +48,14 @@ model SsoProject {
 model SsoUser {
   /// @DtoCreateHidden
   id                String              @id(map: "PK_SSO_USERS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  email             String              @db.VarChar(254)
-  phone             String?             @db.VarChar(254)
-  username          String?             @db.VarChar(254)
+  email             String              @db.VarChar(255)
+  phone             String?             @db.VarChar(255)
+  username          String?             @db.VarChar(255)
   /// @DtoEntityHidden
-  password          String              @db.VarChar(254)
-  roles             String?             @db.VarChar(254)
-  firstname         String?             @db.VarChar(254)
-  lastname          String?             @db.VarChar(254)
+  password          String              @db.VarChar(255)
+  roles             String?             @db.VarChar(255)
+  firstname         String?             @db.VarChar(255)
+  lastname          String?             @db.VarChar(255)
   gender            String?             @db.VarChar(1)
   birthdate         DateTime?           @db.Timestamp(6)
   picture           String?
@@ -97,9 +98,9 @@ model SsoRefreshSession {
   id           String     @id(map: "PK_SSO_REFRESH_SESSIONS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   /// @DtoEntityHidden
   refreshToken String     @db.Uuid
-  userAgent    String?    @db.VarChar(254)
+  userAgent    String?    @db.VarChar(255)
   /// @DtoEntityHidden
-  fingerprint  String?    @db.VarChar(254)
+  fingerprint  String?    @db.VarChar(255)
   userIp       String?    @db.VarChar(128)
   expiresAt    DateTime?  @db.Timestamp(6)
   userData     Json?

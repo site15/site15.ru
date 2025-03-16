@@ -96,6 +96,9 @@ msgstr "User data"
 msgid "sso-session.form.fields.user-ip"
 msgstr "IP address"
 
+msgid "sso-project.form.fields.name"
+msgstr "Name"
+
 msgid "sso-project.form.fields.client-id"
 msgstr "Client id"
 
@@ -179,6 +182,9 @@ msgstr "No"
 
 msgid "sso-project.grid.columns.id"
 msgstr "ID"
+
+msgid "sso-project.grid.columns.name"
+msgstr "Name"
 
 msgid "sso-project.grid.columns.client-id"
 msgstr "Client ID"

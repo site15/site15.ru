@@ -16,8 +16,10 @@ export interface SsoUserModel
       | 'createdAt'
       | 'updatedAt'
       | 'appData'
+      | 'roles'
     >
   > {
+  roles: string[];
   appData?: string | null;
   emailVerifiedAt?: Date | null;
   phoneVerifiedAt?: Date | null;
@@ -31,6 +33,7 @@ export class SsoUserMapperService {
   toModel(item?: SsoUserDtoInterface): SsoUserModel {
     return {
       ...item,
+      roles: item?.roles ? item.roles.split(',') : [],
       appData: item?.appData ? JSON.stringify(item.appData) : '',
       emailVerifiedAt: item?.emailVerifiedAt
         ? addHours(new Date(item.emailVerifiedAt), BROWSER_TIMEZONE_OFFSET)
@@ -70,7 +73,7 @@ export class SsoUserMapperService {
       email: data.email || '',
       phone: data.phone || '',
       username: data.username || '',
-      roles: data.roles || '',
+      roles: data.roles.length ? data.roles.join(',') : '',
       firstname: data.firstname || '',
       lastname: data.lastname || '',
       gender: data.gender || '',

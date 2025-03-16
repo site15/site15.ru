@@ -18,6 +18,7 @@ export * from './find-many-notification-response.interface';
 export * from './find-many-response-meta.interface';
 export * from './find-many-sso-project-response.interface';
 export * from './find-many-sso-refresh-session-response.interface';
+export * from './find-many-sso-role-response.interface';
 export * from './find-many-sso-user-response.interface';
 export * from './find-many-webhook-log-response.interface';
 export * from './find-many-webhook-response.interface';

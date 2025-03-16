@@ -268,6 +268,12 @@ export interface CreateSsoProjectDto {
      * @type {string}
      * @memberof CreateSsoProjectDto
      */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSsoProjectDto
+     */
     'clientId': string;
     /**
      * 
@@ -479,6 +485,31 @@ export interface FindManySsoRefreshSessionResponse {
      * @memberof FindManySsoRefreshSessionResponse
      */
     'meta': FindManyResponseMeta;
+}
+/**
+ * 
+ * @export
+ * @interface FindManySsoRoleResponse
+ */
+export interface FindManySsoRoleResponse {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof FindManySsoRoleResponse
+     */
+    'userAvailableRoles': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof FindManySsoRoleResponse
+     */
+    'userDefaultRoles': Array<string>;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof FindManySsoRoleResponse
+     */
+    'adminDefaultRoles': Array<string>;
 }
 /**
  * 
@@ -1216,6 +1247,12 @@ export interface SsoProject {
      * @type {string}
      * @memberof SsoProject
      */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoProject
+     */
     'clientId': string;
     /**
      * 
@@ -1265,6 +1302,12 @@ export interface SsoProjectDto {
      * @type {string}
      * @memberof SsoProjectDto
      */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoProjectDto
+     */
     'clientId': string;
     /**
      * 
@@ -1293,6 +1336,7 @@ export interface SsoProjectDto {
 
 export const SsoProjectScalarFieldEnum = {
     Id: 'id',
+    Name: 'name',
     ClientId: 'clientId',
     ClientSecret: 'clientSecret',
     CreatedAt: 'createdAt',
@@ -2002,6 +2046,12 @@ export interface UpdateProfileArgs {
  * @interface UpdateSsoProjectDto
  */
 export interface UpdateSsoProjectDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoProjectDto
+     */
+    'name'?: string;
     /**
      * 
      * @type {string}
@@ -4300,6 +4350,35 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoRolesControllerFindMany: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sso/roles`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} projectId 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
@@ -4652,6 +4731,17 @@ export const SsoApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoRolesControllerFindMany(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoRoleResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoRolesControllerFindMany(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoRolesControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {string} projectId 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
@@ -4863,6 +4953,14 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
          */
         ssoRefreshSessionsControllerUpdateOne(id: string, updateSsoRefreshSessionDto: UpdateSsoRefreshSessionDto, options?: RawAxiosRequestConfig): AxiosPromise<SsoRefreshSessionDto> {
             return localVarFp.ssoRefreshSessionsControllerUpdateOne(id, updateSsoRefreshSessionDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoRolesControllerFindMany(options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoRoleResponse> {
+            return localVarFp.ssoRolesControllerFindMany(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5101,6 +5199,16 @@ export class SsoApi extends BaseAPI {
      */
     public ssoRefreshSessionsControllerUpdateOne(id: string, updateSsoRefreshSessionDto: UpdateSsoRefreshSessionDto, options?: RawAxiosRequestConfig) {
         return SsoApiFp(this.configuration).ssoRefreshSessionsControllerUpdateOne(id, updateSsoRefreshSessionDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoRolesControllerFindMany(options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoRolesControllerFindMany(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import {
+  SsoRestService,
   SsoUserScalarFieldEnumInterface,
   UpdateSsoUserDtoInterface,
   ValidationErrorMetadataInterface,
@@ -8,18 +9,33 @@ import {
 import { ValidationService } from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { of } from 'rxjs';
+import { map, of, tap } from 'rxjs';
 
 @UntilDestroy()
 @Injectable({ providedIn: 'root' })
 export class SsoUserFormService {
+  private cachedRoles?: string[];
+
   constructor(
     protected readonly translocoService: TranslocoService,
-    protected readonly validationService: ValidationService
+    protected readonly validationService: ValidationService,
+    protected readonly ssoRestService: SsoRestService
   ) {}
 
   init() {
     return of(true);
+  }
+
+  getRoles() {
+    if (this.cachedRoles) {
+      return of(this.cachedRoles);
+    }
+    return this.ssoRestService.ssoRolesControllerFindMany().pipe(
+      map((data) => {
+        this.cachedRoles = data.userAvailableRoles;
+        return this.cachedRoles;
+      })
+    );
   }
 
   getFormlyFields(options?: {
@@ -195,7 +211,7 @@ export class SsoUserFormService {
         },
         {
           key: SsoUserScalarFieldEnumInterface.roles,
-          type: 'input',
+          type: 'select',
           validation: {
             show: true,
           },
@@ -205,6 +221,16 @@ export class SsoUserFormService {
             ),
             placeholder: 'roles',
             required: false,
+            multiple: true,
+            options: this.getRoles().pipe(
+              map((roles) =>
+                roles.map((role) => ({
+                  value: role,
+                  label: role,
+                }))
+              ),
+              tap(console.log)
+            ),
           },
         },
         {

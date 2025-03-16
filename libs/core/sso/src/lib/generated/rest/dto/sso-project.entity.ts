@@ -10,6 +10,10 @@ export class SsoProject {
   @ApiProperty({
     type: 'string',
   })
+  name!: string;
+  @ApiProperty({
+    type: 'string',
+  })
   clientId!: string;
   @ApiProperty({
     type: 'string',

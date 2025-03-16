@@ -129,57 +129,35 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     password: string;
     email: string;
   }): Promise<void | null> {
-    if (
-      this.ssoStaticEnvironments.defaultClientId &&
-      this.ssoStaticEnvironments.defaultClientSecret
-    ) {
-      const adminProject = await this.prismaClient.ssoProject.upsert({
-        create: {
-          clientId: this.ssoStaticEnvironments.defaultClientId,
-          clientSecret: this.ssoStaticEnvironments.defaultClientSecret,
+    try {
+      const signupUserResult = await this.ssoService.create({
+        user: {
+          username: user.username,
+          password: user.password,
+          email: user.email.toLowerCase(),
         },
-        update: {},
-        where: { clientId: this.ssoStaticEnvironments.defaultClientId },
+        roles: this.ssoStaticEnvironments.adminDefaultRoles,
       });
 
-      await this.ssoCacheService.clearCacheProjectByClientId(
-        this.ssoStaticEnvironments.defaultClientId
+      await this.prismaClient.ssoUser.update({
+        data: { emailVerifiedAt: new Date() },
+        where: {
+          id: signupUserResult.id,
+        },
+      });
+
+      await this.ssoCacheService.clearCacheByUserId({
+        userId: signupUserResult.id,
+      });
+
+      this.logger.debug(
+        `Admin with email: ${signupUserResult.email} successfully created!`
       );
-
-      try {
-        const signupUserResult = await this.ssoService.create({
-          user: {
-            username: user.username,
-            password: user.password,
-            email: user.email.toLowerCase(),
-          },
-          projectId: adminProject.id,
-          roles: this.ssoStaticEnvironments.adminDefaultRoles,
-        });
-
-        await this.prismaClient.ssoUser.update({
-          data: { emailVerifiedAt: new Date() },
-          where: {
-            email_projectId: {
-              email: user.email,
-              projectId: adminProject.id,
-            },
-          },
-        });
-
-        await this.ssoCacheService.clearCacheByUserId({
-          userId: signupUserResult.id,
-        });
-
-        this.logger.debug(
-          `Admin with email: ${signupUserResult.email} successfully created!`
-        );
-      } catch (err) {
-        if (
-          !(err instanceof SsoError && err.code === SsoErrorEnum.EmailIsExists)
-        ) {
-          this.logger.error(err, err.stack);
-        }
+    } catch (err) {
+      if (
+        !(err instanceof SsoError && err.code === SsoErrorEnum.EmailIsExists)
+      ) {
+        this.logger.error(err, err.stack);
       }
     }
   }

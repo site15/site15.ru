@@ -107,7 +107,7 @@ export class SsoUsersService {
     roles,
   }: {
     user: CreateSsoUserDto;
-    projectId: string;
+    projectId?: string;
     roles?: string[];
   }) {
     if (
@@ -139,7 +139,11 @@ export class SsoUsersService {
           ...user,
           username: user.username,
           password: hashedPassword,
-          projectId: projectId,
+          SsoProject: {
+            connect: projectId
+              ? { id: projectId }
+              : { clientId: this.ssoStaticEnvironments.defaultClientId },
+          },
           roles: roles ? roles.join(',') : null,
         },
       });

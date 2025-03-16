@@ -6,17 +6,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-msgid "Source code"
-msgstr "Source code"
-
 msgid "You are logged in as {{email}}"
 msgstr "You are logged in as {{email}}"
 
+msgid "Source code"
+msgstr "Source code"
+
 msgid "Home"
 msgstr "Home"
-
-msgid "Demo"
-msgstr "Demo"
 
 msgid "Webhooks"
 msgstr "Webhooks"
@@ -75,29 +72,8 @@ msgstr ""
 "Docker-compose prod mode: the infrastructure and applications built into "
 "Docker images are run using docker-compose"
 
-msgid "Prepare"
-msgstr "Prepare"
-
 msgid "Hello Static"
 msgstr "Hello Static"
-
-msgid "Create new"
-msgstr "Create new"
-
-msgid "Action"
-msgstr "Action"
-
-msgid "Edit"
-msgstr "Edit"
-
-msgid "Delete"
-msgstr "Delete"
-
-msgid "Save"
-msgstr "Save"
-
-msgid "Create"
-msgstr "Create"
 
 msgid "en"
 msgstr "EN"
@@ -113,54 +89,6 @@ msgstr "Russian"
 
 msgid "client"
 msgstr "client"
-
-msgid "Update demo"
-msgstr "Update demo"
-
-msgid "Create demo"
-msgstr "Create demo"
-
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "Delete demo #{{id}}"
-msgstr "Delete demo #{{id}}"
-
-msgid "Yes"
-msgstr "Yes"
-
-msgid "No"
-msgstr "No"
-
-msgid "app-demo.grid.columns.id"
-msgstr "ID"
-
-msgid "app-demo.grid.columns.name"
-msgstr "Name"
-
-msgid "app-demo.grid.columns.created-at"
-msgstr "Created at"
-
-msgid "app-demo.grid.columns.updated-at"
-msgstr "Updated at"
-
-msgid "demo.form.fields.name"
-msgstr "Name"
-
-msgid "read-only field, set and updated on the backend"
-msgstr "read-only field, set and updated on the backend"
-
-msgid "Success"
-msgstr "Success"
-
-msgid "Validation errors"
-msgstr "Validation errors"
-
-msgid "id not set"
-msgstr "id not set"
-
-msgid "Unauthorized"
-msgstr "Unauthorized"
 
 msgid "auth.sign-in-form.fields.timezone"
 msgstr "Timezone"
@@ -281,3 +209,75 @@ msgstr "UTC+13:00: Samoa, Tonga"
 
 msgid "UTC+14:00: Date Line (east)"
 msgstr "UTC+14:00: Date Line (east)"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "Prepare"
+msgstr "Prepare"
+
+msgid "Create new"
+msgstr "Create new"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Create"
+msgstr "Create"
+
+msgid "Update demo"
+msgstr "Update demo"
+
+msgid "Create demo"
+msgstr "Create demo"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Delete demo #{{id}}"
+msgstr "Delete demo #{{id}}"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "app-demo.grid.columns.id"
+msgstr "ID"
+
+msgid "app-demo.grid.columns.name"
+msgstr "Name"
+
+msgid "app-demo.grid.columns.created-at"
+msgstr "Created at"
+
+msgid "app-demo.grid.columns.updated-at"
+msgstr "Updated at"
+
+msgid "demo.form.fields.name"
+msgstr "Name"
+
+msgid "read-only field, set and updated on the backend"
+msgstr "read-only field, set and updated on the backend"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "Validation errors"
+msgstr "Validation errors"
+
+msgid "id not set"
+msgstr "id not set"
+
+msgid "Unauthorized"
+msgstr "Unauthorized"

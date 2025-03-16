@@ -30,6 +30,20 @@ export class SsoProjectFormService {
     return this.validationService.appendServerErrorsAsValidatorsToFields(
       [
         {
+          key: SsoProjectScalarFieldEnumInterface.name,
+          type: 'input',
+          validation: {
+            show: true,
+          },
+          props: {
+            label: this.translocoService.translate(
+              `sso-project.form.fields.name`
+            ),
+            placeholder: 'name',
+            required: true,
+          },
+        },
+        {
           key: SsoProjectScalarFieldEnumInterface.clientId,
           type: 'input',
           validation: {
