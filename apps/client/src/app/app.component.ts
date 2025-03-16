@@ -31,7 +31,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { BehaviorSubject, map, merge, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, map, merge, mergeMap, switchMap, tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -72,9 +72,26 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.loadAvailableLangs();
+
+    this.subscribeToRefreshActiveLang();
     this.subscribeToLangChanges();
 
     this.fillServerTime().pipe(untilDestroyed(this)).subscribe();
+  }
+
+  private subscribeToRefreshActiveLang() {
+    this.authService.profile$
+      .asObservable()
+      .pipe(
+        mergeMap((profile) => {
+          if (!profile) {
+            this.authActiveLangService.clearLocalStorage();
+          }
+          return this.authActiveLangService.refreshActiveLang();
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe();
   }
 
   setActiveLang(lang: string) {

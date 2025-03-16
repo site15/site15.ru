@@ -15,8 +15,7 @@ import {
   AuthService,
   TokensService,
 } from '@nestjs-mod-sso/auth-angular';
-import { ActiveLangService } from '@nestjs-mod-sso/common-angular';
-import { catchError, map, merge, mergeMap, of, Subscription, tap } from 'rxjs';
+import { catchError, merge, mergeMap, of, Subscription, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AppInitializer {
@@ -33,18 +32,13 @@ export class AppInitializer {
     private readonly ssoRestService: SsoRestService,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
-    private readonly authActiveLangService: AuthActiveLangService,
-    private readonly activeLangService: ActiveLangService
+    private readonly authActiveLangService: AuthActiveLangService
   ) {}
 
   resolve() {
     this.subscribeToTokenUpdates();
     return this.authService.refreshToken().pipe(
-      mergeMap(() => this.authActiveLangService.getActiveLang()),
-      mergeMap((activeLang) =>
-        this.translocoService.load(activeLang).pipe(map(() => activeLang))
-      ),
-      tap((activeLang) => this.activeLangService.applyActiveLang(activeLang)),
+      mergeMap(() => this.authActiveLangService.refreshActiveLang()),
       catchError((err) => {
         console.error(err);
         return of(true);
