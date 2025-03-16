@@ -33,6 +33,7 @@ model/find-many-auth-user-response.interface.ts
 model/find-many-notification-response.interface.ts
 model/find-many-response-meta.interface.ts
 model/find-many-sso-project-response.interface.ts
+model/find-many-sso-public-project-response.interface.ts
 model/find-many-sso-refresh-session-response.interface.ts
 model/find-many-sso-role-response.interface.ts
 model/find-many-sso-user-response.interface.ts
@@ -62,6 +63,7 @@ model/sso-error.interface.ts
 model/sso-project-dto.interface.ts
 model/sso-project-scalar-field-enum.interface.ts
 model/sso-project.interface.ts
+model/sso-public-project-dto.interface.ts
 model/sso-refresh-session-dto.interface.ts
 model/sso-refresh-session-scalar-field-enum.interface.ts
 model/sso-refresh-session.interface.ts

@@ -29,6 +29,7 @@ import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
 import { SsoRolesController } from './controllers/sso-roles.controller';
+import { SsoPublicProjectsController } from './controllers/sso-public-projects.controller';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -64,6 +65,7 @@ export const { SsoModule } = createNestModule({
     SsoProjectsController,
     SsoRefreshSessionsController,
     SsoRolesController,
+    SsoPublicProjectsController,
   ],
   providers: [SsoServiceBootstrap],
   sharedProviders: [
@@ -103,6 +105,7 @@ export const { SsoModule } = createNestModule({
       SsoProjectsController,
       SsoRefreshSessionsController,
       SsoRolesController,
+      SsoPublicProjectsController,
     ]) {
       if (staticEnvironments?.useFilters) {
         UseFilters(SsoExceptionsFilter)(ctrl);

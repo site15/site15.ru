@@ -68,6 +68,26 @@
           </li>
         </ul>
       </li>
+      @if (publicProjects$ | async; as publicProjects) {
+      <li
+        nz-submenu
+        [nzTitle]="
+          (activePublicProject$ | async)?.name ||
+          ('Select active project' | transloco)
+        "
+        [style]="{ float: 'right' }"
+      >
+        <ul>
+          <li
+            *ngFor="let publicProject of publicProjects$ | async"
+            nz-menu-item
+            (click)="setActivePublicProject(publicProject)"
+          >
+            {{ publicProject.name }}
+          </li>
+        </ul>
+      </li>
+      }
     </ul>
   </nz-header>
   <nz-content>

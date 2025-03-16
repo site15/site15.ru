@@ -20,6 +20,34 @@ export class SsoProjectService {
       .pipe(map(this.ssoProjectMapperService.toModel));
   }
 
+  findManyPublic({
+    filters,
+    meta,
+  }: {
+    filters: Record<string, string>;
+    meta?: RequestMeta;
+  }) {
+    return this.ssoRestService
+      .ssoPublicProjectsControllerFindMany(
+        meta?.curPage,
+        meta?.perPage,
+        filters['search'],
+        meta?.sort
+          ? Object.entries(meta?.sort)
+              .map(([key, value]) => `${key}:${value}`)
+              .join(',')
+          : undefined
+      )
+      .pipe(
+        map(({ meta, ssoPublicProjects }) => ({
+          meta,
+          ssoPublicProjects: ssoPublicProjects.map(
+            this.ssoProjectMapperService.toPublicModel
+          ),
+        }))
+      );
+  }
+
   findMany({
     filters,
     meta,

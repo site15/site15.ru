@@ -476,6 +476,25 @@ export interface FindManySsoProjectResponse {
 /**
  * 
  * @export
+ * @interface FindManySsoPublicProjectResponse
+ */
+export interface FindManySsoPublicProjectResponse {
+    /**
+     * 
+     * @type {Array<SsoPublicProjectDto>}
+     * @memberof FindManySsoPublicProjectResponse
+     */
+    'ssoPublicProjects': Array<SsoPublicProjectDto>;
+    /**
+     * 
+     * @type {FindManyResponseMeta}
+     * @memberof FindManySsoPublicProjectResponse
+     */
+    'meta': FindManyResponseMeta;
+}
+/**
+ * 
+ * @export
  * @interface FindManySsoRefreshSessionResponse
  */
 export interface FindManySsoRefreshSessionResponse {
@@ -1365,6 +1384,43 @@ export const SsoProjectScalarFieldEnum = {
 export type SsoProjectScalarFieldEnum = typeof SsoProjectScalarFieldEnum[keyof typeof SsoProjectScalarFieldEnum];
 
 
+/**
+ * 
+ * @export
+ * @interface SsoPublicProjectDto
+ */
+export interface SsoPublicProjectDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoPublicProjectDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoPublicProjectDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoPublicProjectDto
+     */
+    'clientId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoPublicProjectDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoPublicProjectDto
+     */
+    'updatedAt': string;
+}
 /**
  * 
  * @export
@@ -4247,6 +4303,55 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoPublicProjectsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sso/public-projects`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (curPage !== undefined) {
+                localVarQueryParameter['curPage'] = curPage;
+            }
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['perPage'] = perPage;
+            }
+
+            if (searchText !== undefined) {
+                localVarQueryParameter['searchText'] = searchText;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} userId 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
@@ -4715,6 +4820,21 @@ export const SsoApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoPublicProjectsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoPublicProjectResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoPublicProjectsControllerFindMany(curPage, perPage, searchText, sort, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoPublicProjectsControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {string} userId 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
@@ -4946,6 +5066,18 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
          */
         ssoProjectsControllerUpdateOne(id: string, updateSsoProjectDto: UpdateSsoProjectDto, options?: RawAxiosRequestConfig): AxiosPromise<SsoProjectDto> {
             return localVarFp.ssoProjectsControllerUpdateOne(id, updateSsoProjectDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoPublicProjectsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoPublicProjectResponse> {
+            return localVarFp.ssoPublicProjectsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5186,6 +5318,20 @@ export class SsoApi extends BaseAPI {
      */
     public ssoProjectsControllerUpdateOne(id: string, updateSsoProjectDto: UpdateSsoProjectDto, options?: RawAxiosRequestConfig) {
         return SsoApiFp(this.configuration).ssoProjectsControllerUpdateOne(id, updateSsoProjectDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoPublicProjectsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoPublicProjectsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
