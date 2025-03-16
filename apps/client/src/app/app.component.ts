@@ -73,13 +73,13 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.loadAvailableLangs();
 
-    this.subscribeToRefreshActiveLang();
+    this.subscribeToChangeProfile();
     this.subscribeToLangChanges();
 
     this.fillServerTime().pipe(untilDestroyed(this)).subscribe();
   }
 
-  private subscribeToRefreshActiveLang() {
+  private subscribeToChangeProfile() {
     this.authService.profile$
       .asObservable()
       .pipe(
