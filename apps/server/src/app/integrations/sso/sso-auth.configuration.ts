@@ -85,8 +85,8 @@ export class SsoAuthConfiguration implements AuthConfiguration {
 
     if (req?.ssoUser?.id) {
       // common
-      // req.externalUserId = req.ssoUser.id;
-      // req.externalTenantId = req.ssoProject.id;
+      req.externalUserId = req.ssoUser.id;
+      req.externalTenantId = req.ssoProject.id;
 
       // webhook
       const webhookUserRole = searchIn(req.ssoUser?.roles, [
@@ -105,11 +105,6 @@ export class SsoAuthConfiguration implements AuthConfiguration {
           userRole: webhookUserRole,
         });
         req.webhookUser.userRole = webhookUserRole;
-
-        if (req.webhookUser) {
-          req.externalUserId = req.webhookUser.externalUserId;
-          req.externalTenantId = req.webhookUser.externalTenantId;
-        }
       }
 
       // files

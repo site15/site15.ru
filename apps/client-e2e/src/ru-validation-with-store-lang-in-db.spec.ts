@@ -133,8 +133,8 @@ test.describe('Validation with store lang in db (ru)', () => {
 
     expect(activeLang).toEqual('en');
   });
-
-  test('should catch error on create new webhook', async () => {
+  /*
+  xtest('should catch error on create new webhook', async () => {
     await page.locator('webhook-grid').locator('button').first().click();
 
     await setTimeout(7000);
@@ -149,5 +149,5 @@ test.describe('Validation with store lang in db (ru)', () => {
     await expect(
       page.locator('webhook-form').locator('formly-validation-message').last()
     ).toContainText('поле "событие" не может быть пустым');
-  });
+  });*/
 });

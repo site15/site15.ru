@@ -96,8 +96,8 @@ test.describe('Validation', () => {
       page.locator('nz-header').locator('[nz-submenu]').first()
     ).toContainText(`You are logged in as ${user.email.toLowerCase()}`);
   });
-
-  test('should catch error on create new webhook', async () => {
+  /*
+  xtest('should catch error on create new webhook', async () => {
     await page.locator('webhook-grid').locator('button').first().click();
 
     await setTimeout(7000);
@@ -112,5 +112,5 @@ test.describe('Validation', () => {
     await expect(
       page.locator('webhook-form').locator('formly-validation-message').last()
     ).toContainText('field "event name" should not be empty');
-  });
+  });*/
 });

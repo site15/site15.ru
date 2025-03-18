@@ -7,6 +7,7 @@ import {
   NotificationsApi,
   SsoApi,
   SsoProject,
+  SsoUserDto,
   TimeApi,
   TokensResponse,
   WebhookApi,
@@ -27,6 +28,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
   private webhookProfile?: WebhookUser;
   private authProfile?: AuthProfileDto;
+  private ssoProfile?: SsoUserDto;
 
   private ssoApi?: SsoApi;
   private webhookApi?: WebhookApi;
@@ -75,6 +77,10 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
   getAuthProfile() {
     return this.authProfile;
+  }
+
+  getSsoProfile() {
+    return this.ssoProfile;
   }
 
   getGeneratedRandomUser(): Required<GenerateRandomUserResult> {
@@ -173,9 +179,9 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     return this.notificationsApi;
   }
 
-  async setRoles(userId: string, role: AuthRole) {
-    await this.getAuthApi().authUsersControllerUpdateOne(userId, {
-      userRole: role,
+  async setRoles(userId: string, roles: AuthRole[]) {
+    await this.getSsoApi().ssoUsersControllerUpdateOne(userId, {
+      roles: roles.map((r) => r.toLowerCase()).join(','),
     });
 
     return this;
@@ -322,6 +328,10 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
     if (this.authApi) {
       this.authProfile = (await this.getAuthApi().authControllerProfile()).data;
+    }
+
+    if (this.ssoApi) {
+      this.ssoProfile = (await this.getSsoApi().ssoControllerProfile()).data;
     }
   }
 

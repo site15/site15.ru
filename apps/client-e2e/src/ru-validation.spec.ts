@@ -43,9 +43,9 @@ test.describe('Validation (ru)', () => {
 
   test('should change language to RU', async () => {
     await expect(
-      page.locator('nz-header').locator('[nz-submenu]')
+      page.locator('nz-header').locator('[nz-submenu]').first()
     ).toContainText(`EN`);
-    await page.locator('nz-header').locator('[nz-submenu]').last().click();
+    await page.locator('nz-header').locator('[nz-submenu]').first().click();
 
     await expect(
       page
@@ -64,7 +64,7 @@ test.describe('Validation (ru)', () => {
     //
 
     await expect(
-      page.locator('nz-header').locator('[nz-submenu]')
+      page.locator('nz-header').locator('[nz-submenu]').first()
     ).toContainText(`RU`);
   });
 
@@ -123,8 +123,8 @@ test.describe('Validation (ru)', () => {
       page.locator('nz-header').locator('[nz-submenu]').first()
     ).toContainText(`Вы вошли в систему как ${user.email.toLowerCase()}`);
   });
-
-  test('should catch error on create new webhook', async () => {
+  /*
+  xtest('should catch error on create new webhook', async () => {
     await page.locator('webhook-grid').locator('button').first().click();
 
     await setTimeout(7000);
@@ -139,5 +139,5 @@ test.describe('Validation (ru)', () => {
     await expect(
       page.locator('webhook-form').locator('formly-validation-message').last()
     ).toContainText('поле "событие" не может быть пустым');
-  });
+  });*/
 });

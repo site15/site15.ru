@@ -40,7 +40,7 @@ export class AppInitializer {
   resolve() {
     this.subscribeToTokenUpdates();
     return this.authService.refreshToken().pipe(
-      mergeMap(() => this.authActiveLangService.refreshActiveLang()),
+      mergeMap(() => this.authActiveLangService.refreshActiveLang(true)),
       catchError((err) => {
         console.error(err);
         return of(true);

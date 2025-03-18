@@ -37,9 +37,9 @@ test.describe('basic usage (ru)', () => {
 
   test('should change language to RU', async () => {
     await expect(
-      page.locator('nz-header').locator('[nz-submenu]')
+      page.locator('nz-header').locator('[nz-submenu]').first()
     ).toContainText(`EN`);
-    await page.locator('nz-header').locator('[nz-submenu]').last().click();
+    await page.locator('nz-header').locator('[nz-submenu]').first().click();
 
     await expect(
       page
@@ -58,7 +58,7 @@ test.describe('basic usage (ru)', () => {
     //
 
     await expect(
-      page.locator('nz-header').locator('[nz-submenu]')
+      page.locator('nz-header').locator('[nz-submenu]').first()
     ).toContainText(`RU`);
   });
 

@@ -20,7 +20,6 @@ describe('Sso forgot password with check notifications (e2e)', () => {
     admin = new RestClientHelper({
       headers: {
         'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET,
-        'x-client-id': project.randomUser.id,
       },
     });
   });
@@ -58,7 +57,8 @@ describe('Sso forgot password with check notifications (e2e)', () => {
         undefined,
         undefined,
         user.randomUser.email,
-        undefined
+        undefined,
+        { headers: { 'x-client-id': project.randomUser.id } }
       );
     expect(findManyResult.notifications).toHaveLength(1);
     const code = findManyResult.notifications[0].html
@@ -120,7 +120,8 @@ describe('Sso forgot password with check notifications (e2e)', () => {
         undefined,
         undefined,
         user.randomUser.email,
-        undefined
+        undefined,
+        { headers: { 'x-client-id': project.randomUser.id } }
       );
     expect(findManyResult.notifications).toHaveLength(2);
     const code = findManyResult.notifications[0].html
@@ -156,11 +157,14 @@ describe('Sso forgot password with check notifications (e2e)', () => {
   });
 
   it('Sign-in with new password', async () => {
-    const { data: signInResult } = await user.getSsoApi().ssoControllerSignIn({
-      email: user.randomUser.email,
-      password: user.randomUser.newPassword,
-      fingerprint: user.randomUser.id,
-    });
+    const { data: signInResult } = await user.getSsoApi().ssoControllerSignIn(
+      {
+        email: user.randomUser.email,
+        password: user.randomUser.newPassword,
+        fingerprint: user.randomUser.id,
+      },
+      { headers: { 'x-client-id': project.randomUser.id } }
+    );
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
     expect(signInResult).toHaveProperty('user');

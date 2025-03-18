@@ -20,7 +20,6 @@ describe('Sso with check notifications (e2e)', () => {
     admin = new RestClientHelper({
       headers: {
         'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET,
-        'x-client-id': project.randomUser.id,
       },
     });
   });
@@ -57,7 +56,12 @@ describe('Sso with check notifications (e2e)', () => {
         undefined,
         undefined,
         user.randomUser.email,
-        undefined
+        undefined,
+        {
+          headers: {
+            'x-client-id': project.randomUser.id,
+          },
+        }
       );
     expect(findManyResult.notifications).toHaveLength(1);
     const code = findManyResult.notifications[0].html
