@@ -34,14 +34,15 @@ export class SsoAuthConfiguration implements AuthConfiguration {
 
   logout(): Observable<void | null> {
     const refreshToken = this.tokensService.getRefreshToken();
-    if (!refreshToken) {
-      throw new Error('refreshToken not set');
-    }
     return from(
       this.ssoRestService.ssoControllerSignOut({
         refreshToken,
       })
-    ).pipe(map(() => null));
+    ).pipe(
+      map(() => {
+        this.tokensService.setTokens({});
+      })
+    );
   }
 
   getProfile(): Observable<AuthUser | undefined> {
@@ -124,9 +125,6 @@ export class SsoAuthConfiguration implements AuthConfiguration {
 
   refreshToken(): Observable<AuthUserAndTokens | undefined> {
     const refreshToken = this.tokensService.getRefreshToken();
-    if (!refreshToken) {
-      return of(undefined);
-    }
     return this.tokensService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
         this.ssoRestService

@@ -3,7 +3,6 @@ process.env.TZ = 'UTC';
 (BigInt.prototype as any).toJSON = function () {
   return this.toString();
 };
-
 import { AUTH_FEATURE, AUTH_FOLDER, SkipAuthGuard } from '@nestjs-mod-sso/auth';
 import {
   NOTIFICATIONS_FEATURE,
@@ -49,8 +48,10 @@ import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
 import { ExecutionContext } from '@nestjs/common';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import cookieParser from 'cookie-parser';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
+import { APP_FEATURE } from './app/app.constants';
 import {
   appFolder,
   AppModule,
@@ -62,7 +63,6 @@ import {
   MainWebhookModule,
   rootFolder,
 } from './environments/environment';
-import { APP_FEATURE } from './app/app.constants';
 
 bootstrapNestApplication({
   project: {
@@ -92,6 +92,7 @@ bootstrapNestApplication({
           async preListen(options) {
             if (options.app) {
               options.app.setGlobalPrefix('api');
+              options.app.use(cookieParser());
 
               const swaggerConf = new DocumentBuilder().addBearerAuth().build();
               const document = SwaggerModule.createDocument(
