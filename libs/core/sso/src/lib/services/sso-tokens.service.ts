@@ -47,8 +47,19 @@ export class SsoTokensService {
       currentRefreshSession =
         await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
           include: { SsoUser: true },
-          where: { fingerprint, refreshToken, projectId, enabled: true },
+          where: { fingerprint, refreshToken, enabled: true },
         });
+      // if (
+      //   !currentRefreshSession.SsoUser.roles
+      //     ?.split(',')
+      //     .find((r) =>
+      //       this.ssoStaticEnvironments.adminDefaultRoles?.includes(r)
+      //     ) &&
+      //   currentRefreshSession.projectId !== projectId
+      // ) {
+      //   throw new SsoError(SsoErrorEnum.RefreshTokenNotProvided);
+      // }
+      projectId = currentRefreshSession.projectId;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
@@ -66,7 +77,7 @@ export class SsoTokensService {
     try {
       await this.prismaClient.ssoRefreshSession.updateMany({
         data: { enabled: false },
-        where: { fingerprint, refreshToken, projectId },
+        where: { fingerprint, refreshToken },
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -239,13 +250,12 @@ export class SsoTokensService {
         await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
           where: {
             refreshToken,
-            projectId,
           },
         });
 
       this.prismaClient.ssoRefreshSession.updateMany({
         data: { enabled: false },
-        where: { refreshToken, projectId },
+        where: { refreshToken },
       });
 
       await this.ssoCacheService.clearCacheByRefreshSession(refreshToken);

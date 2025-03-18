@@ -68,7 +68,9 @@
           </li>
         </ul>
       </li>
-      @if (publicProjects$ | async; as publicProjects) {
+      @if ( (([AuthRoleInterface.Admin]|checkUserRoles|async) ||
+      ([]|checkUserRoles|async)) && (publicProjects$ | async); as
+      publicProjects) {
       <li
         nz-submenu
         [nzTitle]="

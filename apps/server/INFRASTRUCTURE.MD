@@ -581,6 +581,7 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 |`userAvailableRoles`|`obj['userAvailableRoles']`, `process.env['SERVER_SSO_USER_AVAILABLE_ROLES']`|**optional**|[ ```admin```, ```manager```, ```user``` ]|
 |`userDefaultRoles`|`obj['userDefaultRoles']`, `process.env['SERVER_SSO_USER_DEFAULT_ROLES']`|**optional**|[ ```user``` ]|
 |`adminDefaultRoles`|`obj['adminDefaultRoles']`, `process.env['SERVER_SSO_ADMIN_DEFAULT_ROLES']`|**optional**|[ ```admin``` ]|
+|`managerDefaultRoles`|`obj['managerDefaultRoles']`, `process.env['SERVER_SSO_MANAGER_DEFAULT_ROLES']`|**optional**|[ ```manager``` ]|
 |`jwtSecretKey`|`obj['jwtSecretKey']`, `process.env['SERVER_SSO_JWT_SECRET_KEY']`|**optional**|```AcJwUY9AP6FPf8XnfwbSuW7ZjwoaPiFJ```|
 |`jwtAccessTokenExpiresIn`|`obj['jwtAccessTokenExpiresIn']`, `process.env['SERVER_SSO_JWT_ACCESS_TOKEN_EXPIRES_IN']`|**isNotEmpty** (jwtAccessTokenExpiresIn should not be empty)|```30m```|
 |`jwtRefreshTokenExpiresIn`|`obj['jwtRefreshTokenExpiresIn']`, `process.env['SERVER_SSO_JWT_REFRESH_TOKEN_EXPIRES_IN']`|**isNotEmpty** (jwtRefreshTokenExpiresIn should not be empty)|```24h```|
@@ -647,7 +648,8 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 |`useGuards`|`obj['useGuards']`, `process.env['SERVER_WEBHOOK_USE_GUARDS']`|**optional**|```true```|
 |`useFilters`|`obj['useFilters']`, `process.env['SERVER_WEBHOOK_USE_FILTERS']`|**optional**|```true```|
 |`autoCreateUser`|`obj['autoCreateUser']`, `process.env['SERVER_WEBHOOK_AUTO_CREATE_USER']`|**optional**|```true```|
-|`checkHeaders`|`obj['checkHeaders']`, `process.env['SERVER_WEBHOOK_CHECK_HEADERS']`|**optional**|```false```|
+|`searchTenantIdInHeaders`|`obj['searchTenantIdInHeaders']`, `process.env['SERVER_WEBHOOK_SEARCH_TENANT_ID_IN_HEADERS']`|**optional**|```false```|
+|`searchUserIdInHeaders`|`obj['searchUserIdInHeaders']`, `process.env['SERVER_WEBHOOK_SEARCH_USER_ID_IN_HEADERS']`|**optional**|```false```|
 |`skipGuardErrors`|`obj['skipGuardErrors']`, `process.env['SERVER_WEBHOOK_SKIP_GUARD_ERRORS']`|**optional**|```false```|
 |`superAdminExternalUserId`|`obj['superAdminExternalUserId']`, `process.env['SERVER_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID']`|**optional**|```248ec37f-628d-43f0-8de2-f58da037dd0f```|
 

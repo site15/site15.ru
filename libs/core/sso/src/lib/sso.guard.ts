@@ -16,9 +16,10 @@ import {
   SsoCheckHaveClientSecret,
   SsoCheckIsAdmin,
 } from './sso.decorators';
+import { SsoStaticEnvironments } from './sso.environments';
 import { SsoError, SsoErrorEnum } from './sso.errors';
 import { SsoRequest } from './types/sso-request';
-import { SsoRole } from './types/sso-role';
+import { searchIn } from '@nestjs-mod-sso/common';
 
 @Injectable()
 export class SsoGuard implements CanActivate {
@@ -29,7 +30,8 @@ export class SsoGuard implements CanActivate {
     private readonly ssoCacheService: SsoCacheService,
     private readonly ssoTokensService: SsoTokensService,
     private readonly ssoProjectService: SsoProjectService,
-    private readonly ssoAdminService: SsoAdminService
+    private readonly ssoAdminService: SsoAdminService,
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -79,7 +81,10 @@ export class SsoGuard implements CanActivate {
       if (checkSsoIsAdmin) {
         if (
           !req.ssoIsAdmin &&
-          !req.ssoUser?.roles?.split(',').includes(SsoRole.admin)
+          !searchIn(
+            req.ssoUser?.roles,
+            this.ssoStaticEnvironments.adminDefaultRoles
+          )
         ) {
           throw new SsoError(SsoErrorEnum.Forbidden);
         }

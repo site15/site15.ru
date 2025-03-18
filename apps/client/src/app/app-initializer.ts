@@ -16,6 +16,7 @@ import {
   TokensService,
 } from '@nestjs-mod-sso/auth-angular';
 import { catchError, merge, mergeMap, of, Subscription, tap } from 'rxjs';
+import { ActiveProjectService } from './integrations/active-project.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppInitializer {
@@ -32,7 +33,8 @@ export class AppInitializer {
     private readonly ssoRestService: SsoRestService,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
-    private readonly authActiveLangService: AuthActiveLangService
+    private readonly authActiveLangService: AuthActiveLangService,
+    private readonly activeProjectService: ActiveProjectService
   ) {}
 
   resolve() {
@@ -51,33 +53,37 @@ export class AppInitializer {
       this.subscribeToTokenUpdatesSubscription.unsubscribe();
       this.subscribeToTokenUpdatesSubscription = undefined;
     }
+    this.updateHeaders();
     this.subscribeToTokenUpdatesSubscription = merge(
       this.tokensService.getStream(),
-      this.translocoService.langChanges$
+      this.translocoService.langChanges$,
+      this.activeProjectService.activePublicProject$
     )
-      .pipe(
-        tap(() => {
-          const authorizationHeaders =
-            this.authConfiguration.getAuthorizationHeaders?.();
-          if (authorizationHeaders) {
-            this.webhookRestService.defaultHeaders = new HttpHeaders(
-              authorizationHeaders
-            );
-            this.filesRestService.defaultHeaders = new HttpHeaders(
-              authorizationHeaders
-            );
-            this.timeRestService.defaultHeaders = new HttpHeaders(
-              authorizationHeaders
-            );
-            this.authRestService.defaultHeaders = new HttpHeaders(
-              authorizationHeaders
-            );
-            this.ssoRestService.defaultHeaders = new HttpHeaders(
-              authorizationHeaders
-            );
-          }
-        })
-      )
+      .pipe(tap(() => this.updateHeaders()))
       .subscribe();
+  }
+
+  private updateHeaders() {
+    if (this.authConfiguration.getAuthorizationHeaders) {
+      const authorizationHeaders =
+        this.authConfiguration.getAuthorizationHeaders();
+      if (authorizationHeaders) {
+        this.webhookRestService.defaultHeaders = new HttpHeaders(
+          authorizationHeaders
+        );
+        this.filesRestService.defaultHeaders = new HttpHeaders(
+          authorizationHeaders
+        );
+        this.timeRestService.defaultHeaders = new HttpHeaders(
+          authorizationHeaders
+        );
+        this.authRestService.defaultHeaders = new HttpHeaders(
+          authorizationHeaders
+        );
+        this.ssoRestService.defaultHeaders = new HttpHeaders(
+          authorizationHeaders
+        );
+      }
+    }
   }
 }

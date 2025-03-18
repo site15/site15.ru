@@ -5626,12 +5626,10 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @param {CreateWebhookDto} createWebhookDto 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerCreateOne: async (createWebhookDto: CreateWebhookDto, xExternalUserId?: string, xExternalTenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookControllerCreateOne: async (createWebhookDto: CreateWebhookDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createWebhookDto' is not null or undefined
             assertParamExists('webhookControllerCreateOne', 'createWebhookDto', createWebhookDto)
             const localVarPath = `/api/webhook`;
@@ -5650,12 +5648,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -5669,12 +5661,10 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerDeleteOne: async (id: string, xExternalUserId?: string, xExternalTenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('webhookControllerDeleteOne', 'id', id)
             const localVarPath = `/api/webhook/{id}`
@@ -5692,12 +5682,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -5709,12 +5693,10 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerEvents: async (xExternalUserId?: string, xExternalTenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookControllerEvents: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/webhook/events`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5729,12 +5711,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -5746,8 +5722,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -5755,7 +5729,7 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerFindMany: async (xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/webhook`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5786,12 +5760,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -5804,8 +5772,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -5813,7 +5779,7 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerFindManyLogs: async (id: string, xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookControllerFindManyLogs: async (id: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('webhookControllerFindManyLogs', 'id', id)
             const localVarPath = `/api/webhook/{id}/logs`
@@ -5847,12 +5813,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -5865,12 +5825,10 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerFindOne: async (id: string, xExternalUserId?: string, xExternalTenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('webhookControllerFindOne', 'id', id)
             const localVarPath = `/api/webhook/{id}`
@@ -5888,12 +5846,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -5905,12 +5857,10 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerProfile: async (xExternalUserId?: string, xExternalTenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookControllerProfile: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/webhook/profile`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5925,12 +5875,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -5944,12 +5888,10 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @param {string} id 
          * @param {UpdateWebhookDto} updateWebhookDto 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerUpdateOne: async (id: string, updateWebhookDto: UpdateWebhookDto, xExternalUserId?: string, xExternalTenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookControllerUpdateOne: async (id: string, updateWebhookDto: UpdateWebhookDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('webhookControllerUpdateOne', 'id', id)
             // verify required parameter 'updateWebhookDto' is not null or undefined
@@ -5971,12 +5913,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -5990,12 +5926,10 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookUsersControllerDeleteOne: async (id: string, xExternalUserId?: string, xExternalTenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookUsersControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('webhookUsersControllerDeleteOne', 'id', id)
             const localVarPath = `/api/webhook/users/{id}`
@@ -6013,12 +5947,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -6030,8 +5958,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -6039,7 +5965,7 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookUsersControllerFindMany: async (xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookUsersControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/webhook/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6070,12 +5996,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -6088,12 +6008,10 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookUsersControllerFindOne: async (id: string, xExternalUserId?: string, xExternalTenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookUsersControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('webhookUsersControllerFindOne', 'id', id)
             const localVarPath = `/api/webhook/users/{id}`
@@ -6111,12 +6029,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -6130,12 +6042,10 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @param {string} id 
          * @param {UpdateWebhookUserDto} updateWebhookUserDto 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookUsersControllerUpdateOne: async (id: string, updateWebhookUserDto: UpdateWebhookUserDto, xExternalUserId?: string, xExternalTenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        webhookUsersControllerUpdateOne: async (id: string, updateWebhookUserDto: UpdateWebhookUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('webhookUsersControllerUpdateOne', 'id', id)
             // verify required parameter 'updateWebhookUserDto' is not null or undefined
@@ -6157,12 +6067,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
-            if (xExternalUserId != null) {
-                localVarHeaderParameter['x-external-user-id'] = String(xExternalUserId);
-            }
-            if (xExternalTenantId != null) {
-                localVarHeaderParameter['x-external-tenant-id'] = String(xExternalTenantId);
-            }
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -6186,13 +6090,11 @@ export const WebhookApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {CreateWebhookDto} createWebhookDto 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookControllerCreateOne(createWebhookDto: CreateWebhookDto, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerCreateOne(createWebhookDto, xExternalUserId, xExternalTenantId, options);
+        async webhookControllerCreateOne(createWebhookDto: CreateWebhookDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerCreateOne(createWebhookDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookControllerCreateOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6200,34 +6102,28 @@ export const WebhookApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerDeleteOne(id, xExternalUserId, xExternalTenantId, options);
+        async webhookControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerDeleteOne(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookControllerEvents(xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<WebhookEvent>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerEvents(xExternalUserId, xExternalTenantId, options);
+        async webhookControllerEvents(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<WebhookEvent>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerEvents(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookControllerEvents']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -6235,8 +6131,8 @@ export const WebhookApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyWebhookResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerFindMany(xExternalUserId, xExternalTenantId, curPage, perPage, searchText, sort, options);
+        async webhookControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyWebhookResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerFindMany(curPage, perPage, searchText, sort, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6244,8 +6140,6 @@ export const WebhookApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -6253,8 +6147,8 @@ export const WebhookApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookControllerFindManyLogs(id: string, xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyWebhookLogResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerFindManyLogs(id, xExternalUserId, xExternalTenantId, curPage, perPage, searchText, sort, options);
+        async webhookControllerFindManyLogs(id: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyWebhookLogResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerFindManyLogs(id, curPage, perPage, searchText, sort, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookControllerFindManyLogs']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6262,26 +6156,22 @@ export const WebhookApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerFindOne(id, xExternalUserId, xExternalTenantId, options);
+        async webhookControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerFindOne(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookControllerFindOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookControllerProfile(xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerProfile(xExternalUserId, xExternalTenantId, options);
+        async webhookControllerProfile(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerProfile(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookControllerProfile']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6290,13 +6180,11 @@ export const WebhookApiFp = function(configuration?: Configuration) {
          * 
          * @param {string} id 
          * @param {UpdateWebhookDto} updateWebhookDto 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookControllerUpdateOne(id: string, updateWebhookDto: UpdateWebhookDto, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerUpdateOne(id, updateWebhookDto, xExternalUserId, xExternalTenantId, options);
+        async webhookControllerUpdateOne(id: string, updateWebhookDto: UpdateWebhookDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookControllerUpdateOne(id, updateWebhookDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6304,21 +6192,17 @@ export const WebhookApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookUsersControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerDeleteOne(id, xExternalUserId, xExternalTenantId, options);
+        async webhookUsersControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerDeleteOne(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookUsersControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -6326,8 +6210,8 @@ export const WebhookApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookUsersControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyWebhookUserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerFindMany(xExternalUserId, xExternalTenantId, curPage, perPage, searchText, sort, options);
+        async webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyWebhookUserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerFindMany(curPage, perPage, searchText, sort, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookUsersControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6335,13 +6219,11 @@ export const WebhookApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookUsersControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerFindOne(id, xExternalUserId, xExternalTenantId, options);
+        async webhookUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerFindOne(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookUsersControllerFindOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6350,13 +6232,11 @@ export const WebhookApiFp = function(configuration?: Configuration) {
          * 
          * @param {string} id 
          * @param {UpdateWebhookUserDto} updateWebhookUserDto 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async webhookUsersControllerUpdateOne(id: string, updateWebhookUserDto: UpdateWebhookUserDto, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerUpdateOne(id, updateWebhookUserDto, xExternalUserId, xExternalTenantId, options);
+        async webhookUsersControllerUpdateOne(id: string, updateWebhookUserDto: UpdateWebhookUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerUpdateOne(id, updateWebhookUserDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookUsersControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6374,39 +6254,31 @@ export const WebhookApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @param {CreateWebhookDto} createWebhookDto 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerCreateOne(createWebhookDto: CreateWebhookDto, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
-            return localVarFp.webhookControllerCreateOne(createWebhookDto, xExternalUserId, xExternalTenantId, options).then((request) => request(axios, basePath));
+        webhookControllerCreateOne(createWebhookDto: CreateWebhookDto, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
+            return localVarFp.webhookControllerCreateOne(createWebhookDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
-            return localVarFp.webhookControllerDeleteOne(id, xExternalUserId, xExternalTenantId, options).then((request) => request(axios, basePath));
+        webhookControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.webhookControllerDeleteOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerEvents(xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<Array<WebhookEvent>> {
-            return localVarFp.webhookControllerEvents(xExternalUserId, xExternalTenantId, options).then((request) => request(axios, basePath));
+        webhookControllerEvents(options?: RawAxiosRequestConfig): AxiosPromise<Array<WebhookEvent>> {
+            return localVarFp.webhookControllerEvents(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -6414,14 +6286,12 @@ export const WebhookApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyWebhookResponse> {
-            return localVarFp.webhookControllerFindMany(xExternalUserId, xExternalTenantId, curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
+        webhookControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyWebhookResponse> {
+            return localVarFp.webhookControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -6429,57 +6299,47 @@ export const WebhookApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerFindManyLogs(id: string, xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyWebhookLogResponse> {
-            return localVarFp.webhookControllerFindManyLogs(id, xExternalUserId, xExternalTenantId, curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
+        webhookControllerFindManyLogs(id: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyWebhookLogResponse> {
+            return localVarFp.webhookControllerFindManyLogs(id, curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
-            return localVarFp.webhookControllerFindOne(id, xExternalUserId, xExternalTenantId, options).then((request) => request(axios, basePath));
+        webhookControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
+            return localVarFp.webhookControllerFindOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerProfile(xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<WebhookUser> {
-            return localVarFp.webhookControllerProfile(xExternalUserId, xExternalTenantId, options).then((request) => request(axios, basePath));
+        webhookControllerProfile(options?: RawAxiosRequestConfig): AxiosPromise<WebhookUser> {
+            return localVarFp.webhookControllerProfile(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
          * @param {UpdateWebhookDto} updateWebhookDto 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookControllerUpdateOne(id: string, updateWebhookDto: UpdateWebhookDto, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
-            return localVarFp.webhookControllerUpdateOne(id, updateWebhookDto, xExternalUserId, xExternalTenantId, options).then((request) => request(axios, basePath));
+        webhookControllerUpdateOne(id: string, updateWebhookDto: UpdateWebhookDto, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
+            return localVarFp.webhookControllerUpdateOne(id, updateWebhookDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookUsersControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
-            return localVarFp.webhookUsersControllerDeleteOne(id, xExternalUserId, xExternalTenantId, options).then((request) => request(axios, basePath));
+        webhookUsersControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.webhookUsersControllerDeleteOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -6487,31 +6347,27 @@ export const WebhookApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookUsersControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyWebhookUserResponse> {
-            return localVarFp.webhookUsersControllerFindMany(xExternalUserId, xExternalTenantId, curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
+        webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyWebhookUserResponse> {
+            return localVarFp.webhookUsersControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookUsersControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<WebhookUser> {
-            return localVarFp.webhookUsersControllerFindOne(id, xExternalUserId, xExternalTenantId, options).then((request) => request(axios, basePath));
+        webhookUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<WebhookUser> {
+            return localVarFp.webhookUsersControllerFindOne(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {string} id 
          * @param {UpdateWebhookUserDto} updateWebhookUserDto 
-         * @param {string} [xExternalUserId] 
-         * @param {string} [xExternalTenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        webhookUsersControllerUpdateOne(id: string, updateWebhookUserDto: UpdateWebhookUserDto, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<WebhookUser> {
-            return localVarFp.webhookUsersControllerUpdateOne(id, updateWebhookUserDto, xExternalUserId, xExternalTenantId, options).then((request) => request(axios, basePath));
+        webhookUsersControllerUpdateOne(id: string, updateWebhookUserDto: UpdateWebhookUserDto, options?: RawAxiosRequestConfig): AxiosPromise<WebhookUser> {
+            return localVarFp.webhookUsersControllerUpdateOne(id, updateWebhookUserDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -6526,45 +6382,37 @@ export class WebhookApi extends BaseAPI {
     /**
      * 
      * @param {CreateWebhookDto} createWebhookDto 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookControllerCreateOne(createWebhookDto: CreateWebhookDto, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookControllerCreateOne(createWebhookDto, xExternalUserId, xExternalTenantId, options).then((request) => request(this.axios, this.basePath));
+    public webhookControllerCreateOne(createWebhookDto: CreateWebhookDto, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookControllerCreateOne(createWebhookDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookControllerDeleteOne(id, xExternalUserId, xExternalTenantId, options).then((request) => request(this.axios, this.basePath));
+    public webhookControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookControllerEvents(xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookControllerEvents(xExternalUserId, xExternalTenantId, options).then((request) => request(this.axios, this.basePath));
+    public webhookControllerEvents(options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookControllerEvents(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {number} [curPage] 
      * @param {number} [perPage] 
      * @param {string} [searchText] 
@@ -6573,15 +6421,13 @@ export class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookControllerFindMany(xExternalUserId, xExternalTenantId, curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
+    public webhookControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {number} [curPage] 
      * @param {number} [perPage] 
      * @param {string} [searchText] 
@@ -6590,66 +6436,56 @@ export class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookControllerFindManyLogs(id: string, xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookControllerFindManyLogs(id, xExternalUserId, xExternalTenantId, curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
+    public webhookControllerFindManyLogs(id: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookControllerFindManyLogs(id, curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookControllerFindOne(id, xExternalUserId, xExternalTenantId, options).then((request) => request(this.axios, this.basePath));
+    public webhookControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookControllerProfile(xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookControllerProfile(xExternalUserId, xExternalTenantId, options).then((request) => request(this.axios, this.basePath));
+    public webhookControllerProfile(options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookControllerProfile(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
      * @param {UpdateWebhookDto} updateWebhookDto 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookControllerUpdateOne(id: string, updateWebhookDto: UpdateWebhookDto, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookControllerUpdateOne(id, updateWebhookDto, xExternalUserId, xExternalTenantId, options).then((request) => request(this.axios, this.basePath));
+    public webhookControllerUpdateOne(id: string, updateWebhookDto: UpdateWebhookDto, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookControllerUpdateOne(id, updateWebhookDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookUsersControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookUsersControllerDeleteOne(id, xExternalUserId, xExternalTenantId, options).then((request) => request(this.axios, this.basePath));
+    public webhookUsersControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookUsersControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {number} [curPage] 
      * @param {number} [perPage] 
      * @param {string} [searchText] 
@@ -6658,35 +6494,31 @@ export class WebhookApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookUsersControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookUsersControllerFindMany(xExternalUserId, xExternalTenantId, curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
+    public webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookUsersControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookUsersControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookUsersControllerFindOne(id, xExternalUserId, xExternalTenantId, options).then((request) => request(this.axios, this.basePath));
+    public webhookUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookUsersControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {string} id 
      * @param {UpdateWebhookUserDto} updateWebhookUserDto 
-     * @param {string} [xExternalUserId] 
-     * @param {string} [xExternalTenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhookApi
      */
-    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDto: UpdateWebhookUserDto, xExternalUserId?: string, xExternalTenantId?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookUsersControllerUpdateOne(id, updateWebhookUserDto, xExternalUserId, xExternalTenantId, options).then((request) => request(this.axios, this.basePath));
+    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDto: UpdateWebhookUserDto, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration).webhookUsersControllerUpdateOne(id, updateWebhookUserDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

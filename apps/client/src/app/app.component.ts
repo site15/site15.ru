@@ -24,20 +24,24 @@ import {
   BROWSER_TIMEZONE_OFFSET,
   webSocket,
 } from '@nestjs-mod-sso/common-angular';
-import {
-  SsoProjectModel,
-  SsoProjectService,
-} from '@nestjs-mod-sso/sso-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { addHours } from 'date-fns';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
+import { SsoProjectModel } from '@nestjs-mod-sso/sso-angular';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { BehaviorSubject, map, merge, mergeMap, switchMap, tap } from 'rxjs';
-
-const AUTH_ACTIVE_USER_PROJECT_ID_STORAGE_KEY = 'activeUserProjectId';
+import {
+  BehaviorSubject,
+  map,
+  merge,
+  mergeMap,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
+import { ActiveProjectService } from './integrations/active-project.service';
 
 @UntilDestroy()
 @Component({
@@ -66,12 +70,9 @@ export class AppComponent implements OnInit {
   lang$ = new BehaviorSubject<string>('');
   availableLangs$ = new BehaviorSubject<LangDefinition[]>([]);
   AuthRoleInterface = AuthRoleInterface;
-  publicProjects$ = new BehaviorSubject<SsoProjectModel[] | undefined>(
-    undefined
-  );
-  activePublicProject$ = new BehaviorSubject<SsoProjectModel | undefined>(
-    undefined
-  );
+
+  publicProjects$?: Observable<SsoProjectModel[] | undefined>;
+  activePublicProject$?: Observable<SsoProjectModel | undefined>;
 
   constructor(
     private readonly timeRestService: TimeRestService,
@@ -80,12 +81,13 @@ export class AppComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
     private readonly authActiveLangService: AuthActiveLangService,
-    private readonly ssoProjectService: SsoProjectService
+    private readonly activeProjectService: ActiveProjectService
   ) {}
 
   ngOnInit() {
-    this.loadAvailableLangs();
     this.loadAvailablePublicProjects();
+
+    this.loadAvailableLangs();
     this.subscribeToChangeProfile();
     this.subscribeToLangChanges();
 
@@ -93,42 +95,16 @@ export class AppComponent implements OnInit {
   }
 
   setActivePublicProject(activePublicProject?: SsoProjectModel) {
-    this.activePublicProject$.next(activePublicProject);
-    if (activePublicProject?.id) {
-      localStorage.setItem(
-        AUTH_ACTIVE_USER_PROJECT_ID_STORAGE_KEY,
-        activePublicProject.id
-      );
-    } else {
-      localStorage.removeItem(AUTH_ACTIVE_USER_PROJECT_ID_STORAGE_KEY);
-    }
+    this.activeProjectService.setActivePublicProject(activePublicProject);
   }
 
   private loadAvailablePublicProjects() {
-    this.ssoProjectService
-      .findManyPublic({ filters: {} })
-      .pipe(
-        tap((projects) => {
-          this.publicProjects$.next(
-            projects.ssoPublicProjects.length > 1
-              ? projects.ssoPublicProjects
-              : undefined
-          );
-          this.setActivePublicProject(
-            projects.ssoPublicProjects.length === 1
-              ? projects.ssoPublicProjects[0]
-              : projects.ssoPublicProjects.find(
-                  (p) =>
-                    p.id ===
-                    localStorage.getItem(
-                      AUTH_ACTIVE_USER_PROJECT_ID_STORAGE_KEY
-                    )
-                )
-          );
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe();
+    this.publicProjects$ =
+      this.activeProjectService.publicProjects$.asObservable();
+    this.activePublicProject$ =
+      this.activeProjectService.activePublicProject$.asObservable();
+
+    this.activeProjectService.loadAvailablePublicProjects();
   }
 
   private subscribeToChangeProfile() {

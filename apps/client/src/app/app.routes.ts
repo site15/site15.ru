@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { AuthRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AUTH_GUARD_DATA_ROUTE_KEY,
   AuthGuardData,
@@ -10,7 +11,6 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { WebhooksComponent } from './pages/webhooks/webhooks.component';
-import { AuthRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

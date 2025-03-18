@@ -61,6 +61,15 @@ export class SsoStaticEnvironments {
   adminDefaultRoles?: string[];
 
   @EnvModelProperty({
+    description: 'Default roles for manager',
+    default: [SsoRole.manager],
+    transform: new ArrayOfStringTransformer(),
+    hidden: true,
+  })
+  @IsOptional()
+  managerDefaultRoles?: string[];
+
+  @EnvModelProperty({
     description: 'Secret key for generate jwt keys',
     default: 'AcJwUY9AP6FPf8XnfwbSuW7ZjwoaPiFJ',
     hidden: true,

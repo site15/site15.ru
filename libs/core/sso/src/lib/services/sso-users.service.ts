@@ -51,15 +51,91 @@ export class SsoUsersService {
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
+      if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
+        this.logger.debug({
+          getAdminById: {
+            id,
+            projectId,
+          },
+        });
+        return this.getAdminById({ id });
+      }
       this.logger.debug({
         getById: {
           id,
           projectId,
         },
       });
+      this.logger.error(err, err.stack);
+      throw err;
+    }
+  }
+
+  async getAdminById({ id }: { id: string }) {
+    const OR =
+      this.ssoStaticEnvironments.adminDefaultRoles?.map((r) => ({
+        roles: {
+          contains: r,
+        },
+      })) || [];
+    try {
+      return await this.prismaClient.ssoUser.findUniqueOrThrow({
+        where: {
+          id,
+          ...(OR.length ? { OR } : {}),
+        },
+      });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      this.logger.debug({
+        getAdminById: {
+          id,
+        },
+        OR,
+      });
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
         throw new SsoError(SsoErrorEnum.UserNotFound);
       }
+      this.logger.error(err, err.stack);
+      throw err;
+    }
+  }
+
+  async getAdminByEmailAndPassword({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) {
+    const OR =
+      this.ssoStaticEnvironments.adminDefaultRoles?.map((r) => ({
+        roles: {
+          contains: r,
+        },
+      })) || [];
+    try {
+      const user = await this.prismaClient.ssoUser.findFirstOrThrow({
+        where: { email, ...(OR.length ? { OR } : {}) },
+      });
+      if (
+        !(await this.ssoPasswordService.comparePasswordWithHash({
+          password,
+          hashedPassword: user.password,
+        }))
+      ) {
+        throw new SsoError(SsoErrorEnum.WrongPassword);
+      }
+      return user;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
+        this.logger.debug({ getAdminByEmailAndPassword: { email }, OR });
+        throw new SsoError(SsoErrorEnum.UserNotFound);
+      }
+      this.logger.debug({
+        getAdminByEmailAndPassword: { email, password },
+      });
       this.logger.error(err, err.stack);
       throw err;
     }
@@ -90,8 +166,13 @@ export class SsoUsersService {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
-        this.logger.debug({ getByEmailAndPassword: { email, projectId } });
-        throw new SsoError(SsoErrorEnum.UserNotFound);
+        this.logger.debug({
+          getByEmailAndPassword: {
+            email,
+            projectId,
+          },
+        });
+        return this.getAdminByEmailAndPassword({ email, password });
       }
       this.logger.debug({
         getByEmailAndPassword: { email, password, projectId },

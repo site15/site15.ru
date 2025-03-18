@@ -228,8 +228,7 @@ export class SsoUserFormService {
                   value: role,
                   label: role,
                 }))
-              ),
-              tap(console.log)
+              )
             ),
           },
         },

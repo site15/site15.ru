@@ -18,6 +18,7 @@ import {
 } from '@nestjs-mod-sso/auth-angular';
 import { FilesService } from '@nestjs-mod-sso/files-angular';
 import { catchError, from, map, mergeMap, Observable, of } from 'rxjs';
+import { ActiveProjectService } from './active-project.service';
 
 export class SsoAuthConfiguration implements AuthConfiguration {
   constructor(
@@ -25,7 +26,8 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     private readonly authRestService: AuthRestService,
     private readonly filesService: FilesService,
     private readonly translocoService: TranslocoService,
-    private readonly tokensService: TokensService
+    private readonly tokensService: TokensService,
+    private readonly activeProjectService: ActiveProjectService
   ) {
     ssoRestService.configuration.withCredentials = true;
   }
@@ -202,6 +204,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     if (!this.tokensService.getAccessToken()) {
       return {
         'Accept-language': lang,
+        ...this.activeProjectService.getAuthorizationHeaders(),
       };
     }
     return {
@@ -209,6 +212,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
         ? { Authorization: `Bearer ${this.tokensService.getAccessToken()}` }
         : {}),
       'Accept-language': lang,
+      ...this.activeProjectService.getAuthorizationHeaders(),
     };
   }
 }
@@ -223,6 +227,7 @@ export function provideSsoAuthConfiguration(): Provider {
       FilesService,
       TranslocoService,
       TokensService,
+      ActiveProjectService,
     ],
   };
 }

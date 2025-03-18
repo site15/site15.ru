@@ -1,4 +1,5 @@
 import { AuthModule, AuthRequest } from '@nestjs-mod-sso/auth';
+import { searchIn, splitIn } from '@nestjs-mod-sso/common';
 import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
 import {
   SsoAdminService,
@@ -7,6 +8,7 @@ import {
   SsoProjectService,
   SsoRequest,
   SsoRole,
+  SsoStaticEnvironments,
   SsoTokensService,
   SsoUsersService,
 } from '@nestjs-mod-sso/sso';
@@ -33,6 +35,7 @@ export class SsoClientGuard implements CanActivate {
   private logger = new Logger(SsoClientGuard.name);
 
   constructor(
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly webhookUsersService: WebhookUsersService,
     private readonly ssoTokensService: SsoTokensService,
     private readonly ssoUsersService: SsoUsersService,
@@ -87,38 +90,50 @@ export class SsoClientGuard implements CanActivate {
       // req.externalTenantId = req.ssoProject.id;
 
       // webhook
-      req.webhookUser = await this.webhookUsersService.createUserIfNotExists({
-        externalUserId: req?.ssoUser?.id,
-        externalTenantId: req?.ssoProject?.id,
-        userRole: req.ssoUser?.roles?.split(',').includes(SsoRole.admin)
-          ? WebhookRole.Admin
-          : WebhookRole.User,
-      });
+      const webhookUserRole = searchIn(req.ssoUser?.roles, [
+        ...(this.ssoStaticEnvironments.adminDefaultRoles || []),
+      ])
+        ? WebhookRole.Admin
+        : searchIn(req.ssoUser?.roles, [
+            ...(this.ssoStaticEnvironments.managerDefaultRoles || []),
+          ])
+        ? WebhookRole.User
+        : undefined;
+      if (webhookUserRole) {
+        req.webhookUser = await this.webhookUsersService.createUserIfNotExists({
+          externalUserId: req?.ssoUser?.id,
+          externalTenantId: req?.ssoProject?.id,
+          userRole: webhookUserRole,
+        });
+        req.webhookUser.userRole = webhookUserRole;
 
-      if (req.webhookUser) {
-        req.externalUserId = req.webhookUser.externalUserId;
-        req.externalTenantId = req.webhookUser.externalTenantId;
+        if (req.webhookUser) {
+          req.externalUserId = req.webhookUser.externalUserId;
+          req.externalTenantId = req.webhookUser.externalTenantId;
+        }
       }
 
       // files
       req.filesUser = {
-        userRole:
-          req.webhookUser?.userRole === WebhookRole.Admin
-            ? FilesRole.Admin
-            : FilesRole.User,
+        userRole: searchIn(req.ssoUser?.roles, SsoRole.admin)
+          ? FilesRole.Admin
+          : FilesRole.User,
       };
 
       if (req.ssoUser?.email && req.ssoUser?.roles) {
         req.externalUser = {
           email: req.ssoUser.email,
-          roles: req.ssoUser.roles?.split(','),
+          roles: splitIn(req.ssoUser.roles),
         };
       }
 
       req.skipEmptyAuthUser = true;
     }
 
-    if (this.ssoAdminService.checkAdminInRequest(req)) {
+    if (
+      this.ssoAdminService.checkAdminInRequest(req) ||
+      searchIn(req.ssoUser?.roles, this.ssoStaticEnvironments.adminDefaultRoles)
+    ) {
       req.skipEmptyAuthUser = true;
     }
 

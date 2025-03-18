@@ -112,26 +112,18 @@ export class WebhookRestService {
 
     /**
      * @param createWebhookDtoInterface 
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookControllerCreateOne(createWebhookDtoInterface: CreateWebhookDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookInterface>;
-    public webhookControllerCreateOne(createWebhookDtoInterface: CreateWebhookDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookInterface>>;
-    public webhookControllerCreateOne(createWebhookDtoInterface: CreateWebhookDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookInterface>>;
-    public webhookControllerCreateOne(createWebhookDtoInterface: CreateWebhookDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookControllerCreateOne(createWebhookDtoInterface: CreateWebhookDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookInterface>;
+    public webhookControllerCreateOne(createWebhookDtoInterface: CreateWebhookDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookInterface>>;
+    public webhookControllerCreateOne(createWebhookDtoInterface: CreateWebhookDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookInterface>>;
+    public webhookControllerCreateOne(createWebhookDtoInterface: CreateWebhookDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createWebhookDtoInterface === null || createWebhookDtoInterface === undefined) {
             throw new Error('Required parameter createWebhookDtoInterface was null or undefined when calling webhookControllerCreateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -193,26 +185,18 @@ export class WebhookRestService {
 
     /**
      * @param id 
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public webhookControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public webhookControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public webhookControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public webhookControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public webhookControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public webhookControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling webhookControllerDeleteOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -263,23 +247,15 @@ export class WebhookRestService {
     }
 
     /**
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookControllerEvents(xExternalUserId?: string, xExternalTenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<WebhookEventInterface>>;
-    public webhookControllerEvents(xExternalUserId?: string, xExternalTenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<WebhookEventInterface>>>;
-    public webhookControllerEvents(xExternalUserId?: string, xExternalTenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<WebhookEventInterface>>>;
-    public webhookControllerEvents(xExternalUserId?: string, xExternalTenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookControllerEvents(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Array<WebhookEventInterface>>;
+    public webhookControllerEvents(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Array<WebhookEventInterface>>>;
+    public webhookControllerEvents(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Array<WebhookEventInterface>>>;
+    public webhookControllerEvents(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -330,8 +306,6 @@ export class WebhookRestService {
     }
 
     /**
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param curPage 
      * @param perPage 
      * @param searchText 
@@ -339,10 +313,10 @@ export class WebhookRestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyWebhookResponseInterface>;
-    public webhookControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyWebhookResponseInterface>>;
-    public webhookControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyWebhookResponseInterface>>;
-    public webhookControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyWebhookResponseInterface>;
+    public webhookControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyWebhookResponseInterface>>;
+    public webhookControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyWebhookResponseInterface>>;
+    public webhookControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -363,12 +337,6 @@ export class WebhookRestService {
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -421,8 +389,6 @@ export class WebhookRestService {
 
     /**
      * @param id 
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param curPage 
      * @param perPage 
      * @param searchText 
@@ -430,10 +396,10 @@ export class WebhookRestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookControllerFindManyLogs(id: string, xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyWebhookLogResponseInterface>;
-    public webhookControllerFindManyLogs(id: string, xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyWebhookLogResponseInterface>>;
-    public webhookControllerFindManyLogs(id: string, xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyWebhookLogResponseInterface>>;
-    public webhookControllerFindManyLogs(id: string, xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookControllerFindManyLogs(id: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyWebhookLogResponseInterface>;
+    public webhookControllerFindManyLogs(id: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyWebhookLogResponseInterface>>;
+    public webhookControllerFindManyLogs(id: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyWebhookLogResponseInterface>>;
+    public webhookControllerFindManyLogs(id: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling webhookControllerFindManyLogs.');
         }
@@ -457,12 +423,6 @@ export class WebhookRestService {
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -515,26 +475,18 @@ export class WebhookRestService {
 
     /**
      * @param id 
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookInterface>;
-    public webhookControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookInterface>>;
-    public webhookControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookInterface>>;
-    public webhookControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookInterface>;
+    public webhookControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookInterface>>;
+    public webhookControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookInterface>>;
+    public webhookControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling webhookControllerFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -585,23 +537,15 @@ export class WebhookRestService {
     }
 
     /**
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookControllerProfile(xExternalUserId?: string, xExternalTenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookUserInterface>;
-    public webhookControllerProfile(xExternalUserId?: string, xExternalTenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookUserInterface>>;
-    public webhookControllerProfile(xExternalUserId?: string, xExternalTenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookUserInterface>>;
-    public webhookControllerProfile(xExternalUserId?: string, xExternalTenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookControllerProfile(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookUserInterface>;
+    public webhookControllerProfile(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookUserInterface>>;
+    public webhookControllerProfile(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookUserInterface>>;
+    public webhookControllerProfile(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -654,15 +598,13 @@ export class WebhookRestService {
     /**
      * @param id 
      * @param updateWebhookDtoInterface 
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookControllerUpdateOne(id: string, updateWebhookDtoInterface: UpdateWebhookDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookInterface>;
-    public webhookControllerUpdateOne(id: string, updateWebhookDtoInterface: UpdateWebhookDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookInterface>>;
-    public webhookControllerUpdateOne(id: string, updateWebhookDtoInterface: UpdateWebhookDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookInterface>>;
-    public webhookControllerUpdateOne(id: string, updateWebhookDtoInterface: UpdateWebhookDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookControllerUpdateOne(id: string, updateWebhookDtoInterface: UpdateWebhookDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookInterface>;
+    public webhookControllerUpdateOne(id: string, updateWebhookDtoInterface: UpdateWebhookDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookInterface>>;
+    public webhookControllerUpdateOne(id: string, updateWebhookDtoInterface: UpdateWebhookDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookInterface>>;
+    public webhookControllerUpdateOne(id: string, updateWebhookDtoInterface: UpdateWebhookDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling webhookControllerUpdateOne.');
         }
@@ -671,12 +613,6 @@ export class WebhookRestService {
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -738,26 +674,18 @@ export class WebhookRestService {
 
     /**
      * @param id 
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookUsersControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public webhookUsersControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public webhookUsersControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public webhookUsersControllerDeleteOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookUsersControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public webhookUsersControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public webhookUsersControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public webhookUsersControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling webhookUsersControllerDeleteOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -808,8 +736,6 @@ export class WebhookRestService {
     }
 
     /**
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param curPage 
      * @param perPage 
      * @param searchText 
@@ -817,10 +743,10 @@ export class WebhookRestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookUsersControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyWebhookUserResponseInterface>;
-    public webhookUsersControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyWebhookUserResponseInterface>>;
-    public webhookUsersControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyWebhookUserResponseInterface>>;
-    public webhookUsersControllerFindMany(xExternalUserId?: string, xExternalTenantId?: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyWebhookUserResponseInterface>;
+    public webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyWebhookUserResponseInterface>>;
+    public webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyWebhookUserResponseInterface>>;
+    public webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -841,12 +767,6 @@ export class WebhookRestService {
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -899,26 +819,18 @@ export class WebhookRestService {
 
     /**
      * @param id 
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookUsersControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookUserInterface>;
-    public webhookUsersControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookUserInterface>>;
-    public webhookUsersControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookUserInterface>>;
-    public webhookUsersControllerFindOne(id: string, xExternalUserId?: string, xExternalTenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookUsersControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookUserInterface>;
+    public webhookUsersControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookUserInterface>>;
+    public webhookUsersControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookUserInterface>>;
+    public webhookUsersControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling webhookUsersControllerFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
@@ -971,15 +883,13 @@ export class WebhookRestService {
     /**
      * @param id 
      * @param updateWebhookUserDtoInterface 
-     * @param xExternalUserId 
-     * @param xExternalTenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDtoInterface: UpdateWebhookUserDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookUserInterface>;
-    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDtoInterface: UpdateWebhookUserDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookUserInterface>>;
-    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDtoInterface: UpdateWebhookUserDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookUserInterface>>;
-    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDtoInterface: UpdateWebhookUserDtoInterface, xExternalUserId?: string, xExternalTenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDtoInterface: UpdateWebhookUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<WebhookUserInterface>;
+    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDtoInterface: UpdateWebhookUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<WebhookUserInterface>>;
+    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDtoInterface: UpdateWebhookUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<WebhookUserInterface>>;
+    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDtoInterface: UpdateWebhookUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling webhookUsersControllerUpdateOne.');
         }
@@ -988,12 +898,6 @@ export class WebhookRestService {
         }
 
         let localVarHeaders = this.defaultHeaders;
-        if (xExternalUserId !== undefined && xExternalUserId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-user-id', String(xExternalUserId));
-        }
-        if (xExternalTenantId !== undefined && xExternalTenantId !== null) {
-            localVarHeaders = localVarHeaders.set('x-external-tenant-id', String(xExternalTenantId));
-        }
 
         let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
         if (localVarHttpHeaderAcceptSelected === undefined) {
