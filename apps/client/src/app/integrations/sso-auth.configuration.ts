@@ -14,6 +14,7 @@ import {
   AuthUpdateProfileInput,
   AuthUser,
   AuthUserAndTokens,
+  FingerprintService,
   TokensService,
 } from '@nestjs-mod-sso/auth-angular';
 import { FilesService } from '@nestjs-mod-sso/files-angular';
@@ -27,7 +28,8 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     private readonly filesService: FilesService,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
-    private readonly activeProjectService: ActiveProjectService
+    private readonly activeProjectService: ActiveProjectService,
+    private readonly fingerprintService: FingerprintService
   ) {
     ssoRestService.configuration.withCredentials = true;
   }
@@ -125,7 +127,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
 
   refreshToken(): Observable<AuthUserAndTokens | undefined> {
     const refreshToken = this.tokensService.getRefreshToken();
-    return this.tokensService.getFingerprint().pipe(
+    return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
         this.ssoRestService
           .ssoControllerRefreshTokens({
@@ -153,7 +155,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     if (!password) {
       throw new Error('password not set');
     }
-    return this.tokensService.getFingerprint().pipe(
+    return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
         from(
           this.ssoRestService.ssoControllerSignUp({
@@ -178,7 +180,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     if (!email) {
       throw new Error('email not set');
     }
-    return this.tokensService.getFingerprint().pipe(
+    return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
         from(
           this.ssoRestService.ssoControllerSignIn({
@@ -226,6 +228,7 @@ export function provideSsoAuthConfiguration(): Provider {
       TranslocoService,
       TokensService,
       ActiveProjectService,
+      FingerprintService,
     ],
   };
 }

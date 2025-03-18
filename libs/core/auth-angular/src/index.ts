@@ -14,4 +14,5 @@ export * from './lib/services/auth-sign-up-mapper.service';
 export * from './lib/services/auth.configuration';
 export * from './lib/services/auth.service';
 export * from './lib/services/auth.types';
+export * from './lib/services/fingerprint.service';
 export * from './lib/services/tokens.service';
