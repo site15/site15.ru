@@ -1,6 +1,7 @@
 {
     "You are logged in as {{email}}": "You are logged in as {{email}}",
     "Source code": "Source code",
+    "Select active project": "Select active project",
     "Home": "Home",
     "Webhooks": "Webhooks",
     "Projects and users": "Projects and users",

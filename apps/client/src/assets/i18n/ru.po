@@ -13,6 +13,9 @@ msgstr "Вы вошли в систему как {{email}}"
 msgid "Source code"
 msgstr "Исходный код"
 
+msgid "Select active project"
+msgstr "Выберите активный проект"
+
 msgid "Home"
 msgstr "Домашняя страница"
 

@@ -1,6 +1,7 @@
 {
     "You are logged in as {{email}}": "Вы вошли в систему как {{email}}",
     "Source code": "Исходный код",
+    "Select active project": "Выберите активный проект",
     "Home": "Домашняя страница",
     "Webhooks": "Вебхуки",
     "Projects and users": "Проекты и пользователи",

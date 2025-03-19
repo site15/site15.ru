@@ -12,6 +12,9 @@ msgstr "You are logged in as {{email}}"
 msgid "Source code"
 msgstr "Source code"
 
+msgid "Select active project"
+msgstr "Select active project"
+
 msgid "Home"
 msgstr "Home"
 
