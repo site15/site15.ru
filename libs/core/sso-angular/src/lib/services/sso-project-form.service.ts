@@ -44,6 +44,20 @@ export class SsoProjectFormService {
           },
         },
         {
+          key: SsoProjectScalarFieldEnumInterface.nameLocale,
+          type: 'textarea',
+          validation: {
+            show: true,
+          },
+          props: {
+            label: this.translocoService.translate(
+              `sso-project.form.fields.name-locale`
+            ),
+            placeholder: 'nameLocale',
+            required: false,
+          },
+        },
+        {
           key: SsoProjectScalarFieldEnumInterface.clientId,
           type: 'input',
           validation: {

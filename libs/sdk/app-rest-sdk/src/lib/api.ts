@@ -271,6 +271,12 @@ export interface CreateSsoProjectDto {
     'name': string;
     /**
      * 
+     * @type {object}
+     * @memberof CreateSsoProjectDto
+     */
+    'nameLocale'?: object | null;
+    /**
+     * 
      * @type {string}
      * @memberof CreateSsoProjectDto
      */
@@ -1275,6 +1281,12 @@ export interface SsoProject {
     'name': string;
     /**
      * 
+     * @type {object}
+     * @memberof SsoProject
+     */
+    'nameLocale': object | null;
+    /**
+     * 
      * @type {string}
      * @memberof SsoProject
      */
@@ -1336,6 +1348,12 @@ export interface SsoProjectDto {
     'name': string;
     /**
      * 
+     * @type {object}
+     * @memberof SsoProjectDto
+     */
+    'nameLocale': object | null;
+    /**
+     * 
      * @type {string}
      * @memberof SsoProjectDto
      */
@@ -1374,6 +1392,7 @@ export interface SsoProjectDto {
 export const SsoProjectScalarFieldEnum = {
     Id: 'id',
     Name: 'name',
+    NameLocale: 'nameLocale',
     ClientId: 'clientId',
     ClientSecret: 'clientSecret',
     Public: 'public',
@@ -1402,6 +1421,12 @@ export interface SsoPublicProjectDto {
      * @memberof SsoPublicProjectDto
      */
     'name': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoPublicProjectDto
+     */
+    'nameLocale': object | null;
     /**
      * 
      * @type {string}
@@ -2127,6 +2152,12 @@ export interface UpdateSsoProjectDto {
      * @memberof UpdateSsoProjectDto
      */
     'name'?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof UpdateSsoProjectDto
+     */
+    'nameLocale'?: object | null;
     /**
      * 
      * @type {string}

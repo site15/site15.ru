@@ -12,27 +12,28 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  noDependencies                  = "false"
   entitySuffix                    = ""
-  fileNamingStyle                 = "kebab"
-  outputToNestJsResourceStructure = "false"
-  flatResourceStructure           = "false"
-  entityPrefix                    = ""
-  definiteAssignmentAssertion     = "true"
-  exportRelationModifierClasses   = "true"
-  reExport                        = "false"
-  annotateAllDtoProperties        = "true"
-  prettier                        = "true"
-  createDtoPrefix                 = "Create"
-  updateDtoPrefix                 = "Update"
   classValidation                 = "true"
   dtoSuffix                       = "Dto"
+  updateDtoPrefix                 = "Update"
+  definiteAssignmentAssertion     = "true"
+  reExport                        = "false"
+  entityPrefix                    = ""
+  outputToNestJsResourceStructure = "false"
+  prettier                        = "true"
+  flatResourceStructure           = "false"
+  createDtoPrefix                 = "Create"
+  fileNamingStyle                 = "kebab"
+  noDependencies                  = "false"
+  exportRelationModifierClasses   = "true"
+  annotateAllDtoProperties        = "true"
 }
 
 model SsoProject {
   /// @DtoCreateHidden
   id                String              @id(map: "PK_SSO_PROJECTS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name              String              @db.VarChar(255)
+  nameLocale       Json?
   clientId          String              @unique(map: "UQ_SSO_PROJECTS__CLIENT_ID") @db.VarChar(100)
   clientSecret      String              @db.VarChar(255)
   public            Boolean

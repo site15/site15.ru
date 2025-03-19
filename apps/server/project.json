@@ -74,7 +74,7 @@
         "commands": [
           "./node_modules/.bin/rucken make-ts-list",
           "export NESTJS_MODE=infrastructure && ./node_modules/.bin/nx serve server --watch=false --inspect=false --skip-nx-cache=true",
-          "rm -rf ./libs/sdk/app-angular-rest-sdk/src/lib && mkdir ./libs/sdk/app-angular-rest-sdk/src/lib && ./node_modules/.bin/openapi-generator-cli generate -i ./app-swagger.json -g typescript-angular -o ./libs/sdk/app-angular-rest-sdk/src/lib  --additional-properties=apiModulePrefix=RestClient,configurationPrefix=RestClient,fileNaming=kebab-case,modelFileSuffix=.interface,modelSuffix=Interface,enumNameSuffix=Type,enumPropertyNaming=original,serviceFileSuffix=-rest.service,serviceSuffix=RestService",
+          "rm -rf ./libs/sdk/app-angular-rest-sdk/src/lib && mkdir ./libs/sdk/app-angular-rest-sdk/src/lib && ./node_modules/.bin/openapi-generator-cli generate -i ./app-swagger.json -g typescript-angular -o ./libs/sdk/app-angular-rest-sdk/src/lib --skip-validate-spec --additional-properties=apiModulePrefix=RestClient,configurationPrefix=RestClient,fileNaming=kebab-case,modelFileSuffix=.interface,modelSuffix=Interface,enumNameSuffix=Type,enumPropertyNaming=original,serviceFileSuffix=-rest.service,serviceSuffix=RestService",
           "rm -rf ./libs/sdk/app-rest-sdk/src/lib && mkdir ./libs/sdk/app-rest-sdk/src/lib && ./node_modules/.bin/openapi-generator-cli generate -i ./app-swagger.json -g typescript-axios -o ./libs/sdk/app-rest-sdk/src/lib"
         ],
         "parallel": false,

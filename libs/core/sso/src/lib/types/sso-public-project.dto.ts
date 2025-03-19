@@ -1,26 +1,7 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { OmitType } from '@nestjs/swagger';
+import { SsoProjectDto } from '../generated/rest/dto/sso-project.dto';
 
-export class SsoPublicProjectDto {
-  @ApiProperty({
-    type: 'string',
-  })
-  id!: string;
-  @ApiProperty({
-    type: 'string',
-  })
-  name!: string;
-  @ApiProperty({
-    type: 'string',
-  })
-  clientId!: string;
-  @ApiProperty({
-    type: 'string',
-    format: 'date-time',
-  })
-  createdAt!: Date;
-  @ApiProperty({
-    type: 'string',
-    format: 'date-time',
-  })
-  updatedAt!: Date;
-}
+export class SsoPublicProjectDto extends OmitType(SsoProjectDto, [
+  'clientSecret',
+  'public',
+]) {}

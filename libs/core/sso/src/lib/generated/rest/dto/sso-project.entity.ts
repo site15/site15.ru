@@ -1,3 +1,4 @@
+import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
 import { SsoRefreshSession } from './sso-refresh-session.entity';
 import { SsoUser } from './sso-user.entity';
@@ -11,6 +12,11 @@ export class SsoProject {
     type: 'string',
   })
   name!: string;
+  @ApiProperty({
+    type: () => Object,
+    nullable: true,
+  })
+  nameLocale!: Prisma.JsonValue | null;
   @ApiProperty({
     type: 'string',
   })

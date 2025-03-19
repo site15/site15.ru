@@ -1,3 +1,4 @@
+import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
@@ -9,6 +10,13 @@ export class UpdateSsoProjectDto {
   @IsOptional()
   @IsString()
   name?: string;
+  @ApiProperty({
+    type: () => Object,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  nameLocale?: Prisma.InputJsonValue | Prisma.NullableJsonNullValueInput;
   @ApiProperty({
     type: 'string',
     required: false,

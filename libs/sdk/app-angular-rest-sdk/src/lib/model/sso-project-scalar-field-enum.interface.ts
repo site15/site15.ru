@@ -9,11 +9,12 @@
  */
 
 
-export type SsoProjectScalarFieldEnumInterface = 'id' | 'name' | 'clientId' | 'clientSecret' | 'public' | 'createdAt' | 'updatedAt';
+export type SsoProjectScalarFieldEnumInterface = 'id' | 'name' | 'nameLocale' | 'clientId' | 'clientSecret' | 'public' | 'createdAt' | 'updatedAt';
 
 export const SsoProjectScalarFieldEnumInterface = {
     id: 'id' as SsoProjectScalarFieldEnumInterface,
     name: 'name' as SsoProjectScalarFieldEnumInterface,
+    nameLocale: 'nameLocale' as SsoProjectScalarFieldEnumInterface,
     clientId: 'clientId' as SsoProjectScalarFieldEnumInterface,
     clientSecret: 'clientSecret' as SsoProjectScalarFieldEnumInterface,
     public: 'public' as SsoProjectScalarFieldEnumInterface,

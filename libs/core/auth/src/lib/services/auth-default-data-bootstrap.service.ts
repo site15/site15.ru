@@ -1,10 +1,10 @@
 import { isInfrastructureMode } from '@nestjs-mod/common';
-import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { AuthConfiguration } from '../auth.configuration';
 import { AuthStaticEnvironments } from '../auth.environments';
 
 @Injectable()
-export class AuthDefaultDataBootstrapService implements OnApplicationBootstrap {
+export class AuthDefaultDataBootstrapService implements OnModuleInit {
   private logger = new Logger(AuthDefaultDataBootstrapService.name);
 
   constructor(
@@ -12,8 +12,8 @@ export class AuthDefaultDataBootstrapService implements OnApplicationBootstrap {
     private readonly authStaticEnvironments: AuthStaticEnvironments
   ) {}
 
-  async onApplicationBootstrap() {
-    this.logger.debug('onApplicationBootstrap');
+  async onModuleInit() {
+    this.logger.debug('onModuleInit');
 
     if (!isInfrastructureMode()) {
       try {

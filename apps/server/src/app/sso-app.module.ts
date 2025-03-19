@@ -85,7 +85,7 @@ export const { AppModule: SsoAppModule } = createNestModule({
         transform: true,
         whitelist: true,
         validationError: {
-          //  target: false,
+          target: false,
           value: false,
         },
         exceptionFactory: (errors) => {

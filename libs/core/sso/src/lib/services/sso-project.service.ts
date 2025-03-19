@@ -5,9 +5,14 @@ import { SsoError } from '../sso.errors';
 import { SsoRequest } from '../types/sso-request';
 import { SsoCacheService } from './sso-cache.service';
 
+import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { PrismaClient } from '@prisma/sso-client';
+import { SSO_FEATURE } from '../sso.constants';
 @Injectable()
 export class SsoProjectService {
   constructor(
+    @InjectPrismaClient(SSO_FEATURE)
+    private readonly prismaClient: PrismaClient,
     private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoCacheService: SsoCacheService
@@ -55,5 +60,38 @@ export class SsoProjectService {
       (this.ssoConfiguration.clientIdHeaderName &&
         req.headers?.[this.ssoConfiguration.clientIdHeaderName])
     );
+  }
+
+  async getOrCreateDefaultProject() {
+    if (
+      this.ssoStaticEnvironments.defaultClientName &&
+      this.ssoStaticEnvironments.defaultClientId &&
+      this.ssoStaticEnvironments.defaultClientSecret
+    ) {
+      const existsProject = await this.prismaClient.ssoProject.findFirst({
+        where: {
+          clientId: this.ssoStaticEnvironments.defaultClientId,
+          clientSecret: this.ssoStaticEnvironments.defaultClientSecret,
+        },
+      });
+      if (!existsProject) {
+        await this.prismaClient.ssoProject.create({
+          data: {
+            public: false,
+            name: this.ssoStaticEnvironments.defaultClientName,
+            clientId: this.ssoStaticEnvironments.defaultClientId,
+            clientSecret: this.ssoStaticEnvironments.defaultClientSecret,
+          },
+        });
+        await this.ssoCacheService.clearCacheProjectByClientId(
+          this.ssoStaticEnvironments.defaultClientId
+        );
+        return await this.ssoCacheService.getCachedProject(
+          this.ssoStaticEnvironments.defaultClientId
+        );
+      }
+      return existsProject;
+    }
+    return null;
   }
 }

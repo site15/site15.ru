@@ -51,6 +51,7 @@ export class SsoPublicProjectsController {
             id: true,
             clientId: true,
             name: true,
+            nameLocale: true,
             createdAt: true,
             updatedAt: true,
           },

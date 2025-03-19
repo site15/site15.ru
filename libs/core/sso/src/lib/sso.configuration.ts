@@ -99,6 +99,7 @@ export class SsoConfiguration {
   })
   defaultPublicProjects?: {
     name: string;
+    nameLocale: { [locale: string]: string };
     clientId: string;
     clientSecret: string;
   }[];

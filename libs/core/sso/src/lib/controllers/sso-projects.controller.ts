@@ -24,7 +24,11 @@ import {
 } from '@nestjs/swagger';
 import { Prisma, PrismaClient } from '@prisma/sso-client';
 import { isUUID } from 'class-validator';
-import { CurrentLocale, TranslatesService } from 'nestjs-translates';
+import {
+  CurrentLocale,
+  SkipTranslate,
+  TranslatesService,
+} from 'nestjs-translates';
 import { CreateSsoProjectDto } from '../generated/rest/dto/create-sso-project.dto';
 import { SsoProjectDto } from '../generated/rest/dto/sso-project.dto';
 import { UpdateSsoProjectDto } from '../generated/rest/dto/update-sso-project.dto';
@@ -42,6 +46,7 @@ import { SsoCacheService } from '../services/sso-cache.service';
 @ApiTags('Sso')
 @SsoCheckIsAdmin()
 @Controller('/sso/projects')
+@SkipTranslate()
 export class SsoProjectsController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)

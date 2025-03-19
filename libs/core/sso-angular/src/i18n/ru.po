@@ -100,6 +100,9 @@ msgstr "ИП-адрес"
 msgid "sso-project.form.fields.name"
 msgstr "Название"
 
+msgid "sso-project.form.fields.name-locale"
+msgstr "Название (переводы)"
+
 msgid "sso-project.form.fields.client-id"
 msgstr "Идентификатор клиента"
 

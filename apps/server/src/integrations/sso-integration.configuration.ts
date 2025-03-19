@@ -23,21 +23,25 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
   defaultPublicProjects: {
     name: string;
+    nameLocale: { [locale: string]: string };
     clientId: string;
     clientSecret: string;
   }[] = [
     {
       name: 'Beijing',
+      nameLocale: { ru: 'Пекин' },
       clientId: 'Jq6GQ6Rzz6x8HNOD4x2Hc2eM0cfiCVUzGfsi',
       clientSecret: 'X6nk0OZXQJboSEfugnH35e9oSeg5RFlV0DQprtYyYDQjNli9mA',
     },
     {
       name: 'Moscow',
+      nameLocale: { ru: 'Москва' },
       clientId: 'OceX08HGZ89PTkPpg9KDk5ErY1uMfDcfFKkw',
       clientSecret: 'VJztpDIwvqG6IkTVEIDEw1Ed2Wu5oHu6zfBe7CCJFrCtyWO2Yv',
     },
     {
       name: 'USA',
+      nameLocale: { ru: 'США' },
       clientId: '4OGD25Rmn3W3MP0kMd7c90rGP1WwK8u4wL1w',
       clientSecret: 'qm8nc9MgKyvd6Hgl3jY5BjgDFSBqNvxcu6o52kDjIC168OsM1R',
     },

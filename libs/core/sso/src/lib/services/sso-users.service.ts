@@ -9,6 +9,7 @@ import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { SsoCacheService } from './sso-cache.service';
 import { SsoPasswordService } from './sso-password.service';
+import { SsoProjectService } from './sso-project.service';
 
 @Injectable()
 export class SsoUsersService {
@@ -20,6 +21,7 @@ export class SsoUsersService {
     private readonly ssoPasswordService: SsoPasswordService,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoCacheService: SsoCacheService,
+    private readonly ssoProjectService: SsoProjectService,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments
   ) {}
 
@@ -223,7 +225,11 @@ export class SsoUsersService {
           SsoProject: {
             connect: projectId
               ? { id: projectId }
-              : { clientId: this.ssoStaticEnvironments.defaultClientId },
+              : {
+                  clientId: (
+                    await this.ssoProjectService.getOrCreateDefaultProject()
+                  )?.clientId,
+                },
           },
           roles: roles ? roles.join(',') : null,
         },

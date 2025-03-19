@@ -30,6 +30,7 @@
     "sso-session.form.fields.user-data": "User data",
     "sso-session.form.fields.user-ip": "IP address",
     "sso-project.form.fields.name": "Name",
+    "sso-project.form.fields.name-locale": "Name (translates)",
     "sso-project.form.fields.client-id": "Client id",
     "sso-project.form.fields.client-secret": "Client secret",
     "sso-project.form.fields.public": "Public",

@@ -148,7 +148,10 @@ export class AppComponent implements OnInit {
   private subscribeToLangChanges() {
     this.translocoService.langChanges$
       .pipe(
-        tap((lang) => this.lang$.next(lang)),
+        tap((lang) => {
+          this.lang$.next(lang);
+          this.activeProjectService.loadAvailablePublicProjects();
+        }),
         untilDestroyed(this)
       )
       .subscribe();

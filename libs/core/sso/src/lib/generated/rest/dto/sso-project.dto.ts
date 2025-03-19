@@ -1,3 +1,4 @@
+import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class SsoProjectDto {
@@ -9,6 +10,11 @@ export class SsoProjectDto {
     type: 'string',
   })
   name!: string;
+  @ApiProperty({
+    type: () => Object,
+    nullable: true,
+  })
+  nameLocale!: Prisma.JsonValue | null;
   @ApiProperty({
     type: 'string',
   })

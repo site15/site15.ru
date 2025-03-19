@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS "SsoProject"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     "name" varchar(255) NOT NULL,
+    "nameLocale" jsonb,
     "clientId" varchar(100) NOT NULL,
     "clientSecret" varchar(255) NOT NULL,
     "public" boolean NOT NULL,
@@ -21,7 +22,6 @@ $$;
 CREATE INDEX IF NOT EXISTS "IDX_SSO_PROJECTS__PUBLIC" ON "SsoProject"("public");
 
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_PROJECTS__CLIENT_ID" ON "SsoProject"("clientId");
-
 
 CREATE TABLE IF NOT EXISTS "SsoUser"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,

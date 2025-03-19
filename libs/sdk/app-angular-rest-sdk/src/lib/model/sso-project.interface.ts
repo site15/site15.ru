@@ -14,6 +14,7 @@ import { SsoRefreshSessionInterface } from './sso-refresh-session.interface';
 export interface SsoProjectInterface { 
     id: string;
     name: string;
+    nameLocale: object | null;
     clientId: string;
     clientSecret: string;
     'public': boolean;

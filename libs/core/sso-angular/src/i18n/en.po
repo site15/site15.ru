@@ -99,6 +99,9 @@ msgstr "IP address"
 msgid "sso-project.form.fields.name"
 msgstr "Name"
 
+msgid "sso-project.form.fields.name-locale"
+msgstr "Name (translates)"
+
 msgid "sso-project.form.fields.client-id"
 msgstr "Client id"
 

@@ -12,6 +12,7 @@
 export interface SsoProjectDtoInterface { 
     id: string;
     name: string;
+    nameLocale: object | null;
     clientId: string;
     clientSecret: string;
     'public': boolean;

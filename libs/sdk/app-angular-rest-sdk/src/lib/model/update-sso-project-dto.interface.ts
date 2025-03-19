@@ -11,6 +11,7 @@
 
 export interface UpdateSsoProjectDtoInterface { 
     name?: string;
+    nameLocale?: object | null;
     clientId?: string;
     clientSecret?: string;
     'public'?: boolean;

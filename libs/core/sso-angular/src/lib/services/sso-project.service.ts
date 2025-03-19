@@ -27,6 +27,7 @@ export class SsoProjectService {
     filters: Record<string, string>;
     meta?: RequestMeta;
   }) {
+    this.ssoRestService.defaultHeaders;
     return this.ssoRestService
       .ssoPublicProjectsControllerFindMany(
         meta?.curPage,
