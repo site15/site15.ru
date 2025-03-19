@@ -30,7 +30,7 @@ export class SsoPublicProjectsController {
       });
     const searchText = args.searchText;
 
-    const orderBy = (args.sort || 'createdAt:desc')
+    const orderBy = (args.sort || 'name:asc')
       .split(',')
       .map((s) => s.split(':'))
       .reduce(

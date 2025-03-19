@@ -93,6 +93,15 @@ export class SsoConfiguration {
   sendNotification?: (
     options: SsoSendNotificationOptions
   ) => Promise<SsoSendNotificationResponse | null>;
+
+  @ConfigModelProperty({
+    description: 'Default public projects',
+  })
+  defaultPublicProjects?: {
+    name: string;
+    clientId: string;
+    clientSecret: string;
+  }[];
 }
 
 @ConfigModel()
