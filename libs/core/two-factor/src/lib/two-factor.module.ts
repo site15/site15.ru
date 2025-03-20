@@ -16,7 +16,7 @@ import { TwoFactorService } from './two-factor.service';
 
 export const { TwoFactorModule } = createNestModule({
   moduleName: TWO_FACTOR_MODULE,
-  moduleCategory: NestModuleCategory.feature,
+  moduleCategory: NestModuleCategory.core,
   configurationModel: TwoFactorConfiguration,
   staticEnvironmentsModel: TwoFactorStaticEnvironments,
   imports: [

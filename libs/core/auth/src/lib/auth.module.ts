@@ -24,7 +24,7 @@ import { AuthAsyncLocalStorageContext } from './types/auth-async-local-storage-d
 
 export const { AuthModule } = createNestModule({
   moduleName: AUTH_MODULE,
-  moduleCategory: NestModuleCategory.feature,
+  moduleCategory: NestModuleCategory.core,
   staticEnvironmentsModel: AuthStaticEnvironments,
   configurationModel: AuthConfiguration,
   imports: [

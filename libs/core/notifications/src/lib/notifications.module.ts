@@ -24,7 +24,7 @@ import { NotificationsService } from './notifications.service';
 
 export const { NotificationsModule } = createNestModule({
   moduleName: NOTIFICATIONS_MODULE,
-  moduleCategory: NestModuleCategory.feature,
+  moduleCategory: NestModuleCategory.core,
   staticEnvironmentsModel: NotificationsStaticEnvironments,
   staticConfigurationModel: NotificationsStaticConfiguration,
   configurationModel: NotificationsConfiguration,

@@ -33,7 +33,7 @@ import { SsoPublicProjectsController } from './controllers/sso-public-projects.c
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
-  moduleCategory: NestModuleCategory.feature,
+  moduleCategory: NestModuleCategory.core,
   staticEnvironmentsModel: SsoStaticEnvironments,
   staticConfigurationModel: SsoStaticConfiguration,
   configurationModel: SsoConfiguration,

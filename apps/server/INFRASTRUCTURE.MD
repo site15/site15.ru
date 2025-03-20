@@ -144,10 +144,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -235,10 +235,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -326,10 +326,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -417,10 +417,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -508,10 +508,10 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | ------ | ----------- | ----- |
 |`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
 |`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### KeyvModule
 Simple key-value storage with support for multiple backends, and a consistent interface for NestJS-mod (Wrapper for https://www.npmjs.com/package/keyv)
@@ -556,9 +556,6 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 |`usePipes`|`obj['usePipes']`, `process.env['SERVER_VALIDATION_USE_PIPES']`|**optional**|```false```|
 |`useFilters`|`obj['useFilters']`, `process.env['SERVER_VALIDATION_USE_FILTERS']`|**optional**|```true```|
 
-## Feature modules
-
-### AppModule
 ### AuthModule
 #### Shared providers
 `AuthAsyncLocalStorageContext`, `AuthTimezoneService`, `AuthCacheService`
@@ -709,6 +706,9 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 | ------ | ----------- | ----- |
 |`mutateController`|**optional**|```mutateController```|
 
+## Feature modules
+
+### AppModule
 ## Integration modules
 
 ### DefaultNestApplicationListener
@@ -919,7 +919,7 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 #### Modules that use feature configuration
 ##### Feature module name: auth

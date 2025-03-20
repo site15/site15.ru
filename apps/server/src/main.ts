@@ -10,17 +10,9 @@ import {
   NOTIFICATIONS_FEATURE,
   NOTIFICATIONS_FOLDER,
   NotificationsModule,
-  NotificationsRequest,
 } from '@nestjs-mod-sso/notifications';
 import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
-import {
-  SSO_FEATURE,
-  SSO_FOLDER,
-  SsoCheckIsAdmin,
-  SsoGuard,
-  SsoModule,
-  SsoRequest,
-} from '@nestjs-mod-sso/sso';
+import { SSO_FEATURE, SSO_FOLDER, SsoModule } from '@nestjs-mod-sso/sso';
 import {
   TWO_FACTOR_FEATURE,
   TWO_FACTOR_FOLDER,
@@ -36,7 +28,6 @@ import {
   bootstrapNestApplication,
   DefaultNestApplicationInitializer,
   DefaultNestApplicationListener,
-  getRequestFromExecutionContext,
   InfrastructureMarkdownReportGenerator,
   isInfrastructureMode,
   PACKAGE_JSON_FILE,
@@ -56,7 +47,6 @@ import { PgFlyway } from '@nestjs-mod/pg-flyway';
 import { ECOSYSTEM_CONFIG_FILE, Pm2 } from '@nestjs-mod/pm2';
 import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
 import { TerminusHealthCheckModule } from '@nestjs-mod/terminus';
-import { ExecutionContext } from '@nestjs/common';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
@@ -67,10 +57,10 @@ import { AppModule } from './app/app.module';
 import { appFolder, rootFolder } from './environments/environment';
 import { authModuleForRootAsyncOptions } from './integrations/auth-integration.configuration';
 import { filesModuleForRootAsyncOptions } from './integrations/minio-files-integration.configuration';
+import { notificationsModuleForRootAsyncOptions } from './integrations/notifications-integration.configuration';
 import { ssoModuleForRootAsyncOptions } from './integrations/sso-integration.configuration';
 import { terminusHealthCheckModuleForRootAsyncOptions } from './integrations/terminus-health-check-integration.configuration';
 import { webhookModuleForRootAsyncOptions } from './integrations/webhook-integration.configuration';
-import { notificationsModuleForRootAsyncOptions } from './integrations/notifications-integration.configuration';
 
 bootstrapNestApplication({
   project: {
@@ -280,9 +270,6 @@ bootstrapNestApplication({
       // minio
       MinioModule.forRoot(),
       ValidationModule.forRoot({ staticEnvironments: { usePipes: false } }),
-    ],
-    feature: [
-      AppModule.forRoot(),
       AuthModule.forRootAsync(authModuleForRootAsyncOptions()),
       FilesModule.forRootAsync(filesModuleForRootAsyncOptions()),
       TwoFactorModule.forRoot(),
@@ -292,6 +279,7 @@ bootstrapNestApplication({
       WebhookModule.forRootAsync(webhookModuleForRootAsyncOptions()),
       SsoModule.forRootAsync(ssoModuleForRootAsyncOptions()),
     ],
+    feature: [AppModule.forRoot()],
     infrastructure: [
       // report
       InfrastructureMarkdownReportGenerator.forRoot({

@@ -1,7 +1,7 @@
 dist
 node_modules
 apps/server/src/app/generated/rest/dto
-libs/feature/webhook/src/lib/generated/rest/dto
+libs/core/webhook/src/lib/generated/rest/dto
 libs/core/sso/src/lib/generated/rest/dto
 libs/core/auth/src/lib/generated/rest/dto
 libs/core/notifications/src/lib/generated/rest/dto
