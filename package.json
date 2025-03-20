@@ -418,7 +418,7 @@
     "mustache": "4.2.0",
     "nestjs-minio": "^2.6.2",
     "nestjs-pino": "^4.1.0",
-    "nestjs-translates": "^2.2.2",
+    "nestjs-translates": "^2.2.5",
     "ng-zorro-antd": "^19.0.0",
     "nodemailer": "6.10.0",
     "pino-http": "^10.3.0",
