@@ -1,10 +1,11 @@
-import { FilesConfiguration } from '@nestjs-mod-sso/files';
-import { MinioFilesService } from '@nestjs-mod/minio';
+import { FilesConfiguration, FilesModule } from '@nestjs-mod-sso/files';
+import { SsoModule } from '@nestjs-mod-sso/sso';
+import { MinioFilesService, MinioModule } from '@nestjs-mod/minio';
 import { Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
 
 @Injectable()
-export class SsoWithMinioFilesConfiguration implements FilesConfiguration {
+export class MinioFilesIntegrationConfiguration implements FilesConfiguration {
   constructor(private readonly minioFilesService: MinioFilesService) {}
 
   getFromDownloadUrlWithoutBucketNames(downloadUrl: string) {
@@ -42,4 +43,13 @@ export class SsoWithMinioFilesConfiguration implements FilesConfiguration {
       })
     );
   }
+}
+
+export function filesModuleForRootAsyncOptions(): Parameters<
+  typeof FilesModule.forRootAsync
+>[0] {
+  return {
+    imports: [SsoModule.forFeature(), MinioModule.forFeature()],
+    configurationClass: MinioFilesIntegrationConfiguration,
+  };
 }

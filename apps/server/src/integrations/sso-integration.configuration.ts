@@ -1,3 +1,4 @@
+import { SkipAuthGuard } from '@nestjs-mod-sso/auth';
 import {
   NotificationsModule,
   NotificationsService,
@@ -102,10 +103,16 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   }
 }
 
-export function provideSsoIntegrationConfiguration(): Parameters<
+export function ssoModuleForRootAsyncOptions(): Parameters<
   typeof SsoModule.forRootAsync
 >[0] {
   return {
+    staticConfiguration: {
+      mutateController: (ctrl) => {
+        SkipAuthGuard()(ctrl);
+        return ctrl;
+      },
+    },
     imports: [
       TwoFactorModule.forFeature({ featureModuleName: APP_FEATURE }),
       NotificationsModule.forFeature({ featureModuleName: APP_FEATURE }),

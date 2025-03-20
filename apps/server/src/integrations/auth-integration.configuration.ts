@@ -1,4 +1,11 @@
-import { AuthConfiguration, AuthRequest, AuthUser } from '@nestjs-mod-sso/auth';
+import {
+  AUTH_FEATURE,
+  AUTH_MODULE,
+  AuthConfiguration,
+  AuthModule,
+  AuthRequest,
+  AuthUser,
+} from '@nestjs-mod-sso/auth';
 import { searchIn, splitIn } from '@nestjs-mod-sso/common';
 import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
 import {
@@ -7,6 +14,7 @@ import {
   SsoCacheService,
   SsoError,
   SsoErrorEnum,
+  SsoModule,
   SsoProjectService,
   SsoRequest,
   SsoRole,
@@ -14,16 +22,21 @@ import {
   SsoTokensService,
   SsoUsersService,
 } from '@nestjs-mod-sso/sso';
-import { WebhookRequest, WebhookUsersService } from '@nestjs-mod-sso/webhook';
+import {
+  WebhookModule,
+  WebhookRequest,
+  WebhookUsersService,
+} from '@nestjs-mod-sso/webhook';
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
-import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { InjectPrismaClient, PrismaModule } from '@nestjs-mod/prisma';
 import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';
 import { WebhookRole } from '@prisma/webhook-client';
+import { SsoClientModule } from '../app/modules/sso-client.module';
 
 @Injectable()
-export class SsoAuthConfiguration implements AuthConfiguration {
-  private logger = new Logger(SsoAuthConfiguration.name);
+export class AuthIntegrationConfiguration implements AuthConfiguration {
+  private logger = new Logger(AuthIntegrationConfiguration.name);
 
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
@@ -169,4 +182,31 @@ export class SsoAuthConfiguration implements AuthConfiguration {
       }
     }
   }
+}
+
+export function authModuleForRootAsyncOptions(): Parameters<
+  typeof AuthModule.forRootAsync
+>[0] {
+  return {
+    imports: [
+      SsoClientModule.forFeature({
+        featureModuleName: AUTH_MODULE,
+      }),
+      SsoModule.forFeature({
+        featureModuleName: AUTH_MODULE,
+      }),
+      PrismaModule.forFeature({
+        contextName: SSO_FEATURE,
+        featureModuleName: AUTH_MODULE,
+      }),
+      PrismaModule.forFeature({
+        contextName: AUTH_FEATURE,
+        featureModuleName: AUTH_FEATURE,
+      }),
+      WebhookModule.forFeature({
+        featureModuleName: AUTH_MODULE,
+      }),
+    ],
+    configurationClass: AuthIntegrationConfiguration,
+  };
 }

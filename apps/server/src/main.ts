@@ -3,21 +3,35 @@ process.env.TZ = 'UTC';
 (BigInt.prototype as any).toJSON = function () {
   return this.toString();
 };
-import { AUTH_FEATURE, AUTH_FOLDER, SkipAuthGuard } from '@nestjs-mod-sso/auth';
+import KeyvRedis from '@keyv/redis';
+import { AUTH_FEATURE, AUTH_FOLDER, AuthModule } from '@nestjs-mod-sso/auth';
+import { FilesModule } from '@nestjs-mod-sso/files';
 import {
   NOTIFICATIONS_FEATURE,
+  NOTIFICATIONS_FOLDER,
   NotificationsModule,
   NotificationsRequest,
 } from '@nestjs-mod-sso/notifications';
 import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
 import {
+  SSO_FEATURE,
+  SSO_FOLDER,
   SsoCheckIsAdmin,
   SsoGuard,
   SsoModule,
   SsoRequest,
 } from '@nestjs-mod-sso/sso';
+import {
+  TWO_FACTOR_FEATURE,
+  TWO_FACTOR_FOLDER,
+  TwoFactorModule,
+} from '@nestjs-mod-sso/two-factor';
 import { ValidationModule } from '@nestjs-mod-sso/validation';
-import { WEBHOOK_FEATURE, WEBHOOK_FOLDER } from '@nestjs-mod-sso/webhook';
+import {
+  WEBHOOK_FEATURE,
+  WEBHOOK_FOLDER,
+  WebhookModule,
+} from '@nestjs-mod-sso/webhook';
 import {
   bootstrapNestApplication,
   DefaultNestApplicationInitializer,
@@ -36,27 +50,27 @@ import {
   DockerComposePostgreSQL,
   DockerComposeRedis,
 } from '@nestjs-mod/docker-compose';
+import { KeyvModule } from '@nestjs-mod/keyv';
+import { MinioModule } from '@nestjs-mod/minio';
 import { PgFlyway } from '@nestjs-mod/pg-flyway';
 import { ECOSYSTEM_CONFIG_FILE, Pm2 } from '@nestjs-mod/pm2';
 import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
+import { TerminusHealthCheckModule } from '@nestjs-mod/terminus';
 import { ExecutionContext } from '@nestjs/common';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
-import {
-  appFolder,
-  AppModule,
-  coreModules,
-  infrastructuresModules,
-  MainKeyvModule,
-  MainMinioModule,
-  MainTerminusHealthCheckModule,
-  MainWebhookModule,
-  rootFolder,
-} from './environments/environment';
-import { provideSsoIntegrationConfiguration } from './integrations/sso-integration.configuration';
+import { createClient } from 'redis';
+import { AppModule } from './app/app.module';
+import { appFolder, rootFolder } from './environments/environment';
+import { authModuleForRootAsyncOptions } from './integrations/auth-integration.configuration';
+import { filesModuleForRootAsyncOptions } from './integrations/minio-files-integration.configuration';
+import { ssoModuleForRootAsyncOptions } from './integrations/sso-integration.configuration';
+import { terminusHealthCheckModuleForRootAsyncOptions } from './integrations/terminus-health-check-integration.configuration';
+import { webhookModuleForRootAsyncOptions } from './integrations/webhook-integration.configuration';
+import { notificationsModuleForRootAsyncOptions } from './integrations/notifications-integration.configuration';
 
 bootstrapNestApplication({
   project: {
@@ -78,7 +92,9 @@ bootstrapNestApplication({
         staticConfiguration: { bufferLogs: true },
       }),
       // NestjsPinoLoggerModule.forRoot(),
-      MainTerminusHealthCheckModule,
+      TerminusHealthCheckModule.forRootAsync(
+        terminusHealthCheckModuleForRootAsyncOptions()
+      ),
       DefaultNestApplicationListener.forRoot({
         staticConfiguration: {
           // When running in infrastructure mode, the backend server does not start.
@@ -110,6 +126,7 @@ bootstrapNestApplication({
     ],
     core: [
       PrismaToolsModule.forRoot(),
+      // webhook
       PrismaModule.forRoot({
         contextName: WEBHOOK_FEATURE,
         staticConfiguration: {
@@ -139,7 +156,7 @@ bootstrapNestApplication({
           ],
         },
       }),
-      // todo: remove
+      // auth
       PrismaModule.forRoot({
         contextName: AUTH_FEATURE,
         staticConfiguration: {
@@ -164,44 +181,119 @@ bootstrapNestApplication({
           ],
         },
       }),
-      ...coreModules,
-      MainKeyvModule,
-      MainMinioModule,
+      // sso
+      PrismaModule.forRoot({
+        contextName: SSO_FEATURE,
+        staticConfiguration: {
+          featureName: SSO_FEATURE,
+          schemaFile: join(
+            rootFolder,
+            SSO_FOLDER,
+            'src',
+            'prisma',
+            PRISMA_SCHEMA_FILE
+          ),
+          prismaModule: isInfrastructureMode()
+            ? import(`@nestjs-mod/prisma`)
+            : import(`@prisma/sso-client`),
+          addMigrationScripts: false,
+          nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+
+          binaryTargets: [
+            'native',
+            'rhel-openssl-3.0.x',
+            'linux-musl-openssl-3.0.x',
+            'linux-musl',
+          ],
+        },
+      }),
+      // two-factor
+      PrismaModule.forRoot({
+        contextName: TWO_FACTOR_FEATURE,
+        staticConfiguration: {
+          featureName: TWO_FACTOR_FEATURE,
+          schemaFile: join(
+            rootFolder,
+            TWO_FACTOR_FOLDER,
+            'src',
+            'prisma',
+            PRISMA_SCHEMA_FILE
+          ),
+          prismaModule: isInfrastructureMode()
+            ? import(`@nestjs-mod/prisma`)
+            : import(`@prisma/two-factor-client`),
+          addMigrationScripts: false,
+          nxProjectJsonFile: join(
+            rootFolder,
+            TWO_FACTOR_FOLDER,
+            PROJECT_JSON_FILE
+          ),
+
+          binaryTargets: [
+            'native',
+            'rhel-openssl-3.0.x',
+            'linux-musl-openssl-3.0.x',
+            'linux-musl',
+          ],
+        },
+      }),
+      // notify
+      PrismaModule.forRoot({
+        contextName: NOTIFICATIONS_FEATURE,
+        staticConfiguration: {
+          featureName: NOTIFICATIONS_FEATURE,
+          schemaFile: join(
+            rootFolder,
+            NOTIFICATIONS_FOLDER,
+            'src',
+            'prisma',
+            PRISMA_SCHEMA_FILE
+          ),
+          prismaModule: isInfrastructureMode()
+            ? import(`@nestjs-mod/prisma`)
+            : import(`@prisma/notifications-client`),
+          addMigrationScripts: false,
+          nxProjectJsonFile: join(
+            rootFolder,
+            NOTIFICATIONS_FOLDER,
+            PROJECT_JSON_FILE
+          ),
+
+          binaryTargets: [
+            'native',
+            'rhel-openssl-3.0.x',
+            'linux-musl-openssl-3.0.x',
+            'linux-musl',
+          ],
+        },
+      }),
+      // redis cache
+      KeyvModule.forRoot({
+        staticConfiguration: {
+          storeFactoryByEnvironmentUrl: (uri) => {
+            return isInfrastructureMode()
+              ? undefined
+              : [new KeyvRedis(createClient({ url: uri }))];
+          },
+        },
+      }),
+      // minio
+      MinioModule.forRoot(),
       ValidationModule.forRoot({ staticEnvironments: { usePipes: false } }),
-      SsoModule.forRootAsync({
-        staticConfiguration: {
-          mutateController: (ctrl) => {
-            SkipAuthGuard()(ctrl);
-            return ctrl;
-          },
-        },
-        ...provideSsoIntegrationConfiguration(),
-      }),
-      NotificationsModule.forRootAsync({
-        imports: [
-          SsoModule.forFeature({
-            featureModuleName: NOTIFICATIONS_FEATURE,
-          }),
-        ],
-        staticConfiguration: {
-          guards: [SsoGuard],
-          mutateController: (ctrl) => {
-            SsoCheckIsAdmin()(ctrl);
-            return ctrl;
-          },
-        },
-        configuration: {
-          checkAccessValidator: async (ctx: ExecutionContext) => {
-            const req = getRequestFromExecutionContext(ctx) as SsoRequest &
-              NotificationsRequest;
-            req.notificationIsAdmin = Boolean(req.ssoIsAdmin);
-            req.externalTenantId = req.ssoProject?.id;
-          },
-        },
-      }),
     ],
-    feature: [AppModule.forRoot(), MainWebhookModule],
+    feature: [
+      AppModule.forRoot(),
+      AuthModule.forRootAsync(authModuleForRootAsyncOptions()),
+      FilesModule.forRootAsync(filesModuleForRootAsyncOptions()),
+      TwoFactorModule.forRoot(),
+      NotificationsModule.forRootAsync(
+        notificationsModuleForRootAsyncOptions()
+      ),
+      WebhookModule.forRootAsync(webhookModuleForRootAsyncOptions()),
+      SsoModule.forRootAsync(ssoModuleForRootAsyncOptions()),
+    ],
     infrastructure: [
+      // report
       InfrastructureMarkdownReportGenerator.forRoot({
         staticConfiguration: {
           markdownFile: join(appFolder, 'INFRASTRUCTURE.MD'),
@@ -209,26 +301,99 @@ bootstrapNestApplication({
           style: 'pretty',
         },
       }),
+      // pm2
       Pm2.forRoot({
         configuration: {
           ecosystemConfigFile: join(rootFolder, ECOSYSTEM_CONFIG_FILE),
           applicationScriptFile: join('dist/apps/server/main.js'),
         },
       }),
+      // docker compose
       DockerCompose.forRoot({
         configuration: {
           dockerComposeFileVersion: '3',
           dockerComposeFile: join(appFolder, DOCKER_COMPOSE_FILE),
         },
       }),
+      // postgresql
       DockerComposePostgreSQL.forRoot(),
-      ...infrastructuresModules,
+      // redis
       DockerComposeRedis.forRoot({
         staticConfiguration: { image: 'bitnami/redis:7.4.1' },
       }),
+      // minio
       DockerComposeMinio.forRoot({
         staticConfiguration: { image: 'bitnami/minio:2024.11.7' },
       }),
+      // sso
+      DockerComposePostgreSQL.forFeatureAsync({
+        featureModuleName: SSO_FEATURE,
+        featureConfiguration: {
+          nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+        },
+      }),
+      PgFlyway.forRoot({
+        staticConfiguration: {
+          featureName: SSO_FEATURE,
+          migrationsFolder: join(rootFolder, SSO_FOLDER, 'src', 'migrations'),
+          nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+        },
+      }),
+      // two-factor
+      DockerComposePostgreSQL.forFeatureAsync({
+        featureModuleName: TWO_FACTOR_FEATURE,
+        featureConfiguration: {
+          nxProjectJsonFile: join(
+            rootFolder,
+            TWO_FACTOR_FOLDER,
+            PROJECT_JSON_FILE
+          ),
+        },
+      }),
+      PgFlyway.forRoot({
+        staticConfiguration: {
+          featureName: TWO_FACTOR_FEATURE,
+          migrationsFolder: join(
+            rootFolder,
+            TWO_FACTOR_FOLDER,
+            'src',
+            'migrations'
+          ),
+          nxProjectJsonFile: join(
+            rootFolder,
+            TWO_FACTOR_FOLDER,
+            PROJECT_JSON_FILE
+          ),
+        },
+      }),
+      // notify
+      DockerComposePostgreSQL.forFeatureAsync({
+        featureModuleName: NOTIFICATIONS_FEATURE,
+        featureConfiguration: {
+          nxProjectJsonFile: join(
+            rootFolder,
+            NOTIFICATIONS_FOLDER,
+            PROJECT_JSON_FILE
+          ),
+        },
+      }),
+      PgFlyway.forRoot({
+        staticConfiguration: {
+          featureName: NOTIFICATIONS_FEATURE,
+          migrationsFolder: join(
+            rootFolder,
+            NOTIFICATIONS_FOLDER,
+            'src',
+            'migrations'
+          ),
+          nxProjectJsonFile: join(
+            rootFolder,
+            NOTIFICATIONS_FOLDER,
+            PROJECT_JSON_FILE
+          ),
+        },
+      }),
+      // webhook
       DockerComposePostgreSQL.forFeatureAsync({
         featureModuleName: WEBHOOK_FEATURE,
         featureConfiguration: {
@@ -255,6 +420,7 @@ bootstrapNestApplication({
           ),
         },
       }),
+      // auth
       DockerComposePostgreSQL.forFeatureAsync({
         featureModuleName: AUTH_FEATURE,
         featureConfiguration: {

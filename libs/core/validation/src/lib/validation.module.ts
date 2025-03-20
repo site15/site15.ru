@@ -13,7 +13,7 @@ import { ValidationError, ValidationErrorEnum } from './validation.errors';
 
 export const { ValidationModule } = createNestModule({
   moduleName: VALIDATION_MODULE,
-  moduleCategory: NestModuleCategory.feature,
+  moduleCategory: NestModuleCategory.core,
   configurationModel: ValidationConfiguration,
   staticEnvironmentsModel: ValidationStaticEnvironments,
   providers: ({ staticEnvironments }) => {

@@ -8,8 +8,8 @@ import {
   WsResponse,
 } from '@nestjs/websockets';
 import { interval, map, Observable } from 'rxjs';
-import { ChangeTimeStream } from '../../app.constants';
-import { SsoClientGuard } from '../../integrations/sso/sso-client.guard';
+import { ChangeTimeStream } from '../app.constants';
+import { SsoClientGuard } from '../modules/sso-client.module';
 
 @UseAuthInterceptorsAndGuards({
   guards: [SsoClientGuard],
