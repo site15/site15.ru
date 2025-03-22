@@ -17,5 +17,13 @@
     "Wrong old password": "Wrong old password",
     "Wrong password": "Wrong password",
     "Bad access token": "Bad access token",
-    "Your session has been blocked": "Your session has been blocked"
+    "Your session has been blocked": "Your session has been blocked",
+    "Event that will fire after deletion1": "Event that will fire after deletion1",
+    "An event that fires after user information is updated.": "An event that fires after user information is updated.",
+    "An event that is triggered after a new user registers": "An event that is triggered after a new user registers",
+    "An event that is triggered after a user call forgot password method": "An event that is triggered after a user call forgot password method",
+    "An event that is triggered after a user calls to confirm a forgotten password change": "An event that is triggered after a user calls to confirm a forgotten password change",
+    "An event that is triggered after a user login": "An event that is triggered after a user login",
+    "An event that is triggered after a user logout": "An event that is triggered after a user logout",
+    "An event that is triggered after complete a new user registers": "An event that is triggered after complete a new user registers"
 }

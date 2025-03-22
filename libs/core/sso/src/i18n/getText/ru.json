@@ -17,5 +17,13 @@
     "Wrong old password": "Старый пароль неверен",
     "Wrong password": "Неверный пароль",
     "Bad access token": "Плохой токен доступа",
-    "Your session has been blocked": "Ваш сеанс заблокирован"
+    "Your session has been blocked": "Ваш сеанс заблокирован",
+    "Event that will fire after deletion1": "Событие, которое сработает после удаления1",
+    "An event that fires after user information is updated.": "Событие, которое срабатывает после обновления информации о пользователе.",
+    "An event that is triggered after a new user registers": "Событие, которое запускается после регистрации нового пользователя",
+    "An event that is triggered after a user call forgot password method": "Событие, которое запускается после вызова пользователем метода восстановления пароля",
+    "An event that is triggered after a user calls to confirm a forgotten password change": "Событие, которое запускается после подтверждения пользователем изменения забытого пароля",
+    "An event that is triggered after a user login": "Событие, которое запускается после входа пользователя в систему",
+    "An event that is triggered after a user logout": "Событие, которое запускается после выхода пользователя из системы",
+    "An event that is triggered after complete a new user registers": "Событие, которое запускается после завершения регистрации нового пользователя"
 }

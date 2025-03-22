@@ -21,6 +21,8 @@ import { AuthCacheService } from './services/auth-cache.service';
 import { AuthDefaultDataBootstrapService } from './services/auth-default-data-bootstrap.service';
 import { AuthTimezoneService } from './services/auth-timezone.service';
 import { AuthAsyncLocalStorageContext } from './types/auth-async-local-storage-data';
+import { WebhookModule } from '@nestjs-mod-sso/webhook';
+import { AUTH_WEBHOOK_EVENTS } from './types/auth-webhooks';
 
 export const { AuthModule } = createNestModule({
   moduleName: AUTH_MODULE,
@@ -39,6 +41,10 @@ export const { AuthModule } = createNestModule({
       featureModuleName: AUTH_FEATURE,
     }),
     TranslatesModule,
+    WebhookModule.forFeature({
+      featureModuleName: AUTH_FEATURE,
+      featureConfiguration: { events: AUTH_WEBHOOK_EVENTS },
+    }),
   ],
   controllers: [AuthController, AuthUsersController],
   sharedImports: [

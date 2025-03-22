@@ -25,3 +25,15 @@ msgstr ""
 
 msgid "User ID not set"
 msgstr "Идентификатор пользователя не установлен"
+
+msgid "Event that fires after a notification is created"
+msgstr "Событие которое срабатывает после создания уведомления"
+
+msgid "Event that fires after a notification is sent"
+msgstr "Событие которое срабатывает после отправки уведомления"
+
+msgid "Event that fires after a notification is updated"
+msgstr "Событие которое срабатывает после обновления уведомления"
+
+msgid "Event that occurs when there is an error sending a notification"
+msgstr "Событие, которое возникает при ошибке отправки уведомления"

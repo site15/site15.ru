@@ -7,7 +7,10 @@
     "User not found": "Пользователь не найден",
     "ok": "ок",
     "lang must have one of the values: {{values}}": "lang должен иметь одно из значений: {{values}}",
-    "Unauthorized": "Неавторизован"
+    "Unauthorized": "Неавторизован",
+    "Event that fires after user create": "Событие которое срабатывает после создания пользователя",
+    "Event that fires after user delete": "Событие которое срабатывает после уделения пользователя",
+    "Event that fires after user update": "Событие которое срабатывает после обновления пользователя"
   },
   "auth-angular": {
     "Sign-in": "Войти",
@@ -37,7 +40,8 @@
     "Forbidden": "Нет доступа",
     "ok": "ок",
     "Only those who uploaded files can delete them": "Удалить файлы могут только те, кто их загрузил.",
-    "Uploading files with extension \"{{ext}}\" is not supported": "Загрузка файлов с расширением \"{{ext}}\" не поддерживается."
+    "Uploading files with extension \"{{ext}}\" is not supported": "Загрузка файлов с расширением \"{{ext}}\" не поддерживается.",
+    "Event that fires after a file is deleted": "Событие которое срабатывает после удаления файла"
   },
   "files-angular": {
     "files.image-file.change-file": "Изменить",
@@ -116,14 +120,18 @@
     "User not found": "Пользователь не найден",
     "ok": "ок",
     "lang must have one of the values: {{values}}": "lang должен иметь одно из значений: {{values}}",
-    "Unauthorized": "Неавторизован"
+    "Unauthorized": "Неавторизован",
+    "Event that fires after user create": "Событие которое срабатывает после создания пользователя",
+    "Event that fires after user delete": "Событие которое срабатывает после уделения пользователя",
+    "Event that fires after user update": "Событие которое срабатывает после обновления пользователя"
   },
   "files": {
     "Files error": "Ошибка файлов",
     "Forbidden": "Нет доступа",
     "ok": "ок",
     "Only those who uploaded files can delete them": "Удалить файлы могут только те, кто их загрузил.",
-    "Uploading files with extension \"{{ext}}\" is not supported": "Загрузка файлов с расширением \"{{ext}}\" не поддерживается."
+    "Uploading files with extension \"{{ext}}\" is not supported": "Загрузка файлов с расширением \"{{ext}}\" не поддерживается.",
+    "Event that fires after a file is deleted": "Событие которое срабатывает после удаления файла"
   },
   "prisma-tools": {
     "Common db error": "Ошибка базы данных",
@@ -151,7 +159,11 @@
     "Notifications error": "Ошибка уведомлений",
     "Tenant ID not set": "Идентификатор клиента не установлен",
     "The letter was not sent because the transport parameters or the letter parameters were empty": "Письмо не было отправлено, потому что параметры транспорта или параметры письма были пустыми",
-    "User ID not set": "Идентификатор пользователя не установлен"
+    "User ID not set": "Идентификатор пользователя не установлен",
+    "Event that fires after a notification is created": "Событие которое срабатывает после создания уведомления",
+    "Event that fires after a notification is sent": "Событие которое срабатывает после отправки уведомления",
+    "Event that fires after a notification is updated": "Событие которое срабатывает после обновления уведомления",
+    "Event that occurs when there is an error sending a notification": "Событие, которое возникает при ошибке отправки уведомления"
   },
   "sso-getText": {
     "$constraint1 do not match to $property": "$constraint1 не соответствует $property",
@@ -172,7 +184,15 @@
     "Wrong old password": "Старый пароль неверен",
     "Wrong password": "Неверный пароль",
     "Bad access token": "Плохой токен доступа",
-    "Your session has been blocked": "Ваш сеанс заблокирован"
+    "Your session has been blocked": "Ваш сеанс заблокирован",
+    "Event that will fire after deletion1": "Событие, которое сработает после удаления1",
+    "An event that fires after user information is updated.": "Событие, которое срабатывает после обновления информации о пользователе.",
+    "An event that is triggered after a new user registers": "Событие, которое запускается после регистрации нового пользователя",
+    "An event that is triggered after a user call forgot password method": "Событие, которое запускается после вызова пользователем метода восстановления пароля",
+    "An event that is triggered after a user calls to confirm a forgotten password change": "Событие, которое запускается после подтверждения пользователем изменения забытого пароля",
+    "An event that is triggered after a user login": "Событие, которое запускается после входа пользователя в систему",
+    "An event that is triggered after a user logout": "Событие, которое запускается после выхода пользователя из системы",
+    "An event that is triggered after complete a new user registers": "Событие, которое запускается после завершения регистрации нового пользователя"
   },
   "sso-angular": {
     "Users for project #{{projectId}}": "Пользователи проекта #{{projectId}}",
@@ -279,7 +299,11 @@
     "Notifications error": "Ошибка уведомлений",
     "Tenant ID not set": "Идентификатор клиента не установлен",
     "The letter was not sent because the transport parameters or the letter parameters were empty": "Письмо не было отправлено, потому что параметры транспорта или параметры письма были пустыми",
-    "User ID not set": "Идентификатор пользователя не установлен"
+    "User ID not set": "Идентификатор пользователя не установлен",
+    "Event that fires after a notification is created": "Событие которое срабатывает после создания уведомления",
+    "Event that fires after a notification is sent": "Событие которое срабатывает после отправки уведомления",
+    "Event that fires after a notification is updated": "Событие которое срабатывает после обновления уведомления",
+    "Event that occurs when there is an error sending a notification": "Событие, которое возникает при ошибке отправки уведомления"
   },
   "sso": {
     "$constraint1 do not match to $property": "$constraint1 не соответствует $property",
@@ -300,7 +324,15 @@
     "Wrong old password": "Старый пароль неверен",
     "Wrong password": "Неверный пароль",
     "Bad access token": "Плохой токен доступа",
-    "Your session has been blocked": "Ваш сеанс заблокирован"
+    "Your session has been blocked": "Ваш сеанс заблокирован",
+    "Event that will fire after deletion1": "Событие, которое сработает после удаления1",
+    "An event that fires after user information is updated.": "Событие, которое срабатывает после обновления информации о пользователе.",
+    "An event that is triggered after a new user registers": "Событие, которое запускается после регистрации нового пользователя",
+    "An event that is triggered after a user call forgot password method": "Событие, которое запускается после вызова пользователем метода восстановления пароля",
+    "An event that is triggered after a user calls to confirm a forgotten password change": "Событие, которое запускается после подтверждения пользователем изменения забытого пароля",
+    "An event that is triggered after a user login": "Событие, которое запускается после входа пользователя в систему",
+    "An event that is triggered after a user logout": "Событие, которое запускается после выхода пользователя из системы",
+    "An event that is triggered after complete a new user registers": "Событие, которое запускается после завершения регистрации нового пользователя"
   },
   "two-factor": {
     "Number of attempts of two factor code has been exhausted": "Количество попыток ввода двухфакторного кода исчерпано",

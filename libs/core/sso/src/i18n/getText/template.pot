@@ -62,3 +62,31 @@ msgstr "Bad access token"
 
 msgid "Your session has been blocked"
 msgstr "Your session has been blocked"
+
+msgid "Event that will fire after deletion1"
+msgstr "Event that will fire after deletion1"
+
+msgid "An event that fires after user information is updated."
+msgstr "An event that fires after user information is updated."
+
+msgid "An event that is triggered after a new user registers"
+msgstr "An event that is triggered after a new user registers"
+
+msgid "An event that is triggered after a user call forgot password method"
+msgstr "An event that is triggered after a user call forgot password method"
+
+msgid ""
+"An event that is triggered after a user calls to confirm a forgotten "
+"password change"
+msgstr ""
+"An event that is triggered after a user calls to confirm a forgotten "
+"password change"
+
+msgid "An event that is triggered after a user login"
+msgstr "An event that is triggered after a user login"
+
+msgid "An event that is triggered after a user logout"
+msgstr "An event that is triggered after a user logout"
+
+msgid "An event that is triggered after complete a new user registers"
+msgstr "An event that is triggered after complete a new user registers"

@@ -28,6 +28,12 @@ import { CurrentNotificationsExternalTenantId } from './notifications.decorators
 import { NotificationsError } from './notifications.errors';
 import { FindManyNotificationResponse } from './types/find-many-notification-event-response';
 import { NotificationsEntities } from './types/notifications-entities';
+import {
+  CurrentWebhookUser,
+  WebhookService,
+  WebhookUser,
+} from '@nestjs-mod-sso/webhook';
+import { NotificationsWebhookEvent } from './types/notifications-webhooks';
 
 @ApiExtraModels(NotificationsError, NotificationsEntities, ValidationError)
 @ApiBadRequestResponse({
@@ -39,7 +45,8 @@ export class NotificationsController {
   constructor(
     @InjectPrismaClient(NOTIFICATIONS_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly prismaToolsService: PrismaToolsService
+    private readonly prismaToolsService: PrismaToolsService,
+    private readonly webhookService: WebhookService
   ) {}
 
   @Get()
@@ -185,17 +192,27 @@ export class NotificationsController {
   @Put(':id')
   @ApiOkResponse({ type: NotificationsEventDto })
   async updateOne(
+    @CurrentWebhookUser() webhookUser: WebhookUser,
     @CurrentNotificationsExternalTenantId() externalTenantId: string,
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateNotificationsEventDto
   ) {
-    return await this.prismaClient.notificationsEvent.update({
+    const result = await this.prismaClient.notificationsEvent.update({
       data: { ...args, updatedAt: new Date() },
       where: {
         id,
         externalTenantId,
       },
     });
+    await this.webhookService.sendEvent({
+      eventName: NotificationsWebhookEvent['notifications.update'],
+      eventBody: result,
+      eventHeaders: {
+        externalTenantId: webhookUser.externalTenantId,
+        externalUserId: webhookUser.externalUserId,
+      },
+    });
+    return result;
   }
 
   @Get(':id')

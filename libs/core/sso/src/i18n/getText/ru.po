@@ -63,3 +63,35 @@ msgstr "Плохой токен доступа"
 
 msgid "Your session has been blocked"
 msgstr "Ваш сеанс заблокирован"
+
+msgid "Event that will fire after deletion1"
+msgstr "Событие, которое сработает после удаления1"
+
+msgid "An event that fires after user information is updated."
+msgstr "Событие, которое срабатывает после обновления информации о пользователе."
+
+msgid "An event that is triggered after a new user registers"
+msgstr "Событие, которое запускается после регистрации нового пользователя"
+
+msgid "An event that is triggered after a user call forgot password method"
+msgstr ""
+"Событие, которое запускается после вызова пользователем метода "
+"восстановления пароля"
+
+msgid ""
+"An event that is triggered after a user calls to confirm a forgotten "
+"password change"
+msgstr ""
+"Событие, которое запускается после подтверждения пользователем изменения "
+"забытого пароля"
+
+msgid "An event that is triggered after a user login"
+msgstr "Событие, которое запускается после входа пользователя в систему"
+
+msgid "An event that is triggered after a user logout"
+msgstr "Событие, которое запускается после выхода пользователя из системы"
+
+msgid "An event that is triggered after complete a new user registers"
+msgstr ""
+"Событие, которое запускается после завершения регистрации нового "
+"пользователя"

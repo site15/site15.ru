@@ -24,3 +24,15 @@ msgstr ""
 
 msgid "User ID not set"
 msgstr "User ID not set"
+
+msgid "Event that fires after a notification is created"
+msgstr "Event that fires after a notification is created"
+
+msgid "Event that fires after a notification is sent"
+msgstr "Event that fires after a notification is sent"
+
+msgid "Event that fires after a notification is updated"
+msgstr "Event that fires after a notification is updated"
+
+msgid "Event that occurs when there is an error sending a notification"
+msgstr "Event that occurs when there is an error sending a notification"

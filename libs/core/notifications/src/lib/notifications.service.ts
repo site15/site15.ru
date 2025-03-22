@@ -8,6 +8,8 @@ import { randomUUID } from 'crypto';
 import { getText } from 'nestjs-translates';
 import { createTransport, Transporter } from 'nodemailer';
 import { NotificationsStaticEnvironments } from './notifications.environments';
+import { WebhookService } from '@nestjs-mod-sso/webhook';
+import { NotificationsWebhookEvent } from './types/notifications-webhooks';
 
 export enum SendNotificationOptionsType {
   phone = 'phone',
@@ -47,7 +49,8 @@ export class NotificationsService {
   constructor(
     @InjectPrismaClient(NOTIFICATIONS_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly notificationsStaticEnvironments: NotificationsStaticEnvironments
+    private readonly notificationsStaticEnvironments: NotificationsStaticEnvironments,
+    private readonly webhookService: WebhookService
   ) {
     this.mailTransporter = this.notificationsStaticEnvironments.mailTransport
       ? createTransport(this.notificationsStaticEnvironments.mailTransport)
@@ -107,7 +110,7 @@ export class NotificationsService {
 
       recipientUsers.push(recipientUser);
 
-      await this.prismaClient.notificationsEvent.create({
+      const result = await this.prismaClient.notificationsEvent.create({
         data: {
           attempt: 0,
           externalTenantId: options.externalTenantId,
@@ -122,6 +125,15 @@ export class NotificationsService {
           text: options.text,
           recipientData: recipient,
           senderData: options.sender,
+        },
+      });
+
+      await this.webhookService.sendEvent({
+        eventName: NotificationsWebhookEvent['notifications.update'],
+        eventBody: result,
+        eventHeaders: {
+          externalTenantId: options.externalTenantId,
+          externalUserId: options.sender?.externalUserId,
         },
       });
     }
@@ -164,16 +176,32 @@ export class NotificationsService {
           text: event.text || undefined,
           html: event.html,
         });
-        await this.prismaClient.notificationsEvent.update({
+        const result = await this.prismaClient.notificationsEvent.update({
           where: { id: event.id },
           data: { used: true },
+        });
+        await this.webhookService.sendEvent({
+          eventName: NotificationsWebhookEvent['notifications.sent'],
+          eventBody: result,
+          eventHeaders: {
+            externalTenantId: event.externalTenantId,
+            externalUserId: senderData.externalUserId,
+          },
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         this.logger.error(err, err.stack);
-        await this.prismaClient.notificationsEvent.update({
+        const result = await this.prismaClient.notificationsEvent.update({
           where: { id: event.id },
           data: { error: { ...err }, used: true },
+        });
+        await this.webhookService.sendEvent({
+          eventName: NotificationsWebhookEvent['notifications.error'],
+          eventBody: result,
+          eventHeaders: {
+            externalTenantId: event.externalTenantId,
+            externalUserId: senderData.externalUserId,
+          },
         });
       }
     } else {

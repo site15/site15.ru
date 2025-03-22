@@ -64,6 +64,23 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 #### Shared providers
 `PrismaClientFactoryService`, `PrismaClient`
 
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
+
 #### Environments(auth)
 
 | Key    | Sources | Constraints | Value |
@@ -131,23 +148,6 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -155,6 +155,23 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 #### Shared providers
 `PrismaClientFactoryService`, `PrismaClient`
 
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
+
 #### Environments(auth)
 
 | Key    | Sources | Constraints | Value |
@@ -222,23 +239,6 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -246,6 +246,23 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 #### Shared providers
 `PrismaClientFactoryService`, `PrismaClient`
 
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
+
 #### Environments(auth)
 
 | Key    | Sources | Constraints | Value |
@@ -313,23 +330,6 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -337,6 +337,23 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 #### Shared providers
 `PrismaClientFactoryService`, `PrismaClient`
 
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
+
 #### Environments(auth)
 
 | Key    | Sources | Constraints | Value |
@@ -404,23 +421,6 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -428,6 +428,23 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 #### Shared providers
 `PrismaClientFactoryService`, `PrismaClient`
 
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
+
 #### Environments(auth)
 
 | Key    | Sources | Constraints | Value |
@@ -495,23 +512,6 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`addMigrationScripts`|**optional**|```false```|
 |`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SERVER_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`prismaModule`|**isNotEmpty** (prismaModule should not be empty)|Promise|
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`binaryTargets`|**optional**|[ ```native```, ```rhel-openssl-3.0.x```, ```linux-musl-openssl-3.0.x```, ```linux-musl``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 ### KeyvModule
 Simple key-value storage with support for multiple backends, and a consistent interface for NestJS-mod (Wrapper for https://www.npmjs.com/package/keyv)
@@ -616,7 +616,7 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 `NotificationsService`
 
 #### Shared imports
-`PrismaModule`, `PrismaToolsModule`
+`PrismaModule`, `PrismaToolsModule`, `WebhookModule`
 
 #### Configuration
 
@@ -647,12 +647,6 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 #### Shared imports
 `HttpModule`, `PrismaModule`
 
-#### Configuration
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"app-demo.create","description":"Event that will be triggered after creation","example":{"id":"e4be9194-8c41-4058-bf70-f52a30bccbeb","name":"demo name","createdAt":"2024-10-02T18:49:07.992Z","updatedAt":"2024-10-02T18:49:07.992Z"}}```, ```{"eventName":"app-demo.update","description":"Event that will trigger after the update","example":{"id":"e4be9194-8c41-4058-bf70-f52a30bccbeb","name":"demo name","createdAt":"2024-10-02T18:49:07.992Z","updatedAt":"2024-10-02T18:49:07.992Z"}}```, ```{"eventName":"app-demo.delete","description":"Event that will fire after deletion","example":{"id":"e4be9194-8c41-4058-bf70-f52a30bccbeb","name":"demo name","createdAt":"2024-10-02T18:49:07.992Z","updatedAt":"2024-10-02T18:49:07.992Z"}}``` ]|
-
 #### Static environments
 
 | Key    | Sources | Constraints | Value |
@@ -664,6 +658,41 @@ Minio client for NestJS-mod (Wrapper for https://www.npmjs.com/package/nestjs-mi
 |`searchUserIdInHeaders`|`obj['searchUserIdInHeaders']`, `process.env['SERVER_WEBHOOK_SEARCH_USER_ID_IN_HEADERS']`|**optional**|```false```|
 |`skipGuardErrors`|`obj['skipGuardErrors']`, `process.env['SERVER_WEBHOOK_SKIP_GUARD_ERRORS']`|**optional**|```false```|
 |`superAdminExternalUserId`|`obj['superAdminExternalUserId']`, `process.env['SERVER_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID']`|**optional**|```248ec37f-628d-43f0-8de2-f58da037dd0f```|
+
+#### Modules that use feature configuration
+##### Feature module name: auth
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`events`|**optional**|[ ```{"eventName":"auth.user-create","description":"Event that fires after user create","example":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","lang":"en","timezone":5,"userRole":"User"}}```, ```{"eventName":"auth.user-update","description":"Event that fires after user update","example":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","lang":"en","timezone":5,"userRole":"User"}}```, ```{"eventName":"auth.user-delete","description":"Event that fires after user delete","example":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab"}}``` ]|
+
+#### Modules that use feature configuration
+##### Feature module name: files
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`events`|**optional**|[ ```{"eventName":"files.delete","description":"Event that fires after a file is deleted","example":{"bucketName":"images","downloadUrl":"/files/images-file-id.jpg","objectName":"images-file-id","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab"}}``` ]|
+
+#### Modules that use feature configuration
+##### Feature module name: notifications
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-03-22T11:56:45.048Z","updatedAt":"2025-03-22T11:56:45.048Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-03-22T11:56:45.048Z","updatedAt":"2025-03-22T11:56:45.048Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-03-22T11:56:45.048Z","updatedAt":"2025-03-22T11:56:45.048Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-03-22T11:56:45.048Z","updatedAt":"2025-03-22T11:56:45.048Z"}}``` ]|
+
+#### Modules that use feature configuration
+##### Feature module name: sso
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-03-22T11:56:45.130Z","createdAt":"2025-03-22T11:56:45.130Z","email":"user@example.com","emailVerifiedAt":"2025-03-22T11:56:45.130Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-03-22T11:56:45.130Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-03-22T11:56:45.130Z","roles":"user","updatedAt":"2025-03-22T11:56:45.130Z","username":"nickname"}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-03-22T11:56:45.130Z","createdAt":"2025-03-22T11:56:45.130Z","email":"user@example.com","emailVerifiedAt":"2025-03-22T11:56:45.130Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-03-22T11:56:45.130Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-03-22T11:56:45.130Z","roles":"user","updatedAt":"2025-03-22T11:56:45.130Z","username":"nickname"}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-03-22T11:56:45.130Z","createdAt":"2025-03-22T11:56:45.130Z","email":"user@example.com","emailVerifiedAt":"2025-03-22T11:56:45.130Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-03-22T11:56:45.130Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-03-22T11:56:45.130Z","roles":"user","updatedAt":"2025-03-22T11:56:45.130Z","username":"nickname"}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-03-22T11:56:45.130Z","createdAt":"2025-03-22T11:56:45.130Z","email":"user@example.com","emailVerifiedAt":"2025-03-22T11:56:45.130Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-03-22T11:56:45.130Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-03-22T11:56:45.130Z","roles":"user","updatedAt":"2025-03-22T11:56:45.130Z","username":"nickname"}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-03-22T11:56:45.130Z","createdAt":"2025-03-22T11:56:45.130Z","email":"user@example.com","emailVerifiedAt":"2025-03-22T11:56:45.130Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-03-22T11:56:45.130Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-03-22T11:56:45.130Z","roles":"user","updatedAt":"2025-03-22T11:56:45.130Z","username":"nickname"}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-03-22T11:56:45.130Z","createdAt":"2025-03-22T11:56:45.130Z","email":"user@example.com","emailVerifiedAt":"2025-03-22T11:56:45.130Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-03-22T11:56:45.130Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-03-22T11:56:45.130Z","roles":"user","updatedAt":"2025-03-22T11:56:45.130Z","username":"nickname"}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-03-22T11:56:45.130Z","createdAt":"2025-03-22T11:56:45.130Z","email":"user@example.com","emailVerifiedAt":"2025-03-22T11:56:45.130Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-03-22T11:56:45.130Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-03-22T11:56:45.130Z","roles":"user","updatedAt":"2025-03-22T11:56:45.130Z","username":"nickname"}}``` ]|
+
+#### Modules that use feature configuration
+##### Feature module name: app
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`events`|**optional**|[ ```{"eventName":"app-demo.create","description":"Event that will be triggered after creation","example":{"id":"e4be9194-8c41-4058-bf70-f52a30bccbeb","name":"demo name","createdAt":"2024-10-02T18:49:07.992Z","updatedAt":"2024-10-02T18:49:07.992Z"}}```, ```{"eventName":"app-demo.update","description":"Event that will trigger after the update","example":{"id":"e4be9194-8c41-4058-bf70-f52a30bccbeb","name":"demo name","createdAt":"2024-10-02T18:49:07.992Z","updatedAt":"2024-10-02T18:49:07.992Z"}}```, ```{"eventName":"app-demo.delete","description":"Event that will fire after deletion","example":{"id":"e4be9194-8c41-4058-bf70-f52a30bccbeb","name":"demo name","createdAt":"2024-10-02T18:49:07.992Z","updatedAt":"2024-10-02T18:49:07.992Z"}}``` ]|
 
 ### SsoModule
 #### Shared providers

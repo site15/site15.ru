@@ -67,6 +67,7 @@ export * from './lib/types/sso-entities';
 export * from './lib/types/sso-public-project.dto';
 export * from './lib/types/sso-request';
 export * from './lib/types/sso-role';
+export * from './lib/types/sso-webhooks';
 export * from './lib/types/tokens.dto';
 export * from './lib/types/update-profile.dto';
 export * from './lib/utils/equals-to';

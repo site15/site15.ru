@@ -8,7 +8,7 @@ import { KeyvModule } from '@nestjs-mod/keyv';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { UseFilters, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { TranslatesModule } from 'nestjs-translates';
+import { getText, TranslatesModule } from 'nestjs-translates';
 import { SsoProjectsController } from './controllers/sso-projects.controller';
 import { SsoRefreshSessionsController } from './controllers/sso-sessions.controller';
 import { SsoUsersController } from './controllers/sso-users.controller';
@@ -30,6 +30,8 @@ import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
 import { SsoRolesController } from './controllers/sso-roles.controller';
 import { SsoPublicProjectsController } from './controllers/sso-public-projects.controller';
+import { WebhookModule } from '@nestjs-mod-sso/webhook';
+import { SSO_WEBHOOK_EVENTS } from './types/sso-webhooks';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -45,6 +47,12 @@ export const { SsoModule } = createNestModule({
     }),
     PrismaToolsModule.forFeature({
       featureModuleName: SSO_FEATURE,
+    }),
+    WebhookModule.forFeature({
+      featureModuleName: SSO_FEATURE,
+      featureConfiguration: {
+        events: SSO_WEBHOOK_EVENTS,
+      },
     }),
     TranslatesModule,
   ],

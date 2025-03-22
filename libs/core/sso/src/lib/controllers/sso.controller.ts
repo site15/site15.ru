@@ -1,5 +1,6 @@
 import { StatusResponse } from '@nestjs-mod-sso/common';
 import { ValidationError } from '@nestjs-mod-sso/validation';
+import { WebhookService } from '@nestjs-mod-sso/webhook';
 import {
   Body,
   Controller,
@@ -44,8 +45,10 @@ import { SignOutArgs } from '../types/sign-out.dto';
 import { CompleteSignUpArgs, SignUpArgs } from '../types/sign-up.dto';
 import { SsoEntities } from '../types/sso-entities';
 import { SsoRequest } from '../types/sso-request';
+import { SsoWebhookEvent } from '../types/sso-webhooks';
 import { TokensResponse } from '../types/tokens.dto';
 import { UpdateProfileArgs } from '../types/update-profile.dto';
+import { omit } from 'lodash/fp';
 
 @ApiExtraModels(SsoError, SsoEntities, ValidationError)
 @ApiBadRequestResponse({
@@ -59,7 +62,8 @@ export class SsoController {
   constructor(
     private readonly ssoCookieService: SsoCookieService,
     private readonly ssoService: SsoService,
-    private readonly ssoEventsService: SsoEventsService
+    private readonly ssoEventsService: SsoEventsService,
+    private readonly webhookService: WebhookService
   ) {}
 
   @AllowEmptySsoUser()
@@ -76,6 +80,12 @@ export class SsoController {
     const user = await this.ssoService.signIn({
       signInArgs,
       projectId: ssoRequest.ssoProject.id,
+    });
+
+    await this.webhookService.sendEvent({
+      eventName: SsoWebhookEvent['sso.sign-in'],
+      eventBody: omit(['password'], user),
+      eventHeaders: { projectId: ssoRequest.ssoProject.id },
     });
 
     if (user.emailVerifiedAt === null) {
@@ -129,6 +139,12 @@ export class SsoController {
     const user = await this.ssoService.signUp({
       signUpArgs,
       projectId: ssoRequest.ssoProject.id,
+    });
+
+    await this.webhookService.sendEvent({
+      eventName: SsoWebhookEvent['sso.sign-up'],
+      eventBody: omit(['password'], user),
+      eventHeaders: { projectId: ssoRequest.ssoProject.id },
     });
 
     if (user.emailVerifiedAt === null) {
@@ -189,6 +205,12 @@ export class SsoController {
       throw new SsoError(SsoErrorEnum.UserNotFound);
     }
 
+    await this.webhookService.sendEvent({
+      eventName: SsoWebhookEvent['sso.complete-sign-up'],
+      eventBody: omit(['password'], user),
+      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+    });
+
     await this.ssoEventsService.send({
       CompleteSignUp: { completeSignUpArgs },
       userId: user.id,
@@ -238,6 +260,12 @@ export class SsoController {
       projectId: ssoRequest.ssoProject.id,
     });
 
+    await this.webhookService.sendEvent({
+      eventName: SsoWebhookEvent['sso.sign-out'],
+      eventBody: omit(['password'], ssoRequest.ssoUser || {}),
+      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+    });
+
     await this.ssoEventsService.send({
       SignOut: { signOutArgs: { refreshToken } },
       userId: cookieWithJwtToken.refreshSession?.userId,
@@ -263,6 +291,13 @@ export class SsoController {
       ssoRequest,
       projectId: ssoRequest.ssoProject.id,
     });
+
+    await this.webhookService.sendEvent({
+      eventName: SsoWebhookEvent['sso.forgot-password'],
+      eventBody: omit(['password'], ssoRequest.ssoUser || {}),
+      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+    });
+
     return { message: 'ok' };
   }
 
@@ -287,6 +322,12 @@ export class SsoController {
     if (!user) {
       throw new SsoError(SsoErrorEnum.UserNotFound);
     }
+
+    await this.webhookService.sendEvent({
+      eventName: SsoWebhookEvent['sso.complete-forgot-password'],
+      eventBody: omit(['password'], ssoRequest.ssoUser || {}),
+      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+    });
 
     const cookieWithJwtToken =
       await this.ssoCookieService.getCookieWithJwtToken({
@@ -359,12 +400,20 @@ export class SsoController {
     assert(ssoRequest.ssoUser);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...profile } = updateProfileArgs;
-    return await this.ssoService.update({
+    const user = await this.ssoService.update({
       user: {
         ...profile,
         id: ssoRequest.ssoUser.id,
       },
       projectId: ssoRequest.ssoProject.id,
     });
+
+    await this.webhookService.sendEvent({
+      eventName: SsoWebhookEvent['sso.update-profile'],
+      eventBody: omit(['password'], user),
+      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+    });
+
+    return user;
   }
 }

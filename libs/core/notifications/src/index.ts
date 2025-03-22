@@ -27,3 +27,4 @@ export * from './lib/generated/rest/dto/update-notifications-user.dto';
 export * from './lib/types/find-many-notification-event-response';
 export * from './lib/types/notifications-entities';
 export * from './lib/types/notifications-request';
+export * from './lib/types/notifications-webhooks';

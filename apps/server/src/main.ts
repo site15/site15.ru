@@ -60,7 +60,6 @@ import { filesModuleForRootAsyncOptions } from './integrations/minio-files-integ
 import { notificationsModuleForRootAsyncOptions } from './integrations/notifications-integration.configuration';
 import { ssoModuleForRootAsyncOptions } from './integrations/sso-integration.configuration';
 import { terminusHealthCheckModuleForRootAsyncOptions } from './integrations/terminus-health-check-integration.configuration';
-import { webhookModuleForRootAsyncOptions } from './integrations/webhook-integration.configuration';
 
 bootstrapNestApplication({
   project: {
@@ -276,7 +275,21 @@ bootstrapNestApplication({
       NotificationsModule.forRootAsync(
         notificationsModuleForRootAsyncOptions()
       ),
-      WebhookModule.forRootAsync(webhookModuleForRootAsyncOptions()),
+      WebhookModule.forRootAsync({
+        staticEnvironments: {
+          searchUserIdInHeaders: false,
+          searchTenantIdInHeaders: false,
+        },
+        imports: [
+          // need for work global auth guards
+          AuthModule.forFeature({ featureModuleName: AUTH_FEATURE }),
+          PrismaModule.forFeature({
+            featureModuleName: WEBHOOK_FEATURE,
+            contextName: AUTH_FEATURE,
+          }),
+        ],
+        configuration: { syncMode: false },
+      }),
       SsoModule.forRootAsync(ssoModuleForRootAsyncOptions()),
     ],
     feature: [AppModule.forRoot()],

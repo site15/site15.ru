@@ -1,4 +1,5 @@
 import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
+import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import {
   createNestModule,
   getFeatureDotEnvPropertyNameFormatter,
@@ -21,6 +22,7 @@ import { NotificationsStaticEnvironments } from './notifications.environments';
 import { NotificationsExceptionsFilter } from './notifications.filter';
 import { NotificationsGuard } from './notifications.guard';
 import { NotificationsService } from './notifications.service';
+import { NOTIFICATIONS_WEBHOOK_EVENTS } from './types/notifications-webhooks';
 
 export const { NotificationsModule } = createNestModule({
   moduleName: NOTIFICATIONS_MODULE,
@@ -36,6 +38,10 @@ export const { NotificationsModule } = createNestModule({
     PrismaToolsModule.forFeature({
       featureModuleName: NOTIFICATIONS_FEATURE,
     }),
+    WebhookModule.forFeature({
+      featureModuleName: NOTIFICATIONS_FEATURE,
+      featureConfiguration: { events: NOTIFICATIONS_WEBHOOK_EVENTS },
+    }),
   ],
   sharedImports: [
     PrismaModule.forFeature({
@@ -43,6 +49,9 @@ export const { NotificationsModule } = createNestModule({
       featureModuleName: NOTIFICATIONS_FEATURE,
     }),
     PrismaToolsModule.forFeature({
+      featureModuleName: NOTIFICATIONS_FEATURE,
+    }),
+    WebhookModule.forFeature({
       featureModuleName: NOTIFICATIONS_FEATURE,
     }),
   ],
