@@ -10,6 +10,7 @@ import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { SsoCacheService } from './sso-cache.service';
 import { SsoPasswordService } from './sso-password.service';
 import { SsoProjectService } from './sso-project.service';
+import { searchIn } from '@nestjs-mod-sso/common';
 
 @Injectable()
 export class SsoUsersService {
@@ -195,9 +196,7 @@ export class SsoUsersService {
   }) {
     if (
       roles?.length &&
-      !roles.find((r) =>
-        this.ssoStaticEnvironments.userAvailableRoles?.includes(r)
-      )
+      !searchIn(roles, this.ssoStaticEnvironments.userAvailableRoles)
     ) {
       this.logger.debug({
         create: {
@@ -206,9 +205,7 @@ export class SsoUsersService {
           roles,
         },
         userAvailableRoles: this.ssoStaticEnvironments.userAvailableRoles,
-        result: roles.find((r) =>
-          this.ssoStaticEnvironments.userAvailableRoles?.includes(r)
-        ),
+        result: searchIn(roles, this.ssoStaticEnvironments.userAvailableRoles),
       });
       throw new SsoError(SsoErrorEnum.NonExistentRoleSpecified);
     }

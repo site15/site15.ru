@@ -11,9 +11,9 @@ export function searchIn(
   searchValue?: string | string[] | null,
   inValue?: string | string[] | null
 ) {
-  const searchValueArr = splitIn(searchValue);
+  const searchValueArr = splitIn(searchValue).map((s) => s.toLowerCase());
 
-  const inValueArr = splitIn(inValue);
+  const inValueArr = splitIn(inValue).map((s) => s.toLowerCase());
 
   const result = Boolean(
     inValueArr.find((a) => searchValueArr.find((s) => s.includes(a)))

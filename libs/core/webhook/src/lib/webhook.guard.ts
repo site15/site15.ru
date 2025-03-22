@@ -16,6 +16,7 @@ import { WEBHOOK_FEATURE } from './webhook.constants';
 import { CheckWebhookRole } from './webhook.decorators';
 import { WebhookStaticEnvironments } from './webhook.environments';
 import { WebhookError, WebhookErrorEnum } from './webhook.errors';
+import { searchIn } from '@nestjs-mod-sso/common';
 
 @Injectable()
 export class WebhookGuard implements CanActivate {
@@ -71,7 +72,7 @@ export class WebhookGuard implements CanActivate {
     if (
       checkWebhookRole &&
       req.webhookUser &&
-      !checkWebhookRole?.includes(req.webhookUser.userRole)
+      !searchIn(req.webhookUser.userRole, checkWebhookRole)
     ) {
       throw new WebhookError(WebhookErrorEnum.FORBIDDEN);
     }
