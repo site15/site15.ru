@@ -8,6 +8,11 @@ import { IsNotEmpty, IsOptional } from 'class-validator';
 
 import ms from 'ms';
 import { SsoRole } from './types/sso-role';
+import {
+  SsoProjectType,
+  StringToProjectsTransformer,
+  StringToProjectTransformer,
+} from './utils/string-to-project.transformer';
 
 @EnvModel()
 export class SsoStaticEnvironments {
@@ -99,17 +104,16 @@ export class SsoStaticEnvironments {
   adminSecret?: string;
 
   @EnvModelProperty({
-    description: 'Default client name',
+    description:
+      'Default public projects (example: "name1:ru=название1:tt=исем1,clientId1,clientSecret1;name2:ru=название2:tt=исем2,clientId2,clientSecret2")',
+    transform: new StringToProjectsTransformer(),
   })
-  defaultClientName?: string;
+  defaultPublicProjects?: SsoProjectType[];
 
   @EnvModelProperty({
-    description: 'Default client ID',
+    description:
+      'Default projects (example: "name3:ru=название3,clientId3,clientSecret3;name4:ru=название4,clientId4,clientSecret4")',
+    transform: new StringToProjectTransformer(),
   })
-  defaultClientId?: string;
-
-  @EnvModelProperty({
-    description: 'Default secret key',
-  })
-  defaultClientSecret?: string;
+  defaultProject?: SsoProjectType;
 }

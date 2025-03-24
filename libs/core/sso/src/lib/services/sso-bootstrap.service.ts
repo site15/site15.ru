@@ -2,8 +2,8 @@ import { isInfrastructureMode } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';
-import { SsoConfiguration } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
+import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoCacheService } from './sso-cache.service';
 import { SsoProjectService } from './sso-project.service';
 
@@ -14,7 +14,7 @@ export class SsoServiceBootstrap implements OnModuleInit {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly ssoConfiguration: SsoConfiguration,
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoCacheService: SsoCacheService,
     private readonly ssoProjectService: SsoProjectService
   ) {}
@@ -32,7 +32,8 @@ export class SsoServiceBootstrap implements OnModuleInit {
   }
 
   private async createDefaultPublicProjects() {
-    for (const defaultPublicProject of this.ssoConfiguration
+    console.log(this.ssoStaticEnvironments.defaultPublicProjects);
+    for (const defaultPublicProject of this.ssoStaticEnvironments
       .defaultPublicProjects || []) {
       try {
         const existsProject = await this.prismaClient.ssoProject.findFirst({

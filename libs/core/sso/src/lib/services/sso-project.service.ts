@@ -22,15 +22,19 @@ export class SsoProjectService {
     req.ssoClientId = this.getClientIdFromRequest(req);
     req.ssoClientSecret = this.getClientSecretFromRequest(req);
 
-    if (!req.ssoClientId && this.ssoStaticEnvironments.defaultClientId) {
-      req.ssoClientId = this.ssoStaticEnvironments.defaultClientId;
+    if (
+      !req.ssoClientId &&
+      this.ssoStaticEnvironments.defaultProject?.clientId
+    ) {
+      req.ssoClientId = this.ssoStaticEnvironments.defaultProject?.clientId;
     }
 
     if (
       !req.ssoClientSecret &&
-      this.ssoStaticEnvironments.defaultClientSecret
+      this.ssoStaticEnvironments.defaultProject?.clientSecret
     ) {
-      req.ssoClientSecret = this.ssoStaticEnvironments.defaultClientSecret;
+      req.ssoClientSecret =
+        this.ssoStaticEnvironments.defaultProject?.clientSecret;
     }
 
     if (req.ssoClientId) {
@@ -64,30 +68,32 @@ export class SsoProjectService {
 
   async getOrCreateDefaultProject() {
     if (
-      this.ssoStaticEnvironments.defaultClientName &&
-      this.ssoStaticEnvironments.defaultClientId &&
-      this.ssoStaticEnvironments.defaultClientSecret
+      this.ssoStaticEnvironments.defaultProject?.name &&
+      this.ssoStaticEnvironments.defaultProject?.clientId &&
+      this.ssoStaticEnvironments.defaultProject?.clientSecret
     ) {
       const existsProject = await this.prismaClient.ssoProject.findFirst({
         where: {
-          clientId: this.ssoStaticEnvironments.defaultClientId,
-          clientSecret: this.ssoStaticEnvironments.defaultClientSecret,
+          clientId: this.ssoStaticEnvironments.defaultProject?.clientId,
+          clientSecret: this.ssoStaticEnvironments.defaultProject?.clientSecret,
         },
       });
       if (!existsProject) {
         await this.prismaClient.ssoProject.create({
           data: {
             public: false,
-            name: this.ssoStaticEnvironments.defaultClientName,
-            clientId: this.ssoStaticEnvironments.defaultClientId,
-            clientSecret: this.ssoStaticEnvironments.defaultClientSecret,
+            name: this.ssoStaticEnvironments.defaultProject?.name,
+            nameLocale: this.ssoStaticEnvironments.defaultProject.nameLocale,
+            clientId: this.ssoStaticEnvironments.defaultProject?.clientId,
+            clientSecret:
+              this.ssoStaticEnvironments.defaultProject?.clientSecret,
           },
         });
         await this.ssoCacheService.clearCacheProjectByClientId(
-          this.ssoStaticEnvironments.defaultClientId
+          this.ssoStaticEnvironments.defaultProject?.clientId
         );
         return await this.ssoCacheService.getCachedProject(
-          this.ssoStaticEnvironments.defaultClientId
+          this.ssoStaticEnvironments.defaultProject?.clientId
         );
       }
       return existsProject;

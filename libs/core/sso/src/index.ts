@@ -72,3 +72,4 @@ export * from './lib/types/tokens.dto';
 export * from './lib/types/update-profile.dto';
 export * from './lib/utils/equals-to';
 export * from './lib/utils/request-ip';
+export * from './lib/utils/string-to-project.transformer';
