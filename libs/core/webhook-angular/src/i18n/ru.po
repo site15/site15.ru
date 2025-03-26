@@ -13,17 +13,20 @@ msgstr "Журналы для вебхука #{{webhookId}}"
 msgid "input search text"
 msgstr "введите текст поиска"
 
-msgid "Create new"
-msgstr "Создать"
-
 msgid "Action"
 msgstr "Действия"
 
-msgid "Edit"
-msgstr "Изменить"
+msgid "View"
+msgstr "Информация"
 
 msgid "Delete"
 msgstr "Удалить"
+
+msgid "Create new"
+msgstr "Создать"
+
+msgid "Edit"
+msgstr "Изменить"
 
 msgid "Save"
 msgstr "Сохранить"
@@ -40,8 +43,17 @@ msgstr "Заполните учетные данные администрато�
 msgid "Sign-in"
 msgstr "Войти"
 
-msgid "webhook.form.fields.enabled"
-msgstr "Активен"
+msgid "webhook-log.form.fields.request"
+msgstr "Запрос"
+
+msgid "webhook-log.form.fields.webhook-status"
+msgstr "Статус"
+
+msgid "webhook-log.form.fields.response"
+msgstr "Ответ"
+
+msgid "webhook-log.form.fields.response-status"
+msgstr "Статус ответа"
 
 msgid "webhook.form.fields.endpoint"
 msgstr "Адрес"
@@ -52,17 +64,38 @@ msgstr "Событие"
 msgid "webhook.form.fields.headers"
 msgstr "Заголовки"
 
+msgid "webhook.form.fields.enabled"
+msgstr "Активен"
+
 msgid "webhook.form.fields.request-timeout"
-msgstr "Таймаут запроса"
+msgstr "Таймаут запроса (мс)"
 
 msgid "webhook.form.fields.work-until-date"
 msgstr "До какой даты может работать"
+
+msgid "Example of payload"
+msgstr "Пример данных для отправки"
 
 msgid "webhook.form.fields.x-external-userId"
 msgstr "x-external-userId"
 
 msgid "webhook.form.fields.x-external-tenantId"
 msgstr "x-external-tenantId"
+
+msgid "webhook-log.view-modal.title"
+msgstr "Информация о логе вебхука #{{ id }}"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "webhook-log.delete-modal.title"
+msgstr "Удалить лог вебхука #{{ id }}"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
 
 msgid "webhook-log.grid.columns.id"
 msgstr "ИД."
@@ -79,23 +112,26 @@ msgstr "Статус ответа"
 msgid "webhook-log.grid.columns.webhook-status"
 msgstr "Статус"
 
+msgid "webhook.test-request-modal.success-title"
+msgstr "Тестовый запрос прошел успешно"
+
+msgid "webhook.test-request-modal.error-title"
+msgstr "Тестовый запрос прошел с ошибкой"
+
 msgid "webhook.update-modal.title"
 msgstr "Изменить вебхук #{{ id }}"
 
 msgid "webhook.create-modal.title"
 msgstr "Создать новый вебхук"
 
+msgid "Test request"
+msgstr "Тестовый запрос"
+
 msgid "Cancel"
 msgstr "Отмена"
 
 msgid "webhook.delete-modal.title"
 msgstr "Удалить вебхук #{{ id }}"
-
-msgid "Yes"
-msgstr "Да"
-
-msgid "No"
-msgstr "Нет"
 
 msgid "webhook.grid.columns.id"
 msgstr "ИД."
@@ -113,16 +149,16 @@ msgid "webhook.grid.columns.headers"
 msgstr "Заголовки"
 
 msgid "webhook.grid.columns.request-timeout"
-msgstr "Таймаут запроса"
+msgstr "Таймаут запроса (мс)"
 
 msgid "webhook.grid.columns.work-until-date"
 msgstr "До какой даты может работать"
 
-msgid "Success"
-msgstr "Успешно"
-
 msgid "id not set"
 msgstr "идентификатор не установлен"
+
+msgid "Success"
+msgstr "Успешно"
 
 msgid "Validation errors"
 msgstr "Ошибка при проверке данных"

@@ -25,6 +25,7 @@ import { WebhookGuard } from './webhook.guard';
 
 import { KeyvModule } from '@nestjs-mod/keyv';
 import { TranslatesModule } from 'nestjs-translates';
+import { WebhookLogsController } from './controllers/webhook-logs.controller';
 import { WebhookCacheService } from './services/webhook-cache.service';
 
 export const { WebhookModule } = createNestModule({
@@ -60,7 +61,11 @@ export const { WebhookModule } = createNestModule({
     WebhookServiceBootstrap,
     WebhookCacheService,
   ],
-  controllers: [WebhookUsersController, WebhookController],
+  controllers: [
+    WebhookUsersController,
+    WebhookLogsController,
+    WebhookController,
+  ],
   sharedProviders: [WebhookService, WebhookUsersService],
   wrapForRootAsync: (asyncModuleOptions) => {
     if (!asyncModuleOptions) {
@@ -80,7 +85,11 @@ export const { WebhookModule } = createNestModule({
   preWrapApplication: async ({ current }) => {
     const staticEnvironments = current.staticEnvironments;
 
-    for (const ctrl of [WebhookController, WebhookUsersController]) {
+    for (const ctrl of [
+      WebhookController,
+      WebhookLogsController,
+      WebhookUsersController,
+    ]) {
       if (staticEnvironments?.useFilters) {
         UseFilters(WebhookExceptionsFilter)(ctrl);
       }

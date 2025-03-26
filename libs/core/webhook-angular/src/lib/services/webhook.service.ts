@@ -2,16 +2,19 @@ import { Injectable } from '@angular/core';
 import {
   CreateWebhookDtoInterface,
   UpdateWebhookDtoInterface,
+  WebhookLogInterface,
   WebhookRestService,
 } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { map } from 'rxjs';
+import { WebhookLogMapperService } from './webhook-log-mapper.service';
 import { WebhookMapperService } from './webhook-mapper.service';
 @Injectable({ providedIn: 'root' })
 export class WebhookService {
   constructor(
     private readonly webhookRestService: WebhookRestService,
-    private readonly webhookMapperService: WebhookMapperService
+    private readonly webhookMapperService: WebhookMapperService,
+    private readonly webhookLogMapperService: WebhookLogMapperService
   ) {}
 
   findOne(id: string) {
@@ -60,5 +63,15 @@ export class WebhookService {
     return this.webhookRestService
       .webhookControllerCreateOne(data)
       .pipe(map(this.webhookMapperService.toModel));
+  }
+
+  testRequest(data: CreateWebhookDtoInterface) {
+    return this.webhookRestService
+      .webhookControllerTestRequest(data)
+      .pipe(
+        map((result) =>
+          this.webhookLogMapperService.toModel(result as WebhookLogInterface)
+        )
+      );
   }
 }

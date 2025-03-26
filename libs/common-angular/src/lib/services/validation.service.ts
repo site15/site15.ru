@@ -56,6 +56,9 @@ export class ValidationService {
           })
         );
       }
+      if (f.fieldGroup) {
+        this.appendServerErrorsAsValidatorsToFields(f.fieldGroup, errors);
+      }
       return f;
     });
   }

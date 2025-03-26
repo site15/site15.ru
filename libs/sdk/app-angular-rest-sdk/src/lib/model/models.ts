@@ -80,6 +80,7 @@ export * from './webhook-log-scalar-field-enum.interface';
 export * from './webhook-role.interface';
 export * from './webhook-scalar-field-enum.interface';
 export * from './webhook-status.interface';
+export * from './webhook-test-request-response.interface';
 export * from './webhook-user.interface';
 export * from './webhook-user-scalar-field-enum.interface';
 export * from './webhook-users-controller-find-many400-response.interface';

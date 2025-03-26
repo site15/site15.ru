@@ -5,6 +5,7 @@ import {
   Input,
   OnChanges,
   OnInit,
+  ViewContainerRef,
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -22,11 +23,17 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, tap } from 'rxjs';
 
-import { TranslocoDirective, TranslocoPipe } from '@jsverse/transloco';
+import {
+  TranslocoDirective,
+  TranslocoPipe,
+  TranslocoService,
+} from '@jsverse/transloco';
+import { marker } from '@jsverse/transloco-keys-manager/marker';
+import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import {
   getQueryMeta,
   getQueryMetaByParams,
@@ -34,9 +41,8 @@ import {
   NzTableSortOrderDetectorPipe,
   RequestMeta,
 } from '@nestjs-mod-sso/common-angular';
+import { WebhookLogFormComponent } from '../../forms/webhook-log-form/webhook-log-form.component';
 import { WebhookLogService } from '../../services/webhook-log.service';
-import { marker } from '@jsverse/transloco-keys-manager/marker';
-import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 
 @UntilDestroy()
 @Component({
@@ -99,7 +105,12 @@ export class WebhookLogGridComponent implements OnInit, OnChanges {
 
   private filters?: Record<string, string>;
 
-  constructor(private readonly webhookLogService: WebhookLogService) {
+  constructor(
+    private readonly webhookLogService: WebhookLogService,
+    private readonly nzModalService: NzModalService,
+    private readonly viewContainerRef: ViewContainerRef,
+    private readonly translocoService: TranslocoService
+  ) {
     this.searchField.valueChanges
       .pipe(
         debounceTime(700),
@@ -184,5 +195,58 @@ export class WebhookLogGridComponent implements OnInit, OnChanges {
         )
         .subscribe();
     }
+  }
+
+  showCreateOrUpdateModal(id?: string): void {
+    const modal = this.nzModalService.create<
+      WebhookLogFormComponent,
+      WebhookLogFormComponent
+    >({
+      nzTitle: this.translocoService.translate('webhook-log.view-modal.title', {
+        id,
+      }),
+      nzContent: WebhookLogFormComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzData: {
+        hideButtons: true,
+        id,
+      } as WebhookLogFormComponent,
+      nzWidth: 800,
+      nzFooter: [
+        {
+          label: this.translocoService.translate('Close'),
+          onClick: () => {
+            modal.close();
+          },
+        },
+      ],
+    });
+  }
+
+  showDeleteModal(id?: string) {
+    if (!id) {
+      return;
+    }
+    this.nzModalService.confirm({
+      nzTitle: this.translocoService.translate(
+        `webhook-log.delete-modal.title`,
+        {
+          id,
+        }
+      ),
+      nzOkText: this.translocoService.translate('Yes'),
+      nzCancelText: this.translocoService.translate('No'),
+      nzOnOk: () => {
+        this.webhookLogService
+          .deleteOne(id)
+          .pipe(
+            tap(() => {
+              this.loadMany({ force: true });
+            }),
+            untilDestroyed(this)
+          )
+          .subscribe();
+      },
+    });
   }
 }

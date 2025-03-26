@@ -24,7 +24,7 @@ export const TWO_FACTOR_ERROR_ENUM_TITLES: Record<TwoFactorErrorEnum, string> =
       'Number of attempts of two factor code has been exhausted'
     ),
     [TwoFactorErrorEnum.TwoFactorCodeIsOutdated]: getText(
-      'Two factor code is outdate'
+      'Two factor code is outdated'
     ),
     [TwoFactorErrorEnum.TwoFactorCodeManualNotSet]: getText(
       'Two factor code not set'

@@ -12,9 +12,6 @@ msgstr "Number of attempts of two factor code has been exhausted"
 msgid "recursive method recursiveGenTwoFactorCode has been run more than 10 times"
 msgstr "recursive method recursiveGenTwoFactorCode has been run more than 10 times"
 
-msgid "Two factor code is outdate"
-msgstr "Two factor code is outdate"
-
 msgid "Two factor code not set"
 msgstr "Two factor code not set"
 
@@ -23,3 +20,6 @@ msgstr "Two factor error"
 
 msgid "Wrong two factor code"
 msgstr "Wrong two factor code"
+
+msgid "Two factor code is outdated"
+msgstr "Two factor code is outdated"

@@ -94,6 +94,7 @@ export * from './lib/model/webhook-log.interface';
 export * from './lib/model/webhook-role.interface';
 export * from './lib/model/webhook-scalar-field-enum.interface';
 export * from './lib/model/webhook-status.interface';
+export * from './lib/model/webhook-test-request-response.interface';
 export * from './lib/model/webhook-user-scalar-field-enum.interface';
 export * from './lib/model/webhook-user.interface';
 export * from './lib/model/webhook-users-controller-find-many400-response.interface';

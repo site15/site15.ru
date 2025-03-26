@@ -1,22 +1,18 @@
-import { FindManyArgs, StatusResponse } from '@nestjs-mod-sso/common';
+import { StatusResponse } from '@nestjs-mod-sso/common';
 
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { ValidationError } from '@nestjs-mod-sso/validation';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
-  Body,
   Controller,
   Delete,
   Get,
   Param,
   ParseUUIDPipe,
-  Post,
-  Put,
   Query,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiCreatedResponse,
   ApiExtraModels,
   ApiOkResponse,
   ApiTags,
@@ -24,21 +20,13 @@ import {
 } from '@nestjs/swagger';
 import { Prisma, PrismaClient, WebhookRole } from '@prisma/webhook-client';
 import { isUUID } from 'class-validator';
-import {
-  CurrentLocale,
-  TranslatesService,
-  TranslatesStorage,
-} from 'nestjs-translates';
-import { CreateWebhookDto } from '../generated/rest/dto/create-webhook.dto';
-import { UpdateWebhookDto } from '../generated/rest/dto/update-webhook.dto';
+import { CurrentLocale, TranslatesService } from 'nestjs-translates';
+import { WebhookLog } from '../generated/rest/dto/webhook-log.entity';
 import { WebhookUser } from '../generated/rest/dto/webhook-user.entity';
-import { Webhook } from '../generated/rest/dto/webhook.entity';
 import { WebhookToolsService } from '../services/webhook-tools.service';
-import { WebhookService } from '../services/webhook.service';
-import { FindManyWebhookResponse } from '../types/find-many-webhook-response';
+import { FindManyWebhookLogArgs } from '../types/find-many-webhook-log-args';
+import { FindManyWebhookLogResponse } from '../types/find-many-webhook-log-response';
 import { WebhookEntities } from '../types/webhook-entities';
-import { WebhookEvent } from '../types/webhook-event';
-import { WebhookTestRequestResponse } from '../types/webhook-test-request-response';
 import { WEBHOOK_FEATURE } from '../webhook.constants';
 import {
   CheckWebhookRole,
@@ -53,48 +41,22 @@ import { WebhookError } from '../webhook.errors';
 })
 @ApiTags('Webhook')
 @CheckWebhookRole([WebhookRole.User, WebhookRole.Admin])
-@Controller('/webhook')
-export class WebhookController {
+@Controller('/webhook/logs')
+export class WebhookLogsController {
   constructor(
     @InjectPrismaClient(WEBHOOK_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly webhookToolsService: WebhookToolsService,
-    private readonly webhookService: WebhookService,
-    private readonly translatesService: TranslatesService,
-    private readonly translatesStorage: TranslatesStorage
+    private readonly translatesService: TranslatesService
   ) {}
 
-  @Get('profile')
-  @ApiOkResponse({ type: WebhookUser })
-  async profile(@CurrentWebhookUser() webhookUser: WebhookUser) {
-    return webhookUser;
-  }
-
-  @Get('events')
-  @ApiOkResponse({ type: WebhookEvent, isArray: true })
-  async events() {
-    return this.webhookService.getAllEvents().map((e) => ({
-      ...e,
-      descriptionLocale: {
-        ...Object.fromEntries(
-          this.translatesStorage.locales.map((locale) => [
-            locale,
-            e.descriptionLocale?.[locale] ||
-              this.translatesService.translate(e.description, locale),
-          ])
-        ),
-        en: e.description,
-      },
-    }));
-  }
-
   @Get()
-  @ApiOkResponse({ type: FindManyWebhookResponse })
-  async findMany(
+  @ApiOkResponse({ type: FindManyWebhookLogResponse })
+  async findManyLogs(
     @CurrentWebhookExternalTenantId() externalTenantId: string,
     @CurrentWebhookUser() webhookUser: WebhookUser,
-    @Query() args: FindManyArgs
+    @Query() args: FindManyWebhookLogArgs
   ) {
     const { take, skip, curPage, perPage } =
       this.prismaToolsService.getFirstSkipFromCurPerPage({
@@ -109,7 +71,7 @@ export class WebhookController {
       .reduce(
         (all, [key, value]) => ({
           ...all,
-          ...(key in Prisma.WebhookScalarFieldEnum
+          ...(key in Prisma.WebhookLogScalarFieldEnum
             ? {
                 [key]: value === 'desc' ? 'desc' : 'asc',
               }
@@ -117,9 +79,10 @@ export class WebhookController {
         }),
         {}
       );
+
     const result = await this.prismaClient.$transaction(async (prisma) => {
       return {
-        webhooks: await prisma.webhook.findMany({
+        webhookLogs: await prisma.webhookLog.findMany({
           where: {
             ...(searchText
               ? {
@@ -128,11 +91,16 @@ export class WebhookController {
                       ? [
                           { id: { equals: searchText } },
                           { externalTenantId: { equals: searchText } },
+                          { webhookId: { equals: searchText } },
                         ]
                       : []),
-                    { endpoint: { contains: searchText, mode: 'insensitive' } },
+                    { response: { string_contains: searchText } },
+                    { request: { string_contains: searchText } },
                     {
-                      eventName: { contains: searchText, mode: 'insensitive' },
+                      responseStatus: {
+                        contains: searchText,
+                        mode: 'insensitive',
+                      },
                     },
                   ],
                 }
@@ -143,12 +111,13 @@ export class WebhookController {
                 ? undefined
                 : externalTenantId
             ),
+            webhookId: args.webhookId,
           },
           take,
           skip,
           orderBy,
         }),
-        totalResults: await prisma.webhook.count({
+        totalResults: await prisma.webhookLog.count({
           where: {
             ...(searchText
               ? {
@@ -157,11 +126,16 @@ export class WebhookController {
                       ? [
                           { id: { equals: searchText } },
                           { externalTenantId: { equals: searchText } },
+                          { webhookId: { equals: searchText } },
                         ]
                       : []),
-                    { endpoint: { contains: searchText, mode: 'insensitive' } },
+                    { response: { string_contains: searchText } },
+                    { request: { string_contains: searchText } },
                     {
-                      eventName: { contains: searchText, mode: 'insensitive' },
+                      responseStatus: {
+                        contains: searchText,
+                        mode: 'insensitive',
+                      },
                     },
                   ],
                 }
@@ -172,90 +146,19 @@ export class WebhookController {
                 ? undefined
                 : externalTenantId
             ),
+            webhookId: args.webhookId,
           },
         }),
       };
     });
     return {
-      webhooks: result.webhooks,
+      webhookLogs: result.webhookLogs,
       meta: {
         totalResults: result.totalResults,
         curPage,
         perPage,
       },
     };
-  }
-
-  @Post('test-request')
-  @ApiCreatedResponse({ type: WebhookTestRequestResponse })
-  async testRequest(
-    @CurrentWebhookExternalTenantId() externalTenantId: string,
-    @Body() args: CreateWebhookDto
-  ) {
-    const event = this.webhookService
-      .getAllEvents()
-      .find((e) => e.eventName === args.eventName);
-    const { response, responseStatus, webhookStatus, request } =
-      await this.webhookService.httpRequest({
-        endpoint: args.endpoint,
-        eventBody: event?.example || {},
-        headers: args.headers,
-        requestTimeout: args.requestTimeout || 0,
-      });
-
-    return {
-      externalTenantId,
-      request,
-      response,
-      responseStatus,
-      webhookStatus,
-    } as WebhookTestRequestResponse;
-  }
-
-  @Post()
-  @ApiCreatedResponse({ type: Webhook })
-  async createOne(
-    @CurrentWebhookExternalTenantId() externalTenantId: string,
-    @CurrentWebhookUser() webhookUser: WebhookUser,
-    @Body() args: CreateWebhookDto
-  ) {
-    return await this.prismaClient.webhook.create({
-      data: {
-        ...args,
-        WebhookUser_Webhook_createdByToWebhookUser: {
-          connect: { id: webhookUser.id },
-        },
-        WebhookUser_Webhook_updatedByToWebhookUser: {
-          connect: { id: webhookUser.id },
-        },
-        ...this.webhookToolsService.externalTenantIdQuery(
-          webhookUser,
-          externalTenantId
-        ),
-      },
-    });
-  }
-
-  @Put(':id')
-  @ApiOkResponse({ type: Webhook })
-  async updateOne(
-    @CurrentWebhookExternalTenantId() externalTenantId: string,
-    @CurrentWebhookUser() webhookUser: WebhookUser,
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() args: UpdateWebhookDto
-  ) {
-    return await this.prismaClient.webhook.update({
-      data: { ...args, updatedAt: new Date() },
-      where: {
-        id,
-        ...this.webhookToolsService.externalTenantIdQuery(
-          webhookUser,
-          webhookUser.userRole === WebhookRole.Admin
-            ? undefined
-            : externalTenantId
-        ),
-      },
-    });
   }
 
   @Delete(':id')
@@ -267,7 +170,7 @@ export class WebhookController {
     // todo: change to InjectTranslateFunction, after write all posts
     @CurrentLocale() locale: string
   ) {
-    await this.prismaClient.webhook.delete({
+    await this.prismaClient.webhookLog.delete({
       where: {
         id,
         ...this.webhookToolsService.externalTenantIdQuery(
@@ -282,13 +185,13 @@ export class WebhookController {
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: Webhook })
+  @ApiOkResponse({ type: WebhookLog })
   async findOne(
     @CurrentWebhookExternalTenantId() externalTenantId: string,
     @CurrentWebhookUser() webhookUser: WebhookUser,
     @Param('id', new ParseUUIDPipe()) id: string
   ) {
-    return await this.prismaClient.webhook.findFirstOrThrow({
+    return await this.prismaClient.webhookLog.findFirstOrThrow({
       where: {
         id,
         ...this.webhookToolsService.externalTenantIdQuery(

@@ -13,9 +13,6 @@ msgstr "Количество попыток ввода двухфакторно�
 msgid "recursive method recursiveGenTwoFactorCode has been run more than 10 times"
 msgstr "Рекурсивный метод recursiveGenTwoFactorCode был выполнен более 10 раз"
 
-msgid "Two factor code is outdate"
-msgstr ""
-
 msgid "Two factor code not set"
 msgstr "Двухфакторный код не установлен"
 
