@@ -32,7 +32,6 @@ export class SsoServiceBootstrap implements OnModuleInit {
   }
 
   private async createDefaultPublicProjects() {
-    console.log(this.ssoStaticEnvironments.defaultPublicProjects);
     for (const defaultPublicProject of this.ssoStaticEnvironments
       .defaultPublicProjects || []) {
       try {

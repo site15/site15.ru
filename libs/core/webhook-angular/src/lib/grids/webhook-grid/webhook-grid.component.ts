@@ -244,7 +244,6 @@ export class WebhookGridComponent implements OnInit {
         tap((result) => {
           if (result) {
             this.showTestRequestModal(result);
-            console.log(result);
           }
         }),
 

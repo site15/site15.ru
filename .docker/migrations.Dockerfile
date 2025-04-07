@@ -1,10 +1,6 @@
-FROM node:22-alpine AS base
-RUN corepack enable
-
+FROM node:22.14.0-alpine AS build
 COPY . /app
 WORKDIR /app
-
-FROM base AS build
 ENV CI=TRUE
 ENV NX_DAEMON=false
 ENV NX_PARALLEL=1
@@ -17,10 +13,11 @@ RUN apk update && apk add --no-cache jq && \
     echo $(cat nx.json | jq 'del(.release)') > nx.json && \
     echo $(cat package.json | jq 'del(.devDependencies)') > package.json && \
     echo $(cat package.json | jq 'del(.dependencies)') > package.json && \
-    rm -rf package-lock.json && \
-    npm install --save nx@20.3.3 rucken pg-flyway
+    yarn add nx@20.7.1 pg-flyway pg-create-db
 
-FROM base
+FROM node:22.14.0-alpine
+COPY . /app
+WORKDIR /app
 RUN apk update && apk add --no-cache openssl
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app/package.json
@@ -30,4 +27,4 @@ CMD ["npm", "run", "db:create-and-fill"]
 # docker build -t nestjs-mod-migrations -f ./.docker/migrations.Dockerfile .
 # docker images
 # docker run --network=host b2482e26edc8
-# 202MB
+# 202MB 283MB

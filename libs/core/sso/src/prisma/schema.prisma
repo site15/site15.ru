@@ -9,6 +9,8 @@ datasource db {
   provider          = "postgres"
   url               = env("SERVER_SSO_DATABASE_URL")
 }
+
+
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
@@ -33,7 +35,7 @@ model SsoProject {
   /// @DtoCreateHidden
   id                String              @id(map: "PK_SSO_PROJECTS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name              String              @db.VarChar(255)
-  nameLocale       Json?
+  nameLocale        Json?
   clientId          String              @unique(map: "UQ_SSO_PROJECTS__CLIENT_ID") @db.VarChar(100)
   clientSecret      String              @db.VarChar(255)
   public            Boolean
