@@ -68,27 +68,6 @@ services:
       retries: 5
     tty: true
     restart: 'always'
-  nestjs-mod-sso-postgre-sql-migrations:
-    image: nestjs-mod-migrations
-    build:
-      dockerfile: ./.docker/migrations.Dockerfile
-      context: ..
-    container_name: 'nestjs-mod-sso-postgre-sql-migrations'
-    networks:
-      - 'nestjs-mod-sso-network'
-    tty: true
-    environment:
-      ENV COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
-      NX_SKIP_NX_CACHE: 'true'
-      SERVER_ROOT_DATABASE_URL: '${SERVER_ROOT_DATABASE_URL}'
-      SERVER_WEBHOOK_DATABASE_URL: '${SERVER_WEBHOOK_DATABASE_URL}'
-      SERVER_AUTH_DATABASE_URL: '${SERVER_AUTH_DATABASE_URL}'
-      SERVER_NOTIFICATIONS_DATABASE_URL: '${SERVER_NOTIFICATIONS_DATABASE_URL}'
-      SERVER_SSO_DATABASE_URL: '${SERVER_SSO_DATABASE_URL}'
-      SERVER_TWO_FACTOR_DATABASE_URL: '${SERVER_TWO_FACTOR_DATABASE_URL}'
-    depends_on:
-      nestjs-mod-sso-postgre-sql:
-        condition: 'service_healthy'
   nestjs-mod-sso-server:
     image: nestjs-mod-sso
     build:
@@ -134,6 +113,7 @@ services:
       SERVER_SSO_JWT_REFRESH_TOKEN_EXPIRES_IN: '${SERVER_SSO_JWT_REFRESH_TOKEN_EXPIRES_IN}'
       SERVER_SSO_DEFAULT_PUBLIC_PROJECTS: '${SERVER_SSO_DEFAULT_PUBLIC_PROJECTS}'
       SERVER_SSO_DEFAULT_PROJECT: '${SERVER_SSO_DEFAULT_PROJECT}'
+      SERVER_ROOT_DATABASE_URL: '${SERVER_ROOT_DATABASE_URL}'
     restart: 'always'
     depends_on:
       nestjs-mod-sso-minio:
@@ -142,8 +122,6 @@ services:
         condition: 'service_healthy'
       nestjs-mod-sso-postgre-sql:
         condition: service_healthy
-      nestjs-mod-sso-postgre-sql-migrations:
-        condition: service_completed_successfully
 volumes:
   nestjs-mod-sso-postgre-sql-volume:
     name: 'nestjs-mod-sso-postgre-sql-volume'

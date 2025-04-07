@@ -27,7 +27,7 @@ COPY . .
 RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOLDER=/yarn/.cache \
     apk add --no-cache jq dumb-init && \
     echo '' > .env && \
-jq 'del(.devDependencies)' package.json > temp.json && mv temp.json package.json && \
+    jq 'del(.devDependencies)' package.json > temp.json && mv temp.json package.json && \
     yarn install --frozen-lockfile --production && \
     jq 'del(.targetDefaults, .plugins, .generators, .release)' nx.json > temp.json && mv temp.json nx.json && \
     yarn add -D nx@20.7.1 prisma@5.22.0 @brakebein/prisma-generator-nestjs-dto@1.24.0-beta5 pg-flyway pg-create-db && \
@@ -44,9 +44,8 @@ COPY --from=prod-deps /usr/bin/dumb-init /usr/bin/dumb-init
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
 COPY --from=prod-deps /app/apps /app/apps
+COPY --from=prod-deps /app/libs /app/libs
 COPY --from=prod-deps /app/package.json /app/package.json
-COPY --from=prod-deps /app/nx.json /app/nx.json
-COPY --from=prod-deps /app/.env /app/.env
 
 RUN apk update && apk add --no-cache openssl && \
     find /app/dist -type f -name "*.js" -print0 | xargs -0 sed -i \
@@ -54,7 +53,3 @@ RUN apk update && apk add --no-cache openssl && \
     -e "s#___CLIENT_MINIO_URL___#$CLIENT_MINIO_URL#g"
 
 CMD ["dumb-init", "node", "dist/apps/server/main.js"]
-# docker build -t nestjs-mod-sso -f ./.docker/server.Dockerfile .
-# docker images
-# docker run --network=host b2482e26edc8
-# 1.78GB 907MB
