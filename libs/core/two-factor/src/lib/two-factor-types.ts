@@ -3,8 +3,6 @@ import { TwoFactorUserDto } from './generated/rest/dto/two-factor-user.dto';
 
 export enum TwoFactorEventEnum {
   GenerateCode = 'GenerateCode',
-  ValidateCodeEachAttempt = 'ValidateCodeEachAttempt',
-  ValidateCodeMaxAttempt = 'ValidateCodeMaxAttempt',
 }
 
 export interface TwoFactorEventContext {
@@ -13,21 +11,6 @@ export interface TwoFactorEventContext {
     twoFactorCode: TwoFactorCodeDto;
     code: string;
     repetition: boolean;
-  };
-  [TwoFactorEventEnum.ValidateCodeEachAttempt]: {
-    twoFactorUser: TwoFactorUserDto;
-    twoFactorCode: TwoFactorCodeDto;
-    code: string;
-    attempt: number;
-    timeout: number;
-  };
-  [TwoFactorEventEnum.ValidateCodeMaxAttempt]: {
-    twoFactorUser: TwoFactorUserDto;
-    twoFactorCode: TwoFactorCodeDto;
-    code: string;
-    attempt: number;
-    maxAttempt: number;
-    timeout: number;
   };
   serviceId: string;
   type: string;

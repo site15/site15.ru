@@ -73,8 +73,10 @@ export class SsoClientGuard implements CanActivate {
           }
           const getProfileResult = await this.ssoUsersService.getById({
             id: tokenData.userId,
-            projectId: req.ssoProject.id,
+            projectId: tokenData.projectId,
           });
+
+          req.ssoProject = getProfileResult.SsoProject;
 
           req.ssoUser = getProfileResult;
         } catch (err) {
@@ -84,10 +86,10 @@ export class SsoClientGuard implements CanActivate {
       }
     }
 
+    req.externalTenantId = req.ssoProject?.id;
+
     if (req?.ssoUser?.id) {
-      // common
-      // req.externalUserId = req.ssoUser.id;
-      // req.externalTenantId = req.ssoProject.id;
+      req.externalUserId = req.ssoUser.id;
 
       // webhook
       const webhookUserRole = searchIn(req.ssoUser?.roles, [

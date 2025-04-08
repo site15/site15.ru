@@ -9,26 +9,24 @@ datasource db {
   provider          = "postgres"
   url               = env("SERVER_SSO_DATABASE_URL")
 }
-
-
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  entitySuffix                    = ""
-  classValidation                 = "true"
-  dtoSuffix                       = "Dto"
-  updateDtoPrefix                 = "Update"
-  definiteAssignmentAssertion     = "true"
-  reExport                        = "false"
   entityPrefix                    = ""
-  outputToNestJsResourceStructure = "false"
-  prettier                        = "true"
+  fileNamingStyle                 = "kebab"
   flatResourceStructure           = "false"
   createDtoPrefix                 = "Create"
-  fileNamingStyle                 = "kebab"
-  noDependencies                  = "false"
-  exportRelationModifierClasses   = "true"
   annotateAllDtoProperties        = "true"
+  classValidation                 = "true"
+  reExport                        = "false"
+  noDependencies                  = "false"
+  dtoSuffix                       = "Dto"
+  outputToNestJsResourceStructure = "false"
+  updateDtoPrefix                 = "Update"
+  definiteAssignmentAssertion     = "true"
+  entitySuffix                    = ""
+  prettier                        = "true"
+  exportRelationModifierClasses   = "true"
 }
 
 model SsoProject {

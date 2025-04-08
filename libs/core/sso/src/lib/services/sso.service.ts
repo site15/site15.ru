@@ -112,6 +112,7 @@ export class SsoService {
         );
         if (!result) {
           user = await this.prismaClient.ssoUser.update({
+            include: { SsoProject: true },
             data: {
               emailVerifiedAt: new Date(),
             },

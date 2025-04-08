@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class UpdateTwoFactorCodeDto {
   @ApiProperty({
@@ -23,14 +23,6 @@ export class UpdateTwoFactorCodeDto {
   @IsOptional()
   @IsString()
   code?: string;
-  @ApiProperty({
-    type: 'integer',
-    format: 'int32',
-    required: false,
-  })
-  @IsOptional()
-  @IsInt()
-  attempt?: number;
   @ApiProperty({
     type: 'boolean',
     required: false,

@@ -1,5 +1,7 @@
 CREATE TABLE IF NOT EXISTS "TwoFactorUser"(
     "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+    "username" varchar(255),
+    "secret" varchar(100) NOT NULL,
     "externalTenantId" uuid NOT NULL,
     "externalUserId" uuid NOT NULL,
     "createdAt" timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -17,7 +19,6 @@ CREATE TABLE IF NOT EXISTS "TwoFactorCode"(
     "type" varchar(512) NOT NULL,
     "operationName" varchar(512) NOT NULL,
     "code" varchar(100) NOT NULL,
-    "attempt" int NOT NULL,
     "used" boolean NOT NULL,
     "userId" uuid NOT NULL,
     "externalTenantId" uuid NOT NULL,

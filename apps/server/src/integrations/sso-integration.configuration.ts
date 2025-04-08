@@ -59,6 +59,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     const generatedCode = await this.twoFactorService.generateCode({
       externalTenantId: options.user.projectId,
       externalUserId: options.user.id,
+      externalUsername: options.user.username || undefined,
       operationName: options.operationName,
       type: options.user.phoneVerifiedAt ? 'phone' : 'email',
     });

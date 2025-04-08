@@ -1,18 +1,15 @@
-import { faker } from '@faker-js/faker';
 import { Injectable, Logger } from '@nestjs/common';
-import {
-  PrismaClient,
-  TwoFactorCode,
-  TwoFactorUser,
-} from '@prisma/two-factor-client';
+import { PrismaClient } from '@prisma/two-factor-client';
 
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
-import { getText } from 'nestjs-translates';
+import * as OTPAuth from 'otpauth';
 import { TwoFactorUserDto } from './generated/rest/dto/two-factor-user.dto';
 import { TwoFactorEventsService } from './two-factor-events.service';
 import { TwoFactorConfiguration } from './two-factor.configuration';
 import { TWO_FACTOR_FEATURE } from './two-factor.constants';
 import { TwoFactorError, TwoFactorErrorEnum } from './two-factor.errors';
+
+const TOTP_PERIOD = 30;
 
 @Injectable()
 export class TwoFactorService {
@@ -25,178 +22,56 @@ export class TwoFactorService {
     private readonly twoFactorEventsService: TwoFactorEventsService
   ) {}
 
+  async getTotp(options: { username?: string; secret: string }) {
+    return new OTPAuth.TOTP({
+      // Provider or service the account is associated with.
+      issuer: 'SSO',
+      // Account identifier.
+      label: options.username || 'Account',
+      // Algorithm used for the HMAC function, possible values are:
+      //   "SHA1", "SHA224", "SHA256", "SHA384", "SHA512",
+      //   "SHA3-224", "SHA3-256", "SHA3-384" and "SHA3-512".
+      algorithm: 'SHA1',
+      // Length of the generated tokens.
+      digits: 6,
+      // Interval of time for which a token is valid, in seconds.
+      period: TOTP_PERIOD,
+      // Arbitrary key encoded in base32 or `OTPAuth.Secret` instance
+      // (if omitted, a cryptographically secure random secret is generated).
+      secret: OTPAuth.Secret.fromBase32(options.secret),
+      //   or: `OTPAuth.Secret.fromBase32("US3WHSG7X5KAPV27VANWKQHF3SH3HULL")`
+      //   or: `new OTPAuth.Secret()`
+    });
+  }
+
   async generateCode(options: {
     type: string;
     operationName: string;
     externalUserId: string;
     externalTenantId: string;
+    externalUsername?: string;
     repetition?: boolean;
   }) {
-    const twoFactorUser = await this.getOrCreateUser(options);
+    const twoFactorUser = await this.getOrCreateUser({
+      ...options,
+      username: options.externalUsername,
+    });
 
     await this.removeOutdateTwoFactorCode(options);
 
-    const { twoFactorCode, code } = await this.recursiveGenTwoFactorCode(
-      options
+    const code = String(
+      (
+        await this.getTotp({
+          username: twoFactorUser.username || undefined,
+          secret: twoFactorUser.secret,
+        })
+      ).generate()
     );
 
-    await this.twoFactorEventsService.send({
-      GenerateCode: {
-        twoFactorUser,
-        twoFactorCode,
-        code,
-        repetition: Boolean(options.repetition),
-      },
-      externalTenantId: options.externalTenantId,
-      externalUserId: options.externalUserId,
-      operationName: options.operationName,
-      type: options.type,
-    });
-
-    return { twoFactorUser, twoFactorCode, code };
-  }
-
-  async validateCode(options: {
-    operationName: string;
-    code: string;
-    externalTenantId: string;
-  }) {
-    let twoFactorCode = await this.prismaClient.twoFactorCode.findFirst({
-      include: { TwoFactorUser: true },
-      where: {
-        used: false,
-        code: { equals: options.code },
-        externalTenantId: options.externalTenantId,
-      },
-    });
-    if (!twoFactorCode) {
-      throw new TwoFactorError(TwoFactorErrorEnum.TwoFactorCodeManualNotSet);
-    }
-    if (
-      this.twoFactorConfiguration.getMaxAttemptValue &&
-      this.twoFactorConfiguration.getTimeoutValue
-    ) {
-      const maxAttempt = this.twoFactorConfiguration.getMaxAttemptValue({
-        twoFactorCode,
-        twoFactorUser: twoFactorCode.TwoFactorUser,
-      });
-      const timeout = this.twoFactorConfiguration.getTimeoutValue({
-        twoFactorCode,
-        twoFactorUser: twoFactorCode.TwoFactorUser,
-      });
-
-      if (
-        +new Date() - +twoFactorCode.updatedAt <= timeout &&
-        twoFactorCode.attempt >= maxAttempt
-      ) {
-        await this.twoFactorEventsService.send({
-          ValidateCodeMaxAttempt: {
-            twoFactorUser: twoFactorCode.TwoFactorUser,
-            twoFactorCode,
-            attempt: twoFactorCode.attempt,
-            maxAttempt,
-            timeout,
-            code: options.code,
-          },
-          externalTenantId: options.externalTenantId,
-          externalUserId: twoFactorCode.TwoFactorUser.externalUserId,
-          operationName: options.operationName,
-          type: twoFactorCode.type,
-        });
-        throw new TwoFactorError(
-          TwoFactorErrorEnum.TwoFactorCodeNumberOfAttemptsHasBeenExhausted
-        );
-      }
-
-      if (+new Date() - +twoFactorCode.updatedAt > timeout) {
-        if (twoFactorCode.attempt < maxAttempt) {
-          await this.prismaClient.twoFactorCode.update({
-            data: {
-              used: true,
-            },
-            where: {
-              id: twoFactorCode.id,
-              externalTenantId: options.externalTenantId,
-            },
-          });
-          const generateCodeResult = await this.generateCode({
-            ...options,
-            repetition: true,
-            externalUserId: twoFactorCode.TwoFactorUser.externalUserId,
-            type: twoFactorCode.type,
-          });
-          twoFactorCode = generateCodeResult.twoFactorCode;
-        }
-
-        throw new TwoFactorError(TwoFactorErrorEnum.TwoFactorCodeIsOutdated);
-      }
-
-      if (twoFactorCode.code !== options.code) {
-        twoFactorCode = await this.prismaClient.twoFactorCode.update({
-          include: { TwoFactorUser: true },
-          where: {
-            id: twoFactorCode.id,
-            externalTenantId: options.externalTenantId,
-          },
-          data: { attempt: twoFactorCode.attempt + 1 },
-        });
-
-        await this.twoFactorEventsService.send({
-          ValidateCodeEachAttempt: {
-            twoFactorUser: twoFactorCode.TwoFactorUser,
-            twoFactorCode,
-            attempt: twoFactorCode.attempt,
-            timeout,
-            code: options.code,
-          },
-          externalTenantId: options.externalTenantId,
-          externalUserId: twoFactorCode.TwoFactorUser.externalUserId,
-          operationName: options.operationName,
-          type: twoFactorCode.type,
-        });
-
-        throw new TwoFactorError(TwoFactorErrorEnum.TwoFactorCodeWrongCode);
-      }
-    }
-    await this.prismaClient.twoFactorCode.update({
-      data: {
-        used: true,
-      },
-      where: {
-        id: twoFactorCode.id,
-        externalTenantId: options.externalTenantId,
-      },
-    });
-    return { twoFactorUser: twoFactorCode.TwoFactorUser, twoFactorCode };
-  }
-
-  private async recursiveGenTwoFactorCode(
-    options: {
-      type: string;
-      operationName: string;
-      externalUserId: string;
-      externalTenantId: string;
-    },
-    depth = 10
-  ): Promise<{
-    twoFactorCode: TwoFactorCode & { TwoFactorUser: TwoFactorUser };
-    code: string;
-  }> {
-    if (depth < 0) {
-      throw new TwoFactorError(
-        getText(
-          'recursive method recursiveGenTwoFactorCode has been run more than 10 times'
-        ),
-        TwoFactorErrorEnum.COMMON
-      );
-    }
     try {
-      const code = String(faker.number.int({ min: 100000, max: 999999 }));
-
       const twoFactorCode = await this.prismaClient.twoFactorCode.create({
         include: { TwoFactorUser: true },
         data: {
-          attempt: 0,
           code,
           externalTenantId: options.externalTenantId,
           operationName: options.operationName,
@@ -212,22 +87,95 @@ export class TwoFactorService {
           used: false,
         },
       });
-      return { twoFactorCode, code };
+
+      await this.twoFactorEventsService.send({
+        GenerateCode: {
+          twoFactorUser,
+          twoFactorCode,
+          code,
+          repetition: Boolean(options.repetition),
+        },
+        externalTenantId: options.externalTenantId,
+        externalUserId: options.externalUserId,
+        operationName: options.operationName,
+        type: options.type,
+      });
+
+      return { twoFactorUser, twoFactorCode, code };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       this.logger.error(err, err.stack);
-      return this.recursiveGenTwoFactorCode(options, depth - 1);
+      throw new TwoFactorError(
+        TwoFactorErrorEnum.TwoFactorCodePleaseWait30Seconds
+      );
     }
+  }
+
+  async validateCode(options: {
+    operationName: string;
+    code: string;
+    externalTenantId: string;
+  }) {
+    let twoFactorCode = await this.prismaClient.twoFactorCode.findFirst({
+      include: { TwoFactorUser: true },
+      where: {
+        used: false,
+        code: { equals: options.code },
+        externalTenantId: options.externalTenantId,
+      },
+    });
+
+    if (!twoFactorCode) {
+      throw new TwoFactorError(TwoFactorErrorEnum.TwoFactorCodeNotSet);
+    }
+
+    if (this.twoFactorConfiguration.getTimeoutValue) {
+      const timeout = await this.twoFactorConfiguration.getTimeoutValue({
+        twoFactorCode,
+        twoFactorUser: twoFactorCode.TwoFactorUser,
+      });
+
+      const totp = await this.getTotp({
+        secret: twoFactorCode.TwoFactorUser.secret,
+        username: twoFactorCode.TwoFactorUser.username || undefined,
+      });
+
+      const tokenIsValid =
+        totp.validate({
+          token: options.code,
+          window: timeout / 1000 / TOTP_PERIOD,
+        }) !== null;
+
+      if (!tokenIsValid) {
+        throw new TwoFactorError(TwoFactorErrorEnum.TwoFactorCodeIsOutdated);
+      }
+    }
+
+    twoFactorCode = await this.prismaClient.twoFactorCode.update({
+      include: { TwoFactorUser: true },
+      data: {
+        used: true,
+      },
+      where: {
+        id: twoFactorCode.id,
+        externalTenantId: options.externalTenantId,
+      },
+    });
+    return { twoFactorUser: twoFactorCode.TwoFactorUser, twoFactorCode };
   }
 
   private async getOrCreateUser(options: {
     externalUserId: string;
     externalTenantId: string;
+    username?: string;
   }): Promise<TwoFactorUserDto> {
+    const secret = new OTPAuth.Secret({ size: 20 });
     return await this.prismaClient.twoFactorUser.upsert({
       create: {
         externalTenantId: options.externalTenantId,
         externalUserId: options.externalUserId,
+        secret: secret.base32,
+        username: options.username,
       },
       update: {},
       where: {
@@ -255,17 +203,22 @@ export class TwoFactorService {
       },
     });
 
-    const itemIdsForDelete = twoFactorCodes
-      .filter(
-        (twoFactorCode) =>
+    const itemIdsForDelete = (
+      await Promise.all(
+        twoFactorCodes.map(async (twoFactorCode) =>
           this.twoFactorConfiguration.getTimeoutValue &&
           +new Date() - +twoFactorCode.updatedAt >
-            this.twoFactorConfiguration.getTimeoutValue({
+            (await this.twoFactorConfiguration.getTimeoutValue({
               twoFactorCode,
               twoFactorUser: twoFactorCode.TwoFactorUser,
-            })
+            }))
+            ? twoFactorCode
+            : undefined
+        )
       )
-      .map((item) => item.id);
+    )
+      .filter(Boolean)
+      .map((item) => item?.id) as string[];
 
     await this.prismaClient.twoFactorCode.updateMany({
       data: {

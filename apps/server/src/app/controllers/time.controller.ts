@@ -1,6 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { UseAuthInterceptorsAndGuards } from '@nestjs-mod-sso/auth';
+import {
+  AllowEmptyAuthUser,
+  UseAuthInterceptorsAndGuards,
+} from '@nestjs-mod-sso/auth';
 import { ApiOkResponse } from '@nestjs/swagger';
 import {
   SubscribeMessage,
@@ -15,7 +18,7 @@ import { SsoClientGuard } from '../modules/sso-client.module';
   guards: [SsoClientGuard],
   skipInterceptor: true,
 })
-// @AllowEmptyUser()
+// @AllowEmptyAuthUser()
 @WebSocketGateway({
   cors: {
     origin: '*',

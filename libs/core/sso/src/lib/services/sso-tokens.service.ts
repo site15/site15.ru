@@ -111,20 +111,19 @@ export class SsoTokensService {
     // fill cache
     await this.ssoCacheService.getCachedRefreshSession(refreshToken);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const accessToken = this.jwtService.sign(
-      {
-        userId: session.userId,
-        refreshToken,
-        ...(currentRefreshSession.SsoUser.roles
-          ? { roles: currentRefreshSession.SsoUser.roles }
-          : {}),
-      },
-      {
-        expiresIn: this.ssoStaticEnvironments.jwtAccessTokenExpiresIn,
-        secret: this.ssoStaticEnvironments.jwtSecretKey,
-      }
-    );
+    const accessTokenData: SsoAccessTokenData = {
+      userId: session.userId,
+      projectId: session.projectId,
+      refreshToken,
+      ...(currentRefreshSession.SsoUser.roles
+        ? { roles: currentRefreshSession.SsoUser.roles }
+        : {}),
+    };
+
+    const accessToken = this.jwtService.sign(accessTokenData, {
+      expiresIn: this.ssoStaticEnvironments.jwtAccessTokenExpiresIn,
+      secret: this.ssoStaticEnvironments.jwtSecretKey,
+    });
 
     return {
       accessToken,
@@ -226,14 +225,17 @@ export class SsoTokensService {
         userData: { roles } as any,
       },
     });
+    const accessTokenData: SsoAccessTokenData = {
+      userId,
+      projectId,
+      refreshToken,
+      ...(roles ? { roles } : {}),
+    };
     return {
-      accessToken: this.jwtService.sign(
-        { userId, refreshToken, ...(roles ? { roles } : {}) },
-        {
-          expiresIn: this.ssoStaticEnvironments.jwtAccessTokenExpiresIn,
-          secret: this.ssoStaticEnvironments.jwtSecretKey,
-        }
-      ),
+      accessToken: this.jwtService.sign(accessTokenData, {
+        expiresIn: this.ssoStaticEnvironments.jwtAccessTokenExpiresIn,
+        secret: this.ssoStaticEnvironments.jwtSecretKey,
+      }),
       refreshToken: session.refreshToken,
     };
   }

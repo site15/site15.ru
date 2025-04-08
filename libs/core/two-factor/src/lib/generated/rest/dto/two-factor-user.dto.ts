@@ -7,6 +7,15 @@ export class TwoFactorUserDto {
   id!: string;
   @ApiProperty({
     type: 'string',
+    nullable: true,
+  })
+  username!: string | null;
+  @ApiProperty({
+    type: 'string',
+  })
+  secret!: string;
+  @ApiProperty({
+    type: 'string',
   })
   externalTenantId!: string;
   @ApiProperty({

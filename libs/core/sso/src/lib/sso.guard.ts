@@ -108,14 +108,14 @@ export class SsoGuard implements CanActivate {
         `${context.getClass().name}.${
           context.getHandler().name
         }: ${result}, ssoProject: ${JSON.stringify(
-          req.ssoProject
-        )}, ssoClientId: ${
+          req.ssoProject.id
+        )}, ssoClientId: ${JSON.stringify(
           req.ssoClientId
-        }, ssoAccessTokenData: ${JSON.stringify(
+        )}, ssoAccessTokenData: ${JSON.stringify(
           req.ssoAccessTokenData
-        )}, ssoUser: ${JSON.stringify(req.ssoUser)}, ssoIsAdmin: ${
-          req.ssoIsAdmin
-        }`
+        )}, ssoUser: ${JSON.stringify(
+          req.ssoUser?.id
+        )}, ssoIsAdmin: ${JSON.stringify(req.ssoIsAdmin)}`
       );
 
       if (!result) {
@@ -127,13 +127,15 @@ export class SsoGuard implements CanActivate {
       this.logger.debug(
         `${context.getClass().name}.${context.getHandler().name}: ${String(
           err
-        )}, ssoProject: ${JSON.stringify(req.ssoProject)}, ssoClientId: ${
+        )}, ssoProject: ${JSON.stringify(
+          req.ssoProject.id
+        )}, ssoClientId: ${JSON.stringify(
           req.ssoClientId
-        }, ssoAccessTokenData: ${JSON.stringify(
+        )}, ssoAccessTokenData: ${JSON.stringify(
           req.ssoAccessTokenData
-        )}, ssoUser: ${JSON.stringify(req.ssoUser)}, ssoIsAdmin: ${
-          req.ssoIsAdmin
-        }`
+        )}, ssoUser: ${JSON.stringify(
+          req.ssoUser?.id
+        )}, ssoIsAdmin: ${JSON.stringify(req.ssoIsAdmin)}`
       );
       throw err;
     }

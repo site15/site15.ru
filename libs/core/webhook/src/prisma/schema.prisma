@@ -9,26 +9,24 @@ datasource db {
   provider          = "postgres"
   url               = env("SERVER_WEBHOOK_DATABASE_URL")
 }
-
-
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
+  definiteAssignmentAssertion     = "true"
   fileNamingStyle                 = "kebab"
-  updateDtoPrefix                 = "Update"
-  entitySuffix                    = ""
-  noDependencies                  = "false"
+  reExport                        = "false"
   outputToNestJsResourceStructure = "false"
+  updateDtoPrefix                 = "Update"
+  noDependencies                  = "false"
+  entitySuffix                    = ""
+  prettier                        = "true"
+  classValidation                 = "true"
   annotateAllDtoProperties        = "true"
   flatResourceStructure           = "false"
   entityPrefix                    = ""
-  prettier                        = "true"
-  definiteAssignmentAssertion     = "true"
-  reExport                        = "false"
-  exportRelationModifierClasses   = "true"
-  classValidation                 = "true"
   createDtoPrefix                 = "Create"
   dtoSuffix                       = "Dto"
+  exportRelationModifierClasses   = "true"
 }
 
 model Webhook {

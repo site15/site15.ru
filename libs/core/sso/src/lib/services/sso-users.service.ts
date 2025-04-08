@@ -1,3 +1,4 @@
+import { searchIn } from '@nestjs-mod-sso/common';
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
@@ -10,7 +11,6 @@ import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { SsoCacheService } from './sso-cache.service';
 import { SsoPasswordService } from './sso-password.service';
 import { SsoProjectService } from './sso-project.service';
-import { searchIn } from '@nestjs-mod-sso/common';
 
 @Injectable()
 export class SsoUsersService {
@@ -29,6 +29,7 @@ export class SsoUsersService {
   async getByEmail({ email, projectId }: { email: string; projectId: string }) {
     try {
       return await this.prismaClient.ssoUser.findUniqueOrThrow({
+        include: { SsoProject: true },
         where: { email_projectId: { email, projectId } },
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,6 +51,7 @@ export class SsoUsersService {
   async getById({ id, projectId }: { id: string; projectId: string }) {
     try {
       return await this.prismaClient.ssoUser.findUniqueOrThrow({
+        include: { SsoProject: true },
         where: { id, projectId },
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -83,6 +85,7 @@ export class SsoUsersService {
       })) || [];
     try {
       return await this.prismaClient.ssoUser.findUniqueOrThrow({
+        include: { SsoProject: true },
         where: {
           id,
           ...(OR.length ? { OR } : {}),
@@ -119,6 +122,7 @@ export class SsoUsersService {
       })) || [];
     try {
       const user = await this.prismaClient.ssoUser.findFirstOrThrow({
+        include: { SsoProject: true },
         where: { email, ...(OR.length ? { OR } : {}) },
       });
       if (
@@ -155,6 +159,7 @@ export class SsoUsersService {
   }) {
     try {
       const user = await this.prismaClient.ssoUser.findUniqueOrThrow({
+        include: { SsoProject: true },
         where: { email_projectId: { email, projectId } },
       });
       if (
@@ -213,8 +218,10 @@ export class SsoUsersService {
     const hashedPassword = await this.ssoPasswordService.createPasswordHash(
       user.password
     );
+
     try {
       const result = await this.prismaClient.ssoUser.create({
+        include: { SsoProject: true },
         data: {
           ...user,
           username: user.username,
@@ -308,6 +315,7 @@ export class SsoUsersService {
     const { password, oldPassword, ...profile } = user;
     if (password) {
       const currentUser = await this.prismaClient.ssoUser.findFirst({
+        include: { SsoProject: true },
         where: { id: user.id },
       });
 
@@ -332,6 +340,7 @@ export class SsoUsersService {
       }
     }
     const updatedUser = await this.prismaClient.ssoUser.update({
+      include: { SsoProject: true },
       data: {
         ...profile,
         projectId,

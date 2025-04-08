@@ -5,6 +5,21 @@ export class UpdateTwoFactorUserDto {
   @ApiProperty({
     type: 'string',
     required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  username?: string | null;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  secret?: string;
+  @ApiProperty({
+    type: 'string',
+    required: false,
   })
   @IsOptional()
   @IsString()

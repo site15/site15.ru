@@ -12,26 +12,28 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  annotateAllDtoProperties        = "true"
-  prettier                        = "true"
-  entitySuffix                    = ""
-  flatResourceStructure           = "false"
-  noDependencies                  = "false"
-  classValidation                 = "true"
-  entityPrefix                    = ""
-  definiteAssignmentAssertion     = "true"
-  reExport                        = "false"
-  dtoSuffix                       = "Dto"
-  createDtoPrefix                 = "Create"
-  outputToNestJsResourceStructure = "false"
   fileNamingStyle                 = "kebab"
+  reExport                        = "false"
+  flatResourceStructure           = "false"
   updateDtoPrefix                 = "Update"
+  classValidation                 = "true"
+  outputToNestJsResourceStructure = "false"
+  createDtoPrefix                 = "Create"
+  noDependencies                  = "false"
+  entityPrefix                    = ""
+  dtoSuffix                       = "Dto"
   exportRelationModifierClasses   = "true"
+  definiteAssignmentAssertion     = "true"
+  prettier                        = "true"
+  annotateAllDtoProperties        = "true"
+  entitySuffix                    = ""
 }
 
 model TwoFactorUser {
   /// @DtoCreateHidden
   id               String          @id(map: "PK_TWO_FACTOR_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  username         String?         @db.VarChar(255)
+  secret           String          @db.VarChar(100)
   externalTenantId String          @db.Uuid
   externalUserId   String          @db.Uuid
   /// @DtoCreateHidden
@@ -52,7 +54,6 @@ model TwoFactorCode {
   type             String        @db.VarChar(512)
   operationName    String        @db.VarChar(512)
   code             String        @db.VarChar(100)
-  attempt          Int
   used             Boolean
   userId           String        @db.Uuid
   externalTenantId String        @db.Uuid

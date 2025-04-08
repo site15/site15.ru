@@ -11,15 +11,9 @@ type GetTimeoutValueOptions = {
 @ConfigModel()
 export class TwoFactorConfiguration {
   @ConfigModelProperty({
-    description: 'Function for determining the lifetime of code',
-    default: (options: GetTimeoutValueOptions) => 15 * 60 * 1000,
-  })
-  getTimeoutValue?: (options: GetTimeoutValueOptions) => number;
-
-  @ConfigModelProperty({
     description:
-      'Function for determining the maximum number of attempts to enter a code',
-    default: (options: GetTimeoutValueOptions) => 3,
+      'Function for determining the lifetime of code (default: 15min)',
+    default: async (options: GetTimeoutValueOptions) => 15 * 60 * 1000,
   })
-  getMaxAttemptValue?: (options: GetTimeoutValueOptions) => number;
+  getTimeoutValue?: (options: GetTimeoutValueOptions) => Promise<number>;
 }

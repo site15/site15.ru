@@ -19,11 +19,6 @@ export class TwoFactorCode {
   })
   code!: string;
   @ApiProperty({
-    type: 'integer',
-    format: 'int32',
-  })
-  attempt!: number;
-  @ApiProperty({
     type: 'boolean',
   })
   used!: boolean;
