@@ -11,5 +11,6 @@
 
 export interface ForgotPasswordArgsInterface { 
     email: string;
+    redirectUri?: string;
 }
 

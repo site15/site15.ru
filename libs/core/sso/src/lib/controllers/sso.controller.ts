@@ -10,7 +10,6 @@ import {
   Logger,
   Post,
   Put,
-  Query,
   Res,
 } from '@nestjs/common';
 import {
@@ -21,6 +20,7 @@ import {
   refs,
 } from '@nestjs/swagger';
 import { Response } from 'express';
+import { omit } from 'lodash/fp';
 import assert from 'node:assert';
 import { Cookies } from '../decorators/cookie.decorator';
 import { IpAddress } from '../decorators/ip-address.decorator';
@@ -48,7 +48,6 @@ import { SsoRequest } from '../types/sso-request';
 import { SsoWebhookEvent } from '../types/sso-webhooks';
 import { TokensResponse } from '../types/tokens.dto';
 import { UpdateProfileArgs } from '../types/update-profile.dto';
-import { omit } from 'lodash/fp';
 
 @ApiExtraModels(SsoError, SsoEntities, ValidationError)
 @ApiBadRequestResponse({
@@ -193,11 +192,10 @@ export class SsoController {
     @Body() completeSignUpArgs: CompleteSignUpArgs,
     @Res({ passthrough: true }) response: Response,
     @IpAddress() userIp: string,
-    @UserAgent() userAgent: string,
-    @Query('code') code: string
+    @UserAgent() userAgent: string
   ): Promise<void> {
     const user = await this.ssoService.completeSignUp({
-      code,
+      code: completeSignUpArgs.code,
       projectId: ssoRequest.ssoProject.id,
     });
 
@@ -310,11 +308,9 @@ export class SsoController {
     @Body() completeForgotPasswordArgs: CompleteForgotPasswordArgs,
     @Res({ passthrough: true }) response: Response,
     @IpAddress() userIp: string,
-    @UserAgent() userAgent: string,
-    @Query('code') code: string
+    @UserAgent() userAgent: string
   ): Promise<void> {
     const user = await this.ssoService.completeForgotPassword({
-      code,
       completeForgotPasswordArgs,
       projectId: ssoRequest.ssoProject.id,
     });

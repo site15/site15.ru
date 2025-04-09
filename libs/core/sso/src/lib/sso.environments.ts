@@ -33,10 +33,10 @@ export class SsoStaticEnvironments {
   useFilters?: boolean;
 
   @EnvModelProperty({
-    description: 'Domain name for use in templates',
+    description: 'Server URL for use in emails',
   })
   @IsNotEmpty()
-  templatesVarSsoServerUrl!: string;
+  serverUrl!: string;
 
   @EnvModelProperty({
     description: 'Available user roles',
@@ -116,4 +116,12 @@ export class SsoStaticEnvironments {
     transform: new StringToProjectTransformer(),
   })
   defaultProject?: SsoProjectType;
+
+  @EnvModelProperty({
+    description: 'Used to disable the email verification while signing up',
+    transform: new BooleanTransformer(),
+    default: false,
+    hidden: true,
+  })
+  disableEmailVerification?: boolean;
 }

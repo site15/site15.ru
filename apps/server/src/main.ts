@@ -37,6 +37,7 @@ import {
 import {
   DOCKER_COMPOSE_FILE,
   DockerCompose,
+  DockerComposeMaildev,
   DockerComposeMinio,
   DockerComposePostgreSQL,
   DockerComposeRedis,
@@ -376,6 +377,8 @@ createAndFillDatabases().then(() =>
         DockerComposeMinio.forRoot({
           staticConfiguration: { image: 'bitnami/minio:2024.11.7' },
         }),
+        // maildev
+        DockerComposeMaildev.forRoot(),
         // sso
         DockerComposePostgreSQL.forFeatureAsync({
           featureModuleName: SSO_FEATURE,

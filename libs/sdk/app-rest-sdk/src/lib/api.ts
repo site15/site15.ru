@@ -243,6 +243,12 @@ export interface CompleteForgotPasswordArgs {
      * @memberof CompleteForgotPasswordArgs
      */
     'fingerprint': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CompleteForgotPasswordArgs
+     */
+    'code': string;
 }
 /**
  * 
@@ -256,6 +262,12 @@ export interface CompleteSignUpArgs {
      * @memberof CompleteSignUpArgs
      */
     'fingerprint': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CompleteSignUpArgs
+     */
+    'code': string;
 }
 /**
  * 
@@ -630,6 +642,12 @@ export interface ForgotPasswordArgs {
      * @memberof ForgotPasswordArgs
      */
     'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ForgotPasswordArgs
+     */
+    'redirectUri'?: string;
 }
 /**
  * 
@@ -1149,6 +1167,12 @@ export interface SignUpArgs {
      * @memberof SignUpArgs
      */
     'fingerprint': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SignUpArgs
+     */
+    'redirectUri'?: string;
 }
 /**
  * 
@@ -3855,14 +3879,11 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
     return {
         /**
          * 
-         * @param {string} code 
          * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoControllerCompleteForgotPassword: async (code: string, completeForgotPasswordArgs: CompleteForgotPasswordArgs, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'code' is not null or undefined
-            assertParamExists('ssoControllerCompleteForgotPassword', 'code', code)
+        ssoControllerCompleteForgotPassword: async (completeForgotPasswordArgs: CompleteForgotPasswordArgs, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'completeForgotPasswordArgs' is not null or undefined
             assertParamExists('ssoControllerCompleteForgotPassword', 'completeForgotPasswordArgs', completeForgotPasswordArgs)
             const localVarPath = `/api/sso/complete-forgot-password`;
@@ -3876,10 +3897,6 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            if (code !== undefined) {
-                localVarQueryParameter['code'] = code;
-            }
 
 
     
@@ -3897,14 +3914,11 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
-         * @param {string} code 
          * @param {CompleteSignUpArgs} completeSignUpArgs 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoControllerCompleteSignUp: async (code: string, completeSignUpArgs: CompleteSignUpArgs, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'code' is not null or undefined
-            assertParamExists('ssoControllerCompleteSignUp', 'code', code)
+        ssoControllerCompleteSignUp: async (completeSignUpArgs: CompleteSignUpArgs, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'completeSignUpArgs' is not null or undefined
             assertParamExists('ssoControllerCompleteSignUp', 'completeSignUpArgs', completeSignUpArgs)
             const localVarPath = `/api/sso/complete-sign-up`;
@@ -3918,10 +3932,6 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            if (code !== undefined) {
-                localVarQueryParameter['code'] = code;
-            }
 
 
     
@@ -4711,26 +4721,24 @@ export const SsoApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {string} code 
          * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ssoControllerCompleteForgotPassword(code: string, completeForgotPasswordArgs: CompleteForgotPasswordArgs, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoControllerCompleteForgotPassword(code, completeForgotPasswordArgs, options);
+        async ssoControllerCompleteForgotPassword(completeForgotPasswordArgs: CompleteForgotPasswordArgs, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoControllerCompleteForgotPassword(completeForgotPasswordArgs, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoControllerCompleteForgotPassword']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
-         * @param {string} code 
          * @param {CompleteSignUpArgs} completeSignUpArgs 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ssoControllerCompleteSignUp(code: string, completeSignUpArgs: CompleteSignUpArgs, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoControllerCompleteSignUp(code, completeSignUpArgs, options);
+        async ssoControllerCompleteSignUp(completeSignUpArgs: CompleteSignUpArgs, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoControllerCompleteSignUp(completeSignUpArgs, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoControllerCompleteSignUp']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5002,23 +5010,21 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
     return {
         /**
          * 
-         * @param {string} code 
          * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoControllerCompleteForgotPassword(code: string, completeForgotPasswordArgs: CompleteForgotPasswordArgs, options?: RawAxiosRequestConfig): AxiosPromise<TokensResponse> {
-            return localVarFp.ssoControllerCompleteForgotPassword(code, completeForgotPasswordArgs, options).then((request) => request(axios, basePath));
+        ssoControllerCompleteForgotPassword(completeForgotPasswordArgs: CompleteForgotPasswordArgs, options?: RawAxiosRequestConfig): AxiosPromise<TokensResponse> {
+            return localVarFp.ssoControllerCompleteForgotPassword(completeForgotPasswordArgs, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {string} code 
          * @param {CompleteSignUpArgs} completeSignUpArgs 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoControllerCompleteSignUp(code: string, completeSignUpArgs: CompleteSignUpArgs, options?: RawAxiosRequestConfig): AxiosPromise<TokensResponse> {
-            return localVarFp.ssoControllerCompleteSignUp(code, completeSignUpArgs, options).then((request) => request(axios, basePath));
+        ssoControllerCompleteSignUp(completeSignUpArgs: CompleteSignUpArgs, options?: RawAxiosRequestConfig): AxiosPromise<TokensResponse> {
+            return localVarFp.ssoControllerCompleteSignUp(completeSignUpArgs, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5227,26 +5233,24 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
 export class SsoApi extends BaseAPI {
     /**
      * 
-     * @param {string} code 
      * @param {CompleteForgotPasswordArgs} completeForgotPasswordArgs 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SsoApi
      */
-    public ssoControllerCompleteForgotPassword(code: string, completeForgotPasswordArgs: CompleteForgotPasswordArgs, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoControllerCompleteForgotPassword(code, completeForgotPasswordArgs, options).then((request) => request(this.axios, this.basePath));
+    public ssoControllerCompleteForgotPassword(completeForgotPasswordArgs: CompleteForgotPasswordArgs, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoControllerCompleteForgotPassword(completeForgotPasswordArgs, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {string} code 
      * @param {CompleteSignUpArgs} completeSignUpArgs 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SsoApi
      */
-    public ssoControllerCompleteSignUp(code: string, completeSignUpArgs: CompleteSignUpArgs, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoControllerCompleteSignUp(code, completeSignUpArgs, options).then((request) => request(this.axios, this.basePath));
+    public ssoControllerCompleteSignUp(completeSignUpArgs: CompleteSignUpArgs, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoControllerCompleteSignUp(completeSignUpArgs, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

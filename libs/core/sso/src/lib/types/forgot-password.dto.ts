@@ -1,12 +1,16 @@
-import { IsEmail, IsNotEmpty, Validate } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty, IsOptional, Validate } from 'class-validator';
 import { EqualsTo } from '../utils/equals-to';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class ForgotPasswordArgs {
   @ApiProperty({ type: String })
   @IsEmail()
   @IsNotEmpty()
   email!: string;
+
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  redirectUri?: string;
 }
 
 export class CompleteForgotPasswordArgs {
@@ -22,4 +26,8 @@ export class CompleteForgotPasswordArgs {
   @ApiProperty({ type: String })
   @IsNotEmpty()
   fingerprint!: string;
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  code!: string;
 }

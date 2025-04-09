@@ -63,11 +63,12 @@ describe('Sso forgot password with check notifications (e2e)', () => {
     expect(findManyResult.notifications).toHaveLength(1);
     const code = findManyResult.notifications[0].html
       .split('?code=')[1]
+      .split('&')[0]
       .split('"')[0];
 
     const { data: completeSignUpResult } = await user
       .getSsoApi()
-      .ssoControllerCompleteSignUp(code, { fingerprint: user.randomUser.id });
+      .ssoControllerCompleteSignUp({ code, fingerprint: user.randomUser.id });
 
     expect(completeSignUpResult).toHaveProperty('accessToken');
     expect(completeSignUpResult).toHaveProperty('refreshToken');
@@ -126,11 +127,13 @@ describe('Sso forgot password with check notifications (e2e)', () => {
     expect(findManyResult.notifications).toHaveLength(2);
     const code = findManyResult.notifications[0].html
       .split('?code=')[1]
+      .split('&')[0]
       .split('"')[0];
 
     const { data: completeForgotPasswordResult } = await user
       .getSsoApi()
-      .ssoControllerCompleteForgotPassword(code, {
+      .ssoControllerCompleteForgotPassword({
+        code,
         password: user.randomUser.newPassword,
         confirmPassword: user.randomUser.newPassword,
         fingerprint: user.randomUser.id,

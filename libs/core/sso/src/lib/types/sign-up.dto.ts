@@ -24,10 +24,18 @@ export class SignUpArgs {
   @ApiProperty({ type: String })
   @IsNotEmpty()
   fingerprint!: string;
+
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  redirectUri?: string;
 }
 
 export class CompleteSignUpArgs {
   @ApiProperty({ type: String })
   @IsNotEmpty()
   fingerprint!: string;
+
+  @ApiProperty({ type: String })
+  @IsNotEmpty()
+  code!: string;
 }

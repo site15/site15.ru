@@ -165,13 +165,14 @@ export class NotificationsService {
       this.mailTransporter &&
       senderData.email &&
       senderData.name &&
-      recipientData.email &&
-      recipientData.name
+      recipientData.email
     ) {
       try {
         await this.mailTransporter.sendMail({
           from: { address: senderData.email, name: senderData.name },
-          to: { address: recipientData.email, name: recipientData.name },
+          to: recipientData.name
+            ? { address: recipientData.email, name: recipientData.name }
+            : recipientData.email,
           subject: event.subject,
           text: event.text || undefined,
           html: event.html,

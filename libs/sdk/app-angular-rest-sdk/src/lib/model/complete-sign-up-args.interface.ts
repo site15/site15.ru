@@ -11,5 +11,6 @@
 
 export interface CompleteSignUpArgsInterface { 
     fingerprint: string;
+    code: string;
 }
 

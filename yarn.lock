@@ -3179,10 +3179,10 @@
     fast-glob "3.3.2"
     tslib "^2.3.0"
 
-"@nestjs-mod/docker-compose@^1.18.0":
-  version "1.18.0"
-  resolved "https://registry.npmjs.org/@nestjs-mod/docker-compose/-/docker-compose-1.18.0.tgz"
-  integrity sha512-6FwqrQW1l5DcQew0GFTOSBoOtepNSkR8Aq62YJQxR46S3HglfruTfxRHNZZjo49P+AXN+9ci1nKJIPsZbOqo+w==
+"@nestjs-mod/docker-compose@^1.18.1":
+  version "1.18.1"
+  resolved "https://registry.npmjs.org/@nestjs-mod/docker-compose/-/docker-compose-1.18.1.tgz#9c8047b05802f97abc360db61268aadd5a4c2c51"
+  integrity sha512-pJOtsIUMEa6UVVyapKTbI5CRLEL8r7v8PC6B1C2/m8xlQtat5+ZFLsCCQYTnt2P7q+tF1+uGKgRGl+8CE7ylFA==
   dependencies:
     case-anything "2.1.13"
     compose-spec-schema "1.0.0"

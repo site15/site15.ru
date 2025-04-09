@@ -88,19 +88,21 @@ export class SsoService {
         text: this.translatesAsyncLocalStorageContext
           .get()
           .translate(
-            'Please navigate by a {{{domain}}}/verify-email?code={{code}} to verify your email',
+            'Please navigate by a {{{domain}}}/complete-sign-up?code={{code}}&redirect_uri={{redirect_uri}} to verify your email',
             {
-              domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
+              domain: this.ssoStaticEnvironments.serverUrl,
               code: code,
+              redirect_uri: signUpArgs.redirectUri,
             }
           ),
         html: this.translatesAsyncLocalStorageContext
           .get()
           .translate(
-            'Please navigate by a <a href="{{{domain}}}/verify-email?code={{code}}">link</a> to verify your email',
+            'Please navigate by a <a href="{{{domain}}}/complete-sign-up?code={{code}}&redirect_uri={{redirect_uri}}">link</a> to verify your email',
             {
-              domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
+              domain: this.ssoStaticEnvironments.serverUrl,
               code: code,
+              redirect_uri: signUpArgs.redirectUri,
             }
           ),
         operationName: SsoSendNotificationOptionsOperationName.VERIFY_EMAIL,
@@ -110,7 +112,7 @@ export class SsoService {
         const result = await this.ssoConfiguration.sendNotification(
           sendNotificationOptions
         );
-        if (!result) {
+        if (!result || this.ssoStaticEnvironments.disableEmailVerification) {
           user = await this.prismaClient.ssoUser.update({
             include: { SsoProject: true },
             data: {
@@ -201,19 +203,21 @@ export class SsoService {
           text: this.translatesAsyncLocalStorageContext
             .get()
             .translate(
-              'Please navigate by a {{{domain}}}/complete-forgot-password?code={{code}} to set new password',
+              'Please navigate by a {{{domain}}}/complete-forgot-password?code={{code}}&redirect_uri={{redirect_uri}} to set new password',
               {
-                domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
+                domain: this.ssoStaticEnvironments.serverUrl,
                 code: code,
+                redirect_uri: forgotPasswordArgs.redirectUri,
               }
             ),
           html: this.translatesAsyncLocalStorageContext
             .get()
             .translate(
-              'Please navigate by a <a href="{{{domain}}}/complete-forgot-password?code={{code}}">link</a> to set new password',
+              'Please navigate by a <a href="{{{domain}}}/complete-forgot-password?code={{code}}&redirect_uri={{redirect_uri}}">link</a> to set new password',
               {
-                domain: this.ssoStaticEnvironments.templatesVarSsoServerUrl,
+                domain: this.ssoStaticEnvironments.serverUrl,
                 code: code,
+                redirect_uri: forgotPasswordArgs.redirectUri,
               }
             ),
           operationName:
@@ -224,11 +228,9 @@ export class SsoService {
   }
 
   async completeForgotPassword({
-    code,
     completeForgotPasswordArgs,
     projectId,
   }: {
-    code: string;
     completeForgotPasswordArgs: CompleteForgotPasswordArgs;
     projectId: string;
   }) {
@@ -237,7 +239,7 @@ export class SsoService {
       completeForgotPasswordArgs;
     if (this.ssoConfiguration.twoFactorCodeValidate) {
       const result = await this.ssoConfiguration.twoFactorCodeValidate({
-        code,
+        code: completeForgotPasswordArgs.code,
         projectId,
         operationName:
           SsoTwoFactorCodeOptionsOperationName.COMPLETE_FORGOT_PASSWORD,

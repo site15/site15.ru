@@ -135,26 +135,16 @@ export class SsoRestService {
     }
 
     /**
-     * @param code 
      * @param completeForgotPasswordArgsInterface 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public ssoControllerCompleteForgotPassword(code: string, completeForgotPasswordArgsInterface: CompleteForgotPasswordArgsInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<TokensResponseInterface>;
-    public ssoControllerCompleteForgotPassword(code: string, completeForgotPasswordArgsInterface: CompleteForgotPasswordArgsInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<TokensResponseInterface>>;
-    public ssoControllerCompleteForgotPassword(code: string, completeForgotPasswordArgsInterface: CompleteForgotPasswordArgsInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<TokensResponseInterface>>;
-    public ssoControllerCompleteForgotPassword(code: string, completeForgotPasswordArgsInterface: CompleteForgotPasswordArgsInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (code === null || code === undefined) {
-            throw new Error('Required parameter code was null or undefined when calling ssoControllerCompleteForgotPassword.');
-        }
+    public ssoControllerCompleteForgotPassword(completeForgotPasswordArgsInterface: CompleteForgotPasswordArgsInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<TokensResponseInterface>;
+    public ssoControllerCompleteForgotPassword(completeForgotPasswordArgsInterface: CompleteForgotPasswordArgsInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<TokensResponseInterface>>;
+    public ssoControllerCompleteForgotPassword(completeForgotPasswordArgsInterface: CompleteForgotPasswordArgsInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<TokensResponseInterface>>;
+    public ssoControllerCompleteForgotPassword(completeForgotPasswordArgsInterface: CompleteForgotPasswordArgsInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (completeForgotPasswordArgsInterface === null || completeForgotPasswordArgsInterface === undefined) {
             throw new Error('Required parameter completeForgotPasswordArgsInterface was null or undefined when calling ssoControllerCompleteForgotPassword.');
-        }
-
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (code !== undefined && code !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>code, 'code');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -207,7 +197,6 @@ export class SsoRestService {
             {
                 context: localVarHttpContext,
                 body: completeForgotPasswordArgsInterface,
-                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -219,26 +208,16 @@ export class SsoRestService {
     }
 
     /**
-     * @param code 
      * @param completeSignUpArgsInterface 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public ssoControllerCompleteSignUp(code: string, completeSignUpArgsInterface: CompleteSignUpArgsInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<TokensResponseInterface>;
-    public ssoControllerCompleteSignUp(code: string, completeSignUpArgsInterface: CompleteSignUpArgsInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<TokensResponseInterface>>;
-    public ssoControllerCompleteSignUp(code: string, completeSignUpArgsInterface: CompleteSignUpArgsInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<TokensResponseInterface>>;
-    public ssoControllerCompleteSignUp(code: string, completeSignUpArgsInterface: CompleteSignUpArgsInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (code === null || code === undefined) {
-            throw new Error('Required parameter code was null or undefined when calling ssoControllerCompleteSignUp.');
-        }
+    public ssoControllerCompleteSignUp(completeSignUpArgsInterface: CompleteSignUpArgsInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<TokensResponseInterface>;
+    public ssoControllerCompleteSignUp(completeSignUpArgsInterface: CompleteSignUpArgsInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<TokensResponseInterface>>;
+    public ssoControllerCompleteSignUp(completeSignUpArgsInterface: CompleteSignUpArgsInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<TokensResponseInterface>>;
+    public ssoControllerCompleteSignUp(completeSignUpArgsInterface: CompleteSignUpArgsInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (completeSignUpArgsInterface === null || completeSignUpArgsInterface === undefined) {
             throw new Error('Required parameter completeSignUpArgsInterface was null or undefined when calling ssoControllerCompleteSignUp.');
-        }
-
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (code !== undefined && code !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>code, 'code');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -291,7 +270,6 @@ export class SsoRestService {
             {
                 context: localVarHttpContext,
                 body: completeSignUpArgsInterface,
-                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
