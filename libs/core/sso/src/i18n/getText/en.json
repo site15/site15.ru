@@ -25,5 +25,11 @@
     "An event that is triggered after a user calls to confirm a forgotten password change": "An event that is triggered after a user calls to confirm a forgotten password change",
     "An event that is triggered after a user login": "An event that is triggered after a user login",
     "An event that is triggered after a user logout": "An event that is triggered after a user logout",
-    "An event that is triggered after complete a new user registers": "An event that is triggered after complete a new user registers"
+    "An event that is triggered after complete a new user registers": "An event that is triggered after complete a new user registers",
+    "Please navigate by a {{{link}}} to set new password": "Please navigate by a {{{link}}} to set new password",
+    "Please navigate by a {{{link}}} to verify your email": "Please navigate by a {{{link}}} to verify your email",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email",
+    "Restore forgotten password link": "Restore forgotten password link",
+    "Verify your email": "Verify your email"
 }

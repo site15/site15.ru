@@ -79,6 +79,15 @@ msgstr ""
 msgid "Hello Static"
 msgstr "Привет Статика"
 
+msgid "Password recovery"
+msgstr "Восстановление пароля"
+
+msgid "Complete sign up"
+msgstr "Завершить регистрацию"
+
+msgid "Сomplete forgot password"
+msgstr "Завершить восстановление пароля"
+
 msgid "en"
 msgstr "EN"
 

@@ -66,17 +66,17 @@ export interface AuthUpdateProfileInput {
   app_data?: Record<string, any>;
 }
 
+export interface AuthCompleteSignUpInput {
+  code: string;
+}
+
 export interface AuthForgotPasswordInput {
-  email?: string;
-  phone_number?: string;
-  state?: string;
+  email: string;
   redirect_uri?: string;
 }
 
-export interface AuthResetPasswordInput {
-  token?: string;
-  otp?: string;
-  phone_number?: string;
+export interface AuthCompleteForgotPasswordInput {
+  code: string;
   password: string;
   confirm_password: string;
 }

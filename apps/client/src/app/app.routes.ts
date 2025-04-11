@@ -1,10 +1,17 @@
 import { Route } from '@angular/router';
 import { AuthRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
+  AfterCompleteSignUpOptions,
+  AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY,
   AUTH_GUARD_DATA_ROUTE_KEY,
+  AuthCompleteGuardData,
+  AuthCompleteGuardService,
   AuthGuardData,
   AuthGuardService,
 } from '@nestjs-mod-sso/auth-angular';
+import { CompleteForgotPasswordComponent } from './pages/complete-forgot-password/complete-forgot-password.component';
+import { CompleteSignUpComponent } from './pages/complete-sign-up/complete-sign-up.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
@@ -63,6 +70,55 @@ export const appRoutes: Route[] = [
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({ roles: [] }),
+    },
+  },
+  {
+    path: 'complete-sign-up',
+    component: CompleteSignUpComponent,
+    canActivate: [AuthCompleteGuardService],
+    data: {
+      [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
+        type: 'complete-sign-up',
+        afterCompleteSignUp: async (options: AfterCompleteSignUpOptions) => {
+          if (options.error) {
+            return false;
+          }
+          const redirect_uri =
+            options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
+          if (!redirect_uri) {
+            if (options.authService && options.router) {
+              if (
+                options.authService.profile$.value?.roles?.includes('admin')
+              ) {
+                options.router.navigate(['/webhooks']);
+              } else {
+                options.router.navigate(['/home']);
+              }
+            }
+          } else {
+            location.href = redirect_uri;
+          }
+          return true;
+        },
+      }),
+    },
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({ roles: [] }),
+    },
+  },
+  {
+    path: 'complete-forgot-password',
+    component: CompleteForgotPasswordComponent,
+    canActivate: [AuthCompleteGuardService],
+    data: {
+      [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
+        type: 'complete-forgot-password',
+      }),
     },
   },
 ];

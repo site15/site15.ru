@@ -1,6 +1,9 @@
 import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
+  AuthCompleteForgotPasswordInput,
+  AuthCompleteSignUpInput,
+  AuthForgotPasswordInput,
   AuthLoginInput,
   AuthSignupInput,
   AuthUpdateProfileInput,
@@ -23,7 +26,13 @@ export class AuthConfiguration {
   signup!: (data: AuthSignupInput) => Observable<AuthUserAndTokens>;
   login!: (data: AuthLoginInput) => Observable<AuthUserAndTokens>;
   updateProfile!: (data: AuthUpdateProfileInput) => Observable<void | null>;
-
+  completeSignUp!: (
+    data: AuthCompleteSignUpInput
+  ) => Observable<AuthUserAndTokens>;
+  forgotPassword!: (data: AuthForgotPasswordInput) => Observable<true>;
+  completeForgotPassword!: (
+    data: AuthCompleteForgotPasswordInput
+  ) => Observable<AuthUserAndTokens>;
   getAuthorizationHeaders?: () => Record<string, string>;
 }
 

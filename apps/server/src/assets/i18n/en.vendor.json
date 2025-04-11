@@ -15,6 +15,9 @@
   "auth-angular": {
     "Sign-in": "Sign-in",
     "Sign-up": "Sign-up",
+    "Forgot your password?": "Forgot your password?",
+    "Reset password": "Reset password",
+    "Change password": "Change password",
     "auth.sign-up-form.fields.email": "Email",
     "auth.sign-up-form.fields.password": "Password",
     "auth.sign-up-form.fields.confirm-password": "Confirm password",
@@ -24,10 +27,16 @@
     "auth.profile-form.fields.old-password": "Old password",
     "auth.profile-form.fields.new-password": "New password",
     "auth.profile-form.fields.confirm-new-password": "Confirm new password",
+    "auth.forgot-password-form.fields.email": "auth.forgot-password-form.fields.email",
+    "Email address successfully verified": "Email address successfully verified",
+    "auth.complete-forgot-password-form.fields.password": "Password",
+    "auth.complete-forgot-password-form.fields.confirm-password": "Confirm password",
     "Success": "Success",
     "Validation errors": "Validation errors",
     "Profile data updated successfully!": "Profile data updated successfully!",
     "Update": "Update",
+    "To complete the password change process, click the link in the email. If you haven't received the email, check your spam folder or try again.": "To complete the password change process, click the link in the email. If you haven't received the email, check your spam folder or try again.",
+    "Your password has been successfully changed!": "Your password has been successfully changed!",
     "field \"{{label}}\"": "field \"{{label}}\""
   },
   "common": {},
@@ -205,7 +214,13 @@
     "An event that is triggered after a user calls to confirm a forgotten password change": "An event that is triggered after a user calls to confirm a forgotten password change",
     "An event that is triggered after a user login": "An event that is triggered after a user login",
     "An event that is triggered after a user logout": "An event that is triggered after a user logout",
-    "An event that is triggered after complete a new user registers": "An event that is triggered after complete a new user registers"
+    "An event that is triggered after complete a new user registers": "An event that is triggered after complete a new user registers",
+    "Please navigate by a {{{link}}} to set new password": "Please navigate by a {{{link}}} to set new password",
+    "Please navigate by a {{{link}}} to verify your email": "Please navigate by a {{{link}}} to verify your email",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email",
+    "Restore forgotten password link": "Restore forgotten password link",
+    "Verify your email": "Verify your email"
   },
   "sso-angular": {
     "Users for project #{{projectId}}": "Users for project #{{projectId}}",
@@ -304,7 +319,9 @@
     "Two factor code not set": "Two factor code not set",
     "Two factor error": "Two factor error",
     "Wrong two factor code": "Wrong two factor code",
-    "Two factor code is outdated": "Two factor code is outdated"
+    "Two factor code is outdated": "Two factor code is outdated",
+    "Please wait 30 seconds": "Please wait 30 seconds",
+    "Two-factor code has already been used": "Two-factor code has already been used"
   },
   "notifications": {
     "Forbidden": "Forbidden",
@@ -344,7 +361,13 @@
     "An event that is triggered after a user calls to confirm a forgotten password change": "An event that is triggered after a user calls to confirm a forgotten password change",
     "An event that is triggered after a user login": "An event that is triggered after a user login",
     "An event that is triggered after a user logout": "An event that is triggered after a user logout",
-    "An event that is triggered after complete a new user registers": "An event that is triggered after complete a new user registers"
+    "An event that is triggered after complete a new user registers": "An event that is triggered after complete a new user registers",
+    "Please navigate by a {{{link}}} to set new password": "Please navigate by a {{{link}}} to set new password",
+    "Please navigate by a {{{link}}} to verify your email": "Please navigate by a {{{link}}} to verify your email",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email",
+    "Restore forgotten password link": "Restore forgotten password link",
+    "Verify your email": "Verify your email"
   },
   "two-factor": {
     "Number of attempts of two factor code has been exhausted": "Number of attempts of two factor code has been exhausted",
@@ -352,6 +375,8 @@
     "Two factor code not set": "Two factor code not set",
     "Two factor error": "Two factor error",
     "Wrong two factor code": "Wrong two factor code",
-    "Two factor code is outdated": "Two factor code is outdated"
+    "Two factor code is outdated": "Two factor code is outdated",
+    "Please wait 30 seconds": "Please wait 30 seconds",
+    "Two-factor code has already been used": "Two-factor code has already been used"
   }
 }

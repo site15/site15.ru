@@ -17,13 +17,13 @@ export class AuthGuardService implements CanActivate {
   constructor(private readonly authAuthService: AuthService) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
-    if (
+    const authGuardData =
       route.data &&
       route.data[AUTH_GUARD_DATA_ROUTE_KEY] instanceof AuthGuardData
-    ) {
-      return this.checkUserRoles(
-        route.data[AUTH_GUARD_DATA_ROUTE_KEY]?.roles
-      ).pipe(first());
+        ? route.data[AUTH_GUARD_DATA_ROUTE_KEY]
+        : null;
+    if (authGuardData) {
+      return this.checkUserRoles(authGuardData?.roles).pipe(first());
     }
     return of(true);
   }

@@ -8,6 +8,7 @@ export enum TwoFactorErrorEnum {
   TwoFactorCodeWrongCode = 'TWO-FACTOR-002',
   TwoFactorCodeIsOutdated = 'TWO-FACTOR-003',
   TwoFactorCodePleaseWait30Seconds = 'TWO-FACTOR-004',
+  TwoFactorCodeIsUsed = 'TWO-FACTOR-005',
 }
 
 export const TWO_FACTOR_ERROR_ENUM_TITLES: Record<TwoFactorErrorEnum, string> =
@@ -24,6 +25,9 @@ export const TWO_FACTOR_ERROR_ENUM_TITLES: Record<TwoFactorErrorEnum, string> =
     ),
     [TwoFactorErrorEnum.TwoFactorCodePleaseWait30Seconds]: getText(
       'Please wait 30 seconds'
+    ),
+    [TwoFactorErrorEnum.TwoFactorCodeIsUsed]: getText(
+      'Two-factor code has already been used'
     ),
   };
 

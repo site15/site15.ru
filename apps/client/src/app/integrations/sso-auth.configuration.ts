@@ -8,7 +8,10 @@ import {
 } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AUTH_CONFIGURATION_TOKEN,
+  AuthCompleteForgotPasswordInput,
+  AuthCompleteSignUpInput,
   AuthConfiguration,
+  AuthForgotPasswordInput,
   AuthLoginInput,
   AuthSignupInput,
   AuthUpdateProfileInput,
@@ -18,7 +21,7 @@ import {
   TokensService,
 } from '@nestjs-mod-sso/auth-angular';
 import { FilesService } from '@nestjs-mod-sso/files-angular';
-import { catchError, from, map, mergeMap, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, Observable, of } from 'rxjs';
 import { ActiveProjectService } from './active-project.service';
 
 export class SsoAuthConfiguration implements AuthConfiguration {
@@ -36,19 +39,23 @@ export class SsoAuthConfiguration implements AuthConfiguration {
 
   logout(): Observable<void | null> {
     const refreshToken = this.tokensService.getRefreshToken();
-    return from(
-      this.ssoRestService.ssoControllerSignOut({
-        refreshToken,
-      })
-    ).pipe(
-      map(() => {
-        this.tokensService.setTokens({});
-      })
-    );
+    return this.ssoRestService
+      .ssoControllerSignOut(
+        refreshToken
+          ? {
+              refreshToken,
+            }
+          : {}
+      )
+      .pipe(
+        map(() => {
+          this.tokensService.setTokens({});
+        })
+      );
   }
 
   getProfile(): Observable<AuthUser | undefined> {
-    return from(this.ssoRestService.ssoControllerProfile()).pipe(
+    return this.ssoRestService.ssoControllerProfile().pipe(
       map((result) => {
         return this.mapToAuthUser(result);
       })
@@ -131,7 +138,11 @@ export class SsoAuthConfiguration implements AuthConfiguration {
       mergeMap((fingerprint) =>
         this.ssoRestService
           .ssoControllerRefreshTokens({
-            refreshToken,
+            ...(refreshToken
+              ? {
+                  refreshToken,
+                }
+              : {}),
             fingerprint,
           })
           .pipe(
@@ -157,20 +168,20 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     }
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        from(
-          this.ssoRestService.ssoControllerSignUp({
+        this.ssoRestService
+          .ssoControllerSignUp({
             email,
             fingerprint,
             password,
             username: nickname,
             confirmPassword: confirm_password,
           })
-        ).pipe(
-          map((result) => ({
-            tokens: this.mapToAuthTokens(result),
-            user: this.mapToAuthUser(result.user),
-          }))
-        )
+          .pipe(
+            map((result) => ({
+              tokens: this.mapToAuthTokens(result),
+              user: this.mapToAuthUser(result.user),
+            }))
+          )
       )
     );
   }
@@ -182,38 +193,105 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     }
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        from(
-          this.ssoRestService.ssoControllerSignIn({
+        this.ssoRestService
+          .ssoControllerSignIn({
             email,
             fingerprint,
             password,
           })
-        ).pipe(
-          map((result) => ({
-            tokens: this.mapToAuthTokens(result),
-            user: this.mapToAuthUser(result.user),
-          }))
-        )
+          .pipe(
+            map((result) => ({
+              tokens: this.mapToAuthTokens(result),
+              user: this.mapToAuthUser(result.user),
+            }))
+          )
       )
     );
   }
 
   getAuthorizationHeaders(): Record<string, string> {
     const lang = this.translocoService.getActiveLang();
-
-    if (!this.tokensService.getAccessToken()) {
+    const accessToken = this.tokensService.getAccessToken();
+    const activeProjectAuthorizationHeaders =
+      this.activeProjectService.getAuthorizationHeaders();
+    if (!accessToken) {
       return {
         'Accept-language': lang,
-        ...this.activeProjectService.getAuthorizationHeaders(),
+        ...activeProjectAuthorizationHeaders,
       };
     }
     return {
-      ...(this.tokensService.getAccessToken()
-        ? { Authorization: `Bearer ${this.tokensService.getAccessToken()}` }
-        : {}),
+      ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
       'Accept-language': lang,
-      ...this.activeProjectService.getAuthorizationHeaders(),
+      ...activeProjectAuthorizationHeaders,
     };
+  }
+
+  completeSignUp(data: AuthCompleteSignUpInput): Observable<AuthUserAndTokens> {
+    const { code } = data;
+    if (!code) {
+      throw new Error('code not set');
+    }
+    return this.fingerprintService.getFingerprint().pipe(
+      mergeMap((fingerprint) =>
+        this.ssoRestService
+          .ssoControllerCompleteSignUp({
+            code,
+            fingerprint,
+          })
+          .pipe(
+            map((result) => ({
+              tokens: this.mapToAuthTokens(result),
+              user: this.mapToAuthUser(result.user),
+            }))
+          )
+      )
+    );
+  }
+
+  completeForgotPassword(
+    data: AuthCompleteForgotPasswordInput
+  ): Observable<AuthUserAndTokens> {
+    const { password, confirm_password: confirmPassword, code } = data;
+    if (!password) {
+      throw new Error('password not set');
+    }
+    if (!confirmPassword) {
+      throw new Error('confirmPassword not set');
+    }
+    if (!code) {
+      throw new Error('code not set');
+    }
+    return this.fingerprintService.getFingerprint().pipe(
+      mergeMap((fingerprint) =>
+        this.ssoRestService
+          .ssoControllerCompleteForgotPassword({
+            password,
+            confirmPassword,
+            code,
+            fingerprint,
+          })
+          .pipe(
+            map((result) => ({
+              tokens: this.mapToAuthTokens(result),
+              user: this.mapToAuthUser(result.user),
+            }))
+          )
+      )
+    );
+  }
+
+  forgotPassword(data: AuthForgotPasswordInput): Observable<true> {
+    const { email, redirect_uri: redirectUri } = data;
+    if (!email) {
+      throw new Error('email not set');
+    }
+    return this.ssoRestService
+      .ssoControllerForgotPassword({
+        email,
+        redirectUri,
+      })
+      .pipe(map(() => true));
   }
 }
 

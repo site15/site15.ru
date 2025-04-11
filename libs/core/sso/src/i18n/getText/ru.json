@@ -25,5 +25,11 @@
     "An event that is triggered after a user calls to confirm a forgotten password change": "Событие, которое запускается после подтверждения пользователем изменения забытого пароля",
     "An event that is triggered after a user login": "Событие, которое запускается после входа пользователя в систему",
     "An event that is triggered after a user logout": "Событие, которое запускается после выхода пользователя из системы",
-    "An event that is triggered after complete a new user registers": "Событие, которое запускается после завершения регистрации нового пользователя"
+    "An event that is triggered after complete a new user registers": "Событие, которое запускается после завершения регистрации нового пользователя",
+    "Please navigate by a {{{link}}} to set new password": "Перейдите по следующей ссылке {{{link}}}, чтобы установить новый пароль",
+    "Please navigate by a {{{link}}} to verify your email": "Перейдите по следующей ссылке {{{link}}}, чтобы подтвердить вашу электронную почту",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы установить новый пароль",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы подтвердить вашу электронную почту",
+    "Restore forgotten password link": "Ссылка для восстановления забытого пароля",
+    "Verify your email": "Подтверждение электронной почты"
 }

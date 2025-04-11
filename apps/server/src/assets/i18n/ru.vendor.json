@@ -15,6 +15,9 @@
   "auth-angular": {
     "Sign-in": "Войти",
     "Sign-up": "Зарегистрироваться",
+    "Forgot your password?": "Забыли ваш пароль?",
+    "Reset password": "Сбросить пароль",
+    "Change password": "Изменить пароль",
     "auth.sign-up-form.fields.email": "Email",
     "auth.sign-up-form.fields.password": "Пароль",
     "auth.sign-up-form.fields.confirm-password": "Пароль (еще раз)",
@@ -24,10 +27,16 @@
     "auth.profile-form.fields.old-password": "Старый пароль",
     "auth.profile-form.fields.new-password": "Новый пароль",
     "auth.profile-form.fields.confirm-new-password": "Новый пароль (еще раз)",
+    "auth.forgot-password-form.fields.email": "Email",
+    "Email address successfully verified": "Адрес электронной почты успешно подтвержден",
+    "auth.complete-forgot-password-form.fields.password": "Пароль",
+    "auth.complete-forgot-password-form.fields.confirm-password": "Пароль (еще раз)",
     "Success": "Успешно",
     "Validation errors": "Ошибка при проверке данных",
     "Profile data updated successfully!": "Данные профиля успешно обновлены!",
     "Update": "Изменить",
+    "To complete the password change process, click the link in the email. If you haven't received the email, check your spam folder or try again.": "Чтобы завершить процесс смены пароля, перейдите по ссылке в электронном письме. Если вы не получили письмо, проверьте папку со спамом или повторите попытку.",
+    "Your password has been successfully changed!": "Ваш пароль успешно изменен!",
     "field \"{{label}}\"": "поле \"{{label}}\""
   },
   "common": {},
@@ -205,7 +214,13 @@
     "An event that is triggered after a user calls to confirm a forgotten password change": "Событие, которое запускается после подтверждения пользователем изменения забытого пароля",
     "An event that is triggered after a user login": "Событие, которое запускается после входа пользователя в систему",
     "An event that is triggered after a user logout": "Событие, которое запускается после выхода пользователя из системы",
-    "An event that is triggered after complete a new user registers": "Событие, которое запускается после завершения регистрации нового пользователя"
+    "An event that is triggered after complete a new user registers": "Событие, которое запускается после завершения регистрации нового пользователя",
+    "Please navigate by a {{{link}}} to set new password": "Перейдите по следующей ссылке {{{link}}}, чтобы установить новый пароль",
+    "Please navigate by a {{{link}}} to verify your email": "Перейдите по следующей ссылке {{{link}}}, чтобы подтвердить вашу электронную почту",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы установить новый пароль",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы подтвердить вашу электронную почту",
+    "Restore forgotten password link": "Ссылка для восстановления забытого пароля",
+    "Verify your email": "Подтверждение электронной почты"
   },
   "sso-angular": {
     "Users for project #{{projectId}}": "Пользователи проекта #{{projectId}}",
@@ -304,7 +319,9 @@
     "Two factor code not set": "Двухфакторный код не установлен",
     "Two factor error": "Ошибка двухфакторной аутентификации",
     "Wrong two factor code": "Неправильный двухфакторный код",
-    "Two factor code is outdated": "Двухфакторный код устарел"
+    "Two factor code is outdated": "Двухфакторный код устарел",
+    "Please wait 30 seconds": "Пожалуйста, подождите 30 секунд",
+    "Two-factor code has already been used": "Код двухфакторной аутентификации уже использован"
   },
   "notifications": {
     "Forbidden": "Нет доступа",
@@ -344,7 +361,13 @@
     "An event that is triggered after a user calls to confirm a forgotten password change": "Событие, которое запускается после подтверждения пользователем изменения забытого пароля",
     "An event that is triggered after a user login": "Событие, которое запускается после входа пользователя в систему",
     "An event that is triggered after a user logout": "Событие, которое запускается после выхода пользователя из системы",
-    "An event that is triggered after complete a new user registers": "Событие, которое запускается после завершения регистрации нового пользователя"
+    "An event that is triggered after complete a new user registers": "Событие, которое запускается после завершения регистрации нового пользователя",
+    "Please navigate by a {{{link}}} to set new password": "Перейдите по следующей ссылке {{{link}}}, чтобы установить новый пароль",
+    "Please navigate by a {{{link}}} to verify your email": "Перейдите по следующей ссылке {{{link}}}, чтобы подтвердить вашу электронную почту",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы установить новый пароль",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы подтвердить вашу электронную почту",
+    "Restore forgotten password link": "Ссылка для восстановления забытого пароля",
+    "Verify your email": "Подтверждение электронной почты"
   },
   "two-factor": {
     "Number of attempts of two factor code has been exhausted": "Количество попыток ввода двухфакторного кода исчерпано",
@@ -352,6 +375,8 @@
     "Two factor code not set": "Двухфакторный код не установлен",
     "Two factor error": "Ошибка двухфакторной аутентификации",
     "Wrong two factor code": "Неправильный двухфакторный код",
-    "Two factor code is outdated": "Двухфакторный код устарел"
+    "Two factor code is outdated": "Двухфакторный код устарел",
+    "Please wait 30 seconds": "Пожалуйста, подождите 30 секунд",
+    "Two-factor code has already been used": "Код двухфакторной аутентификации уже использован"
   }
 }

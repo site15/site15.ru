@@ -95,3 +95,31 @@ msgid "An event that is triggered after complete a new user registers"
 msgstr ""
 "Событие, которое запускается после завершения регистрации нового "
 "пользователя"
+
+msgid "Please navigate by a {{{link}}} to set new password"
+msgstr "Перейдите по следующей ссылке {{{link}}}, чтобы установить новый пароль"
+
+msgid "Please navigate by a {{{link}}} to verify your email"
+msgstr ""
+"Перейдите по следующей ссылке {{{link}}}, чтобы подтвердить вашу "
+"электронную почту"
+
+msgid ""
+"Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new "
+"password"
+msgstr ""
+"Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, "
+"чтобы установить новый пароль"
+
+msgid ""
+"Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your "
+"email"
+msgstr ""
+"Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, "
+"чтобы подтвердить вашу электронную почту"
+
+msgid "Restore forgotten password link"
+msgstr "Ссылка для восстановления забытого пароля"
+
+msgid "Verify your email"
+msgstr "Подтверждение электронной почты"

@@ -90,3 +90,29 @@ msgstr "An event that is triggered after a user logout"
 
 msgid "An event that is triggered after complete a new user registers"
 msgstr "An event that is triggered after complete a new user registers"
+
+msgid "Please navigate by a {{{link}}} to set new password"
+msgstr "Please navigate by a {{{link}}} to set new password"
+
+msgid "Please navigate by a {{{link}}} to verify your email"
+msgstr "Please navigate by a {{{link}}} to verify your email"
+
+msgid ""
+"Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new "
+"password"
+msgstr ""
+"Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new "
+"password"
+
+msgid ""
+"Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your "
+"email"
+msgstr ""
+"Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your "
+"email"
+
+msgid "Restore forgotten password link"
+msgstr "Restore forgotten password link"
+
+msgid "Verify your email"
+msgstr "Verify your email"

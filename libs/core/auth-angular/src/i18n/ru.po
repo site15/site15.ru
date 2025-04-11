@@ -13,6 +13,15 @@ msgstr "Войти"
 msgid "Sign-up"
 msgstr "Зарегистрироваться"
 
+msgid "Forgot your password?"
+msgstr "Забыли ваш пароль?"
+
+msgid "Reset password"
+msgstr "Сбросить пароль"
+
+msgid "Change password"
+msgstr "Изменить пароль"
+
 msgid "auth.sign-up-form.fields.email"
 msgstr "Email"
 
@@ -40,6 +49,18 @@ msgstr "Новый пароль"
 msgid "auth.profile-form.fields.confirm-new-password"
 msgstr "Новый пароль (еще раз)"
 
+msgid "auth.forgot-password-form.fields.email"
+msgstr "Email"
+
+msgid "Email address successfully verified"
+msgstr "Адрес электронной почты успешно подтвержден"
+
+msgid "auth.complete-forgot-password-form.fields.password"
+msgstr "Пароль"
+
+msgid "auth.complete-forgot-password-form.fields.confirm-password"
+msgstr "Пароль (еще раз)"
+
 msgid "Success"
 msgstr "Успешно"
 
@@ -51,6 +72,17 @@ msgstr "Данные профиля успешно обновлены!"
 
 msgid "Update"
 msgstr "Изменить"
+
+msgid ""
+"To complete the password change process, click the link in the email. If "
+"you haven't received the email, check your spam folder or try again."
+msgstr ""
+"Чтобы завершить процесс смены пароля, перейдите по ссылке в электронном "
+"письме. Если вы не получили письмо, проверьте папку со спамом или повторите "
+"попытку."
+
+msgid "Your password has been successfully changed!"
+msgstr "Ваш пароль успешно изменен!"
 
 msgid "field \"{{label}}\""
 msgstr "поле \"{{label}}\""

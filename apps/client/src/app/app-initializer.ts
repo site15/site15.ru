@@ -1,5 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import {
   AuthRestService,
@@ -9,9 +9,7 @@ import {
   WebhookRestService,
 } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
-  AUTH_CONFIGURATION_TOKEN,
   AuthActiveLangService,
-  AuthConfiguration,
   AuthService,
   TokensService,
 } from '@nestjs-mod-sso/auth-angular';
@@ -23,8 +21,6 @@ export class AppInitializer {
   private subscribeToTokenUpdatesSubscription?: Subscription;
 
   constructor(
-    @Inject(AUTH_CONFIGURATION_TOKEN)
-    private readonly authConfiguration: AuthConfiguration,
     private readonly webhookRestService: WebhookRestService,
     private readonly timeRestService: TimeRestService,
     private readonly authService: AuthService,
@@ -64,26 +60,23 @@ export class AppInitializer {
   }
 
   private updateHeaders() {
-    if (this.authConfiguration.getAuthorizationHeaders) {
-      const authorizationHeaders =
-        this.authConfiguration.getAuthorizationHeaders();
-      if (authorizationHeaders) {
-        this.webhookRestService.defaultHeaders = new HttpHeaders(
-          authorizationHeaders
-        );
-        this.filesRestService.defaultHeaders = new HttpHeaders(
-          authorizationHeaders
-        );
-        this.timeRestService.defaultHeaders = new HttpHeaders(
-          authorizationHeaders
-        );
-        this.authRestService.defaultHeaders = new HttpHeaders(
-          authorizationHeaders
-        );
-        this.ssoRestService.defaultHeaders = new HttpHeaders(
-          authorizationHeaders
-        );
-      }
+    const authorizationHeaders = this.authService.getAuthorizationHeaders();
+    if (authorizationHeaders) {
+      this.webhookRestService.defaultHeaders = new HttpHeaders(
+        authorizationHeaders
+      );
+      this.filesRestService.defaultHeaders = new HttpHeaders(
+        authorizationHeaders
+      );
+      this.timeRestService.defaultHeaders = new HttpHeaders(
+        authorizationHeaders
+      );
+      this.authRestService.defaultHeaders = new HttpHeaders(
+        authorizationHeaders
+      );
+      this.ssoRestService.defaultHeaders = new HttpHeaders(
+        authorizationHeaders
+      );
     }
   }
 }

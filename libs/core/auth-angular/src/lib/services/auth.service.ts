@@ -1,10 +1,20 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, mergeMap, of } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  mergeMap,
+  Observable,
+  of,
+} from 'rxjs';
 import {
   AUTH_CONFIGURATION_TOKEN,
   AuthConfiguration,
 } from './auth.configuration';
 import {
+  AuthCompleteForgotPasswordInput,
+  AuthCompleteSignUpInput,
+  AuthForgotPasswordInput,
   AuthLoginInput,
   AuthSignupInput,
   AuthUpdateProfileInput,
@@ -22,6 +32,52 @@ export class AuthService {
     @Inject(AUTH_CONFIGURATION_TOKEN)
     protected readonly authConfiguration: AuthConfiguration
   ) {}
+
+  completeSignUp(
+    data: AuthCompleteSignUpInput
+  ): Observable<AuthUserAndTokens | null> {
+    return this.authConfiguration.completeSignUp
+      ? this.authConfiguration.completeSignUp(data).pipe(
+          mergeMap((result) => {
+            return this.setProfileAndTokens(result).pipe(
+              map((profile) => ({
+                profile,
+                tokens: result.tokens,
+              }))
+            );
+          })
+        )
+      : of(null);
+  }
+
+  forgotPassword(data: AuthForgotPasswordInput): Observable<true | null> {
+    return this.authConfiguration.forgotPassword
+      ? this.authConfiguration.forgotPassword(data)
+      : of(null);
+  }
+
+  completeForgotPassword(
+    data: AuthCompleteForgotPasswordInput
+  ): Observable<AuthUserAndTokens | null> {
+    return this.authConfiguration.completeForgotPassword
+      ? this.authConfiguration.completeForgotPassword(data).pipe(
+          mergeMap((result) => {
+            return this.setProfileAndTokens(result).pipe(
+              map((profile) => ({
+                profile,
+                tokens: result.tokens,
+              }))
+            );
+          })
+        )
+      : of(null);
+  }
+
+  getAuthorizationHeaders() {
+    return this.authConfiguration.getAuthorizationHeaders
+      ? this.authConfiguration.getAuthorizationHeaders()
+      : undefined;
+  }
 
   signUp(data: AuthSignupInput) {
     return this.authConfiguration
@@ -69,6 +125,10 @@ export class AuthService {
   signOut() {
     return this.authConfiguration.logout().pipe(
       mergeMap(() => {
+        return this.clearProfileAndTokens();
+      }),
+      catchError((err) => {
+        console.error(err);
         return this.clearProfileAndTokens();
       })
     );

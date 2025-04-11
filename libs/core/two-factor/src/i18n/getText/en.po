@@ -23,3 +23,9 @@ msgstr "Wrong two factor code"
 
 msgid "Two factor code is outdated"
 msgstr "Two factor code is outdated"
+
+msgid "Please wait 30 seconds"
+msgstr "Please wait 30 seconds"
+
+msgid "Two-factor code has already been used"
+msgstr "Two-factor code has already been used"

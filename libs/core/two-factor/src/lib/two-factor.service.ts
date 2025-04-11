@@ -119,7 +119,6 @@ export class TwoFactorService {
     let twoFactorCode = await this.prismaClient.twoFactorCode.findFirst({
       include: { TwoFactorUser: true },
       where: {
-        used: false,
         code: { equals: options.code },
         externalTenantId: options.externalTenantId,
       },
@@ -127,6 +126,10 @@ export class TwoFactorService {
 
     if (!twoFactorCode) {
       throw new TwoFactorError(TwoFactorErrorEnum.TwoFactorCodeNotSet);
+    }
+
+    if (twoFactorCode.used) {
+      throw new TwoFactorError(TwoFactorErrorEnum.TwoFactorCodeIsUsed);
     }
 
     if (this.twoFactorConfiguration.getTimeoutValue) {
