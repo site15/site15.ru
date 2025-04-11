@@ -16,7 +16,6 @@ import { WebhookService } from './services/webhook.service';
 import {
   WebhookConfiguration,
   WebhookFeatureConfiguration,
-  WebhookStaticConfiguration,
 } from './webhook.configuration';
 import { WEBHOOK_FEATURE, WEBHOOK_MODULE } from './webhook.constants';
 import { WebhookStaticEnvironments } from './webhook.environments';
@@ -32,7 +31,6 @@ export const { WebhookModule } = createNestModule({
   moduleName: WEBHOOK_MODULE,
   moduleCategory: NestModuleCategory.core,
   staticEnvironmentsModel: WebhookStaticEnvironments,
-  staticConfigurationModel: WebhookStaticConfiguration,
   featureConfigurationModel: WebhookFeatureConfiguration,
   configurationModel: WebhookConfiguration,
   imports: [

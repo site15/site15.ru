@@ -1,5 +1,6 @@
 import { TokensResponse } from '@nestjs-mod-sso/app-rest-sdk';
 import { RestClientHelper } from '@nestjs-mod-sso/testing';
+import { setTimeout } from 'node:timers/promises';
 
 describe('Sso forgot password with check notifications (e2e)', () => {
   let user: RestClientHelper<'strict'>;
@@ -101,6 +102,7 @@ describe('Sso forgot password with check notifications (e2e)', () => {
   });
 
   it('Send link for restore forget password with change password logic', async () => {
+    await setTimeout(30000);
     const { data: forgotPasswordResult } = await user
       .getSsoApi()
       .ssoControllerForgotPassword(

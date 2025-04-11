@@ -58,6 +58,10 @@ export * from './terminus-health-check-controller-check200-response-info-value.i
 export * from './terminus-health-check-controller-check200-response.interface';
 export * from './terminus-health-check-controller-check503-response.interface';
 export * from './tokens-response.interface';
+export * from './two-factor-error-enum.interface';
+export * from './two-factor-error.interface';
+export * from './two-factor-error-metadata-constraint.interface';
+export * from './two-factor-error-metadata.interface';
 export * from './update-auth-user-dto.interface';
 export * from './update-notifications-event-dto.interface';
 export * from './update-profile-args.interface';

@@ -42,7 +42,7 @@ export class AuthCompleteForgotPasswordFormService {
           },
         },
         {
-          key: 'confirm_password',
+          key: 'confirmPassword',
           type: 'input',
           validation: {
             show: true,
@@ -51,7 +51,7 @@ export class AuthCompleteForgotPasswordFormService {
             label: this.translocoService.translate(
               `auth.complete-forgot-password-form.fields.confirm-password`
             ),
-            placeholder: 'confirm_password',
+            placeholder: 'confirmPassword',
             required: true,
             type: 'password',
           },

@@ -27,18 +27,11 @@ import {
 } from '@nestjs-mod-sso/auth-angular';
 import { COMMON_FORMLY_FIELDS } from '@nestjs-mod-sso/common-angular';
 import { FILES_FORMLY_FIELDS, MINIO_URL } from '@nestjs-mod-sso/files-angular';
-import {
-  WEBHOOK_CONFIGURATION_TOKEN,
-  WebhookConfiguration,
-} from '@nestjs-mod-sso/webhook-angular';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
-import {
-  serverUrl,
-  webhookSuperAdminExternalUserId,
-} from '../environments/environment';
+import { serverUrl } from '../environments/environment';
 import { AppInitializer } from './app-initializer';
 import { AppErrorHandler } from './app.error-handler';
 import { appRoutes } from './app.routes';
@@ -61,10 +54,6 @@ export const ssoAppConfig = ({
       provideRouter(appRoutes),
       provideHttpClient(),
       provideNzI18n(en_US),
-      {
-        provide: WEBHOOK_CONFIGURATION_TOKEN,
-        useValue: new WebhookConfiguration({ webhookSuperAdminExternalUserId }),
-      },
       importProvidersFrom(
         BrowserAnimationsModule,
         RestClientApiModule.forRoot(

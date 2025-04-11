@@ -37,7 +37,6 @@ EXPOSE 8080
 ENV NODE_ENV=production
 ENV TZ=UTC
 ENV SERVER_PORT=8080
-ENV CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID=248ec37f-628d-43f0-8de2-f58da037dd0f
 ENV CLIENT_MINIO_URL=http://localhost:9000
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=prod-deps /app/apps /app/apps
@@ -46,6 +45,5 @@ COPY --from=prod-deps /app/package.json /app/package.json
 COPY --from=build /app/dist /app/dist
 RUN apk update && apk add --no-cache openssl dumb-init && \
     find /app/dist -type f -name "*.js" -print0 | xargs -0 sed -i \
-    -e "s/___CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID___/$CLIENT_WEBHOOK_SUPER_ADMIN_EXTERNAL_USER_ID/g" \
     -e "s#___CLIENT_MINIO_URL___#$CLIENT_MINIO_URL#g"
 CMD ["dumb-init", "node", "dist/apps/server/main.js"]

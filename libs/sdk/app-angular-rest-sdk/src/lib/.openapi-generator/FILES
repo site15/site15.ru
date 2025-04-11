@@ -75,6 +75,10 @@ model/terminus-health-check-controller-check200-response-info-value.interface.ts
 model/terminus-health-check-controller-check200-response.interface.ts
 model/terminus-health-check-controller-check503-response.interface.ts
 model/tokens-response.interface.ts
+model/two-factor-error-enum.interface.ts
+model/two-factor-error-metadata-constraint.interface.ts
+model/two-factor-error-metadata.interface.ts
+model/two-factor-error.interface.ts
 model/update-auth-user-dto.interface.ts
 model/update-notifications-event-dto.interface.ts
 model/update-profile-args.interface.ts

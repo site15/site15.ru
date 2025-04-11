@@ -83,9 +83,9 @@ export const appRoutes: Route[] = [
           if (options.error) {
             return false;
           }
-          const redirect_uri =
+          const redirectUri =
             options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
-          if (!redirect_uri) {
+          if (!redirectUri) {
             if (options.authService && options.router) {
               if (
                 options.authService.profile$.value?.roles?.includes('admin')
@@ -96,7 +96,7 @@ export const appRoutes: Route[] = [
               }
             }
           } else {
-            location.href = redirect_uri;
+            location.href = redirectUri;
           }
           return true;
         },

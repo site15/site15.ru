@@ -70,15 +70,13 @@ test.describe('Validation with store lang in db (ru)', () => {
 
     await page
       .locator('auth-sign-up-form')
-      .locator('[placeholder=confirm_password]')
+      .locator('[placeholder=confirmPassword]')
       .click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
     await expect(
-      page
-        .locator('auth-sign-up-form')
-        .locator('[placeholder=confirm_password]')
+      page.locator('auth-sign-up-form').locator('[placeholder=confirmPassword]')
     ).toHaveValue(user.password);
 
     await expect(

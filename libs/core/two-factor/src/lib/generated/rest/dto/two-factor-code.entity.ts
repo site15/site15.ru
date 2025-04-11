@@ -23,6 +23,10 @@ export class TwoFactorCode {
   })
   used!: boolean;
   @ApiProperty({
+    type: 'boolean',
+  })
+  outdated!: boolean;
+  @ApiProperty({
     type: 'string',
   })
   userId!: string;

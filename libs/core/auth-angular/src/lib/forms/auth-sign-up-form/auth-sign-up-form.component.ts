@@ -73,11 +73,11 @@ export class AuthSignUpFormComponent implements OnInit {
 
   ngOnInit(): void {
     Object.assign(this, this.nzModalData);
-    this.setFieldsAndModel({ password: '', confirm_password: '' });
+    this.setFieldsAndModel({ password: '', confirmPassword: '' });
   }
 
   setFieldsAndModel(
-    data: AuthSignupInput = { password: '', confirm_password: '' }
+    data: AuthSignupInput = { password: '', confirmPassword: '' }
   ) {
     const model = this.authSignUpMapperService.toModel(data);
     this.setFormlyFields({ data: model });

@@ -31,6 +31,13 @@ export class UpdateTwoFactorCodeDto {
   @IsBoolean()
   used?: boolean;
   @ApiProperty({
+    type: 'boolean',
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  outdated?: boolean;
+  @ApiProperty({
     type: 'string',
     required: false,
   })

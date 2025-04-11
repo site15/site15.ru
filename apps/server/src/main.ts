@@ -4,24 +4,36 @@ process.env.TZ = 'UTC';
   return this.toString();
 };
 import KeyvRedis from '@keyv/redis';
-import { AUTH_FEATURE, AUTH_FOLDER, AuthModule } from '@nestjs-mod-sso/auth';
-import { FilesModule } from '@nestjs-mod-sso/files';
+import {
+  AUTH_FEATURE,
+  AUTH_FOLDER,
+  AuthError,
+  AuthModule,
+} from '@nestjs-mod-sso/auth';
+import { FilesError, FilesModule } from '@nestjs-mod-sso/files';
 import {
   NOTIFICATIONS_FEATURE,
   NOTIFICATIONS_FOLDER,
   NotificationsModule,
 } from '@nestjs-mod-sso/notifications';
-import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
-import { SSO_FEATURE, SSO_FOLDER, SsoModule } from '@nestjs-mod-sso/sso';
+import { DatabaseError, PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
+import {
+  SSO_FEATURE,
+  SSO_FOLDER,
+  SsoError,
+  SsoModule,
+} from '@nestjs-mod-sso/sso';
 import {
   TWO_FACTOR_FEATURE,
   TWO_FACTOR_FOLDER,
+  TwoFactorError,
   TwoFactorModule,
 } from '@nestjs-mod-sso/two-factor';
-import { ValidationModule } from '@nestjs-mod-sso/validation';
+import { ValidationError, ValidationModule } from '@nestjs-mod-sso/validation';
 import {
   WEBHOOK_FEATURE,
   WEBHOOK_FOLDER,
+  WebhookError,
   WebhookModule,
 } from '@nestjs-mod-sso/webhook';
 import {
@@ -53,6 +65,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
+import {
+  createDatabaseHandler,
+  PG_CREATE_DB_DEFAULT_CONFIG,
+} from 'pg-create-db';
+import { migrateHandler, PG_FLYWAY_DEFAULT_MIGRATE_CONFIG } from 'pg-flyway';
 import { createClient } from 'redis';
 import { AppModule } from './app/app.module';
 import { appFolder, rootFolder } from './environments/environment';
@@ -61,11 +78,6 @@ import { filesModuleForRootAsyncOptions } from './integrations/minio-files-integ
 import { notificationsModuleForRootAsyncOptions } from './integrations/notifications-integration.configuration';
 import { ssoModuleForRootAsyncOptions } from './integrations/sso-integration.configuration';
 import { terminusHealthCheckModuleForRootAsyncOptions } from './integrations/terminus-health-check-integration.configuration';
-import {
-  createDatabaseHandler,
-  PG_CREATE_DB_DEFAULT_CONFIG,
-} from 'pg-create-db';
-import { migrateHandler, PG_FLYWAY_DEFAULT_MIGRATE_CONFIG } from 'pg-flyway';
 
 async function createAndFillDatabases() {
   if (isInfrastructureMode()) {
@@ -147,7 +159,18 @@ createAndFillDatabases().then(() =>
                   .build();
                 const document = SwaggerModule.createDocument(
                   options.app,
-                  swaggerConf
+                  swaggerConf,
+                  {
+                    extraModels: [
+                      AuthError,
+                      TwoFactorError,
+                      FilesError,
+                      DatabaseError,
+                      SsoError,
+                      ValidationError,
+                      WebhookError,
+                    ],
+                  }
                 );
                 SwaggerModule.setup('swagger', options.app, document);
 
@@ -327,10 +350,6 @@ createAndFillDatabases().then(() =>
           notificationsModuleForRootAsyncOptions()
         ),
         WebhookModule.forRootAsync({
-          staticEnvironments: {
-            searchUserIdInHeaders: false,
-            searchTenantIdInHeaders: false,
-          },
           imports: [
             // need for work global auth guards
             AuthModule.forFeature({ featureModuleName: AUTH_FEATURE }),

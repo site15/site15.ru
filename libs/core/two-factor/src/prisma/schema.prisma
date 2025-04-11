@@ -12,21 +12,21 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  fileNamingStyle                 = "kebab"
-  reExport                        = "false"
   flatResourceStructure           = "false"
-  updateDtoPrefix                 = "Update"
+  noDependencies                  = "false"
+  annotateAllDtoProperties        = "true"
+  entityPrefix                    = ""
+  prettier                        = "true"
+  reExport                        = "false"
+  definiteAssignmentAssertion     = "true"
+  fileNamingStyle                 = "kebab"
   classValidation                 = "true"
   outputToNestJsResourceStructure = "false"
-  createDtoPrefix                 = "Create"
-  noDependencies                  = "false"
-  entityPrefix                    = ""
-  dtoSuffix                       = "Dto"
-  exportRelationModifierClasses   = "true"
-  definiteAssignmentAssertion     = "true"
-  prettier                        = "true"
-  annotateAllDtoProperties        = "true"
   entitySuffix                    = ""
+  dtoSuffix                       = "Dto"
+  updateDtoPrefix                 = "Update"
+  createDtoPrefix                 = "Create"
+  exportRelationModifierClasses   = "true"
 }
 
 model TwoFactorUser {
@@ -55,6 +55,7 @@ model TwoFactorCode {
   operationName    String        @db.VarChar(512)
   code             String        @db.VarChar(100)
   used             Boolean
+  outdated         Boolean
   userId           String        @db.Uuid
   externalTenantId String        @db.Uuid
   /// @DtoCreateHidden

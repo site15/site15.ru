@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS "TwoFactorCode"(
     "operationName" varchar(512) NOT NULL,
     "code" varchar(100) NOT NULL,
     "used" boolean NOT NULL,
+    "outdated" boolean NOT NULL,
     "userId" uuid NOT NULL,
     "externalTenantId" uuid NOT NULL,
     "createdAt" timestamp DEFAULT now() NOT NULL,

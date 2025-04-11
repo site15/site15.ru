@@ -73,6 +73,10 @@ export * from './lib/model/terminus-health-check-controller-check200-response-in
 export * from './lib/model/terminus-health-check-controller-check200-response.interface';
 export * from './lib/model/terminus-health-check-controller-check503-response.interface';
 export * from './lib/model/tokens-response.interface';
+export * from './lib/model/two-factor-error-enum.interface';
+export * from './lib/model/two-factor-error-metadata-constraint.interface';
+export * from './lib/model/two-factor-error-metadata.interface';
+export * from './lib/model/two-factor-error.interface';
 export * from './lib/model/update-auth-user-dto.interface';
 export * from './lib/model/update-notifications-event-dto.interface';
 export * from './lib/model/update-profile-args.interface';

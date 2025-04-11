@@ -68,6 +68,73 @@ export class TwoFactorService {
       ).generate()
     );
 
+    const existsUsedCode = await this.prismaClient.twoFactorCode.findFirst({
+      where: {
+        code,
+        externalTenantId: options.externalTenantId,
+        TwoFactorUser: {
+          externalUserId: options.externalUserId,
+          externalTenantId: options.externalTenantId,
+        },
+        used: false,
+      },
+    });
+
+    if (existsUsedCode?.used) {
+      throw new TwoFactorError(
+        TwoFactorErrorEnum.TwoFactorCodePleaseWait30Seconds
+      );
+    }
+
+    const existsOutdatedCode = await this.prismaClient.twoFactorCode.findFirst({
+      where: {
+        externalTenantId: options.externalTenantId,
+        operationName: options.operationName,
+        type: options.type,
+        TwoFactorUser: {
+          externalUserId: options.externalUserId,
+          externalTenantId: options.externalTenantId,
+        },
+        used: false,
+        outdated: true,
+      },
+    });
+
+    if (existsOutdatedCode) {
+      this.logger.debug(existsOutdatedCode);
+      await this.prismaClient.twoFactorCode.updateMany({
+        data: { used: true },
+        where: {
+          externalTenantId: options.externalTenantId,
+          operationName: options.operationName,
+          type: options.type,
+          TwoFactorUser: {
+            externalUserId: options.externalUserId,
+            externalTenantId: options.externalTenantId,
+          },
+          used: false,
+          outdated: true,
+        },
+      });
+      throw new TwoFactorError(
+        TwoFactorErrorEnum.TwoFactorCodePleaseWait30Seconds
+      );
+    }
+
+    // disable old codes
+    await this.prismaClient.twoFactorCode.updateMany({
+      data: { outdated: true },
+      where: {
+        externalTenantId: options.externalTenantId,
+        operationName: options.operationName,
+        type: options.type,
+        TwoFactorUser: {
+          externalUserId: options.externalUserId,
+          externalTenantId: options.externalTenantId,
+        },
+      },
+    });
+
     try {
       const twoFactorCode = await this.prismaClient.twoFactorCode.create({
         include: { TwoFactorUser: true },
@@ -85,6 +152,7 @@ export class TwoFactorService {
             },
           },
           used: false,
+          outdated: false,
         },
       });
 
@@ -126,6 +194,10 @@ export class TwoFactorService {
 
     if (!twoFactorCode) {
       throw new TwoFactorError(TwoFactorErrorEnum.TwoFactorCodeNotSet);
+    }
+
+    if (twoFactorCode.outdated) {
+      throw new TwoFactorError(TwoFactorErrorEnum.TwoFactorCodeIsOutdated);
     }
 
     if (twoFactorCode.used) {
@@ -225,7 +297,7 @@ export class TwoFactorService {
 
     await this.prismaClient.twoFactorCode.updateMany({
       data: {
-        used: true,
+        outdated: true,
       },
       where: {
         id: { in: itemIdsForDelete },

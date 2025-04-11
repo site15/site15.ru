@@ -22,6 +22,10 @@ export class TwoFactorCodeDto {
   })
   used!: boolean;
   @ApiProperty({
+    type: 'boolean',
+  })
+  outdated!: boolean;
+  @ApiProperty({
     type: 'string',
   })
   externalTenantId!: string;

@@ -2000,6 +2000,95 @@ export interface TokensResponse {
 /**
  * 
  * @export
+ * @interface TwoFactorError
+ */
+export interface TwoFactorError {
+    /**
+     * Two factor error (TWO_FACTOR-000), Two factor code not set (TWO-FACTOR-001), Wrong two factor code (TWO-FACTOR-002), Two factor code is outdated (TWO-FACTOR-003), Please wait 30 seconds (TWO-FACTOR-004), Two-factor code has already been used (TWO-FACTOR-005)
+     * @type {string}
+     * @memberof TwoFactorError
+     */
+    'message': string;
+    /**
+     * 
+     * @type {TwoFactorErrorEnum}
+     * @memberof TwoFactorError
+     */
+    'code': TwoFactorErrorEnum;
+    /**
+     * 
+     * @type {Array<TwoFactorErrorMetadata>}
+     * @memberof TwoFactorError
+     */
+    'metadata'?: Array<TwoFactorErrorMetadata>;
+}
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const TwoFactorErrorEnum = {
+    TwoFactor000: 'TWO_FACTOR-000',
+    TwoFactor001: 'TWO-FACTOR-001',
+    TwoFactor002: 'TWO-FACTOR-002',
+    TwoFactor003: 'TWO-FACTOR-003',
+    TwoFactor004: 'TWO-FACTOR-004',
+    TwoFactor005: 'TWO-FACTOR-005'
+} as const;
+
+export type TwoFactorErrorEnum = typeof TwoFactorErrorEnum[keyof typeof TwoFactorErrorEnum];
+
+
+/**
+ * 
+ * @export
+ * @interface TwoFactorErrorMetadata
+ */
+export interface TwoFactorErrorMetadata {
+    /**
+     * 
+     * @type {string}
+     * @memberof TwoFactorErrorMetadata
+     */
+    'property': string;
+    /**
+     * 
+     * @type {Array<TwoFactorErrorMetadataConstraint>}
+     * @memberof TwoFactorErrorMetadata
+     */
+    'constraints': Array<TwoFactorErrorMetadataConstraint>;
+    /**
+     * 
+     * @type {Array<TwoFactorErrorMetadata>}
+     * @memberof TwoFactorErrorMetadata
+     */
+    'children'?: Array<TwoFactorErrorMetadata>;
+}
+/**
+ * 
+ * @export
+ * @interface TwoFactorErrorMetadataConstraint
+ */
+export interface TwoFactorErrorMetadataConstraint {
+    /**
+     * 
+     * @type {string}
+     * @memberof TwoFactorErrorMetadataConstraint
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TwoFactorErrorMetadataConstraint
+     */
+    'description': string;
+}
+/**
+ * 
+ * @export
  * @interface UpdateAuthUserDto
  */
 export interface UpdateAuthUserDto {

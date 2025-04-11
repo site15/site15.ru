@@ -80,7 +80,7 @@ export class AuthCompleteForgotPasswordFormComponent implements OnInit {
     this.setFieldsAndModel({
       code: '',
       password: '',
-      confirm_password: '',
+      confirmPassword: '',
     });
   }
 
@@ -88,13 +88,13 @@ export class AuthCompleteForgotPasswordFormComponent implements OnInit {
     data: AuthCompleteForgotPasswordInput = {
       code: '',
       password: '',
-      confirm_password: '',
+      confirmPassword: '',
     }
   ) {
     const model = {
       code: this.code,
       password: data.password,
-      confirm_password: data.confirm_password,
+      confirmPassword: data.confirmPassword,
     };
     this.setFormlyFields({ data: model });
     this.formlyModel$.next(model);

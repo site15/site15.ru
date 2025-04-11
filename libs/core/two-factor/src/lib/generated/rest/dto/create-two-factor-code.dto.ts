@@ -27,6 +27,12 @@ export class CreateTwoFactorCodeDto {
   @IsBoolean()
   used!: boolean;
   @ApiProperty({
+    type: 'boolean',
+  })
+  @IsNotEmpty()
+  @IsBoolean()
+  outdated!: boolean;
+  @ApiProperty({
     type: 'string',
   })
   @IsNotEmpty()

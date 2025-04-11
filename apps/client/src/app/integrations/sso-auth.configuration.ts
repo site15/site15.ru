@@ -70,18 +70,18 @@ export class SsoAuthConfiguration implements AuthConfiguration {
   }
 
   private mapToAuthUser(result: SsoUserDtoInterface): {
-    phone_number: string | null;
+    phoneNumber: string | null;
     email: string;
     id: string;
-    preferred_username: string;
+    preferredUsername: string;
     roles: string[];
     picture: string | null;
   } {
     return {
-      phone_number: result.phone,
+      phoneNumber: result.phone,
       email: result.email,
       id: result.id,
-      preferred_username: result.username || '',
+      preferredUsername: result.username || '',
       roles: result.roles ? result.roles.split(',') : [],
       picture: result.picture,
     };
@@ -106,13 +106,13 @@ export class SsoAuthConfiguration implements AuthConfiguration {
         }
         return this.ssoRestService.ssoControllerUpdateProfile({
           birthdate: data.birthdate,
-          firstname: data.given_name,
+          firstname: data.givenName,
           gender: data.gender,
-          lastname: data.family_name,
+          lastname: data.familyName,
           picture: data.picture,
-          password: data.new_password,
-          confirmPassword: data.confirm_new_password,
-          oldPassword: data.old_password,
+          password: data.newPassword,
+          confirmPassword: data.confirmNewPassword,
+          oldPassword: data.oldPassword,
         });
       }),
       mergeMap(() => this.ssoRestService.ssoControllerProfile()),
@@ -156,12 +156,12 @@ export class SsoAuthConfiguration implements AuthConfiguration {
   }
 
   signup(data: AuthSignupInput): Observable<AuthUserAndTokens> {
-    const { confirm_password, password, email, nickname } = data;
+    const { confirmPassword, password, email, nickname } = data;
     if (!email) {
       throw new Error('email not set');
     }
-    if (!confirm_password) {
-      throw new Error('confirm_password not set');
+    if (!confirmPassword) {
+      throw new Error('confirmPassword not set');
     }
     if (!password) {
       throw new Error('password not set');
@@ -174,7 +174,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
             fingerprint,
             password,
             username: nickname,
-            confirmPassword: confirm_password,
+            confirmPassword: confirmPassword,
           })
           .pipe(
             map((result) => ({
@@ -252,7 +252,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
   completeForgotPassword(
     data: AuthCompleteForgotPasswordInput
   ): Observable<AuthUserAndTokens> {
-    const { password, confirm_password: confirmPassword, code } = data;
+    const { password, confirmPassword: confirmPassword, code } = data;
     if (!password) {
       throw new Error('password not set');
     }
@@ -282,7 +282,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
   }
 
   forgotPassword(data: AuthForgotPasswordInput): Observable<true> {
-    const { email, redirect_uri: redirectUri } = data;
+    const { email, redirectUri: redirectUri } = data;
     if (!email) {
       throw new Error('email not set');
     }
