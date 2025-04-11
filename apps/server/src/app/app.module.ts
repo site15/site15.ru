@@ -8,12 +8,13 @@ import {
 } from '@nestjs-mod-sso/validation';
 import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import { PrismaModule } from '@nestjs-mod/prisma';
+import { APP_GUARD } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { getText, TranslatesModule } from 'nestjs-translates';
 import { join } from 'path';
 import { APP_FEATURE } from './app.constants';
+import { AppGuard } from './app.guard';
 import { TimeController } from './controllers/time.controller';
-import { SsoClientModule } from './modules/sso-client.module';
 
 export const { AppModule } = createNestModule({
   moduleName: 'AppModule',
@@ -68,12 +69,6 @@ export const { AppModule } = createNestModule({
       contextName: SSO_FEATURE,
       featureModuleName: APP_FEATURE,
     }),
-    SsoClientModule.forRootAsync({
-      imports: [
-        WebhookModule.forFeature({ featureModuleName: SSO_FEATURE }),
-        AuthModule.forFeature({ featureModuleName: SSO_FEATURE }),
-      ],
-    }),
     TranslatesModule.forRootDefault({
       localePaths: [
         join(__dirname, 'assets', 'i18n'),
@@ -110,5 +105,5 @@ export const { AppModule } = createNestModule({
         ]),
   ],
   controllers: [TimeController],
-  providers: [TimeController],
+  providers: [TimeController, { provide: APP_GUARD, useClass: AppGuard }],
 });

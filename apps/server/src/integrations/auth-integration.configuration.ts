@@ -32,7 +32,6 @@ import { InjectPrismaClient, PrismaModule } from '@nestjs-mod/prisma';
 import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';
 import { WebhookRole } from '@prisma/webhook-client';
-import { SsoClientModule } from '../app/modules/sso-client.module';
 
 @Injectable()
 export class AuthIntegrationConfiguration implements AuthConfiguration {
@@ -191,9 +190,6 @@ export function authModuleForRootAsyncOptions(): Parameters<
 >[0] {
   return {
     imports: [
-      SsoClientModule.forFeature({
-        featureModuleName: AUTH_MODULE,
-      }),
       SsoModule.forFeature({
         featureModuleName: AUTH_MODULE,
       }),

@@ -1,10 +1,9 @@
-import { AuthModule, AuthRequest } from '@nestjs-mod-sso/auth';
+import { AuthRequest } from '@nestjs-mod-sso/auth';
 import { searchIn, splitIn } from '@nestjs-mod-sso/common';
 import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
 import {
   SsoAdminService,
   SsoError,
-  SsoModule,
   SsoProjectService,
   SsoRequest,
   SsoRole,
@@ -12,27 +11,19 @@ import {
   SsoTokensService,
   SsoUsersService,
 } from '@nestjs-mod-sso/sso';
-import {
-  WebhookModule,
-  WebhookRequest,
-  WebhookUsersService,
-} from '@nestjs-mod-sso/webhook';
-import {
-  createNestModule,
-  getRequestFromExecutionContext,
-} from '@nestjs-mod/common';
+import { WebhookRequest, WebhookUsersService } from '@nestjs-mod-sso/webhook';
+import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import {
   CanActivate,
   ExecutionContext,
   Injectable,
   Logger,
 } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
 import { WebhookRole } from '@prisma/webhook-client';
 
 @Injectable()
-export class SsoClientGuard implements CanActivate {
-  private logger = new Logger(SsoClientGuard.name);
+export class AppGuard implements CanActivate {
+  private logger = new Logger(AppGuard.name);
 
   constructor(
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
@@ -142,13 +133,3 @@ export class SsoClientGuard implements CanActivate {
     return true;
   }
 }
-
-export const { SsoClientModule } = createNestModule({
-  moduleName: 'SsoClientModule',
-  imports: [
-    SsoModule.forFeature({ featureModuleName: 'SSO_CLIENT_FEATURE' }),
-    WebhookModule.forFeature({ featureModuleName: 'SSO_CLIENT_FEATURE' }),
-    AuthModule.forFeature({ featureModuleName: 'SSO_CLIENT_FEATURE' }),
-  ],
-  providers: [{ provide: APP_GUARD, useClass: SsoClientGuard }],
-});

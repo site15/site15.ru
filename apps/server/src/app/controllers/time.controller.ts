@@ -1,9 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import {
-  AllowEmptyAuthUser,
-  UseAuthInterceptorsAndGuards,
-} from '@nestjs-mod-sso/auth';
+import { UseAuthInterceptorsAndGuards } from '@nestjs-mod-sso/auth';
 import { ApiOkResponse } from '@nestjs/swagger';
 import {
   SubscribeMessage,
@@ -12,13 +9,12 @@ import {
 } from '@nestjs/websockets';
 import { interval, map, Observable } from 'rxjs';
 import { ChangeTimeStream } from '../app.constants';
-import { SsoClientGuard } from '../modules/sso-client.module';
+import { AppGuard } from '../app.guard';
 
 @UseAuthInterceptorsAndGuards({
-  guards: [SsoClientGuard],
+  guards: [AppGuard],
   skipInterceptor: true,
 })
-// @AllowEmptyAuthUser()
 @WebSocketGateway({
   cors: {
     origin: '*',
