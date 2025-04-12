@@ -25,17 +25,17 @@ import { UpdateSsoUserDto } from '../generated/rest/dto/update-sso-user.dto';
 import { SsoCacheService } from '../services/sso-cache.service';
 import { SsoPasswordService } from '../services/sso-password.service';
 import { SSO_FEATURE } from '../sso.constants';
-import { SsoCheckIsAdmin } from '../sso.decorators';
+import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoUserArgs } from '../types/find-many-sso-user-args';
 import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
+import { SsoRequest } from '../types/sso-request';
 
 @ApiExtraModels(SsoError, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
 @ApiTags('Sso')
-@SsoCheckIsAdmin()
 @Controller('/sso/users')
 export class SsoUsersController {
   constructor(
@@ -48,14 +48,19 @@ export class SsoUsersController {
 
   @Get()
   @ApiOkResponse({ type: FindManySsoUserResponse })
-  async findMany(@Query() args: FindManySsoUserArgs) {
+  async findMany(
+    @CurrentSsoRequest() ssoRequest: SsoRequest,
+    @Query() args: FindManySsoUserArgs
+  ) {
     const { take, skip, curPage, perPage } =
       this.prismaToolsService.getFirstSkipFromCurPerPage({
         curPage: args.curPage,
         perPage: args.perPage,
       });
     const searchText = args.searchText;
-    const projectId = args.projectId;
+    const projectId = ssoRequest.ssoIsAdmin
+      ? args.projectId
+      : ssoRequest.ssoProject.id;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')
@@ -149,9 +154,13 @@ export class SsoUsersController {
   @Put(':id')
   @ApiOkResponse({ type: SsoUserDto })
   async updateOne(
+    @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoUserDto
   ) {
+    const projectId = ssoRequest.ssoIsAdmin
+      ? undefined
+      : ssoRequest.ssoProject.id;
     const result = await this.prismaClient.ssoUser.update({
       data: {
         ...args,
@@ -166,6 +175,7 @@ export class SsoUsersController {
       },
       where: {
         id,
+        ...(projectId ? { projectId } : {}),
       },
     });
 
@@ -176,10 +186,17 @@ export class SsoUsersController {
 
   @Get(':id')
   @ApiOkResponse({ type: SsoUserDto })
-  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+  async findOne(
+    @CurrentSsoRequest() ssoRequest: SsoRequest,
+    @Param('id', new ParseUUIDPipe()) id: string
+  ) {
+    const projectId = ssoRequest.ssoIsAdmin
+      ? undefined
+      : ssoRequest.ssoProject.id;
     return await this.prismaClient.ssoUser.findFirstOrThrow({
       where: {
         id,
+        ...(projectId ? { projectId } : {}),
       },
     });
   }

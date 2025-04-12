@@ -34,15 +34,6 @@ msgstr "Сохранить"
 msgid "Create"
 msgstr "Создать"
 
-msgid "Fill user credentials"
-msgstr "Заполните учетные данные пользователя"
-
-msgid "Fill admin credentials"
-msgstr "Заполните учетные данные администратора"
-
-msgid "Sign-in"
-msgstr "Войти"
-
 msgid "webhook-log.form.fields.request"
 msgstr "Запрос"
 
@@ -75,12 +66,6 @@ msgstr "До какой даты может работать"
 
 msgid "Example of payload"
 msgstr "Пример данных для отправки"
-
-msgid "webhook.form.fields.x-external-userId"
-msgstr "x-external-userId"
-
-msgid "webhook.form.fields.x-external-tenantId"
-msgstr "x-external-tenantId"
 
 msgid "webhook-log.view-modal.title"
 msgstr "Информация о логе вебхука #{{ id }}"
@@ -159,6 +144,15 @@ msgstr "идентификатор не установлен"
 
 msgid "Success"
 msgstr "Успешно"
+
+msgid "Fill user credentials"
+msgstr "Заполните учетные данные пользователя"
+
+msgid "Fill admin credentials"
+msgstr "Заполните учетные данные администратора"
+
+msgid "Sign-in"
+msgstr "Войти"
 
 msgid "Validation errors"
 msgstr "Ошибка при проверке данных"

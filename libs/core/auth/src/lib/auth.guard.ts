@@ -164,6 +164,8 @@ export class AuthGuard implements CanActivate {
             externalUserId,
             userRole: searchIn(AuthRole.Admin, req.externalUser?.roles)
               ? AuthRole.Admin
+              : searchIn(AuthRole.Manager, req.externalUser?.roles)
+              ? AuthRole.Manager
               : AuthRole.User,
           },
         });

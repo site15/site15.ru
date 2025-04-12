@@ -69,8 +69,8 @@ import { SsoUserService } from '../../services/sso-user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SsoUserGridComponent implements OnInit, OnChanges {
-  @Input({ required: true })
-  projectId!: string | undefined;
+  @Input()
+  projectId?: string;
 
   minioURL$ = new BehaviorSubject<string>('');
   items$ = new BehaviorSubject<SsoUserModel[]>([]);
@@ -159,7 +159,7 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: NgChanges<SsoUserGridComponent>): void {
     // need for ignore dbl load
-    if (!changes.projectId.firstChange) {
+    if (!changes.projectId?.firstChange) {
       this.loadMany({ force: true });
     } else {
       this.loadMany();
@@ -205,23 +205,19 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
     ) {
       return;
     }
-    if (!filters['projectId']) {
-      this.items$.next([]);
-      this.selectedIds$.next([]);
-    } else {
-      this.ssoUserService
-        .findMany({ filters, meta })
-        .pipe(
-          tap((result) => {
-            this.items$.next(result.ssoUsers);
-            this.meta$.next({ ...result.meta, ...meta });
-            this.filters = filters;
-            this.selectedIds$.next([]);
-          }),
-          untilDestroyed(this)
-        )
-        .subscribe();
-    }
+
+    this.ssoUserService
+      .findMany({ filters, meta })
+      .pipe(
+        tap((result) => {
+          this.items$.next(result.ssoUsers);
+          this.meta$.next({ ...result.meta, ...meta });
+          this.filters = filters;
+          this.selectedIds$.next([]);
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe();
   }
 
   showCreateOrUpdateModal(id?: string): void {

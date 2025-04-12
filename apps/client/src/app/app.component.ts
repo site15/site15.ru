@@ -7,7 +7,6 @@ import {
   TranslocoPipe,
   TranslocoService,
 } from '@jsverse/transloco';
-import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import {
   AuthRoleInterface,
@@ -29,6 +28,7 @@ import { addHours } from 'date-fns';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
+import { Title } from '@angular/platform-browser';
 import { SsoProjectModel } from '@nestjs-mod-sso/sso-angular';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
@@ -65,7 +65,7 @@ import { ActiveProjectService } from './integrations/active-project.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  title = marker('client');
+  title!: string;
   serverTime$ = new BehaviorSubject<Date>(new Date());
   lang$ = new BehaviorSubject<string>('');
   availableLangs$ = new BehaviorSubject<LangDefinition[]>([]);
@@ -81,10 +81,14 @@ export class AppComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
     private readonly authActiveLangService: AuthActiveLangService,
-    private readonly activeProjectService: ActiveProjectService
+    private readonly activeProjectService: ActiveProjectService,
+    private readonly titleService: Title
   ) {}
 
   ngOnInit() {
+    this.title = this.translocoService.translate('Single Sign-On');
+    this.titleService.setTitle(this.title);
+
     this.loadAvailablePublicProjects();
 
     this.loadAvailableLangs();

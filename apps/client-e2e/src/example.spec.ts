@@ -32,7 +32,7 @@ test.describe('basic usage', () => {
 
     await setTimeout(4000);
 
-    expect(await page.locator('.logo').innerText()).toContain('client');
+    expect(await page.locator('.logo').innerText()).toContain('Single Sign-On');
   });
 
   test('has serverTime format should be equal to "Dec 21, 2024, 1:56:00 PM" without "1:56:00"', async () => {

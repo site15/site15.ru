@@ -4672,17 +4672,15 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
-         * @param {string} projectId 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
          * @param {string} [sort] 
+         * @param {string} [projectId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoUsersControllerFindMany: async (projectId: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'projectId' is not null or undefined
-            assertParamExists('ssoUsersControllerFindMany', 'projectId', projectId)
+        ssoUsersControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sso/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5048,16 +5046,16 @@ export const SsoApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} projectId 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
          * @param {string} [sort] 
+         * @param {string} [projectId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ssoUsersControllerFindMany(projectId: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoUserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoUsersControllerFindMany(projectId, curPage, perPage, searchText, sort, options);
+        async ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoUserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoUsersControllerFindMany(curPage, perPage, searchText, sort, projectId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoUsersControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5280,16 +5278,16 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
         },
         /**
          * 
-         * @param {string} projectId 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
          * @param {string} [sort] 
+         * @param {string} [projectId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoUsersControllerFindMany(projectId: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoUserResponse> {
-            return localVarFp.ssoUsersControllerFindMany(projectId, curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
+        ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoUserResponse> {
+            return localVarFp.ssoUsersControllerFindMany(curPage, perPage, searchText, sort, projectId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5541,17 +5539,17 @@ export class SsoApi extends BaseAPI {
 
     /**
      * 
-     * @param {string} projectId 
      * @param {number} [curPage] 
      * @param {number} [perPage] 
      * @param {string} [searchText] 
      * @param {string} [sort] 
+     * @param {string} [projectId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SsoApi
      */
-    public ssoUsersControllerFindMany(projectId: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoUsersControllerFindMany(projectId, curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
+    public ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoUsersControllerFindMany(curPage, perPage, searchText, sort, projectId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

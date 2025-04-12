@@ -21,20 +21,20 @@ import { Prisma, PrismaClient } from '@prisma/sso-client';
 import { isUUID } from 'class-validator';
 import { SsoRefreshSessionDto } from '../generated/rest/dto/sso-refresh-session.dto';
 import { UpdateSsoRefreshSessionDto } from '../generated/rest/dto/update-sso-refresh-session.dto';
+import { SsoCacheService } from '../services/sso-cache.service';
 import { SSO_FEATURE } from '../sso.constants';
-import { SsoCheckIsAdmin } from '../sso.decorators';
+import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoRefreshSessionArgs } from '../types/find-many-sso-refresh-session-args';
 import { FindManySsoRefreshSessionResponse } from '../types/find-many-sso-refresh-session-response';
 import { SsoEntities } from '../types/sso-entities';
-import { SsoCacheService } from '../services/sso-cache.service';
+import { SsoRequest } from '../types/sso-request';
 
 @ApiExtraModels(SsoError, SsoEntities, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
 @ApiTags('Sso')
-@SsoCheckIsAdmin()
 @Controller('/sso/sessions')
 export class SsoRefreshSessionsController {
   constructor(
@@ -46,7 +46,13 @@ export class SsoRefreshSessionsController {
 
   @Get()
   @ApiOkResponse({ type: FindManySsoRefreshSessionResponse })
-  async findMany(@Query() args: FindManySsoRefreshSessionArgs) {
+  async findMany(
+    @CurrentSsoRequest() ssoRequest: SsoRequest,
+    @Query() args: FindManySsoRefreshSessionArgs
+  ) {
+    const projectId = ssoRequest.ssoIsAdmin
+      ? undefined
+      : ssoRequest.ssoProject.id;
     const { take, skip, curPage, perPage } =
       this.prismaToolsService.getFirstSkipFromCurPerPage({
         curPage: args.curPage,
@@ -73,6 +79,7 @@ export class SsoRefreshSessionsController {
       return {
         ssoRefreshSessions: await prisma.ssoRefreshSession.findMany({
           where: {
+            ...(projectId ? { projectId } : {}),
             ...(searchText
               ? {
                   OR: [
@@ -102,6 +109,7 @@ export class SsoRefreshSessionsController {
         }),
         totalResults: await prisma.ssoRefreshSession.count({
           where: {
+            ...(projectId ? { projectId } : {}),
             ...(searchText
               ? {
                   OR: [
@@ -141,12 +149,17 @@ export class SsoRefreshSessionsController {
   @Put(':id')
   @ApiOkResponse({ type: SsoRefreshSessionDto })
   async updateOne(
+    @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoRefreshSessionDto
   ) {
+    const projectId = ssoRequest.ssoIsAdmin
+      ? undefined
+      : ssoRequest.ssoProject.id;
     const result = await this.prismaClient.ssoRefreshSession.update({
       data: { ...args, updatedAt: new Date() },
       where: {
+        ...(projectId ? { projectId } : {}),
         id,
       },
     });
@@ -158,9 +171,16 @@ export class SsoRefreshSessionsController {
 
   @Get(':id')
   @ApiOkResponse({ type: SsoRefreshSessionDto })
-  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+  async findOne(
+    @CurrentSsoRequest() ssoRequest: SsoRequest,
+    @Param('id', new ParseUUIDPipe()) id: string
+  ) {
+    const projectId = ssoRequest.ssoIsAdmin
+      ? undefined
+      : ssoRequest.ssoProject.id;
     return await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
       where: {
+        ...(projectId ? { projectId } : {}),
         id,
       },
     });

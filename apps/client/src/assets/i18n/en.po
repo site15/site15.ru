@@ -21,6 +21,9 @@ msgstr "Home"
 msgid "Webhooks"
 msgstr "Webhooks"
 
+msgid "Users"
+msgstr "Users"
+
 msgid "Projects and users"
 msgstr "Projects and users"
 
@@ -99,8 +102,8 @@ msgstr "RU"
 msgid "app.locale.name.russian"
 msgstr "Russian"
 
-msgid "client"
-msgstr "client"
+msgid "Single Sign-On"
+msgstr "Single Sign-On"
 
 msgid "auth.sign-in-form.fields.timezone"
 msgstr "Timezone"
@@ -221,6 +224,9 @@ msgstr "UTC+13:00: Samoa, Tonga"
 
 msgid "UTC+14:00: Date Line (east)"
 msgstr "UTC+14:00: Date Line (east)"
+
+msgid "client"
+msgstr "client"
 
 msgid "Demo"
 msgstr "Demo"

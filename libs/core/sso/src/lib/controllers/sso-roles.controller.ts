@@ -1,11 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { SsoCheckIsAdmin } from '../sso.decorators';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { FindManySsoRoleResponse } from '../types/find-many-sso-role-response';
 
 @ApiTags('Sso')
-@SsoCheckIsAdmin()
 @Controller('/sso/roles')
 export class SsoRolesController {
   constructor(private readonly ssoStaticEnvironments: SsoStaticEnvironments) {}

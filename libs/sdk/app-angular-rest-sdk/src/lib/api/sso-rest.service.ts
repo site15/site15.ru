@@ -1507,21 +1507,18 @@ export class SsoRestService {
     }
 
     /**
-     * @param projectId 
      * @param curPage 
      * @param perPage 
      * @param searchText 
      * @param sort 
+     * @param projectId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public ssoUsersControllerFindMany(projectId: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManySsoUserResponseInterface>;
-    public ssoUsersControllerFindMany(projectId: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManySsoUserResponseInterface>>;
-    public ssoUsersControllerFindMany(projectId: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManySsoUserResponseInterface>>;
-    public ssoUsersControllerFindMany(projectId: string, curPage?: number, perPage?: number, searchText?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (projectId === null || projectId === undefined) {
-            throw new Error('Required parameter projectId was null or undefined when calling ssoUsersControllerFindMany.');
-        }
+    public ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManySsoUserResponseInterface>;
+    public ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManySsoUserResponseInterface>>;
+    public ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManySsoUserResponseInterface>>;
+    public ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {

@@ -38,7 +38,7 @@ import { AuthWebhookEvent } from '../types/auth-webhooks';
   schema: { allOf: refs(AuthError, ValidationError) },
 })
 @ApiTags('Auth')
-@CheckAuthRole([AuthRole.Admin])
+@CheckAuthRole([AuthRole.Admin, AuthRole.Manager])
 @Controller('/auth/users')
 export class AuthUsersController {
   constructor(

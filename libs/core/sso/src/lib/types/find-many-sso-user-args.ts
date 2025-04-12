@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsDefined, IsNumberString, IsOptional, IsUUID } from 'class-validator';
+import { IsNumberString, IsOptional, IsUUID } from 'class-validator';
 
 export class FindManySsoUserArgs {
   @ApiPropertyOptional({ type: Number })
@@ -23,8 +23,8 @@ export class FindManySsoUserArgs {
   @IsOptional()
   sort?: string;
 
-  @ApiProperty({ type: String })
-  @IsDefined()
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
   @IsUUID()
-  projectId!: string;
+  projectId?: string;
 }

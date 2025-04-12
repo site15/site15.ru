@@ -29,7 +29,6 @@ export class SsoUserService {
   }) {
     return this.ssoRestService
       .ssoUsersControllerFindMany(
-        filters['projectId'],
         meta?.curPage,
         meta?.perPage,
         filters['search'],
@@ -37,7 +36,8 @@ export class SsoUserService {
           ? Object.entries(meta?.sort)
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
-          : undefined
+          : undefined,
+        filters['projectId']
       )
       .pipe(
         map(({ meta, ssoUsers }) => ({

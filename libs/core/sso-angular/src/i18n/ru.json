@@ -1,5 +1,6 @@
 {
     "Users for project #{{projectId}}": "Пользователи проекта #{{projectId}}",
+    "Project users": "Пользователи проекта",
     "input search text": "введите текст поиска",
     "Action": "Действия",
     "Edit": "Изменить",

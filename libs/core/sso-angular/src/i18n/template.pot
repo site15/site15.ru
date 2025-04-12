@@ -9,6 +9,9 @@ msgstr ""
 msgid "Users for project #{{projectId}}"
 msgstr "Users for project #{{projectId}}"
 
+msgid "Project users"
+msgstr "Project users"
+
 msgid "input search text"
 msgstr "input search text"
 

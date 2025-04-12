@@ -10,6 +10,9 @@ msgstr ""
 msgid "Users for project #{{projectId}}"
 msgstr "Пользователи проекта #{{projectId}}"
 
+msgid "Project users"
+msgstr "Пользователи проекта"
+
 msgid "input search text"
 msgstr "введите текст поиска"
 

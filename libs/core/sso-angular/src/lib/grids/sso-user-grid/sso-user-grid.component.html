@@ -1,6 +1,8 @@
 <div class="table-operations" nz-row nzJustify="space-between">
   <div nz-col nzSpan="8">
-    {{ 'Users for project #{{projectId}}' | transloco:{projectId} }}
+    @if (projectId){
+    {{ 'Users for project #{{projectId}}' | transloco:{projectId} }} } @else{
+    {{ 'Project users' | transloco }} }
   </div>
   <div nz-col nzSpan="8">
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
