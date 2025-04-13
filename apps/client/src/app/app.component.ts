@@ -42,6 +42,7 @@ import {
   tap,
 } from 'rxjs';
 import { ActiveProjectService } from './integrations/active-project.service';
+import { APP_TITLE } from './app.constants';
 
 @UntilDestroy()
 @Component({
@@ -84,7 +85,7 @@ export class AppComponent implements OnInit {
     private readonly activeProjectService: ActiveProjectService,
     private readonly titleService: Title
   ) {
-    this.title = this.translocoService.translate('Single Sign-On');
+    this.title = this.translocoService.translate(APP_TITLE);
     this.titleService.setTitle(this.title);
   }
 

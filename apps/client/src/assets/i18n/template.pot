@@ -90,6 +90,12 @@ msgstr "Password recovery"
 msgid "Complete sign up"
 msgstr "Complete sign up"
 
+msgid "Continue"
+msgstr "Continue"
+
+msgid "Completing registration"
+msgstr "Completing registration"
+
 msgid "Сomplete forgot password"
 msgstr "Сomplete forgot password"
 

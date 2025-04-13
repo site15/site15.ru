@@ -91,6 +91,12 @@ msgstr "Восстановление пароля"
 msgid "Complete sign up"
 msgstr "Завершить регистрацию"
 
+msgid "Continue"
+msgstr "Продолжить"
+
+msgid "Completing registration"
+msgstr "Завершение регистрации"
+
 msgid "Сomplete forgot password"
 msgstr "Завершить восстановление пароля"
 

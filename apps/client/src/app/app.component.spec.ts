@@ -12,6 +12,7 @@ import { MINIO_URL } from '@nestjs-mod-sso/files-angular';
 import { minioURL } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { provideSsoAuthConfiguration } from './integrations/sso-auth.configuration';
+import { APP_TITLE } from './app.constants';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -75,14 +76,12 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.logo')?.textContent).toContain(
-      'Single Sign-On'
-    );
+    expect(compiled.querySelector('.logo')?.textContent).toContain(APP_TITLE);
   });
 
   it(`should have as title 'Single Sign-On'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Single Sign-On');
+    expect(app.title).toEqual(APP_TITLE);
   });
 });

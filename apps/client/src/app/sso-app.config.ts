@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { provideRouter, TitleStrategy } from '@angular/router';
 import { GithubFill } from '@ant-design/icons-angular/icons';
 import { provideTransloco } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
@@ -33,6 +33,7 @@ import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
 import { serverUrl } from '../environments/environment';
 import { AppInitializer } from './app-initializer';
+import { AppTitleStrategy } from './app-title.strategy';
 import { AppErrorHandler } from './app.error-handler';
 import { appRoutes } from './app.routes';
 import { CustomAuthProfileFormService } from './integrations/custom-auth-profile-form.service';
@@ -115,6 +116,10 @@ export const ssoAppConfig = ({
         )(inject(AppInitializer));
         return initializerFn();
       }),
+      {
+        provide: TitleStrategy,
+        useClass: AppTitleStrategy,
+      },
       {
         provide: AuthProfileMapperService,
         useClass: CustomAuthProfileMapperService,

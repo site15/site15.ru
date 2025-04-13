@@ -22,13 +22,15 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { TemplatesComponent } from './pages/templates/templates.component';
 import { UsersComponent } from './pages/users/users.component';
 import { WebhooksComponent } from './pages/webhooks/webhooks.component';
+import { marker } from '@jsverse/transloco-keys-manager/marker';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, title: marker('Home') },
   {
     path: 'webhooks',
     component: WebhooksComponent,
+    title: marker('Webhooks'),
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
@@ -45,6 +47,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'templates',
+    title: marker('Templates'),
     component: TemplatesComponent,
     canActivate: [AuthGuardService],
     data: {
@@ -63,6 +66,7 @@ export const appRoutes: Route[] = [
   {
     path: 'users',
     component: UsersComponent,
+    title: marker('Users'),
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
@@ -80,6 +84,7 @@ export const appRoutes: Route[] = [
   {
     path: 'projects',
     component: ProjectsComponent,
+    title: marker('Projects'),
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
@@ -97,6 +102,7 @@ export const appRoutes: Route[] = [
   {
     path: 'profile',
     component: ProfileComponent,
+    title: marker('Profile'),
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
@@ -118,6 +124,7 @@ export const appRoutes: Route[] = [
   {
     path: 'sign-in',
     component: SignInComponent,
+    title: marker('Sign-in'),
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
@@ -135,6 +142,7 @@ export const appRoutes: Route[] = [
   {
     path: 'sign-up',
     component: SignUpComponent,
+    title: marker('Sign-up'),
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
@@ -152,6 +160,7 @@ export const appRoutes: Route[] = [
   {
     path: 'complete-sign-up',
     component: CompleteSignUpComponent,
+    title: marker('Complete sign up'),
     canActivate: [AuthCompleteGuardService],
     data: {
       [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
@@ -183,6 +192,7 @@ export const appRoutes: Route[] = [
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent,
+    title: marker('Password recovery'),
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
@@ -200,6 +210,7 @@ export const appRoutes: Route[] = [
   {
     path: 'complete-forgot-password',
     component: CompleteForgotPasswordComponent,
+    title: marker('Сomplete forgot password'),
     canActivate: [AuthGuardService, AuthCompleteGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
@@ -220,6 +231,7 @@ export const appRoutes: Route[] = [
   {
     path: 'complete-invite',
     component: CompleteInviteComponent,
+    title: marker('Completing registration'),
     canActivate: [AuthGuardService, AuthCompleteGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
