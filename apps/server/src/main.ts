@@ -5,35 +5,38 @@ process.env.TZ = 'UTC';
 };
 import KeyvRedis from '@keyv/redis';
 import {
+  AUTH_EXTRA_MODELS,
   AUTH_FEATURE,
   AUTH_FOLDER,
-  AuthError,
   AuthModule,
 } from '@nestjs-mod-sso/auth';
-import { FilesError, FilesModule } from '@nestjs-mod-sso/files';
+import { FILES_EXTRA_MODELS, FilesModule } from '@nestjs-mod-sso/files';
 import {
+  NOTIFICATIONS_EXTRA_MODELS,
   NOTIFICATIONS_FEATURE,
   NOTIFICATIONS_FOLDER,
   NotificationsModule,
 } from '@nestjs-mod-sso/notifications';
-import { DatabaseError, PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
+import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
 import {
+  SSO_EXTRA_MODELS,
   SSO_FEATURE,
   SSO_FOLDER,
-  SsoError,
   SsoModule,
 } from '@nestjs-mod-sso/sso';
 import {
   TWO_FACTOR_FEATURE,
   TWO_FACTOR_FOLDER,
-  TwoFactorError,
   TwoFactorModule,
 } from '@nestjs-mod-sso/two-factor';
-import { ValidationError, ValidationModule } from '@nestjs-mod-sso/validation';
 import {
+  VALIDATION_EXTRA_MODELS,
+  ValidationModule,
+} from '@nestjs-mod-sso/validation';
+import {
+  WEBHOOK_EXTRA_MODELS,
   WEBHOOK_FEATURE,
   WEBHOOK_FOLDER,
-  WebhookError,
   WebhookModule,
 } from '@nestjs-mod-sso/webhook';
 import {
@@ -162,13 +165,12 @@ createAndFillDatabases().then(() =>
                   swaggerConf,
                   {
                     extraModels: [
-                      AuthError,
-                      TwoFactorError,
-                      FilesError,
-                      DatabaseError,
-                      SsoError,
-                      ValidationError,
-                      WebhookError,
+                      ...AUTH_EXTRA_MODELS,
+                      ...FILES_EXTRA_MODELS,
+                      ...NOTIFICATIONS_EXTRA_MODELS,
+                      ...SSO_EXTRA_MODELS,
+                      ...VALIDATION_EXTRA_MODELS,
+                      ...WEBHOOK_EXTRA_MODELS,
                     ],
                   }
                 );

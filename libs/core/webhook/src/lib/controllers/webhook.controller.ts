@@ -17,7 +17,6 @@ import {
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
-  ApiExtraModels,
   ApiOkResponse,
   ApiTags,
   refs,
@@ -36,7 +35,6 @@ import { Webhook } from '../generated/rest/dto/webhook.entity';
 import { WebhookToolsService } from '../services/webhook-tools.service';
 import { WebhookService } from '../services/webhook.service';
 import { FindManyWebhookResponse } from '../types/find-many-webhook-response';
-import { WebhookEntities } from '../types/webhook-entities';
 import { WebhookEvent } from '../types/webhook-event';
 import { WebhookTestRequestResponse } from '../types/webhook-test-request-response';
 import { WEBHOOK_FEATURE } from '../webhook.constants';
@@ -47,7 +45,6 @@ import {
 } from '../webhook.decorators';
 import { WebhookError } from '../webhook.errors';
 
-@ApiExtraModels(WebhookError, WebhookEntities, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(WebhookError, ValidationError) },
 })

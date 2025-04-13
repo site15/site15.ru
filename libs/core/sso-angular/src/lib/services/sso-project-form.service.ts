@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TranslocoService } from '@jsverse/transloco';
+import { LangDefinition, TranslocoService } from '@jsverse/transloco';
 import {
   SsoProjectScalarFieldEnumInterface,
   UpdateSsoProjectDtoInterface,
@@ -29,34 +29,28 @@ export class SsoProjectFormService {
   }): FormlyFieldConfig[] {
     return this.validationService.appendServerErrorsAsValidatorsToFields(
       [
-        {
-          key: SsoProjectScalarFieldEnumInterface.name,
-          type: 'input',
-          validation: {
-            show: true,
-          },
-          props: {
-            label: this.translocoService.translate(
-              `sso-project.form.fields.name`
-            ),
-            placeholder: 'name',
-            required: true,
-          },
-        },
-        {
-          key: SsoProjectScalarFieldEnumInterface.nameLocale,
+        ...this.getAvailableLangs().map((a) => ({
+          key:
+            a.id === this.translocoService.getDefaultLang()
+              ? 'name'
+              : `name_${a.id}`,
           type: 'textarea',
           validation: {
             show: true,
           },
           props: {
             label: this.translocoService.translate(
-              `sso-project.form.fields.name-locale`
+              `sso-project.form.fields.name-locale`,
+              // id, label
+              { locale: a.id, label: this.translocoService.translate(a.label) }
             ),
-            placeholder: 'nameLocale',
-            required: false,
+            placeholder:
+              a.id === this.translocoService.getDefaultLang()
+                ? 'name'
+                : `name ${a.id}`,
+            required: a.id === this.translocoService.getDefaultLang(),
           },
-        },
+        })),
         {
           key: SsoProjectScalarFieldEnumInterface.clientId,
           type: 'input',
@@ -103,5 +97,9 @@ export class SsoProjectFormService {
       ],
       options?.errors || []
     );
+  }
+
+  private getAvailableLangs() {
+    return this.translocoService.getAvailableLangs() as LangDefinition[];
   }
 }

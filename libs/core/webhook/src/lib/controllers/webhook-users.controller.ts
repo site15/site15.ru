@@ -16,7 +16,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiExtraModels,
   ApiOkResponse,
   ApiTags,
   refs,
@@ -38,7 +37,6 @@ import {
 } from '../webhook.decorators';
 import { WebhookError } from '../webhook.errors';
 
-@ApiExtraModels(WebhookError, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(WebhookError, ValidationError) },
 })

@@ -31,6 +31,9 @@ msgstr "Создать"
 msgid "Delete"
 msgstr "Удалить"
 
+msgid "Email templates"
+msgstr "Шаблоны писем"
+
 msgid "Save"
 msgstr "Сохранить"
 
@@ -100,11 +103,8 @@ msgstr "Пользовательские данные"
 msgid "sso-session.form.fields.user-ip"
 msgstr "ИП-адрес"
 
-msgid "sso-project.form.fields.name"
-msgstr "Название"
-
 msgid "sso-project.form.fields.name-locale"
-msgstr "Название (переводы)"
+msgstr "Название ({{locale}})"
 
 msgid "sso-project.form.fields.client-id"
 msgstr "Идентификатор клиента"
@@ -114,6 +114,18 @@ msgstr "Секретный ключ клиента"
 
 msgid "sso-project.form.fields.public"
 msgstr "Публичный"
+
+msgid "sso-email-template.form.fields.operation-name"
+msgstr "Название"
+
+msgid "sso-email-template.form.fields.subject-locale"
+msgstr "Тема ({{locale}})"
+
+msgid "sso-email-template.form.fields.html-locale"
+msgstr "В виде HTML ({{locale}})"
+
+msgid "sso-email-template.form.fields.text-locale"
+msgstr "В виде текста ({{locale}})"
 
 msgid "sso-user.update-modal.title"
 msgstr "Изменить пользователя #{{ id }}"
@@ -205,11 +217,32 @@ msgstr "Секретный ключ клиента"
 msgid "sso-project.grid.columns.public"
 msgstr "Публичный"
 
+msgid "sso-email-template.update-modal.title"
+msgstr "Изменить шаблон письма #{{ id }}"
+
+msgid "sso-email-template.create-modal.title"
+msgstr "Создать шаблон письма"
+
+msgid "sso-email-template.grid.columns.id"
+msgstr "ИД."
+
+msgid "sso-email-template.grid.columns.operation-name"
+msgstr "Событие"
+
+msgid "sso-email-template.grid.columns.subject"
+msgstr "Тема"
+
+msgid "sso-email-template.grid.columns.text"
+msgstr "Текст"
+
 msgid "Success"
 msgstr "Успешно"
 
 msgid "id not set"
 msgstr "ИД. не установлен"
+
+msgid "sso-project.form.fields.name"
+msgstr "Название"
 
 msgid "sso-user.delete-modal.title"
 msgstr "Удалить пользователя #{{ id }}"

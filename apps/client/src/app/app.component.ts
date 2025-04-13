@@ -83,12 +83,12 @@ export class AppComponent implements OnInit {
     private readonly authActiveLangService: AuthActiveLangService,
     private readonly activeProjectService: ActiveProjectService,
     private readonly titleService: Title
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.title = this.translocoService.translate('Single Sign-On');
     this.titleService.setTitle(this.title);
+  }
 
+  ngOnInit() {
     this.loadAvailablePublicProjects();
 
     this.loadAvailableLangs();

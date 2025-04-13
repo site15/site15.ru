@@ -14,7 +14,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiExtraModels,
   ApiOkResponse,
   ApiTags,
   refs,
@@ -43,13 +42,11 @@ import { RefreshTokensResponse } from '../types/refresh-tokens.dto';
 import { SignInArgs } from '../types/sign-in.dto';
 import { SignOutArgs } from '../types/sign-out.dto';
 import { CompleteSignUpArgs, SignUpArgs } from '../types/sign-up.dto';
-import { SsoEntities } from '../types/sso-entities';
 import { SsoRequest } from '../types/sso-request';
 import { SsoWebhookEvent } from '../types/sso-webhooks';
 import { TokensResponse } from '../types/tokens.dto';
 import { UpdateProfileArgs } from '../types/update-profile.dto';
 
-@ApiExtraModels(SsoError, SsoEntities, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })

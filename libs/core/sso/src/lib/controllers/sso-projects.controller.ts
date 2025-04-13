@@ -17,7 +17,6 @@ import {
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
-  ApiExtraModels,
   ApiOkResponse,
   ApiTags,
   refs,
@@ -32,14 +31,13 @@ import {
 import { CreateSsoProjectDto } from '../generated/rest/dto/create-sso-project.dto';
 import { SsoProjectDto } from '../generated/rest/dto/sso-project.dto';
 import { UpdateSsoProjectDto } from '../generated/rest/dto/update-sso-project.dto';
+import { SsoCacheService } from '../services/sso-cache.service';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoCheckIsAdmin } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoProjectResponse } from '../types/find-many-sso-project-response';
-import { SsoEntities } from '../types/sso-entities';
-import { SsoCacheService } from '../services/sso-cache.service';
+import { SsoTemplatesService } from '../services/sso-templates.service';
 
-@ApiExtraModels(SsoError, SsoEntities, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
@@ -53,7 +51,8 @@ export class SsoProjectsController {
     private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly translatesService: TranslatesService,
-    private readonly ssoCacheService: SsoCacheService
+    private readonly ssoCacheService: SsoCacheService,
+    private readonly ssoTemplatesService: SsoTemplatesService
   ) {}
 
   @Get()
@@ -137,6 +136,10 @@ export class SsoProjectsController {
         ...args,
       },
     });
+
+    await this.ssoTemplatesService.createProjectDefaultEmailTemplates(
+      result.id
+    );
 
     // fill cache
     await this.ssoCacheService.getCachedProject(result.clientId);

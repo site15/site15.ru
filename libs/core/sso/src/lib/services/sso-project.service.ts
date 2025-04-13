@@ -8,6 +8,7 @@ import { SsoCacheService } from './sso-cache.service';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaClient } from '@prisma/sso-client';
 import { SSO_FEATURE } from '../sso.constants';
+import { SsoTemplatesService } from './sso-templates.service';
 @Injectable()
 export class SsoProjectService {
   constructor(
@@ -15,7 +16,8 @@ export class SsoProjectService {
     private readonly prismaClient: PrismaClient,
     private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
-    private readonly ssoCacheService: SsoCacheService
+    private readonly ssoCacheService: SsoCacheService,
+    private readonly ssoTemplatesService: SsoTemplatesService
   ) {}
 
   async getProjectByRequest(req: SsoRequest) {
@@ -78,8 +80,13 @@ export class SsoProjectService {
           clientSecret: this.ssoStaticEnvironments.defaultProject?.clientSecret,
         },
       });
+      if (existsProject) {
+        await this.ssoTemplatesService.createProjectDefaultEmailTemplates(
+          existsProject.id
+        );
+      }
       if (!existsProject) {
-        await this.prismaClient.ssoProject.create({
+        const result = await this.prismaClient.ssoProject.create({
           data: {
             public: false,
             name: this.ssoStaticEnvironments.defaultProject?.name,
@@ -89,6 +96,10 @@ export class SsoProjectService {
               this.ssoStaticEnvironments.defaultProject?.clientSecret,
           },
         });
+
+        await this.ssoTemplatesService.createProjectDefaultEmailTemplates(
+          result.id
+        );
         await this.ssoCacheService.clearCacheProjectByClientId(
           this.ssoStaticEnvironments.defaultProject?.clientId
         );

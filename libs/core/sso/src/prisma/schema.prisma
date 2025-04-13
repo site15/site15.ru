@@ -13,19 +13,19 @@ generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
   flatResourceStructure           = "false"
-  classValidation                 = "true"
-  outputToNestJsResourceStructure = "false"
-  exportRelationModifierClasses   = "true"
-  noDependencies                  = "false"
-  updateDtoPrefix                 = "Update"
-  createDtoPrefix                 = "Create"
-  dtoSuffix                       = "Dto"
-  annotateAllDtoProperties        = "true"
-  entitySuffix                    = ""
-  entityPrefix                    = ""
-  definiteAssignmentAssertion     = "true"
   prettier                        = "true"
   reExport                        = "false"
+  classValidation                 = "true"
+  definiteAssignmentAssertion     = "true"
+  noDependencies                  = "false"
+  dtoSuffix                       = "Dto"
+  createDtoPrefix                 = "Create"
+  updateDtoPrefix                 = "Update"
+  entitySuffix                    = ""
+  exportRelationModifierClasses   = "true"
+  annotateAllDtoProperties        = "true"
+  outputToNestJsResourceStructure = "false"
+  entityPrefix                    = ""
   fileNamingStyle                 = "kebab"
 }
 
@@ -99,6 +99,7 @@ model migrations_sso {
 }
 
 model SsoRefreshSession {
+  /// @DtoCreateHidden
   id           String     @id(map: "PK_SSO_REFRESH_SESSIONS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   /// @DtoEntityHidden
   refreshToken String     @db.Uuid
@@ -122,4 +123,26 @@ model SsoRefreshSession {
 
   @@index([userId, projectId], map: "IDX_SSO_REFRESH_SESSIONS_USER_ID")
   @@index([projectId], map: "IDX_SSO_REFRESH_SESSIONS__PROJECT_ID")
+}
+
+model SsoEmailTemplate { 
+  /// @DtoCreateHidden
+  id            String   @id(map: "PK_SSO_EMAIL_TEMPLATES") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  subject       String
+  subjectLocale Json?
+  text          String
+  textLocale    Json?
+  html          String
+  htmlLocale    Json?
+  operationName String?  @db.VarChar(128)
+  projectId     String   @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  createdAt     DateTime @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  updatedAt     DateTime @default(now()) @db.Timestamp(6)
+
+  @@unique([projectId, operationName], map: "UQ_SSO_EMAIL_TEMPLATES__OPERATION_NAME")
+  @@index([projectId], map: "IDX_SSO_EMAIL_TEMPLATES__PROJECT_ID")
 }

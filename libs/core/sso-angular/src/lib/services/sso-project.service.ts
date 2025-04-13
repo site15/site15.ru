@@ -17,7 +17,7 @@ export class SsoProjectService {
   findOne(id: string) {
     return this.ssoRestService
       .ssoProjectsControllerFindOne(id)
-      .pipe(map(this.ssoProjectMapperService.toModel));
+      .pipe(map((p) => this.ssoProjectMapperService.toModel(p)));
   }
 
   findManyPublic({
@@ -42,8 +42,8 @@ export class SsoProjectService {
       .pipe(
         map(({ meta, ssoPublicProjects }) => ({
           meta,
-          ssoPublicProjects: ssoPublicProjects.map(
-            this.ssoProjectMapperService.toPublicModel
+          ssoPublicProjects: ssoPublicProjects.map((p) =>
+            this.ssoProjectMapperService.toPublicModel(p)
           ),
         }))
       );
@@ -70,7 +70,9 @@ export class SsoProjectService {
       .pipe(
         map(({ meta, ssoProjects }) => ({
           meta,
-          ssoProjects: ssoProjects.map(this.ssoProjectMapperService.toModel),
+          ssoProjects: ssoProjects.map((p) =>
+            this.ssoProjectMapperService.toModel(p)
+          ),
         }))
       );
   }
@@ -78,7 +80,7 @@ export class SsoProjectService {
   updateOne(id: string, data: UpdateSsoProjectDtoInterface) {
     return this.ssoRestService
       .ssoProjectsControllerUpdateOne(id, data)
-      .pipe(map(this.ssoProjectMapperService.toModel));
+      .pipe(map((p) => this.ssoProjectMapperService.toModel(p)));
   }
 
   deleteOne(id: string) {
@@ -88,6 +90,6 @@ export class SsoProjectService {
   createOne(data: CreateSsoProjectDtoInterface) {
     return this.ssoRestService
       .ssoProjectsControllerCreateOne(data)
-      .pipe(map(this.ssoProjectMapperService.toModel));
+      .pipe(map((p) => this.ssoProjectMapperService.toModel(p)));
   }
 }

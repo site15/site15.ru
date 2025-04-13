@@ -17,6 +17,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { TemplatesComponent } from './pages/templates/templates.component';
 import { UsersComponent } from './pages/users/users.component';
 import { WebhooksComponent } from './pages/webhooks/webhooks.component';
 
@@ -29,7 +30,17 @@ export const appRoutes: Route[] = [
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
-        roles: [AuthRoleInterface.Admin, AuthRoleInterface.Manager],
+        roles: [AuthRoleInterface.Manager],
+      }),
+    },
+  },
+  {
+    path: 'templates',
+    component: TemplatesComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+        roles: [AuthRoleInterface.Manager],
       }),
     },
   },
@@ -101,7 +112,7 @@ export const appRoutes: Route[] = [
               if (
                 options.authService.profile$.value?.roles?.includes('admin')
               ) {
-                options.router.navigate(['/webhooks']);
+                options.router.navigate(['/projects']);
               } else {
                 options.router.navigate(['/home']);
               }

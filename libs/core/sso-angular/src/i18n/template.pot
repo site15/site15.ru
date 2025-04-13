@@ -30,6 +30,9 @@ msgstr "Create new"
 msgid "Delete"
 msgstr "Delete"
 
+msgid "Email templates"
+msgstr "Email templates"
+
 msgid "Save"
 msgstr "Save"
 
@@ -99,11 +102,8 @@ msgstr "User data"
 msgid "sso-session.form.fields.user-ip"
 msgstr "IP address"
 
-msgid "sso-project.form.fields.name"
-msgstr "Name"
-
 msgid "sso-project.form.fields.name-locale"
-msgstr "Name (translates)"
+msgstr "Name ({{locale}})"
 
 msgid "sso-project.form.fields.client-id"
 msgstr "Client id"
@@ -113,6 +113,18 @@ msgstr "Client secret"
 
 msgid "sso-project.form.fields.public"
 msgstr "Public"
+
+msgid "sso-email-template.form.fields.operation-name"
+msgstr "Operation name"
+
+msgid "sso-email-template.form.fields.subject-locale"
+msgstr "Subject ({{locale}})"
+
+msgid "sso-email-template.form.fields.html-locale"
+msgstr "In html format ({{locale}})"
+
+msgid "sso-email-template.form.fields.text-locale"
+msgstr "In text format ({{locale}})"
 
 msgid "sso-user.update-modal.title"
 msgstr "Edit user #{{ id }}"
@@ -204,11 +216,32 @@ msgstr "Client secret"
 msgid "sso-project.grid.columns.public"
 msgstr "Public"
 
+msgid "sso-email-template.update-modal.title"
+msgstr "Edit email template #{{ id }}"
+
+msgid "sso-email-template.create-modal.title"
+msgstr "Create email template"
+
+msgid "sso-email-template.grid.columns.id"
+msgstr "ID"
+
+msgid "sso-email-template.grid.columns.operation-name"
+msgstr "Event"
+
+msgid "sso-email-template.grid.columns.subject"
+msgstr "Subject"
+
+msgid "sso-email-template.grid.columns.text"
+msgstr "Text"
+
 msgid "Success"
 msgstr "Success"
 
 msgid "id not set"
 msgstr "ID not set"
+
+msgid "sso-project.form.fields.name"
+msgstr "Name"
 
 msgid "sso-user.delete-modal.title"
 msgstr "Delete user #{{ id }}"

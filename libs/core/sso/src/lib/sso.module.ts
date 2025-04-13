@@ -1,4 +1,5 @@
 import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
+import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import {
   createNestModule,
   getFeatureDotEnvPropertyNameFormatter,
@@ -8,8 +9,10 @@ import { KeyvModule } from '@nestjs-mod/keyv';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { UseFilters, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { getText, TranslatesModule } from 'nestjs-translates';
+import { TranslatesModule } from 'nestjs-translates';
 import { SsoProjectsController } from './controllers/sso-projects.controller';
+import { SsoPublicProjectsController } from './controllers/sso-public-projects.controller';
+import { SsoRolesController } from './controllers/sso-roles.controller';
 import { SsoRefreshSessionsController } from './controllers/sso-sessions.controller';
 import { SsoUsersController } from './controllers/sso-users.controller';
 import { SsoController } from './controllers/sso.controller';
@@ -28,10 +31,9 @@ import { SSO_FEATURE, SSO_MODULE } from './sso.constants';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
-import { SsoRolesController } from './controllers/sso-roles.controller';
-import { SsoPublicProjectsController } from './controllers/sso-public-projects.controller';
-import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import { SSO_WEBHOOK_EVENTS } from './types/sso-webhooks';
+import { SsoEmailTemplatesController } from './controllers/sso-email-templates.controller';
+import { SsoTemplatesService } from './services/sso-templates.service';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -74,6 +76,7 @@ export const { SsoModule } = createNestModule({
     SsoRefreshSessionsController,
     SsoRolesController,
     SsoPublicProjectsController,
+    SsoEmailTemplatesController,
   ],
   providers: [SsoServiceBootstrap],
   sharedProviders: [
@@ -86,6 +89,7 @@ export const { SsoModule } = createNestModule({
     SsoTokensService,
     SsoProjectService,
     SsoAdminService,
+    SsoTemplatesService,
     JwtService,
   ],
   wrapForRootAsync: (asyncModuleOptions) => {
@@ -114,6 +118,7 @@ export const { SsoModule } = createNestModule({
       SsoRefreshSessionsController,
       SsoRolesController,
       SsoPublicProjectsController,
+      SsoEmailTemplatesController,
     ]) {
       if (staticEnvironments?.useFilters) {
         UseFilters(SsoExceptionsFilter)(ctrl);

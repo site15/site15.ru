@@ -21,6 +21,9 @@ msgstr "Home"
 msgid "Webhooks"
 msgstr "Webhooks"
 
+msgid "Templates"
+msgstr "Templates"
+
 msgid "Users"
 msgstr "Users"
 

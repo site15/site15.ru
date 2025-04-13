@@ -7,10 +7,10 @@
       <li nz-menu-item routerLink="/home" transloco="Home"></li>
 
       @if
-      ([AuthRoleInterface.Manager,AuthRoleInterface.Admin]|checkUserRoles|async)
+      ([AuthRoleInterface.Manager]|checkUserRoles|async)
       {
       <li nz-menu-item routerLink="/webhooks" transloco="Webhooks"></li>
-      } @if ([AuthRoleInterface.Manager]|checkUserRoles|async) {
+      <li nz-menu-item routerLink="/templates" transloco="Templates"></li>
       <li nz-menu-item routerLink="/users" transloco="Users"></li>
       } @if ([AuthRoleInterface.Admin]|checkUserRoles|async) {
       <li

@@ -23,6 +23,8 @@ import { CompleteSignUpArgsInterface } from '../model/complete-sign-up-args.inte
 // @ts-ignore
 import { CreateSsoProjectDtoInterface } from '../model/create-sso-project-dto.interface';
 // @ts-ignore
+import { FindManySsoEmailTemplateResponseInterface } from '../model/find-many-sso-email-template-response.interface';
+// @ts-ignore
 import { FindManySsoProjectResponseInterface } from '../model/find-many-sso-project-response.interface';
 // @ts-ignore
 import { FindManySsoPublicProjectResponseInterface } from '../model/find-many-sso-public-project-response.interface';
@@ -45,6 +47,8 @@ import { SignUpArgsInterface } from '../model/sign-up-args.interface';
 // @ts-ignore
 import { SsoControllerSignIn400ResponseInterface } from '../model/sso-controller-sign-in400-response.interface';
 // @ts-ignore
+import { SsoEmailTemplateDtoInterface } from '../model/sso-email-template-dto.interface';
+// @ts-ignore
 import { SsoProjectDtoInterface } from '../model/sso-project-dto.interface';
 // @ts-ignore
 import { SsoRefreshSessionDtoInterface } from '../model/sso-refresh-session-dto.interface';
@@ -56,6 +60,8 @@ import { StatusResponseInterface } from '../model/status-response.interface';
 import { TokensResponseInterface } from '../model/tokens-response.interface';
 // @ts-ignore
 import { UpdateProfileArgsInterface } from '../model/update-profile-args.interface';
+// @ts-ignore
+import { UpdateSsoEmailTemplateDtoInterface } from '../model/update-sso-email-template-dto.interface';
 // @ts-ignore
 import { UpdateSsoProjectDtoInterface } from '../model/update-sso-project-dto.interface';
 // @ts-ignore
@@ -767,6 +773,228 @@ export class SsoRestService {
             {
                 context: localVarHttpContext,
                 body: updateProfileArgsInterface,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param curPage 
+     * @param perPage 
+     * @param searchText 
+     * @param sort 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManySsoEmailTemplateResponseInterface>;
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManySsoEmailTemplateResponseInterface>>;
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManySsoEmailTemplateResponseInterface>>;
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (curPage !== undefined && curPage !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>curPage, 'curPage');
+        }
+        if (perPage !== undefined && perPage !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>perPage, 'perPage');
+        }
+        if (searchText !== undefined && searchText !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>searchText, 'searchText');
+        }
+        if (sort !== undefined && sort !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>sort, 'sort');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/sso/email-templates`;
+        return this.httpClient.request<FindManySsoEmailTemplateResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public ssoEmailTemplatesControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SsoEmailTemplateDtoInterface>;
+    public ssoEmailTemplatesControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SsoEmailTemplateDtoInterface>>;
+    public ssoEmailTemplatesControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SsoEmailTemplateDtoInterface>>;
+    public ssoEmailTemplatesControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling ssoEmailTemplatesControllerFindOne.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/sso/email-templates/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<SsoEmailTemplateDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param id 
+     * @param updateSsoEmailTemplateDtoInterface 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public ssoEmailTemplatesControllerUpdateOne(id: string, updateSsoEmailTemplateDtoInterface: UpdateSsoEmailTemplateDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<SsoEmailTemplateDtoInterface>;
+    public ssoEmailTemplatesControllerUpdateOne(id: string, updateSsoEmailTemplateDtoInterface: UpdateSsoEmailTemplateDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<SsoEmailTemplateDtoInterface>>;
+    public ssoEmailTemplatesControllerUpdateOne(id: string, updateSsoEmailTemplateDtoInterface: UpdateSsoEmailTemplateDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<SsoEmailTemplateDtoInterface>>;
+    public ssoEmailTemplatesControllerUpdateOne(id: string, updateSsoEmailTemplateDtoInterface: UpdateSsoEmailTemplateDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling ssoEmailTemplatesControllerUpdateOne.');
+        }
+        if (updateSsoEmailTemplateDtoInterface === null || updateSsoEmailTemplateDtoInterface === undefined) {
+            throw new Error('Required parameter updateSsoEmailTemplateDtoInterface was null or undefined when calling ssoEmailTemplatesControllerUpdateOne.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/sso/email-templates/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<SsoEmailTemplateDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: updateSsoEmailTemplateDtoInterface,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

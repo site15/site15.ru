@@ -14,7 +14,7 @@ export class WebhookLogService {
   findOne(id: string) {
     return this.webhookRestService
       .webhookLogsControllerFindOne(id)
-      .pipe(map(this.webhookLogMapperService.toModel));
+      .pipe(map((w) => this.webhookLogMapperService.toModel(w)));
   }
 
   findMany({

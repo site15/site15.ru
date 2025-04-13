@@ -1,3 +1,4 @@
+export * from './lib/webhook-extra-models';
 export * from './lib/webhook.configuration';
 export * from './lib/webhook.constants';
 export * from './lib/webhook.decorators';
@@ -38,7 +39,6 @@ export * from './lib/types/find-many-webhook-log-args';
 export * from './lib/types/find-many-webhook-log-response';
 export * from './lib/types/find-many-webhook-response';
 export * from './lib/types/find-many-webhook-user-response';
-export * from './lib/types/webhook-entities';
 export * from './lib/types/webhook-event';
 export * from './lib/types/webhook-request';
 export * from './lib/types/webhook-test-request-response';

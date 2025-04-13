@@ -22,6 +22,9 @@ msgstr "Домашняя страница"
 msgid "Webhooks"
 msgstr "Вебхуки"
 
+msgid "Templates"
+msgstr "Шаблоны"
+
 msgid "Users"
 msgstr "Пользователи"
 

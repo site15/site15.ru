@@ -13,9 +13,9 @@ import { WebhookUserScalarFieldEnumInterface } from './webhook-user-scalar-field
 
 
 export interface WebhookEntitiesInterface { 
-    webhook: WebhookScalarFieldEnumInterface;
-    webhookLog: WebhookLogScalarFieldEnumInterface;
-    webhookUser: WebhookUserScalarFieldEnumInterface;
+    Webhook: WebhookScalarFieldEnumInterface;
+    WebhookLog: WebhookLogScalarFieldEnumInterface;
+    WebhookUser: WebhookUserScalarFieldEnumInterface;
 }
 export namespace WebhookEntitiesInterface {
 }

@@ -6,6 +6,7 @@ import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoCacheService } from './sso-cache.service';
 import { SsoProjectService } from './sso-project.service';
+import { SsoTemplatesService } from './sso-templates.service';
 
 @Injectable()
 export class SsoServiceBootstrap implements OnModuleInit {
@@ -16,7 +17,8 @@ export class SsoServiceBootstrap implements OnModuleInit {
     private readonly prismaClient: PrismaClient,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoCacheService: SsoCacheService,
-    private readonly ssoProjectService: SsoProjectService
+    private readonly ssoProjectService: SsoProjectService,
+    private readonly ssoTemplatesService: SsoTemplatesService
   ) {}
 
   async onModuleInit() {
@@ -40,8 +42,13 @@ export class SsoServiceBootstrap implements OnModuleInit {
             name: defaultPublicProject.name,
           },
         });
+        if (existsProject) {
+          await this.ssoTemplatesService.createProjectDefaultEmailTemplates(
+            existsProject.id
+          );
+        }
         if (!existsProject) {
-          await this.prismaClient.ssoProject.create({
+          const result = await this.prismaClient.ssoProject.create({
             data: {
               public: true,
               name: defaultPublicProject.name,
@@ -50,6 +57,11 @@ export class SsoServiceBootstrap implements OnModuleInit {
               clientSecret: defaultPublicProject.clientSecret,
             },
           });
+
+          await this.ssoTemplatesService.createProjectDefaultEmailTemplates(
+            result.id
+          );
+
           await this.ssoCacheService.clearCacheProjectByClientId(
             defaultPublicProject.clientId
           );

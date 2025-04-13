@@ -17,7 +17,7 @@ export class SsoUserService {
   findOne(id: string) {
     return this.ssoRestService
       .ssoUsersControllerFindOne(id)
-      .pipe(map(this.ssoUserMapperService.toModel));
+      .pipe(map((u) => this.ssoUserMapperService.toModel(u)));
   }
 
   findMany({
@@ -42,7 +42,7 @@ export class SsoUserService {
       .pipe(
         map(({ meta, ssoUsers }) => ({
           meta,
-          ssoUsers: ssoUsers.map(this.ssoUserMapperService.toModel),
+          ssoUsers: ssoUsers.map((p) => this.ssoUserMapperService.toModel(p)),
         }))
       );
   }
@@ -50,6 +50,6 @@ export class SsoUserService {
   updateOne(id: string, data: UpdateSsoUserDtoInterface) {
     return this.ssoRestService
       .ssoUsersControllerUpdateOne(id, data)
-      .pipe(map(this.ssoUserMapperService.toModel));
+      .pipe(map((p) => this.ssoUserMapperService.toModel(p)));
   }
 }

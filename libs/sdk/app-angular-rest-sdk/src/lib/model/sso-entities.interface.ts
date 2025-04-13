@@ -9,13 +9,15 @@
  */
 import { SsoRefreshSessionScalarFieldEnumInterface } from './sso-refresh-session-scalar-field-enum.interface';
 import { SsoProjectScalarFieldEnumInterface } from './sso-project-scalar-field-enum.interface';
+import { SsoEmailTemplateScalarFieldEnumInterface } from './sso-email-template-scalar-field-enum.interface';
 import { SsoUserScalarFieldEnumInterface } from './sso-user-scalar-field-enum.interface';
 
 
 export interface SsoEntitiesInterface { 
-    ssoProject: SsoProjectScalarFieldEnumInterface;
-    ssoUser: SsoUserScalarFieldEnumInterface;
+    SsoProject: SsoProjectScalarFieldEnumInterface;
+    SsoUser: SsoUserScalarFieldEnumInterface;
     SsoRefreshSession: SsoRefreshSessionScalarFieldEnumInterface;
+    SsoEmailTemplate: SsoEmailTemplateScalarFieldEnumInterface;
 }
 export namespace SsoEntitiesInterface {
 }

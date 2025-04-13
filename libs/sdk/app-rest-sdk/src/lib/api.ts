@@ -61,7 +61,7 @@ export interface AuthEntities {
      * @type {AuthUserScalarFieldEnum}
      * @memberof AuthEntities
      */
-    'authUser': AuthUserScalarFieldEnum;
+    'AuthUser': AuthUserScalarFieldEnum;
 }
 
 
@@ -475,6 +475,25 @@ export interface FindManyResponseMeta {
 /**
  * 
  * @export
+ * @interface FindManySsoEmailTemplateResponse
+ */
+export interface FindManySsoEmailTemplateResponse {
+    /**
+     * 
+     * @type {Array<SsoEmailTemplateDto>}
+     * @memberof FindManySsoEmailTemplateResponse
+     */
+    'ssoEmailTemplates': Array<SsoEmailTemplateDto>;
+    /**
+     * 
+     * @type {FindManyResponseMeta}
+     * @memberof FindManySsoEmailTemplateResponse
+     */
+    'meta': FindManyResponseMeta;
+}
+/**
+ * 
+ * @export
  * @interface FindManySsoProjectResponse
  */
 export interface FindManySsoProjectResponse {
@@ -684,10 +703,16 @@ export interface NotificationsControllerFindMany400Response {
 export interface NotificationsEntities {
     /**
      * 
+     * @type {NotificationsUserScalarFieldEnum}
+     * @memberof NotificationsEntities
+     */
+    'NotificationsUser': NotificationsUserScalarFieldEnum;
+    /**
+     * 
      * @type {NotificationsEventScalarFieldEnum}
      * @memberof NotificationsEntities
      */
-    'notificationEvent': NotificationsEventScalarFieldEnum;
+    'NotificationsEvent': NotificationsEventScalarFieldEnum;
 }
 
 
@@ -1077,6 +1102,23 @@ export interface NotificationsUser {
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const NotificationsUserScalarFieldEnum = {
+    Id: 'id',
+    ExternalTenantId: 'externalTenantId',
+    ExternalUserId: 'externalUserId',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt'
+} as const;
+
+export type NotificationsUserScalarFieldEnum = typeof NotificationsUserScalarFieldEnum[keyof typeof NotificationsUserScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
  * @interface RefreshTokensResponse
  */
 export interface RefreshTokensResponse {
@@ -1204,6 +1246,102 @@ export interface SsoControllerSignIn400Response {
 /**
  * 
  * @export
+ * @interface SsoEmailTemplateDto
+ */
+export interface SsoEmailTemplateDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplateDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplateDto
+     */
+    'subject': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoEmailTemplateDto
+     */
+    'subjectLocale': object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplateDto
+     */
+    'text': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoEmailTemplateDto
+     */
+    'textLocale': object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplateDto
+     */
+    'html': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoEmailTemplateDto
+     */
+    'htmlLocale': object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplateDto
+     */
+    'operationName': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplateDto
+     */
+    'projectId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplateDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplateDto
+     */
+    'updatedAt': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const SsoEmailTemplateScalarFieldEnum = {
+    Id: 'id',
+    Subject: 'subject',
+    SubjectLocale: 'subjectLocale',
+    Text: 'text',
+    TextLocale: 'textLocale',
+    Html: 'html',
+    HtmlLocale: 'htmlLocale',
+    OperationName: 'operationName',
+    ProjectId: 'projectId',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt'
+} as const;
+
+export type SsoEmailTemplateScalarFieldEnum = typeof SsoEmailTemplateScalarFieldEnum[keyof typeof SsoEmailTemplateScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
  * @interface SsoEntities
  */
 export interface SsoEntities {
@@ -1212,19 +1350,25 @@ export interface SsoEntities {
      * @type {SsoProjectScalarFieldEnum}
      * @memberof SsoEntities
      */
-    'ssoProject': SsoProjectScalarFieldEnum;
+    'SsoProject': SsoProjectScalarFieldEnum;
     /**
      * 
      * @type {SsoUserScalarFieldEnum}
      * @memberof SsoEntities
      */
-    'ssoUser': SsoUserScalarFieldEnum;
+    'SsoUser': SsoUserScalarFieldEnum;
     /**
      * 
      * @type {SsoRefreshSessionScalarFieldEnum}
      * @memberof SsoEntities
      */
     'SsoRefreshSession': SsoRefreshSessionScalarFieldEnum;
+    /**
+     * 
+     * @type {SsoEmailTemplateScalarFieldEnum}
+     * @memberof SsoEntities
+     */
+    'SsoEmailTemplate': SsoEmailTemplateScalarFieldEnum;
 }
 
 
@@ -2000,95 +2144,6 @@ export interface TokensResponse {
 /**
  * 
  * @export
- * @interface TwoFactorError
- */
-export interface TwoFactorError {
-    /**
-     * Two factor error (TWO_FACTOR-000), Two factor code not set (TWO-FACTOR-001), Wrong two factor code (TWO-FACTOR-002), Two factor code is outdated (TWO-FACTOR-003), Please wait 30 seconds (TWO-FACTOR-004), Two-factor code has already been used (TWO-FACTOR-005)
-     * @type {string}
-     * @memberof TwoFactorError
-     */
-    'message': string;
-    /**
-     * 
-     * @type {TwoFactorErrorEnum}
-     * @memberof TwoFactorError
-     */
-    'code': TwoFactorErrorEnum;
-    /**
-     * 
-     * @type {Array<TwoFactorErrorMetadata>}
-     * @memberof TwoFactorError
-     */
-    'metadata'?: Array<TwoFactorErrorMetadata>;
-}
-
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const TwoFactorErrorEnum = {
-    TwoFactor000: 'TWO_FACTOR-000',
-    TwoFactor001: 'TWO-FACTOR-001',
-    TwoFactor002: 'TWO-FACTOR-002',
-    TwoFactor003: 'TWO-FACTOR-003',
-    TwoFactor004: 'TWO-FACTOR-004',
-    TwoFactor005: 'TWO-FACTOR-005'
-} as const;
-
-export type TwoFactorErrorEnum = typeof TwoFactorErrorEnum[keyof typeof TwoFactorErrorEnum];
-
-
-/**
- * 
- * @export
- * @interface TwoFactorErrorMetadata
- */
-export interface TwoFactorErrorMetadata {
-    /**
-     * 
-     * @type {string}
-     * @memberof TwoFactorErrorMetadata
-     */
-    'property': string;
-    /**
-     * 
-     * @type {Array<TwoFactorErrorMetadataConstraint>}
-     * @memberof TwoFactorErrorMetadata
-     */
-    'constraints': Array<TwoFactorErrorMetadataConstraint>;
-    /**
-     * 
-     * @type {Array<TwoFactorErrorMetadata>}
-     * @memberof TwoFactorErrorMetadata
-     */
-    'children'?: Array<TwoFactorErrorMetadata>;
-}
-/**
- * 
- * @export
- * @interface TwoFactorErrorMetadataConstraint
- */
-export interface TwoFactorErrorMetadataConstraint {
-    /**
-     * 
-     * @type {string}
-     * @memberof TwoFactorErrorMetadataConstraint
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TwoFactorErrorMetadataConstraint
-     */
-    'description': string;
-}
-/**
- * 
- * @export
  * @interface UpdateAuthUserDto
  */
 export interface UpdateAuthUserDto {
@@ -2252,6 +2307,61 @@ export interface UpdateProfileArgs {
      * @memberof UpdateProfileArgs
      */
     'confirmPassword'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateSsoEmailTemplateDto
+ */
+export interface UpdateSsoEmailTemplateDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoEmailTemplateDto
+     */
+    'subject'?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof UpdateSsoEmailTemplateDto
+     */
+    'subjectLocale'?: object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoEmailTemplateDto
+     */
+    'text'?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof UpdateSsoEmailTemplateDto
+     */
+    'textLocale'?: object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoEmailTemplateDto
+     */
+    'html'?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof UpdateSsoEmailTemplateDto
+     */
+    'htmlLocale'?: object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoEmailTemplateDto
+     */
+    'operationName'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoEmailTemplateDto
+     */
+    'projectId'?: string;
 }
 /**
  * 
@@ -2692,19 +2802,19 @@ export interface WebhookEntities {
      * @type {WebhookScalarFieldEnum}
      * @memberof WebhookEntities
      */
-    'webhook': WebhookScalarFieldEnum;
+    'Webhook': WebhookScalarFieldEnum;
     /**
      * 
      * @type {WebhookLogScalarFieldEnum}
      * @memberof WebhookEntities
      */
-    'webhookLog': WebhookLogScalarFieldEnum;
+    'WebhookLog': WebhookLogScalarFieldEnum;
     /**
      * 
      * @type {WebhookUserScalarFieldEnum}
      * @memberof WebhookEntities
      */
-    'webhookUser': WebhookUserScalarFieldEnum;
+    'WebhookUser': WebhookUserScalarFieldEnum;
 }
 
 
@@ -4277,6 +4387,127 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoEmailTemplatesControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sso/email-templates`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (curPage !== undefined) {
+                localVarQueryParameter['curPage'] = curPage;
+            }
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['perPage'] = perPage;
+            }
+
+            if (searchText !== undefined) {
+                localVarQueryParameter['searchText'] = searchText;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoEmailTemplatesControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ssoEmailTemplatesControllerFindOne', 'id', id)
+            const localVarPath = `/api/sso/email-templates/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateSsoEmailTemplateDto} updateSsoEmailTemplateDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoEmailTemplatesControllerUpdateOne: async (id: string, updateSsoEmailTemplateDto: UpdateSsoEmailTemplateDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ssoEmailTemplatesControllerUpdateOne', 'id', id)
+            // verify required parameter 'updateSsoEmailTemplateDto' is not null or undefined
+            assertParamExists('ssoEmailTemplatesControllerUpdateOne', 'updateSsoEmailTemplateDto', updateSsoEmailTemplateDto)
+            const localVarPath = `/api/sso/email-templates/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateSsoEmailTemplateDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {CreateSsoProjectDto} createSsoProjectDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4915,6 +5146,46 @@ export const SsoApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoEmailTemplateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoEmailTemplatesControllerFindMany(curPage, perPage, searchText, sort, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoEmailTemplatesControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoEmailTemplatesControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoEmailTemplateDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoEmailTemplatesControllerFindOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoEmailTemplatesControllerFindOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateSsoEmailTemplateDto} updateSsoEmailTemplateDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoEmailTemplatesControllerUpdateOne(id: string, updateSsoEmailTemplateDto: UpdateSsoEmailTemplateDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoEmailTemplateDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoEmailTemplatesControllerUpdateOne(id, updateSsoEmailTemplateDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoEmailTemplatesControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {CreateSsoProjectDto} createSsoProjectDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5177,6 +5448,37 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
         },
         /**
          * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoEmailTemplateResponse> {
+            return localVarFp.ssoEmailTemplatesControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoEmailTemplatesControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<SsoEmailTemplateDto> {
+            return localVarFp.ssoEmailTemplatesControllerFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateSsoEmailTemplateDto} updateSsoEmailTemplateDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoEmailTemplatesControllerUpdateOne(id: string, updateSsoEmailTemplateDto: UpdateSsoEmailTemplateDto, options?: RawAxiosRequestConfig): AxiosPromise<SsoEmailTemplateDto> {
+            return localVarFp.ssoEmailTemplatesControllerUpdateOne(id, updateSsoEmailTemplateDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {CreateSsoProjectDto} createSsoProjectDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5414,6 +5716,43 @@ export class SsoApi extends BaseAPI {
      */
     public ssoControllerUpdateProfile(updateProfileArgs: UpdateProfileArgs, options?: RawAxiosRequestConfig) {
         return SsoApiFp(this.configuration).ssoControllerUpdateProfile(updateProfileArgs, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoEmailTemplatesControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoEmailTemplatesControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoEmailTemplatesControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {UpdateSsoEmailTemplateDto} updateSsoEmailTemplateDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoEmailTemplatesControllerUpdateOne(id: string, updateSsoEmailTemplateDto: UpdateSsoEmailTemplateDto, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoEmailTemplatesControllerUpdateOne(id, updateSsoEmailTemplateDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

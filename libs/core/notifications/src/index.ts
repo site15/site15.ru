@@ -1,4 +1,5 @@
 export * from './lib/notifications-bootstrap.service';
+export * from './lib/notifications-extra-models';
 export * from './lib/notifications.configuration';
 export * from './lib/notifications.constants';
 export * from './lib/notifications.controller';
@@ -25,6 +26,5 @@ export * from './lib/generated/rest/dto/update-migrations-notifications.dto';
 export * from './lib/generated/rest/dto/update-notifications-event.dto';
 export * from './lib/generated/rest/dto/update-notifications-user.dto';
 export * from './lib/types/find-many-notification-event-response';
-export * from './lib/types/notifications-entities';
 export * from './lib/types/notifications-request';
 export * from './lib/types/notifications-webhooks';

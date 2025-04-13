@@ -20,7 +20,7 @@ export class SignUpComponent {
   ) {}
   onAfterSignUp() {
     if (this.authService.profile$.value?.roles?.includes('admin')) {
-      this.router.navigate(['/webhooks']);
+      this.router.navigate(['/projects']);
     } else {
       this.router.navigate(['/home']);
     }

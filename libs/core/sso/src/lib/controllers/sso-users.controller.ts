@@ -14,7 +14,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiExtraModels,
   ApiOkResponse,
   ApiTags,
   refs,
@@ -31,7 +30,6 @@ import { FindManySsoUserArgs } from '../types/find-many-sso-user-args';
 import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
 import { SsoRequest } from '../types/sso-request';
 
-@ApiExtraModels(SsoError, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
@@ -81,7 +79,7 @@ export class SsoUsersController {
       return {
         ssoUsers: await prisma.ssoUser.findMany({
           where: {
-            projectId: { equals: projectId },
+            ...(projectId ? { projectId: { equals: projectId } } : {}),
             ...(searchText
               ? isUUID(searchText)
                 ? {
@@ -112,7 +110,7 @@ export class SsoUsersController {
         }),
         totalResults: await prisma.ssoUser.count({
           where: {
-            projectId: { equals: projectId },
+            ...(projectId ? { projectId: { equals: projectId } } : {}),
             ...(searchText
               ? isUUID(searchText)
                 ? {
@@ -175,7 +173,7 @@ export class SsoUsersController {
       },
       where: {
         id,
-        ...(projectId ? { projectId } : {}),
+        ...(projectId ? { projectId: { equals: projectId } } : {}),
       },
     });
 

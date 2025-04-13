@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { ReplaySubject } from 'rxjs';
-import { SsoEventContext } from '../types/auth-event';
+import { SsoEventContext } from '../types/sso-event';
 
 type SsoEventCallback = (event: Partial<SsoEventContext>) => Promise<void>;
 

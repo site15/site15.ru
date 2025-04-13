@@ -17,7 +17,7 @@ export class SsoSessionService {
   findOne(id: string) {
     return this.ssoRestService
       .ssoRefreshSessionsControllerFindOne(id)
-      .pipe(map(this.ssoSessionMapperService.toModel));
+      .pipe(map((s) => this.ssoSessionMapperService.toModel(s)));
   }
 
   findMany({
@@ -42,8 +42,8 @@ export class SsoSessionService {
       .pipe(
         map(({ meta, ssoRefreshSessions }) => ({
           meta,
-          ssoRefreshSessions: ssoRefreshSessions.map(
-            this.ssoSessionMapperService.toModel
+          ssoRefreshSessions: ssoRefreshSessions.map((t) =>
+            this.ssoSessionMapperService.toModel(t)
           ),
         }))
       );
@@ -52,6 +52,6 @@ export class SsoSessionService {
   updateOne(id: string, data: UpdateSsoRefreshSessionDtoInterface) {
     return this.ssoRestService
       .ssoRefreshSessionsControllerUpdateOne(id, data)
-      .pipe(map(this.ssoSessionMapperService.toModel));
+      .pipe(map((s) => this.ssoSessionMapperService.toModel(s)));
   }
 }

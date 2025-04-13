@@ -20,7 +20,7 @@ export class WebhookService {
   findOne(id: string) {
     return this.webhookRestService
       .webhookControllerFindOne(id)
-      .pipe(map(this.webhookMapperService.toModel));
+      .pipe(map((w) => this.webhookMapperService.toModel(w)));
   }
 
   findMany({
@@ -44,7 +44,7 @@ export class WebhookService {
       .pipe(
         map(({ meta, webhooks }) => ({
           meta,
-          webhooks: webhooks.map(this.webhookMapperService.toModel),
+          webhooks: webhooks.map((w) => this.webhookMapperService.toModel(w)),
         }))
       );
   }
@@ -52,7 +52,7 @@ export class WebhookService {
   updateOne(id: string, data: UpdateWebhookDtoInterface) {
     return this.webhookRestService
       .webhookControllerUpdateOne(id, data)
-      .pipe(map(this.webhookMapperService.toModel));
+      .pipe(map((w) => this.webhookMapperService.toModel(w)));
   }
 
   deleteOne(id: string) {
@@ -62,7 +62,7 @@ export class WebhookService {
   createOne(data: CreateWebhookDtoInterface) {
     return this.webhookRestService
       .webhookControllerCreateOne(data)
-      .pipe(map(this.webhookMapperService.toModel));
+      .pipe(map((w) => this.webhookMapperService.toModel(w)));
   }
 
   testRequest(data: CreateWebhookDtoInterface) {

@@ -13,7 +13,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiExtraModels,
   ApiOkResponse,
   ApiTags,
   refs,
@@ -26,7 +25,6 @@ import { WebhookUser } from '../generated/rest/dto/webhook-user.entity';
 import { WebhookToolsService } from '../services/webhook-tools.service';
 import { FindManyWebhookLogArgs } from '../types/find-many-webhook-log-args';
 import { FindManyWebhookLogResponse } from '../types/find-many-webhook-log-response';
-import { WebhookEntities } from '../types/webhook-entities';
 import { WEBHOOK_FEATURE } from '../webhook.constants';
 import {
   CheckWebhookRole,
@@ -35,7 +33,6 @@ import {
 } from '../webhook.decorators';
 import { WebhookError } from '../webhook.errors';
 
-@ApiExtraModels(WebhookError, WebhookEntities, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(WebhookError, ValidationError) },
 })

@@ -12,7 +12,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiExtraModels,
   ApiOkResponse,
   ApiTags,
   refs,
@@ -27,10 +26,8 @@ import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoRefreshSessionArgs } from '../types/find-many-sso-refresh-session-args';
 import { FindManySsoRefreshSessionResponse } from '../types/find-many-sso-refresh-session-response';
-import { SsoEntities } from '../types/sso-entities';
 import { SsoRequest } from '../types/sso-request';
 
-@ApiExtraModels(SsoError, SsoEntities, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
@@ -79,6 +76,7 @@ export class SsoRefreshSessionsController {
       return {
         ssoRefreshSessions: await prisma.ssoRefreshSession.findMany({
           where: {
+            enabled: true,
             ...(projectId ? { projectId } : {}),
             ...(searchText
               ? {
@@ -109,6 +107,7 @@ export class SsoRefreshSessionsController {
         }),
         totalResults: await prisma.ssoRefreshSession.count({
           where: {
+            enabled: true,
             ...(projectId ? { projectId } : {}),
             ...(searchText
               ? {

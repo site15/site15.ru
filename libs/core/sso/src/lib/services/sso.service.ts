@@ -2,14 +2,14 @@ import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaClient, SsoUser } from '@prisma/sso-client';
 import ms from 'ms';
-import { getText, TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
+import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
 import {
   SsoConfiguration,
   SsoSendNotificationOptions,
   SsoSendNotificationOptionsOperationName,
   SsoTwoFactorCodeOptionsOperationName,
 } from '../sso.configuration';
-import { SSO_FEATURE } from '../sso.constants';
+import { DEFAULT_EMAIL_TEMPLATE_BY_NAMES, SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import {
   CompleteForgotPasswordArgs,
@@ -20,6 +20,7 @@ import { SignUpArgs } from '../types/sign-up.dto';
 import { SsoRequest } from '../types/sso-request';
 import { SsoCacheService } from './sso-cache.service';
 import { SsoCookieService } from './sso-cookie.service';
+import { SsoTemplatesService } from './sso-templates.service';
 import { SsoTokensService } from './sso-tokens.service';
 import { SsoUsersService } from './sso-users.service';
 
@@ -36,7 +37,8 @@ export class SsoService {
     private readonly ssoCookieService: SsoCookieService,
     private readonly translatesAsyncLocalStorageContext: TranslatesAsyncLocalStorageContext,
     private readonly ssoTokensService: SsoTokensService,
-    private readonly ssoCacheService: SsoCacheService
+    private readonly ssoCacheService: SsoCacheService,
+    private readonly ssoTemplatesService: SsoTemplatesService
   ) {}
 
   signIn({
@@ -76,10 +78,17 @@ export class SsoService {
     });
 
     if (this.ssoConfiguration.twoFactorCodeGenerate) {
+      const { operationName, subject, text, html } =
+        await this.getSendNotificationOptions(
+          SsoSendNotificationOptionsOperationName.VERIFY_EMAIL,
+          projectId
+        );
+
       const code = await this.ssoConfiguration.twoFactorCodeGenerate({
         user,
         operationName: SsoTwoFactorCodeOptionsOperationName.VERIFY_EMAIL,
       });
+
       const link = signUpArgs.redirectUri
         ? `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}&redirect_uri=${signUpArgs.redirectUri}`
         : `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}`;
@@ -87,26 +96,15 @@ export class SsoService {
         recipientUsers: [user],
         subject: this.translatesAsyncLocalStorageContext
           .get()
-          .translate(getText('Verify your email')),
-        text: this.translatesAsyncLocalStorageContext
-          .get()
-          .translate(
-            getText('Please navigate by a {{{link}}} to verify your email'),
-            { link }
-          ),
-        html: this.translatesAsyncLocalStorageContext
-          .get()
-          .translate(
-            getText(
-              'Please navigate by a <a href="{{{link}}}">{{{link}}}</a> to verify your email'
-            ),
-            {
-              link,
-            }
-          ),
-        operationName: SsoSendNotificationOptionsOperationName.VERIFY_EMAIL,
+          .translate(subject),
+        text: this.translatesAsyncLocalStorageContext.get().translate(text),
+        html: this.translatesAsyncLocalStorageContext.get().translate(html, {
+          link,
+        }),
+        operationName,
         projectId,
       };
+
       if (this.ssoConfiguration.sendNotification) {
         const result = await this.ssoConfiguration.sendNotification(
           sendNotificationOptions
@@ -129,6 +127,39 @@ export class SsoService {
     }
 
     return user;
+  }
+
+  private async getSendNotificationOptions(
+    operationName: SsoSendNotificationOptionsOperationName,
+    projectId: string
+  ) {
+    const defaultLocale =
+      this.translatesAsyncLocalStorageContext.get().config?.defaultLocale ||
+      'en';
+    const locale =
+      this.translatesAsyncLocalStorageContext.get().locale || defaultLocale;
+
+    const template = await this.ssoTemplatesService.getEmailTemplate({
+      operationName,
+      projectId,
+    });
+    const defaultTemplate = DEFAULT_EMAIL_TEMPLATE_BY_NAMES[operationName];
+
+    const subject =
+      (locale === defaultLocale
+        ? template?.subject
+        : (template?.subjectLocale as any)?.[locale]) ||
+      defaultTemplate.subject;
+
+    const text =
+      (locale === defaultLocale
+        ? template?.text
+        : (template?.textLocale as any)?.[locale]) || defaultTemplate.text;
+    const html =
+      (locale === defaultLocale
+        ? template?.html
+        : (template?.htmlLocale as any)?.[locale]) || defaultTemplate.html;
+    return { operationName, subject, text, html };
   }
 
   async completeSignUp({
@@ -185,6 +216,12 @@ export class SsoService {
       projectId,
     });
     if (this.ssoConfiguration.twoFactorCodeGenerate) {
+      const { operationName, subject, text, html } =
+        await this.getSendNotificationOptions(
+          SsoSendNotificationOptionsOperationName.COMPLETE_FORGOT_PASSWORD,
+          projectId
+        );
+
       const code = await this.ssoConfiguration.twoFactorCodeGenerate({
         ...ssoRequest,
         user,
@@ -201,27 +238,14 @@ export class SsoService {
           recipientUsers: [user],
           subject: this.translatesAsyncLocalStorageContext
             .get()
-            .translate(getText('Restore forgotten password link')),
-          text: this.translatesAsyncLocalStorageContext
-            .get()
-            .translate(
-              getText('Please navigate by a {{{link}}} to set new password'),
-              {
-                link,
-              }
-            ),
-          html: this.translatesAsyncLocalStorageContext
-            .get()
-            .translate(
-              getText(
-                'Please navigate by a <a href="{{{link}}}">{{{link}}}</a> to set new password'
-              ),
-              {
-                link,
-              }
-            ),
-          operationName:
-            SsoSendNotificationOptionsOperationName.COMPLETE_FORGOT_PASSWORD,
+            .translate(subject),
+          text: this.translatesAsyncLocalStorageContext.get().translate(text, {
+            link,
+          }),
+          html: this.translatesAsyncLocalStorageContext.get().translate(html, {
+            link,
+          }),
+          operationName,
         });
       }
     }

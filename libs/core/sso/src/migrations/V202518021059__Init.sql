@@ -123,3 +123,41 @@ CREATE INDEX IF NOT EXISTS "IDX_SSO_REFRESH_SESSIONS__PROJECT_ID" ON "SsoRefresh
 
 CREATE INDEX IF NOT EXISTS "IDX_SSO_REFRESH_SESSIONS_USER_ID" ON "SsoRefreshSession"("userId", "projectId");
 
+CREATE TABLE IF NOT EXISTS "SsoEmailTemplate"(
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    "subject" text NOT NULL,
+    "subjectLocale" jsonb,
+    "text" text NOT NULL,
+    "textLocale" jsonb,
+    "html" text NOT NULL,
+    "htmlLocale" jsonb,
+    "operationName" varchar(128),
+    "projectId" uuid NOT NULL,
+    "createdAt" timestamp DEFAULT now() NOT NULL,
+    "updatedAt" timestamp DEFAULT now() NOT NULL
+);
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoEmailTemplate"
+        ADD CONSTRAINT "PK_SSO_EMAIL_TEMPLATES" PRIMARY KEY(id);
+EXCEPTION
+    WHEN invalid_table_definition THEN
+        NULL;
+END
+$$;
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoUser"
+        ADD CONSTRAINT "FK_SSO_EMAIL_TEMPLATES__PROJECT_ID" FOREIGN KEY("projectId") REFERENCES "SsoProject";
+EXCEPTION
+    WHEN duplicate_object THEN
+        NULL;
+END
+$$;
+
+CREATE INDEX IF NOT EXISTS "IDX_SSO_EMAIL_TEMPLATES__PROJECT_ID" ON "SsoEmailTemplate"("projectId");
+
+CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_EMAIL_TEMPLATES__OPERATION_NAME" ON "SsoEmailTemplate"("projectId", "operationName");
+

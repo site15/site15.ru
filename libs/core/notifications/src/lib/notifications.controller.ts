@@ -2,6 +2,11 @@ import { FindManyArgs } from '@nestjs-mod-sso/common';
 
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { ValidationError } from '@nestjs-mod-sso/validation';
+import {
+  CurrentWebhookUser,
+  WebhookService,
+  WebhookUser,
+} from '@nestjs-mod-sso/webhook';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,
@@ -14,7 +19,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
-  ApiExtraModels,
   ApiOkResponse,
   ApiTags,
   refs,
@@ -27,15 +31,8 @@ import { NOTIFICATIONS_FEATURE } from './notifications.constants';
 import { CurrentNotificationsExternalTenantId } from './notifications.decorators';
 import { NotificationsError } from './notifications.errors';
 import { FindManyNotificationResponse } from './types/find-many-notification-event-response';
-import { NotificationsEntities } from './types/notifications-entities';
-import {
-  CurrentWebhookUser,
-  WebhookService,
-  WebhookUser,
-} from '@nestjs-mod-sso/webhook';
 import { NotificationsWebhookEvent } from './types/notifications-webhooks';
 
-@ApiExtraModels(NotificationsError, NotificationsEntities, ValidationError)
 @ApiBadRequestResponse({
   schema: { allOf: refs(NotificationsError, ValidationError) },
 })
