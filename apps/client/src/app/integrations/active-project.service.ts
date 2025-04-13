@@ -61,7 +61,7 @@ export class ActiveProjectService {
               (p) =>
                 p.clientId ===
                 localStorage.getItem(AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY)
-            )
+            ) || projects.ssoPublicProjects[0]
           );
         }),
         untilDestroyed(this)
