@@ -46,6 +46,7 @@ import { SsoRequest } from '../types/sso-request';
 import { SsoWebhookEvent } from '../types/sso-webhooks';
 import { TokensResponse } from '../types/tokens.dto';
 import { UpdateProfileArgs } from '../types/update-profile.dto';
+import { OperationName } from '../sso.configuration';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
@@ -135,6 +136,7 @@ export class SsoController {
     const user = await this.ssoService.signUp({
       signUpArgs,
       projectId: ssoRequest.ssoProject.id,
+      operationName: OperationName.VERIFY_EMAIL,
     });
 
     await this.webhookService.sendEvent({

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { TranslocoService } from '@jsverse/transloco';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { catchError, concatMap, from, of } from 'rxjs';
+import { catchError, concatMap, from, map, of } from 'rxjs';
 import { AuthService } from './auth.service';
 
 export const AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY = 'authGuardCompleteData';
@@ -16,7 +16,7 @@ export type AfterCompleteSignUpOptions = {
 };
 
 export class AuthCompleteGuardData {
-  type?: 'complete-sign-up' | 'complete-forgot-password';
+  type?: 'complete-sign-up' | 'complete-forgot-password' | 'complete-invite';
 
   afterCompleteSignUp?: (
     options: AfterCompleteSignUpOptions
@@ -53,14 +53,17 @@ export class AuthCompleteGuardService implements CanActivate {
               code,
             })
             .pipe(
-              concatMap(async () => {
+              map(async () => {
                 this.nzMessageService.success(
                   this.translocoService.translate(
                     'Email address successfully verified'
                   )
                 );
+                return true;
+              }),
+              concatMap(async () => {
                 if (authCompleteGuardData.afterCompleteSignUp) {
-                  return await authCompleteGuardData.afterCompleteSignUp({
+                  await authCompleteGuardData.afterCompleteSignUp({
                     activatedRouteSnapshot: route,
                     authService: this.authService,
                     router: this.router,

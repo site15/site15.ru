@@ -2,7 +2,13 @@
   <div nz-col nzSpan="8">
     @if (projectId){
     {{ 'Users for project #{{projectId}}' | transloco:{projectId} }} } @else{
-    {{ 'Project users' | transloco }} }
+    <button
+      nz-button
+      nzType="primary"
+      (click)="showInviteMembersModal()"
+      transloco="Invite Members"
+    ></button>
+    }
   </div>
   <div nz-col nzSpan="8">
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">

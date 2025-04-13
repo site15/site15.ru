@@ -218,12 +218,15 @@
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password",
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email",
     "Restore forgotten password link": "Restore forgotten password link",
-    "Verify your email": "Verify your email"
+    "Verify your email": "Verify your email",
+    "Complete your registration using the invitation link": "Complete your registration using the invitation link",
+    "Please navigate by a {{{link}}} to complete your registration": "Please navigate by a {{{link}}} to complete your registration",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration"
   },
   "sso-angular": {
     "Users for project #{{projectId}}": "Users for project #{{projectId}}",
-    "Project users": "Project users",
     "input search text": "input search text",
+    "Invite Members": "Invite Members",
     "Action": "Action",
     "Edit": "Edit",
     "Sessions for user #{{userId}}": "Sessions for user #{{userId}}",
@@ -232,6 +235,7 @@
     "Email templates": "Email templates",
     "Save": "Save",
     "Create": "Create",
+    "Send invitation links": "Send invitation links",
     "sso-user.form.fields.app-data": "Additional data",
     "sso-user.form.fields.birthdate": "Birth date",
     "sso-user.form.fields.email": "Email",
@@ -261,9 +265,10 @@
     "sso-email-template.form.fields.subject-locale": "Subject ({{locale}})",
     "sso-email-template.form.fields.html-locale": "In html format ({{locale}})",
     "sso-email-template.form.fields.text-locale": "In text format ({{locale}})",
+    "sso-user.invite-members-modal.title": "Sending invitations",
+    "Cancel": "Cancel",
     "sso-user.update-modal.title": "Edit user #{{ id }}",
     "sso-user.create-modal.title": "Create user",
-    "Cancel": "Cancel",
     "sso-user.grid.columns.id": "ID",
     "sso-user.grid.columns.email": "Email",
     "sso-user.grid.columns.firstname": "First name",
@@ -299,6 +304,8 @@
     "sso-email-template.grid.columns.text": "Text",
     "Success": "Success",
     "id not set": "ID not set",
+    "sso-invite-members.form.fields.emails": "Emails",
+    "Project users": "Project users",
     "sso-project.form.fields.name": "Name",
     "sso-user.delete-modal.title": "Delete user #{{ id }}",
     "sso-user.grid.columns.app-data": "Additional data",
@@ -377,7 +384,10 @@
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password",
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email",
     "Restore forgotten password link": "Restore forgotten password link",
-    "Verify your email": "Verify your email"
+    "Verify your email": "Verify your email",
+    "Complete your registration using the invitation link": "Complete your registration using the invitation link",
+    "Please navigate by a {{{link}}} to complete your registration": "Please navigate by a {{{link}}} to complete your registration",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration"
   },
   "two-factor": {
     "Number of attempts of two factor code has been exhausted": "Number of attempts of two factor code has been exhausted",

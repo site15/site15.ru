@@ -218,12 +218,15 @@
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы установить новый пароль",
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы подтвердить вашу электронную почту",
     "Restore forgotten password link": "Ссылка для восстановления забытого пароля",
-    "Verify your email": "Подтверждение электронной почты"
+    "Verify your email": "Подтверждение электронной почты",
+    "Complete your registration using the invitation link": "Завершите регистрацию, перейдя по ссылке-приглашению",
+    "Please navigate by a {{{link}}} to complete your registration": "Пожалуйста, перейдите по {{{link}}}, чтобы завершить регистрацию",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Пожалуйста, перейдите по <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы завершить регистрацию"
   },
   "sso-angular": {
     "Users for project #{{projectId}}": "Пользователи проекта #{{projectId}}",
-    "Project users": "Пользователи проекта",
     "input search text": "введите текст поиска",
+    "Invite Members": "Пригласить пользователей",
     "Action": "Действия",
     "Edit": "Изменить",
     "Sessions for user #{{userId}}": "Сеансы пользователя #{{userId}}",
@@ -232,6 +235,7 @@
     "Email templates": "Шаблоны писем",
     "Save": "Сохранить",
     "Create": "Создать",
+    "Send invitation links": "Отправить ссылки-приглашения",
     "sso-user.form.fields.app-data": "Дополнительные данные",
     "sso-user.form.fields.birthdate": "День рождения",
     "sso-user.form.fields.email": "Почта",
@@ -261,9 +265,10 @@
     "sso-email-template.form.fields.subject-locale": "Тема ({{locale}})",
     "sso-email-template.form.fields.html-locale": "В виде HTML ({{locale}})",
     "sso-email-template.form.fields.text-locale": "В виде текста ({{locale}})",
+    "sso-user.invite-members-modal.title": "Отправка приглашений",
+    "Cancel": "Отмена",
     "sso-user.update-modal.title": "Изменить пользователя #{{ id }}",
     "sso-user.create-modal.title": "Создать пользователя",
-    "Cancel": "Отмена",
     "sso-user.grid.columns.id": "ИД.",
     "sso-user.grid.columns.email": "Почта",
     "sso-user.grid.columns.firstname": "Имя",
@@ -299,6 +304,8 @@
     "sso-email-template.grid.columns.text": "Текст",
     "Success": "Успешно",
     "id not set": "ИД. не установлен",
+    "sso-invite-members.form.fields.emails": "Адреса электронной почты",
+    "Project users": "Пользователи проекта",
     "sso-project.form.fields.name": "Название",
     "sso-user.delete-modal.title": "Удалить пользователя #{{ id }}",
     "sso-user.grid.columns.app-data": "Дополнительные данные",
@@ -377,7 +384,10 @@
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы установить новый пароль",
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы подтвердить вашу электронную почту",
     "Restore forgotten password link": "Ссылка для восстановления забытого пароля",
-    "Verify your email": "Подтверждение электронной почты"
+    "Verify your email": "Подтверждение электронной почты",
+    "Complete your registration using the invitation link": "Завершите регистрацию, перейдя по ссылке-приглашению",
+    "Please navigate by a {{{link}}} to complete your registration": "Пожалуйста, перейдите по {{{link}}}, чтобы завершить регистрацию",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Пожалуйста, перейдите по <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы завершить регистрацию"
   },
   "two-factor": {
     "Number of attempts of two factor code has been exhausted": "Количество попыток ввода двухфакторного кода исчерпано",

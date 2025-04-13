@@ -35,6 +35,7 @@ export * from './notifications-event-scalar-field-enum.interface';
 export * from './notifications-user.interface';
 export * from './notifications-user-scalar-field-enum.interface';
 export * from './refresh-tokens-response.interface';
+export * from './send-invitation-links-args.interface';
 export * from './sign-in-args.interface';
 export * from './sign-out-args.interface';
 export * from './sign-up-args.interface';

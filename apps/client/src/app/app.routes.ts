@@ -8,8 +8,10 @@ import {
   AuthCompleteGuardService,
   AuthGuardData,
   AuthGuardService,
+  OnActivateOptions,
 } from '@nestjs-mod-sso/auth-angular';
 import { CompleteForgotPasswordComponent } from './pages/complete-forgot-password/complete-forgot-password.component';
+import { CompleteInviteComponent } from './pages/complete-invite/complete-invite.component';
 import { CompleteSignUpComponent } from './pages/complete-sign-up/complete-sign-up.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -31,6 +33,13 @@ export const appRoutes: Route[] = [
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
         roles: [AuthRoleInterface.Manager],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
       }),
     },
   },
@@ -41,6 +50,13 @@ export const appRoutes: Route[] = [
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
         roles: [AuthRoleInterface.Manager],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
       }),
     },
   },
@@ -51,6 +67,13 @@ export const appRoutes: Route[] = [
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
         roles: [AuthRoleInterface.Manager],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
       }),
     },
   },
@@ -61,6 +84,13 @@ export const appRoutes: Route[] = [
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
         roles: [AuthRoleInterface.Admin],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
       }),
     },
   },
@@ -75,6 +105,13 @@ export const appRoutes: Route[] = [
           AuthRoleInterface.Manager,
           AuthRoleInterface.User,
         ],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
       }),
     },
   },
@@ -83,7 +120,16 @@ export const appRoutes: Route[] = [
     component: SignInComponent,
     canActivate: [AuthGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({ roles: [] }),
+      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+        roles: [],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
+      }),
     },
   },
   {
@@ -91,7 +137,16 @@ export const appRoutes: Route[] = [
     component: SignUpComponent,
     canActivate: [AuthGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({ roles: [] }),
+      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+        roles: [],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
+      }),
     },
   },
   {
@@ -130,16 +185,55 @@ export const appRoutes: Route[] = [
     component: ForgotPasswordComponent,
     canActivate: [AuthGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({ roles: [] }),
+      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+        roles: [],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
+      }),
     },
   },
   {
     path: 'complete-forgot-password',
     component: CompleteForgotPasswordComponent,
-    canActivate: [AuthCompleteGuardService],
+    canActivate: [AuthGuardService, AuthCompleteGuardService],
     data: {
+      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+        roles: [],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
+      }),
       [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
         type: 'complete-forgot-password',
+      }),
+    },
+  },
+  {
+    path: 'complete-invite',
+    component: CompleteInviteComponent,
+    canActivate: [AuthGuardService, AuthCompleteGuardService],
+    data: {
+      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+        roles: [],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/home']);
+            return false;
+          }
+          return true;
+        },
+      }),
+      [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
+        type: 'complete-invite',
       }),
     },
   },

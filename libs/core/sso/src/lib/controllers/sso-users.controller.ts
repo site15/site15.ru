@@ -1,14 +1,18 @@
 import { Prisma, PrismaClient } from '@prisma/sso-client';
 
+import { StatusResponse } from '@nestjs-mod-sso/common';
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { ValidationError } from '@nestjs-mod-sso/validation';
+import { WebhookService } from '@nestjs-mod-sso/webhook';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,
   Controller,
   Get,
+  Logger,
   Param,
   ParseUUIDPipe,
+  Post,
   Put,
   Query,
 } from '@nestjs/common';
@@ -19,16 +23,23 @@ import {
   refs,
 } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
+import { randomUUID } from 'crypto';
 import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 import { UpdateSsoUserDto } from '../generated/rest/dto/update-sso-user.dto';
 import { SsoCacheService } from '../services/sso-cache.service';
 import { SsoPasswordService } from '../services/sso-password.service';
+import { SsoService } from '../services/sso.service';
 import { SSO_FEATURE } from '../sso.constants';
 import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoUserArgs } from '../types/find-many-sso-user-args';
 import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
+import { SendInvitationLinksArgs } from '../types/send-invitation-links.dto';
 import { SsoRequest } from '../types/sso-request';
+import { SsoWebhookEvent } from '../types/sso-webhooks';
+import { omit } from 'lodash/fp';
+import { SsoEventsService } from '../services/sso-events.service';
+import { OperationName } from '../sso.configuration';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
@@ -36,12 +47,17 @@ import { SsoRequest } from '../types/sso-request';
 @ApiTags('Sso')
 @Controller('/sso/users')
 export class SsoUsersController {
+  private readonly logger = new Logger(SsoUsersController.name);
+
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoPasswordService: SsoPasswordService,
-    private readonly ssoCacheService: SsoCacheService
+    private readonly ssoCacheService: SsoCacheService,
+    private readonly ssoService: SsoService,
+    private readonly webhookService: WebhookService,
+    private readonly ssoEventsService: SsoEventsService
   ) {}
 
   @Get()
@@ -180,6 +196,43 @@ export class SsoUsersController {
     await this.ssoCacheService.clearCacheByUserId({ userId: id });
 
     return result;
+  }
+
+  @Post('send-invitation-links')
+  @ApiOkResponse({ type: StatusResponse })
+  async sendInvitationLinks(
+    @CurrentSsoRequest() ssoRequest: SsoRequest,
+    @Body() args: SendInvitationLinksArgs
+  ) {
+    const emails = args.emails.split(',').map((e) => e.trim());
+    for (const email of emails) {
+      const signUpArgs = {
+        fingerprint: '',
+        confirmPassword: '',
+        password: randomUUID(),
+        email,
+      };
+      const user = await this.ssoService.signUp({
+        signUpArgs,
+        projectId: ssoRequest.ssoProject.id,
+        operationName:
+          OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
+      });
+
+      await this.webhookService.sendEvent({
+        eventName: SsoWebhookEvent['sso.sign-up'],
+        eventBody: omit(['password'], user),
+        eventHeaders: { projectId: ssoRequest.ssoProject.id },
+      });
+
+      if (user.emailVerifiedAt !== null) {
+        await this.ssoEventsService.send({
+          SignUp: { signUpArgs: signUpArgs },
+          userId: user.id,
+        });
+      }
+    }
+    return { message: 'ok' };
   }
 
   @Get(':id')

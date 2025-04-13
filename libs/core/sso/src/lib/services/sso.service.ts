@@ -4,10 +4,9 @@ import { PrismaClient, SsoUser } from '@prisma/sso-client';
 import ms from 'ms';
 import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
 import {
+  OperationName,
   SsoConfiguration,
   SsoSendNotificationOptions,
-  SsoSendNotificationOptionsOperationName,
-  SsoTwoFactorCodeOptionsOperationName,
 } from '../sso.configuration';
 import { DEFAULT_EMAIL_TEMPLATE_BY_NAMES, SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
@@ -58,9 +57,11 @@ export class SsoService {
   async signUp({
     signUpArgs,
     projectId,
+    operationName,
   }: {
     signUpArgs: SignUpArgs;
     projectId: string;
+    operationName: OperationName;
   }) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { fingerprint, confirmPassword, ...data } = signUpArgs;
@@ -78,32 +79,14 @@ export class SsoService {
     });
 
     if (this.ssoConfiguration.twoFactorCodeGenerate) {
-      const { operationName, subject, text, html } =
-        await this.getSendNotificationOptions(
-          SsoSendNotificationOptionsOperationName.VERIFY_EMAIL,
-          projectId
-        );
-
-      const code = await this.ssoConfiguration.twoFactorCodeGenerate({
-        user,
-        operationName: SsoTwoFactorCodeOptionsOperationName.VERIFY_EMAIL,
-      });
-
-      const link = signUpArgs.redirectUri
-        ? `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}&redirect_uri=${signUpArgs.redirectUri}`
-        : `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}`;
-      const sendNotificationOptions: SsoSendNotificationOptions = {
-        recipientUsers: [user],
-        subject: this.translatesAsyncLocalStorageContext
-          .get()
-          .translate(subject),
-        text: this.translatesAsyncLocalStorageContext.get().translate(text),
-        html: this.translatesAsyncLocalStorageContext.get().translate(html, {
-          link,
-        }),
-        operationName,
-        projectId,
-      };
+      const sendNotificationOptions: SsoSendNotificationOptions =
+        operationName === OperationName.VERIFY_EMAIL
+          ? await this.getCompleteSignUpOptions({ projectId, user, signUpArgs })
+          : await this.getCompleteRegistrationUsingTheInvitationLinkOptions({
+              projectId,
+              user,
+              signUpArgs,
+            });
 
       if (this.ssoConfiguration.sendNotification) {
         const result = await this.ssoConfiguration.sendNotification(
@@ -129,8 +112,85 @@ export class SsoService {
     return user;
   }
 
+  private async getCompleteSignUpOptions({
+    projectId,
+    user,
+    signUpArgs,
+  }: {
+    projectId: string;
+    user: SsoUser;
+    signUpArgs: SignUpArgs;
+  }) {
+    const { operationName, subject, text, html } =
+      await this.getSendNotificationOptions(
+        OperationName.VERIFY_EMAIL,
+        projectId
+      );
+
+    const code = this.ssoConfiguration.twoFactorCodeGenerate
+      ? await this.ssoConfiguration.twoFactorCodeGenerate({
+          user,
+          operationName: OperationName.VERIFY_EMAIL,
+        })
+      : 'undefined';
+
+    const link = signUpArgs.redirectUri
+      ? `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}&redirect_uri=${signUpArgs.redirectUri}`
+      : `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}`;
+    const sendNotificationOptions: SsoSendNotificationOptions = {
+      recipientUsers: [user],
+      subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
+      text: this.translatesAsyncLocalStorageContext.get().translate(text),
+      html: this.translatesAsyncLocalStorageContext.get().translate(html, {
+        link,
+      }),
+      operationName,
+      projectId,
+    };
+    return sendNotificationOptions;
+  }
+
+  private async getCompleteRegistrationUsingTheInvitationLinkOptions({
+    projectId,
+    user,
+    signUpArgs,
+  }: {
+    projectId: string;
+    user: SsoUser;
+    signUpArgs: SignUpArgs;
+  }) {
+    const { operationName, subject, text, html } =
+      await this.getSendNotificationOptions(
+        OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
+        projectId
+      );
+
+    const code = this.ssoConfiguration.twoFactorCodeGenerate
+      ? await this.ssoConfiguration.twoFactorCodeGenerate({
+          user,
+          operationName:
+            OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
+        })
+      : 'undefined';
+
+    const link = signUpArgs.redirectUri
+      ? `${this.ssoStaticEnvironments.serverUrl}/complete-invite?code=${code}&redirect_uri=${signUpArgs.redirectUri}`
+      : `${this.ssoStaticEnvironments.serverUrl}/complete-invite?code=${code}`;
+    const sendNotificationOptions: SsoSendNotificationOptions = {
+      recipientUsers: [user],
+      subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
+      text: this.translatesAsyncLocalStorageContext.get().translate(text),
+      html: this.translatesAsyncLocalStorageContext.get().translate(html, {
+        link,
+      }),
+      operationName,
+      projectId,
+    };
+    return sendNotificationOptions;
+  }
+
   private async getSendNotificationOptions(
-    operationName: SsoSendNotificationOptionsOperationName,
+    operationName: OperationName,
     projectId: string
   ) {
     const defaultLocale =
@@ -174,7 +234,7 @@ export class SsoService {
       ? await this.ssoConfiguration.twoFactorCodeValidate({
           code,
           projectId,
-          operationName: SsoTwoFactorCodeOptionsOperationName.VERIFY_EMAIL,
+          operationName: OperationName.VERIFY_EMAIL,
         })
       : null;
 
@@ -218,15 +278,14 @@ export class SsoService {
     if (this.ssoConfiguration.twoFactorCodeGenerate) {
       const { operationName, subject, text, html } =
         await this.getSendNotificationOptions(
-          SsoSendNotificationOptionsOperationName.COMPLETE_FORGOT_PASSWORD,
+          OperationName.COMPLETE_FORGOT_PASSWORD,
           projectId
         );
 
       const code = await this.ssoConfiguration.twoFactorCodeGenerate({
         ...ssoRequest,
         user,
-        operationName:
-          SsoTwoFactorCodeOptionsOperationName.COMPLETE_FORGOT_PASSWORD,
+        operationName: OperationName.COMPLETE_FORGOT_PASSWORD,
       });
 
       const link = forgotPasswordArgs.redirectUri
@@ -265,8 +324,7 @@ export class SsoService {
       const result = await this.ssoConfiguration.twoFactorCodeValidate({
         code: completeForgotPasswordArgs.code,
         projectId,
-        operationName:
-          SsoTwoFactorCodeOptionsOperationName.COMPLETE_FORGOT_PASSWORD,
+        operationName: OperationName.COMPLETE_FORGOT_PASSWORD,
       });
       return this.ssoUsersService.changePassword({
         id: result.userId,

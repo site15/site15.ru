@@ -1049,6 +1049,19 @@ export interface RefreshTokensResponse {
 /**
  * 
  * @export
+ * @interface SendInvitationLinksArgs
+ */
+export interface SendInvitationLinksArgs {
+    /**
+     * 
+     * @type {string}
+     * @memberof SendInvitationLinksArgs
+     */
+    'emails': string;
+}
+/**
+ * 
+ * @export
  * @interface SignInArgs
  */
 export interface SignInArgs {
@@ -4547,6 +4560,41 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
+         * @param {SendInvitationLinksArgs} sendInvitationLinksArgs 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoUsersControllerSendInvitationLinks: async (sendInvitationLinksArgs: SendInvitationLinksArgs, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'sendInvitationLinksArgs' is not null or undefined
+            assertParamExists('ssoUsersControllerSendInvitationLinks', 'sendInvitationLinksArgs', sendInvitationLinksArgs)
+            const localVarPath = `/api/sso/users/send-invitation-links`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(sendInvitationLinksArgs, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {UpdateSsoUserDto} updateSsoUserDto 
          * @param {*} [options] Override http request option.
@@ -4902,6 +4950,18 @@ export const SsoApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {SendInvitationLinksArgs} sendInvitationLinksArgs 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoUsersControllerSendInvitationLinks(sendInvitationLinksArgs: SendInvitationLinksArgs, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoUsersControllerSendInvitationLinks(sendInvitationLinksArgs, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoUsersControllerSendInvitationLinks']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {UpdateSsoUserDto} updateSsoUserDto 
          * @param {*} [options] Override http request option.
@@ -5156,6 +5216,15 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
          */
         ssoUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<SsoUserDto> {
             return localVarFp.ssoUsersControllerFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {SendInvitationLinksArgs} sendInvitationLinksArgs 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoUsersControllerSendInvitationLinks(sendInvitationLinksArgs: SendInvitationLinksArgs, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.ssoUsersControllerSendInvitationLinks(sendInvitationLinksArgs, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5457,6 +5526,17 @@ export class SsoApi extends BaseAPI {
      */
     public ssoUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
         return SsoApiFp(this.configuration).ssoUsersControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {SendInvitationLinksArgs} sendInvitationLinksArgs 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoUsersControllerSendInvitationLinks(sendInvitationLinksArgs: SendInvitationLinksArgs, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoUsersControllerSendInvitationLinks(sendInvitationLinksArgs, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

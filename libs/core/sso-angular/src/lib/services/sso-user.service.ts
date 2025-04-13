@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  SendInvitationLinksArgsInterface,
   SsoRestService,
   UpdateSsoUserDtoInterface,
 } from '@nestjs-mod-sso/app-angular-rest-sdk';
@@ -51,5 +52,9 @@ export class SsoUserService {
     return this.ssoRestService
       .ssoUsersControllerUpdateOne(id, data)
       .pipe(map((p) => this.ssoUserMapperService.toModel(p)));
+  }
+
+  sendInvitationLinks(data: SendInvitationLinksArgsInterface) {
+    return this.ssoRestService.ssoUsersControllerSendInvitationLinks(data);
   }
 }

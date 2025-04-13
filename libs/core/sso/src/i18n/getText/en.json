@@ -31,5 +31,8 @@
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password",
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email",
     "Restore forgotten password link": "Restore forgotten password link",
-    "Verify your email": "Verify your email"
+    "Verify your email": "Verify your email",
+    "Complete your registration using the invitation link": "Complete your registration using the invitation link",
+    "Please navigate by a {{{link}}} to complete your registration": "Please navigate by a {{{link}}} to complete your registration",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration"
 }

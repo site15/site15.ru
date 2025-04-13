@@ -31,5 +31,8 @@
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to set new password": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы установить новый пароль",
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to verify your email": "Пожалуйста, перейдите по ссылке <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы подтвердить вашу электронную почту",
     "Restore forgotten password link": "Ссылка для восстановления забытого пароля",
-    "Verify your email": "Подтверждение электронной почты"
+    "Verify your email": "Подтверждение электронной почты",
+    "Complete your registration using the invitation link": "Завершите регистрацию, перейдя по ссылке-приглашению",
+    "Please navigate by a {{{link}}} to complete your registration": "Пожалуйста, перейдите по {{{link}}}, чтобы завершить регистрацию",
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Пожалуйста, перейдите по <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы завершить регистрацию"
 }

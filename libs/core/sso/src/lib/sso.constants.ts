@@ -1,5 +1,5 @@
 import { getText } from 'nestjs-translates';
-import { SsoSendNotificationOptionsOperationName } from './sso.configuration';
+import { OperationName } from './sso.configuration';
 
 export const SSO_FEATURE = 'sso';
 export const SSO_MODULE = 'SsoModule';
@@ -12,7 +12,7 @@ export const DEFAULT_EMAIL_TEMPLATES = [
     html: getText(
       'Please navigate by a <a href="{{{link}}}">{{{link}}}</a> to verify your email'
     ),
-    operationName: SsoSendNotificationOptionsOperationName.VERIFY_EMAIL,
+    operationName: OperationName.VERIFY_EMAIL,
   },
   {
     subject: getText('Restore forgotten password link'),
@@ -20,14 +20,24 @@ export const DEFAULT_EMAIL_TEMPLATES = [
     html: getText(
       'Please navigate by a <a href="{{{link}}}">{{{link}}}</a> to set new password'
     ),
+    operationName: OperationName.COMPLETE_FORGOT_PASSWORD,
+  },
+  {
+    subject: getText('Complete your registration using the invitation link'),
+    text: getText(
+      'Please navigate by a {{{link}}} to complete your registration'
+    ),
+    html: getText(
+      'Please navigate by a <a href="{{{link}}}">{{{link}}}</a> to complete your registration'
+    ),
     operationName:
-      SsoSendNotificationOptionsOperationName.COMPLETE_FORGOT_PASSWORD,
+      OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
   },
 ];
 
 export const DEFAULT_EMAIL_TEMPLATE_BY_NAMES = {
-  [SsoSendNotificationOptionsOperationName.VERIFY_EMAIL]:
-    DEFAULT_EMAIL_TEMPLATES[0],
-  [SsoSendNotificationOptionsOperationName.COMPLETE_FORGOT_PASSWORD]:
-    DEFAULT_EMAIL_TEMPLATES[1],
+  [OperationName.VERIFY_EMAIL]: DEFAULT_EMAIL_TEMPLATES[0],
+  [OperationName.COMPLETE_FORGOT_PASSWORD]: DEFAULT_EMAIL_TEMPLATES[1],
+  [OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK]:
+    DEFAULT_EMAIL_TEMPLATES[2],
 };

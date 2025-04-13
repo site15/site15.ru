@@ -116,3 +116,16 @@ msgstr "Restore forgotten password link"
 
 msgid "Verify your email"
 msgstr "Verify your email"
+
+msgid "Complete your registration using the invitation link"
+msgstr "Complete your registration using the invitation link"
+
+msgid "Please navigate by a {{{link}}} to complete your registration"
+msgstr "Please navigate by a {{{link}}} to complete your registration"
+
+msgid ""
+"Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your "
+"registration"
+msgstr ""
+"Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your "
+"registration"

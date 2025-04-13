@@ -50,6 +50,7 @@ export * from './lib/model/notifications-event.interface';
 export * from './lib/model/notifications-user-scalar-field-enum.interface';
 export * from './lib/model/notifications-user.interface';
 export * from './lib/model/refresh-tokens-response.interface';
+export * from './lib/model/send-invitation-links-args.interface';
 export * from './lib/model/sign-in-args.interface';
 export * from './lib/model/sign-out-args.interface';
 export * from './lib/model/sign-up-args.interface';

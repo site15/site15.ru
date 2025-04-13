@@ -15,7 +15,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { ValidationService } from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -44,7 +44,7 @@ import {
     ReactiveFormsModule,
     AsyncPipe,
     RouterModule,
-    TranslocoDirective,
+    TranslocoPipe,
   ],
   selector: 'auth-complete-forgot-password-form',
   templateUrl: './auth-complete-forgot-password-form.component.html',
@@ -53,6 +53,8 @@ import {
 export class AuthCompleteForgotPasswordFormComponent implements OnInit {
   @Input()
   hideButtons?: boolean;
+  @Input()
+  submitButtonTitle?: string;
 
   @Input({ required: true })
   code!: string;

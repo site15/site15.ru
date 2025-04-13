@@ -68,6 +68,7 @@ export * from './lib/types/find-many-sso-user-args';
 export * from './lib/types/find-many-sso-user-response';
 export * from './lib/types/forgot-password.dto';
 export * from './lib/types/refresh-tokens.dto';
+export * from './lib/types/send-invitation-links.dto';
 export * from './lib/types/sign-in.dto';
 export * from './lib/types/sign-out.dto';
 export * from './lib/types/sign-up.dto';

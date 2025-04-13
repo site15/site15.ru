@@ -123,3 +123,16 @@ msgstr "Ссылка для восстановления забытого пар
 
 msgid "Verify your email"
 msgstr "Подтверждение электронной почты"
+
+msgid "Complete your registration using the invitation link"
+msgstr "Завершите регистрацию, перейдя по ссылке-приглашению"
+
+msgid "Please navigate by a {{{link}}} to complete your registration"
+msgstr "Пожалуйста, перейдите по {{{link}}}, чтобы завершить регистрацию"
+
+msgid ""
+"Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your "
+"registration"
+msgstr ""
+"Пожалуйста, перейдите по <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы "
+"завершить регистрацию"

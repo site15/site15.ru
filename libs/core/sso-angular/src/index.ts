@@ -1,4 +1,5 @@
 export * from './lib/forms/sso-email-template-form/sso-email-template-form.component';
+export * from './lib/forms/sso-invite-members-form/sso-invite-members-form.component';
 export * from './lib/forms/sso-project-form/sso-project-form.component';
 export * from './lib/forms/sso-session-form/sso-session-form.component';
 export * from './lib/forms/sso-user-form/sso-user-form.component';

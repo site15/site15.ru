@@ -9,11 +9,11 @@ msgstr ""
 msgid "Users for project #{{projectId}}"
 msgstr "Users for project #{{projectId}}"
 
-msgid "Project users"
-msgstr "Project users"
-
 msgid "input search text"
 msgstr "input search text"
+
+msgid "Invite Members"
+msgstr "Invite Members"
 
 msgid "Action"
 msgstr "Action"
@@ -38,6 +38,9 @@ msgstr "Save"
 
 msgid "Create"
 msgstr "Create"
+
+msgid "Send invitation links"
+msgstr "Send invitation links"
 
 msgid "sso-user.form.fields.app-data"
 msgstr "Additional data"
@@ -126,14 +129,17 @@ msgstr "In html format ({{locale}})"
 msgid "sso-email-template.form.fields.text-locale"
 msgstr "In text format ({{locale}})"
 
+msgid "sso-user.invite-members-modal.title"
+msgstr "Sending invitations"
+
+msgid "Cancel"
+msgstr "Cancel"
+
 msgid "sso-user.update-modal.title"
 msgstr "Edit user #{{ id }}"
 
 msgid "sso-user.create-modal.title"
 msgstr "Create user"
-
-msgid "Cancel"
-msgstr "Cancel"
 
 msgid "sso-user.grid.columns.id"
 msgstr "ID"
@@ -239,6 +245,12 @@ msgstr "Success"
 
 msgid "id not set"
 msgstr "ID not set"
+
+msgid "sso-invite-members.form.fields.emails"
+msgstr "Emails"
+
+msgid "Project users"
+msgstr "Project users"
 
 msgid "sso-project.form.fields.name"
 msgstr "Name"

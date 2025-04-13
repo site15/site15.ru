@@ -39,6 +39,7 @@ import {
   NzTableSortOrderDetectorPipe,
   RequestMeta,
 } from '@nestjs-mod-sso/common-angular';
+import { SsoInviteMembersFormComponent } from '../../forms/sso-invite-members-form/sso-invite-members-form.component';
 import { SsoUserFormComponent } from '../../forms/sso-user-form/sso-user-form.component';
 import { SsoUserModel } from '../../services/sso-user-mapper.service';
 import { SsoUserService } from '../../services/sso-user.service';
@@ -155,6 +156,47 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
         untilDestroyed(this)
       )
       .subscribe();
+  }
+
+  showInviteMembersModal(): void {
+    const modal = this.nzModalService.create<
+      SsoInviteMembersFormComponent,
+      SsoInviteMembersFormComponent
+    >({
+      nzTitle: this.translocoService.translate(
+        'sso-user.invite-members-modal.title'
+      ),
+      nzContent: SsoInviteMembersFormComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzData: {
+        hideButtons: true,
+      } as SsoInviteMembersFormComponent,
+      nzFooter: [
+        {
+          label: this.translocoService.translate('Cancel'),
+          onClick: () => {
+            modal.close();
+          },
+        },
+        {
+          label: this.translocoService.translate('Send invitation links'),
+          onClick: () => {
+            modal.componentInstance?.afterSendInvitationLinks
+              .pipe(
+                tap(() => {
+                  modal.close();
+                  this.loadMany({ force: true });
+                }),
+                untilDestroyed(modal.componentInstance)
+              )
+              .subscribe();
+
+            modal.componentInstance?.submitForm();
+          },
+          type: 'primary',
+        },
+      ],
+    });
   }
 
   ngOnChanges(changes: NgChanges<SsoUserGridComponent>): void {
