@@ -8,7 +8,6 @@ export * from './lib/webhook.filter';
 export * from './lib/webhook.guard';
 export * from './lib/webhook.module';
 export * from './lib/controllers/webhook-logs.controller';
-export * from './lib/controllers/webhook-users.controller';
 export * from './lib/controllers/webhook.controller';
 export * from './lib/generated/rest/dto/connect-migrations-webhook.dto';
 export * from './lib/generated/rest/dto/connect-webhook-log.dto';

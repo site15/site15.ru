@@ -95,7 +95,7 @@ export class SsoGuard implements CanActivate {
         throw new SsoError(SsoErrorEnum.Forbidden);
       }
 
-      if (!req.ssoUser && !req.skipEmptySsoUser) {
+      if (!req.ssoIsAdmin && !req.ssoUser && !req.skipEmptySsoUser) {
         throw new SsoError(SsoErrorEnum.Forbidden);
       }
       return true;

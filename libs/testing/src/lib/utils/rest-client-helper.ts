@@ -256,12 +256,12 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       const { data: findManyResult } = await this.projectHelper
         .getSsoApi()
         .ssoUsersControllerFindMany(
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          this.project.id || process.env['SERVER_SSO_DEFAULT_CLIENT_ID']!,
           undefined,
           undefined,
           this.randomUser.email,
           undefined,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          this.project.id || process.env['SERVER_SSO_DEFAULT_CLIENT_ID']!,
           {
             headers: {
               'x-admin-secret': process.env['SERVER_SSO_ADMIN_SECRET'],

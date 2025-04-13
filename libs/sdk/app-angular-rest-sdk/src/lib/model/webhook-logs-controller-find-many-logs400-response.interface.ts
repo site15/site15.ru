@@ -11,7 +11,7 @@ import { ValidationErrorMetadataInterface } from './validation-error-metadata.in
 import { ValidationErrorEnumInterface } from './validation-error-enum.interface';
 
 
-export interface WebhookUsersControllerFindMany400ResponseInterface { 
+export interface WebhookLogsControllerFindManyLogs400ResponseInterface { 
     /**
      * Validation error (VALIDATION-000)
      */
@@ -19,7 +19,7 @@ export interface WebhookUsersControllerFindMany400ResponseInterface {
     code: ValidationErrorEnumInterface;
     metadata?: Array<ValidationErrorMetadataInterface>;
 }
-export namespace WebhookUsersControllerFindMany400ResponseInterface {
+export namespace WebhookLogsControllerFindManyLogs400ResponseInterface {
 }
 
 

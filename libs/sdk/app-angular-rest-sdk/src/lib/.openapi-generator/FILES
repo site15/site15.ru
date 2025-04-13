@@ -21,7 +21,6 @@ model/auth-error.interface.ts
 model/auth-profile-dto.interface.ts
 model/auth-role.interface.ts
 model/auth-user-scalar-field-enum.interface.ts
-model/auth-user.interface.ts
 model/complete-forgot-password-args.interface.ts
 model/complete-sign-up-args.interface.ts
 model/create-sso-project-dto.interface.ts
@@ -29,7 +28,6 @@ model/create-webhook-dto.interface.ts
 model/files-error-enum.interface.ts
 model/files-error.interface.ts
 model/files-presigned-urls.interface.ts
-model/find-many-auth-user-response.interface.ts
 model/find-many-notification-response.interface.ts
 model/find-many-response-meta.interface.ts
 model/find-many-sso-email-template-response.interface.ts
@@ -40,7 +38,6 @@ model/find-many-sso-role-response.interface.ts
 model/find-many-sso-user-response.interface.ts
 model/find-many-webhook-log-response.interface.ts
 model/find-many-webhook-response.interface.ts
-model/find-many-webhook-user-response.interface.ts
 model/forgot-password-args.interface.ts
 model/models.ts
 model/notifications-controller-find-many400-response.interface.ts
@@ -79,7 +76,6 @@ model/terminus-health-check-controller-check200-response-info-value.interface.ts
 model/terminus-health-check-controller-check200-response.interface.ts
 model/terminus-health-check-controller-check503-response.interface.ts
 model/tokens-response.interface.ts
-model/update-auth-user-dto.interface.ts
 model/update-notifications-event-dto.interface.ts
 model/update-profile-args.interface.ts
 model/update-sso-email-template-dto.interface.ts
@@ -87,7 +83,6 @@ model/update-sso-project-dto.interface.ts
 model/update-sso-refresh-session-dto.interface.ts
 model/update-sso-user-dto.interface.ts
 model/update-webhook-dto.interface.ts
-model/update-webhook-user-dto.interface.ts
 model/validation-error-enum.interface.ts
 model/validation-error-metadata-constraint.interface.ts
 model/validation-error-metadata.interface.ts
@@ -98,13 +93,13 @@ model/webhook-error.interface.ts
 model/webhook-event.interface.ts
 model/webhook-log-scalar-field-enum.interface.ts
 model/webhook-log.interface.ts
+model/webhook-logs-controller-find-many-logs400-response.interface.ts
 model/webhook-role.interface.ts
 model/webhook-scalar-field-enum.interface.ts
 model/webhook-status.interface.ts
 model/webhook-test-request-response.interface.ts
 model/webhook-user-scalar-field-enum.interface.ts
 model/webhook-user.interface.ts
-model/webhook-users-controller-find-many400-response.interface.ts
 model/webhook.interface.ts
 param.ts
 variables.ts

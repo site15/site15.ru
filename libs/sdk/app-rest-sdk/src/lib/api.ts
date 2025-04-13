@@ -152,57 +152,6 @@ export type AuthRole = typeof AuthRole[keyof typeof AuthRole];
 /**
  * 
  * @export
- * @interface AuthUser
- */
-export interface AuthUser {
-    /**
-     * 
-     * @type {string}
-     * @memberof AuthUser
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AuthUser
-     */
-    'externalUserId': string;
-    /**
-     * 
-     * @type {AuthRole}
-     * @memberof AuthUser
-     */
-    'userRole': AuthRole;
-    /**
-     * 
-     * @type {number}
-     * @memberof AuthUser
-     */
-    'timezone': number | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof AuthUser
-     */
-    'createdAt': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AuthUser
-     */
-    'updatedAt': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AuthUser
-     */
-    'lang': string | null;
-}
-
-
-/**
- * 
- * @export
  * @enum {string}
  */
 
@@ -412,25 +361,6 @@ export interface FilesPresignedUrls {
 /**
  * 
  * @export
- * @interface FindManyAuthUserResponse
- */
-export interface FindManyAuthUserResponse {
-    /**
-     * 
-     * @type {Array<AuthUser>}
-     * @memberof FindManyAuthUserResponse
-     */
-    'authUsers': Array<AuthUser>;
-    /**
-     * 
-     * @type {FindManyResponseMeta}
-     * @memberof FindManyAuthUserResponse
-     */
-    'meta': FindManyResponseMeta;
-}
-/**
- * 
- * @export
  * @interface FindManyNotificationResponse
  */
 export interface FindManyNotificationResponse {
@@ -627,25 +557,6 @@ export interface FindManyWebhookResponse {
      * 
      * @type {FindManyResponseMeta}
      * @memberof FindManyWebhookResponse
-     */
-    'meta': FindManyResponseMeta;
-}
-/**
- * 
- * @export
- * @interface FindManyWebhookUserResponse
- */
-export interface FindManyWebhookUserResponse {
-    /**
-     * 
-     * @type {Array<WebhookUser>}
-     * @memberof FindManyWebhookUserResponse
-     */
-    'webhookUsers': Array<WebhookUser>;
-    /**
-     * 
-     * @type {FindManyResponseMeta}
-     * @memberof FindManyWebhookUserResponse
      */
     'meta': FindManyResponseMeta;
 }
@@ -2144,39 +2055,6 @@ export interface TokensResponse {
 /**
  * 
  * @export
- * @interface UpdateAuthUserDto
- */
-export interface UpdateAuthUserDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateAuthUserDto
-     */
-    'externalUserId'?: string;
-    /**
-     * 
-     * @type {AuthRole}
-     * @memberof UpdateAuthUserDto
-     */
-    'userRole'?: AuthRole;
-    /**
-     * 
-     * @type {number}
-     * @memberof UpdateAuthUserDto
-     */
-    'timezone'?: number | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateAuthUserDto
-     */
-    'lang'?: string | null;
-}
-
-
-/**
- * 
- * @export
  * @interface UpdateNotificationsEventDto
  */
 export interface UpdateNotificationsEventDto {
@@ -2586,33 +2464,6 @@ export interface UpdateWebhookDto {
 /**
  * 
  * @export
- * @interface UpdateWebhookUserDto
- */
-export interface UpdateWebhookUserDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateWebhookUserDto
-     */
-    'externalTenantId'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateWebhookUserDto
-     */
-    'externalUserId'?: string;
-    /**
-     * 
-     * @type {WebhookRole}
-     * @memberof UpdateWebhookUserDto
-     */
-    'userRole'?: WebhookRole;
-}
-
-
-/**
- * 
- * @export
  * @interface ValidationError
  */
 export interface ValidationError {
@@ -2981,6 +2832,33 @@ export type WebhookLogScalarFieldEnum = typeof WebhookLogScalarFieldEnum[keyof t
 /**
  * 
  * @export
+ * @interface WebhookLogsControllerFindManyLogs400Response
+ */
+export interface WebhookLogsControllerFindManyLogs400Response {
+    /**
+     * Validation error (VALIDATION-000)
+     * @type {string}
+     * @memberof WebhookLogsControllerFindManyLogs400Response
+     */
+    'message': string;
+    /**
+     * 
+     * @type {ValidationErrorEnum}
+     * @memberof WebhookLogsControllerFindManyLogs400Response
+     */
+    'code': ValidationErrorEnum;
+    /**
+     * 
+     * @type {Array<ValidationErrorMetadata>}
+     * @memberof WebhookLogsControllerFindManyLogs400Response
+     */
+    'metadata'?: Array<ValidationErrorMetadata>;
+}
+
+
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
@@ -3141,33 +3019,6 @@ export const WebhookUserScalarFieldEnum = {
 export type WebhookUserScalarFieldEnum = typeof WebhookUserScalarFieldEnum[keyof typeof WebhookUserScalarFieldEnum];
 
 
-/**
- * 
- * @export
- * @interface WebhookUsersControllerFindMany400Response
- */
-export interface WebhookUsersControllerFindMany400Response {
-    /**
-     * Validation error (VALIDATION-000)
-     * @type {string}
-     * @memberof WebhookUsersControllerFindMany400Response
-     */
-    'message': string;
-    /**
-     * 
-     * @type {ValidationErrorEnum}
-     * @memberof WebhookUsersControllerFindMany400Response
-     */
-    'code': ValidationErrorEnum;
-    /**
-     * 
-     * @type {Array<ValidationErrorMetadata>}
-     * @memberof WebhookUsersControllerFindMany400Response
-     */
-    'metadata'?: Array<ValidationErrorMetadata>;
-}
-
-
 
 /**
  * AuthApi - axios parameter creator
@@ -3239,160 +3090,6 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authUsersControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('authUsersControllerDeleteOne', 'id', id)
-            const localVarPath = `/api/auth/users/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} [curPage] 
-         * @param {number} [perPage] 
-         * @param {string} [searchText] 
-         * @param {string} [sort] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authUsersControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/auth/users`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (curPage !== undefined) {
-                localVarQueryParameter['curPage'] = curPage;
-            }
-
-            if (perPage !== undefined) {
-                localVarQueryParameter['perPage'] = perPage;
-            }
-
-            if (searchText !== undefined) {
-                localVarQueryParameter['searchText'] = searchText;
-            }
-
-            if (sort !== undefined) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authUsersControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('authUsersControllerFindOne', 'id', id)
-            const localVarPath = `/api/auth/users/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateAuthUserDto} updateAuthUserDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authUsersControllerUpdateOne: async (id: string, updateAuthUserDto: UpdateAuthUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('authUsersControllerUpdateOne', 'id', id)
-            // verify required parameter 'updateAuthUserDto' is not null or undefined
-            assertParamExists('authUsersControllerUpdateOne', 'updateAuthUserDto', updateAuthUserDto)
-            const localVarPath = `/api/auth/users/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateAuthUserDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -3426,58 +3123,6 @@ export const AuthApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authControllerUpdateProfile']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authUsersControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authUsersControllerDeleteOne(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthApi.authUsersControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {number} [curPage] 
-         * @param {number} [perPage] 
-         * @param {string} [searchText] 
-         * @param {string} [sort] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyAuthUserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authUsersControllerFindMany(curPage, perPage, searchText, sort, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthApi.authUsersControllerFindMany']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authUsersControllerFindOne(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthApi.authUsersControllerFindOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateAuthUserDto} updateAuthUserDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authUsersControllerUpdateOne(id: string, updateAuthUserDto: UpdateAuthUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authUsersControllerUpdateOne(id, updateAuthUserDto, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthApi.authUsersControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
     }
 };
 
@@ -3504,46 +3149,6 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          */
         authControllerUpdateProfile(authProfileDto: AuthProfileDto, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
             return localVarFp.authControllerUpdateProfile(authProfileDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authUsersControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
-            return localVarFp.authUsersControllerDeleteOne(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} [curPage] 
-         * @param {number} [perPage] 
-         * @param {string} [searchText] 
-         * @param {string} [sort] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyAuthUserResponse> {
-            return localVarFp.authUsersControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<AuthUser> {
-            return localVarFp.authUsersControllerFindOne(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateAuthUserDto} updateAuthUserDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authUsersControllerUpdateOne(id: string, updateAuthUserDto: UpdateAuthUserDto, options?: RawAxiosRequestConfig): AxiosPromise<AuthUser> {
-            return localVarFp.authUsersControllerUpdateOne(id, updateAuthUserDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3574,54 +3179,6 @@ export class AuthApi extends BaseAPI {
      */
     public authControllerUpdateProfile(authProfileDto: AuthProfileDto, options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authControllerUpdateProfile(authProfileDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthApi
-     */
-    public authUsersControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authUsersControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {number} [curPage] 
-     * @param {number} [perPage] 
-     * @param {string} [searchText] 
-     * @param {string} [sort] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthApi
-     */
-    public authUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authUsersControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthApi
-     */
-    public authUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authUsersControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {UpdateAuthUserDto} updateAuthUserDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthApi
-     */
-    public authUsersControllerUpdateOne(id: string, updateAuthUserDto: UpdateAuthUserDto, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authUsersControllerUpdateOne(id, updateAuthUserDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -6521,160 +6078,6 @@ export const WebhookApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhookUsersControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('webhookUsersControllerDeleteOne', 'id', id)
-            const localVarPath = `/api/webhook/users/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} [curPage] 
-         * @param {number} [perPage] 
-         * @param {string} [searchText] 
-         * @param {string} [sort] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhookUsersControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/webhook/users`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (curPage !== undefined) {
-                localVarQueryParameter['curPage'] = curPage;
-            }
-
-            if (perPage !== undefined) {
-                localVarQueryParameter['perPage'] = perPage;
-            }
-
-            if (searchText !== undefined) {
-                localVarQueryParameter['searchText'] = searchText;
-            }
-
-            if (sort !== undefined) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhookUsersControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('webhookUsersControllerFindOne', 'id', id)
-            const localVarPath = `/api/webhook/users/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateWebhookUserDto} updateWebhookUserDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhookUsersControllerUpdateOne: async (id: string, updateWebhookUserDto: UpdateWebhookUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('webhookUsersControllerUpdateOne', 'id', id)
-            // verify required parameter 'updateWebhookUserDto' is not null or undefined
-            assertParamExists('webhookUsersControllerUpdateOne', 'updateWebhookUserDto', updateWebhookUserDto)
-            const localVarPath = `/api/webhook/users/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateWebhookUserDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -6823,58 +6226,6 @@ export const WebhookApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookLogsControllerFindOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async webhookUsersControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerDeleteOne(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookUsersControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {number} [curPage] 
-         * @param {number} [perPage] 
-         * @param {string} [searchText] 
-         * @param {string} [sort] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyWebhookUserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerFindMany(curPage, perPage, searchText, sort, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookUsersControllerFindMany']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async webhookUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerFindOne(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookUsersControllerFindOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateWebhookUserDto} updateWebhookUserDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async webhookUsersControllerUpdateOne(id: string, updateWebhookUserDto: UpdateWebhookUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookUser>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.webhookUsersControllerUpdateOne(id, updateWebhookUserDto, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['WebhookApi.webhookUsersControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
     }
 };
 
@@ -6989,46 +6340,6 @@ export const WebhookApiFactory = function (configuration?: Configuration, basePa
          */
         webhookLogsControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<WebhookLog> {
             return localVarFp.webhookLogsControllerFindOne(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhookUsersControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
-            return localVarFp.webhookUsersControllerDeleteOne(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} [curPage] 
-         * @param {number} [perPage] 
-         * @param {string} [searchText] 
-         * @param {string} [sort] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyWebhookUserResponse> {
-            return localVarFp.webhookUsersControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhookUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<WebhookUser> {
-            return localVarFp.webhookUsersControllerFindOne(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateWebhookUserDto} updateWebhookUserDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        webhookUsersControllerUpdateOne(id: string, updateWebhookUserDto: UpdateWebhookUserDto, options?: RawAxiosRequestConfig): AxiosPromise<WebhookUser> {
-            return localVarFp.webhookUsersControllerUpdateOne(id, updateWebhookUserDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -7165,54 +6476,6 @@ export class WebhookApi extends BaseAPI {
      */
     public webhookLogsControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
         return WebhookApiFp(this.configuration).webhookLogsControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    public webhookUsersControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookUsersControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {number} [curPage] 
-     * @param {number} [perPage] 
-     * @param {string} [searchText] 
-     * @param {string} [sort] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    public webhookUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookUsersControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    public webhookUsersControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookUsersControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {UpdateWebhookUserDto} updateWebhookUserDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof WebhookApi
-     */
-    public webhookUsersControllerUpdateOne(id: string, updateWebhookUserDto: UpdateWebhookUserDto, options?: RawAxiosRequestConfig) {
-        return WebhookApiFp(this.configuration).webhookUsersControllerUpdateOne(id, updateWebhookUserDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

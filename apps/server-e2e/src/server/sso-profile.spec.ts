@@ -42,11 +42,11 @@ describe('Sso profile (e2e)', () => {
     const { data: findManyResult } = await user
       .getSsoApi()
       .ssoUsersControllerFindMany(
-        findManyProjectsResult.ssoProjects[0].id,
         undefined,
         undefined,
         user.randomUser.email,
         undefined,
+        findManyProjectsResult.ssoProjects[0].id,
         {
           headers: { 'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET },
         }

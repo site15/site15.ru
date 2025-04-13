@@ -1,4 +1,5 @@
 import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
+import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import {
   createNestModule,
   getFeatureDotEnvPropertyNameFormatter,
@@ -13,7 +14,6 @@ import { AUTH_FEATURE, AUTH_MODULE } from './auth.constants';
 import { AuthStaticEnvironments } from './auth.environments';
 import { AuthExceptionsFilter } from './auth.filter';
 import { AuthGuard } from './auth.guard';
-import { AuthUsersController } from './controllers/auth-users.controller';
 import { AuthController } from './controllers/auth.controller';
 import { AuthTimezoneInterceptor } from './interceptors/auth-timezone.interceptor';
 import { AuthTimezonePipe } from './pipes/auth-timezone.pipe';
@@ -21,7 +21,6 @@ import { AuthCacheService } from './services/auth-cache.service';
 import { AuthDefaultDataBootstrapService } from './services/auth-default-data-bootstrap.service';
 import { AuthTimezoneService } from './services/auth-timezone.service';
 import { AuthAsyncLocalStorageContext } from './types/auth-async-local-storage-data';
-import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import { AUTH_WEBHOOK_EVENTS } from './types/auth-webhooks';
 
 export const { AuthModule } = createNestModule({
@@ -46,7 +45,7 @@ export const { AuthModule } = createNestModule({
       featureConfiguration: { events: AUTH_WEBHOOK_EVENTS },
     }),
   ],
-  controllers: [AuthController, AuthUsersController],
+  controllers: [AuthController],
   sharedImports: [
     PrismaModule.forFeature({
       contextName: AUTH_FEATURE,

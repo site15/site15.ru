@@ -7,7 +7,6 @@ import {
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { HttpModule } from '@nestjs/axios';
 import { UseFilters, UseGuards } from '@nestjs/common';
-import { WebhookUsersController } from './controllers/webhook-users.controller';
 import { WebhookController } from './controllers/webhook.controller';
 import { WebhookServiceBootstrap } from './services/webhook-bootstrap.service';
 import { WebhookToolsService } from './services/webhook-tools.service';
@@ -59,11 +58,7 @@ export const { WebhookModule } = createNestModule({
     WebhookServiceBootstrap,
     WebhookCacheService,
   ],
-  controllers: [
-    WebhookUsersController,
-    WebhookLogsController,
-    WebhookController,
-  ],
+  controllers: [WebhookLogsController, WebhookController],
   sharedProviders: [WebhookService, WebhookUsersService],
   wrapForRootAsync: (asyncModuleOptions) => {
     if (!asyncModuleOptions) {
@@ -83,11 +78,7 @@ export const { WebhookModule } = createNestModule({
   preWrapApplication: async ({ current }) => {
     const staticEnvironments = current.staticEnvironments;
 
-    for (const ctrl of [
-      WebhookController,
-      WebhookLogsController,
-      WebhookUsersController,
-    ]) {
+    for (const ctrl of [WebhookController, WebhookLogsController]) {
       if (staticEnvironments?.useFilters) {
         UseFilters(WebhookExceptionsFilter)(ctrl);
       }
