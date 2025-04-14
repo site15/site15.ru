@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaClient } from '@prisma/sso-client';
-import { TranslatesService, TranslatesStorage } from 'nestjs-translates';
+import { TranslatesStorage } from 'nestjs-translates';
 import { DEFAULT_EMAIL_TEMPLATES, SSO_FEATURE } from '../sso.constants';
 
 @Injectable()
@@ -10,7 +10,6 @@ export class SsoTemplatesService {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly translatesService: TranslatesService,
     private readonly translatesStorage: TranslatesStorage
   ) {}
 
@@ -41,19 +40,22 @@ export class SsoTemplatesService {
           htmlLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesService.translate(template.html, locale),
+              this.translatesStorage.translates[locale]?.[template.html] ||
+                template.html,
             ])
           ),
           subjectLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesService.translate(template.subject, locale),
+              this.translatesStorage.translates[locale]?.[template.subject] ||
+                template.subject,
             ])
           ),
           textLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesService.translate(template.text, locale),
+              this.translatesStorage.translates[locale]?.[template.text] ||
+                template.text,
             ])
           ),
         },
@@ -64,19 +66,22 @@ export class SsoTemplatesService {
           htmlLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesService.translate(template.html, locale),
+              this.translatesStorage.translates[locale]?.[template.html] ||
+                template.html,
             ])
           ),
           subjectLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesService.translate(template.subject, locale),
+              this.translatesStorage.translates[locale]?.[template.subject] ||
+                template.subject,
             ])
           ),
           textLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesService.translate(template.text, locale),
+              this.translatesStorage.translates[locale]?.[template.text] ||
+                template.text,
             ])
           ),
         },

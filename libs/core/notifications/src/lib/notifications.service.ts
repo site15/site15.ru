@@ -53,7 +53,12 @@ export class NotificationsService {
     private readonly webhookService: WebhookService
   ) {
     this.mailTransporter = this.notificationsStaticEnvironments.mailTransport
-      ? createTransport(this.notificationsStaticEnvironments.mailTransport)
+      ? createTransport(this.notificationsStaticEnvironments.mailTransport, {
+          tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false,
+          },
+        })
       : undefined;
   }
 
