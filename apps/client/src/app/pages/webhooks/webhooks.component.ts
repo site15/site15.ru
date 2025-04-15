@@ -1,6 +1,7 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
+import { ActiveProjectPipe } from '@nestjs-mod-sso/sso-angular';
 import {
   WebhookGridComponent,
   WebhookLogGridComponent,
@@ -21,6 +22,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     AsyncPipe,
     NgIf,
     TranslocoDirective,
+    ActiveProjectPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

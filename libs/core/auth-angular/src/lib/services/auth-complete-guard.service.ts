@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { TranslocoService } from '@jsverse/transloco';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { catchError, concatMap, from, map, of } from 'rxjs';
+import { catchError, concatMap, from, map, mergeMap, of } from 'rxjs';
 import { AuthService } from './auth.service';
 
 export const AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY = 'authGuardCompleteData';
 
-export type AfterCompleteSignUpOptions = {
+export type CompleteSignUpOptions = {
   activatedRouteSnapshot: ActivatedRouteSnapshot;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error?: any;
@@ -18,9 +18,9 @@ export type AfterCompleteSignUpOptions = {
 export class AuthCompleteGuardData {
   type?: 'complete-sign-up' | 'complete-forgot-password' | 'complete-invite';
 
-  afterCompleteSignUp?: (
-    options: AfterCompleteSignUpOptions
-  ) => Promise<boolean>;
+  beforeCompleteSignUp?: (options: CompleteSignUpOptions) => Promise<boolean>;
+
+  afterCompleteSignUp?: (options: CompleteSignUpOptions) => Promise<boolean>;
 
   constructor(options?: AuthCompleteGuardData) {
     Object.assign(this, options);
@@ -48,49 +48,60 @@ export class AuthCompleteGuardService implements CanActivate {
       if (authCompleteGuardData.type === 'complete-sign-up') {
         const code = route.queryParamMap.get('code');
         if (code) {
-          return this.authAuthService
-            .completeSignUp({
-              code,
-            })
-            .pipe(
-              map(async () => {
-                this.nzMessageService.success(
-                  this.translocoService.translate(
-                    'Email address successfully verified'
-                  )
-                );
-                return true;
-              }),
-              concatMap(async () => {
-                if (authCompleteGuardData.afterCompleteSignUp) {
-                  await authCompleteGuardData.afterCompleteSignUp({
+          return (
+            authCompleteGuardData.beforeCompleteSignUp
+              ? from(
+                  authCompleteGuardData.beforeCompleteSignUp({
                     activatedRouteSnapshot: route,
                     authService: this.authService,
                     router: this.router,
-                  });
-                }
-                return true;
-              }),
-              catchError((err) => {
-                console.error(err);
-                this.nzMessageService.error(
-                  this.translocoService.translate(
-                    err.error?.message || err.message
-                  )
-                );
-                if (authCompleteGuardData.afterCompleteSignUp) {
-                  return from(
-                    authCompleteGuardData.afterCompleteSignUp({
-                      activatedRouteSnapshot: route,
-                      authService: this.authService,
-                      router: this.router,
-                      error: err,
-                    })
-                  );
-                }
-                return of(false);
+                  })
+                )
+              : of(true)
+          ).pipe(
+            mergeMap(() =>
+              this.authAuthService.completeSignUp({
+                code,
               })
-            );
+            ),
+            map(async () => {
+              this.nzMessageService.success(
+                this.translocoService.translate(
+                  'Email address successfully verified'
+                )
+              );
+              return true;
+            }),
+            concatMap(async () => {
+              if (authCompleteGuardData.afterCompleteSignUp) {
+                await authCompleteGuardData.afterCompleteSignUp({
+                  activatedRouteSnapshot: route,
+                  authService: this.authService,
+                  router: this.router,
+                });
+              }
+              return true;
+            }),
+            catchError((err) => {
+              console.error(err);
+              this.nzMessageService.error(
+                this.translocoService.translate(
+                  err.error?.message || err.message
+                )
+              );
+              if (authCompleteGuardData.afterCompleteSignUp) {
+                return from(
+                  authCompleteGuardData.afterCompleteSignUp({
+                    activatedRouteSnapshot: route,
+                    authService: this.authService,
+                    router: this.router,
+                    error: err,
+                  })
+                );
+              }
+              return of(false);
+            })
+          );
         }
       }
     }

@@ -23,7 +23,14 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
+  merge,
+  Observable,
+  tap,
+} from 'rxjs';
 
 import {
   TranslocoDirective,
@@ -72,6 +79,8 @@ import { SsoUserService } from '../../services/sso-user.service';
 export class SsoUserGridComponent implements OnInit, OnChanges {
   @Input()
   projectId?: string;
+  @Input()
+  forceLoadStream?: Observable<unknown>[];
 
   minioURL$ = new BehaviorSubject<string>('');
   items$ = new BehaviorSubject<SsoUserModel[]>([]);
@@ -148,14 +157,6 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
     private readonly filesService: FilesService
   ) {
     this.minioURL$.next(this.filesService.getMinioURL() as string);
-    this.searchField.valueChanges
-      .pipe(
-        debounceTime(700),
-        distinctUntilChanged(),
-        tap(() => this.loadMany({ force: true })),
-        untilDestroyed(this)
-      )
-      .subscribe();
   }
 
   showInviteMembersModal(): void {
@@ -209,6 +210,19 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    merge(
+      this.searchField.valueChanges.pipe(
+        debounceTime(700),
+        distinctUntilChanged()
+      ),
+      ...(this.forceLoadStream ? this.forceLoadStream : [])
+    )
+      .pipe(
+        tap(() => this.loadMany({ force: true })),
+        untilDestroyed(this)
+      )
+      .subscribe();
+
     this.loadMany();
   }
 

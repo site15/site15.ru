@@ -2,7 +2,13 @@
   <nz-breadcrumb-item transloco="Users"></nz-breadcrumb-item>
 </nz-breadcrumb>
 <nz-row class="inner-content">
-  <sso-user-grid nz-col [nzSpan]="24" #userGrid> </sso-user-grid>
+  <sso-user-grid
+    [forceLoadStream]="[true | activeProject]"
+    nz-col
+    [nzSpan]="24"
+    #userGrid
+  >
+  </sso-user-grid>
   <sso-session-grid
     *ngIf="(userGrid.selectedIds$ | async)?.[0] as userId"
     nz-col

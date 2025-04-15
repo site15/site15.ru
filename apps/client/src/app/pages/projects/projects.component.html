@@ -2,16 +2,5 @@
   <nz-breadcrumb-item transloco="Projects"></nz-breadcrumb-item>
 </nz-breadcrumb>
 <nz-row class="inner-content">
-  <sso-project-grid nz-col [nzSpan]="24" #projectGrid> </sso-project-grid>
-  <ng-container *ngIf="(projectGrid.selectedIds$ | async)?.[0] as projectId">
-    <sso-user-grid nz-col [nzSpan]="24" [projectId]="projectId" #userGrid>
-    </sso-user-grid>
-    <sso-session-grid
-      *ngIf="(userGrid.selectedIds$ | async)?.[0] as userId"
-      nz-col
-      [nzSpan]="24"
-      [userId]="userId"
-    >
-    </sso-session-grid
-  ></ng-container>
+  <sso-project-grid nz-col [nzSpan]="24"> </sso-project-grid>
 </nz-row>

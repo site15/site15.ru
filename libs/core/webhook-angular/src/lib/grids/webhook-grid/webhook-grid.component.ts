@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Input,
   OnInit,
   ViewContainerRef,
 } from '@angular/core';
@@ -30,6 +31,8 @@ import {
   catchError,
   debounceTime,
   distinctUntilChanged,
+  merge,
+  Observable,
   tap,
 } from 'rxjs';
 
@@ -82,6 +85,9 @@ import { WebhookService } from '../../services/webhook.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebhookGridComponent implements OnInit {
+  @Input()
+  forceLoadStream?: Observable<unknown>[];
+
   items$ = new BehaviorSubject<WebhookModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -127,18 +133,21 @@ export class WebhookGridComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly webhookMapperService: WebhookMapperService,
     private readonly validationService: ValidationService
-  ) {
-    this.searchField.valueChanges
-      .pipe(
+  ) {}
+
+  ngOnInit(): void {
+    merge(
+      this.searchField.valueChanges.pipe(
         debounceTime(700),
-        distinctUntilChanged(),
+        distinctUntilChanged()
+      ),
+      ...(this.forceLoadStream ? this.forceLoadStream : [])
+    )
+      .pipe(
         tap(() => this.loadMany({ force: true })),
         untilDestroyed(this)
       )
       .subscribe();
-  }
-
-  ngOnInit(): void {
     this.loadMany();
   }
 

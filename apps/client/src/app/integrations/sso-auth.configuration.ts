@@ -21,8 +21,8 @@ import {
   TokensService,
 } from '@nestjs-mod-sso/auth-angular';
 import { FilesService } from '@nestjs-mod-sso/files-angular';
+import { SsoActiveProjectService } from '@nestjs-mod-sso/sso-angular';
 import { catchError, map, mergeMap, Observable, of } from 'rxjs';
-import { ActiveProjectService } from './active-project.service';
 
 export class SsoAuthConfiguration implements AuthConfiguration {
   constructor(
@@ -31,7 +31,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     private readonly filesService: FilesService,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
-    private readonly activeProjectService: ActiveProjectService,
+    private readonly ssoActiveProjectService: SsoActiveProjectService,
     private readonly fingerprintService: FingerprintService
   ) {
     ssoRestService.configuration.withCredentials = true;
@@ -213,7 +213,7 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     const lang = this.translocoService.getActiveLang();
     const accessToken = this.tokensService.getAccessToken();
     const activeProjectAuthorizationHeaders =
-      this.activeProjectService.getAuthorizationHeaders();
+      this.ssoActiveProjectService.getAuthorizationHeaders();
     if (!accessToken) {
       return {
         'Accept-language': lang,
@@ -305,7 +305,7 @@ export function provideSsoAuthConfiguration(): Provider {
       FilesService,
       TranslocoService,
       TokensService,
-      ActiveProjectService,
+      SsoActiveProjectService,
       FingerprintService,
     ],
   };

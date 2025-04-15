@@ -27,9 +27,6 @@ msgstr "Templates"
 msgid "Users"
 msgstr "Users"
 
-msgid "Projects and users"
-msgstr "Projects and users"
-
 msgid "Profile"
 msgstr "Profile"
 

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Input,
   OnInit,
   ViewContainerRef,
 } from '@angular/core';
@@ -20,7 +21,14 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  debounceTime,
+  distinctUntilChanged,
+  merge,
+  Observable,
+  tap,
+} from 'rxjs';
 
 import {
   TranslocoDirective,
@@ -65,6 +73,9 @@ import { SsoProjectService } from '../../services/sso-project.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SsoProjectGridComponent implements OnInit {
+  @Input()
+  forceLoadStream?: Observable<unknown>[];
+
   items$ = new BehaviorSubject<SsoProjectModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -102,18 +113,22 @@ export class SsoProjectGridComponent implements OnInit {
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
     private readonly translocoService: TranslocoService
-  ) {
-    this.searchField.valueChanges
-      .pipe(
+  ) {}
+
+  ngOnInit(): void {
+    merge(
+      this.searchField.valueChanges.pipe(
         debounceTime(700),
-        distinctUntilChanged(),
+        distinctUntilChanged()
+      ),
+      ...(this.forceLoadStream ? this.forceLoadStream : [])
+    )
+      .pipe(
         tap(() => this.loadMany({ force: true })),
         untilDestroyed(this)
       )
       .subscribe();
-  }
 
-  ngOnInit(): void {
     this.loadMany();
   }
 

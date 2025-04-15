@@ -2,6 +2,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
 import {
+  ActiveProjectPipe,
   SsoSessionGridComponent,
   SsoUserGridComponent,
 } from '@nestjs-mod-sso/sso-angular';
@@ -21,6 +22,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     TranslocoDirective,
     AsyncPipe,
     NgIf,
+    ActiveProjectPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

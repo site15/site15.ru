@@ -5,6 +5,7 @@ import {
   AuthCompleteForgotPasswordFormComponent,
   AuthService,
 } from '@nestjs-mod-sso/auth-angular';
+import { AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY } from '@nestjs-mod-sso/sso-angular';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 @Component({
@@ -29,6 +30,12 @@ export class CompleteForgotPasswordComponent {
     this.code = this.activatedRoute.snapshot.queryParamMap.get('code');
     this.redirectUri =
       this.activatedRoute.snapshot.queryParamMap.get('redirect_uri');
+
+    const clientId =
+      this.activatedRoute.snapshot.queryParamMap.get('client_id');
+    if (clientId) {
+      localStorage.setItem(AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY, clientId);
+    }
   }
 
   onAfterCompleteForgotPassword() {

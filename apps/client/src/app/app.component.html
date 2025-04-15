@@ -7,17 +7,13 @@
       <li nz-menu-item routerLink="/home" transloco="Home"></li>
 
       @if
-      ([AuthRoleInterface.Manager]|checkUserRoles|async)
+      ([AuthRoleInterface.Manager,AuthRoleInterface.Admin]|checkUserRoles|async)
       {
       <li nz-menu-item routerLink="/webhooks" transloco="Webhooks"></li>
       <li nz-menu-item routerLink="/templates" transloco="Templates"></li>
       <li nz-menu-item routerLink="/users" transloco="Users"></li>
       } @if ([AuthRoleInterface.Admin]|checkUserRoles|async) {
-      <li
-        nz-menu-item
-        routerLink="/projects"
-        transloco="Projects and users"
-      ></li>
+      <li nz-menu-item routerLink="/projects" transloco="Projects"></li>
       } @if
       ([AuthRoleInterface.User,AuthRoleInterface.Manager,AuthRoleInterface.Admin]|checkUserRoles|async)
       {
@@ -70,9 +66,9 @@
           </li>
         </ul>
       </li>
-      @if ( (([AuthRoleInterface.Admin]|checkUserRoles|async) ||
-      ([]|checkUserRoles|async)) && (publicProjects$ | async); as
-      publicProjects) {
+      @if (publicProjects$ | async; as publicProjects) { @if
+      ((([AuthRoleInterface.Admin]|checkUserRoles|async) ||
+      ([]|checkUserRoles|async))){
       <li
         nz-submenu
         [nzTitle]="
@@ -91,7 +87,12 @@
           </li>
         </ul>
       </li>
-      }
+      }@else{
+      <a nzDisabled="true" nz-menu-item [style]="{ float: 'right' }">{{
+        (activePublicProject$ | async)?.name ||
+          ('Select active project' | transloco)
+      }}</a>
+      } }
     </ul>
   </nz-header>
   <nz-content>

@@ -29,7 +29,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { Title } from '@angular/platform-browser';
-import { SsoProjectModel } from '@nestjs-mod-sso/sso-angular';
+import {
+  SsoActiveProjectService,
+  SsoProjectModel,
+} from '@nestjs-mod-sso/sso-angular';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import {
@@ -41,7 +44,6 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { ActiveProjectService } from './integrations/active-project.service';
 import { APP_TITLE } from './app.constants';
 
 @UntilDestroy()
@@ -82,7 +84,7 @@ export class AppComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
     private readonly authActiveLangService: AuthActiveLangService,
-    private readonly activeProjectService: ActiveProjectService,
+    private readonly ssoActiveProjectService: SsoActiveProjectService,
     private readonly titleService: Title
   ) {
     this.title = this.translocoService.translate(APP_TITLE);
@@ -100,16 +102,16 @@ export class AppComponent implements OnInit {
   }
 
   setActivePublicProject(activePublicProject?: SsoProjectModel) {
-    this.activeProjectService.setActivePublicProject(activePublicProject);
+    this.ssoActiveProjectService.setActivePublicProject(activePublicProject);
   }
 
   private loadAvailablePublicProjects() {
     this.publicProjects$ =
-      this.activeProjectService.publicProjects$.asObservable();
+      this.ssoActiveProjectService.publicProjects$.asObservable();
     this.activePublicProject$ =
-      this.activeProjectService.activePublicProject$.asObservable();
+      this.ssoActiveProjectService.activePublicProject$.asObservable();
 
-    this.activeProjectService.loadAvailablePublicProjects();
+    this.ssoActiveProjectService.loadAvailablePublicProjects();
   }
 
   private subscribeToChangeProfile() {
@@ -155,7 +157,7 @@ export class AppComponent implements OnInit {
       .pipe(
         tap((lang) => {
           this.lang$.next(lang);
-          this.activeProjectService.loadAvailablePublicProjects();
+          this.ssoActiveProjectService.loadAvailablePublicProjects();
         }),
         untilDestroyed(this)
       )

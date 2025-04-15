@@ -121,6 +121,9 @@ export class SsoService {
     user: SsoUser;
     signUpArgs: SignUpArgs;
   }) {
+    const project = await this.prismaClient.ssoProject.findFirst({
+      where: { id: { equals: projectId } },
+    });
     const { operationName, subject, text, html } =
       await this.getSendNotificationOptions(
         OperationName.VERIFY_EMAIL,
@@ -135,8 +138,8 @@ export class SsoService {
       : 'undefined';
 
     const link = signUpArgs.redirectUri
-      ? `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}&redirect_uri=${signUpArgs.redirectUri}`
-      : `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}`;
+      ? `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${project?.clientId}`
+      : `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}&client_id=${project?.clientId}`;
     const sendNotificationOptions: SsoSendNotificationOptions = {
       recipientUsers: [user],
       subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
@@ -159,6 +162,9 @@ export class SsoService {
     user: SsoUser;
     signUpArgs: SignUpArgs;
   }) {
+    const project = await this.prismaClient.ssoProject.findFirst({
+      where: { id: { equals: projectId } },
+    });
     const { operationName, subject, text, html } =
       await this.getSendNotificationOptions(
         OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
@@ -174,8 +180,8 @@ export class SsoService {
       : 'undefined';
 
     const link = signUpArgs.redirectUri
-      ? `${this.ssoStaticEnvironments.serverUrl}/complete-invite?code=${code}&redirect_uri=${signUpArgs.redirectUri}`
-      : `${this.ssoStaticEnvironments.serverUrl}/complete-invite?code=${code}`;
+      ? `${this.ssoStaticEnvironments.serverUrl}/complete-invite?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${project?.clientId}`
+      : `${this.ssoStaticEnvironments.serverUrl}/complete-invite?code=${code}&client_id=${project?.clientId}`;
     const sendNotificationOptions: SsoSendNotificationOptions = {
       recipientUsers: [user],
       subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
@@ -271,6 +277,9 @@ export class SsoService {
     ssoRequest: SsoRequest;
     projectId: string;
   }) {
+    const project = await this.prismaClient.ssoProject.findFirst({
+      where: { id: { equals: projectId } },
+    });
     const user = await this.ssoUsersService.getByEmail({
       email: forgotPasswordArgs.email,
       projectId,
@@ -289,8 +298,8 @@ export class SsoService {
       });
 
       const link = forgotPasswordArgs.redirectUri
-        ? `${this.ssoStaticEnvironments.serverUrl}/complete-forgot-password?code=${code}&redirect_uri=${forgotPasswordArgs.redirectUri}`
-        : `${this.ssoStaticEnvironments.serverUrl}/complete-forgot-password?code=${code}`;
+        ? `${this.ssoStaticEnvironments.serverUrl}/complete-forgot-password?code=${code}&redirect_uri=${forgotPasswordArgs.redirectUri}&client_id=${project?.clientId}`
+        : `${this.ssoStaticEnvironments.serverUrl}/complete-forgot-password?code=${code}&client_id=${project?.clientId}`;
       if (this.ssoConfiguration.sendNotification) {
         await this.ssoConfiguration.sendNotification({
           projectId,

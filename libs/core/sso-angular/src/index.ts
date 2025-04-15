@@ -7,6 +7,8 @@ export * from './lib/grids/sso-email-template-grid/sso-email-template-grid.compo
 export * from './lib/grids/sso-project-grid/sso-project-grid.component';
 export * from './lib/grids/sso-session-grid/sso-session-grid.component';
 export * from './lib/grids/sso-user-grid/sso-user-grid.component';
+export * from './lib/pipes/active-project.pipe';
+export * from './lib/services/sso-active-project.service';
 export * from './lib/services/sso-email-template-form.service';
 export * from './lib/services/sso-email-template-mapper.service';
 export * from './lib/services/sso-email-template.service';

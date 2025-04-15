@@ -2,5 +2,10 @@
   <nz-breadcrumb-item transloco="Templates"></nz-breadcrumb-item>
 </nz-breadcrumb>
 <nz-row class="inner-content">
-  <sso-email-template-grid nz-col [nzSpan]="24"> </sso-email-template-grid>
+  <sso-email-template-grid
+    [forceLoadStream]="[true | activeProject]"
+    nz-col
+    [nzSpan]="24"
+  >
+  </sso-email-template-grid>
 </nz-row>

@@ -28,9 +28,6 @@ msgstr "Шаблоны"
 msgid "Users"
 msgstr "Пользователи"
 
-msgid "Projects and users"
-msgstr "Проекты и пользователи"
-
 msgid "Profile"
 msgstr "Профиль"
 

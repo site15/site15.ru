@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { AuthRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
-  AfterCompleteSignUpOptions,
+  CompleteSignUpOptions,
   AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY,
   AUTH_GUARD_DATA_ROUTE_KEY,
   AuthCompleteGuardData,
@@ -23,6 +23,7 @@ import { TemplatesComponent } from './pages/templates/templates.component';
 import { UsersComponent } from './pages/users/users.component';
 import { WebhooksComponent } from './pages/webhooks/webhooks.component';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
+import { AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY } from '@nestjs-mod-sso/sso-angular';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -34,7 +35,7 @@ export const appRoutes: Route[] = [
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
-        roles: [AuthRoleInterface.Manager],
+        roles: [AuthRoleInterface.Manager, AuthRoleInterface.Admin],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
             options.router.navigate(['/home']);
@@ -52,7 +53,7 @@ export const appRoutes: Route[] = [
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
-        roles: [AuthRoleInterface.Manager],
+        roles: [AuthRoleInterface.Manager, AuthRoleInterface.Admin],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
             options.router.navigate(['/home']);
@@ -70,7 +71,7 @@ export const appRoutes: Route[] = [
     canActivate: [AuthGuardService],
     data: {
       [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
-        roles: [AuthRoleInterface.Manager],
+        roles: [AuthRoleInterface.Manager, AuthRoleInterface.Admin],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
             options.router.navigate(['/home']);
@@ -165,10 +166,24 @@ export const appRoutes: Route[] = [
     data: {
       [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
         type: 'complete-sign-up',
-        afterCompleteSignUp: async (options: AfterCompleteSignUpOptions) => {
+
+        beforeCompleteSignUp: async (options: CompleteSignUpOptions) => {
+          const clientId =
+            options.activatedRouteSnapshot.queryParamMap.get('client_id');
+          if (clientId) {
+            localStorage.setItem(
+              AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
+              clientId
+            );
+            options.authService.updateHeaders();
+          }
+          return true;
+        },
+        afterCompleteSignUp: async (options: CompleteSignUpOptions) => {
           if (options.error) {
             return false;
           }
+
           const redirectUri =
             options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
           if (!redirectUri) {

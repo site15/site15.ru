@@ -6,6 +6,7 @@ import {
   mergeMap,
   Observable,
   of,
+  Subject,
 } from 'rxjs';
 import {
   AUTH_CONFIGURATION_TOKEN,
@@ -26,12 +27,17 @@ import { TokensService } from './tokens.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   profile$ = new BehaviorSubject<AuthUser | undefined>(undefined);
+  updateHeaders$ = new Subject<boolean>();
 
   constructor(
     protected readonly tokensService: TokensService,
     @Inject(AUTH_CONFIGURATION_TOKEN)
     protected readonly authConfiguration: AuthConfiguration
   ) {}
+
+  updateHeaders() {
+    this.updateHeaders$.next(true);
+  }
 
   completeSignUp(
     data: AuthCompleteSignUpInput

@@ -14,7 +14,7 @@ import {
   TokensService,
 } from '@nestjs-mod-sso/auth-angular';
 import { catchError, merge, mergeMap, of, Subscription, tap } from 'rxjs';
-import { ActiveProjectService } from './integrations/active-project.service';
+import { SsoActiveProjectService } from '@nestjs-mod-sso/sso-angular';
 
 @Injectable({ providedIn: 'root' })
 export class AppInitializer {
@@ -30,7 +30,7 @@ export class AppInitializer {
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
     private readonly authActiveLangService: AuthActiveLangService,
-    private readonly activeProjectService: ActiveProjectService
+    private readonly ssoActiveProjectService: SsoActiveProjectService
   ) {}
 
   resolve() {
@@ -51,9 +51,10 @@ export class AppInitializer {
     }
     this.updateHeaders();
     this.subscribeToTokenUpdatesSubscription = merge(
+      this.authService.updateHeaders$.asObservable(),
       this.tokensService.getStream(),
       this.translocoService.langChanges$,
-      this.activeProjectService.activePublicProject$
+      this.ssoActiveProjectService.activePublicProject$
     )
       .pipe(tap(() => this.updateHeaders()))
       .subscribe();

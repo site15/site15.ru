@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import {
-  SsoProjectModel,
-  SsoProjectService,
-} from '@nestjs-mod-sso/sso-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, tap } from 'rxjs';
+import { SsoProjectModel } from './sso-project-mapper.service';
+import { SsoProjectService } from './sso-project.service';
 
-const AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY = 'activeUserClientId';
-const X_CLIENT_ID_HEADER_NAME = 'x-client-id';
+export const AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY = 'activeUserClientId';
+export const X_CLIENT_ID_HEADER_NAME = 'x-client-id';
 
 @UntilDestroy()
 @Injectable({ providedIn: 'root' })
-export class ActiveProjectService {
+export class SsoActiveProjectService {
   publicProjects$ = new BehaviorSubject<SsoProjectModel[] | undefined>(
     undefined
   );
