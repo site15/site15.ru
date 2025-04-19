@@ -165,4 +165,11 @@ export class AuthService {
     this.profile$.next(result);
     return of(result);
   }
+
+  getOAuthProviders() {
+    if (!this.authConfiguration.getOAuthProviders) {
+      return of([]);
+    }
+    return this.authConfiguration.getOAuthProviders();
+  }
 }

@@ -5,6 +5,7 @@ process.env.TZ = 'UTC';
 };
 import KeyvRedis from '@keyv/redis';
 import {
+  AllowEmptyAuthUser,
   AUTH_EXTRA_MODELS,
   AUTH_FEATURE,
   AUTH_FOLDER,
@@ -22,6 +23,7 @@ import {
   SSO_EXTRA_MODELS,
   SSO_FEATURE,
   SSO_FOLDER,
+  SsoGoogleOAuthController,
   SsoModule,
 } from '@nestjs-mod-sso/sso';
 import {
@@ -154,6 +156,8 @@ createAndFillDatabases().then(() =>
             mode: isInfrastructureMode() ? 'silent' : 'listen',
             async preListen(options) {
               if (options.app) {
+                //                AllowEmptyAuthUser()(SsoGoogleOAuthController);
+
                 options.app.setGlobalPrefix('api');
                 options.app.use(cookieParser());
 

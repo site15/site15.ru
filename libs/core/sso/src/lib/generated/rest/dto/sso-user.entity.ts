@@ -1,5 +1,6 @@
 import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
+import { SsoOAuthToken } from './sso-o-auth-token.entity';
 import { SsoRefreshSession } from './sso-refresh-session.entity';
 import { SsoProject } from './sso-project.entity';
 
@@ -90,6 +91,12 @@ export class SsoUser {
     format: 'date-time',
   })
   updatedAt!: Date;
+  @ApiProperty({
+    type: () => SsoOAuthToken,
+    isArray: true,
+    required: false,
+  })
+  SsoOAuthToken?: SsoOAuthToken[];
   @ApiProperty({
     type: () => SsoRefreshSession,
     isArray: true,

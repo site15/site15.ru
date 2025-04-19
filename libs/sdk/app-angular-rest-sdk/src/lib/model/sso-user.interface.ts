@@ -9,6 +9,7 @@
  */
 import { SsoProjectInterface } from './sso-project.interface';
 import { SsoRefreshSessionInterface } from './sso-refresh-session.interface';
+import { SsoOAuthTokenInterface } from './sso-o-auth-token.interface';
 
 
 export interface SsoUserInterface { 
@@ -29,6 +30,7 @@ export interface SsoUserInterface {
     projectId: string;
     createdAt: string;
     updatedAt: string;
+    SsoOAuthToken?: Array<SsoOAuthTokenInterface>;
     SsoRefreshSession?: Array<SsoRefreshSessionInterface>;
     SsoProject?: SsoProjectInterface;
 }

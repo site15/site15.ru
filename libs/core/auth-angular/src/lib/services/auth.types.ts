@@ -80,3 +80,8 @@ export interface AuthCompleteForgotPasswordInput {
   password: string;
   confirmPassword: string;
 }
+
+export type OAuthProvider = {
+  name: string;
+  url: string;
+};

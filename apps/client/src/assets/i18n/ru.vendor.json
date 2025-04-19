@@ -15,7 +15,7 @@
   "auth-angular": {
     "Sign-in": "Войти",
     "Sign-up": "Зарегистрироваться",
-    "Forgot your password?": "Забыли ваш пароль?",
+    "Forgot password?": "Забыли пароль?",
     "Reset password": "Сбросить пароль",
     "Change password": "Изменить пароль",
     "auth.sign-up-form.fields.email": "Email",

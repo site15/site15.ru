@@ -17,6 +17,5 @@ export interface UpdateSsoEmailTemplateDtoInterface {
     html?: string;
     htmlLocale?: object | null;
     operationName?: string | null;
-    projectId?: string;
 }
 

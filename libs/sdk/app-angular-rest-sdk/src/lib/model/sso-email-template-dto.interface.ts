@@ -18,7 +18,6 @@ export interface SsoEmailTemplateDtoInterface {
     html: string;
     htmlLocale: object | null;
     operationName: string | null;
-    projectId: string;
     createdAt: string;
     updatedAt: string;
 }

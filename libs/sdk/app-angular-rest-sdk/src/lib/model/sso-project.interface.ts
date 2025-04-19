@@ -9,6 +9,7 @@
  */
 import { SsoUserInterface } from './sso-user.interface';
 import { SsoRefreshSessionInterface } from './sso-refresh-session.interface';
+import { SsoEmailTemplateInterface } from './sso-email-template.interface';
 
 
 export interface SsoProjectInterface { 
@@ -20,6 +21,7 @@ export interface SsoProjectInterface {
     'public': boolean;
     createdAt: string;
     updatedAt: string;
+    SsoEmailTemplate?: Array<SsoEmailTemplateInterface>;
     SsoRefreshSession?: Array<SsoRefreshSessionInterface>;
     SsoUser?: Array<SsoUserInterface>;
 }

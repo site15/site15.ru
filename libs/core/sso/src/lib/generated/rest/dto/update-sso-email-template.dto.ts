@@ -53,11 +53,4 @@ export class UpdateSsoEmailTemplateDto {
   @IsOptional()
   @IsString()
   operationName?: string | null;
-  @ApiProperty({
-    type: 'string',
-    required: false,
-  })
-  @IsOptional()
-  @IsString()
-  projectId?: string;
 }

@@ -9,6 +9,7 @@ import {
   AuthUpdateProfileInput,
   AuthUser,
   AuthUserAndTokens,
+  OAuthProvider,
 } from './auth.types';
 
 export type AfterUpdateProfileEvent = {
@@ -34,6 +35,7 @@ export class AuthConfiguration {
     data: AuthCompleteForgotPasswordInput
   ) => Observable<AuthUserAndTokens>;
   getAuthorizationHeaders?: () => Record<string, string>;
+  getOAuthProviders?: () => Observable<OAuthProvider[]>;
 }
 
 export const AUTH_CONFIGURATION_TOKEN = new InjectionToken<string>(

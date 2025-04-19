@@ -1030,6 +1030,43 @@ export type NotificationsUserScalarFieldEnum = typeof NotificationsUserScalarFie
 /**
  * 
  * @export
+ * @interface OAuthProvider
+ */
+export interface OAuthProvider {
+    /**
+     * 
+     * @type {string}
+     * @memberof OAuthProvider
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OAuthProvider
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OAuthProvider
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OAuthProvider
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OAuthProvider
+     */
+    'url': string;
+}
+/**
+ * 
+ * @export
  * @interface RefreshTokensResponse
  */
 export interface RefreshTokensResponse {
@@ -1170,6 +1207,85 @@ export interface SsoControllerSignIn400Response {
 /**
  * 
  * @export
+ * @interface SsoEmailTemplate
+ */
+export interface SsoEmailTemplate {
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplate
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplate
+     */
+    'subject': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoEmailTemplate
+     */
+    'subjectLocale': object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplate
+     */
+    'text': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoEmailTemplate
+     */
+    'textLocale': object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplate
+     */
+    'html': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoEmailTemplate
+     */
+    'htmlLocale': object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplate
+     */
+    'operationName': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplate
+     */
+    'projectId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplate
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoEmailTemplate
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {SsoProject}
+     * @memberof SsoEmailTemplate
+     */
+    'SsoProject'?: SsoProject;
+}
+/**
+ * 
+ * @export
  * @interface SsoEmailTemplateDto
  */
 export interface SsoEmailTemplateDto {
@@ -1221,12 +1337,6 @@ export interface SsoEmailTemplateDto {
      * @memberof SsoEmailTemplateDto
      */
     'operationName': string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoEmailTemplateDto
-     */
-    'projectId': string;
     /**
      * 
      * @type {string}
@@ -1293,6 +1403,24 @@ export interface SsoEntities {
      * @memberof SsoEntities
      */
     'SsoEmailTemplate': SsoEmailTemplateScalarFieldEnum;
+    /**
+     * 
+     * @type {SsoOAuthProviderScalarFieldEnum}
+     * @memberof SsoEntities
+     */
+    'SsoOAuthProvider': SsoOAuthProviderScalarFieldEnum;
+    /**
+     * 
+     * @type {SsoOAuthProviderSettingsScalarFieldEnum}
+     * @memberof SsoEntities
+     */
+    'SsoOAuthProviderSettings': SsoOAuthProviderSettingsScalarFieldEnum;
+    /**
+     * 
+     * @type {SsoOAuthTokenScalarFieldEnum}
+     * @memberof SsoEntities
+     */
+    'SsoOAuthToken': SsoOAuthTokenScalarFieldEnum;
 }
 
 
@@ -1303,7 +1431,7 @@ export interface SsoEntities {
  */
 export interface SsoError {
     /**
-     * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015), Bad access token (SSO-016), Your session has been blocked (SSO-017)
+     * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015), Bad access token (SSO-016), Your session has been blocked (SSO-017), Verification code not found (SSO-018)
      * @type {string}
      * @memberof SsoError
      */
@@ -1347,12 +1475,294 @@ export const SsoErrorEnum = {
     Sso014: 'SSO-014',
     Sso015: 'SSO-015',
     Sso016: 'SSO-016',
-    Sso017: 'SSO-017'
+    Sso017: 'SSO-017',
+    Sso018: 'SSO-018'
 } as const;
 
 export type SsoErrorEnum = typeof SsoErrorEnum[keyof typeof SsoErrorEnum];
 
 
+/**
+ * 
+ * @export
+ * @interface SsoOAuthProvider
+ */
+export interface SsoOAuthProvider {
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProvider
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProvider
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProvider
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProvider
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {Array<SsoOAuthProviderSettings>}
+     * @memberof SsoOAuthProvider
+     */
+    'SsoOAuthProviderSettings'?: Array<SsoOAuthProviderSettings>;
+    /**
+     * 
+     * @type {Array<SsoOAuthToken>}
+     * @memberof SsoOAuthProvider
+     */
+    'SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider'?: Array<SsoOAuthToken>;
+    /**
+     * 
+     * @type {Array<SsoOAuthToken>}
+     * @memberof SsoOAuthProvider
+     */
+    'SsoOAuthToken'?: Array<SsoOAuthToken>;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const SsoOAuthProviderScalarFieldEnum = {
+    Id: 'id',
+    Name: 'name',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt'
+} as const;
+
+export type SsoOAuthProviderScalarFieldEnum = typeof SsoOAuthProviderScalarFieldEnum[keyof typeof SsoOAuthProviderScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @interface SsoOAuthProviderSettings
+ */
+export interface SsoOAuthProviderSettings {
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProviderSettings
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProviderSettings
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProviderSettings
+     */
+    'value': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProviderSettings
+     */
+    'providerId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProviderSettings
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthProviderSettings
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {SsoOAuthProvider}
+     * @memberof SsoOAuthProviderSettings
+     */
+    'SsoOAuthProvider'?: SsoOAuthProvider;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const SsoOAuthProviderSettingsScalarFieldEnum = {
+    Id: 'id',
+    Name: 'name',
+    Value: 'value',
+    ProviderId: 'providerId',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt'
+} as const;
+
+export type SsoOAuthProviderSettingsScalarFieldEnum = typeof SsoOAuthProviderSettingsScalarFieldEnum[keyof typeof SsoOAuthProviderSettingsScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @interface SsoOAuthToken
+ */
+export interface SsoOAuthToken {
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'grantedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'expiresAt': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'tokenType': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'scope': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'verificationCode': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'userId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'projectId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'providerId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'providerUserId': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoOAuthToken
+     */
+    'providerUserData': object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthToken
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {SsoOAuthProvider}
+     * @memberof SsoOAuthToken
+     */
+    'SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider'?: SsoOAuthProvider;
+    /**
+     * 
+     * @type {SsoOAuthProvider}
+     * @memberof SsoOAuthToken
+     */
+    'SsoOAuthProvider'?: SsoOAuthProvider;
+    /**
+     * 
+     * @type {SsoUser}
+     * @memberof SsoOAuthToken
+     */
+    'SsoUser'?: SsoUser;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const SsoOAuthTokenScalarFieldEnum = {
+    Id: 'id',
+    GrantedAt: 'grantedAt',
+    AccessToken: 'accessToken',
+    RefreshToken: 'refreshToken',
+    ExpiresAt: 'expiresAt',
+    TokenType: 'tokenType',
+    Scope: 'scope',
+    VerificationCode: 'verificationCode',
+    UserId: 'userId',
+    ProjectId: 'projectId',
+    ProviderId: 'providerId',
+    ProviderUserId: 'providerUserId',
+    ProviderUserData: 'providerUserData',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt'
+} as const;
+
+export type SsoOAuthTokenScalarFieldEnum = typeof SsoOAuthTokenScalarFieldEnum[keyof typeof SsoOAuthTokenScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @interface SsoOAuthVerificationArgs
+ */
+export interface SsoOAuthVerificationArgs {
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthVerificationArgs
+     */
+    'verificationCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoOAuthVerificationArgs
+     */
+    'fingerprint': string;
+}
 /**
  * 
  * @export
@@ -1407,6 +1817,12 @@ export interface SsoProject {
      * @memberof SsoProject
      */
     'updatedAt': string;
+    /**
+     * 
+     * @type {Array<SsoEmailTemplate>}
+     * @memberof SsoProject
+     */
+    'SsoEmailTemplate'?: Array<SsoEmailTemplate>;
     /**
      * 
      * @type {Array<SsoRefreshSession>}
@@ -1804,6 +2220,12 @@ export interface SsoUser {
      * @memberof SsoUser
      */
     'updatedAt': string;
+    /**
+     * 
+     * @type {Array<SsoOAuthToken>}
+     * @memberof SsoUser
+     */
+    'SsoOAuthToken'?: Array<SsoOAuthToken>;
     /**
      * 
      * @type {Array<SsoRefreshSession>}
@@ -2247,12 +2669,6 @@ export interface UpdateSsoEmailTemplateDto {
      * @memberof UpdateSsoEmailTemplateDto
      */
     'operationName'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateSsoEmailTemplateDto
-     */
-    'projectId'?: string;
 }
 /**
  * 
@@ -4078,6 +4494,135 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
+         * @param {string} redirectUri 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoGoogleOAuthControllerGoogleAuth: async (redirectUri: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'redirectUri' is not null or undefined
+            assertParamExists('ssoGoogleOAuthControllerGoogleAuth', 'redirectUri', redirectUri)
+            const localVarPath = `/api/sso/oauth/google`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (redirectUri !== undefined) {
+                localVarQueryParameter['redirect_uri'] = redirectUri;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoGoogleOAuthControllerGoogleAuthRedirect: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sso/oauth/google/redirect`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoOAuthControllerOauthProviders: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sso/oauth/providers`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {SsoOAuthVerificationArgs} ssoOAuthVerificationArgs 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoOAuthControllerOauthVerification: async (ssoOAuthVerificationArgs: SsoOAuthVerificationArgs, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'ssoOAuthVerificationArgs' is not null or undefined
+            assertParamExists('ssoOAuthControllerOauthVerification', 'ssoOAuthVerificationArgs', ssoOAuthVerificationArgs)
+            const localVarPath = `/api/sso/oauth/verification`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(ssoOAuthVerificationArgs, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {CreateSsoProjectDto} createSsoProjectDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4791,6 +5336,52 @@ export const SsoApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} redirectUri 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoGoogleOAuthControllerGoogleAuth(redirectUri, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoGoogleOAuthControllerGoogleAuth']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoGoogleOAuthControllerGoogleAuthRedirect(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoGoogleOAuthControllerGoogleAuthRedirect(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoGoogleOAuthControllerGoogleAuthRedirect']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoOAuthControllerOauthProviders(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OAuthProvider>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoOAuthControllerOauthProviders(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoOAuthControllerOauthProviders']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {SsoOAuthVerificationArgs} ssoOAuthVerificationArgs 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoOAuthControllerOauthVerification(ssoOAuthVerificationArgs: SsoOAuthVerificationArgs, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokensResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoOAuthControllerOauthVerification(ssoOAuthVerificationArgs, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoOAuthControllerOauthVerification']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {CreateSsoProjectDto} createSsoProjectDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5096,6 +5687,40 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
         },
         /**
          * 
+         * @param {string} redirectUri 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.ssoGoogleOAuthControllerGoogleAuth(redirectUri, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoGoogleOAuthControllerGoogleAuthRedirect(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.ssoGoogleOAuthControllerGoogleAuthRedirect(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoOAuthControllerOauthProviders(options?: RawAxiosRequestConfig): AxiosPromise<Array<OAuthProvider>> {
+            return localVarFp.ssoOAuthControllerOauthProviders(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {SsoOAuthVerificationArgs} ssoOAuthVerificationArgs 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoOAuthControllerOauthVerification(ssoOAuthVerificationArgs: SsoOAuthVerificationArgs, options?: RawAxiosRequestConfig): AxiosPromise<TokensResponse> {
+            return localVarFp.ssoOAuthControllerOauthVerification(ssoOAuthVerificationArgs, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {CreateSsoProjectDto} createSsoProjectDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5379,6 +6004,48 @@ export class SsoApi extends BaseAPI {
      */
     public ssoEmailTemplatesControllerUpdateOne(id: string, updateSsoEmailTemplateDto: UpdateSsoEmailTemplateDto, options?: RawAxiosRequestConfig) {
         return SsoApiFp(this.configuration).ssoEmailTemplatesControllerUpdateOne(id, updateSsoEmailTemplateDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} redirectUri 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoGoogleOAuthControllerGoogleAuth(redirectUri, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoGoogleOAuthControllerGoogleAuthRedirect(options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoGoogleOAuthControllerGoogleAuthRedirect(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoOAuthControllerOauthProviders(options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoOAuthControllerOauthProviders(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {SsoOAuthVerificationArgs} ssoOAuthVerificationArgs 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoOAuthControllerOauthVerification(ssoOAuthVerificationArgs: SsoOAuthVerificationArgs, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoOAuthControllerOauthVerification(ssoOAuthVerificationArgs, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

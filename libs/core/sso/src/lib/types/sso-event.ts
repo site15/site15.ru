@@ -1,3 +1,4 @@
+import { SsoOAuthVerificationArgs } from './sso-oauth-verification.dto';
 import { SignInArgs } from './sign-in.dto';
 import { SignOutArgs } from './sign-out.dto';
 import { CompleteSignUpArgs, SignUpArgs } from './sign-up.dto';
@@ -7,9 +8,13 @@ export enum SsoEventEnum {
   SignUp = 'SignUp',
   SignOut = 'SignOut',
   CompleteSignUp = 'CompleteSignUp',
+  OAuthVerification = 'OAuthVerification',
 }
 
 export interface SsoEventContext {
+  [SsoEventEnum.OAuthVerification]: {
+    oAuthVerificationArgs: SsoOAuthVerificationArgs;
+  };
   [SsoEventEnum.SignIn]: {
     signInArgs: SignInArgs;
   };

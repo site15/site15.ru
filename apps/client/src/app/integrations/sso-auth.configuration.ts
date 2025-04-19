@@ -37,6 +37,10 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     ssoRestService.configuration.withCredentials = true;
   }
 
+  getOAuthProviders() {
+    return this.ssoRestService.ssoOAuthControllerOauthProviders();
+  }
+
   logout(): Observable<void | null> {
     const refreshToken = this.tokensService.getRefreshToken();
     return this.ssoRestService

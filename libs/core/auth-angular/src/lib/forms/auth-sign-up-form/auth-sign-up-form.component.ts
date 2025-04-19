@@ -44,6 +44,13 @@ import { AuthSignupInput, AuthUserAndTokens } from '../../services/auth.types';
     RouterModule,
     TranslocoDirective,
   ],
+  styles: [
+    `
+      :host {
+        width: 400px;
+      }
+    `,
+  ],
   selector: 'auth-sign-up-form',
   templateUrl: './auth-sign-up-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

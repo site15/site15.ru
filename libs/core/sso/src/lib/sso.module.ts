@@ -10,6 +10,7 @@ import { PrismaModule } from '@nestjs-mod/prisma';
 import { UseFilters, UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { TranslatesModule } from 'nestjs-translates';
+import { SsoEmailTemplatesController } from './controllers/sso-email-templates.controller';
 import { SsoProjectsController } from './controllers/sso-projects.controller';
 import { SsoPublicProjectsController } from './controllers/sso-public-projects.controller';
 import { SsoRolesController } from './controllers/sso-roles.controller';
@@ -23,6 +24,7 @@ import { SsoCookieService } from './services/sso-cookie.service';
 import { SsoEventsService } from './services/sso-events.service';
 import { SsoPasswordService } from './services/sso-password.service';
 import { SsoProjectService } from './services/sso-project.service';
+import { SsoTemplatesService } from './services/sso-templates.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoUsersService } from './services/sso-users.service';
 import { SsoService } from './services/sso.service';
@@ -31,9 +33,10 @@ import { SSO_FEATURE, SSO_MODULE } from './sso.constants';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
+import { SsoGoogleOAuthController } from './strategies/google/sso-google-oauth.controller';
+import { SsoGoogleOAuthStrategy } from './strategies/google/sso-google-oauth.strategy';
 import { SSO_WEBHOOK_EVENTS } from './types/sso-webhooks';
-import { SsoEmailTemplatesController } from './controllers/sso-email-templates.controller';
-import { SsoTemplatesService } from './services/sso-templates.service';
+import { SsoOAuthController } from './controllers/sso-oauth.controller';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -77,8 +80,10 @@ export const { SsoModule } = createNestModule({
     SsoRolesController,
     SsoPublicProjectsController,
     SsoEmailTemplatesController,
+    SsoOAuthController,
+    SsoGoogleOAuthController,
   ],
-  providers: [SsoServiceBootstrap],
+  providers: [SsoServiceBootstrap, SsoGoogleOAuthStrategy],
   sharedProviders: [
     SsoService,
     SsoUsersService,
@@ -119,6 +124,8 @@ export const { SsoModule } = createNestModule({
       SsoRolesController,
       SsoPublicProjectsController,
       SsoEmailTemplatesController,
+      SsoOAuthController,
+      SsoGoogleOAuthController,
     ]) {
       if (staticEnvironments?.useFilters) {
         UseFilters(SsoExceptionsFilter)(ctrl);

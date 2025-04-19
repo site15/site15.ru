@@ -43,6 +43,13 @@ import { AuthForgotPasswordInput } from '../../services/auth.types';
     RouterModule,
     TranslocoDirective,
   ],
+  styles: [
+    `
+      :host {
+        width: 400px;
+      }
+    `,
+  ],
   selector: 'auth-forgot-password-form',
   templateUrl: './auth-forgot-password-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

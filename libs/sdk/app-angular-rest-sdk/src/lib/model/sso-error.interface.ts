@@ -12,7 +12,7 @@ import { SsoErrorEnumInterface } from './sso-error-enum.interface';
 
 export interface SsoErrorInterface { 
     /**
-     * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015), Bad access token (SSO-016), Your session has been blocked (SSO-017)
+     * Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015), Bad access token (SSO-016), Your session has been blocked (SSO-017), Verification code not found (SSO-018)
      */
     message: string;
     code: SsoErrorEnumInterface;

@@ -20,6 +20,7 @@ export enum SsoErrorEnum {
   NonExistentRoleSpecified = 'SSO-015',
   BadAccessToken = 'SSO-016',
   YourSessionHasBeenBlocked = 'SSO-017',
+  VerificationCodeNotFound = 'SSO-018',
 }
 
 export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
@@ -46,6 +47,9 @@ export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
   [SsoErrorEnum.BadAccessToken]: getText('Bad access token'),
   [SsoErrorEnum.YourSessionHasBeenBlocked]: getText(
     'Your session has been blocked'
+  ),
+  [SsoErrorEnum.VerificationCodeNotFound]: getText(
+    'Verification code not found'
   ),
 };
 

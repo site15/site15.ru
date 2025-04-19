@@ -1,5 +1,6 @@
 import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
+import { SsoProject } from './sso-project.entity';
 
 export class SsoEmailTemplate {
   @ApiProperty({
@@ -52,4 +53,9 @@ export class SsoEmailTemplate {
     format: 'date-time',
   })
   updatedAt!: Date;
+  @ApiProperty({
+    type: () => SsoProject,
+    required: false,
+  })
+  SsoProject?: SsoProject;
 }

@@ -1,7 +1,7 @@
 {
     "Sign-in": "Sign-in",
     "Sign-up": "Sign-up",
-    "Forgot your password?": "Forgot your password?",
+    "Forgot password?": "Forgot password?",
     "Reset password": "Reset password",
     "Change password": "Change password",
     "auth.sign-up-form.fields.email": "Email",

@@ -50,10 +50,4 @@ export class CreateSsoEmailTemplateDto {
   @IsOptional()
   @IsString()
   operationName?: string | null;
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  projectId!: string;
 }

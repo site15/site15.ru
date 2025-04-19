@@ -23,6 +23,7 @@ CREATE INDEX IF NOT EXISTS "IDX_SSO_PROJECTS__PUBLIC" ON "SsoProject"("public");
 
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_PROJECTS__CLIENT_ID" ON "SsoProject"("clientId");
 
+--
 CREATE TABLE IF NOT EXISTS "SsoUser"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     email varchar(255) NOT NULL,
@@ -70,6 +71,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_USERS__EMAIL" ON "SsoUser"(email, "pro
 
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_USERS__USERNAME" ON "SsoUser"(username, "projectId");
 
+--
 CREATE TABLE IF NOT EXISTS "SsoRefreshSession"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     "refreshToken" uuid NOT NULL,
@@ -123,6 +125,7 @@ CREATE INDEX IF NOT EXISTS "IDX_SSO_REFRESH_SESSIONS__PROJECT_ID" ON "SsoRefresh
 
 CREATE INDEX IF NOT EXISTS "IDX_SSO_REFRESH_SESSIONS_USER_ID" ON "SsoRefreshSession"("userId", "projectId");
 
+--
 CREATE TABLE IF NOT EXISTS "SsoEmailTemplate"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     "subject" text NOT NULL,
@@ -149,7 +152,7 @@ $$;
 
 DO $$
 BEGIN
-    ALTER TABLE "SsoUser"
+    ALTER TABLE "SsoEmailTemplate"
         ADD CONSTRAINT "FK_SSO_EMAIL_TEMPLATES__PROJECT_ID" FOREIGN KEY("projectId") REFERENCES "SsoProject";
 EXCEPTION
     WHEN duplicate_object THEN
@@ -160,4 +163,125 @@ $$;
 CREATE INDEX IF NOT EXISTS "IDX_SSO_EMAIL_TEMPLATES__PROJECT_ID" ON "SsoEmailTemplate"("projectId");
 
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_EMAIL_TEMPLATES__OPERATION_NAME" ON "SsoEmailTemplate"("projectId", "operationName");
+
+--
+CREATE TABLE IF NOT EXISTS "SsoOAuthProvider"(
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    "name" varchar(255) NOT NULL,
+    "createdAt" timestamp DEFAULT now() NOT NULL,
+    "updatedAt" timestamp DEFAULT now() NOT NULL
+);
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoOAuthProvider"
+        ADD CONSTRAINT "PK_SSO_OAUTH_PROVIDER" PRIMARY KEY(id);
+EXCEPTION
+    WHEN invalid_table_definition THEN
+        NULL;
+END
+$$;
+
+CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_OAUTH_PROVIDER__NAME" ON "SsoOAuthProvider"("name");
+
+--
+CREATE TABLE IF NOT EXISTS "SsoOAuthProviderSettings"(
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    "name" varchar(255) NOT NULL,
+    "value" text NOT NULL,
+    "providerId" uuid NOT NULL,
+    "createdAt" timestamp DEFAULT now() NOT NULL,
+    "updatedAt" timestamp DEFAULT now() NOT NULL
+);
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoOAuthProviderSettings"
+        ADD CONSTRAINT "PK_SSO_OAUTH_PROVIDER_SETTINGS" PRIMARY KEY(id);
+EXCEPTION
+    WHEN invalid_table_definition THEN
+        NULL;
+END
+$$;
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoOAuthProviderSettings"
+        ADD CONSTRAINT "FK_SSO_OAUTH_PROVIDER_SETTINGS__PROVIDER_ID" FOREIGN KEY("providerId") REFERENCES "SsoOAuthProvider";
+EXCEPTION
+    WHEN duplicate_object THEN
+        NULL;
+END
+$$;
+
+CREATE INDEX IF NOT EXISTS "IDX_SSO_OAUTH_PROVIDER_SETTINGS__PROVIDER_ID" ON "SsoOAuthProviderSettings"("providerId");
+
+CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_OAUTH_PROVIDER_SETTINGS__NAME" ON "SsoOAuthProviderSettings"("providerId", "name");
+
+--
+CREATE TABLE IF NOT EXISTS "SsoOAuthToken"(
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
+    "grantedAt" timestamp DEFAULT now() NOT NULL,
+    "accessToken" varchar(512) NOT NULL,
+    "refreshToken" varchar(512),
+    "expiresAt" timestamp,
+    "tokenType" varchar(255),
+    "scope" varchar(512),
+    "verificationCode" varchar(512),
+    "userId" uuid NOT NULL,
+    "projectId" uuid NOT NULL,
+    "providerId" uuid NOT NULL,
+    "providerUserId" varchar(512) NOT NULL,
+    "providerUserData" jsonb,
+    "createdAt" timestamp DEFAULT now() NOT NULL,
+    "updatedAt" timestamp DEFAULT now() NOT NULL
+);
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoOAuthToken"
+        ADD CONSTRAINT "PK_SSO_OAUTH_TOKENS_SETTINGS" PRIMARY KEY(id);
+EXCEPTION
+    WHEN invalid_table_definition THEN
+        NULL;
+END
+$$;
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoOAuthToken"
+        ADD CONSTRAINT "FK_SSO_OAUTH_TOKENS__USER_ID" FOREIGN KEY("userId") REFERENCES "SsoUser";
+EXCEPTION
+    WHEN duplicate_object THEN
+        NULL;
+END
+$$;
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoOAuthToken"
+        ADD CONSTRAINT "FK_SSO_OAUTH_TOKENS__PROJECT_ID" FOREIGN KEY("projectId") REFERENCES "SsoProject";
+EXCEPTION
+    WHEN duplicate_object THEN
+        NULL;
+END
+$$;
+
+DO $$
+BEGIN
+    ALTER TABLE "SsoOAuthToken"
+        ADD CONSTRAINT "FK_SSO_OAUTH_TOKENS__PROVIDER_ID" FOREIGN KEY("providerId") REFERENCES "SsoOAuthProvider";
+EXCEPTION
+    WHEN duplicate_object THEN
+        NULL;
+END
+$$;
+
+CREATE INDEX IF NOT EXISTS "IDX_SSO_OAUTH_TOKENS__USER_ID" ON "SsoOAuthToken"("userId");
+
+CREATE INDEX IF NOT EXISTS "IDX_SSO_OAUTH_TOKENS__PROJECT_ID" ON "SsoOAuthToken"("projectId");
+
+CREATE INDEX IF NOT EXISTS "IDX_SSO_OAUTH_TOKENS__PROVIDER_ID" ON "SsoOAuthToken"("providerId");
+
+CREATE UNIQUE INDEX IF NOT EXISTS "UQ_SSO_OAUTH_TOKENS__NAME" ON "SsoOAuthToken"("providerId", "projectId", "userId", "accessToken");
 

@@ -13,8 +13,8 @@ msgstr "Войти"
 msgid "Sign-up"
 msgstr "Зарегистрироваться"
 
-msgid "Forgot your password?"
-msgstr "Забыли ваш пароль?"
+msgid "Forgot password?"
+msgstr "Забыли пароль?"
 
 msgid "Reset password"
 msgstr "Сбросить пароль"

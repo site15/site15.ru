@@ -12,8 +12,8 @@ msgstr "Sign-in"
 msgid "Sign-up"
 msgstr "Sign-up"
 
-msgid "Forgot your password?"
-msgstr "Forgot your password?"
+msgid "Forgot password?"
+msgstr "Forgot password?"
 
 msgid "Reset password"
 msgstr "Reset password"

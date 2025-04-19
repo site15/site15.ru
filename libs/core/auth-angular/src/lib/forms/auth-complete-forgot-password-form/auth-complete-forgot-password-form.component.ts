@@ -46,6 +46,13 @@ import {
     RouterModule,
     TranslocoPipe,
   ],
+  styles: [
+    `
+      :host {
+        width: 400px;
+      }
+    `,
+  ],
   selector: 'auth-complete-forgot-password-form',
   templateUrl: './auth-complete-forgot-password-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

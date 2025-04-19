@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaClient, SsoUser } from '@prisma/sso-client';
@@ -51,6 +52,38 @@ export class SsoService {
       email: signInArgs.email,
       password: signInArgs.password,
       projectId,
+    });
+  }
+
+  async autoSignUp({
+    email,
+    password,
+    username,
+    projectId,
+    firstname,
+    lastname,
+    picture,
+  }: {
+    email: string;
+    password: string;
+    username?: string;
+    projectId: string;
+    firstname?: string;
+    lastname?: string;
+    picture?: string;
+  }) {
+    return await this.ssoUsersService.create({
+      user: {
+        email,
+        username,
+        password,
+        emailVerifiedAt: new Date(),
+        firstname,
+        lastname,
+        picture,
+      },
+      projectId,
+      roles: this.ssoStaticEnvironments.userDefaultRoles,
     });
   }
 

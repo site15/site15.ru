@@ -12,21 +12,21 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  flatResourceStructure           = "false"
-  prettier                        = "true"
   reExport                        = "false"
-  classValidation                 = "true"
-  definiteAssignmentAssertion     = "true"
-  noDependencies                  = "false"
+  outputToNestJsResourceStructure = "false"
   dtoSuffix                       = "Dto"
-  createDtoPrefix                 = "Create"
   updateDtoPrefix                 = "Update"
+  fileNamingStyle                 = "kebab"
+  prettier                        = "true"
+  noDependencies                  = "false"
+  classValidation                 = "true"
   entitySuffix                    = ""
   exportRelationModifierClasses   = "true"
+  definiteAssignmentAssertion     = "true"
   annotateAllDtoProperties        = "true"
-  outputToNestJsResourceStructure = "false"
+  flatResourceStructure           = "false"
   entityPrefix                    = ""
-  fileNamingStyle                 = "kebab"
+  createDtoPrefix                 = "Create"
 }
 
 model SsoProject {
@@ -43,6 +43,7 @@ model SsoProject {
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
   updatedAt         DateTime            @default(now()) @db.Timestamp(6)
+  SsoEmailTemplate  SsoEmailTemplate[]
   SsoRefreshSession SsoRefreshSession[]
   SsoUser           SsoUser[]
 
@@ -74,6 +75,7 @@ model SsoUser {
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
   updatedAt         DateTime            @default(now()) @db.Timestamp(6)
+  SsoOAuthToken     SsoOAuthToken[]
   SsoRefreshSession SsoRefreshSession[]
   SsoProject        SsoProject          @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_USERS__PROJECT_ID")
 
@@ -125,24 +127,91 @@ model SsoRefreshSession {
   @@index([projectId], map: "IDX_SSO_REFRESH_SESSIONS__PROJECT_ID")
 }
 
-model SsoEmailTemplate { 
+model SsoEmailTemplate {
   /// @DtoCreateHidden
-  id            String   @id(map: "PK_SSO_EMAIL_TEMPLATES") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  id            String     @id(map: "PK_SSO_EMAIL_TEMPLATES") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   subject       String
   subjectLocale Json?
   text          String
   textLocale    Json?
   html          String
   htmlLocale    Json?
-  operationName String?  @db.VarChar(128)
-  projectId     String   @db.Uuid
+  operationName String?    @db.VarChar(128)
+  projectId     String     @db.Uuid
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  createdAt     DateTime @default(now()) @db.Timestamp(6)
+  createdAt     DateTime   @default(now()) @db.Timestamp(6)
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  updatedAt     DateTime @default(now()) @db.Timestamp(6)
+  updatedAt     DateTime   @default(now()) @db.Timestamp(6)
+  SsoProject    SsoProject @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_EMAIL_TEMPLATES__PROJECT_ID")
 
   @@unique([projectId, operationName], map: "UQ_SSO_EMAIL_TEMPLATES__OPERATION_NAME")
   @@index([projectId], map: "IDX_SSO_EMAIL_TEMPLATES__PROJECT_ID")
+}
+
+model SsoOAuthProvider {
+  /// @DtoCreateHidden
+  id                                                      String                     @id(map: "PK_SSO_OAUTH_PROVIDER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name                                                    String                     @unique(map: "UQ_SSO_OAUTH_PROVIDER__NAME") @db.VarChar(255)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  createdAt                                               DateTime                   @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  updatedAt                                               DateTime                   @default(now()) @db.Timestamp(6)
+  SsoOAuthProviderSettings                                SsoOAuthProviderSettings[]
+  SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider SsoOAuthToken[]            @relation("SsoOAuthToken_projectIdToSsoOAuthProvider")
+  SsoOAuthToken                                           SsoOAuthToken[]
+}
+
+model SsoOAuthProviderSettings {
+  /// @DtoCreateHidden
+  id               String           @id(map: "PK_SSO_OAUTH_PROVIDER_SETTINGS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name             String           @db.VarChar(255)
+  value            String
+  providerId       String           @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  createdAt        DateTime         @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  updatedAt        DateTime         @default(now()) @db.Timestamp(6)
+  SsoOAuthProvider SsoOAuthProvider @relation(fields: [providerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_OAUTH_PROVIDER_SETTINGS__PROVIDER_ID")
+
+  @@unique([providerId, name], map: "UQ_SSO_OAUTH_PROVIDER_SETTINGS__NAME")
+  @@index([providerId], map: "IDX_SSO_OAUTH_PROVIDER_SETTINGS__PROVIDER_ID")
+}
+
+model SsoOAuthToken {
+  /// @DtoCreateHidden
+  id                                                         String           @id(map: "PK_SSO_OAUTH_TOKENS_SETTINGS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  grantedAt                                                  DateTime         @default(now()) @db.Timestamp(6)
+  /// @DtoEntityHidden
+  accessToken                                                String           @db.VarChar(512)
+  /// @DtoEntityHidden
+  refreshToken                                               String?          @db.VarChar(512)
+  expiresAt                                                  DateTime?        @db.Timestamp(6)
+  tokenType                                                  String?          @db.VarChar(255)
+  scope                                                      String?          @db.VarChar(512)
+  verificationCode                                           String?          @db.VarChar(512)
+  userId                                                     String           @db.Uuid
+  projectId                                                  String           @db.Uuid
+  providerId                                                 String           @db.Uuid
+  providerUserId                                             String           @db.Uuid
+  providerUserData                                           Json?
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  createdAt                                                  DateTime         @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  updatedAt                                                  DateTime         @default(now()) @db.Timestamp(6)
+  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider SsoOAuthProvider @relation("SsoOAuthToken_projectIdToSsoOAuthProvider", fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_OAUTH_TOKENS__PROJECT_ID")
+  SsoOAuthProvider                                           SsoOAuthProvider @relation(fields: [providerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_OAUTH_TOKENS__PROVIDER_ID")
+  SsoUser                                                    SsoUser          @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_OAUTH_TOKENS__USER_ID")
+
+  @@unique([providerId, projectId, userId, accessToken], map: "UQ_SSO_OAUTH_TOKENS__NAME")
+  @@index([projectId], map: "IDX_SSO_OAUTH_TOKENS__PROJECT_ID")
+  @@index([providerId], map: "IDX_SSO_OAUTH_TOKENS__PROVIDER_ID")
+  @@index([userId], map: "IDX_SSO_OAUTH_TOKENS__USER_ID")
 }

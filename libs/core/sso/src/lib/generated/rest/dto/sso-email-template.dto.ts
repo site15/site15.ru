@@ -40,10 +40,6 @@ export class SsoEmailTemplateDto {
   operationName!: string | null;
   @ApiProperty({
     type: 'string',
-  })
-  projectId!: string;
-  @ApiProperty({
-    type: 'string',
     format: 'date-time',
   })
   createdAt!: Date;
