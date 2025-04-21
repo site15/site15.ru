@@ -14,37 +14,51 @@ import { Response } from 'express';
 import { render } from 'mustache';
 import passport from 'passport';
 import { AllowEmptySsoUser } from '../../sso.decorators';
+import { SsoError } from '../../sso.errors';
 import { SsoGoogleOAuthStrategy } from './sso-google-oauth.strategy';
+import { SsoStaticEnvironments } from '../../sso.environments';
 
 @ApiTags('Sso')
 @AllowEmptySsoUser()
 @Controller('/sso/oauth/google')
 export class SsoGoogleOAuthController {
   logger = new Logger(SsoGoogleOAuthController.name);
+  constructor(private readonly ssoStaticEnvironments: SsoStaticEnvironments) {}
 
   @Get()
   googleAuth(
     @Req() req: Request,
-    @Res() res: Response,
+    @Res({ passthrough: true }) res: Response,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Next() next: any,
-    @Query('redirect_uri') redirectUrl: string
+    @Query('redirect_uri') redirectUrl: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    @Query('client_id') clientId: string
   ): void {
-    passport.authenticate(SsoGoogleOAuthStrategy.oauthProviderName, {
-      successRedirect: redirectUrl,
-    })(req, res, next);
+    try {
+      passport.authenticate(SsoGoogleOAuthStrategy.oauthProviderName, {
+        successRedirect: redirectUrl,
+        failureRedirect: redirectUrl,
+        passReqToCallback: true,
+      })(req, res, next);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      throw new SsoError(err.maessage);
+    }
   }
 
   @Get('redirect')
   @UseGuards(AuthGuard(SsoGoogleOAuthStrategy.oauthProviderName))
-  googleAuthRedirect(
-    @Query() redirectUrl: string,
+  async googleAuthRedirect(
+    @Query('redirect_uri') redirectUrl: string,
+    @Query('client_id') clientId: string,
     @Req() req: { user: { verificationCode: string } },
-    @Res() res: Response
-  ): void {
-    const domain = 'https://sso.nestjs-mod.com';
-    const redirectUrlAfterLogin =
-      '{{{domain}}}?verificationCode={{verificationCode}}';
+    @Res({ passthrough: true }) res: Response
+  ) {
+    const domain = this.ssoStaticEnvironments.clientUrl;
+    const redirectUrlAfterLogin = clientId
+      ? `{{{domain}}}/complete-oauth-sign-up?verification_code={{verificationCode}}&client_id=${clientId}`
+      : `{{{domain}}}/complete-oauth-sign-up?verification_code={{verificationCode}}`;
     const context = {
       verificationCode: req?.user?.verificationCode || 'Error',
       domain,

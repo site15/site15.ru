@@ -27,6 +27,9 @@ msgstr "Templates"
 msgid "Users"
 msgstr "Users"
 
+msgid "Projects"
+msgstr "Projects"
+
 msgid "Profile"
 msgstr "Profile"
 
@@ -38,9 +41,6 @@ msgstr "Sign-up"
 
 msgid "Sign-in"
 msgstr "Sign-in"
-
-msgid "Projects"
-msgstr "Projects"
 
 msgid ""
 "Dev/Watch mode: the infrastructure is running using docker-compose, "
@@ -107,6 +107,9 @@ msgstr "RU"
 
 msgid "app.locale.name.russian"
 msgstr "Russian"
+
+msgid "Complete OAuth sign up"
+msgstr "Complete OAuth sign up"
 
 msgid "Single Sign-On"
 msgstr "Single Sign-On"

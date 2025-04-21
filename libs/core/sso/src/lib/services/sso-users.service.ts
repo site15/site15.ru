@@ -56,21 +56,15 @@ export class SsoUsersService {
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
-        this.logger.debug({
-          getAdminById: {
-            id,
-            projectId,
-          },
-        });
-        return this.getAdminById({ id });
-      }
       this.logger.debug({
         getById: {
           id,
           projectId,
         },
       });
+      if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
+        return this.getAdminById({ id });
+      }
       this.logger.error(err, err.stack);
       throw err;
     }

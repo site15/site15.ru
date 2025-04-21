@@ -129,3 +129,6 @@ msgid ""
 msgstr ""
 "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your "
 "registration"
+
+msgid "Verification code not found"
+msgstr "Verification code not found"

@@ -33,10 +33,16 @@ export class SsoStaticEnvironments {
   useFilters?: boolean;
 
   @EnvModelProperty({
-    description: 'Server URL for use in emails',
+    description: 'Server URL',
   })
   @IsNotEmpty()
   serverUrl!: string;
+
+  @EnvModelProperty({
+    description: 'Client URL',
+  })
+  @IsNotEmpty()
+  clientUrl!: string;
 
   @EnvModelProperty({
     description: 'Available user roles',
@@ -124,4 +130,16 @@ export class SsoStaticEnvironments {
     hidden: true,
   })
   disableEmailVerification?: boolean;
+
+  @EnvModelProperty({
+    description:
+      'Client ID for Google application (https://console.cloud.google.com/apis/credentials)',
+  })
+  googleOauthClientId?: string;
+
+  @EnvModelProperty({
+    description:
+      'Client secret key for Google application (https://console.cloud.google.com/apis/credentials)',
+  })
+  googleOauthClientSecretKey?: string;
 }

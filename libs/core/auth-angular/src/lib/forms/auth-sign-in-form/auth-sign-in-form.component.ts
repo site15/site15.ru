@@ -22,10 +22,12 @@ import {
 } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import { ValidationService } from '@nestjs-mod-sso/common-angular';
+import { SsoActiveProjectService } from '@nestjs-mod-sso/sso-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
@@ -38,8 +40,6 @@ import {
   AuthUserAndTokens,
   OAuthProvider,
 } from '../../services/auth.types';
-
-import { NzIconModule } from 'ng-zorro-antd/icon';
 @UntilDestroy()
 @Component({
   imports: [
@@ -87,13 +87,23 @@ export class AuthSignInFormComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly authSignInFormService: AuthSignInFormService,
     private readonly authSignInMapperService: AuthSignInMapperService,
-    private readonly validationService: ValidationService
+    private readonly validationService: ValidationService,
+    private readonly ssoActiveProjectService: SsoActiveProjectService
   ) {}
 
   ngOnInit(): void {
     Object.assign(this, this.nzModalData);
 
     this.loadOAuthProviders();
+
+    this.translocoService.langChanges$
+      .pipe(
+        untilDestroyed(this),
+        tap(() => {
+          this.formlyFields$.next(this.formlyFields$.value);
+        })
+      )
+      .subscribe();
 
     this.setFieldsAndModel({ password: '' });
   }

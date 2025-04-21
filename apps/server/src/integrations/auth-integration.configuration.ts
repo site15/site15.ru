@@ -82,6 +82,9 @@ export class AuthIntegrationConfiguration implements AuthConfiguration {
           if (!tokenData?.userId) {
             throw new SsoError('tokenData.userId not set');
           }
+          if (!tokenData?.projectId) {
+            this.logger.debug({ tokenData });
+          }
           const getProfileResult = await this.ssoUsersService.getById({
             id: tokenData.userId,
             projectId: tokenData.projectId,

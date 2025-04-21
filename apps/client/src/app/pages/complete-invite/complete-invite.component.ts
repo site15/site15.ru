@@ -34,7 +34,7 @@ export class CompleteInviteComponent {
 
     const clientId =
       this.activatedRoute.snapshot.queryParamMap.get('client_id');
-    if (clientId) {
+    if (clientId && clientId !== undefined) {
       localStorage.setItem(AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY, clientId);
       this.authService.updateHeaders();
     }

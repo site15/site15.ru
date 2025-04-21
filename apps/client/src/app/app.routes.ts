@@ -1,15 +1,17 @@
 import { Route } from '@angular/router';
+import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { AuthRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
-  CompleteSignUpOptions,
   AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY,
   AUTH_GUARD_DATA_ROUTE_KEY,
   AuthCompleteGuardData,
   AuthCompleteGuardService,
   AuthGuardData,
   AuthGuardService,
+  CompleteSignUpOptions,
   OnActivateOptions,
 } from '@nestjs-mod-sso/auth-angular';
+import { AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY } from '@nestjs-mod-sso/sso-angular';
 import { CompleteForgotPasswordComponent } from './pages/complete-forgot-password/complete-forgot-password.component';
 import { CompleteInviteComponent } from './pages/complete-invite/complete-invite.component';
 import { CompleteSignUpComponent } from './pages/complete-sign-up/complete-sign-up.component';
@@ -22,12 +24,18 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { TemplatesComponent } from './pages/templates/templates.component';
 import { UsersComponent } from './pages/users/users.component';
 import { WebhooksComponent } from './pages/webhooks/webhooks.component';
-import { marker } from '@jsverse/transloco-keys-manager/marker';
-import { AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY } from '@nestjs-mod-sso/sso-angular';
 
 export const appRoutes: Route[] = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, title: marker('Home') },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    title: marker('Home'),
+  },
   {
     path: 'webhooks',
     component: WebhooksComponent,
@@ -170,7 +178,53 @@ export const appRoutes: Route[] = [
         beforeCompleteSignUp: async (options: CompleteSignUpOptions) => {
           const clientId =
             options.activatedRouteSnapshot.queryParamMap.get('client_id');
-          if (clientId) {
+          if (clientId && clientId !== undefined) {
+            localStorage.setItem(
+              AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
+              clientId
+            );
+            options.authService.updateHeaders();
+          }
+          return true;
+        },
+        afterCompleteSignUp: async (options: CompleteSignUpOptions) => {
+          if (options.error) {
+            return false;
+          }
+
+          const redirectUri =
+            options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
+          if (!redirectUri) {
+            if (options.authService && options.router) {
+              if (
+                options.authService.profile$.value?.roles?.includes('admin')
+              ) {
+                options.router.navigate(['/projects']);
+              } else {
+                options.router.navigate(['/home']);
+              }
+            }
+          } else {
+            location.href = redirectUri;
+          }
+          return true;
+        },
+      }),
+    },
+  },
+  {
+    path: 'complete-oauth-sign-up',
+    component: CompleteSignUpComponent,
+    title: marker('Complete OAuth sign up'),
+    canActivate: [AuthCompleteGuardService],
+    data: {
+      [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
+        type: 'complete-oauth-sign-up',
+
+        beforeCompleteSignUp: async (options: CompleteSignUpOptions) => {
+          const clientId =
+            options.activatedRouteSnapshot.queryParamMap.get('client_id');
+          if (clientId && clientId !== undefined) {
             localStorage.setItem(
               AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
               clientId

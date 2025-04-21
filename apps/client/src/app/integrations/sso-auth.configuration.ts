@@ -18,6 +18,7 @@ import {
   AuthUser,
   AuthUserAndTokens,
   FingerprintService,
+  OAuthVerificationInput,
   TokensService,
 } from '@nestjs-mod-sso/auth-angular';
 import { FilesService } from '@nestjs-mod-sso/files-angular';
@@ -37,7 +38,25 @@ export class SsoAuthConfiguration implements AuthConfiguration {
     ssoRestService.configuration.withCredentials = true;
   }
 
-  getOAuthProviders() {
+  oAuthVerification({ verificationCode }: OAuthVerificationInput) {
+    return this.fingerprintService.getFingerprint().pipe(
+      mergeMap((fingerprint) =>
+        this.ssoRestService
+          .ssoOAuthControllerOauthVerification({
+            fingerprint,
+            verificationCode,
+          })
+          .pipe(
+            map((result: TokensResponseInterface) => ({
+              tokens: this.mapToAuthTokens(result),
+              user: this.mapToAuthUser(result.user),
+            }))
+          )
+      )
+    );
+  }
+
+  oAuthProviders() {
     return this.ssoRestService.ssoOAuthControllerOauthProviders();
   }
 

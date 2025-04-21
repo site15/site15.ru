@@ -34,5 +34,6 @@
     "Verify your email": "Verify your email",
     "Complete your registration using the invitation link": "Complete your registration using the invitation link",
     "Please navigate by a {{{link}}} to complete your registration": "Please navigate by a {{{link}}} to complete your registration",
-    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration"
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration",
+    "Verification code not found": "Verification code not found"
 }

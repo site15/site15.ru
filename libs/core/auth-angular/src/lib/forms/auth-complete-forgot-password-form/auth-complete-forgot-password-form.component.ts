@@ -86,6 +86,16 @@ export class AuthCompleteForgotPasswordFormComponent implements OnInit {
 
   ngOnInit(): void {
     Object.assign(this, this.nzModalData);
+
+    this.translocoService.langChanges$
+      .pipe(
+        untilDestroyed(this),
+        tap(() => {
+          this.formlyFields$.next(this.formlyFields$.value);
+        })
+      )
+      .subscribe();
+
     this.setFieldsAndModel({
       code: '',
       password: '',

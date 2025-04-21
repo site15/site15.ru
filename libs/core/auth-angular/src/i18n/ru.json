@@ -1,7 +1,9 @@
 {
-    "Sign-in": "Войти",
     "Sign-up": "Зарегистрироваться",
     "Forgot password?": "Забыли пароль?",
+    "Sign-in": "Войти",
+    "or": "или",
+    "Sign in with Google": "Войти через Google",
     "Reset password": "Сбросить пароль",
     "Change password": "Изменить пароль",
     "auth.sign-up-form.fields.email": "Email",
@@ -14,6 +16,7 @@
     "auth.profile-form.fields.new-password": "Новый пароль",
     "auth.profile-form.fields.confirm-new-password": "Новый пароль (еще раз)",
     "auth.forgot-password-form.fields.email": "Email",
+    "Successful login using external single sign-on system": "Успешный вход с помощью внешней системы единого входа",
     "Email address successfully verified": "Адрес электронной почты успешно подтвержден",
     "auth.complete-forgot-password-form.fields.password": "Пароль",
     "auth.complete-forgot-password-form.fields.confirm-password": "Пароль (еще раз)",

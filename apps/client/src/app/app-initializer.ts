@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@jsverse/transloco';
 import {
   AuthRestService,
@@ -13,8 +14,8 @@ import {
   AuthService,
   TokensService,
 } from '@nestjs-mod-sso/auth-angular';
-import { catchError, merge, mergeMap, of, Subscription, tap } from 'rxjs';
 import { SsoActiveProjectService } from '@nestjs-mod-sso/sso-angular';
+import { catchError, merge, mergeMap, of, Subscription, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AppInitializer {
@@ -30,7 +31,8 @@ export class AppInitializer {
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
     private readonly authActiveLangService: AuthActiveLangService,
-    private readonly ssoActiveProjectService: SsoActiveProjectService
+    private readonly ssoActiveProjectService: SsoActiveProjectService,
+    private readonly activatedRoute: ActivatedRoute
   ) {}
 
   resolve() {

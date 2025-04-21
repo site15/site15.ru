@@ -15,14 +15,13 @@ import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { PrismaClient } from '@prisma/sso-client';
 import { Response } from 'express';
 import { omit } from 'lodash/fp';
-import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { IpAddress } from '../decorators/ip-address.decorator';
 import { UserAgent } from '../decorators/user-agent.decorator';
 import { SsoCookieService } from '../services/sso-cookie.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SSO_FEATURE } from '../sso.constants';
 import { AllowEmptySsoUser, CurrentSsoRequest } from '../sso.decorators';
+import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { OAuthProvider } from '../types/sso-oauth-provider.dto';
 import { SsoOAuthVerificationArgs } from '../types/sso-oauth-verification.dto';
@@ -42,25 +41,25 @@ export class SsoOAuthController {
     private readonly ssoCookieService: SsoCookieService,
     private readonly ssoEventsService: SsoEventsService,
     private readonly webhookService: WebhookService,
-    private readonly prismaToolsService: PrismaToolsService
+    private readonly prismaToolsService: PrismaToolsService,
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments
   ) {}
 
   @ApiOkResponse({ type: OAuthProvider, isArray: true })
   @Get('providers')
-  oauthProviders(): Observable<OAuthProvider[]> {
-    const domain = 'https://sso.nestjs-mod.com';
-    return from(this.prismaClient.ssoOAuthProvider.findMany({})).pipe(
-      map((providers) =>
-        providers.map((provider) => ({
-          ...provider,
-          url: `${domain}/api/sso/oauth/${
-            provider.name
-          }?redirect_uri=${encodeURI(
-            `${domain}/api/sso/oauth/${provider.name}/redirect`
-          )}`,
-        }))
-      )
-    );
+  async oauthProviders(
+    @CurrentSsoRequest() ssoRequest: SsoRequest
+  ): Promise<OAuthProvider[]> {
+    const domain = this.ssoStaticEnvironments.serverUrl;
+    const providers = await this.prismaClient.ssoOAuthProvider.findMany({});
+    return providers.map((provider) => ({
+      ...provider,
+      url: `${domain}/api/sso/oauth/${
+        provider.name
+      }?redirect_uri=${encodeURIComponent(
+        `${domain}/api/sso/oauth/${provider.name}/redirect?client_id=${ssoRequest.ssoClientId}`
+      )}`,
+    }));
   }
 
   @ApiOkResponse({ type: TokensResponse })
@@ -79,23 +78,35 @@ export class SsoOAuthController {
         where: { verificationCode: ssoOAuthVerificationArgs.verificationCode },
       });
 
+      const user = await this.prismaClient.ssoUser.update({
+        data: {
+          SsoProject: {
+            connect: { id: ssoRequest.ssoProject.id },
+          },
+        },
+        where: { id: oAuthToken.userId },
+      });
+
       oAuthToken = await this.prismaClient.ssoOAuthToken.update({
         include: { SsoUser: true },
-        data: { verificationCode: null },
+        data: {
+          verificationCode: null,
+          projectId: user.projectId,
+        },
         where: { id: oAuthToken?.id },
       });
 
       await this.webhookService.sendEvent({
         eventName: SsoWebhookEvent['sso.sign-in'],
         eventBody: omit(['password'], oAuthToken.SsoUser),
-        eventHeaders: { projectId: ssoRequest.ssoProject.id },
+        eventHeaders: { projectId: user.projectId },
       });
 
       if (oAuthToken.SsoUser.emailVerifiedAt === null) {
         this.logger.debug({
           signIn: {
             SsoOAuthVerification: ssoOAuthVerificationArgs,
-            projectId: ssoRequest.ssoProject.id,
+            projectId: user.projectId,
           },
         });
         throw new SsoError(SsoErrorEnum.EmailNotVerified);
@@ -117,7 +128,7 @@ export class SsoOAuthController {
           userAgent,
           fingerprint: ssoOAuthVerificationArgs.fingerprint,
           roles: oAuthToken.SsoUser.roles,
-          projectId: ssoRequest.ssoProject.id,
+          projectId: user.projectId,
         });
 
       response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);

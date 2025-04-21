@@ -4495,12 +4495,15 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         /**
          * 
          * @param {string} redirectUri 
+         * @param {string} clientId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoGoogleOAuthControllerGoogleAuth: async (redirectUri: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        ssoGoogleOAuthControllerGoogleAuth: async (redirectUri: string, clientId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'redirectUri' is not null or undefined
             assertParamExists('ssoGoogleOAuthControllerGoogleAuth', 'redirectUri', redirectUri)
+            // verify required parameter 'clientId' is not null or undefined
+            assertParamExists('ssoGoogleOAuthControllerGoogleAuth', 'clientId', clientId)
             const localVarPath = `/api/sso/oauth/google`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4517,6 +4520,10 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
                 localVarQueryParameter['redirect_uri'] = redirectUri;
             }
 
+            if (clientId !== undefined) {
+                localVarQueryParameter['client_id'] = clientId;
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -4530,10 +4537,16 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
+         * @param {string} redirectUri 
+         * @param {string} clientId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoGoogleOAuthControllerGoogleAuthRedirect: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        ssoGoogleOAuthControllerGoogleAuthRedirect: async (redirectUri: string, clientId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'redirectUri' is not null or undefined
+            assertParamExists('ssoGoogleOAuthControllerGoogleAuthRedirect', 'redirectUri', redirectUri)
+            // verify required parameter 'clientId' is not null or undefined
+            assertParamExists('ssoGoogleOAuthControllerGoogleAuthRedirect', 'clientId', clientId)
             const localVarPath = `/api/sso/oauth/google/redirect`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4545,6 +4558,14 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (redirectUri !== undefined) {
+                localVarQueryParameter['redirect_uri'] = redirectUri;
+            }
+
+            if (clientId !== undefined) {
+                localVarQueryParameter['client_id'] = clientId;
+            }
 
 
     
@@ -5337,22 +5358,25 @@ export const SsoApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} redirectUri 
+         * @param {string} clientId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoGoogleOAuthControllerGoogleAuth(redirectUri, options);
+        async ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, clientId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoGoogleOAuthControllerGoogleAuth(redirectUri, clientId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoGoogleOAuthControllerGoogleAuth']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
+         * @param {string} redirectUri 
+         * @param {string} clientId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ssoGoogleOAuthControllerGoogleAuthRedirect(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoGoogleOAuthControllerGoogleAuthRedirect(options);
+        async ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri: string, clientId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri, clientId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoGoogleOAuthControllerGoogleAuthRedirect']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5688,19 +5712,22 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
         /**
          * 
          * @param {string} redirectUri 
+         * @param {string} clientId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.ssoGoogleOAuthControllerGoogleAuth(redirectUri, options).then((request) => request(axios, basePath));
+        ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, clientId: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.ssoGoogleOAuthControllerGoogleAuth(redirectUri, clientId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @param {string} redirectUri 
+         * @param {string} clientId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoGoogleOAuthControllerGoogleAuthRedirect(options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.ssoGoogleOAuthControllerGoogleAuthRedirect(options).then((request) => request(axios, basePath));
+        ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri: string, clientId: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri, clientId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6009,22 +6036,25 @@ export class SsoApi extends BaseAPI {
     /**
      * 
      * @param {string} redirectUri 
+     * @param {string} clientId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SsoApi
      */
-    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoGoogleOAuthControllerGoogleAuth(redirectUri, options).then((request) => request(this.axios, this.basePath));
+    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, clientId: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoGoogleOAuthControllerGoogleAuth(redirectUri, clientId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @param {string} redirectUri 
+     * @param {string} clientId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SsoApi
      */
-    public ssoGoogleOAuthControllerGoogleAuthRedirect(options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoGoogleOAuthControllerGoogleAuthRedirect(options).then((request) => request(this.axios, this.basePath));
+    public ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri: string, clientId: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri, clientId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -85,3 +85,8 @@ export type OAuthProvider = {
   name: string;
   url: string;
 };
+
+export interface OAuthVerificationInput {
+  verificationCode: string;
+  clientId: string | undefined;
+}

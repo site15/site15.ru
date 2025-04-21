@@ -136,3 +136,6 @@ msgid ""
 msgstr ""
 "Пожалуйста, перейдите по <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы "
 "завершить регистрацию"
+
+msgid "Verification code not found"
+msgstr "Код подтверждения не найден"

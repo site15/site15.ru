@@ -1013,21 +1013,29 @@ export class SsoRestService {
 
     /**
      * @param redirectUri 
+     * @param clientId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, clientId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, clientId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, clientId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public ssoGoogleOAuthControllerGoogleAuth(redirectUri: string, clientId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (redirectUri === null || redirectUri === undefined) {
             throw new Error('Required parameter redirectUri was null or undefined when calling ssoGoogleOAuthControllerGoogleAuth.');
+        }
+        if (clientId === null || clientId === undefined) {
+            throw new Error('Required parameter clientId was null or undefined when calling ssoGoogleOAuthControllerGoogleAuth.');
         }
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (redirectUri !== undefined && redirectUri !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>redirectUri, 'redirect_uri');
+        }
+        if (clientId !== undefined && clientId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>clientId, 'client_id');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1081,13 +1089,31 @@ export class SsoRestService {
     }
 
     /**
+     * @param redirectUri 
+     * @param clientId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public ssoGoogleOAuthControllerGoogleAuthRedirect(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
-    public ssoGoogleOAuthControllerGoogleAuthRedirect(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
-    public ssoGoogleOAuthControllerGoogleAuthRedirect(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
-    public ssoGoogleOAuthControllerGoogleAuthRedirect(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri: string, clientId: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any>;
+    public ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri: string, clientId: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<any>>;
+    public ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri: string, clientId: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<any>>;
+    public ssoGoogleOAuthControllerGoogleAuthRedirect(redirectUri: string, clientId: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined, context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (redirectUri === null || redirectUri === undefined) {
+            throw new Error('Required parameter redirectUri was null or undefined when calling ssoGoogleOAuthControllerGoogleAuthRedirect.');
+        }
+        if (clientId === null || clientId === undefined) {
+            throw new Error('Required parameter clientId was null or undefined when calling ssoGoogleOAuthControllerGoogleAuthRedirect.');
+        }
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (redirectUri !== undefined && redirectUri !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>redirectUri, 'redirect_uri');
+        }
+        if (clientId !== undefined && clientId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>clientId, 'client_id');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -1128,6 +1154,7 @@ export class SsoRestService {
         return this.httpClient.request<any>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

@@ -34,5 +34,6 @@
     "Verify your email": "Подтверждение электронной почты",
     "Complete your registration using the invitation link": "Завершите регистрацию, перейдя по ссылке-приглашению",
     "Please navigate by a {{{link}}} to complete your registration": "Пожалуйста, перейдите по {{{link}}}, чтобы завершить регистрацию",
-    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Пожалуйста, перейдите по <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы завершить регистрацию"
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Пожалуйста, перейдите по <a href=\"{{{link}}}\">{{{link}}}</a>, чтобы завершить регистрацию",
+    "Verification code not found": "Код подтверждения не найден"
 }

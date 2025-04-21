@@ -171,8 +171,8 @@ export class SsoService {
       : 'undefined';
 
     const link = signUpArgs.redirectUri
-      ? `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${project?.clientId}`
-      : `${this.ssoStaticEnvironments.serverUrl}/complete-sign-up?code=${code}&client_id=${project?.clientId}`;
+      ? `${this.ssoStaticEnvironments.clientUrl}/complete-sign-up?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${project?.clientId}`
+      : `${this.ssoStaticEnvironments.clientUrl}/complete-sign-up?code=${code}&client_id=${project?.clientId}`;
     const sendNotificationOptions: SsoSendNotificationOptions = {
       recipientUsers: [user],
       subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
@@ -213,8 +213,8 @@ export class SsoService {
       : 'undefined';
 
     const link = signUpArgs.redirectUri
-      ? `${this.ssoStaticEnvironments.serverUrl}/complete-invite?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${project?.clientId}`
-      : `${this.ssoStaticEnvironments.serverUrl}/complete-invite?code=${code}&client_id=${project?.clientId}`;
+      ? `${this.ssoStaticEnvironments.clientUrl}/complete-invite?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${project?.clientId}`
+      : `${this.ssoStaticEnvironments.clientUrl}/complete-invite?code=${code}&client_id=${project?.clientId}`;
     const sendNotificationOptions: SsoSendNotificationOptions = {
       recipientUsers: [user],
       subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
@@ -331,8 +331,8 @@ export class SsoService {
       });
 
       const link = forgotPasswordArgs.redirectUri
-        ? `${this.ssoStaticEnvironments.serverUrl}/complete-forgot-password?code=${code}&redirect_uri=${forgotPasswordArgs.redirectUri}&client_id=${project?.clientId}`
-        : `${this.ssoStaticEnvironments.serverUrl}/complete-forgot-password?code=${code}&client_id=${project?.clientId}`;
+        ? `${this.ssoStaticEnvironments.clientUrl}/complete-forgot-password?code=${code}&redirect_uri=${forgotPasswordArgs.redirectUri}&client_id=${project?.clientId}`
+        : `${this.ssoStaticEnvironments.clientUrl}/complete-forgot-password?code=${code}&client_id=${project?.clientId}`;
       if (this.ssoConfiguration.sendNotification) {
         await this.ssoConfiguration.sendNotification({
           projectId,

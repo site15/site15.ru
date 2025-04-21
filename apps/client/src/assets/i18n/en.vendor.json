@@ -13,9 +13,11 @@
     "Event that fires after user update": "Event that fires after user update"
   },
   "auth-angular": {
-    "Sign-in": "Sign-in",
     "Sign-up": "Sign-up",
     "Forgot password?": "Forgot password?",
+    "Sign-in": "Sign-in",
+    "or": "or",
+    "Sign in with Google": "Sign in with Google",
     "Reset password": "Reset password",
     "Change password": "Change password",
     "auth.sign-up-form.fields.email": "Email",
@@ -28,6 +30,7 @@
     "auth.profile-form.fields.new-password": "New password",
     "auth.profile-form.fields.confirm-new-password": "Confirm new password",
     "auth.forgot-password-form.fields.email": "auth.forgot-password-form.fields.email",
+    "Successful login using external single sign-on system": "Successful login using external single sign-on system",
     "Email address successfully verified": "Email address successfully verified",
     "auth.complete-forgot-password-form.fields.password": "Password",
     "auth.complete-forgot-password-form.fields.confirm-password": "Confirm password",
@@ -221,7 +224,8 @@
     "Verify your email": "Verify your email",
     "Complete your registration using the invitation link": "Complete your registration using the invitation link",
     "Please navigate by a {{{link}}} to complete your registration": "Please navigate by a {{{link}}} to complete your registration",
-    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration"
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration",
+    "Verification code not found": "Verification code not found"
   },
   "sso-angular": {
     "Users for project #{{projectId}}": "Users for project #{{projectId}}",
@@ -387,7 +391,8 @@
     "Verify your email": "Verify your email",
     "Complete your registration using the invitation link": "Complete your registration using the invitation link",
     "Please navigate by a {{{link}}} to complete your registration": "Please navigate by a {{{link}}} to complete your registration",
-    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration"
+    "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration",
+    "Verification code not found": "Verification code not found"
   },
   "two-factor": {
     "Number of attempts of two factor code has been exhausted": "Number of attempts of two factor code has been exhausted",

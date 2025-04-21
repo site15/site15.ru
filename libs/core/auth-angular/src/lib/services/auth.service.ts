@@ -21,6 +21,7 @@ import {
   AuthUpdateProfileInput,
   AuthUser,
   AuthUserAndTokens,
+  OAuthVerificationInput,
 } from './auth.types';
 import { TokensService } from './tokens.service';
 
@@ -167,9 +168,10 @@ export class AuthService {
   }
 
   getOAuthProviders() {
-    if (!this.authConfiguration.getOAuthProviders) {
-      return of([]);
-    }
-    return this.authConfiguration.getOAuthProviders();
+    return this.authConfiguration.oAuthProviders();
+  }
+
+  oAuthVerification(oAuthVerificationInput: OAuthVerificationInput) {
+    return this.authConfiguration.oAuthVerification(oAuthVerificationInput);
   }
 }

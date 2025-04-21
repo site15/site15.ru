@@ -16,7 +16,11 @@ export type CompleteSignUpOptions = {
 };
 
 export class AuthCompleteGuardData {
-  type?: 'complete-sign-up' | 'complete-forgot-password' | 'complete-invite';
+  type?:
+    | 'complete-sign-up'
+    | 'complete-forgot-password'
+    | 'complete-invite'
+    | 'complete-oauth-sign-up';
 
   beforeCompleteSignUp?: (options: CompleteSignUpOptions) => Promise<boolean>;
 
@@ -30,7 +34,6 @@ export class AuthCompleteGuardData {
 @Injectable({ providedIn: 'root' })
 export class AuthCompleteGuardService implements CanActivate {
   constructor(
-    private readonly authAuthService: AuthService,
     private readonly nzMessageService: NzMessageService,
     private readonly translocoService: TranslocoService,
     private readonly authService: AuthService,
@@ -45,6 +48,68 @@ export class AuthCompleteGuardService implements CanActivate {
         ? route.data[AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]
         : null;
     if (authCompleteGuardData) {
+      if (authCompleteGuardData.type === 'complete-oauth-sign-up') {
+        const verificationCode = route.queryParamMap.get('verification_code');
+        const clientId = route.queryParamMap.get('client_id');
+        if (verificationCode) {
+          return (
+            authCompleteGuardData.beforeCompleteSignUp
+              ? from(
+                  authCompleteGuardData.beforeCompleteSignUp({
+                    activatedRouteSnapshot: route,
+                    authService: this.authService,
+                    router: this.router,
+                  })
+                )
+              : of(true)
+          ).pipe(
+            mergeMap(() =>
+              this.authService.oAuthVerification({
+                verificationCode,
+                clientId: clientId || undefined,
+              })
+            ),
+            map(async () => {
+              this.nzMessageService.success(
+                this.translocoService.translate(
+                  'Successful login using external single sign-on system'
+                )
+              );
+              return true;
+            }),
+            mergeMap(() => this.authService.refreshToken()),
+            concatMap(async () => {
+              if (authCompleteGuardData.afterCompleteSignUp) {
+                await authCompleteGuardData.afterCompleteSignUp({
+                  activatedRouteSnapshot: route,
+                  authService: this.authService,
+                  router: this.router,
+                });
+              }
+              return true;
+            }),
+            catchError((err) => {
+              console.error(err);
+              this.nzMessageService.error(
+                this.translocoService.translate(
+                  err.error?.message || err.message
+                )
+              );
+              if (authCompleteGuardData.afterCompleteSignUp) {
+                return from(
+                  authCompleteGuardData.afterCompleteSignUp({
+                    activatedRouteSnapshot: route,
+                    authService: this.authService,
+                    router: this.router,
+                    error: err,
+                  })
+                );
+              }
+              return of(false);
+            })
+          );
+        }
+      }
       if (authCompleteGuardData.type === 'complete-sign-up') {
         const code = route.queryParamMap.get('code');
         if (code) {
@@ -60,7 +125,7 @@ export class AuthCompleteGuardService implements CanActivate {
               : of(true)
           ).pipe(
             mergeMap(() =>
-              this.authAuthService.completeSignUp({
+              this.authService.completeSignUp({
                 code,
               })
             ),
@@ -72,6 +137,7 @@ export class AuthCompleteGuardService implements CanActivate {
               );
               return true;
             }),
+            mergeMap(() => this.authService.refreshToken()),
             concatMap(async () => {
               if (authCompleteGuardData.afterCompleteSignUp) {
                 await authCompleteGuardData.afterCompleteSignUp({
