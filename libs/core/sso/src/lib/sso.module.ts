@@ -7,10 +7,12 @@ import {
 } from '@nestjs-mod/common';
 import { KeyvModule } from '@nestjs-mod/keyv';
 import { PrismaModule } from '@nestjs-mod/prisma';
-import { UseFilters, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
+import { APP_FILTER } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { TranslatesModule } from 'nestjs-translates';
 import { SsoEmailTemplatesController } from './controllers/sso-email-templates.controller';
+import { SsoOAuthController } from './controllers/sso-oauth.controller';
 import { SsoProjectsController } from './controllers/sso-projects.controller';
 import { SsoPublicProjectsController } from './controllers/sso-public-projects.controller';
 import { SsoRolesController } from './controllers/sso-roles.controller';
@@ -36,7 +38,6 @@ import { SsoGuard } from './sso.guard';
 import { SsoGoogleOAuthController } from './strategies/google/sso-google-oauth.controller';
 import { SsoGoogleOAuthStrategy } from './strategies/google/sso-google-oauth.strategy';
 import { SSO_WEBHOOK_EVENTS } from './types/sso-webhooks';
-import { SsoOAuthController } from './controllers/sso-oauth.controller';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -72,18 +73,33 @@ export const { SsoModule } = createNestModule({
     }),
     TranslatesModule,
   ],
-  controllers: [
-    SsoController,
-    SsoUsersController,
-    SsoProjectsController,
-    SsoRefreshSessionsController,
-    SsoRolesController,
-    SsoPublicProjectsController,
-    SsoEmailTemplatesController,
-    SsoOAuthController,
-    SsoGoogleOAuthController,
+  controllers: (asyncModuleOptions) =>
+    [
+      SsoController,
+      SsoUsersController,
+      SsoProjectsController,
+      SsoRefreshSessionsController,
+      SsoRolesController,
+      SsoPublicProjectsController,
+      SsoEmailTemplatesController,
+      SsoOAuthController,
+      SsoGoogleOAuthController,
+    ].map((ctrl) => {
+      if (asyncModuleOptions.staticEnvironments?.useGuards) {
+        UseGuards(SsoGuard)(ctrl);
+      }
+      if (asyncModuleOptions.staticConfiguration?.mutateController) {
+        asyncModuleOptions.staticConfiguration.mutateController(ctrl);
+      }
+      return ctrl;
+    }),
+  providers: (asyncModuleOptions) => [
+    SsoServiceBootstrap,
+    SsoGoogleOAuthStrategy,
+    ...(asyncModuleOptions.staticEnvironments.useFilters
+      ? [{ provide: APP_FILTER, useClass: SsoExceptionsFilter }]
+      : []),
   ],
-  providers: [SsoServiceBootstrap, SsoGoogleOAuthStrategy],
   sharedProviders: [
     SsoService,
     SsoUsersService,
@@ -110,32 +126,5 @@ export const { SsoModule } = createNestModule({
     });
 
     return { asyncModuleOptions };
-  },
-  preWrapApplication: async ({ current }) => {
-    const staticEnvironments = current.staticEnvironments;
-    const ssoStaticConfiguration = current.staticConfiguration;
-
-    // all routes
-    for (const ctrl of [
-      SsoController,
-      SsoUsersController,
-      SsoProjectsController,
-      SsoRefreshSessionsController,
-      SsoRolesController,
-      SsoPublicProjectsController,
-      SsoEmailTemplatesController,
-      SsoOAuthController,
-      SsoGoogleOAuthController,
-    ]) {
-      if (staticEnvironments?.useFilters) {
-        UseFilters(SsoExceptionsFilter)(ctrl);
-      }
-      if (staticEnvironments?.useGuards) {
-        UseGuards(SsoGuard)(ctrl);
-      }
-      if (ssoStaticConfiguration?.mutateController) {
-        ssoStaticConfiguration.mutateController(ctrl);
-      }
-    }
   },
 });

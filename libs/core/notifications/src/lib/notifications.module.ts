@@ -66,7 +66,17 @@ export const { NotificationsModule } = createNestModule({
     }
     return providers;
   },
-  controllers: [NotificationsController],
+  controllers: (asyncModuleOptions) =>
+    [NotificationsController].map((ctrl) => {
+      UseGuards(
+        ...(asyncModuleOptions.staticConfiguration?.guards || []),
+        NotificationsGuard
+      );
+      if (asyncModuleOptions.staticConfiguration?.mutateController) {
+        asyncModuleOptions.staticConfiguration.mutateController(ctrl);
+      }
+      return ctrl;
+    }),
   wrapForRootAsync: (asyncModuleOptions) => {
     if (!asyncModuleOptions) {
       asyncModuleOptions = {};
@@ -82,20 +92,5 @@ export const { NotificationsModule } = createNestModule({
     });
 
     return { asyncModuleOptions };
-  },
-  preWrapApplication: async ({ current }) => {
-    const staticConfiguration = current.staticConfiguration;
-
-    // all routes
-    for (const ctrl of [NotificationsController]) {
-      UseGuards(
-        ...(staticConfiguration?.guards || []),
-        NotificationsGuard
-      )(ctrl);
-
-      if (staticConfiguration?.mutateController) {
-        staticConfiguration.mutateController(ctrl);
-      }
-    }
   },
 });

@@ -28,6 +28,7 @@ import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 import { SsoCookieService } from '../services/sso-cookie.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SsoService } from '../services/sso.service';
+import { OperationName } from '../sso.configuration';
 import {
   AllowEmptySsoUser,
   CurrentSsoRequest,
@@ -46,7 +47,6 @@ import { SsoRequest } from '../types/sso-request';
 import { SsoWebhookEvent } from '../types/sso-webhooks';
 import { TokensResponse } from '../types/tokens.dto';
 import { UpdateProfileArgs } from '../types/update-profile.dto';
-import { OperationName } from '../sso.configuration';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },

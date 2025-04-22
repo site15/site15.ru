@@ -246,7 +246,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         },
         {
           headers: {
-            'x-client-id': this.projectHelper.randomUser.id,
+            'x-client-id': this.project.clientId,
           },
         }
       );
@@ -260,8 +260,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
           undefined,
           this.randomUser.email,
           undefined,
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          this.project.id || process.env['SERVER_SSO_DEFAULT_CLIENT_ID']!,
+          this.project.id,
           {
             headers: {
               'x-admin-secret': process.env['SERVER_SSO_ADMIN_SECRET'],

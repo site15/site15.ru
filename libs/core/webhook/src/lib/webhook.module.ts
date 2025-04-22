@@ -6,7 +6,7 @@ import {
 } from '@nestjs-mod/common';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { HttpModule } from '@nestjs/axios';
-import { UseFilters, UseGuards } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
 import { WebhookController } from './controllers/webhook.controller';
 import { WebhookServiceBootstrap } from './services/webhook-bootstrap.service';
 import { WebhookToolsService } from './services/webhook-tools.service';
@@ -22,6 +22,7 @@ import { WebhookExceptionsFilter } from './webhook.filter';
 import { WebhookGuard } from './webhook.guard';
 
 import { KeyvModule } from '@nestjs-mod/keyv';
+import { APP_FILTER } from '@nestjs/core';
 import { TranslatesModule } from 'nestjs-translates';
 import { WebhookLogsController } from './controllers/webhook-logs.controller';
 import { WebhookCacheService } from './services/webhook-cache.service';
@@ -53,12 +54,21 @@ export const { WebhookModule } = createNestModule({
       featureModuleName: WEBHOOK_FEATURE,
     }),
   ],
-  providers: [
+  providers: (asyncModuleOptions) => [
     WebhookToolsService,
     WebhookServiceBootstrap,
     WebhookCacheService,
+    ...(asyncModuleOptions.staticEnvironments.useFilters
+      ? [{ provide: APP_FILTER, useClass: WebhookExceptionsFilter }]
+      : []),
   ],
-  controllers: [WebhookLogsController, WebhookController],
+  controllers: (asyncModuleOptions) =>
+    [WebhookLogsController, WebhookController].map((ctrl) => {
+      if (asyncModuleOptions.staticEnvironments?.useGuards) {
+        UseGuards(WebhookGuard)(ctrl);
+      }
+      return ctrl;
+    }),
   sharedProviders: [WebhookService, WebhookUsersService],
   wrapForRootAsync: (asyncModuleOptions) => {
     if (!asyncModuleOptions) {
@@ -74,17 +84,5 @@ export const { WebhookModule } = createNestModule({
     });
 
     return { asyncModuleOptions };
-  },
-  preWrapApplication: async ({ current }) => {
-    const staticEnvironments = current.staticEnvironments;
-
-    for (const ctrl of [WebhookController, WebhookLogsController]) {
-      if (staticEnvironments?.useFilters) {
-        UseFilters(WebhookExceptionsFilter)(ctrl);
-      }
-      if (staticEnvironments?.useGuards) {
-        UseGuards(WebhookGuard)(ctrl);
-      }
-    }
   },
 });
