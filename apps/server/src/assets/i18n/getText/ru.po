@@ -24,3 +24,6 @@ msgstr "Нет доступа"
 
 msgid "Unauthorized"
 msgstr "Неавторизован"
+
+msgid "Too Many Requests"
+msgstr "Слишком много запросов"

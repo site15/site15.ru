@@ -23,3 +23,6 @@ msgstr "Forbidden"
 
 msgid "Unauthorized"
 msgstr "Unauthorized"
+
+msgid "Too Many Requests"
+msgstr "Too Many Requests"

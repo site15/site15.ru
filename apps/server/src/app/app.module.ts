@@ -8,13 +8,15 @@ import {
 } from '@nestjs-mod-sso/validation';
 import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import { PrismaModule } from '@nestjs-mod/prisma';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { getText, TranslatesModule } from 'nestjs-translates';
 import { join } from 'path';
 import { APP_FEATURE } from './app.constants';
 import { AppGuard } from './app.guard';
 import { TimeController } from './controllers/time.controller';
+import { AppExceptionsFilter } from './app.filter';
 
 export const { AppModule } = createNestModule({
   moduleName: 'AppModule',
@@ -96,6 +98,14 @@ export const { AppModule } = createNestModule({
       usePipes: true,
       useInterceptors: true,
     }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          limit: 50,
+          ttl: 24 * 60 * 60 * 1000,
+        },
+      ],
+    }),
     ...(process.env.DISABLE_SERVE_STATIC
       ? []
       : [
@@ -105,5 +115,9 @@ export const { AppModule } = createNestModule({
         ]),
   ],
   controllers: [TimeController],
-  providers: [TimeController, { provide: APP_GUARD, useClass: AppGuard }],
+  providers: [
+    TimeController,
+    { provide: APP_GUARD, useClass: AppGuard },
+    { provide: APP_FILTER, useClass: AppExceptionsFilter },
+  ],
 });

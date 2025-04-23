@@ -23,12 +23,12 @@ import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { writeFileSync } from 'fs';
+import { Logger } from 'nestjs-pino';
 import { join } from 'path';
 import { createAndFillDatabases } from './create-and-fill-databases';
 import { appFolder, rootFolder } from './environments/environment';
 import { FEATURE_MODULE_IMPORTS, FeatureModule } from './feature.module';
 import { INFRASTRUCTURE_MODULE_IMPORTS } from './infrastructure.module';
-import { Logger } from 'nestjs-pino';
 
 if (process.env.APP_TYPE !== 'nestjs-mod') {
   /**
@@ -80,8 +80,6 @@ if (process.env.APP_TYPE !== 'nestjs-mod') {
       );
     } else {
       await createAndFillDatabases();
-
-      app.enableShutdownHooks();
 
       const logger = app.get(Logger);
       if (logger) {

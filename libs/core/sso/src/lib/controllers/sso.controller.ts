@@ -11,6 +11,7 @@ import {
   Post,
   Put,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -18,6 +19,7 @@ import {
   ApiTags,
   refs,
 } from '@nestjs/swagger';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import { Response } from 'express';
 import { omit } from 'lodash/fp';
 import assert from 'node:assert';
@@ -122,6 +124,7 @@ export class SsoController {
     response.send(result);
   }
 
+  @UseGuards(ThrottlerGuard)
   @AllowEmptySsoUser()
   @ApiOkResponse({ type: TokensResponse })
   @HttpCode(HttpStatus.OK)

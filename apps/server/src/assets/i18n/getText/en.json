@@ -4,5 +4,6 @@
     "Event that will trigger after the update": "Event that will trigger after the update",
     "Hello API": "Hello API",
     "Forbidden": "Forbidden",
-    "Unauthorized": "Unauthorized"
+    "Unauthorized": "Unauthorized",
+    "Too Many Requests": "Too Many Requests"
 }
