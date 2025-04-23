@@ -55,7 +55,7 @@ msgid "auth.profile-form.fields.confirm-new-password"
 msgstr "Confirm new password"
 
 msgid "auth.forgot-password-form.fields.email"
-msgstr "auth.forgot-password-form.fields.email"
+msgstr "Email"
 
 msgid "Successful login using external single sign-on system"
 msgstr "Successful login using external single sign-on system"

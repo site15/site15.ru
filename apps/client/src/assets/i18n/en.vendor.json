@@ -29,7 +29,7 @@
     "auth.profile-form.fields.old-password": "Old password",
     "auth.profile-form.fields.new-password": "New password",
     "auth.profile-form.fields.confirm-new-password": "Confirm new password",
-    "auth.forgot-password-form.fields.email": "auth.forgot-password-form.fields.email",
+    "auth.forgot-password-form.fields.email": "Email",
     "Successful login using external single sign-on system": "Successful login using external single sign-on system",
     "Email address successfully verified": "Email address successfully verified",
     "auth.complete-forgot-password-form.fields.password": "Password",
