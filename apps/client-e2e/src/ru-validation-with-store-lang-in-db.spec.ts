@@ -123,13 +123,13 @@ test.describe('Validation with store lang in db (ru)', () => {
   });
 
   test('change lang to en in localStorage', async () => {
-    await page.evaluate(() => localStorage.setItem('activeLang', 'en'));
+    await page.evaluate(() => localStorage.setItem('activeUserLang', 'en'));
 
-    const activeLang = await page.evaluate(() =>
-      localStorage.getItem('activeLang')
+    const activeUserLang = await page.evaluate(() =>
+      localStorage.getItem('activeUserLang')
     );
 
-    expect(activeLang).toEqual('en');
+    expect(activeUserLang).toEqual('en');
   });
   /*
   xtest('should catch error on create new webhook', async () => {

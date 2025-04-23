@@ -149,7 +149,7 @@ export class WebhookFormService {
           },
           props: {
             label: this.translocoService.translate(`Example of payload`),
-            placeholder: 'headers',
+            placeholder: 'example of payload',
             readonly: true,
           },
           templateOptions: {
