@@ -3246,11 +3246,12 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/misc@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/@nestjs-mod/misc/-/misc-1.4.0.tgz#c9bcea459228c1dc70eae87c282cb8f308ef1e36"
-  integrity sha512-8yR2F895nIsmKpZmaYr2kNDzPOAu/1Q5Qib492swbTFLBY+p0xNRBR1MB0fPE5k4pgrBusXNgn43XMhL0KxZQQ==
+"@nestjs-mod/misc@1.4.1":
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/@nestjs-mod/misc/-/misc-1.4.1.tgz#593af558a2990595b00e93626801d57bbe96cd3d"
+  integrity sha512-DZna1R4ZPVJfZXZrt2sDPprs5nKYdyTgPb/eDlC14IgazJmnD4IuTpa5CDw7svZNzwrFktEBYc3xLm8oFL4kqw==
   dependencies:
+    lodash.isequal "4.5.0"
     lodash.map "4.6.0"
     lodash.reduce "4.6.0"
     tslib "^2.3.0"
@@ -12645,6 +12646,11 @@ lodash.isboolean@^3.0.3:
   version "3.0.3"
   resolved "https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz"
   integrity sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg==
+
+lodash.isequal@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.npmjs.org/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+  integrity sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==
 
 lodash.isfinite@^3.3.2:
   version "3.3.2"
