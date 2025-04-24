@@ -1,5 +1,4 @@
 import { AuthRequest } from '@nestjs-mod-sso/auth';
-import { searchIn, splitIn } from '@nestjs-mod-sso/common';
 import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
 import {
   SsoAdminService,
@@ -13,6 +12,7 @@ import {
 } from '@nestjs-mod-sso/sso';
 import { WebhookRequest, WebhookUsersService } from '@nestjs-mod-sso/webhook';
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
+import { searchIn, splitIn } from '@nestjs-mod/misc';
 import {
   CanActivate,
   ExecutionContext,

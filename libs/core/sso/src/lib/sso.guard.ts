@@ -1,4 +1,5 @@
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
+import { searchIn } from '@nestjs-mod/misc';
 import {
   CanActivate,
   ExecutionContext,
@@ -19,7 +20,6 @@ import {
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoError, SsoErrorEnum } from './sso.errors';
 import { SsoRequest } from './types/sso-request';
-import { searchIn } from '@nestjs-mod-sso/common';
 
 @Injectable()
 export class SsoGuard implements CanActivate {

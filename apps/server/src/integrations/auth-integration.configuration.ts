@@ -6,7 +6,6 @@ import {
   AuthRequest,
   AuthUser,
 } from '@nestjs-mod-sso/auth';
-import { searchIn, splitIn } from '@nestjs-mod-sso/common';
 import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
 import {
   SSO_FEATURE,
@@ -28,6 +27,7 @@ import {
   WebhookUsersService,
 } from '@nestjs-mod-sso/webhook';
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
+import { searchIn, splitIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient, PrismaModule } from '@nestjs-mod/prisma';
 import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';

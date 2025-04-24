@@ -6,7 +6,7 @@ import {
   AuthService,
   AuthSignUpFormComponent,
 } from '@nestjs-mod-sso/auth-angular';
-import { searchIn } from '@nestjs-mod-sso/common-angular';
+import { searchIn } from '@nestjs-mod/misc';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 @Component({

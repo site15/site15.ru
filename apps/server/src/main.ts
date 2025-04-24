@@ -117,10 +117,8 @@ if (process.env.APP_TYPE !== 'nestjs-mod') {
           staticConfiguration: {
             // When running in infrastructure mode, the backend server does not start.
             mode: isInfrastructureMode() ? 'silent' : 'listen',
-            globalPrefix: 'api',
             async preListen(options) {
               if (options.app) {
-                options.app.setGlobalPrefix('api'); // todo: remove after nestjs-mod
                 options.app.use(cookieParser());
 
                 const swaggerConf = new DocumentBuilder()

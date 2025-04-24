@@ -11,8 +11,8 @@ import {
   CompleteSignUpOptions,
   OnActivateOptions,
 } from '@nestjs-mod-sso/auth-angular';
-import { searchIn } from '@nestjs-mod-sso/common-angular';
 import { AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY } from '@nestjs-mod-sso/sso-angular';
+import { searchIn } from '@nestjs-mod/misc';
 import { CompleteForgotPasswordComponent } from './pages/complete-forgot-password/complete-forgot-password.component';
 import { CompleteInviteComponent } from './pages/complete-invite/complete-invite.component';
 import { CompleteSignUpComponent } from './pages/complete-sign-up/complete-sign-up.component';
