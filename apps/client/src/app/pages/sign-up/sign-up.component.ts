@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
+import { AuthRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AuthService,
   AuthSignUpFormComponent,
 } from '@nestjs-mod-sso/auth-angular';
+import { searchIn } from '@nestjs-mod-sso/common-angular';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 @Component({
@@ -19,7 +21,12 @@ export class SignUpComponent {
     private readonly authService: AuthService
   ) {}
   onAfterSignUp() {
-    if (this.authService.profile$.value?.roles?.includes('admin')) {
+    if (
+      searchIn(
+        [AuthRoleInterface.Admin],
+        this.authService.profile$.value?.roles
+      )
+    ) {
       this.router.navigate(['/projects']);
     } else {
       this.router.navigate(['/home']);

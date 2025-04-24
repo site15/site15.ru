@@ -1,4 +1,5 @@
 // todo: remove after update nestjs-mod/misc
+
 export function splitIn(inValue?: string | string[] | null) {
   if (!inValue) {
     inValue = '';

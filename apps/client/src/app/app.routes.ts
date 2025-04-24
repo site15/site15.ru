@@ -11,6 +11,7 @@ import {
   CompleteSignUpOptions,
   OnActivateOptions,
 } from '@nestjs-mod-sso/auth-angular';
+import { searchIn } from '@nestjs-mod-sso/common-angular';
 import { AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY } from '@nestjs-mod-sso/sso-angular';
 import { CompleteForgotPasswordComponent } from './pages/complete-forgot-password/complete-forgot-password.component';
 import { CompleteInviteComponent } from './pages/complete-invite/complete-invite.component';
@@ -197,7 +198,10 @@ export const appRoutes: Route[] = [
           if (!redirectUri) {
             if (options.authService && options.router) {
               if (
-                options.authService.profile$.value?.roles?.includes('admin')
+                searchIn(
+                  [AuthRoleInterface.Admin],
+                  options.authService.profile$.value?.roles
+                )
               ) {
                 options.router.navigate(['/projects']);
               } else {
@@ -243,7 +247,10 @@ export const appRoutes: Route[] = [
           if (!redirectUri) {
             if (options.authService && options.router) {
               if (
-                options.authService.profile$.value?.roles?.includes('admin')
+                searchIn(
+                  [AuthRoleInterface.Admin],
+                  options.authService.profile$.value?.roles
+                )
               ) {
                 options.router.navigate(['/projects']);
               } else {

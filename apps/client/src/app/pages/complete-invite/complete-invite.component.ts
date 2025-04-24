@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoDirective, TranslocoPipe } from '@jsverse/transloco';
+import { AuthRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
   AuthCompleteForgotPasswordFormComponent,
   AuthService,
 } from '@nestjs-mod-sso/auth-angular';
+import { searchIn } from '@nestjs-mod-sso/common-angular';
 import { AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY } from '@nestjs-mod-sso/sso-angular';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
@@ -42,7 +44,12 @@ export class CompleteInviteComponent {
 
   onAfterCompleteForgotPassword() {
     if (!this.redirectUri) {
-      if (this.authService.profile$.value?.roles?.includes('admin')) {
+      if (
+        searchIn(
+          [AuthRoleInterface.Admin],
+          this.authService.profile$.value?.roles
+        )
+      ) {
         this.router.navigate(['/projects']);
       } else {
         this.router.navigate(['/home']);
