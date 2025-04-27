@@ -109,6 +109,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
 
     const options = await this.getProviderOptions();
     if (!options) {
+      this.logger.warn('Options not set');
       return;
     }
     return passport.use(
@@ -157,6 +158,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
       return undefined;
     }
     try {
+      console.log(1);
       const oAuthToken = await this.prismaClient.ssoOAuthToken.findFirstOrThrow(
         {
           include: {
@@ -174,6 +176,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
           },
         }
       );
+      console.log(2);
       const user = await this.prismaClient.ssoUser.update({
         where: {
           id: oAuthToken.userId,
@@ -191,6 +194,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
             oAuthToken.SsoUser.lastname || profile.name?.familyName || null,
         },
       });
+      console.log(3);
       await this.prismaClient.ssoOAuthToken.update({
         where: {
           id: oAuthToken.id,
@@ -220,9 +224,11 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
         const password = `${this.oauthProviderName}_${profile.id}`;
 
         try {
+          console.log(4);
           const user = await this.prismaClient.ssoUser.findFirstOrThrow({
             where: { email, projectId },
           });
+          console.log(5);
           await this.prismaClient.ssoOAuthToken.create({
             data: {
               accessToken,
@@ -237,8 +243,10 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
           return { ...user, verificationCode };
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
+          this.logger.error(err, err.stack);
           if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
-            const user = this.ssoService.autoSignUp({
+            console.log(6);
+            const user = await this.ssoService.autoSignUp({
               projectId,
               email,
               password,
@@ -250,6 +258,17 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
                 undefined,
               firstname: profile.name?.givenName || undefined,
               lastname: profile.name?.familyName || undefined,
+            });
+            await this.prismaClient.ssoOAuthToken.create({
+              data: {
+                accessToken,
+                refreshToken,
+                providerUserId: String(profile.id),
+                providerId,
+                projectId,
+                userId: user.id,
+                verificationCode,
+              },
             });
             return { ...user, verificationCode };
           }

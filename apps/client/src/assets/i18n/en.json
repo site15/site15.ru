@@ -86,14 +86,11 @@
     "Delete demo #{{id}}": "Delete demo #{{id}}",
     "Yes": "Yes",
     "No": "No",
-    "app-demo.grid.columns.id": "ID",
-    "app-demo.grid.columns.name": "Name",
-    "app-demo.grid.columns.created-at": "Created at",
-    "app-demo.grid.columns.updated-at": "Updated at",
     "demo.form.fields.name": "Name",
     "read-only field, set and updated on the backend": "read-only field, set and updated on the backend",
     "Success": "Success",
     "Validation errors": "Validation errors",
     "id not set": "id not set",
-    "Unauthorized": "Unauthorized"
+    "Unauthorized": "Unauthorized",
+    "sso.sign-in-form.fields.timezone": "Timezone"
 }

@@ -75,11 +75,11 @@ async function bootstrap() {
   } else {
     await createAndFillDatabases();
 
-    const logger = app.get(Logger);
-    if (logger) {
-      app.useLogger(logger);
-      app.flushLogs();
-    }
+    // const logger = app.get(Logger);
+    // if (logger) {
+    //   app.useLogger(logger);
+    //   app.flushLogs();
+    // }
 
     await app.listen(3000);
   }

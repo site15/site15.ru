@@ -115,7 +115,7 @@ msgstr "Завершить регистрацию через OAuth"
 msgid "Single Sign-On"
 msgstr "Единый вход"
 
-msgid "sso.sign-in-form.fields.timezone"
+msgid "auth.sign-in-form.fields.timezone"
 msgstr "Часовой пояс"
 
 msgid "UTC−12:00: Date Line (west)"
@@ -280,18 +280,6 @@ msgstr "Да"
 msgid "No"
 msgstr "Нет"
 
-msgid "app-demo.grid.columns.id"
-msgstr "ИД."
-
-msgid "app-demo.grid.columns.name"
-msgstr "Название"
-
-msgid "app-demo.grid.columns.created-at"
-msgstr "Дата создания"
-
-msgid "app-demo.grid.columns.updated-at"
-msgstr "Дата обновления"
-
 msgid "demo.form.fields.name"
 msgstr "Название"
 
@@ -309,3 +297,6 @@ msgstr "идентификатор не установлен"
 
 msgid "Unauthorized"
 msgstr "Неавторизован"
+
+msgid "sso.sign-in-form.fields.timezone"
+msgstr "Часовой пояс"

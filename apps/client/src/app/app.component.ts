@@ -43,6 +43,8 @@ import {
   tap,
 } from 'rxjs';
 import { APP_TITLE } from './app.constants';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { FilesService } from '@nestjs-mod-sso/files-angular';
 
 @UntilDestroy()
 @Component({
@@ -60,6 +62,7 @@ import { APP_TITLE } from './app.constants';
     TranslocoDatePipe,
     CheckUserRolesPipe,
     UserPipe,
+    NzAvatarModule,
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -83,7 +86,8 @@ export class AppComponent implements OnInit {
     private readonly tokensService: TokensService,
     private readonly ssoActiveLangService: SsoActiveLangService,
     private readonly ssoActiveProjectService: SsoActiveProjectService,
-    private readonly titleService: Title
+    private readonly titleService: Title,
+    private readonly filesService: FilesService
   ) {
     this.title = this.translocoService.translate(APP_TITLE);
     this.titleService.setTitle(this.title);
@@ -97,6 +101,14 @@ export class AppComponent implements OnInit {
     this.subscribeToLangChanges();
 
     this.fillServerTime().pipe(untilDestroyed(this)).subscribe();
+  }
+
+  getFullFilePath(value: string) {
+    return (
+      (!value.toLowerCase().startsWith('http')
+        ? this.filesService.getMinioURL()
+        : '') + value
+    );
   }
 
   setActivePublicProject(activePublicProject?: SsoProjectModel) {

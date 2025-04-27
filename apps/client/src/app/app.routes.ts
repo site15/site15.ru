@@ -219,7 +219,7 @@ export const appRoutes: Route[] = [
   {
     path: 'complete-oauth-sign-up',
     component: CompleteSignUpComponent,
-    title: marker('Complete oauth sign up'),
+    title: marker('Complete OAuth sign up'),
     canActivate: [SsoCompleteGuardService],
     data: {
       [SSO_COMPLETE_GUARD_DATA_ROUTE_KEY]: new SsoCompleteGuardData({

@@ -16,13 +16,25 @@
       } @if
       ([SsoRoleInterface.user,SsoRoleInterface.manager,SsoRoleInterface.admin]|checkUserRoles|async)
       {
-      <li
-        nz-submenu
-        [nzTitle]="
-          'You are logged in as {{email}}' | transloco : ({} | user | async)
-        "
-        [style]="{ float: 'right' }"
-      >
+      <ng-template #iconRef>
+        @if ({} | user | async; as user){ @if (user.picture){
+        <nz-avatar
+          nzSize="small"
+          [nzText]="user.email[0]"
+          [nzSrc]="getFullFilePath(user.picture)"
+        ></nz-avatar>
+        } @else {
+        <nz-avatar
+          nzSize="small"
+          [nzText]="user.email[0].toUpperCase()"
+        ></nz-avatar>
+        }
+        <span class="you-are-logged-in-as">
+          {{ 'You are logged in as {{email}}' | transloco : user}}
+        </span>
+        }
+      </ng-template>
+      <li nz-submenu [nzTitle]="iconRef" [style]="{ float: 'right' }">
         <ul>
           <li nz-menu-item routerLink="/profile" transloco="Profile"></li>
           <li nz-menu-item (click)="signOut()" transloco="Sign-out"></li>

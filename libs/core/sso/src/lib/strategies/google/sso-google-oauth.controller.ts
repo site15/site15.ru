@@ -43,7 +43,7 @@ export class SsoGoogleOAuthController {
       })(req, res, next);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      throw new SsoError(err.maessage);
+      throw new SsoError(err.message);
     }
   }
 

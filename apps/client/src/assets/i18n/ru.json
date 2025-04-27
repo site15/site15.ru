@@ -86,14 +86,11 @@
     "Delete demo #{{id}}": "Удалить демо #{{id}}",
     "Yes": "Да",
     "No": "Нет",
-    "app-demo.grid.columns.id": "ИД.",
-    "app-demo.grid.columns.name": "Название",
-    "app-demo.grid.columns.created-at": "Дата создания",
-    "app-demo.grid.columns.updated-at": "Дата обновления",
     "demo.form.fields.name": "Название",
     "read-only field, set and updated on the backend": "поле только для чтения, устанавливается и обновляется на бэкэнде",
     "Success": "Успешно",
     "Validation errors": "Ошибка при проверке данных",
     "id not set": "идентификатор не установлен",
-    "Unauthorized": "Неавторизован"
+    "Unauthorized": "Неавторизован",
+    "sso.sign-in-form.fields.timezone": "Часовой пояс"
 }

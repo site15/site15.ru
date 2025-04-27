@@ -132,3 +132,15 @@ msgstr ""
 
 msgid "Verification code not found"
 msgstr "Verification code not found"
+
+msgid "Event that fires after user create"
+msgstr "Event that fires after user create"
+
+msgid "Event that fires after user delete"
+msgstr "Event that fires after user delete"
+
+msgid "Event that fires after user update"
+msgstr "Event that fires after user update"
+
+msgid "lang must have one of the values: {{values}}"
+msgstr "lang must have one of the values: {{values}}"

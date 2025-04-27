@@ -35,5 +35,9 @@
     "Complete your registration using the invitation link": "Complete your registration using the invitation link",
     "Please navigate by a {{{link}}} to complete your registration": "Please navigate by a {{{link}}} to complete your registration",
     "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration": "Please navigate by a <a href=\"{{{link}}}\">{{{link}}}</a> to complete your registration",
-    "Verification code not found": "Verification code not found"
+    "Verification code not found": "Verification code not found",
+    "Event that fires after user create": "Event that fires after user create",
+    "Event that fires after user delete": "Event that fires after user delete",
+    "Event that fires after user update": "Event that fires after user update",
+    "lang must have one of the values: {{values}}": "lang must have one of the values: {{values}}"
 }

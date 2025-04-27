@@ -192,43 +192,11 @@ export class SsoGuard implements CanActivate {
     };
 
     try {
-      this.logger.debug(
-        `${context.getClass().name}.${
-          context.getHandler().name
-        }: project: ${JSON.stringify(
-          req.ssoProject?.id
-        )}, clientId: ${JSON.stringify(
-          req.ssoClientId
-        )}, accessTokenData: ${JSON.stringify(
-          req.ssoAccessTokenData
-        )}, user: ${JSON.stringify(req.ssoUser)}, role: ${JSON.stringify(
-          req.ssoUser?.roles
-        )}, skipGuard: ${JSON.stringify(
-          skipSsoGuard
-        )}, checkRole: ${JSON.stringify(checkSsoRole)}, lang: ${JSON.stringify(
-          req.headers[ACCEPT_LANGUAGE]
-        )}`
-      );
+      this.log({ context, req, skipSsoGuard, checkSsoRole });
 
       const result = await validate();
 
-      this.logger.debug(
-        `${context.getClass().name}.${
-          context.getHandler().name
-        }: ${result}, project: ${JSON.stringify(
-          req.ssoProject?.id
-        )}, clientId: ${JSON.stringify(
-          req.ssoClientId
-        )}, accessTokenData: ${JSON.stringify(
-          req.ssoAccessTokenData
-        )}, user: ${JSON.stringify(req.ssoUser)}, role: ${JSON.stringify(
-          req.ssoUser?.roles
-        )}, skipGuard: ${JSON.stringify(
-          skipSsoGuard
-        )}, checkRole: ${JSON.stringify(checkSsoRole)}, lang: ${JSON.stringify(
-          req.headers[ACCEPT_LANGUAGE]
-        )}`
-      );
+      this.log({ context, result, req, skipSsoGuard, checkSsoRole });
 
       if (!result) {
         throw new SsoError(SsoErrorEnum.Forbidden);
@@ -236,24 +204,51 @@ export class SsoGuard implements CanActivate {
 
       return result;
     } catch (err) {
-      this.logger.error(
-        `${context.getClass().name}.${context.getHandler().name}: ${String(
-          err
-        )}, project: ${JSON.stringify(
-          req.ssoProject?.id
-        )}, clientId: ${JSON.stringify(
-          req.ssoClientId
-        )}, accessTokenData: ${JSON.stringify(
-          req.ssoAccessTokenData
-        )}, user: ${JSON.stringify(req.ssoUser)}, role: ${JSON.stringify(
-          req.ssoUser?.roles
-        )}, skipGuard: ${JSON.stringify(
-          skipSsoGuard
-        )}, checkRole: ${JSON.stringify(checkSsoRole)}, lang: ${JSON.stringify(
-          req.headers[ACCEPT_LANGUAGE]
-        )}`
-      );
+      this.log({
+        context,
+        error: err,
+        req,
+        skipSsoGuard,
+        checkSsoRole,
+      });
       throw err;
+    }
+  }
+
+  private log({
+    context,
+    result,
+    error,
+    req,
+    skipSsoGuard,
+    checkSsoRole,
+  }: {
+    context: ExecutionContext;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    result?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error?: any;
+    req: SsoRequest;
+    skipSsoGuard: boolean;
+    checkSsoRole: SsoRole[] | undefined;
+  }) {
+    const message = `${context.getClass().name}.${context.getHandler().name}${
+      error ? `: ${String(error)}` : result ? `: ${result}` : ''
+    }, projectId: ${JSON.stringify(
+      req.ssoProject?.id
+    )}, clientId: ${JSON.stringify(
+      req.ssoClientId
+    )}, accessTokenData: ${JSON.stringify(
+      req.ssoAccessTokenData
+    )}, userId: ${JSON.stringify(req.ssoUser?.id)}, userRoles: ${JSON.stringify(
+      req.ssoUser?.roles
+    )}, skipGuard: ${JSON.stringify(skipSsoGuard)}, checkRole: ${JSON.stringify(
+      checkSsoRole
+    )}, language: ${JSON.stringify(req.headers[ACCEPT_LANGUAGE])}`;
+    if (error) {
+      this.logger.error(message);
+    } else {
+      this.logger.debug(message);
     }
   }
 

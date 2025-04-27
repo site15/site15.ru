@@ -7,8 +7,6 @@
     "serverScopedLibs": [
         "libs/sdk/app-angular-rest-sdk",
         "libs/sdk/app-rest-sdk",
-        "libs/core/auth",
-        "libs/core/auth-angular",
         "libs/common",
         "libs/common-angular",
         "libs/core/files",
@@ -37,8 +35,6 @@
         "libs/core/notifications",
         "libs/core/files-angular",
         "libs/core/files",
-        "libs/core/auth-angular",
-        "libs/core/auth",
         "libs/common-angular",
         "libs/common"
     ],
@@ -46,8 +42,6 @@
     "scopedLibs": [
         "libs/sdk/app-angular-rest-sdk",
         "libs/sdk/app-rest-sdk",
-        "libs/core/auth",
-        "libs/core/auth-angular",
         "libs/common",
         "libs/common-angular",
         "libs/core/files",
@@ -76,8 +70,6 @@
         "libs/core/notifications",
         "libs/core/files-angular",
         "libs/core/files",
-        "libs/core/auth-angular",
-        "libs/core/auth",
         "libs/common-angular",
         "libs/common"
     ],
@@ -85,8 +77,6 @@
     "clientScopedLibs": [
         "libs/sdk/app-angular-rest-sdk",
         "libs/sdk/app-rest-sdk",
-        "libs/core/auth",
-        "libs/core/auth-angular",
         "libs/common",
         "libs/common-angular",
         "libs/core/files",
@@ -115,8 +105,6 @@
         "libs/core/notifications",
         "libs/core/files-angular",
         "libs/core/files",
-        "libs/core/auth-angular",
-        "libs/core/auth",
         "libs/common-angular",
         "libs/common"
     ]

@@ -139,3 +139,15 @@ msgstr ""
 
 msgid "Verification code not found"
 msgstr "Код подтверждения не найден"
+
+msgid "Event that fires after user create"
+msgstr "Событие которое срабатывает после создания пользователя"
+
+msgid "Event that fires after user delete"
+msgstr "Событие которое срабатывает после уделения пользователя"
+
+msgid "Event that fires after user update"
+msgstr "Событие которое срабатывает после обновления пользователя"
+
+msgid "lang must have one of the values: {{values}}"
+msgstr "lang должен иметь одно из значений: {{values}}"

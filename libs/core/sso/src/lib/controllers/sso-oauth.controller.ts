@@ -73,6 +73,10 @@ export class SsoOAuthController {
     @UserAgent() userAgent: string
   ) {
     try {
+      console.log({
+        include: { SsoUser: true },
+        where: { verificationCode: ssoOAuthVerificationArgs.verificationCode },
+      });
       let oAuthToken = await this.prismaClient.ssoOAuthToken.findFirstOrThrow({
         include: { SsoUser: true },
         where: { verificationCode: ssoOAuthVerificationArgs.verificationCode },
@@ -143,6 +147,7 @@ export class SsoOAuthController {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
+        this.logger.error(err, err.stack);
         throw new SsoError(SsoErrorEnum.VerificationCodeNotFound);
       }
       this.logger.error(err, err.stack);

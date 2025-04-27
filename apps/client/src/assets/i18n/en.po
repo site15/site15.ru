@@ -114,7 +114,7 @@ msgstr "Complete OAuth sign up"
 msgid "Single Sign-On"
 msgstr "Single Sign-On"
 
-msgid "sso.sign-in-form.fields.timezone"
+msgid "auth.sign-in-form.fields.timezone"
 msgstr "Timezone"
 
 msgid "UTC−12:00: Date Line (west)"
@@ -279,18 +279,6 @@ msgstr "Yes"
 msgid "No"
 msgstr "No"
 
-msgid "app-demo.grid.columns.id"
-msgstr "ID"
-
-msgid "app-demo.grid.columns.name"
-msgstr "Name"
-
-msgid "app-demo.grid.columns.created-at"
-msgstr "Created at"
-
-msgid "app-demo.grid.columns.updated-at"
-msgstr "Updated at"
-
 msgid "demo.form.fields.name"
 msgstr "Name"
 
@@ -308,3 +296,6 @@ msgstr "id not set"
 
 msgid "Unauthorized"
 msgstr "Unauthorized"
+
+msgid "sso.sign-in-form.fields.timezone"
+msgstr "Timezone"
