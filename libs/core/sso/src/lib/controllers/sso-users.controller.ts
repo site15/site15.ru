@@ -4,6 +4,7 @@ import { StatusResponse } from '@nestjs-mod-sso/common';
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { ValidationError } from '@nestjs-mod-sso/validation';
 import { WebhookService } from '@nestjs-mod-sso/webhook';
+import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,
@@ -24,11 +25,14 @@ import {
 } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { randomUUID } from 'crypto';
+import { omit } from 'lodash/fp';
 import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 import { UpdateSsoUserDto } from '../generated/rest/dto/update-sso-user.dto';
 import { SsoCacheService } from '../services/sso-cache.service';
+import { SsoEventsService } from '../services/sso-events.service';
 import { SsoPasswordService } from '../services/sso-password.service';
 import { SsoService } from '../services/sso.service';
+import { OperationName } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
@@ -36,10 +40,8 @@ import { FindManySsoUserArgs } from '../types/find-many-sso-user-args';
 import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
 import { SendInvitationLinksArgs } from '../types/send-invitation-links.dto';
 import { SsoRequest } from '../types/sso-request';
+import { SsoRole } from '../types/sso-role';
 import { SsoWebhookEvent } from '../types/sso-webhooks';
-import { omit } from 'lodash/fp';
-import { SsoEventsService } from '../services/sso-events.service';
-import { OperationName } from '../sso.configuration';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
@@ -72,7 +74,7 @@ export class SsoUsersController {
         perPage: args.perPage,
       });
     const searchText = args.searchText;
-    const projectId = ssoRequest.ssoIsAdmin
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
       ? args.projectId
       : ssoRequest.ssoProject.id;
 
@@ -172,7 +174,7 @@ export class SsoUsersController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoUserDto
   ) {
-    const projectId = ssoRequest.ssoIsAdmin
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
       ? undefined
       : ssoRequest.ssoProject.id;
     const result = await this.prismaClient.ssoUser.update({
@@ -241,7 +243,7 @@ export class SsoUsersController {
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Param('id', new ParseUUIDPipe()) id: string
   ) {
-    const projectId = ssoRequest.ssoIsAdmin
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
       ? undefined
       : ssoRequest.ssoProject.id;
     return await this.prismaClient.ssoUser.findFirstOrThrow({

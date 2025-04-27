@@ -3,7 +3,6 @@
 README.md
 api.module.ts
 api/api.ts
-api/auth-rest.service.ts
 api/files-rest.service.ts
 api/notifications-rest.service.ts
 api/sso-rest.service.ts
@@ -14,13 +13,6 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/auth-controller-profile400-response.interface.ts
-model/auth-entities.interface.ts
-model/auth-error-enum.interface.ts
-model/auth-error.interface.ts
-model/auth-profile-dto.interface.ts
-model/auth-role.interface.ts
-model/auth-user-scalar-field-enum.interface.ts
 model/complete-forgot-password-args.interface.ts
 model/complete-sign-up-args.interface.ts
 model/create-sso-project-dto.interface.ts
@@ -78,6 +70,7 @@ model/sso-public-project-dto.interface.ts
 model/sso-refresh-session-dto.interface.ts
 model/sso-refresh-session-scalar-field-enum.interface.ts
 model/sso-refresh-session.interface.ts
+model/sso-role.interface.ts
 model/sso-user-dto.interface.ts
 model/sso-user-scalar-field-enum.interface.ts
 model/sso-user.interface.ts

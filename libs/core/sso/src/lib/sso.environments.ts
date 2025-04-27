@@ -16,6 +16,7 @@ import {
 
 @EnvModel()
 export class SsoStaticEnvironments {
+  // middlewares
   @EnvModelProperty({
     description: 'Use guards',
     transform: new BooleanTransformer(),
@@ -33,6 +34,24 @@ export class SsoStaticEnvironments {
   useFilters?: boolean;
 
   @EnvModelProperty({
+    description: 'Use interceptors',
+    transform: new BooleanTransformer(),
+    default: true,
+    hidden: true,
+  })
+  useInterceptors?: boolean;
+
+  @EnvModelProperty({
+    description: 'Use pipes',
+    transform: new BooleanTransformer(),
+    default: true,
+    hidden: true,
+  })
+  usePipes?: boolean;
+
+  // variables for emails and redirects
+
+  @EnvModelProperty({
     description: 'Server URL',
   })
   @IsNotEmpty()
@@ -43,6 +62,33 @@ export class SsoStaticEnvironments {
   })
   @IsNotEmpty()
   clientUrl!: string;
+
+  // default admin settings
+
+  @EnvModelProperty({
+    description: 'Admin secret key',
+  })
+  adminSecret?: string;
+
+  @EnvModelProperty({
+    description: 'Global admin username',
+    default: 'admin@example.com',
+  })
+  adminEmail?: string;
+
+  @EnvModelProperty({
+    description: 'Global admin username',
+    default: 'admin',
+  })
+  @IsNotEmpty()
+  adminUsername?: string;
+
+  @EnvModelProperty({
+    description: 'Global admin password',
+  })
+  adminPassword?: string;
+
+  // roles
 
   @EnvModelProperty({
     description: 'Available user roles',
@@ -80,6 +126,7 @@ export class SsoStaticEnvironments {
   @IsOptional()
   managerDefaultRoles?: string[];
 
+  // JWT
   @EnvModelProperty({
     description: 'Secret key for generate jwt keys',
     default: 'AcJwUY9AP6FPf8XnfwbSuW7ZjwoaPiFJ',
@@ -104,11 +151,15 @@ export class SsoStaticEnvironments {
   @IsNotEmpty()
   jwtRefreshTokenExpiresIn!: ms.StringValue;
 
+  // cache settings
   @EnvModelProperty({
-    description: 'Admin secret key',
+    description: 'TTL for cached data',
+    default: 15_000,
+    hidden: true,
   })
-  adminSecret?: string;
+  cacheTTL?: number;
 
+  // projects
   @EnvModelProperty({
     description:
       'Default public projects (example: "name1:ru=название1:tt=исем1,clientId1,clientSecret1;name2:ru=название2:tt=исем2,clientId2,clientSecret2")',
@@ -123,6 +174,7 @@ export class SsoStaticEnvironments {
   })
   defaultProject?: SsoProjectType;
 
+  // verification settings
   @EnvModelProperty({
     description: 'Used to disable the email verification while signing up',
     transform: new BooleanTransformer(),
@@ -131,6 +183,7 @@ export class SsoStaticEnvironments {
   })
   disableEmailVerification?: boolean;
 
+  // oauth settings
   @EnvModelProperty({
     description:
       'Client ID for Google application (https://console.cloud.google.com/apis/credentials)',

@@ -71,10 +71,12 @@ export const { NotificationsModule } = createNestModule({
       UseGuards(
         ...(asyncModuleOptions.staticConfiguration?.guards || []),
         NotificationsGuard
-      );
-      if (asyncModuleOptions.staticConfiguration?.mutateController) {
+      )(ctrl);
+
+      if (asyncModuleOptions.staticConfiguration.mutateController) {
         asyncModuleOptions.staticConfiguration.mutateController(ctrl);
       }
+
       return ctrl;
     }),
   wrapForRootAsync: (asyncModuleOptions) => {

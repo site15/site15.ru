@@ -11,7 +11,6 @@ export type SsoAccessTokenData = {
 export type SsoRequest = {
   ssoProject: SsoProject;
   ssoUser?: SsoUser;
-  ssoIsAdmin?: boolean;
   ssoClientId?: string;
   ssoClientSecret?: string;
   ssoAccessTokenData?: SsoAccessTokenData;

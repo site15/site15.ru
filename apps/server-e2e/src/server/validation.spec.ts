@@ -1,4 +1,4 @@
-import { AuthRole } from '@nestjs-mod-sso/app-rest-sdk';
+import { SsoRole } from '@nestjs-mod-sso/app-rest-sdk';
 import { RestClientHelper } from '@nestjs-mod-sso/testing';
 import { AxiosError } from 'axios';
 
@@ -15,7 +15,7 @@ describe('Validation', () => {
   beforeAll(async () => {
     await user1.createAndLoginAsUser();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    await admin.setRoles(user1.getSsoProfile()!.id, [AuthRole.Manager]);
+    await admin.setRoles(user1.getSsoProfile()!.id, [SsoRole.Manager]);
   });
 
   it('should catch error on create new webhook as user1', async () => {

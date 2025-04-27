@@ -8,7 +8,7 @@ import {
 import { KeyvModule } from '@nestjs-mod/keyv';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { UseGuards } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { TranslatesModule } from 'nestjs-translates';
 import { SsoEmailTemplatesController } from './controllers/sso-email-templates.controller';
@@ -19,7 +19,8 @@ import { SsoRolesController } from './controllers/sso-roles.controller';
 import { SsoRefreshSessionsController } from './controllers/sso-sessions.controller';
 import { SsoUsersController } from './controllers/sso-users.controller';
 import { SsoController } from './controllers/sso.controller';
-import { SsoAdminService } from './services/sso-admin.service';
+import { SsoTimezoneInterceptor } from './interceptors/sso-timezone.interceptor';
+import { SsoTimezonePipe } from './pipes/auth-timezone.pipe';
 import { SsoServiceBootstrap } from './services/sso-bootstrap.service';
 import { SsoCacheService } from './services/sso-cache.service';
 import { SsoCookieService } from './services/sso-cookie.service';
@@ -27,6 +28,7 @@ import { SsoEventsService } from './services/sso-events.service';
 import { SsoPasswordService } from './services/sso-password.service';
 import { SsoProjectService } from './services/sso-project.service';
 import { SsoTemplatesService } from './services/sso-templates.service';
+import { SsoTimezoneService } from './services/sso-timezone.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoUsersService } from './services/sso-users.service';
 import { SsoService } from './services/sso.service';
@@ -37,6 +39,7 @@ import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
 import { SsoGoogleOAuthController } from './strategies/google/sso-google-oauth.controller';
 import { SsoGoogleOAuthStrategy } from './strategies/google/sso-google-oauth.strategy';
+import { SsoAsyncLocalStorageContext } from './types/sso-async-local-storage-data';
 import { SSO_WEBHOOK_EVENTS } from './types/sso-webhooks';
 
 export const { SsoModule } = createNestModule({
@@ -88,9 +91,6 @@ export const { SsoModule } = createNestModule({
       if (asyncModuleOptions.staticEnvironments?.useGuards) {
         UseGuards(SsoGuard)(ctrl);
       }
-      if (asyncModuleOptions.staticConfiguration?.mutateController) {
-        asyncModuleOptions.staticConfiguration.mutateController(ctrl);
-      }
       return ctrl;
     }),
   providers: (asyncModuleOptions) => [
@@ -98,6 +98,12 @@ export const { SsoModule } = createNestModule({
     SsoGoogleOAuthStrategy,
     ...(asyncModuleOptions.staticEnvironments.useFilters
       ? [{ provide: APP_FILTER, useClass: SsoExceptionsFilter }]
+      : []),
+    ...(asyncModuleOptions.staticEnvironments.useInterceptors
+      ? [{ provide: APP_INTERCEPTOR, useClass: SsoTimezoneInterceptor }]
+      : []),
+    ...(asyncModuleOptions.staticEnvironments.usePipes
+      ? [{ provide: APP_PIPE, useClass: SsoTimezonePipe }]
       : []),
   ],
   sharedProviders: [
@@ -109,9 +115,10 @@ export const { SsoModule } = createNestModule({
     SsoCacheService,
     SsoTokensService,
     SsoProjectService,
-    SsoAdminService,
     SsoTemplatesService,
     JwtService,
+    SsoAsyncLocalStorageContext,
+    SsoTimezoneService,
   ],
   wrapForRootAsync: (asyncModuleOptions) => {
     if (!asyncModuleOptions) {

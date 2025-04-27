@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { AuthRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { SsoRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
-  AuthCompleteForgotPasswordFormComponent,
-  AuthService,
-} from '@nestjs-mod-sso/auth-angular';
-import { AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY } from '@nestjs-mod-sso/sso-angular';
+  SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
+  SsoCompleteForgotPasswordFormComponent,
+  SsoService,
+} from '@nestjs-mod-sso/sso-angular';
 import { searchIn } from '@nestjs-mod/misc';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
@@ -16,7 +16,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
   imports: [
     NzBreadCrumbModule,
     TranslocoDirective,
-    AuthCompleteForgotPasswordFormComponent,
+    SsoCompleteForgotPasswordFormComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -27,7 +27,7 @@ export class CompleteForgotPasswordComponent {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly authService: AuthService
+    private readonly ssoService: SsoService
   ) {
     this.code = this.activatedRoute.snapshot.queryParamMap.get('code');
     this.redirectUri =
@@ -36,17 +36,14 @@ export class CompleteForgotPasswordComponent {
     const clientId =
       this.activatedRoute.snapshot.queryParamMap.get('client_id');
     if (clientId && clientId !== undefined) {
-      localStorage.setItem(AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY, clientId);
+      localStorage.setItem(SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY, clientId);
     }
   }
 
   onAfterCompleteForgotPassword() {
     if (!this.redirectUri) {
       if (
-        searchIn(
-          [AuthRoleInterface.Admin],
-          this.authService.profile$.value?.roles
-        )
+        searchIn(SsoRoleInterface.admin, this.ssoService.profile$.value?.roles)
       ) {
         this.router.navigate(['/projects']);
       } else {

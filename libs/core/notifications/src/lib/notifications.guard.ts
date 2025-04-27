@@ -53,12 +53,12 @@ export class NotificationsGuard implements CanActivate {
         this.reflector.get(
           CheckNotificationsUserIsAdmin,
           context.getHandler()
-        )) ||
+        ) === true) ||
       (typeof context.getClass === 'function' &&
         this.reflector.get(
           CheckNotificationsUserIsAdmin,
           context.getClass()
-        )) ||
+        ) === true) ||
       undefined;
 
     const skipNotificationsGuard =

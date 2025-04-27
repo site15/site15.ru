@@ -115,7 +115,7 @@ msgstr "Завершить регистрацию через OAuth"
 msgid "Single Sign-On"
 msgstr "Единый вход"
 
-msgid "auth.sign-in-form.fields.timezone"
+msgid "sso.sign-in-form.fields.timezone"
 msgstr "Часовой пояс"
 
 msgid "UTC−12:00: Date Line (west)"

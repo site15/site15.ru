@@ -9,7 +9,7 @@
  */
 
 
-export type SsoUserScalarFieldEnumInterface = 'id' | 'email' | 'phone' | 'username' | 'password' | 'roles' | 'firstname' | 'lastname' | 'gender' | 'birthdate' | 'picture' | 'appData' | 'revokedAt' | 'emailVerifiedAt' | 'phoneVerifiedAt' | 'projectId' | 'createdAt' | 'updatedAt';
+export type SsoUserScalarFieldEnumInterface = 'id' | 'email' | 'phone' | 'username' | 'password' | 'roles' | 'firstname' | 'lastname' | 'gender' | 'birthdate' | 'picture' | 'appData' | 'revokedAt' | 'emailVerifiedAt' | 'phoneVerifiedAt' | 'timezone' | 'lang' | 'projectId' | 'createdAt' | 'updatedAt';
 
 export const SsoUserScalarFieldEnumInterface = {
     id: 'id' as SsoUserScalarFieldEnumInterface,
@@ -27,6 +27,8 @@ export const SsoUserScalarFieldEnumInterface = {
     revokedAt: 'revokedAt' as SsoUserScalarFieldEnumInterface,
     emailVerifiedAt: 'emailVerifiedAt' as SsoUserScalarFieldEnumInterface,
     phoneVerifiedAt: 'phoneVerifiedAt' as SsoUserScalarFieldEnumInterface,
+    timezone: 'timezone' as SsoUserScalarFieldEnumInterface,
+    lang: 'lang' as SsoUserScalarFieldEnumInterface,
     projectId: 'projectId' as SsoUserScalarFieldEnumInterface,
     createdAt: 'createdAt' as SsoUserScalarFieldEnumInterface,
     updatedAt: 'updatedAt' as SsoUserScalarFieldEnumInterface

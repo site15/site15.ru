@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { UseAuthInterceptorsAndGuards } from '@nestjs-mod-sso/auth';
+import { SsoGuard, UseSsoInterceptorsAndGuards } from '@nestjs-mod-sso/sso';
 import { ApiOkResponse } from '@nestjs/swagger';
 import {
   SubscribeMessage,
@@ -9,10 +9,9 @@ import {
 } from '@nestjs/websockets';
 import { interval, map, Observable } from 'rxjs';
 import { ChangeTimeStream } from '../app.constants';
-import { AppGuard } from '../app.guard';
 
-@UseAuthInterceptorsAndGuards({
-  guards: [AppGuard],
+@UseSsoInterceptorsAndGuards({
+  guards: [SsoGuard],
   skipInterceptor: true,
 })
 @WebSocketGateway({
@@ -30,7 +29,7 @@ export class TimeController {
     return new Date();
   }
 
-  @UseAuthInterceptorsAndGuards()
+  @UseSsoInterceptorsAndGuards()
   @SubscribeMessage(ChangeTimeStream)
   onChangeTimeStream(): Observable<WsResponse<Date>> {
     return interval(1000).pipe(

@@ -1,32 +1,32 @@
 generator client {
-  provider = "prisma-client-js"
-  
-  output   = "../../../../../node_modules/@prisma/webhook-client"
-  binaryTargets = ["native","rhel-openssl-3.0.x","linux-musl-openssl-3.0.x","linux-musl"]
-  
+  provider      = "prisma-client-js"
+  output        = "../../../../../node_modules/@prisma/webhook-client"
+  binaryTargets = ["native", "rhel-openssl-3.0.x", "linux-musl-openssl-3.0.x", "linux-musl"]
 }
-datasource db {
-  provider          = "postgres"
-  url               = env("SERVER_WEBHOOK_DATABASE_URL")
-}
+
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  prettier                        = "true"
-  noDependencies                  = "false"
-  outputToNestJsResourceStructure = "false"
-  reExport                        = "false"
-  entitySuffix                    = ""
-  exportRelationModifierClasses   = "true"
-  fileNamingStyle                 = "kebab"
-  entityPrefix                    = ""
-  dtoSuffix                       = "Dto"
-  annotateAllDtoProperties        = "true"
   classValidation                 = "true"
-  flatResourceStructure           = "false"
-  createDtoPrefix                 = "Create"
+  dtoSuffix                       = "Dto"
   updateDtoPrefix                 = "Update"
+  outputToNestJsResourceStructure = "false"
+  createDtoPrefix                 = "Create"
+  prettier                        = "true"
+  reExport                        = "false"
+  flatResourceStructure           = "false"
+  fileNamingStyle                 = "kebab"
+  noDependencies                  = "false"
   definiteAssignmentAssertion     = "true"
+  annotateAllDtoProperties        = "true"
+  exportRelationModifierClasses   = "true"
+  entitySuffix                    = ""
+  entityPrefix                    = ""
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("SERVER_WEBHOOK_DATABASE_URL")
 }
 
 model Webhook {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { AuthProfileFormComponent } from '@nestjs-mod-sso/auth-angular';
+import { SsoProfileFormComponent } from '@nestjs-mod-sso/sso-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
@@ -8,7 +8,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  imports: [NzBreadCrumbModule, AuthProfileFormComponent, TranslocoDirective],
+  imports: [NzBreadCrumbModule, SsoProfileFormComponent, TranslocoDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileComponent {}

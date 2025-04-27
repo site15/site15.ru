@@ -8,6 +8,7 @@
  * Do not edit the class manually.
  */
 import { SsoRefreshSessionScalarFieldEnumInterface } from './sso-refresh-session-scalar-field-enum.interface';
+import { SsoRoleInterface } from './sso-role.interface';
 import { SsoOAuthTokenScalarFieldEnumInterface } from './sso-o-auth-token-scalar-field-enum.interface';
 import { SsoProjectScalarFieldEnumInterface } from './sso-project-scalar-field-enum.interface';
 import { SsoEmailTemplateScalarFieldEnumInterface } from './sso-email-template-scalar-field-enum.interface';
@@ -24,6 +25,7 @@ export interface SsoEntitiesInterface {
     SsoOAuthProvider: SsoOAuthProviderScalarFieldEnumInterface;
     SsoOAuthProviderSettings: SsoOAuthProviderSettingsScalarFieldEnumInterface;
     SsoOAuthToken: SsoOAuthTokenScalarFieldEnumInterface;
+    role: SsoRoleInterface;
 }
 export namespace SsoEntitiesInterface {
 }

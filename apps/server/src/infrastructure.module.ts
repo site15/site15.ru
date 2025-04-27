@@ -1,4 +1,3 @@
-import { AUTH_FEATURE, AUTH_FOLDER } from '@nestjs-mod-sso/auth';
 import {
   NOTIFICATIONS_FEATURE,
   NOTIFICATIONS_FOLDER,
@@ -25,7 +24,6 @@ import { PgFlyway } from '@nestjs-mod/pg-flyway';
 import { ECOSYSTEM_CONFIG_FILE, Pm2 } from '@nestjs-mod/pm2';
 import { join } from 'path';
 import { appFolder, rootFolder } from './environments/environment';
-
 export const INFRASTRUCTURE_MODULE_IMPORTS = [
   // report
   InfrastructureMarkdownReportGenerator.forRoot({
@@ -133,20 +131,6 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
       featureName: WEBHOOK_FEATURE,
       migrationsFolder: join(rootFolder, WEBHOOK_FOLDER, 'src', 'migrations'),
       nxProjectJsonFile: join(rootFolder, WEBHOOK_FOLDER, PROJECT_JSON_FILE),
-    },
-  }),
-  // auth
-  DockerComposePostgreSQL.forFeatureAsync({
-    featureModuleName: AUTH_FEATURE,
-    featureConfiguration: {
-      nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
-    },
-  }),
-  PgFlyway.forRoot({
-    staticConfiguration: {
-      featureName: AUTH_FEATURE,
-      migrationsFolder: join(rootFolder, AUTH_FOLDER, 'src', 'migrations'),
-      nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
     },
   }),
 ];

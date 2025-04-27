@@ -2,9 +2,9 @@
   <nz-breadcrumb-item transloco="Completing registration"></nz-breadcrumb-item>
 </nz-breadcrumb>
 <div class="inner-content flex justify-center">
-  <auth-complete-forgot-password-form
+  <sso-complete-forgot-password-form
     [code]="code || ''"
     [submitButtonTitle]="'Continue' | transloco"
     (afterCompleteForgotPassword)="onAfterCompleteForgotPassword()"
-  ></auth-complete-forgot-password-form>
+  ></sso-complete-forgot-password-form>
 </div>

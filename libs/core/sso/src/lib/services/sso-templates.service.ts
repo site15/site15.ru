@@ -25,6 +25,7 @@ export class SsoTemplatesService {
     });
   }
 
+  // todo: need create project level handler for recreate or reset to default email templates
   async createProjectDefaultEmailTemplates(projectId: string) {
     const locales = this.translatesStorage.locales.filter(
       (l) => l !== this.translatesStorage.defaultLocale

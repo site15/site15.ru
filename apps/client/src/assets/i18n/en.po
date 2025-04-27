@@ -114,7 +114,7 @@ msgstr "Complete OAuth sign up"
 msgid "Single Sign-On"
 msgstr "Single Sign-On"
 
-msgid "auth.sign-in-form.fields.timezone"
+msgid "sso.sign-in-form.fields.timezone"
 msgstr "Timezone"
 
 msgid "UTC−12:00: Date Line (west)"

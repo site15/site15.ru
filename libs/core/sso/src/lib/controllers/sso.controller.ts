@@ -1,5 +1,8 @@
 import { StatusResponse } from '@nestjs-mod-sso/common';
-import { ValidationError } from '@nestjs-mod-sso/validation';
+import {
+  ValidationError,
+  ValidationErrorEnum,
+} from '@nestjs-mod-sso/validation';
 import { WebhookService } from '@nestjs-mod-sso/webhook';
 import {
   Body,
@@ -22,11 +25,17 @@ import {
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { Response } from 'express';
 import { omit } from 'lodash/fp';
+import {
+  InjectTranslateFunction,
+  TranslateFunction,
+  TranslatesStorage,
+} from 'nestjs-translates';
 import assert from 'node:assert';
 import { Cookies } from '../decorators/cookie.decorator';
 import { IpAddress } from '../decorators/ip-address.decorator';
 import { UserAgent } from '../decorators/user-agent.decorator';
 import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
+import { SsoCacheService } from '../services/sso-cache.service';
 import { SsoCookieService } from '../services/sso-cookie.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SsoService } from '../services/sso.service';
@@ -62,7 +71,9 @@ export class SsoController {
     private readonly ssoCookieService: SsoCookieService,
     private readonly ssoService: SsoService,
     private readonly ssoEventsService: SsoEventsService,
-    private readonly webhookService: WebhookService
+    private readonly webhookService: WebhookService,
+    private readonly ssoCacheService: SsoCacheService,
+    private readonly translatesStorage: TranslatesStorage
   ) {}
 
   @AllowEmptySsoUser()
@@ -393,17 +404,40 @@ export class SsoController {
   @Put('profile')
   async updateProfile(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Body() updateProfileArgs: UpdateProfileArgs
+    @Body() updateProfileArgs: UpdateProfileArgs,
+    @InjectTranslateFunction() getText: TranslateFunction
   ): Promise<SsoUserDto> {
     assert(ssoRequest.ssoUser);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...profile } = updateProfileArgs;
+
+    if (
+      profile.lang &&
+      !this.translatesStorage.locales.includes(profile.lang)
+    ) {
+      throw new ValidationError(undefined, ValidationErrorEnum.COMMON, [
+        {
+          property: 'lang',
+          constraints: {
+            isWrongEnumValue: getText(
+              'lang must have one of the values: {{values}}',
+              { values: this.translatesStorage.locales.join(', ') }
+            ),
+          },
+        },
+      ]);
+    }
+
     const user = await this.ssoService.update({
       user: {
         ...profile,
         id: ssoRequest.ssoUser.id,
       },
       projectId: ssoRequest.ssoProject.id,
+    });
+
+    await this.ssoCacheService.clearCacheByUserId({
+      userId: ssoRequest.ssoUser.id,
     });
 
     await this.webhookService.sendEvent({

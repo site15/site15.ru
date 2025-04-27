@@ -1,6 +1,7 @@
 import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
 import { SsoEmailTemplate } from './sso-email-template.entity';
+import { SsoOAuthToken } from './sso-o-auth-token.entity';
 import { SsoRefreshSession } from './sso-refresh-session.entity';
 import { SsoUser } from './sso-user.entity';
 
@@ -46,6 +47,12 @@ export class SsoProject {
     required: false,
   })
   SsoEmailTemplate?: SsoEmailTemplate[];
+  @ApiProperty({
+    type: () => SsoOAuthToken,
+    isArray: true,
+    required: false,
+  })
+  SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider?: SsoOAuthToken[];
   @ApiProperty({
     type: () => SsoRefreshSession,
     isArray: true,

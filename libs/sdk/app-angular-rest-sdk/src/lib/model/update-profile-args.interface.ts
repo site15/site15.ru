@@ -15,6 +15,8 @@ export interface UpdateProfileArgsInterface {
     gender?: string | null;
     birthdate?: string | null;
     picture?: string | null;
+    timezone?: number | null;
+    lang?: string | null;
     oldPassword?: string;
     password?: string;
     confirmPassword?: string;

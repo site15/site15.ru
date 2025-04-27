@@ -37,4 +37,12 @@ export class WebhookStaticEnvironments {
     hidden: true,
   })
   skipGuardErrors?: boolean;
+
+  // cache settings
+  @EnvModelProperty({
+    description: 'TTL for cached data',
+    default: 15_000,
+    hidden: true,
+  })
+  cacheTTL?: number;
 }

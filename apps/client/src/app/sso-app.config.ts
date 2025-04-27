@@ -20,11 +20,6 @@ import {
   RestClientApiModule,
   RestClientConfiguration,
 } from '@nestjs-mod-sso/app-angular-rest-sdk';
-import {
-  AuthProfileFormService,
-  AuthProfileMapperService,
-  AuthService,
-} from '@nestjs-mod-sso/auth-angular';
 import { COMMON_FORMLY_FIELDS } from '@nestjs-mod-sso/common-angular';
 import { FILES_FORMLY_FIELDS, MINIO_URL } from '@nestjs-mod-sso/files-angular';
 import { FormlyModule } from '@ngx-formly/core';
@@ -36,10 +31,7 @@ import { AppInitializer } from './app-initializer';
 import { AppTitleStrategy } from './app-title.strategy';
 import { AppErrorHandler } from './app.error-handler';
 import { appRoutes } from './app.routes';
-import { CustomAuthProfileFormService } from './integrations/custom-auth-profile-form.service';
-import { CustomAuthProfileMapperService } from './integrations/custom-auth-profile-mapper.service';
-import { CustomAuthService } from './integrations/custom-auth.service';
-import { provideSsoAuthConfiguration } from './integrations/sso-auth.configuration';
+import { provideSsoConfiguration } from './integrations/sso.configuration';
 import { TranslocoHttpLoader } from './integrations/transloco-http.loader';
 
 export const ssoAppConfig = ({
@@ -73,7 +65,7 @@ export const ssoAppConfig = ({
         provide: MINIO_URL,
         useValue: minioURL,
       },
-      provideSsoAuthConfiguration(),
+      provideSsoConfiguration(),
       // Transloco Config
       provideTransloco({
         config: {
@@ -119,18 +111,6 @@ export const ssoAppConfig = ({
       {
         provide: TitleStrategy,
         useClass: AppTitleStrategy,
-      },
-      {
-        provide: AuthProfileMapperService,
-        useClass: CustomAuthProfileMapperService,
-      },
-      {
-        provide: AuthProfileFormService,
-        useClass: CustomAuthProfileFormService,
-      },
-      {
-        provide: AuthService,
-        useClass: CustomAuthService,
       },
     ],
   };

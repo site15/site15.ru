@@ -1,12 +1,10 @@
 import {
-  AuthApi,
-  AuthProfileDto,
-  AuthRole,
   Configuration,
   FilesApi,
   NotificationsApi,
   SsoApi,
   SsoProject,
+  SsoRole,
   SsoUserDto,
   TimeApi,
   TokensResponse,
@@ -27,21 +25,18 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   ssoTokensResponse?: TokensResponse;
 
   private webhookProfile?: WebhookUser;
-  private authProfile?: AuthProfileDto;
   private ssoProfile?: SsoUserDto;
 
   private ssoApi?: SsoApi;
   private webhookApi?: WebhookApi;
   private filesApi?: FilesApi;
   private timeApi?: TimeApi;
-  private authApi?: AuthApi;
   private notificationsApi?: NotificationsApi;
 
-  private ssoApiAxios?: AxiosInstance;
   private webhookApiAxios?: AxiosInstance;
   private filesApiAxios?: AxiosInstance;
   private timeApiAxios?: AxiosInstance;
-  private authApiAxios?: AxiosInstance;
+  private ssoApiAxios?: AxiosInstance;
   private notificationsApiAxios?: AxiosInstance;
 
   randomUser: T extends 'strict'
@@ -73,10 +68,6 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
   getWebhookProfile() {
     return this.webhookProfile;
-  }
-
-  getAuthProfile() {
-    return this.authProfile;
   }
 
   getSsoProfile() {
@@ -137,13 +128,6 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     );
   }
 
-  getSsoApi() {
-    if (!this.ssoApi) {
-      throw new Error('ssoApi not set');
-    }
-    return this.ssoApi;
-  }
-
   getWebhookApi() {
     if (!this.webhookApi) {
       throw new Error('webhookApi not set');
@@ -165,11 +149,11 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     return this.timeApi;
   }
 
-  getAuthApi() {
-    if (!this.authApi) {
-      throw new Error('authApi not set');
+  getSsoApi() {
+    if (!this.ssoApi) {
+      throw new Error('ssoApi not set');
     }
-    return this.authApi;
+    return this.ssoApi;
   }
 
   getNotificationsApi() {
@@ -179,7 +163,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     return this.notificationsApi;
   }
 
-  async setRoles(userId: string, roles: AuthRole[]) {
+  async setRoles(userId: string, roles: SsoRole[]) {
     await this.getSsoApi().ssoUsersControllerUpdateOne(userId, {
       roles: roles.map((r) => r.toLowerCase()).join(','),
     });
@@ -325,8 +309,8 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       ).data;
     }
 
-    if (this.authApi) {
-      this.authProfile = (await this.getAuthApi().authControllerProfile()).data;
+    if (this.ssoApi) {
+      this.ssoProfile = (await this.getSsoApi().ssoControllerProfile()).data;
     }
 
     if (this.ssoApi) {
@@ -353,9 +337,9 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         this.getAuthorizationHeaders()
       );
     }
-    if (this.authApiAxios) {
+    if (this.ssoApiAxios) {
       Object.assign(
-        this.authApiAxios.defaults.headers.common,
+        this.ssoApiAxios.defaults.headers.common,
         this.getAuthorizationHeaders()
       );
     }
@@ -454,13 +438,13 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     );
     //
 
-    this.authApiAxios = axios.create();
-    this.authApi = new AuthApi(
+    this.ssoApiAxios = axios.create();
+    this.ssoApi = new SsoApi(
       new Configuration({
         basePath: this.getServerUrl(),
       }),
       undefined,
-      this.authApiAxios
+      this.ssoApiAxios
     );
     //
 

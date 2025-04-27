@@ -8,6 +8,7 @@
  * Do not edit the class manually.
  */
 import { SsoUserInterface } from './sso-user.interface';
+import { SsoProjectInterface } from './sso-project.interface';
 import { SsoOAuthProviderInterface } from './sso-o-auth-provider.interface';
 
 
@@ -25,7 +26,7 @@ export interface SsoOAuthTokenInterface {
     providerUserData: object | null;
     createdAt: string;
     updatedAt: string;
-    SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: SsoOAuthProviderInterface;
+    SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: SsoProjectInterface;
     SsoOAuthProvider?: SsoOAuthProviderInterface;
     SsoUser?: SsoUserInterface;
 }

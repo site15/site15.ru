@@ -27,6 +27,8 @@ import { SsoError } from '../sso.errors';
 import { FindManySsoRefreshSessionArgs } from '../types/find-many-sso-refresh-session-args';
 import { FindManySsoRefreshSessionResponse } from '../types/find-many-sso-refresh-session-response';
 import { SsoRequest } from '../types/sso-request';
+import { searchIn } from '@nestjs-mod/misc';
+import { SsoRole } from '../types/sso-role';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
@@ -47,7 +49,7 @@ export class SsoRefreshSessionsController {
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Query() args: FindManySsoRefreshSessionArgs
   ) {
-    const projectId = ssoRequest.ssoIsAdmin
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
       ? undefined
       : ssoRequest.ssoProject.id;
     const { take, skip, curPage, perPage } =
@@ -152,7 +154,7 @@ export class SsoRefreshSessionsController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoRefreshSessionDto
   ) {
-    const projectId = ssoRequest.ssoIsAdmin
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
       ? undefined
       : ssoRequest.ssoProject.id;
     const result = await this.prismaClient.ssoRefreshSession.update({
@@ -174,7 +176,7 @@ export class SsoRefreshSessionsController {
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Param('id', new ParseUUIDPipe()) id: string
   ) {
-    const projectId = ssoRequest.ssoIsAdmin
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
       ? undefined
       : ssoRequest.ssoProject.id;
     return await this.prismaClient.ssoRefreshSession.findFirstOrThrow({

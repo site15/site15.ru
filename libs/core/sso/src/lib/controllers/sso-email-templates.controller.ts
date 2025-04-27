@@ -2,6 +2,7 @@ import { FindManyArgs } from '@nestjs-mod-sso/common';
 
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { ValidationError } from '@nestjs-mod-sso/validation';
+import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,
@@ -29,6 +30,7 @@ import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoEmailTemplateResponse } from '../types/find-many-sso-email-template-response';
 import { SsoRequest } from '../types/sso-request';
+import { SsoRole } from '../types/sso-role';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
@@ -54,8 +56,9 @@ export class SsoEmailTemplatesController {
         curPage: args.curPage,
         perPage: args.perPage,
       });
+
     const searchText = args.searchText;
-    const projectId = ssoRequest.ssoIsAdmin
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
       ? undefined
       : ssoRequest.ssoProject.id;
 
@@ -185,7 +188,7 @@ export class SsoEmailTemplatesController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoEmailTemplateDto
   ) {
-    const projectId = ssoRequest.ssoIsAdmin
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
       ? undefined
       : ssoRequest.ssoProject.id;
 
@@ -206,7 +209,7 @@ export class SsoEmailTemplatesController {
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Param('id', new ParseUUIDPipe()) id: string
   ) {
-    const projectId = ssoRequest.ssoIsAdmin
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
       ? undefined
       : ssoRequest.ssoProject.id;
 

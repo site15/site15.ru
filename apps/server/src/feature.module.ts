@@ -1,5 +1,4 @@
 import KeyvRedis from '@keyv/redis';
-import { AUTH_FEATURE, AUTH_FOLDER, AuthModule } from '@nestjs-mod-sso/auth';
 import { FilesModule } from '@nestjs-mod-sso/files';
 import {
   NOTIFICATIONS_FEATURE,
@@ -33,11 +32,11 @@ import { join } from 'path';
 import { createClient } from 'redis';
 import { AppModule } from './app/app.module';
 import { rootFolder } from './environments/environment';
-import { authModuleForRootAsyncOptions } from './integrations/auth-integration.configuration';
 import { filesModuleForRootAsyncOptions } from './integrations/minio-files-integration.configuration';
 import { notificationsModuleForRootAsyncOptions } from './integrations/notifications-integration.configuration';
 import { ssoModuleForRootAsyncOptions } from './integrations/sso-integration.configuration';
 import { terminusHealthCheckModuleForRootAsyncOptions } from './integrations/terminus-health-check-integration.configuration';
+import { webhookModuleForRootAsyncOptions } from './integrations/webhook-integration.configuration';
 
 export const FEATURE_MODULE_IMPORTS = [
   NestjsPinoLoggerModule.forRoot(),
@@ -63,31 +62,6 @@ export const FEATURE_MODULE_IMPORTS = [
       addMigrationScripts: false,
       nxProjectJsonFile: join(rootFolder, WEBHOOK_FOLDER, PROJECT_JSON_FILE),
 
-      binaryTargets: [
-        'native',
-        'rhel-openssl-3.0.x',
-        'linux-musl-openssl-3.0.x',
-        'linux-musl',
-      ],
-    },
-  }),
-  // auth
-  PrismaModule.forRoot({
-    contextName: AUTH_FEATURE,
-    staticConfiguration: {
-      featureName: AUTH_FEATURE,
-      schemaFile: join(
-        rootFolder,
-        AUTH_FOLDER,
-        'src',
-        'prisma',
-        PRISMA_SCHEMA_FILE
-      ),
-      prismaModule: isInfrastructureMode()
-        ? import(`@nestjs-mod/prisma`)
-        : import(`@prisma/auth-client`),
-      addMigrationScripts: false,
-      nxProjectJsonFile: join(rootFolder, AUTH_FOLDER, PROJECT_JSON_FILE),
       binaryTargets: [
         'native',
         'rhel-openssl-3.0.x',
@@ -191,21 +165,10 @@ export const FEATURE_MODULE_IMPORTS = [
   // minio
   MinioModule.forRoot(),
   ValidationModule.forRoot({ staticEnvironments: { usePipes: false } }),
-  AuthModule.forRootAsync(authModuleForRootAsyncOptions()),
   FilesModule.forRootAsync(filesModuleForRootAsyncOptions()),
   TwoFactorModule.forRoot(),
   NotificationsModule.forRootAsync(notificationsModuleForRootAsyncOptions()),
-  WebhookModule.forRootAsync({
-    imports: [
-      // need for work global auth guards
-      AuthModule.forFeature({ featureModuleName: AUTH_FEATURE }),
-      PrismaModule.forFeature({
-        featureModuleName: WEBHOOK_FEATURE,
-        contextName: AUTH_FEATURE,
-      }),
-    ],
-    configuration: { syncMode: false },
-  }),
+  WebhookModule.forRootAsync(webhookModuleForRootAsyncOptions()),
   SsoModule.forRootAsync(ssoModuleForRootAsyncOptions()),
   AppModule.forRoot(),
 ];

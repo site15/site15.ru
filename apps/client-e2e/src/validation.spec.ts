@@ -47,44 +47,44 @@ test.describe('Validation', () => {
     });
 
     await page
-      .locator('auth-sign-up-form')
+      .locator('sso-sign-up-form')
       .locator('[placeholder=email]')
       .click();
     await page.keyboard.type(user.email.toLowerCase(), {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-up-form').locator('[placeholder=email]')
+      page.locator('sso-sign-up-form').locator('[placeholder=email]')
     ).toHaveValue(user.email.toLowerCase());
 
     await page
-      .locator('auth-sign-up-form')
+      .locator('sso-sign-up-form')
       .locator('[placeholder=password]')
       .click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-up-form').locator('[placeholder=password]')
+      page.locator('sso-sign-up-form').locator('[placeholder=password]')
     ).toHaveValue(user.password);
 
     await page
-      .locator('auth-sign-up-form')
+      .locator('sso-sign-up-form')
       .locator('[placeholder=confirmPassword]')
       .click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-up-form').locator('[placeholder=confirmPassword]')
+      page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]')
     ).toHaveValue(user.password);
 
     await expect(
-      page.locator('auth-sign-up-form').locator('button[type=submit]')
+      page.locator('sso-sign-up-form').locator('button[type=submit]')
     ).toHaveText('Sign-up');
 
     await page
-      .locator('auth-sign-up-form')
+      .locator('sso-sign-up-form')
       .locator('button[type=submit]')
       .click();
 

@@ -32,17 +32,18 @@ import { CreateSsoProjectDto } from '../generated/rest/dto/create-sso-project.dt
 import { SsoProjectDto } from '../generated/rest/dto/sso-project.dto';
 import { UpdateSsoProjectDto } from '../generated/rest/dto/update-sso-project.dto';
 import { SsoCacheService } from '../services/sso-cache.service';
+import { SsoTemplatesService } from '../services/sso-templates.service';
 import { SSO_FEATURE } from '../sso.constants';
-import { SsoCheckIsAdmin } from '../sso.decorators';
+import { CheckSsoRole } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { FindManySsoProjectResponse } from '../types/find-many-sso-project-response';
-import { SsoTemplatesService } from '../services/sso-templates.service';
+import { SsoRole } from '../types/sso-role';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
 @ApiTags('Sso')
-@SsoCheckIsAdmin()
+@CheckSsoRole([SsoRole.admin])
 @Controller('/sso/projects')
 @SkipTranslate()
 export class SsoProjectsController {

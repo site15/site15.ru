@@ -1,6 +1,6 @@
 import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsOptional, IsString } from 'class-validator';
+import { IsDateString, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateSsoUserDto {
   @ApiProperty({
@@ -116,4 +116,21 @@ export class UpdateSsoUserDto {
   @IsOptional()
   @IsDateString()
   phoneVerifiedAt?: Date | null;
+  @ApiProperty({
+    type: 'number',
+    format: 'float',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsNumber()
+  timezone?: number | null;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  lang?: string | null;
 }

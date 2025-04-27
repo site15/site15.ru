@@ -32,11 +32,5 @@ export class SsoOAuthProvider {
     isArray: true,
     required: false,
   })
-  SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider?: SsoOAuthToken[];
-  @ApiProperty({
-    type: () => SsoOAuthToken,
-    isArray: true,
-    required: false,
-  })
   SsoOAuthToken?: SsoOAuthToken[];
 }

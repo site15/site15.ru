@@ -9,6 +9,7 @@
  */
 import { SsoUserInterface } from './sso-user.interface';
 import { SsoRefreshSessionInterface } from './sso-refresh-session.interface';
+import { SsoOAuthTokenInterface } from './sso-o-auth-token.interface';
 import { SsoEmailTemplateInterface } from './sso-email-template.interface';
 
 
@@ -22,6 +23,7 @@ export interface SsoProjectInterface {
     createdAt: string;
     updatedAt: string;
     SsoEmailTemplate?: Array<SsoEmailTemplateInterface>;
+    SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider?: Array<SsoOAuthTokenInterface>;
     SsoRefreshSession?: Array<SsoRefreshSessionInterface>;
     SsoUser?: Array<SsoUserInterface>;
 }

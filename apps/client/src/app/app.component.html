@@ -7,15 +7,14 @@
       <li nz-menu-item routerLink="/home" transloco="Home"></li>
 
       @if
-      ([AuthRoleInterface.Manager,AuthRoleInterface.Admin]|checkUserRoles|async)
-      {
+      ([SsoRoleInterface.manager,SsoRoleInterface.admin]|checkUserRoles|async) {
       <li nz-menu-item routerLink="/webhooks" transloco="Webhooks"></li>
       <li nz-menu-item routerLink="/templates" transloco="Templates"></li>
       <li nz-menu-item routerLink="/users" transloco="Users"></li>
-      } @if ([AuthRoleInterface.Admin]|checkUserRoles|async) {
+      } @if ([SsoRoleInterface.admin]|checkUserRoles|async) {
       <li nz-menu-item routerLink="/projects" transloco="Projects"></li>
       } @if
-      ([AuthRoleInterface.User,AuthRoleInterface.Manager,AuthRoleInterface.Admin]|checkUserRoles|async)
+      ([SsoRoleInterface.user,SsoRoleInterface.manager,SsoRoleInterface.admin]|checkUserRoles|async)
       {
       <li
         nz-submenu
@@ -67,7 +66,7 @@
         </ul>
       </li>
       @if (publicProjects$ | async; as publicProjects) { @if
-      ((([AuthRoleInterface.Admin]|checkUserRoles|async) ||
+      ((([SsoRoleInterface.admin]|checkUserRoles|async) ||
       ([]|checkUserRoles|async))){
       <li
         nz-submenu

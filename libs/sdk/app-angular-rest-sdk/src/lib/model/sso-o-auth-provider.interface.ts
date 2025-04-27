@@ -17,7 +17,6 @@ export interface SsoOAuthProviderInterface {
     createdAt: string;
     updatedAt: string;
     SsoOAuthProviderSettings?: Array<SsoOAuthProviderSettingsInterface>;
-    SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider?: Array<SsoOAuthTokenInterface>;
     SsoOAuthToken?: Array<SsoOAuthTokenInterface>;
 }
 

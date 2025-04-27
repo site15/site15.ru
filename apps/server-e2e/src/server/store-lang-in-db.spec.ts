@@ -1,4 +1,4 @@
-import { AuthRole } from '@nestjs-mod-sso/app-rest-sdk';
+import { SsoRole } from '@nestjs-mod-sso/app-rest-sdk';
 import { RestClientHelper } from '@nestjs-mod-sso/testing';
 import { AxiosError } from 'axios';
 
@@ -15,12 +15,12 @@ describe('Store lang in db', () => {
   beforeAll(async () => {
     await user1.createAndLoginAsUser();
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    await admin.setRoles(user1.getSsoProfile()!.id, [AuthRole.Manager]);
+    await admin.setRoles(user1.getSsoProfile()!.id, [SsoRole.Manager]);
   });
 
   it('should catch error on try use not exists language code', async () => {
     try {
-      await user1.getAuthApi().authControllerUpdateProfile({ lang: 'tt' });
+      await user1.getSsoApi().ssoControllerUpdateProfile({ lang: 'tt' });
     } catch (err) {
       expect((err as AxiosError).response?.data).toEqual({
         code: 'VALIDATION-000',
@@ -41,7 +41,7 @@ describe('Store lang in db', () => {
   });
 
   it('should catch error in Russian language on create new webhook as user1', async () => {
-    await user1.getAuthApi().authControllerUpdateProfile({ lang: 'ru' });
+    await user1.getSsoApi().ssoControllerUpdateProfile({ lang: 'ru' });
     try {
       await user1.getWebhookApi().webhookControllerCreateOne({
         enabled: false,

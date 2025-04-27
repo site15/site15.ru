@@ -15,6 +15,7 @@ import { WebhookService } from './services/webhook.service';
 import {
   WebhookConfiguration,
   WebhookFeatureConfiguration,
+  WebhookStaticConfiguration,
 } from './webhook.configuration';
 import { WEBHOOK_FEATURE, WEBHOOK_MODULE } from './webhook.constants';
 import { WebhookStaticEnvironments } from './webhook.environments';
@@ -33,6 +34,7 @@ export const { WebhookModule } = createNestModule({
   staticEnvironmentsModel: WebhookStaticEnvironments,
   featureConfigurationModel: WebhookFeatureConfiguration,
   configurationModel: WebhookConfiguration,
+  staticConfigurationModel: WebhookStaticConfiguration,
   imports: [
     HttpModule,
     PrismaModule.forFeature({
@@ -65,8 +67,16 @@ export const { WebhookModule } = createNestModule({
   controllers: (asyncModuleOptions) =>
     [WebhookLogsController, WebhookController].map((ctrl) => {
       if (asyncModuleOptions.staticEnvironments?.useGuards) {
-        UseGuards(WebhookGuard)(ctrl);
+        UseGuards(
+          ...(asyncModuleOptions.staticConfiguration?.guards || []),
+          WebhookGuard
+        )(ctrl);
       }
+
+      if (asyncModuleOptions.staticConfiguration.mutateController) {
+        asyncModuleOptions.staticConfiguration.mutateController(ctrl);
+      }
+
       return ctrl;
     }),
   sharedProviders: [WebhookService, WebhookUsersService],

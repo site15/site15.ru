@@ -42,7 +42,6 @@ describe('Sso (e2e)', () => {
       expect(errData?.message).toEqual('Forbidden');
     }
   });
-
   it('Create project', async () => {
     const { data: createOneResult } = await user
       .getSsoApi()

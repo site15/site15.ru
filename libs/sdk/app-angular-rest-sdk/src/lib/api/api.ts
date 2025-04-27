@@ -1,5 +1,3 @@
-export * from './auth-rest.service';
-import { AuthRestService } from './auth-rest.service';
 export * from './files-rest.service';
 import { FilesRestService } from './files-rest.service';
 export * from './notifications-rest.service';
@@ -12,4 +10,4 @@ export * from './time-rest.service';
 import { TimeRestService } from './time-rest.service';
 export * from './webhook-rest.service';
 import { WebhookRestService } from './webhook-rest.service';
-export const APIS = [AuthRestService, FilesRestService, NotificationsRestService, SsoRestService, TerminusHealthCheckRestService, TimeRestService, WebhookRestService];
+export const APIS = [FilesRestService, NotificationsRestService, SsoRestService, TerminusHealthCheckRestService, TimeRestService, WebhookRestService];

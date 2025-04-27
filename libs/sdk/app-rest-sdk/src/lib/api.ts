@@ -26,151 +26,6 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
- * @interface AuthControllerProfile400Response
- */
-export interface AuthControllerProfile400Response {
-    /**
-     * Validation error (VALIDATION-000)
-     * @type {string}
-     * @memberof AuthControllerProfile400Response
-     */
-    'message': string;
-    /**
-     * 
-     * @type {ValidationErrorEnum}
-     * @memberof AuthControllerProfile400Response
-     */
-    'code': ValidationErrorEnum;
-    /**
-     * 
-     * @type {Array<ValidationErrorMetadata>}
-     * @memberof AuthControllerProfile400Response
-     */
-    'metadata'?: Array<ValidationErrorMetadata>;
-}
-
-
-/**
- * 
- * @export
- * @interface AuthEntities
- */
-export interface AuthEntities {
-    /**
-     * 
-     * @type {AuthUserScalarFieldEnum}
-     * @memberof AuthEntities
-     */
-    'AuthUser': AuthUserScalarFieldEnum;
-}
-
-
-/**
- * 
- * @export
- * @interface AuthError
- */
-export interface AuthError {
-    /**
-     * Auth error (AUTH-000), Forbidden (AUTH-001), Unauthorized (AUTH-002)
-     * @type {string}
-     * @memberof AuthError
-     */
-    'message': string;
-    /**
-     * 
-     * @type {AuthErrorEnum}
-     * @memberof AuthError
-     */
-    'code': AuthErrorEnum;
-    /**
-     * 
-     * @type {object}
-     * @memberof AuthError
-     */
-    'metadata'?: object;
-}
-
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const AuthErrorEnum = {
-    Auth000: 'AUTH-000',
-    Auth001: 'AUTH-001',
-    Auth002: 'AUTH-002'
-} as const;
-
-export type AuthErrorEnum = typeof AuthErrorEnum[keyof typeof AuthErrorEnum];
-
-
-/**
- * 
- * @export
- * @interface AuthProfileDto
- */
-export interface AuthProfileDto {
-    /**
-     * 
-     * @type {number}
-     * @memberof AuthProfileDto
-     */
-    'timezone'?: number | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof AuthProfileDto
-     */
-    'lang'?: string | null;
-    /**
-     * 
-     * @type {AuthRole}
-     * @memberof AuthProfileDto
-     */
-    'userRole'?: AuthRole | null;
-}
-
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const AuthRole = {
-    Admin: 'Admin',
-    Manager: 'Manager',
-    User: 'User'
-} as const;
-
-export type AuthRole = typeof AuthRole[keyof typeof AuthRole];
-
-
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const AuthUserScalarFieldEnum = {
-    Id: 'id',
-    ExternalUserId: 'externalUserId',
-    UserRole: 'userRole',
-    Timezone: 'timezone',
-    CreatedAt: 'createdAt',
-    UpdatedAt: 'updatedAt',
-    Lang: 'lang'
-} as const;
-
-export type AuthUserScalarFieldEnum = typeof AuthUserScalarFieldEnum[keyof typeof AuthUserScalarFieldEnum];
-
-
-/**
- * 
- * @export
  * @interface CompleteForgotPasswordArgs
  */
 export interface CompleteForgotPasswordArgs {
@@ -1421,6 +1276,12 @@ export interface SsoEntities {
      * @memberof SsoEntities
      */
     'SsoOAuthToken': SsoOAuthTokenScalarFieldEnum;
+    /**
+     * 
+     * @type {SsoRole}
+     * @memberof SsoEntities
+     */
+    'role': SsoRole;
 }
 
 
@@ -1518,12 +1379,6 @@ export interface SsoOAuthProvider {
      * @memberof SsoOAuthProvider
      */
     'SsoOAuthProviderSettings'?: Array<SsoOAuthProviderSettings>;
-    /**
-     * 
-     * @type {Array<SsoOAuthToken>}
-     * @memberof SsoOAuthProvider
-     */
-    'SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider'?: Array<SsoOAuthToken>;
     /**
      * 
      * @type {Array<SsoOAuthToken>}
@@ -1700,10 +1555,10 @@ export interface SsoOAuthToken {
     'updatedAt': string;
     /**
      * 
-     * @type {SsoOAuthProvider}
+     * @type {SsoProject}
      * @memberof SsoOAuthToken
      */
-    'SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider'?: SsoOAuthProvider;
+    'SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider'?: SsoProject;
     /**
      * 
      * @type {SsoOAuthProvider}
@@ -1823,6 +1678,12 @@ export interface SsoProject {
      * @memberof SsoProject
      */
     'SsoEmailTemplate'?: Array<SsoEmailTemplate>;
+    /**
+     * 
+     * @type {Array<SsoOAuthToken>}
+     * @memberof SsoProject
+     */
+    'SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider'?: Array<SsoOAuthToken>;
     /**
      * 
      * @type {Array<SsoRefreshSession>}
@@ -2115,6 +1976,21 @@ export type SsoRefreshSessionScalarFieldEnum = typeof SsoRefreshSessionScalarFie
 /**
  * 
  * @export
+ * @enum {string}
+ */
+
+export const SsoRole = {
+    Admin: 'admin',
+    Manager: 'manager',
+    User: 'user'
+} as const;
+
+export type SsoRole = typeof SsoRole[keyof typeof SsoRole];
+
+
+/**
+ * 
+ * @export
  * @interface SsoUser
  */
 export interface SsoUser {
@@ -2202,6 +2078,18 @@ export interface SsoUser {
      * @memberof SsoUser
      */
     'phoneVerifiedAt': string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof SsoUser
+     */
+    'timezone': number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoUser
+     */
+    'lang': string | null;
     /**
      * 
      * @type {string}
@@ -2331,6 +2219,18 @@ export interface SsoUserDto {
     'phoneVerifiedAt': string | null;
     /**
      * 
+     * @type {number}
+     * @memberof SsoUserDto
+     */
+    'timezone': number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoUserDto
+     */
+    'lang': string | null;
+    /**
+     * 
      * @type {string}
      * @memberof SsoUserDto
      */
@@ -2364,6 +2264,8 @@ export const SsoUserScalarFieldEnum = {
     RevokedAt: 'revokedAt',
     EmailVerifiedAt: 'emailVerifiedAt',
     PhoneVerifiedAt: 'phoneVerifiedAt',
+    Timezone: 'timezone',
+    Lang: 'lang',
     ProjectId: 'projectId',
     CreatedAt: 'createdAt',
     UpdatedAt: 'updatedAt'
@@ -2602,6 +2504,18 @@ export interface UpdateProfileArgs {
      * @memberof UpdateProfileArgs
      */
     'picture'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateProfileArgs
+     */
+    'timezone'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateProfileArgs
+     */
+    'lang'?: string | null;
     /**
      * 
      * @type {string}
@@ -2846,6 +2760,18 @@ export interface UpdateSsoUserDto {
      * @memberof UpdateSsoUserDto
      */
     'phoneVerifiedAt'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateSsoUserDto
+     */
+    'timezone'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoUserDto
+     */
+    'lang'?: string | null;
 }
 /**
  * 
@@ -3446,170 +3372,6 @@ export const WebhookUserScalarFieldEnum = {
 } as const;
 
 export type WebhookUserScalarFieldEnum = typeof WebhookUserScalarFieldEnum[keyof typeof WebhookUserScalarFieldEnum];
-
-
-
-/**
- * AuthApi - axios parameter creator
- * @export
- */
-export const AuthApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authControllerProfile: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/auth/profile`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {AuthProfileDto} authProfileDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authControllerUpdateProfile: async (authProfileDto: AuthProfileDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'authProfileDto' is not null or undefined
-            assertParamExists('authControllerUpdateProfile', 'authProfileDto', authProfileDto)
-            const localVarPath = `/api/auth/update-profile`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(authProfileDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * AuthApi - functional programming interface
- * @export
- */
-export const AuthApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = AuthApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authControllerProfile(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AuthProfileDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authControllerProfile(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthApi.authControllerProfile']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {AuthProfileDto} authProfileDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async authControllerUpdateProfile(authProfileDto: AuthProfileDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.authControllerUpdateProfile(authProfileDto, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['AuthApi.authControllerUpdateProfile']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-    }
-};
-
-/**
- * AuthApi - factory interface
- * @export
- */
-export const AuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AuthApiFp(configuration)
-    return {
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authControllerProfile(options?: RawAxiosRequestConfig): AxiosPromise<AuthProfileDto> {
-            return localVarFp.authControllerProfile(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {AuthProfileDto} authProfileDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        authControllerUpdateProfile(authProfileDto: AuthProfileDto, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
-            return localVarFp.authControllerUpdateProfile(authProfileDto, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * AuthApi - object-oriented interface
- * @export
- * @class AuthApi
- * @extends {BaseAPI}
- */
-export class AuthApi extends BaseAPI {
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthApi
-     */
-    public authControllerProfile(options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authControllerProfile(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {AuthProfileDto} authProfileDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthApi
-     */
-    public authControllerUpdateProfile(authProfileDto: AuthProfileDto, options?: RawAxiosRequestConfig) {
-        return AuthApiFp(this.configuration).authControllerUpdateProfile(authProfileDto, options).then((request) => request(this.axios, this.basePath));
-    }
-}
 
 
 

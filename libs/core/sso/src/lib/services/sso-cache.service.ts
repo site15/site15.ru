@@ -7,15 +7,15 @@ import {
   SsoRefreshSession,
   SsoUser,
 } from '@prisma/sso-client';
-import { SsoConfiguration } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
+import { SsoStaticEnvironments } from '../sso.environments';
 
 @Injectable()
 export class SsoCacheService {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly ssoConfiguration: SsoConfiguration,
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly keyvService: KeyvService
   ) {}
 
@@ -41,7 +41,7 @@ export class SsoCacheService {
       await this.keyvService.set(
         this.getUserCacheKey({ userId }),
         cachedUser,
-        this.ssoConfiguration.cacheTTL
+        this.ssoStaticEnvironments.cacheTTL
       );
       return cachedUser;
     }
@@ -74,7 +74,7 @@ export class SsoCacheService {
       await this.keyvService.set(
         this.getProjectCacheKey(clientId),
         project,
-        this.ssoConfiguration.cacheTTL
+        this.ssoStaticEnvironments.cacheTTL
       );
       return project;
     }
@@ -106,7 +106,7 @@ export class SsoCacheService {
       await this.keyvService.set(
         this.getRefreshSessionCacheKey(refreshToken),
         refreshSession,
-        this.ssoConfiguration.cacheTTL
+        this.ssoStaticEnvironments.cacheTTL
       );
       return refreshSession;
     }

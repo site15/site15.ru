@@ -1,5 +1,5 @@
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
-import { searchIn } from '@nestjs-mod/misc';
+import { searchIn, splitIn } from '@nestjs-mod/misc';
 import {
   CanActivate,
   ExecutionContext,
@@ -7,19 +7,23 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { SsoAdminService } from './services/sso-admin.service';
+import { ACCEPT_LANGUAGE, TranslatesStorage } from 'nestjs-translates';
+import { SsoUser } from './generated/rest/dto/sso-user.entity';
 import { SsoCacheService } from './services/sso-cache.service';
 import { SsoProjectService } from './services/sso-project.service';
 import { SsoTokensService } from './services/sso-tokens.service';
+import { SsoConfiguration } from './sso.configuration';
 import {
   AllowEmptySsoUser,
+  CheckHaveSsoClientSecret,
+  CheckSsoRole,
+  SkipSsoGuard,
   SkipValidateRefreshSession,
-  SsoCheckHaveClientSecret,
-  SsoCheckIsAdmin,
 } from './sso.decorators';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoError, SsoErrorEnum } from './sso.errors';
 import { SsoRequest } from './types/sso-request';
+import { SsoRole } from './types/sso-role';
 
 @Injectable()
 export class SsoGuard implements CanActivate {
@@ -30,92 +34,200 @@ export class SsoGuard implements CanActivate {
     private readonly ssoCacheService: SsoCacheService,
     private readonly ssoTokensService: SsoTokensService,
     private readonly ssoProjectService: SsoProjectService,
-    private readonly ssoAdminService: SsoAdminService,
-    private readonly ssoStaticEnvironments: SsoStaticEnvironments
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
+    private readonly ssoConfiguration: SsoConfiguration,
+    private readonly translatesStorage: TranslatesStorage
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const {
       allowEmptyUserMetadata,
-      checkSsoIsAdmin,
-      checkHaveClientSecret,
       skipValidateRefreshSession,
+      checkHaveSsoClientSecret,
+      checkSsoRole,
+      skipSsoGuard,
     } = this.getHandlersReflectMetadata(context);
 
     const req = this.getRequestFromExecutionContext(context);
 
-    if (allowEmptyUserMetadata) {
-      req.skipEmptySsoUser = true;
-    }
-
     const validate = async () => {
-      await this.ssoProjectService.getProjectByRequest(req);
+      if (skipSsoGuard) {
+        return true;
+      }
 
-      req.ssoAccessTokenData = await this.verifyAndDecodeAccessToken(req);
+      if (allowEmptyUserMetadata) {
+        req.skipEmptySsoUser = true;
+      }
 
+      // detect project
+      if (checkHaveSsoClientSecret && !req.ssoClientSecret) {
+        throw new SsoError(SsoErrorEnum.Forbidden);
+      }
+      req.ssoProject = await this.ssoProjectService.getProjectByRequest(req);
+
+      // process jwt token
+      req.ssoAccessTokenData =
+        await this.ssoTokensService.verifyAndDecodeAccessToken(
+          req.headers['authorization']?.split(' ')?.[1]
+        );
       if (!skipValidateRefreshSession && req.ssoAccessTokenData?.refreshToken) {
         const refreshSession =
           await this.ssoCacheService.getCachedRefreshSession(
             req.ssoAccessTokenData?.refreshToken
           );
-
         if (!refreshSession?.enabled) {
           throw new SsoError(SsoErrorEnum.YourSessionHasBeenBlocked);
         }
-
         this.ssoTokensService.verifyRefreshSession({
           oldRefreshSession: refreshSession,
         });
       }
 
+      // get user
       req.ssoUser = req.ssoAccessTokenData?.userId
         ? await this.ssoCacheService.getCachedUser({
             userId: req.ssoAccessTokenData?.userId,
           })
         : undefined;
 
-      this.checkRevokedAtOfUser(req);
+      // check user as revoke
+      if (req.ssoUser?.id && req.ssoUser.revokedAt) {
+        const nowTime = new Date();
+        if (+nowTime > +new Date(req.ssoUser.revokedAt)) {
+          this.logger.debug({
+            checkRevokedAtOfUser: {
+              revokedAt: req.ssoUser.revokedAt,
+              nowTime,
+            },
+          });
+          throw new SsoError(SsoErrorEnum.YourSessionHasBeenBlocked);
+        }
+      }
 
-      req.ssoIsAdmin = this.ssoAdminService.checkAdminInRequest(req);
-
-      if (checkSsoIsAdmin) {
+      // set admin roles
+      if (
+        this.ssoConfiguration.adminSecretHeaderName &&
+        req.headers?.[this.ssoConfiguration.adminSecretHeaderName]
+      ) {
         if (
-          !req.ssoIsAdmin &&
-          !searchIn(
-            req.ssoUser?.roles,
-            this.ssoStaticEnvironments.adminDefaultRoles
-          )
+          req.headers?.[this.ssoConfiguration.adminSecretHeaderName] !==
+          this.ssoStaticEnvironments.adminSecret
         ) {
           throw new SsoError(SsoErrorEnum.Forbidden);
         }
-        return true;
+        if (!req.ssoUser) {
+          req.ssoUser = {} as SsoUser;
+        }
+        req.ssoUser.roles = SsoRole.admin;
+      }
+      if (
+        req.ssoUser &&
+        this.ssoStaticEnvironments.adminEmail &&
+        req.ssoUser?.email === this.ssoStaticEnvironments.adminEmail
+      ) {
+        req.ssoUser.roles = SsoRole.admin;
+      }
+      if (
+        req.ssoUser &&
+        this.ssoStaticEnvironments.adminDefaultRoles &&
+        searchIn(
+          this.ssoStaticEnvironments.adminDefaultRoles,
+          req.ssoUser.roles
+        )
+      ) {
+        req.ssoUser.roles = [
+          ...new Set([...splitIn(req.ssoUser.roles), SsoRole.admin]),
+        ].join(',');
       }
 
-      if (checkHaveClientSecret && !req.ssoClientSecret) {
+      // set manager roles
+      if (
+        req.ssoUser &&
+        this.ssoStaticEnvironments.adminDefaultRoles &&
+        searchIn(
+          this.ssoStaticEnvironments.managerDefaultRoles,
+          req.ssoUser.roles
+        )
+      ) {
+        req.ssoUser.roles = [
+          ...new Set([...splitIn(req.ssoUser.roles), SsoRole.manager]),
+        ].join(',');
+      }
+
+      // check roles by handler roles
+      if (
+        checkSsoRole &&
+        req.ssoUser?.id &&
+        !searchIn(req.ssoUser.roles, checkSsoRole)
+      ) {
         throw new SsoError(SsoErrorEnum.Forbidden);
       }
 
-      if (!req.ssoIsAdmin && !req.ssoUser && !req.skipEmptySsoUser) {
+      // current lang
+      if (req.ssoUser?.lang) {
+        req.headers[ACCEPT_LANGUAGE] = req.ssoUser.lang;
+      }
+
+      if (
+        !req.headers[ACCEPT_LANGUAGE] ||
+        (req.headers[ACCEPT_LANGUAGE] &&
+          !this.translatesStorage.locales.includes(
+            req.headers[ACCEPT_LANGUAGE]
+          ))
+      ) {
+        req.headers[ACCEPT_LANGUAGE] = this.translatesStorage.defaultLocale;
+      }
+
+      // check access by custom logic
+      if (this.ssoConfiguration.checkAccessValidator) {
+        await this.ssoConfiguration.checkAccessValidator(req.ssoUser, context);
+      }
+
+      // throw error if user is empty
+      if (!req.ssoUser && !req.skipEmptySsoUser) {
         throw new SsoError(SsoErrorEnum.Forbidden);
       }
+
       return true;
     };
 
     try {
+      this.logger.debug(
+        `${context.getClass().name}.${
+          context.getHandler().name
+        }: project: ${JSON.stringify(
+          req.ssoProject?.id
+        )}, clientId: ${JSON.stringify(
+          req.ssoClientId
+        )}, accessTokenData: ${JSON.stringify(
+          req.ssoAccessTokenData
+        )}, user: ${JSON.stringify(req.ssoUser)}, role: ${JSON.stringify(
+          req.ssoUser?.roles
+        )}, skipGuard: ${JSON.stringify(
+          skipSsoGuard
+        )}, checkRole: ${JSON.stringify(checkSsoRole)}, lang: ${JSON.stringify(
+          req.headers[ACCEPT_LANGUAGE]
+        )}`
+      );
+
       const result = await validate();
 
       this.logger.debug(
         `${context.getClass().name}.${
           context.getHandler().name
-        }: ${result}, ssoProject: ${JSON.stringify(
-          req.ssoProject.id
-        )}, ssoClientId: ${JSON.stringify(
+        }: ${result}, project: ${JSON.stringify(
+          req.ssoProject?.id
+        )}, clientId: ${JSON.stringify(
           req.ssoClientId
-        )}, ssoAccessTokenData: ${JSON.stringify(
+        )}, accessTokenData: ${JSON.stringify(
           req.ssoAccessTokenData
-        )}, ssoUser: ${JSON.stringify(
-          req.ssoUser?.id
-        )}, ssoIsAdmin: ${JSON.stringify(req.ssoIsAdmin)}`
+        )}, user: ${JSON.stringify(req.ssoUser)}, role: ${JSON.stringify(
+          req.ssoUser?.roles
+        )}, skipGuard: ${JSON.stringify(
+          skipSsoGuard
+        )}, checkRole: ${JSON.stringify(checkSsoRole)}, lang: ${JSON.stringify(
+          req.headers[ACCEPT_LANGUAGE]
+        )}`
       );
 
       if (!result) {
@@ -124,41 +236,24 @@ export class SsoGuard implements CanActivate {
 
       return result;
     } catch (err) {
-      this.logger.debug(
+      this.logger.error(
         `${context.getClass().name}.${context.getHandler().name}: ${String(
           err
-        )}, ssoProject: ${JSON.stringify(
-          req.ssoProject.id
-        )}, ssoClientId: ${JSON.stringify(
+        )}, project: ${JSON.stringify(
+          req.ssoProject?.id
+        )}, clientId: ${JSON.stringify(
           req.ssoClientId
-        )}, ssoAccessTokenData: ${JSON.stringify(
+        )}, accessTokenData: ${JSON.stringify(
           req.ssoAccessTokenData
-        )}, ssoUser: ${JSON.stringify(
-          req.ssoUser?.id
-        )}, ssoIsAdmin: ${JSON.stringify(req.ssoIsAdmin)}`
+        )}, user: ${JSON.stringify(req.ssoUser)}, role: ${JSON.stringify(
+          req.ssoUser?.roles
+        )}, skipGuard: ${JSON.stringify(
+          skipSsoGuard
+        )}, checkRole: ${JSON.stringify(checkSsoRole)}, lang: ${JSON.stringify(
+          req.headers[ACCEPT_LANGUAGE]
+        )}`
       );
       throw err;
-    }
-  }
-
-  private async verifyAndDecodeAccessToken(req: SsoRequest) {
-    return await this.ssoTokensService.verifyAndDecodeAccessToken(
-      req.headers['authorization']?.split(' ')?.[1]
-    );
-  }
-
-  private checkRevokedAtOfUser(req: SsoRequest) {
-    if (req.ssoUser && req.ssoUser.revokedAt) {
-      const nowTime = new Date();
-      if (+nowTime > +new Date(req.ssoUser.revokedAt)) {
-        this.logger.debug({
-          checkRevokedAtOfUser: {
-            revokedAt: req.ssoUser.revokedAt,
-            nowTime,
-          },
-        });
-        throw new SsoError(SsoErrorEnum.YourSessionHasBeenBlocked);
-      }
     }
   }
 
@@ -171,9 +266,11 @@ export class SsoGuard implements CanActivate {
   private getHandlersReflectMetadata(context: ExecutionContext) {
     const skipValidateRefreshSession = Boolean(
       (typeof context.getHandler === 'function' &&
-        this.reflector.get(SkipValidateRefreshSession, context.getHandler())) ||
+        this.reflector.get(SkipValidateRefreshSession, context.getHandler()) ===
+          true) ||
         (typeof context.getClass === 'function' &&
-          this.reflector.get(SkipValidateRefreshSession, context.getClass())) ||
+          this.reflector.get(SkipValidateRefreshSession, context.getClass()) ===
+            true) ||
         undefined
     );
 
@@ -185,25 +282,35 @@ export class SsoGuard implements CanActivate {
         undefined
     );
 
-    const checkSsoIsAdmin =
+    const checkHaveSsoClientSecret = Boolean(
       (typeof context.getHandler === 'function' &&
-        this.reflector.get(SsoCheckIsAdmin, context.getHandler())) ||
-      (typeof context.getClass === 'function' &&
-        this.reflector.get(SsoCheckIsAdmin, context.getClass())) ||
-      undefined;
+        this.reflector.get(CheckHaveSsoClientSecret, context.getHandler())) ||
+        (typeof context.getClass === 'function' &&
+          this.reflector.get(CheckHaveSsoClientSecret, context.getClass())) ||
+        undefined
+    );
 
-    const checkHaveClientSecret =
+    const skipSsoGuard = Boolean(
       (typeof context.getHandler === 'function' &&
-        this.reflector.get(SsoCheckHaveClientSecret, context.getHandler())) ||
+        this.reflector.get(SkipSsoGuard, context.getHandler())) ||
+        (typeof context.getClass === 'function' &&
+          this.reflector.get(SkipSsoGuard, context.getClass())) ||
+        undefined
+    );
+
+    const checkSsoRole =
+      (typeof context.getHandler === 'function' &&
+        this.reflector.get(CheckSsoRole, context.getHandler())) ||
       (typeof context.getClass === 'function' &&
-        this.reflector.get(SsoCheckHaveClientSecret, context.getClass())) ||
+        this.reflector.get(CheckSsoRole, context.getClass())) ||
       undefined;
 
     return {
       allowEmptyUserMetadata,
-      checkSsoIsAdmin,
-      checkHaveClientSecret,
+      checkHaveSsoClientSecret,
       skipValidateRefreshSession,
+      skipSsoGuard,
+      checkSsoRole,
     };
   }
 }

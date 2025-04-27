@@ -118,6 +118,7 @@ export class WebhookGuard implements CanActivate {
 
   private getExternalUserIdFromRequest(req: WebhookRequest) {
     if (!req.externalUserId || !isUUID(req.externalUserId)) {
+      console.log(req);
       throw new WebhookError(WebhookErrorEnum.FORBIDDEN);
     }
     return req.externalUserId;

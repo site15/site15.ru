@@ -9,6 +9,8 @@ export class UpdateProfileArgs extends PickType(SsoUserDto, [
   'lastname',
   'picture',
   'gender',
+  'lang',
+  'timezone',
 ]) {
   @ApiPropertyOptional({ type: String })
   @IsOptional()
@@ -29,6 +31,21 @@ export class UpdateProfileArgs extends PickType(SsoUserDto, [
   @ApiPropertyOptional({ type: String })
   @IsOptional()
   override gender!: string | null;
+
+  @ApiPropertyOptional({
+    type: 'number',
+    format: 'float',
+    nullable: true,
+  })
+  @IsOptional()
+  override timezone!: number | null;
+
+  @ApiPropertyOptional({
+    type: 'string',
+    nullable: true,
+  })
+  @IsOptional()
+  override lang!: string | null;
 
   @ApiPropertyOptional({ type: String })
   @IsOptional()

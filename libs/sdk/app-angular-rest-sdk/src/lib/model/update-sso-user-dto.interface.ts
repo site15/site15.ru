@@ -24,5 +24,7 @@ export interface UpdateSsoUserDtoInterface {
     revokedAt?: string | null;
     emailVerifiedAt?: string | null;
     phoneVerifiedAt?: string | null;
+    timezone?: number | null;
+    lang?: string | null;
 }
 

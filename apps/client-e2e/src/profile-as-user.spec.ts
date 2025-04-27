@@ -47,44 +47,44 @@ test.describe('Work with profile as "User" role', () => {
     });
 
     await page
-      .locator('auth-sign-up-form')
+      .locator('sso-sign-up-form')
       .locator('[placeholder=email]')
       .click();
     await page.keyboard.type(user.email.toLowerCase(), {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-up-form').locator('[placeholder=email]')
+      page.locator('sso-sign-up-form').locator('[placeholder=email]')
     ).toHaveValue(user.email.toLowerCase());
 
     await page
-      .locator('auth-sign-up-form')
+      .locator('sso-sign-up-form')
       .locator('[placeholder=password]')
       .click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-up-form').locator('[placeholder=password]')
+      page.locator('sso-sign-up-form').locator('[placeholder=password]')
     ).toHaveValue(user.password);
 
     await page
-      .locator('auth-sign-up-form')
+      .locator('sso-sign-up-form')
       .locator('[placeholder=confirmPassword]')
       .click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-up-form').locator('[placeholder=confirmPassword]')
+      page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]')
     ).toHaveValue(user.password);
 
     await expect(
-      page.locator('auth-sign-up-form').locator('button[type=submit]')
+      page.locator('sso-sign-up-form').locator('button[type=submit]')
     ).toHaveText('Sign-up');
 
     await page
-      .locator('auth-sign-up-form')
+      .locator('sso-sign-up-form')
       .locator('button[type=submit]')
       .click();
 
@@ -127,33 +127,33 @@ test.describe('Work with profile as "User" role', () => {
     });
 
     await page
-      .locator('auth-sign-in-form')
+      .locator('sso-sign-in-form')
       .locator('[placeholder=email]')
       .click();
     await page.keyboard.type(user.email.toLowerCase(), {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-in-form').locator('[placeholder=email]')
+      page.locator('sso-sign-in-form').locator('[placeholder=email]')
     ).toHaveValue(user.email.toLowerCase());
 
     await page
-      .locator('auth-sign-in-form')
+      .locator('sso-sign-in-form')
       .locator('[placeholder=password]')
       .click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-in-form').locator('[placeholder=password]')
+      page.locator('sso-sign-in-form').locator('[placeholder=password]')
     ).toHaveValue(user.password);
 
     await expect(
-      page.locator('auth-sign-in-form').locator('button[type=submit]')
+      page.locator('sso-sign-in-form').locator('button[type=submit]')
     ).toHaveText('Sign-in');
 
     await page
-      .locator('auth-sign-in-form')
+      .locator('sso-sign-in-form')
       .locator('button[type=submit]')
       .click();
 
@@ -186,29 +186,29 @@ test.describe('Work with profile as "User" role', () => {
     await setTimeout(4000);
     //
     await page
-      .locator('auth-profile-form')
+      .locator('sso-profile-form')
       .locator('[placeholder=oldPassword]')
       .click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
     await expect(
-      page.locator('auth-profile-form').locator('[placeholder=oldPassword]')
+      page.locator('sso-profile-form').locator('[placeholder=oldPassword]')
     ).toHaveValue(user.password);
 
     await page
-      .locator('auth-profile-form')
+      .locator('sso-profile-form')
       .locator('[placeholder=newPassword]')
       .click();
     await page.keyboard.type(user.password + user.password, {
       delay: 50,
     });
     await expect(
-      page.locator('auth-profile-form').locator('[placeholder=newPassword]')
+      page.locator('sso-profile-form').locator('[placeholder=newPassword]')
     ).toHaveValue(user.password + user.password);
 
     await page
-      .locator('auth-profile-form')
+      .locator('sso-profile-form')
       .locator('[placeholder=confirmNewPassword]')
       .click();
     await page.keyboard.type(user.password + user.password, {
@@ -216,7 +216,7 @@ test.describe('Work with profile as "User" role', () => {
     });
     await expect(
       page
-        .locator('auth-profile-form')
+        .locator('sso-profile-form')
         .locator('[placeholder=confirmNewPassword]')
     ).toHaveValue(user.password + user.password);
 
@@ -227,11 +227,11 @@ test.describe('Work with profile as "User" role', () => {
     await setTimeout(1000);
 
     await expect(
-      page.locator('auth-profile-form').locator('button[type=submit]')
+      page.locator('sso-profile-form').locator('button[type=submit]')
     ).toHaveText('Update');
 
     await page
-      .locator('auth-profile-form')
+      .locator('sso-profile-form')
       .locator('button[type=submit]')
       .click();
     await setTimeout(7000);
@@ -269,33 +269,33 @@ test.describe('Work with profile as "User" role', () => {
     });
 
     await page
-      .locator('auth-sign-in-form')
+      .locator('sso-sign-in-form')
       .locator('[placeholder=email]')
       .click();
     await page.keyboard.type(user.email.toLowerCase(), {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-in-form').locator('[placeholder=email]')
+      page.locator('sso-sign-in-form').locator('[placeholder=email]')
     ).toHaveValue(user.email.toLowerCase());
 
     await page
-      .locator('auth-sign-in-form')
+      .locator('sso-sign-in-form')
       .locator('[placeholder=password]')
       .click();
     await page.keyboard.type(user.password + user.password, {
       delay: 50,
     });
     await expect(
-      page.locator('auth-sign-in-form').locator('[placeholder=password]')
+      page.locator('sso-sign-in-form').locator('[placeholder=password]')
     ).toHaveValue(user.password + user.password);
 
     await expect(
-      page.locator('auth-sign-in-form').locator('button[type=submit]')
+      page.locator('sso-sign-in-form').locator('button[type=submit]')
     ).toHaveText('Sign-in');
 
     await page
-      .locator('auth-sign-in-form')
+      .locator('sso-sign-in-form')
       .locator('button[type=submit]')
       .click();
 

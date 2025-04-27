@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { AuthForgotPasswordFormComponent } from '@nestjs-mod-sso/auth-angular';
+import { SsoForgotPasswordFormComponent } from '@nestjs-mod-sso/sso-angular';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 @Component({
@@ -9,7 +9,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
   imports: [
     NzBreadCrumbModule,
     TranslocoDirective,
-    AuthForgotPasswordFormComponent,
+    SsoForgotPasswordFormComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

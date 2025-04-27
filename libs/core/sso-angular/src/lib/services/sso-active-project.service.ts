@@ -4,7 +4,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { SsoProjectModel } from './sso-project-mapper.service';
 import { SsoProjectService } from './sso-project.service';
 
-export const AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY = 'activeUserClientId';
+export const SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY = 'activeUserClientId';
 export const X_CLIENT_ID_HEADER_NAME = 'x-client-id';
 
 @UntilDestroy()
@@ -20,7 +20,7 @@ export class SsoActiveProjectService {
 
   getAuthorizationHeaders(): Record<string, string> {
     const clientId = localStorage.getItem(
-      AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY
+      SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY
     );
     if (clientId) {
       return {
@@ -35,11 +35,11 @@ export class SsoActiveProjectService {
   setActivePublicProject(activePublicProject?: SsoProjectModel) {
     if (activePublicProject?.clientId) {
       localStorage.setItem(
-        AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
+        SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
         activePublicProject.clientId
       );
     } else {
-      localStorage.removeItem(AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY);
+      localStorage.removeItem(SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY);
     }
     this.activePublicProject$.next(activePublicProject);
   }
@@ -58,7 +58,7 @@ export class SsoActiveProjectService {
             projects.ssoPublicProjects.find(
               (p) =>
                 p.clientId ===
-                localStorage.getItem(AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY)
+                localStorage.getItem(SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY)
             ) || projects.ssoPublicProjects[0]
           );
         }),

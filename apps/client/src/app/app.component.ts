@@ -9,16 +9,9 @@ import {
 } from '@jsverse/transloco';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import {
-  AuthRoleInterface,
+  SsoRoleInterface,
   TimeRestService,
 } from '@nestjs-mod-sso/app-angular-rest-sdk';
-import {
-  AuthActiveLangService,
-  AuthService,
-  CheckUserRolesPipe,
-  TokensService,
-  UserPipe,
-} from '@nestjs-mod-sso/auth-angular';
 import {
   BROWSER_TIMEZONE_OFFSET,
   webSocket,
@@ -30,8 +23,13 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { Title } from '@angular/platform-browser';
 import {
+  CheckUserRolesPipe,
+  SsoActiveLangService,
   SsoActiveProjectService,
   SsoProjectModel,
+  SsoService,
+  TokensService,
+  UserPipe,
 } from '@nestjs-mod-sso/sso-angular';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
@@ -72,18 +70,18 @@ export class AppComponent implements OnInit {
   serverTime$ = new BehaviorSubject<Date>(new Date());
   lang$ = new BehaviorSubject<string>('');
   availableLangs$ = new BehaviorSubject<LangDefinition[]>([]);
-  AuthRoleInterface = AuthRoleInterface;
+  SsoRoleInterface = SsoRoleInterface;
 
   publicProjects$?: Observable<SsoProjectModel[] | undefined>;
   activePublicProject$?: Observable<SsoProjectModel | undefined>;
 
   constructor(
     private readonly timeRestService: TimeRestService,
-    private readonly authService: AuthService,
+    private readonly ssoService: SsoService,
     private readonly router: Router,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
-    private readonly authActiveLangService: AuthActiveLangService,
+    private readonly ssoActiveLangService: SsoActiveLangService,
     private readonly ssoActiveProjectService: SsoActiveProjectService,
     private readonly titleService: Title
   ) {
@@ -115,14 +113,14 @@ export class AppComponent implements OnInit {
   }
 
   private subscribeToChangeProfile() {
-    this.authService.profile$
+    this.ssoService.profile$
       .asObservable()
       .pipe(
         mergeMap((profile) => {
           if (!profile) {
-            this.authActiveLangService.clearLocalStorage();
+            this.ssoActiveLangService.clearLocalStorage();
           }
-          return this.authActiveLangService.refreshActiveLang();
+          return this.ssoActiveLangService.refreshActiveLang();
         }),
         untilDestroyed(this)
       )
@@ -130,14 +128,14 @@ export class AppComponent implements OnInit {
   }
 
   setActiveLang(lang: string) {
-    this.authActiveLangService
+    this.ssoActiveLangService
       .setActiveLang(lang)
       .pipe(untilDestroyed(this))
       .subscribe();
   }
 
   signOut() {
-    this.authService
+    this.ssoService
       .signOut()
       .pipe(
         tap(() => this.router.navigate(['/home'])),

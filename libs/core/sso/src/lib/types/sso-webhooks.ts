@@ -10,6 +10,10 @@ export enum SsoWebhookEvent {
   'sso.forgot-password' = 'sso.forgot-password',
   'sso.complete-forgot-password' = 'sso.complete-forgot-password',
   'sso.update-profile' = 'sso.update-profile',
+
+  'sso.user-create' = 'sso.user-create',
+  'sso.user-update' = 'sso.user-update',
+  'sso.user-delete' = 'sso.user-delete',
 }
 
 const example = {
@@ -29,6 +33,8 @@ const example = {
   roles: 'user',
   updatedAt: new Date(),
   username: 'nickname',
+  lang: 'en',
+  timezone: 0,
 } as SsoUserDto;
 
 export const SSO_WEBHOOK_EVENTS: WebhookEvent[] = [
@@ -75,6 +81,21 @@ export const SSO_WEBHOOK_EVENTS: WebhookEvent[] = [
     description: getText(
       'An event that fires after user information is updated.'
     ),
+    example,
+  },
+  {
+    eventName: SsoWebhookEvent['sso.user-create'],
+    description: getText('Event that fires after user create'),
+    example,
+  },
+  {
+    eventName: SsoWebhookEvent['sso.user-update'],
+    description: getText('Event that fires after user update'),
+    example,
+  },
+  {
+    eventName: SsoWebhookEvent['sso.user-delete'],
+    description: getText('Event that fires after user delete'),
     example,
   },
 ];

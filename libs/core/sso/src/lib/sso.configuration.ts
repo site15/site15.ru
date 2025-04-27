@@ -1,5 +1,5 @@
 import { ConfigModel, ConfigModelProperty } from '@nestjs-mod/common';
-import { Type } from '@nestjs/common';
+import { ExecutionContext, Type } from '@nestjs/common';
 import { SsoUser } from './generated/rest/dto/sso-user.entity';
 
 export enum OperationName {
@@ -39,12 +39,7 @@ export type SsoSendNotificationResponse = {
 
 @ConfigModel()
 export class SsoConfiguration {
-  @ConfigModelProperty({
-    description: 'TTL for cached data',
-    default: 15_000,
-  })
-  cacheTTL?: number;
-
+  // header names
   @ConfigModelProperty({
     description:
       'The name of the header key that stores the register client ID',
@@ -65,6 +60,7 @@ export class SsoConfiguration {
   })
   adminSecretHeaderName?: string;
 
+  // two factor
   @ConfigModelProperty({
     description: 'Function for generating two-factor authentication code',
     default: (options: SsoTwoFactorCodeGenerateOptions) =>
@@ -83,12 +79,22 @@ export class SsoConfiguration {
     options: SsoTwoFactorCodeValidateOptions
   ) => Promise<SsoTwoFactorCodeValidateResponse>;
 
+  // notification
   @ConfigModelProperty({
     description: 'Function for sending notifications',
   })
   sendNotification?: (
     options: SsoSendNotificationOptions
   ) => Promise<SsoSendNotificationResponse | null>;
+
+  // external validator
+  @ConfigModelProperty({
+    description: 'External function for validate permissions',
+  })
+  checkAccessValidator?: (
+    authUser?: SsoUser | null,
+    ctx?: ExecutionContext
+  ) => Promise<void>;
 }
 
 @ConfigModel()

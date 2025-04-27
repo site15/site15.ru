@@ -1,26 +1,89 @@
-import { SkipAuthGuard } from '@nestjs-mod-sso/auth';
+import { FilesRequest, FilesRole } from '@nestjs-mod-sso/files';
 import {
   NotificationsModule,
   NotificationsService,
   SendNotificationOptionsType,
 } from '@nestjs-mod-sso/notifications';
 import {
+  SkipSsoGuard,
+  SSO_FEATURE,
+  SSO_MODULE,
   SsoConfiguration,
   SsoModule,
+  SsoRequest,
+  SsoRole,
   SsoSendNotificationOptions,
   SsoTwoFactorCodeGenerateOptions,
   SsoTwoFactorCodeValidateOptions,
+  SsoUser,
 } from '@nestjs-mod-sso/sso';
 import { TwoFactorModule, TwoFactorService } from '@nestjs-mod-sso/two-factor';
-import { Injectable } from '@nestjs/common';
+import {
+  WebhookModule,
+  WebhookRequest,
+  WebhookUsersService,
+} from '@nestjs-mod-sso/webhook';
+import { getRequestFromExecutionContext } from '@nestjs-mod/common';
+import { searchIn } from '@nestjs-mod/misc';
+import { PrismaModule } from '@nestjs-mod/prisma';
+import { ExecutionContext, Injectable } from '@nestjs/common';
+import { WebhookRole } from '@prisma/webhook-client';
 import { APP_FEATURE } from '../app/app.constants';
 
 @Injectable()
 export class SsoIntegrationConfiguration implements SsoConfiguration {
   constructor(
+    private readonly webhookUsersService: WebhookUsersService,
     private readonly twoFactorService: TwoFactorService,
     private readonly notificationsService: NotificationsService
   ) {}
+
+  async checkAccessValidator(
+    authUser?: SsoUser | null,
+    ctx?: ExecutionContext
+  ) {
+    const req: SsoRequest & WebhookRequest & FilesRequest = ctx
+      ? getRequestFromExecutionContext(ctx)
+      : {};
+
+    if (
+      typeof ctx?.getClass === 'function' &&
+      typeof ctx?.getHandler === 'function' &&
+      ctx?.getClass().name === 'TerminusHealthCheckController' &&
+      ctx?.getHandler().name === 'check'
+    ) {
+      req.skipEmptySsoUser = true;
+    }
+
+    req.externalTenantId = req.ssoProject?.id;
+
+    if (req?.ssoUser?.id) {
+      req.externalUserId = req.ssoUser?.id;
+
+      // webhook
+      const webhookUserRole = searchIn(req.ssoUser?.roles, SsoRole.admin)
+        ? WebhookRole.Admin
+        : searchIn(req.ssoUser?.roles, SsoRole.manager)
+        ? WebhookRole.User
+        : undefined;
+      if (webhookUserRole) {
+        // todo: create in sso module options for local events and use event with name sign-up for run this logic
+        req.webhookUser = await this.webhookUsersService.createUserIfNotExists({
+          externalUserId: req?.ssoUser?.id,
+          externalTenantId: req?.ssoProject?.id,
+          userRole: webhookUserRole,
+        });
+        req.webhookUser.userRole = webhookUserRole;
+      }
+
+      // files
+      req.filesUser = {
+        userRole: searchIn(req.ssoUser?.roles, SsoRole.admin)
+          ? FilesRole.Admin
+          : FilesRole.User,
+      };
+    }
+  }
 
   async sendNotification(options: SsoSendNotificationOptions) {
     return await this.notificationsService.sendNotification({
@@ -82,13 +145,18 @@ export function ssoModuleForRootAsyncOptions(): Parameters<
   typeof SsoModule.forRootAsync
 >[0] {
   return {
-    staticConfiguration: {
-      mutateController: (ctrl) => {
-        SkipAuthGuard()(ctrl);
-        return ctrl;
-      },
-    },
     imports: [
+      SsoModule.forFeature({
+        featureModuleName: SSO_MODULE,
+      }),
+      PrismaModule.forFeature({
+        contextName: SSO_FEATURE,
+        featureModuleName: SSO_MODULE,
+      }),
+      WebhookModule.forFeature({
+        featureModuleName: SSO_MODULE,
+      }),
+
       TwoFactorModule.forFeature({ featureModuleName: APP_FEATURE }),
       NotificationsModule.forFeature({ featureModuleName: APP_FEATURE }),
     ],

@@ -2,15 +2,15 @@ import { KeyvService } from '@nestjs-mod/keyv';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable } from '@nestjs/common';
 import { PrismaClient, WebhookUser } from '@prisma/webhook-client';
-import { WebhookConfiguration } from '../webhook.configuration';
 import { WEBHOOK_FEATURE } from '../webhook.constants';
+import { WebhookStaticEnvironments } from '../webhook.environments';
 
 @Injectable()
 export class WebhookCacheService {
   constructor(
     @InjectPrismaClient(WEBHOOK_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly webhookConfiguration: WebhookConfiguration,
+    private readonly webhookStaticEnvironments: WebhookStaticEnvironments,
     private readonly keyvService: KeyvService
   ) {}
 
@@ -46,7 +46,7 @@ export class WebhookCacheService {
       await this.keyvService.set(
         this.getUserCacheKey({ externalTenantId, externalUserId }),
         user,
-        this.webhookConfiguration.cacheTTL
+        this.webhookStaticEnvironments.cacheTTL
       );
       return user;
     }

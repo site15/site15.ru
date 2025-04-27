@@ -1,6 +1,5 @@
 import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
 
-import { AUTH_FEATURE, AuthModule } from '@nestjs-mod-sso/auth';
 import { SSO_FEATURE, SsoModule } from '@nestjs-mod-sso/sso';
 import {
   ValidationError,
@@ -8,24 +7,23 @@ import {
 } from '@nestjs-mod-sso/validation';
 import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import { PrismaModule } from '@nestjs-mod/prisma';
-import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { APP_FILTER } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { getText, TranslatesModule } from 'nestjs-translates';
 import { join } from 'path';
 import { APP_FEATURE } from './app.constants';
-import { AppGuard } from './app.guard';
-import { TimeController } from './controllers/time.controller';
 import { AppExceptionsFilter } from './app.filter';
+import { TimeController } from './controllers/time.controller';
 
 export const { AppModule } = createNestModule({
   moduleName: 'AppModule',
   moduleCategory: NestModuleCategory.feature,
   imports: [
-    AuthModule.forFeature({ featureModuleName: AUTH_FEATURE }),
+    SsoModule.forFeature({ featureModuleName: SSO_FEATURE }),
     PrismaModule.forFeature({
-      contextName: AUTH_FEATURE,
-      featureModuleName: AUTH_FEATURE,
+      contextName: SSO_FEATURE,
+      featureModuleName: SSO_FEATURE,
     }),
     SsoModule.forFeature({
       featureModuleName: APP_FEATURE,
@@ -117,7 +115,6 @@ export const { AppModule } = createNestModule({
   controllers: [TimeController],
   providers: [
     TimeController,
-    { provide: APP_GUARD, useClass: AppGuard },
     { provide: APP_FILTER, useClass: AppExceptionsFilter },
   ],
 });

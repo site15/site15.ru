@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsDateString,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
@@ -119,4 +120,21 @@ export class CreateSsoUserDto {
   @IsOptional()
   @IsDateString()
   phoneVerifiedAt?: Date | null;
+  @ApiProperty({
+    type: 'number',
+    format: 'float',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsNumber()
+  timezone?: number | null;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  lang?: string | null;
 }

@@ -383,7 +383,14 @@ export class SsoService {
   }: {
     user: Pick<
       SsoUser,
-      'birthdate' | 'firstname' | 'lastname' | 'id' | 'picture' | 'gender'
+      | 'birthdate'
+      | 'firstname'
+      | 'lastname'
+      | 'id'
+      | 'picture'
+      | 'gender'
+      | 'lang'
+      | 'timezone'
     > & { password: string | null; oldPassword: string | null };
     projectId: string;
   }) {

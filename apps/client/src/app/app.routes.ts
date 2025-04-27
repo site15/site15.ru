@@ -1,17 +1,17 @@
 import { Route } from '@angular/router';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
-import { AuthRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { SsoRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
 import {
-  AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY,
-  AUTH_GUARD_DATA_ROUTE_KEY,
-  AuthCompleteGuardData,
-  AuthCompleteGuardService,
-  AuthGuardData,
-  AuthGuardService,
   CompleteSignUpOptions,
   OnActivateOptions,
-} from '@nestjs-mod-sso/auth-angular';
-import { AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY } from '@nestjs-mod-sso/sso-angular';
+  SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
+  SSO_COMPLETE_GUARD_DATA_ROUTE_KEY,
+  SSO_GUARD_DATA_ROUTE_KEY,
+  SsoCompleteGuardData,
+  SsoCompleteGuardService,
+  SsoGuardData,
+  SsoGuardService,
+} from '@nestjs-mod-sso/sso-angular';
 import { searchIn } from '@nestjs-mod/misc';
 import { CompleteForgotPasswordComponent } from './pages/complete-forgot-password/complete-forgot-password.component';
 import { CompleteInviteComponent } from './pages/complete-invite/complete-invite.component';
@@ -41,10 +41,10 @@ export const appRoutes: Route[] = [
     path: 'webhooks',
     component: WebhooksComponent,
     title: marker('Webhooks'),
-    canActivate: [AuthGuardService],
+    canActivate: [SsoGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
-        roles: [AuthRoleInterface.Manager, AuthRoleInterface.Admin],
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
+        roles: [SsoRoleInterface.manager, SsoRoleInterface.admin],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
             options.router.navigate(['/home']);
@@ -59,10 +59,10 @@ export const appRoutes: Route[] = [
     path: 'templates',
     title: marker('Templates'),
     component: TemplatesComponent,
-    canActivate: [AuthGuardService],
+    canActivate: [SsoGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
-        roles: [AuthRoleInterface.Manager, AuthRoleInterface.Admin],
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
+        roles: [SsoRoleInterface.manager, SsoRoleInterface.admin],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
             options.router.navigate(['/home']);
@@ -77,10 +77,10 @@ export const appRoutes: Route[] = [
     path: 'users',
     component: UsersComponent,
     title: marker('Users'),
-    canActivate: [AuthGuardService],
+    canActivate: [SsoGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
-        roles: [AuthRoleInterface.Manager, AuthRoleInterface.Admin],
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
+        roles: [SsoRoleInterface.manager, SsoRoleInterface.admin],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
             options.router.navigate(['/home']);
@@ -95,10 +95,10 @@ export const appRoutes: Route[] = [
     path: 'projects',
     component: ProjectsComponent,
     title: marker('Projects'),
-    canActivate: [AuthGuardService],
+    canActivate: [SsoGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
-        roles: [AuthRoleInterface.Admin],
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
+        roles: [SsoRoleInterface.admin],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
             options.router.navigate(['/home']);
@@ -113,13 +113,13 @@ export const appRoutes: Route[] = [
     path: 'profile',
     component: ProfileComponent,
     title: marker('Profile'),
-    canActivate: [AuthGuardService],
+    canActivate: [SsoGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
         roles: [
-          AuthRoleInterface.Admin,
-          AuthRoleInterface.Manager,
-          AuthRoleInterface.User,
+          SsoRoleInterface.admin,
+          SsoRoleInterface.manager,
+          SsoRoleInterface.user,
         ],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
@@ -135,9 +135,9 @@ export const appRoutes: Route[] = [
     path: 'sign-in',
     component: SignInComponent,
     title: marker('Sign-in'),
-    canActivate: [AuthGuardService],
+    canActivate: [SsoGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
         roles: [],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
@@ -153,9 +153,9 @@ export const appRoutes: Route[] = [
     path: 'sign-up',
     component: SignUpComponent,
     title: marker('Sign-up'),
-    canActivate: [AuthGuardService],
+    canActivate: [SsoGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
         roles: [],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
@@ -171,9 +171,9 @@ export const appRoutes: Route[] = [
     path: 'complete-sign-up',
     component: CompleteSignUpComponent,
     title: marker('Complete sign up'),
-    canActivate: [AuthCompleteGuardService],
+    canActivate: [SsoCompleteGuardService],
     data: {
-      [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
+      [SSO_COMPLETE_GUARD_DATA_ROUTE_KEY]: new SsoCompleteGuardData({
         type: 'complete-sign-up',
 
         beforeCompleteSignUp: async (options: CompleteSignUpOptions) => {
@@ -181,10 +181,10 @@ export const appRoutes: Route[] = [
             options.activatedRouteSnapshot.queryParamMap.get('client_id');
           if (clientId && clientId !== undefined) {
             localStorage.setItem(
-              AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
+              SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
               clientId
             );
-            options.authService.updateHeaders();
+            options.ssoService.updateHeaders();
           }
           return true;
         },
@@ -196,11 +196,11 @@ export const appRoutes: Route[] = [
           const redirectUri =
             options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
           if (!redirectUri) {
-            if (options.authService && options.router) {
+            if (options.ssoService && options.router) {
               if (
                 searchIn(
-                  [AuthRoleInterface.Admin],
-                  options.authService.profile$.value?.roles
+                  SsoRoleInterface.admin,
+                  options.ssoService.profile$.value?.roles
                 )
               ) {
                 options.router.navigate(['/projects']);
@@ -219,10 +219,10 @@ export const appRoutes: Route[] = [
   {
     path: 'complete-oauth-sign-up',
     component: CompleteSignUpComponent,
-    title: marker('Complete OAuth sign up'),
-    canActivate: [AuthCompleteGuardService],
+    title: marker('Complete oauth sign up'),
+    canActivate: [SsoCompleteGuardService],
     data: {
-      [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
+      [SSO_COMPLETE_GUARD_DATA_ROUTE_KEY]: new SsoCompleteGuardData({
         type: 'complete-oauth-sign-up',
 
         beforeCompleteSignUp: async (options: CompleteSignUpOptions) => {
@@ -230,10 +230,10 @@ export const appRoutes: Route[] = [
             options.activatedRouteSnapshot.queryParamMap.get('client_id');
           if (clientId && clientId !== undefined) {
             localStorage.setItem(
-              AUTH_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
+              SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
               clientId
             );
-            options.authService.updateHeaders();
+            options.ssoService.updateHeaders();
           }
           return true;
         },
@@ -245,11 +245,11 @@ export const appRoutes: Route[] = [
           const redirectUri =
             options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
           if (!redirectUri) {
-            if (options.authService && options.router) {
+            if (options.ssoService && options.router) {
               if (
                 searchIn(
-                  [AuthRoleInterface.Admin],
-                  options.authService.profile$.value?.roles
+                  SsoRoleInterface.admin,
+                  options.ssoService.profile$.value?.roles
                 )
               ) {
                 options.router.navigate(['/projects']);
@@ -269,9 +269,9 @@ export const appRoutes: Route[] = [
     path: 'forgot-password',
     component: ForgotPasswordComponent,
     title: marker('Password recovery'),
-    canActivate: [AuthGuardService],
+    canActivate: [SsoGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
         roles: [],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
@@ -287,9 +287,9 @@ export const appRoutes: Route[] = [
     path: 'complete-forgot-password',
     component: CompleteForgotPasswordComponent,
     title: marker('Сomplete forgot password'),
-    canActivate: [AuthGuardService, AuthCompleteGuardService],
+    canActivate: [SsoGuardService, SsoCompleteGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
         roles: [],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
@@ -299,7 +299,7 @@ export const appRoutes: Route[] = [
           return true;
         },
       }),
-      [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
+      [SSO_COMPLETE_GUARD_DATA_ROUTE_KEY]: new SsoCompleteGuardData({
         type: 'complete-forgot-password',
       }),
     },
@@ -308,9 +308,9 @@ export const appRoutes: Route[] = [
     path: 'complete-invite',
     component: CompleteInviteComponent,
     title: marker('Completing registration'),
-    canActivate: [AuthGuardService, AuthCompleteGuardService],
+    canActivate: [SsoGuardService, SsoCompleteGuardService],
     data: {
-      [AUTH_GUARD_DATA_ROUTE_KEY]: new AuthGuardData({
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
         roles: [],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
@@ -320,7 +320,7 @@ export const appRoutes: Route[] = [
           return true;
         },
       }),
-      [AUTH_COMPLETE_GUARD_DATA_ROUTE_KEY]: new AuthCompleteGuardData({
+      [SSO_COMPLETE_GUARD_DATA_ROUTE_KEY]: new SsoCompleteGuardData({
         type: 'complete-invite',
       }),
     },

@@ -1,5 +1,5 @@
-import { searchIn } from '@nestjs-mod/misc';
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
+import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaClient } from '@prisma/sso-client';
@@ -11,6 +11,7 @@ import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { SsoCacheService } from './sso-cache.service';
 import { SsoPasswordService } from './sso-password.service';
 import { SsoProjectService } from './sso-project.service';
+import { SsoConfiguration } from '../sso.configuration';
 
 @Injectable()
 export class SsoUsersService {
@@ -25,6 +26,45 @@ export class SsoUsersService {
     private readonly ssoProjectService: SsoProjectService,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments
   ) {}
+
+  async createAdmin() {
+    if (
+      this.ssoStaticEnvironments.adminEmail &&
+      this.ssoStaticEnvironments.adminPassword
+    ) {
+      try {
+        const signupUserResult = await this.create({
+          user: {
+            username: this.ssoStaticEnvironments.adminUsername,
+            password: this.ssoStaticEnvironments.adminPassword,
+            email: this.ssoStaticEnvironments.adminEmail,
+          },
+          roles: this.ssoStaticEnvironments.adminDefaultRoles,
+        });
+
+        await this.prismaClient.ssoUser.update({
+          data: { emailVerifiedAt: new Date() },
+          where: {
+            id: signupUserResult.id,
+          },
+        });
+
+        await this.ssoCacheService.clearCacheByUserId({
+          userId: signupUserResult.id,
+        });
+
+        this.logger.debug(
+          `Admin with email: ${signupUserResult.email} successfully created!`
+        );
+      } catch (err: any) {
+        if (
+          !(err instanceof SsoError && err.code === SsoErrorEnum.EmailIsExists)
+        ) {
+          this.logger.error(err, err.stack);
+        }
+      }
+    }
+  }
 
   async getByEmail({ email, projectId }: { email: string; projectId: string }) {
     try {
@@ -218,6 +258,11 @@ export class SsoUsersService {
         include: { SsoProject: true },
         data: {
           ...user,
+          ...(user.email
+            ? {
+                email: user.email.toLowerCase(),
+              }
+            : {}),
           username: user.username,
           password: hashedPassword,
           SsoProject: {
@@ -302,11 +347,18 @@ export class SsoUsersService {
   }: {
     user: Pick<
       SsoUser,
-      'birthdate' | 'firstname' | 'lastname' | 'id' | 'picture' | 'gender'
+      | 'birthdate'
+      | 'firstname'
+      | 'lastname'
+      | 'id'
+      | 'picture'
+      | 'gender'
+      | 'lang'
+      | 'timezone'
     > & { password: string | null; oldPassword: string | null };
     projectId: string;
   }) {
-    const { password, oldPassword, ...profile } = user;
+    const { password, oldPassword, lang, timezone, ...profile } = user;
     if (password) {
       const currentUser = await this.prismaClient.ssoUser.findFirst({
         include: { SsoProject: true },
@@ -345,6 +397,16 @@ export class SsoUsersService {
               ),
             }
           : {}),
+        ...(lang === undefined
+          ? {}
+          : {
+              lang,
+            }),
+        ...(timezone === undefined
+          ? {}
+          : {
+              timezone,
+            }),
         updatedAt: new Date(),
       },
       where: { id: user.id },

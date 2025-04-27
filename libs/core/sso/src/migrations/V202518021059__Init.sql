@@ -40,6 +40,8 @@ CREATE TABLE IF NOT EXISTS "SsoUser"(
     "revokedAt" timestamp,
     "emailVerifiedAt" timestamp,
     "phoneVerifiedAt" timestamp,
+    "timezone" double precision,
+    "lang" varchar(2),
     "projectId" uuid NOT NULL,
     "createdAt" timestamp DEFAULT now() NOT NULL,
     "updatedAt" timestamp DEFAULT now() NOT NULL

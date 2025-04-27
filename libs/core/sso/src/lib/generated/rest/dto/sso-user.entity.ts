@@ -78,6 +78,17 @@ export class SsoUser {
   })
   phoneVerifiedAt!: Date | null;
   @ApiProperty({
+    type: 'number',
+    format: 'float',
+    nullable: true,
+  })
+  timezone!: number | null;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  lang!: string | null;
+  @ApiProperty({
     type: 'string',
   })
   projectId!: string;

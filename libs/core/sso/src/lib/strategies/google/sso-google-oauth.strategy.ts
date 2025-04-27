@@ -279,17 +279,25 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
       providerName: provider?.name,
       domain,
     };
+
+    const ssoOAuthProviderSettings = provider.SsoOAuthProviderSettings || [];
+    const clientID =
+      ssoOAuthProviderSettings.find((s) => s.name === this.clientIDKey)
+        ?.value || '';
+    const clientSecret =
+      ssoOAuthProviderSettings.find((s) => s.name === this.clientSecretKey)
+        ?.value || '';
+
+    if (!clientID || !clientSecret) {
+      return null;
+    }
+
     try {
       const callbackURL = render(redirectUrl, context);
-      const ssoOAuthProviderSettings = provider.SsoOAuthProviderSettings || [];
       return {
         providerId: provider.id,
-        clientID:
-          ssoOAuthProviderSettings.find((s) => s.name === this.clientIDKey)
-            ?.value || '',
-        clientSecret:
-          ssoOAuthProviderSettings.find((s) => s.name === this.clientSecretKey)
-            ?.value || '',
+        clientID,
+        clientSecret,
         callbackURL,
         scope: ['email', 'profile'],
       };
