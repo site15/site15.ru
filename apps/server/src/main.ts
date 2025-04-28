@@ -22,75 +22,73 @@ import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { writeFileSync } from 'fs';
+import { Logger } from 'nestjs-pino';
 import { join } from 'path';
 import { createAndFillDatabases } from './create-and-fill-databases';
 import { appFolder, rootFolder } from './environments/environment';
 import { FEATURE_MODULE_IMPORTS, FeatureModule } from './feature.module';
 import { INFRASTRUCTURE_MODULE_IMPORTS } from './infrastructure.module';
-import { Logger } from 'nestjs-pino';
 
-async function bootstrap() {
-  // copy nestjs-mod environments to nestjs environments, without prefix "SERVER_"
-  const dm = 'SERVER_';
-  for (const key of Object.keys(process.env)) {
-    const arr = key.split(dm);
-    if (arr.length > 0 && !arr[0]) {
-      const shortKey = arr.splice(1).join(dm);
-      process.env[shortKey] = process.env[key];
-    }
-  }
-
-  const app = await NestFactory.create(FeatureModule.forRoot(), {
-    cors: {
-      credentials: true,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      origin: (req: any, callback: (arg0: null, arg1: boolean) => void) => {
-        callback(null, true);
-      },
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    },
-  });
-
-  app.setGlobalPrefix('api');
-  app.use(cookieParser());
-  app.useWebSocketAdapter(new WsAdapter(app));
-
-  const swaggerConf = new DocumentBuilder().addBearerAuth().build();
-  const document = SwaggerModule.createDocument(app, swaggerConf, {
-    extraModels: [
-      ...FILES_EXTRA_MODELS,
-      ...NOTIFICATIONS_EXTRA_MODELS,
-      ...SSO_EXTRA_MODELS,
-      ...VALIDATION_EXTRA_MODELS,
-      ...WEBHOOK_EXTRA_MODELS,
-    ],
-  });
-  SwaggerModule.setup('swagger', app, document);
-
-  if (isInfrastructureMode()) {
-    writeFileSync(
-      join(rootFolder, 'app-swagger.json'),
-      JSON.stringify(document)
-    );
-  } else {
-    await createAndFillDatabases();
-
-    // const logger = app.get(Logger);
-    // if (logger) {
-    //   app.useLogger(logger);
-    //   app.flushLogs();
-    // }
-
-    await app.listen(3000);
-  }
-}
-
-if (process.env.APP_TYPE !== 'nestjs-mod') {
+if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
   /**
    * NestJS way for run application
    */
 
-  bootstrap();
+  (async function bootstrap() {
+    // copy nestjs-mod environments to nestjs environments, without prefix "SERVER_"
+    const dm = 'SERVER_';
+    for (const key of Object.keys(process.env)) {
+      const arr = key.split(dm);
+      if (arr.length > 0 && !arr[0]) {
+        const shortKey = arr.splice(1).join(dm);
+        process.env[shortKey] = process.env[key];
+      }
+    }
+
+    const app = await NestFactory.create(FeatureModule.forRoot(), {
+      cors: {
+        credentials: true,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        origin: (req: any, callback: (arg0: null, arg1: boolean) => void) => {
+          callback(null, true);
+        },
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      },
+    });
+
+    app.setGlobalPrefix('api');
+    app.use(cookieParser());
+    app.useWebSocketAdapter(new WsAdapter(app));
+
+    const swaggerConf = new DocumentBuilder().addBearerAuth().build();
+    const document = SwaggerModule.createDocument(app, swaggerConf, {
+      extraModels: [
+        ...FILES_EXTRA_MODELS,
+        ...NOTIFICATIONS_EXTRA_MODELS,
+        ...SSO_EXTRA_MODELS,
+        ...VALIDATION_EXTRA_MODELS,
+        ...WEBHOOK_EXTRA_MODELS,
+      ],
+    });
+    SwaggerModule.setup('swagger', app, document);
+
+    if (isInfrastructureMode()) {
+      writeFileSync(
+        join(rootFolder, 'app-swagger.json'),
+        JSON.stringify(document)
+      );
+    } else {
+      await createAndFillDatabases();
+
+      const logger = app.get(Logger);
+      if (logger) {
+        app.useLogger(logger);
+        app.flushLogs();
+      }
+
+      await app.listen(3000);
+    }
+  })();
 } else {
   /**
    * NestJS-mod way for run application
@@ -98,7 +96,8 @@ if (process.env.APP_TYPE !== 'nestjs-mod') {
   bootstrapNestApplication({
     project: {
       name: 'server',
-      description: 'Boilerplate for creating application on NestJS and Angular',
+      description:
+        'Single Sign-On on NestJS and Angular with webhooks and social authorization',
     },
     modules: {
       system: [

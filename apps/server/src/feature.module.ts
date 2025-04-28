@@ -39,7 +39,7 @@ import { terminusHealthCheckModuleForRootAsyncOptions } from './integrations/ter
 import { webhookModuleForRootAsyncOptions } from './integrations/webhook-integration.configuration';
 
 export const FEATURE_MODULE_IMPORTS = [
-  // NestjsPinoLoggerModule.forRoot(),
+  NestjsPinoLoggerModule.forRoot(),
   TerminusHealthCheckModule.forRootAsync(
     terminusHealthCheckModuleForRootAsyncOptions()
   ),
