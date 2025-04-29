@@ -1,8 +1,9 @@
-import fs, { readFileSync, writeFileSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 export async function replaceEnvs() {
-  const files = fs.readdirSync(join(__dirname, '..', 'client', 'browser'));
+  const files = readdirSync(join(__dirname, '..', 'client', 'browser'));
+  console.log(files);
   for (const file of files) {
     if (file.endsWith('.js')) {
       const fullFilePath = join(__dirname, '..', 'client', 'browser', file);
