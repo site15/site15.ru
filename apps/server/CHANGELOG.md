@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.1...server-v1.0.2) (2025-04-29)
+
+### Bug Fixes
+
+- update env name ([1731a0e](https://github.com/nestjs-mod/nestjs-mod-sso/commit/1731a0eac5778fda7220870a3eac43ee1dee203e))
+
 ## [1.0.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.0...server-v1.0.1) (2025-04-29)
 
 ### Bug Fixes
