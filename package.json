@@ -100,7 +100,6 @@
     "@commitlint/config-conventional": "^19.5.0",
     "@nestjs-mod/schematics": "^2.12.8",
     "@nestjs-mod/testing": "2.17.7",
-    "@nestjs-mod/misc": "1.4.1",
     "@nestjs/schematics": "^10.2.3",
     "@nestjs/testing": "^10.4.15",
     "@nx/angular": "20.8.0",
@@ -356,6 +355,7 @@
     "prepare": []
   },
   "dependencies": {
+    "@nestjs-mod/misc": "1.4.1",
     "@angular/animations": "19.0.5",
     "@angular/common": "19.0.5",
     "@angular/compiler": "19.0.5",
