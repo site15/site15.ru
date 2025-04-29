@@ -1,4 +1,4 @@
-FROM node:22.14.0-alpine AS build
+FROM node:23.11.0-alpine AS build
 WORKDIR /app
 ENV CI=TRUE
 ENV NX_DAEMON=false
@@ -14,7 +14,7 @@ RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOL
     yarn nx run-many --all -t=prisma-generate && \
     yarn nx run-many -p app-rest-sdk server client -t=build --configuration=production
 
-FROM node:22.14.0-alpine AS prod-deps
+FROM node:23.11.0-alpine AS prod-deps
 WORKDIR /app
 ENV CI=TRUE
 ENV NX_DAEMON=false
@@ -31,7 +31,7 @@ RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOL
     yarn add -D nx@20.8.0 prisma@5.22.0 @brakebein/prisma-generator-nestjs-dto@1.24.0-beta5 pg-flyway pg-create-db && \
     yarn nx run-many --all -t=prisma-generate
 
-FROM node:22.14.0-alpine
+FROM node:23.11.0-alpine
 WORKDIR /app
 EXPOSE 8080
 ENV NODE_ENV=production
