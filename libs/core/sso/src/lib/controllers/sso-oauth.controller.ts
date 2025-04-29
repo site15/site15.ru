@@ -73,10 +73,6 @@ export class SsoOAuthController {
     @UserAgent() userAgent: string
   ) {
     try {
-      console.log({
-        include: { SsoUser: true },
-        where: { verificationCode: ssoOAuthVerificationArgs.verificationCode },
-      });
       let oAuthToken = await this.prismaClient.ssoOAuthToken.findFirstOrThrow({
         include: { SsoUser: true },
         where: { verificationCode: ssoOAuthVerificationArgs.verificationCode },

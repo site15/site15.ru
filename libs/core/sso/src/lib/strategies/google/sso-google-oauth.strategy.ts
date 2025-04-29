@@ -158,7 +158,6 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
       return undefined;
     }
     try {
-      console.log(1);
       const oAuthToken = await this.prismaClient.ssoOAuthToken.findFirstOrThrow(
         {
           include: {
@@ -176,7 +175,6 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
           },
         }
       );
-      console.log(2);
       const user = await this.prismaClient.ssoUser.update({
         where: {
           id: oAuthToken.userId,
@@ -194,7 +192,6 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
             oAuthToken.SsoUser.lastname || profile.name?.familyName || null,
         },
       });
-      console.log(3);
       await this.prismaClient.ssoOAuthToken.update({
         where: {
           id: oAuthToken.id,
@@ -224,11 +221,9 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
         const password = `${this.oauthProviderName}_${profile.id}`;
 
         try {
-          console.log(4);
           const user = await this.prismaClient.ssoUser.findFirstOrThrow({
             where: { email, projectId },
           });
-          console.log(5);
           await this.prismaClient.ssoOAuthToken.create({
             data: {
               accessToken,
@@ -245,7 +240,6 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
         } catch (err: any) {
           this.logger.error(err, err.stack);
           if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
-            console.log(6);
             const user = await this.ssoService.autoSignUp({
               projectId,
               email,
