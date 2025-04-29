@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.0...server-v1.0.1) (2025-04-29)
+
+### Bug Fixes
+
+- try rebuild all [skip cache] ([48445c7](https://github.com/nestjs-mod/nestjs-mod-sso/commit/48445c75ac75765f366898c5a0ccaa196d975103))
+
 # 1.0.0 (2025-04-29)
 
 ### Bug Fixes
