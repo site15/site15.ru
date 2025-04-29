@@ -151,10 +151,10 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
                     join(rootFolder, 'app-swagger.json'),
                     JSON.stringify(document)
                   );
+                } else {
+                  await replaceEnvs();
+                  await createAndFillDatabases();
                 }
-
-                await replaceEnvs();
-                await createAndFillDatabases();
               }
             },
           },
