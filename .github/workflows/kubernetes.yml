@@ -216,7 +216,7 @@ jobs:
       - name: Install deps
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
         run: |
-          yarn install && yarn playwright install && prisma:generate
+          yarn install && yarn playwright install && npm run prisma:generate
       - name: Run E2E-tests
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
         env:
