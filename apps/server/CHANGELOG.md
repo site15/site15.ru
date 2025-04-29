@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.3...server-v1.0.4) (2025-04-29)
+
+### Bug Fixes
+
+- add use CLIENT_MINIO_URL ([9dbdb69](https://github.com/nestjs-mod/nestjs-mod-sso/commit/9dbdb69a6824ee961dc4f0a1fadce4a662f845dd))
+- update replace-envs [skip cache] ([70dcb3f](https://github.com/nestjs-mod/nestjs-mod-sso/commit/70dcb3f94d2cf03342f18dfc51a98b755b614eba))
+- update replace-envs [skip cache] ([e3ba524](https://github.com/nestjs-mod/nestjs-mod-sso/commit/e3ba5244bf9de81034a9c1ee5e82e60fe083f62b))
+
 ## [1.0.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.2...server-v1.0.3) (2025-04-29)
 
 ### Bug Fixes
