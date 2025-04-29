@@ -29,7 +29,7 @@ jobs:
       - run: npm run nx -- run-many --target=semantic-release -p server client --parallel=1 --excludeTaskDependencies=true
         if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NESTJS_MOD_ACCESS_TOKEN_DOCKER }}
       - name: Set root_version
         id: root_version
         run: |
@@ -60,7 +60,7 @@ jobs:
       - name: Check exists docker image
         id: check-exists
         run: |
-          export TOKEN=$(curl -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} https://${{ env.REGISTRY }}/token\?scope\="repository:${{ env.SERVER_IMAGE_NAME}}:pull" | jq -r .token)
+          export TOKEN=$(curl -u ${{ github.actor }}:${{ secrets.NESTJS_MOD_ACCESS_TOKEN_DOCKER }} https://${{ env.REGISTRY }}/token\?scope\="repository:${{ env.SERVER_IMAGE_NAME}}:pull" | jq -r .token)
           curl --head --fail -H "Authorization: Bearer $TOKEN" https://${{ env.REGISTRY }}/v2/${{ env.SERVER_IMAGE_NAME}}/manifests/${{ needs.release.outputs.server_version }}
       - name: Store result of check exists docker image
         id: store-check-exists
@@ -88,7 +88,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.NESTJS_MOD_ACCESS_TOKEN_DOCKER }}
       - name: Build and push Docker image
         if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[skip server cache]') }}
         id: push
@@ -220,7 +220,7 @@ jobs:
   #       with:
   #         registry: ${{ env.REGISTRY }}
   #         username: ${{ github.actor }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
+  #         password: ${{ secrets.NESTJS_MOD_ACCESS_TOKEN_DOCKER }}
   #     - name: Run E2E-tests
   #       if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
   #       env:

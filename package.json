@@ -263,9 +263,6 @@
     "prisma:pull:webhook": [
       "Generating a prisma schema based on a database for webhook"
     ],
-    "prisma:pull:auth": [
-      "Generating a prisma schema based on a database for auth"
-    ],
     "prisma:pull:sso": [
       "Generating a prisma schema based on a database for sso"
     ],
@@ -289,12 +286,6 @@
     ],
     "pg-flyway:migrate:webhook": [
       "Applying migrations for webhook"
-    ],
-    "pg-flyway:create:auth": [
-      "Command to create new empty migration for auth, for set name pass name to --args, example: npm run pg-flyway:create:appname --args=Init"
-    ],
-    "pg-flyway:migrate:auth": [
-      "Applying migrations for auth"
     ],
     "pg-flyway:create:sso": [
       "Command to create new empty migration for sso, for set name pass name to --args, example: npm run pg-flyway:create:appname --args=Init"
