@@ -53,17 +53,38 @@ if [ -z "${SERVER_WEBHOOK_DATABASE_NAME}" ]; then
     export SERVER_WEBHOOK_DATABASE_NAME=${NAMESPACE}_webhook
 fi
 
-# server: webhook database
-if [ -z "${SERVER_AUTH_DATABASE_PASSWORD}" ]; then
-    export SERVER_AUTH_DATABASE_PASSWORD=auth_password
+# server: sso database
+if [ -z "${SERVER_SSO_DATABASE_PASSWORD}" ]; then
+    export SERVER_SSO_DATABASE_PASSWORD=sso_password
 fi
-if [ -z "${SERVER_AUTH_DATABASE_USERNAME}" ]; then
-    export SERVER_AUTH_DATABASE_USERNAME=${NAMESPACE}_auth
+if [ -z "${SERVER_SSO_DATABASE_USERNAME}" ]; then
+    export SERVER_SSO_DATABASE_USERNAME=${NAMESPACE}_auth
 fi
-if [ -z "${SERVER_AUTH_DATABASE_NAME}" ]; then
-    export SERVER_AUTH_DATABASE_NAME=${NAMESPACE}_auth
+if [ -z "${SERVER_SSO_DATABASE_NAME}" ]; then
+    export SERVER_SSO_DATABASE_NAME=${NAMESPACE}_auth
 fi
 
+# server: notifications database
+if [ -z "${SERVER_NOTIFICATIONS_DATABASE_PASSWORD}" ]; then
+    export SERVER_NOTIFICATIONS_DATABASE_PASSWORD=sso_password
+fi
+if [ -z "${SERVER_NOTIFICATIONS_DATABASE_USERNAME}" ]; then
+    export SERVER_NOTIFICATIONS_DATABASE_USERNAME=${NAMESPACE}_auth
+fi
+if [ -z "${SERVER_NOTIFICATIONS_DATABASE_NAME}" ]; then
+    export SERVER_NOTIFICATIONS_DATABASE_NAME=${NAMESPACE}_auth
+fi
+
+# server: two factor database
+if [ -z "${SERVER_TWO_FACTOR_DATABASE_PASSWORD}" ]; then
+    export SERVER_TWO_FACTOR_DATABASE_PASSWORD=sso_password
+fi
+if [ -z "${SERVER_TWO_FACTOR_DATABASE_USERNAME}" ]; then
+    export SERVER_TWO_FACTOR_DATABASE_USERNAME=${NAMESPACE}_auth
+fi
+if [ -z "${SERVER_TWO_FACTOR_DATABASE_NAME}" ]; then
+    export SERVER_TWO_FACTOR_DATABASE_NAME=${NAMESPACE}_auth
+fi
 
 # database
 if [ -z "${SERVER_POSTGRE_SQL_POSTGRESQL_USERNAME}" ]; then

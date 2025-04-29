@@ -11,15 +11,13 @@ export async function createAndFillDatabases() {
   }
   const appEnvKeys = [
     'SERVER_WEBHOOK_DATABASE_URL',
-    'SERVER_AUTH_DATABASE_URL',
     'SERVER_NOTIFICATIONS_DATABASE_URL',
     'SERVER_SSO_DATABASE_URL',
     'SERVER_TWO_FACTOR_DATABASE_URL',
   ];
-  const appKeys = ['webhook', 'auth', 'notifications', 'sso', 'two-factor'];
+  const appKeys = ['webhook', 'notifications', 'sso', 'two-factor'];
   const appHistoryTables = [
     '__migrations_webhook',
-    '__migrations_auth',
     '__migrations_notifications',
     '__migrations_sso',
     '__migrations_two_factor',
