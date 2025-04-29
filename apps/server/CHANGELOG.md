@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.2...server-v1.0.3) (2025-04-29)
+
+### Bug Fixes
+
+- remove console.log ([69b20a3](https://github.com/nestjs-mod/nestjs-mod-sso/commit/69b20a3f8442865d754e686d9057894743c70d23))
+
 ## [1.0.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.1...server-v1.0.2) (2025-04-29)
 
 ### Bug Fixes
