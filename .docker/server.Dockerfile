@@ -43,7 +43,5 @@ COPY --from=prod-deps /app/apps /app/apps
 COPY --from=prod-deps /app/libs /app/libs
 COPY --from=prod-deps /app/package.json /app/package.json
 COPY --from=build /app/dist /app/dist
-RUN apk update && apk add --no-cache openssl dumb-init && \
-    find /app/dist -type f -name "*.js" -print0 | xargs -0 sed -i \
-    -e "s#___CLIENT_MINIO_URL___#$CLIENT_MINIO_URL#g"
+RUN apk update && apk add --no-cache openssl dumb-init
 CMD ["dumb-init", "node", "dist/apps/server/main.js"]
