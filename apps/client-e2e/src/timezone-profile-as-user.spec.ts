@@ -89,8 +89,7 @@ test.describe('Work with profile as "User" role (timezone', () => {
       .locator('sso-sign-up-form')
       .locator('button[type=submit]')
       .click();
-
-    await setTimeout(7000);
+    await page.waitForSelector('span.you-are-logged-in-as');
 
     await expect(
       page.locator('nz-header').locator('[nz-submenu]').first()
@@ -98,6 +97,8 @@ test.describe('Work with profile as "User" role (timezone', () => {
   });
 
   test('sign out after sign-up', async () => {
+    await page.waitForSelector('span.you-are-logged-in-as');
+
     await expect(
       page.locator('nz-header').locator('[nz-submenu]').first()
     ).toContainText(`You are logged in as ${user.email.toLowerCase()}`);
@@ -159,7 +160,7 @@ test.describe('Work with profile as "User" role (timezone', () => {
       .locator('button[type=submit]')
       .click();
 
-    await setTimeout(7000);
+    await page.waitForSelector('span.you-are-logged-in-as');
 
     await expect(
       page.locator('nz-header').locator('[nz-submenu]').first()

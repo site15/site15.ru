@@ -3,6 +3,7 @@ import { RestClientHelper } from '@nestjs-mod-sso/testing';
 
 describe('Sso profile (e2e)', () => {
   let user: RestClientHelper<'strict'>;
+  let project: RestClientHelper<'strict'>;
 
   let userTokens: TokensResponse;
 
@@ -14,16 +15,45 @@ describe('Sso profile (e2e)', () => {
         'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
+    project = await new RestClientHelper({
+      headers: {
+        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+      },
+    }).generateRandomUser();
+  });
+
+  it('Create project', async () => {
+    const { data: createOneResult } = await user
+      .getSsoApi()
+      .ssoProjectsControllerCreateOne(
+        {
+          public: false,
+          name: project.randomUser.uniqId,
+          clientId: project.randomUser.id,
+          clientSecret: project.randomUser.password,
+        },
+        {
+          headers: { 'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET },
+        }
+      );
+    expect(createOneResult).toHaveProperty('id');
   });
 
   it('Sign-up', async () => {
-    const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp({
-      username: user.randomUser.username,
-      email: user.randomUser.email,
-      password: user.randomUser.password,
-      confirmPassword: user.randomUser.password,
-      fingerprint: user.randomUser.id,
-    });
+    const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp(
+      {
+        username: user.randomUser.username,
+        email: user.randomUser.email,
+        password: user.randomUser.password,
+        confirmPassword: user.randomUser.password,
+        fingerprint: user.randomUser.id,
+      },
+      {
+        headers: {
+          'x-client-id': project.randomUser.id,
+        },
+      }
+    );
     expect(signUpResult).toHaveProperty('accessToken');
     expect(signUpResult).toHaveProperty('refreshToken');
     expect(signUpResult).toHaveProperty('user');
@@ -35,8 +65,7 @@ describe('Sso profile (e2e)', () => {
       .ssoProjectsControllerFindMany(
         undefined,
         undefined,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        process.env.SERVER_SSO_DEFAULT_CLIENT_ID!,
+        project.randomUser.id,
         undefined,
         {
           headers: { 'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET },
@@ -74,11 +103,18 @@ describe('Sso profile (e2e)', () => {
   });
 
   it('Sign-in', async () => {
-    const { data: signInResult } = await user.getSsoApi().ssoControllerSignIn({
-      email: user.randomUser.email,
-      password: user.randomUser.password,
-      fingerprint: user.randomUser.id,
-    });
+    const { data: signInResult } = await user.getSsoApi().ssoControllerSignIn(
+      {
+        email: user.randomUser.email,
+        password: user.randomUser.password,
+        fingerprint: user.randomUser.id,
+      },
+      {
+        headers: {
+          'x-client-id': project.randomUser.id,
+        },
+      }
+    );
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
     expect(signInResult).toHaveProperty('user');
@@ -93,9 +129,10 @@ describe('Sso profile (e2e)', () => {
           ...(userTokens.accessToken
             ? { Authorization: `Bearer ${userTokens.accessToken}` }
             : {}),
+          'x-client-id': project.randomUser.id,
         },
       });
-    const { data: updateProfileResult } = await user
+    const { data: updatedProfileResult } = await user
       .getSsoApi()
       .ssoControllerUpdateProfile(
         {
@@ -110,6 +147,7 @@ describe('Sso profile (e2e)', () => {
             ...(userTokens.accessToken
               ? { Authorization: `Bearer ${userTokens.accessToken}` }
               : {}),
+            'x-client-id': project.randomUser.id,
           },
         }
       );
@@ -135,7 +173,7 @@ describe('Sso profile (e2e)', () => {
     expect(profileResult.updatedAt).toBeDefined();
     expect(profileResult.createdAt).not.toEqual(profileResult.updatedAt);
 
-    expect(updateProfileResult).toMatchObject({
+    expect(updatedProfileResult).toMatchObject({
       id: profileResult.id,
       email: user.randomUser.email,
       phone: null,
@@ -153,7 +191,7 @@ describe('Sso profile (e2e)', () => {
       createdAt: profileResult.createdAt,
       // updatedAt: '2025-02-26T06:57:00.953Z',
     });
-    expect(updateProfileResult.updatedAt).toBeDefined();
-    expect(profileResult.updatedAt).not.toEqual(updateProfileResult.updatedAt);
+    expect(updatedProfileResult.updatedAt).toBeDefined();
+    expect(profileResult.updatedAt).not.toEqual(updatedProfileResult.updatedAt);
   });
 });

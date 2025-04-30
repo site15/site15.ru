@@ -87,8 +87,7 @@ test.describe('Validation with store lang in db (ru)', () => {
       .locator('sso-sign-up-form')
       .locator('button[type=submit]')
       .click();
-
-    await setTimeout(7000);
+    await page.waitForSelector('span.you-are-logged-in-as');
 
     await expect(
       page.locator('nz-header').locator('[nz-submenu]').first()

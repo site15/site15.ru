@@ -23,7 +23,7 @@ import {
   SsoUserAndTokens,
   TokensService,
 } from '@nestjs-mod-sso/sso-angular';
-import { catchError, map, mergeMap, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, Observable, of, throwError } from 'rxjs';
 
 export class SsoIntegrationConfiguration implements SsoConfiguration {
   constructor(
@@ -119,6 +119,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     preferredUsername: string;
     roles: string[];
     picture: string | null;
+    timezone: number | null;
   } {
     return {
       phoneNumber: result.phone,
@@ -127,6 +128,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
       preferredUsername: result.username || '',
       roles: result.roles ? result.roles.split(',') : [],
       picture: result.picture,
+      timezone: result.timezone,
     };
   }
 
@@ -140,22 +142,23 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
       mergeMap((picture) =>
         this.ssoRestService
           .ssoControllerProfile()
-          .pipe(map((profile) => ({ ...profile, picture })))
+          .pipe(map((profile) => ({ ...data, ...profile, picture })))
       ),
       catchError(() => of(null)),
       mergeMap((profile) => {
-        if (data && profile) {
-          data = { ...data, ...(profile as SsoUpdateProfileInput) };
+        if (!profile) {
+          return throwError(() => new Error('profile not set'));
         }
         return this.ssoRestService.ssoControllerUpdateProfile({
-          birthdate: data.birthdate,
-          firstname: data.givenName,
-          gender: data.gender,
-          lastname: data.familyName,
-          picture: data.picture,
-          password: data.newPassword,
-          confirmPassword: data.confirmNewPassword,
-          oldPassword: data.oldPassword,
+          birthdate: profile.birthdate,
+          firstname: profile.givenName,
+          gender: profile.gender,
+          lastname: profile.familyName,
+          picture: profile.picture,
+          password: profile.newPassword,
+          confirmPassword: profile.confirmNewPassword,
+          oldPassword: profile.oldPassword,
+          timezone: profile.timezone,
         });
       }),
       mergeMap(() => this.ssoRestService.ssoControllerProfile()),

@@ -23,6 +23,7 @@ export class SsoConfiguration {
   constructor(options?: SsoConfiguration) {
     Object.assign(this, options);
   }
+  // todo: remove not need options
   logout(): Observable<void | null> {
     return throwError(() => new Error('not implemented'));
   }

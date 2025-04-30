@@ -18,6 +18,8 @@ export interface SsoUser {
   roles?: string[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   appData?: Record<string, any>;
+  lang?: string | null;
+  timezone?: number | null;
 }
 
 export interface SsoLoginInput {
@@ -64,6 +66,8 @@ export interface SsoUpdateProfileInput {
   picture?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   appData?: Record<string, any>;
+  lang?: string;
+  timezone?: number;
 }
 
 export interface SsoCompleteSignUpInput {
