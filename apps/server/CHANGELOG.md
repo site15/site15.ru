@@ -1,3 +1,9 @@
+## [1.0.6](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.5...server-v1.0.6) (2025-04-30)
+
+### Bug Fixes
+
+- update tests and fix errors on update profile ([7409228](https://github.com/nestjs-mod/nestjs-mod-sso/commit/7409228aba3a66219b97631528346aba94a01fdf))
+
 ## [1.0.5](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.4...server-v1.0.5) (2025-04-30)
 
 ### Bug Fixes
