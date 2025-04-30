@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.0.0...client-v1.0.1) (2025-04-30)
+
+### Bug Fixes
+
+- update tests and fix errors on update profile ([7409228](https://github.com/nestjs-mod/nestjs-mod-sso/commit/7409228aba3a66219b97631528346aba94a01fdf))
+
 # 1.0.0 (2025-04-29)
 
 ### Bug Fixes
