@@ -30,7 +30,7 @@ const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
  */
 export default defineConfig({
   workers: 1,
-  maxFailures: 2,
+  maxFailures: 4,
   timeout: 120 * 1000,
   ...nxE2EPreset(__filename, { testDir: './src' }),
   reporter: [['list']],
