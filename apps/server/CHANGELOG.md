@@ -1,3 +1,9 @@
+## [1.0.5](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.4...server-v1.0.5) (2025-04-30)
+
+### Bug Fixes
+
+- add support x-skip-throttle in request headers for skip throttle rules ([2e2693e](https://github.com/nestjs-mod/nestjs-mod-sso/commit/2e2693e43b5b714f97d03880282496337d661ecd))
+
 ## [1.0.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.3...server-v1.0.4) (2025-04-29)
 
 ### Bug Fixes
