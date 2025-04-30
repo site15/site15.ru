@@ -5,7 +5,11 @@ describe('OAuth (e2e)', () => {
   let user: RestClientHelper<'strict'>;
 
   beforeAll(async () => {
-    user = await new RestClientHelper().generateRandomUser();
+    user = await new RestClientHelper({
+      headers: {
+        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+      },
+    }).generateRandomUser();
   });
 
   it('Get providers', async () => {

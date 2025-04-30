@@ -4,6 +4,7 @@ import { OperationName } from './sso.configuration';
 export const SSO_FEATURE = 'sso';
 export const SSO_MODULE = 'SsoModule';
 export const SSO_FOLDER = 'libs/core/sso';
+export const X_SKIP_THROTTLE = 'x-skip-throttle';
 
 export const DEFAULT_EMAIL_TEMPLATES = [
   {

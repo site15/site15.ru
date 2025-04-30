@@ -13,6 +13,7 @@ import { SsoCacheService } from './services/sso-cache.service';
 import { SsoProjectService } from './services/sso-project.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoConfiguration } from './sso.configuration';
+import { X_SKIP_THROTTLE } from './sso.constants';
 import {
   AllowEmptySsoUser,
   CheckHaveSsoClientSecret,
@@ -51,12 +52,19 @@ export class SsoGuard implements CanActivate {
     const req = this.getRequestFromExecutionContext(context);
 
     const validate = async () => {
-      if (skipSsoGuard) {
-        return true;
-      }
-
       if (allowEmptyUserMetadata) {
         req.skipEmptySsoUser = true;
+      }
+
+      if (
+        req.headers[X_SKIP_THROTTLE] &&
+        req.headers[X_SKIP_THROTTLE] === this.ssoStaticEnvironments.adminSecret
+      ) {
+        req.skipThrottle = true;
+      }
+
+      if (skipSsoGuard) {
+        return true;
       }
 
       // detect project

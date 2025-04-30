@@ -5,10 +5,16 @@ import { AxiosError } from 'axios';
 describe('Validation (ru)', () => {
   jest.setTimeout(60000);
 
-  const user1 = new RestClientHelper({ activeLang: 'ru' });
+  const user1 = new RestClientHelper({
+    activeLang: 'ru',
+    headers: {
+      'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+    },
+  });
   const admin = new RestClientHelper({
     headers: {
       'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET,
+      'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
     },
   });
 

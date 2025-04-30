@@ -15,5 +15,6 @@ export type SsoRequest = {
   ssoClientSecret?: string;
   ssoAccessTokenData?: SsoAccessTokenData;
   skipEmptySsoUser?: boolean;
+  skipThrottle?: boolean;
   headers: Record<string, string>;
 };

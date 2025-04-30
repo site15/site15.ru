@@ -1,16 +1,19 @@
-import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
+import {
+  createNestModule,
+  getRequestFromExecutionContext,
+  NestModuleCategory,
+} from '@nestjs-mod/common';
 
-import { SSO_FEATURE, SsoModule } from '@nestjs-mod-sso/sso';
+import { SSO_FEATURE, SsoModule, SsoRequest } from '@nestjs-mod-sso/sso';
 import {
   ValidationError,
   ValidationErrorEnum,
 } from '@nestjs-mod-sso/validation';
-import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { APP_FILTER } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { getText, TranslatesModule } from 'nestjs-translates';
+import { TranslatesModule } from 'nestjs-translates';
 import { join } from 'path';
 import { APP_FEATURE } from './app.constants';
 import { AppExceptionsFilter } from './app.filter';
@@ -62,8 +65,12 @@ export const { AppModule } = createNestModule({
     ThrottlerModule.forRoot({
       throttlers: [
         {
-          limit: 50,
+          limit: 60,
           ttl: 24 * 60 * 60 * 1000,
+          skipIf: (ctx) => {
+            const req: SsoRequest = getRequestFromExecutionContext(ctx);
+            return req.skipThrottle === true;
+          },
         },
       ],
     }),

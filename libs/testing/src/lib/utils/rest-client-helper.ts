@@ -59,6 +59,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     this.randomUser = options?.randomUser as GenerateRandomUserResult;
     if (!options?.skipCreateProjectHelper) {
       this.projectHelper = new RestClientHelper({
+        ...(options?.headers ? { headers: options.headers } : {}),
         skipCreateProjectHelper: true,
       });
     }

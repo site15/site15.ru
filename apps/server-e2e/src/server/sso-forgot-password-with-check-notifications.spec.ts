@@ -12,15 +12,21 @@ describe('Sso forgot password with check notifications (e2e)', () => {
   jest.setTimeout(5 * 60 * 1000);
 
   beforeAll(async () => {
-    project = await new RestClientHelper().generateRandomUser();
+    project = await new RestClientHelper({
+      headers: {
+        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+      },
+    }).generateRandomUser();
     user = await new RestClientHelper({
       headers: {
         'x-client-id': project.randomUser.id,
+        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
     admin = new RestClientHelper({
       headers: {
         'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
       },
     });
   });

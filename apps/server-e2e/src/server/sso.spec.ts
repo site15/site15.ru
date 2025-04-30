@@ -17,8 +17,16 @@ describe('Sso (e2e)', () => {
   jest.setTimeout(5 * 60 * 1000);
 
   beforeAll(async () => {
-    user = await new RestClientHelper().generateRandomUser();
-    project = await new RestClientHelper().generateRandomUser();
+    user = await new RestClientHelper({
+      headers: {
+        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+      },
+    }).generateRandomUser();
+    project = await new RestClientHelper({
+      headers: {
+        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+      },
+    }).generateRandomUser();
   });
 
   it('English error in try create project with wrong admin secret key', async () => {

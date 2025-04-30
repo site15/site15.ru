@@ -173,6 +173,8 @@
     "pm2-full:dev:test:e2e": [
       "Running E2E tests for all applications in PM2 dev mode"
     ],
+    "pm2-full:real1:test:e2e": [],
+    "pm2-full:real2:test:e2e": [],
     "serve:dev": [
       "Running NestJS application source code in watch mode"
     ],

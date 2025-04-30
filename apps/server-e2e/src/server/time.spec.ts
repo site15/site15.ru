@@ -8,6 +8,9 @@ describe('Get server time from rest api and ws', () => {
 
   const correctStringDateLength = '0000-00-00T00:00:00.000Z'.length;
   const restClientHelper = new RestClientHelper({
+    headers: {
+      'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+    },
     serverUrl: process.env.IS_DOCKER_COMPOSE
       ? get('CLIENT_URL').asString()
       : undefined,

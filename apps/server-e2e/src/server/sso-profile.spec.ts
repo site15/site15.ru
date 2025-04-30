@@ -9,7 +9,11 @@ describe('Sso profile (e2e)', () => {
   jest.setTimeout(5 * 60 * 1000);
 
   beforeAll(async () => {
-    user = await new RestClientHelper().generateRandomUser();
+    user = await new RestClientHelper({
+      headers: {
+        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+      },
+    }).generateRandomUser();
   });
 
   it('Sign-up', async () => {
