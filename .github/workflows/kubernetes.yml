@@ -222,6 +222,7 @@ jobs:
         env:
           SERVER_DOMAIN: ${{ secrets.SERVER_DOMAIN }}
           SERVER_SSO_ADMIN_PASSWORD: ${{ secrets.SERVER_SSO_ADMIN_PASSWORD }}
+          SERVER_SSO_ADMIN_SECRET: ${{ secrets.SERVER_SSO_ADMIN_SECRET }}
           BASE_URL: 'https://${{ secrets.SERVER_DOMAIN }}'
           SERVER_URL: 'https://${{ secrets.SERVER_DOMAIN }}'
           SERVER_MINIO_URL: 'https://files.${{ secrets.SERVER_DOMAIN }}'

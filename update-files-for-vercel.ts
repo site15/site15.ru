@@ -52,7 +52,7 @@ parsedEnvs.SERVER_PORT = '3000';
 
 // check real process envs
 parsedEnvs.SERVER_SSO_ADMIN_EMAIL =
-  process.env.SERVER_SSO_ADMIN_EMAIL || 'nestjs-mod-fullstack@site15.ru';
+  process.env.SERVER_SSO_ADMIN_EMAIL || 'nestjs-mod-sso@site15.ru';
 parsedEnvs.SERVER_SSO_ADMIN_PASSWORD =
   process.env.SERVER_SSO_ADMIN_PASSWORD || 'SbxcbII7RUvCOe9TDXnKhfRrLJW5cGDA';
 parsedEnvs.SERVER_SSO_ADMIN_USERNAME =
