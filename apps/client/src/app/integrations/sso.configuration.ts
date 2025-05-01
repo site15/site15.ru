@@ -139,26 +139,17 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
         ? this.filesService.getPresignedUrlAndUploadFile(data.picture)
         : of('')
     ).pipe(
-      mergeMap((picture) =>
-        this.ssoRestService
-          .ssoControllerProfile()
-          .pipe(map((profile) => ({ ...data, ...profile, picture })))
-      ),
-      catchError(() => of(null)),
-      mergeMap((profile) => {
-        if (!profile) {
-          return throwError(() => new Error('profile not set'));
-        }
+      mergeMap((picture) => {
         return this.ssoRestService.ssoControllerUpdateProfile({
-          birthdate: profile.birthdate,
-          firstname: profile.givenName,
-          gender: profile.gender,
-          lastname: profile.familyName,
-          picture: profile.picture,
-          password: profile.newPassword,
-          confirmPassword: profile.confirmNewPassword,
-          oldPassword: profile.oldPassword,
-          timezone: profile.timezone,
+          birthdate: data.birthdate,
+          firstname: data.givenName,
+          gender: data.gender,
+          lastname: data.familyName,
+          picture,
+          password: data.newPassword,
+          confirmPassword: data.confirmNewPassword,
+          oldPassword: data.oldPassword,
+          timezone: data.timezone,
         });
       }),
       mergeMap(() => this.ssoRestService.ssoControllerProfile()),
