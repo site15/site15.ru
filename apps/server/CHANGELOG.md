@@ -1,3 +1,9 @@
+## [1.0.7](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.6...server-v1.0.7) (2025-05-01)
+
+### Bug Fixes
+
+- remove get profile data before update it ([1b1f01e](https://github.com/nestjs-mod/nestjs-mod-sso/commit/1b1f01e0e87cc3f3c54c1a60ae69a99cc0e90c30))
+
 ## [1.0.6](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.5...server-v1.0.6) (2025-04-30)
 
 ### Bug Fixes
