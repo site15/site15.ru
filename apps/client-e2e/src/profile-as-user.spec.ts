@@ -238,6 +238,10 @@ test.describe('Work with profile as "User" role', () => {
       .locator('sso-profile-form')
       .locator('button[type=submit]')
       .click();
+
+    await page.waitForSelector(
+      'div.cdk-overlay-container>div.cdk-global-overlay-wrapper'
+    );
   });
 
   test('sign out', async () => {
