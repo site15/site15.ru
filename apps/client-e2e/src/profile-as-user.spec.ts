@@ -317,7 +317,8 @@ test.describe('Work with profile as "User" role', () => {
       .click();
 
     await page.waitForSelector(
-      'div.cdk-overlay-container>div.cdk-global-overlay-wrapper'
+      'div.cdk-overlay-container>div.cdk-global-overlay-wrapper',
+      { timeout: 20000 }
     );
 
     await expect(

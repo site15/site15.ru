@@ -83,8 +83,8 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
         JSON.stringify(document)
       );
     } else {
-      await replaceEnvs();
       if (!skipCreateDatabases) {
+        await replaceEnvs();
         await createAndFillDatabases();
       }
 
@@ -158,8 +158,8 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
                     JSON.stringify(document)
                   );
                 } else {
-                  await replaceEnvs();
                   if (!skipCreateDatabases) {
+                    await replaceEnvs();
                     await createAndFillDatabases();
                   }
                 }
