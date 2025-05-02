@@ -88,6 +88,10 @@ test.describe('Validation', () => {
       .locator('button[type=submit]')
       .click();
 
+    await page.waitForSelector(
+      'div.cdk-overlay-container>div.cdk-global-overlay-wrapper'
+    );
+
     await page.waitForSelector('span.you-are-logged-in-as');
 
     await expect(

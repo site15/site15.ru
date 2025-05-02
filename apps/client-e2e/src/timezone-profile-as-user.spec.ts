@@ -89,6 +89,11 @@ test.describe('Work with profile as "User" role (timezone', () => {
       .locator('sso-sign-up-form')
       .locator('button[type=submit]')
       .click();
+
+    await page.waitForSelector(
+      'div.cdk-overlay-container>div.cdk-global-overlay-wrapper'
+    );
+
     await page.waitForSelector('span.you-are-logged-in-as');
 
     await expect(
@@ -159,6 +164,10 @@ test.describe('Work with profile as "User" role (timezone', () => {
       .locator('sso-sign-in-form')
       .locator('button[type=submit]')
       .click();
+
+    await page.waitForSelector(
+      'div.cdk-overlay-container>div.cdk-global-overlay-wrapper'
+    );
 
     await page.waitForSelector('span.you-are-logged-in-as');
 
