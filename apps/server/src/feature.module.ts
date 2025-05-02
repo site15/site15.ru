@@ -62,12 +62,15 @@ export const FEATURE_MODULE_IMPORTS = [
       addMigrationScripts: false,
       nxProjectJsonFile: join(rootFolder, WEBHOOK_FOLDER, PROJECT_JSON_FILE),
 
-      binaryTargets: [
-        'native',
-        'rhel-openssl-3.0.x',
-        'linux-musl-openssl-3.0.x',
-        'linux-musl',
-      ],
+      binaryTargets:
+        process.env.PRISMA_TARGETS !== 'shorts'
+          ? [
+              'native',
+              'rhel-openssl-3.0.x',
+              'linux-musl-openssl-3.0.x',
+              'linux-musl',
+            ]
+          : ['native', 'rhel-openssl-3.0.x'],
     },
   }),
   // sso
@@ -88,12 +91,15 @@ export const FEATURE_MODULE_IMPORTS = [
       addMigrationScripts: false,
       nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
 
-      binaryTargets: [
-        'native',
-        'rhel-openssl-3.0.x',
-        'linux-musl-openssl-3.0.x',
-        'linux-musl',
-      ],
+      binaryTargets:
+        process.env.PRISMA_TARGETS !== 'shorts'
+          ? [
+              'native',
+              'rhel-openssl-3.0.x',
+              'linux-musl-openssl-3.0.x',
+              'linux-musl',
+            ]
+          : ['native', 'rhel-openssl-3.0.x'],
     },
   }),
   // two-factor
@@ -114,12 +120,15 @@ export const FEATURE_MODULE_IMPORTS = [
       addMigrationScripts: false,
       nxProjectJsonFile: join(rootFolder, TWO_FACTOR_FOLDER, PROJECT_JSON_FILE),
 
-      binaryTargets: [
-        'native',
-        'rhel-openssl-3.0.x',
-        'linux-musl-openssl-3.0.x',
-        'linux-musl',
-      ],
+      binaryTargets:
+        process.env.PRISMA_TARGETS !== 'shorts'
+          ? [
+              'native',
+              'rhel-openssl-3.0.x',
+              'linux-musl-openssl-3.0.x',
+              'linux-musl',
+            ]
+          : ['native', 'rhel-openssl-3.0.x'],
     },
   }),
   // notify
@@ -144,12 +153,15 @@ export const FEATURE_MODULE_IMPORTS = [
         PROJECT_JSON_FILE
       ),
 
-      binaryTargets: [
-        'native',
-        'rhel-openssl-3.0.x',
-        'linux-musl-openssl-3.0.x',
-        'linux-musl',
-      ],
+      binaryTargets:
+        process.env.PRISMA_TARGETS !== 'shorts'
+          ? [
+              'native',
+              'rhel-openssl-3.0.x',
+              'linux-musl-openssl-3.0.x',
+              'linux-musl',
+            ]
+          : ['native', 'rhel-openssl-3.0.x'],
     },
   }),
   // redis cache

@@ -11,7 +11,7 @@ RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOL
     apk add --no-cache jq && \
     echo '' > .env && \
     jq 'del(.targetDefaults, .plugins, .generators, .release)' nx.json > temp.json && mv temp.json nx.json && \
-    yarn nx run-many --all -t=prisma-generate && \
+    npm run prisma:shorts:generate && \
     yarn nx run-many -p app-rest-sdk server client -t=build --configuration=production
 
 FROM node:23.11.0-alpine AS prod-deps
