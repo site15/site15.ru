@@ -1,3 +1,9 @@
+# [1.1.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.0.2...client-v1.1.0) (2025-05-02)
+
+### Features
+
+- try add support deploy to vercel ([147496e](https://github.com/nestjs-mod/nestjs-mod-sso/commit/147496e7b2d37744f229f22cd6b97fc25b75ed9a))
+
 ## [1.0.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.0.1...client-v1.0.2) (2025-05-01)
 
 ### Bug Fixes
