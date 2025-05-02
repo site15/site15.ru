@@ -1,11 +1,12 @@
 import { isInfrastructureMode } from '@nestjs-mod/common';
+import { setTimeout } from 'node:timers/promises';
 import {
   createDatabaseHandler,
   PG_CREATE_DB_DEFAULT_CONFIG,
 } from 'pg-create-db';
 import { migrateHandler, PG_FLYWAY_DEFAULT_MIGRATE_CONFIG } from 'pg-flyway';
 
-export async function createAndFillDatabases() {
+export async function createAndFillDatabases(skipCreateDatabases?: boolean) {
   if (isInfrastructureMode()) {
     return;
   }
@@ -30,17 +31,22 @@ export async function createAndFillDatabases() {
     const appHistoryTable = appHistoryTables[index];
 
     if (process.env[appEnvKey] && process.env[rootEnvKey]) {
-      await createDatabaseHandler({
-        ...PG_CREATE_DB_DEFAULT_CONFIG,
-        appDatabaseUrl: process.env[appEnvKey],
-        rootDatabaseUrl: process.env[rootEnvKey],
-      });
+      if (!skipCreateDatabases) {
+        await createDatabaseHandler({
+          ...PG_CREATE_DB_DEFAULT_CONFIG,
+          appDatabaseUrl: process.env[appEnvKey],
+          rootDatabaseUrl: process.env[rootEnvKey],
+        });
+      }
       await migrateHandler({
         ...PG_FLYWAY_DEFAULT_MIGRATE_CONFIG,
         databaseUrl: process.env[appEnvKey],
         historyTable: appHistoryTable,
         locations: `./libs/core/${appKey}/src/migrations`,
       });
+
+      // delay
+      await setTimeout(2000);
     }
   }
 }

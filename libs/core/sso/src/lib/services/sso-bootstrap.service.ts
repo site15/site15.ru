@@ -19,10 +19,10 @@ export class SsoServiceBootstrap implements OnModuleInit {
       return;
     }
 
-    await this.ssoUsersService.createAdmin();
-
     await this.ssoProjectService.getOrCreateDefaultProject();
 
     await this.ssoProjectService.createDefaultPublicProjects();
+
+    await this.ssoUsersService.createAdmin();
   }
 }

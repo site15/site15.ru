@@ -140,7 +140,7 @@ export class SsoStaticEnvironments {
     default: '30m',
     hidden: true,
   })
-  @IsNotEmpty()
+  @IsOptional()
   jwtAccessTokenExpiresIn!: ms.StringValue;
 
   @EnvModelProperty({
@@ -148,7 +148,7 @@ export class SsoStaticEnvironments {
     default: '24h',
     hidden: true,
   })
-  @IsNotEmpty()
+  @IsOptional()
   jwtRefreshTokenExpiresIn!: ms.StringValue;
 
   // cache settings

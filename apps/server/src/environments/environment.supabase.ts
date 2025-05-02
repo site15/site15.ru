@@ -1,10 +1,9 @@
-import KeyvRedis from '@keyv/redis';
+import KeyvPostgres from '@keyv/postgres';
 import { isInfrastructureMode, PACKAGE_JSON_FILE } from '@nestjs-mod/common';
 import { KeyvModule } from '@nestjs-mod/keyv';
 import { MinioModule } from '@nestjs-mod/minio';
 import { existsSync } from 'fs';
 import { join } from 'path';
-import { createClient } from 'redis';
 
 let rootFolder = join(__dirname, '..', '..', '..');
 
@@ -28,24 +27,23 @@ if (
   appFolder = join(__dirname);
 }
 
-// redis cache
 export const MainKeyvModule = KeyvModule.forRoot({
   staticConfiguration: {
     storeFactoryByEnvironmentUrl: (uri) => {
       return isInfrastructureMode()
         ? undefined
-        : [new KeyvRedis(createClient({ url: uri }))];
+        : [new KeyvPostgres({ uri }), { table: 'cache' }];
     },
   },
 });
 
 export const MainMinioModule = MinioModule.forRoot({
-  staticConfiguration: { region: 'eu-central-1' },
+  staticConfiguration: { region: 'eu-north-1' },
   staticEnvironments: {
     minioUseSSL: 'true',
   },
 });
 
-export const skipCreateDatabases = false;
+export const skipCreateDatabases = true;
 
 export { appFolder, rootFolder };

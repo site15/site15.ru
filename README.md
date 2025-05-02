@@ -115,6 +115,67 @@ npm run docker-compose-full:prod:test:e2e
 npm run docker-compose-full:prod:stop
 ```
 
+## Supabase Dev/Watch mode
+
+Infrastructure is running on [Supabase](https://supabase.com/), applications are launched in watch pm2 mode.
+
+### Init
+
+```sh
+git clone git@github.com:nestjs-mod/nestjs-mod-sso.git
+cd nestjs-mod-sso
+npm i
+cp ./example-supabase.env ./.env
+```
+
+### Prepare
+
+1. Create organization and project on [Supabase](https://supabase.com/)
+2. Create bucket "images" in storage (example link: https://supabase.com/dashboard/project/XXX/storage/buckets)
+3. Create new "S3 Access Keys" with "Access key ID" and "Secret access key" (example link: https://supabase.com/dashboard/project/gustcjgbrmmipkizqzso/settings/storage)
+4. Open `.env` and fill empty_value's
+
+   ```sh
+   # https://supabase.com/dashboard/project/XXX/settings/api - API Settings - Project URL - URL
+   SUPABASE_URL=empty_value
+   # https://supabase.com/dashboard/project/XXX/settings/database?showConnect=true - Connection String - Direct connection
+   POSTGRES_URL=empty_value
+   # https://supabase.com/dashboard/project/XXX/settings/api - API Settings - Project API Keys - anon public
+   SUPABASE_ANON_KEY=empty_value
+   # https://supabase.com/dashboard/project/gustcjgbrmmipkizqzso/settings/storage - S3 Access Keys - New access key - Access key ID
+   SERVER_MINIO_ACCESS_KEY=empty_value
+   # https://supabase.com/dashboard/project/gustcjgbrmmipkizqzso/settings/storage - S3 Access Keys - New access key - Secret access key
+   SERVER_MINIO_SECRET_KEY=empty_value
+   ```
+
+5. Create and fill all need new env keys
+
+   ```sh
+   npx --yes tsx update-files-for-vercel.ts
+   ```
+
+### Start
+
+```sh
+npm run pm2-supabase-full:dev:start
+```
+
+### Open in browser
+
+http://localhost:4200
+
+### Testing
+
+```sh
+npm run pm2-supabase-full:dev:test:e2e
+```
+
+### Stop
+
+```sh
+npm run pm2-supabase-full:dev:stop
+```
+
 ## Links
 
 - https://sso.nestjs-mod.com - live demo on Kubernetes

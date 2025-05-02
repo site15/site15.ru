@@ -13,7 +13,6 @@ export COMPOSE_INTERACTIVE_NO_CLI=1
 export NX_DAEMON=false
 export NX_PARALLEL=1
 export NX_SKIP_NX_CACHE=true
-export DISABLE_SERVE_STATIC=true
 
 
 if [ -z "${ROOT_VERSION}" ]; then

@@ -59,6 +59,20 @@ parsedEnvs.SERVER_SSO_ADMIN_USERNAME =
   process.env.SERVER_SSO_ADMIN_USERNAME || 'admin';
 parsedEnvs.SERVER_URL = process.env.SERVER_URL || 'http://localhost:3000/api';
 parsedEnvs.CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:4200';
+parsedEnvs.SERVER_SSO_SERVER_URL =
+  process.env.SERVER_SSO_SERVER_URL || 'http://localhost:3000';
+parsedEnvs.SERVER_SSO_CLIENT_URL =
+  process.env.SERVER_SSO_CLIENT_URL || 'http://localhost:4200';
+parsedEnvs.SERVER_SSO_ADMIN_SECRET =
+  process.env.SERVER_SSO_ADMIN_SECRET || 'VfKSfPPljhHBXCEohnitursmgDxfAyiD';
+
+parsedEnvs.SERVER_SSO_DEFAULT_PUBLIC_PROJECTS =
+  process.env.SERVER_SSO_DEFAULT_PUBLIC_PROJECTS ||
+  'Beijing:ru=Пекин,Jq6GQ6Rzz6x8HNOD4x2Hc2eM0cfiCVUzGfsi,X6nk0OZXQJboSEfugnH35e9oSeg5RFlV0DQprtYyYDQjNli9mA;Moscow:ru=Москва,OceX08HGZ89PTkPpg9KDk5ErY1uMfDcfFKkw,VJztpDIwvqG6IkTVEIDEw1Ed2Wu5oHu6zfBe7CCJFrCtyWO2Yv;New York:ru=Нью-Йорк,4OGD25Rmn3W3MP0kMd7c90rGP1WwK8u4wL1w,qm8nc9MgKyvd6Hgl3jY5BjgDFSBqNvxcu6o52kDjIC168OsM1R;';
+
+parsedEnvs.SERVER_SSO_DEFAULT_PROJECT =
+  process.env.SERVER_SSO_DEFAULT_PROJECT ||
+  'default:ru=по умолчанию,KzMRNEZTetzatIgQPVSDYfeGyaZrbLzkcxNc,qaHkVpAtUVIpDdLXMlAOzsBfMRJblWoHpXguYQRBuSEBpGKbWt';
 
 writeFileSync(
   join(__dirname, 'apps/client/src/environments/environment.supabase-prod.ts'),

@@ -25,7 +25,11 @@ import { writeFileSync } from 'fs';
 import { Logger } from 'nestjs-pino';
 import { join } from 'path';
 import { createAndFillDatabases } from './create-and-fill-databases';
-import { appFolder, rootFolder } from './environments/environment';
+import {
+  appFolder,
+  rootFolder,
+  skipCreateDatabases,
+} from './environments/environment';
 import { FEATURE_MODULE_IMPORTS, FeatureModule } from './feature.module';
 import { INFRASTRUCTURE_MODULE_IMPORTS } from './infrastructure.module';
 import { replaceEnvs } from './replace-envs';
@@ -80,7 +84,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
       );
     } else {
       await replaceEnvs();
-      await createAndFillDatabases();
+      await createAndFillDatabases(skipCreateDatabases);
 
       const logger = app.get(Logger);
       if (logger) {
@@ -153,7 +157,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
                   );
                 } else {
                   await replaceEnvs();
-                  await createAndFillDatabases();
+                  await createAndFillDatabases(skipCreateDatabases);
                 }
               }
             },

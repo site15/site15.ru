@@ -4,6 +4,11 @@
   "version": "0.0.28",
   "license": "MIT",
   "scripts": {
+    "_____pm2-supabase-full dev infra_____": "_____pm2-supabase-full dev infra_____",
+    "pm2-supabase-full:dev:start": "npm run prisma:generate && npm run pm2-supabase:dev:start",
+    "pm2-supabase-full:dev:stop": "npm run pm2:dev:stop",
+    "pm2-supabase-full:dev:test:e2e": "npm run test:e2e",
+    "pm2-supabase:dev:start": "./node_modules/.bin/pm2 start ./ecosystem-supabase.config.json && npm run wait-on -- --log http://localhost:3000/api/health --log http://localhost:4200",
     "_____pm2-full dev infra_____": "_____pm2-full dev infra_____",
     "pm2-full:dev:start": "npm run generate && npm run docker-compose:start-prod:server && sleep 15 && npm run pm2:dev:start",
     "pm2-full:dev:stop": "npm run docker-compose:stop-prod:server && npm run pm2:dev:stop",
@@ -45,6 +50,11 @@
     "lint": "npm run tsc:lint && ./node_modules/.bin/nx run-many --all -t=lint --parallel=1",
     "lint:fix": "npm run tsc:lint && ./node_modules/.bin/nx run-many --all -t=lint --parallel=1 --fix",
     "tsc:lint": "./node_modules/.bin/tsc --noEmit -p tsconfig.base.json",
+    "_____vercel_____": "_____vercel_____",
+    "vercel:pull-environment:production": "vercel pull --yes --environment=production && cp -r .vercel/.env.production.local .env && npx --yes tsx update-files-for-vercel.ts",
+    "_____supabase_____": "_____supabase_____",
+    "build-supabase": "./node_modules/.bin/nx run-many -p client -t=build --configuration=supabase-prod && ./node_modules/.bin/nx run-many -p app-rest-sdk server -t=build --configuration=supabase",
+    "manual-supabase-build": "npm run prisma:generate && npm run build-supabase && npm run test",
     "_____db_____": "_____db_____",
     "db:create": "./node_modules/.bin/nx run-many -t=db-create",
     "db:create-and-fill": "npm run db:create && npm run pg-flyway:migrate",
@@ -164,6 +174,10 @@
     "*.js": "eslint --cache --fix"
   },
   "scriptsComments": {
+    "pm2-supabase-full:dev:start": [],
+    "pm2-supabase-full:dev:stop": [],
+    "pm2-supabase-full:dev:test:e2e": [],
+    "pm2-supabase:dev:start": [],
     "pm2-full:dev:start": [
       "Launching infrastructure and all applications in watch mode via PM2"
     ],
@@ -245,6 +259,9 @@
       "Checking the typescript code throughout the project and trying to fix everything possible"
     ],
     "tsc:lint": [],
+    "vercel:pull-environment:production": [],
+    "build-supabase": [],
+    "manual-supabase-build": [],
     "db:create": [
       "Creation all databases of applications and modules"
     ],

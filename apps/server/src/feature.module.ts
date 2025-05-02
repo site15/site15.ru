@@ -1,4 +1,3 @@
-import KeyvRedis from '@keyv/redis';
 import { FilesModule } from '@nestjs-mod-sso/files';
 import {
   NOTIFICATIONS_FEATURE,
@@ -23,15 +22,16 @@ import {
   isInfrastructureMode,
   PROJECT_JSON_FILE,
 } from '@nestjs-mod/common';
-import { KeyvModule } from '@nestjs-mod/keyv';
-import { MinioModule } from '@nestjs-mod/minio';
 import { NestjsPinoLoggerModule } from '@nestjs-mod/pino';
 import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
 import { TerminusHealthCheckModule } from '@nestjs-mod/terminus';
 import { join } from 'path';
-import { createClient } from 'redis';
 import { AppModule } from './app/app.module';
-import { rootFolder } from './environments/environment';
+import {
+  MainKeyvModule,
+  MainMinioModule,
+  rootFolder,
+} from './environments/environment';
 import { filesModuleForRootAsyncOptions } from './integrations/minio-files-integration.configuration';
 import { notificationsModuleForRootAsyncOptions } from './integrations/notifications-integration.configuration';
 import { ssoModuleForRootAsyncOptions } from './integrations/sso-integration.configuration';
@@ -153,17 +153,9 @@ export const FEATURE_MODULE_IMPORTS = [
     },
   }),
   // redis cache
-  KeyvModule.forRoot({
-    staticConfiguration: {
-      storeFactoryByEnvironmentUrl: (uri) => {
-        return isInfrastructureMode()
-          ? undefined
-          : [new KeyvRedis(createClient({ url: uri }))];
-      },
-    },
-  }),
+  MainKeyvModule,
   // minio
-  MinioModule.forRoot(),
+  MainMinioModule,
   ValidationModule.forRoot({ staticEnvironments: { usePipes: false } }),
   FilesModule.forRootAsync(filesModuleForRootAsyncOptions()),
   TwoFactorModule.forRoot(),
