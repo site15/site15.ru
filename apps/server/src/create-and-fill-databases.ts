@@ -6,7 +6,7 @@ import {
 } from 'pg-create-db';
 import { migrateHandler, PG_FLYWAY_DEFAULT_MIGRATE_CONFIG } from 'pg-flyway';
 
-export async function createAndFillDatabases(skipCreateDatabases?: boolean) {
+export async function createAndFillDatabases() {
   if (isInfrastructureMode()) {
     return;
   }
@@ -31,13 +31,12 @@ export async function createAndFillDatabases(skipCreateDatabases?: boolean) {
     const appHistoryTable = appHistoryTables[index];
 
     if (process.env[appEnvKey] && process.env[rootEnvKey]) {
-      if (!skipCreateDatabases) {
-        await createDatabaseHandler({
-          ...PG_CREATE_DB_DEFAULT_CONFIG,
-          appDatabaseUrl: process.env[appEnvKey],
-          rootDatabaseUrl: process.env[rootEnvKey],
-        });
-      }
+      await createDatabaseHandler({
+        ...PG_CREATE_DB_DEFAULT_CONFIG,
+        appDatabaseUrl: process.env[appEnvKey],
+        rootDatabaseUrl: process.env[rootEnvKey],
+      });
+
       await migrateHandler({
         ...PG_FLYWAY_DEFAULT_MIGRATE_CONFIG,
         databaseUrl: process.env[appEnvKey],

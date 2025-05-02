@@ -84,7 +84,9 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
       );
     } else {
       await replaceEnvs();
-      await createAndFillDatabases(skipCreateDatabases);
+      if (!skipCreateDatabases) {
+        await createAndFillDatabases();
+      }
 
       const logger = app.get(Logger);
       if (logger) {
@@ -157,7 +159,9 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
                   );
                 } else {
                   await replaceEnvs();
-                  await createAndFillDatabases(skipCreateDatabases);
+                  if (!skipCreateDatabases) {
+                    await createAndFillDatabases();
+                  }
                 }
               }
             },

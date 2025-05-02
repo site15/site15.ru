@@ -320,8 +320,6 @@ test.describe('Work with profile as "User" role', () => {
       'div.cdk-overlay-container>div.cdk-global-overlay-wrapper'
     );
 
-    await page.waitForSelector('span.you-are-logged-in-as');
-
     await expect(
       page.locator('nz-header').locator('[nz-submenu]').first()
     ).toContainText(`You are logged in as ${user.email.toLowerCase()}`);
