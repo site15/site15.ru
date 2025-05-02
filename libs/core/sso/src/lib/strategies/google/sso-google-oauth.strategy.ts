@@ -101,41 +101,46 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
   }
 
   async onModuleInit() {
-    this.logger.debug('onModuleInit');
+    const moduleInit = async () => {
+      this.logger.debug('onModuleInit');
 
-    if (isInfrastructureMode()) {
-      return;
-    }
+      if (isInfrastructureMode()) {
+        return;
+      }
 
-    const options = await this.getProviderOptions();
-    if (!options) {
-      this.logger.warn('Options not set');
-      return;
-    }
-    return passport.use(
-      this.oauthProviderName,
-      new Strategy(
-        { ...options, passReqToCallback: true },
-        (
-          req: Request,
-          accessToken: string,
-          refreshToken: string,
-          params: GoogleCallbackParameters,
-          profile: Profile,
-          done: VerifyCallback
-        ) => {
-          this.verify({
-            req,
-            accessToken,
-            refreshToken,
-            profile,
-            providerId: options.providerId,
-          })
-            .then((result) => done(null, result))
-            .catch((err) => done(err, undefined));
-        }
-      )
-    );
+      const options = await this.getProviderOptions();
+      if (!options) {
+        this.logger.warn('Options not set');
+        return;
+      }
+
+      passport.use(
+        this.oauthProviderName,
+        new Strategy(
+          { ...options, passReqToCallback: true },
+          (
+            req: Request,
+            accessToken: string,
+            refreshToken: string,
+            params: GoogleCallbackParameters,
+            profile: Profile,
+            done: VerifyCallback
+          ) => {
+            this.verify({
+              req,
+              accessToken,
+              refreshToken,
+              profile,
+              providerId: options.providerId,
+            })
+              .then((result) => done(null, result))
+              .catch((err) => done(err, undefined));
+          }
+        )
+      );
+    };
+
+    moduleInit().catch((err) => this.logger.error(err, err.stack));
   }
 
   private async verify({
