@@ -13,20 +13,16 @@ export class SsoServiceBootstrap implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    const moduleInit = async () => {
-      this.logger.debug('onModuleInit');
+    this.logger.debug('onModuleInit');
 
-      if (isInfrastructureMode()) {
-        return;
-      }
+    if (isInfrastructureMode()) {
+      return;
+    }
 
-      await this.ssoProjectService.getOrCreateDefaultProject();
+    await this.ssoProjectService.getOrCreateDefaultProject();
 
-      await this.ssoProjectService.createDefaultPublicProjects();
+    await this.ssoProjectService.createDefaultPublicProjects();
 
-      await this.ssoUsersService.createAdmin();
-    };
-
-    moduleInit().catch((err) => this.logger.error(err, err.stack));
+    await this.ssoUsersService.createAdmin();
   }
 }
