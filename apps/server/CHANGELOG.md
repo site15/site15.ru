@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.2.0...server-v1.2.1) (2025-05-02)
+
+### Bug Fixes
+
+- try disable minioUseSSL ([223bfb3](https://github.com/nestjs-mod/nestjs-mod-sso/commit/223bfb39b01377ebe07000843d6a64931071584b))
+
 # [1.2.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.1.0...server-v1.2.0) (2025-05-02)
 
 ### Features
