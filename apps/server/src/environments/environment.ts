@@ -42,7 +42,7 @@ export const MainKeyvModule = KeyvModule.forRoot({
 export const MainMinioModule = MinioModule.forRoot({
   staticConfiguration: { region: 'eu-central-1' },
   staticEnvironments: {
-    minioUseSSL: 'true',
+    minioUseSSL: 'false',
   },
 });
 
