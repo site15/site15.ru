@@ -1,3 +1,9 @@
+# [1.1.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.7...server-v1.1.0) (2025-05-02)
+
+### Features
+
+- try add support deploy to vercel ([147496e](https://github.com/nestjs-mod/nestjs-mod-sso/commit/147496e7b2d37744f229f22cd6b97fc25b75ed9a))
+
 ## [1.0.7](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.6...server-v1.0.7) (2025-05-01)
 
 ### Bug Fixes
