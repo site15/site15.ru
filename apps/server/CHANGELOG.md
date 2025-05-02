@@ -1,3 +1,9 @@
+# [1.2.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.1.0...server-v1.2.0) (2025-05-02)
+
+### Features
+
+- try use short version of prisma files [skip cache] ([2fda27f](https://github.com/nestjs-mod/nestjs-mod-sso/commit/2fda27ff075f49756d2ff47ef5c43fa63ba30ebc))
+
 # [1.1.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.0.7...server-v1.1.0) (2025-05-02)
 
 ### Features
