@@ -1,3 +1,9 @@
+## [1.2.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.2.1...server-v1.2.2) (2025-05-02)
+
+### Bug Fixes
+
+- disable e2e-tests for vercel ([26b4af2](https://github.com/nestjs-mod/nestjs-mod-sso/commit/26b4af20088e616e8ea23d7bac01afe589ac3d9a))
+
 ## [1.2.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.2.0...server-v1.2.1) (2025-05-02)
 
 ### Bug Fixes
