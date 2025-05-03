@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.1.0...client-v1.1.1) (2025-05-03)
+
+### Bug Fixes
+
+- ignore upload error on update profile ([aec8e50](https://github.com/nestjs-mod/nestjs-mod-sso/commit/aec8e50780d680dffa88c99e41fa74844ff186f3))
+
 # [1.1.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.0.2...client-v1.1.0) (2025-05-02)
 
 ### Features
