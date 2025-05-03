@@ -29,10 +29,13 @@ const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  workers: 1,
-  maxFailures: 4,
-  timeout: 120 * 1000,
   ...nxE2EPreset(__filename, { testDir: './src' }),
+  /* Run tests in files in parallel */
+  fullyParallel: false,
+  workers: 1,
+  maxFailures: 0,
+  retries: 4,
+  timeout: 120 * 1000,
   reporter: [['list']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -42,7 +45,7 @@ export default defineConfig({
     ignoreHTTPSErrors: true,
     video: 'on',
     viewport: { width: 1920, height: 1080 },
-    // headless: false,
+    headless: true,
   },
   expect: { timeout: 10_000 },
   projects: [

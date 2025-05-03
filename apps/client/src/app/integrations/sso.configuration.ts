@@ -23,7 +23,8 @@ import {
   SsoUserAndTokens,
   TokensService,
 } from '@nestjs-mod-sso/sso-angular';
-import { catchError, map, mergeMap, Observable, of, throwError } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { catchError, map, mergeMap, Observable, of } from 'rxjs';
 
 export class SsoIntegrationConfiguration implements SsoConfiguration {
   constructor(
@@ -32,7 +33,8 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
     private readonly ssoActiveProjectService: SsoActiveProjectService,
-    private readonly fingerprintService: FingerprintService
+    private readonly fingerprintService: FingerprintService,
+    private readonly nzMessageService: NzMessageService
   ) {
     ssoRestService.configuration.withCredentials = true;
   }
@@ -139,6 +141,13 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
         ? this.filesService.getPresignedUrlAndUploadFile(data.picture)
         : of('')
     ).pipe(
+      catchError((err) => {
+        console.error(err);
+        this.nzMessageService.error(
+          this.translocoService.translate('Error while saving image')
+        );
+        return of(undefined);
+      }),
       mergeMap((picture) => {
         return this.ssoRestService.ssoControllerUpdateProfile({
           birthdate: data.birthdate,
@@ -325,6 +334,7 @@ export function provideSsoConfiguration(): Provider {
       TokensService,
       SsoActiveProjectService,
       FingerprintService,
+      NzMessageService,
     ],
   };
 }
