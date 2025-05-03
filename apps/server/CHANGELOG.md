@@ -1,3 +1,9 @@
+## [1.2.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.2.2...server-v1.2.3) (2025-05-03)
+
+### Bug Fixes
+
+- ignore upload error on update profile ([aec8e50](https://github.com/nestjs-mod/nestjs-mod-sso/commit/aec8e50780d680dffa88c99e41fa74844ff186f3))
+
 ## [1.2.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.2.1...server-v1.2.2) (2025-05-02)
 
 ### Bug Fixes
