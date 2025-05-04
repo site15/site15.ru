@@ -9,8 +9,8 @@ spec:
   selector:
     app: %NAMESPACE%-server
   ports:
-    - name: '%SERVER_PORT%'
+    - name: '%SINGLE_SIGN_ON_PORT%'
       protocol: TCP
-      port: %SERVER_PORT%
-      targetPort: %SERVER_PORT%
+      port: %SINGLE_SIGN_ON_PORT%
+      targetPort: %SINGLE_SIGN_ON_PORT%
   type: ClusterIP

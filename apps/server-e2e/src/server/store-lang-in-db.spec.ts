@@ -7,13 +7,13 @@ describe('Store lang in db', () => {
 
   const user1 = new RestClientHelper({
     headers: {
-      'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+      'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
     },
   });
   const admin = new RestClientHelper({
     headers: {
-      'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET,
-      'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+      'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+      'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
     },
   });
 

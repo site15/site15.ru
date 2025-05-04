@@ -11,10 +11,10 @@ export async function createAndFillDatabases() {
     return;
   }
   const appEnvKeys = [
-    'SERVER_WEBHOOK_DATABASE_URL',
-    'SERVER_NOTIFICATIONS_DATABASE_URL',
-    'SERVER_SSO_DATABASE_URL',
-    'SERVER_TWO_FACTOR_DATABASE_URL',
+    'SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL',
+    'SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL',
+    'SINGLE_SIGN_ON_SSO_DATABASE_URL',
+    'SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL',
   ];
   const appKeys = ['webhook', 'notifications', 'sso', 'two-factor'];
   const appHistoryTables = [
@@ -23,7 +23,7 @@ export async function createAndFillDatabases() {
     '__migrations_sso',
     '__migrations_two_factor',
   ];
-  const rootEnvKey = 'SERVER_ROOT_DATABASE_URL';
+  const rootEnvKey = 'SINGLE_SIGN_ON_ROOT_DATABASE_URL';
 
   for (let index = 0; index < appEnvKeys.length; index++) {
     const appEnvKey = appEnvKeys[index];

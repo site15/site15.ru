@@ -13,19 +13,19 @@ describe('Sso with check notifications (e2e)', () => {
   beforeAll(async () => {
     project = await new RestClientHelper({
       headers: {
-        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
     user = await new RestClientHelper({
       headers: {
         'x-client-id': project.randomUser.id,
-        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
     admin = new RestClientHelper({
       headers: {
-        'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET,
-        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+        'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     });
   });

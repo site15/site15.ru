@@ -7,7 +7,7 @@ describe('OAuth (e2e)', () => {
   beforeAll(async () => {
     user = await new RestClientHelper({
       headers: {
-        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
   });

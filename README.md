@@ -143,9 +143,9 @@ cp ./example-supabase.env ./.env
    # https://supabase.com/dashboard/project/XXX/settings/api - API Settings - Project API Keys - anon public
    SUPABASE_ANON_KEY=empty_value
    # https://supabase.com/dashboard/project/gustcjgbrmmipkizqzso/settings/storage - S3 Access Keys - New access key - Access key ID
-   SERVER_MINIO_ACCESS_KEY=empty_value
+   SINGLE_SIGN_ON_MINIO_ACCESS_KEY=empty_value
    # https://supabase.com/dashboard/project/gustcjgbrmmipkizqzso/settings/storage - S3 Access Keys - New access key - Secret access key
-   SERVER_MINIO_SECRET_KEY=empty_value
+   SINGLE_SIGN_ON_MINIO_SECRET_KEY=empty_value
    ```
 
 5. Create and fill all need new env keys

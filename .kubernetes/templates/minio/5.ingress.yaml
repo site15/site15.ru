@@ -11,7 +11,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
 spec:
   rules:
-    - host: files.%SERVER_DOMAIN%
+    - host: files.%SINGLE_SIGN_ON_DOMAIN%
       http:
         paths:
           - path: /
@@ -23,5 +23,5 @@ spec:
                   number: 9000
   tls:
     - hosts:
-        - files.%SERVER_DOMAIN%
+        - files.%SINGLE_SIGN_ON_DOMAIN%
       secretName: %NAMESPACE%-minio-tls

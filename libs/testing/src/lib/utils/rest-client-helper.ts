@@ -214,7 +214,8 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
             },
             {
               headers: {
-                'x-admin-secret': process.env['SERVER_SSO_ADMIN_SECRET'],
+                'x-admin-secret':
+                  process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
               },
             }
           );
@@ -248,7 +249,7 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
           this.project.id,
           {
             headers: {
-              'x-admin-secret': process.env['SERVER_SSO_ADMIN_SECRET'],
+              'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
             },
           }
         );
@@ -259,7 +260,9 @@ export class RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
           emailVerifiedAt: new Date().toISOString(),
         },
         {
-          headers: { 'x-admin-secret': process.env['SERVER_SSO_ADMIN_SECRET'] },
+          headers: {
+            'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
+          },
         }
       );
     }

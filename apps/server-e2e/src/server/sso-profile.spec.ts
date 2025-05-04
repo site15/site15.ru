@@ -12,12 +12,12 @@ describe('Sso profile (e2e)', () => {
   beforeAll(async () => {
     user = await new RestClientHelper({
       headers: {
-        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
     project = await new RestClientHelper({
       headers: {
-        'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
   });
@@ -33,7 +33,9 @@ describe('Sso profile (e2e)', () => {
           clientSecret: project.randomUser.password,
         },
         {
-          headers: { 'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET },
+          headers: {
+            'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+          },
         }
       );
     expect(createOneResult).toHaveProperty('id');
@@ -68,7 +70,9 @@ describe('Sso profile (e2e)', () => {
         project.randomUser.id,
         undefined,
         {
-          headers: { 'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET },
+          headers: {
+            'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+          },
         }
       );
 
@@ -81,7 +85,9 @@ describe('Sso profile (e2e)', () => {
         undefined,
         findManyProjectsResult.ssoProjects[0].id,
         {
-          headers: { 'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET },
+          headers: {
+            'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+          },
         }
       );
 
@@ -95,7 +101,9 @@ describe('Sso profile (e2e)', () => {
           emailVerifiedAt: new Date().toISOString(),
         },
         {
-          headers: { 'x-admin-secret': process.env.SERVER_SSO_ADMIN_SECRET },
+          headers: {
+            'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+          },
         }
       );
 

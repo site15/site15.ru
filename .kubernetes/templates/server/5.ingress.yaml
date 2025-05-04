@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
 spec:
   rules:
-    - host: %SERVER_DOMAIN%
+    - host: %SINGLE_SIGN_ON_DOMAIN%
       http:
         paths:
           - path: /
@@ -19,8 +19,8 @@ spec:
               service:
                 name: %NAMESPACE%-server
                 port:
-                  number: %SERVER_PORT%
+                  number: %SINGLE_SIGN_ON_PORT%
   tls:
     - hosts:
-        - %SERVER_DOMAIN%
+        - %SINGLE_SIGN_ON_DOMAIN%
       secretName: %NAMESPACE%-server-tls

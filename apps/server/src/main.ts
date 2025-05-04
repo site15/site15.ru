@@ -40,8 +40,8 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
    */
 
   (async function bootstrap() {
-    // copy nestjs-mod environments to nestjs environments, without prefix "SERVER_"
-    const dm = 'SERVER_';
+    // copy nestjs-mod environments to nestjs environments, without prefix "SINGLE_SIGN_ON_"
+    const dm = 'SINGLE_SIGN_ON_';
     for (const key of Object.keys(process.env)) {
       const arr = key.split(dm);
       if (arr.length > 0 && !arr[0]) {
@@ -106,7 +106,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
    */
   bootstrapNestApplication({
     project: {
-      name: 'server',
+      name: 'single-sign-on',
       description:
         'Single Sign-On on NestJS and Angular with webhooks and social authorization',
     },

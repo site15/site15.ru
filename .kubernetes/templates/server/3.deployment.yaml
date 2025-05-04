@@ -17,10 +17,10 @@ spec:
     spec:
       containers:
         - name: %NAMESPACE%-server
-          image: ghcr.io/nestjs-mod/nestjs-mod-sso-server:%SERVER_VERSION%
+          image: ghcr.io/nestjs-mod/nestjs-mod-sso-server:%SINGLE_SIGN_ON_VERSION%
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: %SERVER_PORT%
+            - containerPort: %SINGLE_SIGN_ON_PORT%
           envFrom:
             - configMapRef:
                 name: %NAMESPACE%-config

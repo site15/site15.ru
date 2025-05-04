@@ -32,7 +32,7 @@ test.describe('Validation', () => {
     });
     await page.evaluate(
       (minioURL) => localStorage.setItem('minioURL', minioURL),
-      get('SERVER_MINIO_URL').required().asString()
+      get('SINGLE_SIGN_ON_MINIO_URL').required().asString()
     );
   });
 

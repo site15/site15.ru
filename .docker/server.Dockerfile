@@ -36,8 +36,8 @@ WORKDIR /app
 EXPOSE 8080
 ENV NODE_ENV=production
 ENV TZ=UTC
-ENV SERVER_PORT=8080
-ENV SERVER_CLIENT_MINIO_URL=http://localhost:9000
+ENV SINGLE_SIGN_ON_PORT=8080
+ENV SINGLE_SIGN_ON_CLIENT_MINIO_URL=http://localhost:9000
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=prod-deps /app/apps /app/apps
 COPY --from=prod-deps /app/libs /app/libs
