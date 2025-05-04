@@ -220,7 +220,7 @@ jobs:
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
         env:
           SINGLE_SIGN_ON_SSO_ADMIN_SECRET: ${{ secrets.SINGLE_SIGN_ON_SSO_ADMIN_SECRET }}
-          E2E_CLIENT_URL: 'https://${{ secrets.SERVER_DOMAIN }}'
+          E2E_CLIENT_URL: 'https://${{ secrets.SINGLE_SIGN_ON_DOMAIN }}'
           E2E_SERVER_URL: 'https://${{ secrets.SINGLE_SIGN_ON_DOMAIN }}'
           SINGLE_SIGN_ON_MINIO_URL: 'https://files.${{ secrets.SINGLE_SIGN_ON_DOMAIN }}'
         run: |
