@@ -12,7 +12,7 @@ describe('Get server time from rest api and ws', () => {
       'x-skip-throttle': process.env.SERVER_SSO_ADMIN_SECRET,
     },
     serverUrl: process.env.IS_DOCKER_COMPOSE
-      ? get('CLIENT_URL').asString()
+      ? get('E2E_SERVER_URL').asString()
       : undefined,
   });
   const timeApi = restClientHelper.getTimeApi();

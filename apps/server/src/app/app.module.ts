@@ -74,7 +74,7 @@ export const { AppModule } = createNestModule({
         },
       ],
     }),
-    ...(process.env.DISABLE_SERVE_STATIC
+    ...(process.env.SERVER_DISABLE_SERVE_STATIC
       ? []
       : [
           ServeStaticModule.forRoot({

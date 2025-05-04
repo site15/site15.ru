@@ -41,13 +41,13 @@ parsedEnvs.SERVER_NOTIFICATIONS_DATABASE_URL = postgresUrl;
 parsedEnvs.SERVER_TWO_FACTOR_DATABASE_URL = postgresUrl;
 parsedEnvs.SERVER_KEYV_URL = postgresUrl.replace('?schema=public', '');
 
-parsedEnvs.CLIENT_MINIO_URL = `https://${supabaseName}.supabase.co/storage/v1/s3`;
+parsedEnvs.SERVER_CLIENT_MINIO_URL = `https://${supabaseName}.supabase.co/storage/v1/s3`;
 parsedEnvs.SERVER_MINIO_URL = `https://${supabaseName}.supabase.co/storage/v1/s3`;
 parsedEnvs.SERVER_MINIO_SERVER_HOST = `${supabaseName}.supabase.co`;
 parsedEnvs.SERVER_SUPABASE_URL = `https://${supabaseName}.supabase.co`;
 
 parsedEnvs.SERVER_SUPABASE_KEY = supabaseAnonKey;
-parsedEnvs.DISABLE_SERVE_STATIC = 'true';
+parsedEnvs.SERVER_DISABLE_SERVE_STATIC = 'true';
 parsedEnvs.SERVER_PORT = '3000';
 
 // check real process envs
@@ -57,14 +57,17 @@ parsedEnvs.SERVER_SSO_ADMIN_PASSWORD =
   process.env.SERVER_SSO_ADMIN_PASSWORD || 'SbxcbII7RUvCOe9TDXnKhfRrLJW5cGDA';
 parsedEnvs.SERVER_SSO_ADMIN_USERNAME =
   process.env.SERVER_SSO_ADMIN_USERNAME || 'admin';
-parsedEnvs.SERVER_URL = process.env.SERVER_URL || 'http://localhost:3000/api';
-parsedEnvs.CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:4200';
 parsedEnvs.SERVER_SSO_SERVER_URL =
   process.env.SERVER_SSO_SERVER_URL || 'http://localhost:3000';
 parsedEnvs.SERVER_SSO_CLIENT_URL =
   process.env.SERVER_SSO_CLIENT_URL || 'http://localhost:4200';
 parsedEnvs.SERVER_SSO_ADMIN_SECRET =
   process.env.SERVER_SSO_ADMIN_SECRET || 'VfKSfPPljhHBXCEohnitursmgDxfAyiD';
+
+parsedEnvs.E2E_CLIENT_URL =
+  parsedEnvs.E2E_CLIENT_URL || 'http://localhost:4200';
+parsedEnvs.E2E_SERVER_URL =
+  parsedEnvs.E2E_SERVER_URL || 'http://localhost:3000';
 
 parsedEnvs.SERVER_SSO_DEFAULT_PUBLIC_PROJECTS =
   process.env.SERVER_SSO_DEFAULT_PUBLIC_PROJECTS ||

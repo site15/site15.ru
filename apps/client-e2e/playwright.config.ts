@@ -9,6 +9,7 @@ import { join } from 'path';
  */
 // require('dotenv').config();
 
+const clientUrl = process.env['E2E_CLIENT_URL'];
 const parsed = config(
   process.env['ENV_FILE']
     ? {
@@ -22,8 +23,11 @@ if (parsed.error) {
   throw parsed.error;
 }
 
-// For CI, you may want to set BASE_URL to the deployed application.
-const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
+// For CI, you may want to set E2E_CLIENT_URL to the deployed application.
+const baseURL =
+  clientUrl || process.env['E2E_CLIENT_URL'] || 'http://localhost:4200';
+
+process.env['E2E_CLIENT_URL'] = baseURL;
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -33,8 +37,8 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: false,
   workers: 1,
-  maxFailures: 0,
-  retries: 4,
+  maxFailures: 10,
+  retries: 3,
   timeout: 120 * 1000,
   reporter: [['list']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
