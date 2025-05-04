@@ -1,3 +1,9 @@
+# [1.2.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.1.2...client-v1.2.0) (2025-05-04)
+
+### Features
+
+- rename server application name [skip cache] ([3e0e47e](https://github.com/nestjs-mod/nestjs-mod-sso/commit/3e0e47ee583dbdb725b698d438cad07c8d29324d))
+
 ## [1.1.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.1.1...client-v1.1.2) (2025-05-04)
 
 ### Bug Fixes
