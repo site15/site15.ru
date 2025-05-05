@@ -1,3 +1,9 @@
+## [1.3.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.1...client-v1.3.2) (2025-05-05)
+
+### Bug Fixes
+
+- update options for publish to npm registry ([44b341b](https://github.com/nestjs-mod/nestjs-mod-sso/commit/44b341bf31c8dd4009c28f4b8d7d81d61162eab5))
+
 ## [1.3.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.0...client-v1.3.1) (2025-05-05)
 
 ### Bug Fixes
