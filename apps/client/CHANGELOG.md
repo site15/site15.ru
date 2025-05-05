@@ -1,3 +1,9 @@
+## [1.3.5](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.4...client-v1.3.5) (2025-05-05)
+
+### Bug Fixes
+
+- remove dependencies from public npm packages ([cc26fa2](https://github.com/nestjs-mod/nestjs-mod-sso/commit/cc26fa2d79e076fb9ff03307176b1652e0639644))
+
 ## [1.3.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.3...client-v1.3.4) (2025-05-05)
 
 ### Bug Fixes
