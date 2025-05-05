@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.0.3...rest-sdk-v1.0.4) (2025-05-05)
+
+### Bug Fixes
+
+- remove dependencies from public npm packages ([cc26fa2](https://github.com/nestjs-mod/nestjs-mod-sso/commit/cc26fa2d79e076fb9ff03307176b1652e0639644))
+
 ## [1.0.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.0.2...rest-sdk-v1.0.3) (2025-05-05)
 
 ### Bug Fixes
