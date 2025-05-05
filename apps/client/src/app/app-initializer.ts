@@ -7,7 +7,7 @@ import {
   SsoRestService,
   TimeRestService,
   WebhookRestService,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import {
   SsoActiveLangService,
   SsoActiveProjectService,

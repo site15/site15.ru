@@ -5,7 +5,7 @@ import {
   ValidationErrorMetadataInterface,
   WebhookEventInterface,
   WebhookScalarFieldEnumInterface,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FormlyFieldConfig } from '@ngx-formly/core';

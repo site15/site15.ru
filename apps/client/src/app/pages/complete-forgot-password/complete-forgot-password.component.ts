@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { SsoRoleInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { SsoRoleInterface } from '@nestjs-mod-sso/rest-sdk-angular';
 import {
   SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
   SsoCompleteForgotPasswordFormComponent,

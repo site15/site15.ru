@@ -7,7 +7,7 @@ import { provideTranslocoMessageformat } from '@jsverse/transloco-messageformat'
 import {
   RestClientApiModule,
   RestClientConfiguration,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import { MINIO_URL } from '@nestjs-mod-sso/files-angular';
 import { minioURL } from '../environments/environment';
 import { AppComponent } from './app.component';

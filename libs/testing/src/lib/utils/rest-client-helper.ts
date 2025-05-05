@@ -10,7 +10,7 @@ import {
   TokensResponse,
   WebhookApi,
   WebhookUser,
-} from '@nestjs-mod-sso/app-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk';
 import axios, { AxiosInstance } from 'axios';
 import { Observable, finalize } from 'rxjs';
 import {

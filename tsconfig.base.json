@@ -23,10 +23,10 @@
     "esModuleInterop": true,
     "noImplicitAny": false,
     "paths": {
-      "@nestjs-mod-sso/app-angular-rest-sdk": [
-        "libs/sdk/app-angular-rest-sdk/src/index.ts"
+      "@nestjs-mod-sso/rest-sdk-angular": [
+        "libs/sdk/rest-sdk-angular/src/index.ts"
       ],
-      "@nestjs-mod-sso/app-rest-sdk": ["libs/sdk/app-rest-sdk/src/index.ts"],
+      "@nestjs-mod-sso/rest-sdk": ["libs/sdk/rest-sdk/src/index.ts"],
       "@nestjs-mod-sso/common": ["libs/common/src/index.ts"],
       "@nestjs-mod-sso/common-angular": ["libs/common-angular/src/index.ts"],
       "@nestjs-mod-sso/files": ["libs/core/files/src/index.ts"],

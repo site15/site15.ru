@@ -3,7 +3,7 @@ import {
   CreateSsoProjectDtoInterface,
   SsoRestService,
   UpdateSsoProjectDtoInterface,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { map } from 'rxjs';
 import { SsoProjectMapperService } from './sso-project-mapper.service';

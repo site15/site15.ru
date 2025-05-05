@@ -4,7 +4,7 @@ import {
   ValidationErrorEnumInterface,
   ValidationErrorInterface,
   ValidationErrorMetadataInterface,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { of, throwError } from 'rxjs';

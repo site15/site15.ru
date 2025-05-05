@@ -1,5 +1,5 @@
 {
-    "name": "@nestjs-mod-sso/app-rest-sdk",
+    "name": "@nestjs-mod-sso/rest-sdk",
     "version": "1.3.2",
     "private": true,
     "dependencies": {
@@ -10,7 +10,7 @@
     "typings": "./src/index.d.ts",
     "i18n": [
         {
-            "scope": "app-rest-sdk",
+            "scope": "rest-sdk",
             "path": "src/i18n",
             "strategy": "join"
         }

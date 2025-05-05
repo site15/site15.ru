@@ -4,7 +4,7 @@ import {
   TokensResponse,
   ValidationError,
   ValidationErrorEnum,
-} from '@nestjs-mod-sso/app-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk';
 import { getErrorData, RestClientHelper } from '@nestjs-mod-sso/testing';
 import { randomUUID } from 'node:crypto';
 

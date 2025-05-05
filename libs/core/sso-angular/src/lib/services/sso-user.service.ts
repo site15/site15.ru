@@ -3,7 +3,7 @@ import {
   SendInvitationLinksArgsInterface,
   SsoRestService,
   UpdateSsoUserDtoInterface,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { map } from 'rxjs';
 import { SsoUserMapperService } from './sso-user-mapper.service';

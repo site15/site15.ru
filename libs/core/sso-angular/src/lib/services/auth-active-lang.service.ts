@@ -8,7 +8,7 @@ import {
   SsoErrorEnumInterface,
   SsoErrorInterface,
   SsoRestService,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import { ActiveLangService } from '@nestjs-mod-sso/common-angular';
 import { catchError, map, mergeMap, of, tap, throwError } from 'rxjs';
 import { TokensService } from './tokens.service';

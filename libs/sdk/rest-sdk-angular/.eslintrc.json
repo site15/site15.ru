@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "app-angular-rest-sdk",
+            "prefix": "rest-sdk-angular",
             "style": "kebab-case"
           }
         ],

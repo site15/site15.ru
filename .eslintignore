@@ -6,5 +6,5 @@ libs/core/sso/src/lib/generated/rest/dto
 libs/core/auth/src/lib/generated/rest/dto
 libs/core/notifications/src/lib/generated/rest/dto
 libs/core/two-factor/src/lib/generated/rest/dto
-libs/sdk/app-rest-sdk/src/lib
-libs/sdk/app-angular-rest-sdk/src/lib
+libs/sdk/rest-sdk/src/lib
+libs/sdk/rest-sdk-angular/src/lib

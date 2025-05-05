@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   SsoRestService,
   UpdateSsoRefreshSessionDtoInterface,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { map } from 'rxjs';
 import { SsoSessionMapperService } from './sso-session-mapper.service';

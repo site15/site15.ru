@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WebhookRestService } from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { WebhookRestService } from '@nestjs-mod-sso/rest-sdk-angular';
 import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { map } from 'rxjs';
 import { WebhookLogMapperService } from './webhook-log-mapper.service';

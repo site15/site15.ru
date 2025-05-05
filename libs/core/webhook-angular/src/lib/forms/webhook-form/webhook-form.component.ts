@@ -15,7 +15,7 @@ import {
   UntypedFormGroup,
 } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { ValidationErrorMetadataInterface } from '@nestjs-mod-sso/rest-sdk-angular';
 import {
   BROWSER_TIMEZONE_OFFSET,
   ValidationService,

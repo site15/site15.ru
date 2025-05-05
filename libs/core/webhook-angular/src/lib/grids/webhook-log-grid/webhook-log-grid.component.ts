@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
 import {
   WebhookLogInterface,
   WebhookLogScalarFieldEnumInterface,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';

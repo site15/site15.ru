@@ -11,7 +11,7 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import {
   SsoRoleInterface,
   TimeRestService,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import {
   BROWSER_TIMEZONE_OFFSET,
   webSocket,

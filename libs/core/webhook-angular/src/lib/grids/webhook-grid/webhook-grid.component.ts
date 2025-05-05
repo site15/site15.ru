@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { WebhookScalarFieldEnumInterface } from '@nestjs-mod-sso/app-angular-rest-sdk';
+import { WebhookScalarFieldEnumInterface } from '@nestjs-mod-sso/rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';

@@ -19,7 +19,7 @@ import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 import {
   RestClientApiModule,
   RestClientConfiguration,
-} from '@nestjs-mod-sso/app-angular-rest-sdk';
+} from '@nestjs-mod-sso/rest-sdk-angular';
 import { COMMON_FORMLY_FIELDS } from '@nestjs-mod-sso/common-angular';
 import { FILES_FORMLY_FIELDS, MINIO_URL } from '@nestjs-mod-sso/files-angular';
 import { FormlyModule } from '@ngx-formly/core';
