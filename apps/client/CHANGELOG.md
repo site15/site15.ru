@@ -1,3 +1,9 @@
+## [1.3.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.2...client-v1.3.3) (2025-05-05)
+
+### Bug Fixes
+
+- try change owner for libs ([4076d87](https://github.com/nestjs-mod/nestjs-mod-sso/commit/4076d877660723c4d332a58361887b379abe4135))
+
 ## [1.3.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.1...client-v1.3.2) (2025-05-05)
 
 ### Bug Fixes
