@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.0.0...rest-sdk-v1.0.1) (2025-05-05)
+
+### Bug Fixes
+
+- update options for publish to npm registry ([44b341b](https://github.com/nestjs-mod/nestjs-mod-sso/commit/44b341bf31c8dd4009c28f4b8d7d81d61162eab5))
+
 # 1.0.0 (2025-05-05)
 
 ### Bug Fixes
