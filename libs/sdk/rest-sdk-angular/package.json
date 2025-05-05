@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-mod-sso/rest-sdk-angular",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "peerDependencies": {},
   "sideEffects": false,
