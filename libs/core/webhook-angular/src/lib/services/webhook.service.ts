@@ -5,7 +5,7 @@ import {
   RestSdkAngularService,
   UpdateWebhookDtoInterface,
   WebhookLogInterface,
-} from '@nestjs-mod-sso/rest-sdk-angular';
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import { map } from 'rxjs';
 import { WebhookLogMapperService } from './webhook-log-mapper.service';
 import { WebhookMapperService } from './webhook-mapper.service';

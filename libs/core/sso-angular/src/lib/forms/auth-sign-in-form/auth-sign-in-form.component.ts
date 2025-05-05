@@ -20,7 +20,7 @@ import {
   TranslocoPipe,
   TranslocoService,
 } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod-sso/rest-sdk-angular';
+import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';

@@ -1,4 +1,4 @@
-import { TokensResponse } from '@nestjs-mod-sso/rest-sdk';
+import { TokensResponse } from '@nestjs-mod/sso-rest-sdk';
 import { RestClientHelper } from '@nestjs-mod-sso/testing';
 
 describe('Sso profile (e2e)', () => {

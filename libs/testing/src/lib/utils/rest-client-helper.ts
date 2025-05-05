@@ -5,7 +5,7 @@ import {
   SsoUserDto,
   TokensResponse,
   WebhookUser,
-} from '@nestjs-mod-sso/rest-sdk';
+} from '@nestjs-mod/sso-rest-sdk';
 import {
   GenerateRandomUserResult,
   generateRandomUser,

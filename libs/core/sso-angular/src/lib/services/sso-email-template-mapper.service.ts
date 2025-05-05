@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LangDefinition, TranslocoService } from '@jsverse/transloco';
-import { SsoEmailTemplateDtoInterface } from '@nestjs-mod-sso/rest-sdk-angular';
+import { SsoEmailTemplateDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { BROWSER_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common-angular';
 import { addHours } from 'date-fns';
 

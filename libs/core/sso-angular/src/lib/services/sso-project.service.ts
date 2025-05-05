@@ -4,7 +4,7 @@ import {
   CreateSsoProjectDtoInterface,
   RestSdkAngularService,
   UpdateSsoProjectDtoInterface,
-} from '@nestjs-mod-sso/rest-sdk-angular';
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import { map } from 'rxjs';
 import { SsoProjectMapperService } from './sso-project-mapper.service';
 @Injectable({ providedIn: 'root' })

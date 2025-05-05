@@ -1,4 +1,4 @@
-import { SsoRole } from '@nestjs-mod-sso/rest-sdk';
+import { SsoRole } from '@nestjs-mod/sso-rest-sdk';
 import { RestClientHelper } from '@nestjs-mod-sso/testing';
 import { AxiosError } from 'axios';
 

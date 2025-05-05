@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { SsoRoleInterface } from '@nestjs-mod-sso/rest-sdk-angular';
+import { SsoRoleInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import {
   SsoService,
   SsoSignUpFormComponent,

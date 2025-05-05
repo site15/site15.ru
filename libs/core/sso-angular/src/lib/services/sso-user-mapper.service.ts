@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SsoUserDtoInterface } from '@nestjs-mod-sso/rest-sdk-angular';
+import { SsoUserDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import {
   BROWSER_TIMEZONE_OFFSET,
   safeParseJson,

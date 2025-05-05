@@ -37,7 +37,7 @@ import {
 } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { SsoRefreshSessionScalarFieldEnumInterface } from '@nestjs-mod-sso/rest-sdk-angular';
+import { SsoRefreshSessionScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import {
   getQueryMeta,
   getQueryMetaByParams,

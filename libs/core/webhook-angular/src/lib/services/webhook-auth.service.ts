@@ -4,7 +4,7 @@ import {
   WebhookRestService,
   WebhookUserInterface,
   RestSdkAngularService,
-} from '@nestjs-mod-sso/rest-sdk-angular';
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { BehaviorSubject, catchError, of, tap, throwError } from 'rxjs';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate } from '@angular/router';
-import { WebhookRoleInterface } from '@nestjs-mod-sso/rest-sdk-angular';
+import { WebhookRoleInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { map, of } from 'rxjs';
 import { WebhookAuthService } from './webhook-auth.service';
 

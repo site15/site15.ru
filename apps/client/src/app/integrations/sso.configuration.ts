@@ -5,7 +5,7 @@ import {
   RestSdkAngularService,
   SsoUserDtoInterface,
   TokensResponseInterface,
-} from '@nestjs-mod-sso/rest-sdk-angular';
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import {
   FingerprintService,
   OAuthProvider,

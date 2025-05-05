@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { WebhookInterface } from '@nestjs-mod-sso/rest-sdk-angular';
+import { WebhookInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import {
   BROWSER_TIMEZONE_OFFSET,
   safeParseJson,

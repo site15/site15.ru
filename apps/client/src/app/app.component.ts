@@ -12,7 +12,7 @@ import { BROWSER_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common-angular';
 import {
   SsoRoleInterface,
   TimeRestService,
-} from '@nestjs-mod-sso/rest-sdk-angular';
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { addHours } from 'date-fns';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -43,7 +43,7 @@ import {
 } from 'rxjs';
 import { APP_TITLE } from './app.constants';
 
-import { RestSdkAngularService } from '@nestjs-mod-sso/rest-sdk-angular';
+import { RestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
 @UntilDestroy()
 @Component({
   imports: [

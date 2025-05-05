@@ -4,7 +4,7 @@ import {
   RestSdkAngularService,
   SendInvitationLinksArgsInterface,
   UpdateSsoUserDtoInterface,
-} from '@nestjs-mod-sso/rest-sdk-angular';
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import { map } from 'rxjs';
 import { SsoUserMapperService } from './sso-user-mapper.service';
 

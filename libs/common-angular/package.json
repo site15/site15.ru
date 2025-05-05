@@ -2,7 +2,7 @@
     "name": "@nestjs-mod-sso/common-angular",
     "version": "0.0.1",
     "peerDependencies": {
-        "@nestjs-mod-sso/rest-sdk-angular": "0.0.1"
+        "@nestjs-mod/sso-rest-sdk-angular": "0.0.1"
     },
     "sideEffects": false,
     "i18n": [

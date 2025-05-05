@@ -9,7 +9,7 @@ import {
   RestSdkAngularService,
   SsoErrorEnumInterface,
   SsoErrorInterface,
-} from '@nestjs-mod-sso/rest-sdk-angular';
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import { catchError, map, mergeMap, of, tap, throwError } from 'rxjs';
 import { TokensService } from './tokens.service';
 

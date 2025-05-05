@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
-import { RestSdkAngularService } from '@nestjs-mod-sso/rest-sdk-angular';
+import { RestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
 import {
   SsoActiveLangService,
   SsoActiveProjectService,
