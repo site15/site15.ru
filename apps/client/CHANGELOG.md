@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.2.0...client-v1.3.0) (2025-05-05)
+
+### Features
+
+- add RestSdkAngularService and RestSdkService ([5eb64c0](https://github.com/nestjs-mod/nestjs-mod-sso/commit/5eb64c0de8e5f15860106d54c6a3ac1694efccd0))
+- change folder for generated sdk files ([3d59381](https://github.com/nestjs-mod/nestjs-mod-sso/commit/3d593810d39825a6214d852a7103b81699e18253))
+- rename sdk libs ([fbbbef7](https://github.com/nestjs-mod/nestjs-mod-sso/commit/fbbbef713bc67a17b5fb0e5332c1c422fd6b1952))
+
 # [1.2.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.1.2...client-v1.2.0) (2025-05-04)
 
 ### Features
