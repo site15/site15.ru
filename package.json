@@ -362,6 +362,7 @@
     "prepare": []
   },
   "dependencies": {
+    "ws": "^8.18.0",
     "@nestjs-mod/misc": "1.4.1",
     "@angular/animations": "19.0.5",
     "@angular/common": "19.0.5",

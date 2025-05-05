@@ -1,7 +1,7 @@
 {
   "name": "@nestjs-mod-sso/rest-sdk-angular",
+  "description": "Browser client for Single Sign-On on NestJS and Angular with webhooks and social authorization",
   "version": "1.0.0",
-  "private": true,
   "peerDependencies": {},
   "sideEffects": false,
   "i18n": [
@@ -11,7 +11,16 @@
       "strategy": "join"
     }
   ],
+  "maintainers": [
+    {
+      "name": "EndyKaufman",
+      "email": "admin@site15.ru"
+    }
+  ],
+  "license": "MIT",
+  "author": "EndyKaufman <admin@site15.ru>",
   "publishConfig": {
+    "access": "public",
     "registry": "https://npm.pkg.github.com"
   }
 }

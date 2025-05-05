@@ -1,9 +1,28 @@
 {
   "name": "@nestjs-mod-sso/rest-sdk",
+  "description": "NodeJS client for Single Sign-On on NestJS and Angular with webhooks and social authorization",
   "version": "1.0.0",
-  "private": true,
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "axios": "^1.7.7",
+    "rxjs": "^7.8.0",
+    "ws": "^8.18.0"
+  },
+  "peerDependencies": {
+    "axios": "*",
+    "rxjs": "*",
+    "ws": "*"
+  },
+  "peerDependenciesMeta": {
+    "axios": {
+      "optional": true
+    },
+    "rxjs": {
+      "optional": true
+    },
+    "ws": {
+      "optional": true
+    }
   },
   "type": "commonjs",
   "main": "./src/index.js",
@@ -15,7 +34,16 @@
       "strategy": "join"
     }
   ],
+  "maintainers": [
+    {
+      "name": "EndyKaufman",
+      "email": "admin@site15.ru"
+    }
+  ],
+  "license": "MIT",
+  "author": "EndyKaufman <admin@site15.ru>",
   "publishConfig": {
+    "access": "public",
     "registry": "https://npm.pkg.github.com"
   }
 }
