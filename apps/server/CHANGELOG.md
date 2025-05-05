@@ -1,3 +1,9 @@
+## [1.4.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.4.1...server-v1.4.2) (2025-05-05)
+
+### Bug Fixes
+
+- change public npm packets to https://www.npmjs.com ([ac7dda4](https://github.com/nestjs-mod/nestjs-mod-sso/commit/ac7dda4dca3a7769c73cfe7e10d30e1c6a7db895))
+
 ## [1.4.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.4.0...server-v1.4.1) (2025-05-05)
 
 ### Bug Fixes

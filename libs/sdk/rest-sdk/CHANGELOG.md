@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.0.2...rest-sdk-v1.0.3) (2025-05-05)
+
+### Bug Fixes
+
+- change public npm packets to https://www.npmjs.com ([ac7dda4](https://github.com/nestjs-mod/nestjs-mod-sso/commit/ac7dda4dca3a7769c73cfe7e10d30e1c6a7db895))
+
 ## [1.0.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.0.1...rest-sdk-v1.0.2) (2025-05-05)
 
 ### Bug Fixes
