@@ -1,3 +1,9 @@
+## [1.3.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.0...client-v1.3.1) (2025-05-05)
+
+### Bug Fixes
+
+- enable build target in rest-sdk-angular ([5482450](https://github.com/nestjs-mod/nestjs-mod-sso/commit/5482450efe78ae6f75cf967de3c46d34b4f494ec))
+
 # [1.3.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.2.0...client-v1.3.0) (2025-05-05)
 
 ### Features
