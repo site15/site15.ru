@@ -8,11 +8,6 @@
     "angular"
   ],
   "version": "1.0.2",
-  "dependencies": {
-    "@angular/common": "^19.0.5",
-    "@angular/core": "^19.0.5",
-    "rxjs": "^7.8.0"
-  },
   "peerDependencies": {
     "@angular/common": "*",
     "@angular/core": "*",
