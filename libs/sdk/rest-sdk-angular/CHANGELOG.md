@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.0.1...rest-sdk-angular-v1.0.2) (2025-05-05)
+
+### Bug Fixes
+
+- try change owner for libs ([4076d87](https://github.com/nestjs-mod/nestjs-mod-sso/commit/4076d877660723c4d332a58361887b379abe4135))
+
 ## [1.0.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.0.0...rest-sdk-angular-v1.0.1) (2025-05-05)
 
 ### Bug Fixes
