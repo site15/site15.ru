@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.0.2...rest-sdk-angular-v1.0.3) (2025-05-05)
+
+### Bug Fixes
+
+- change public npm packets to https://www.npmjs.com ([ac7dda4](https://github.com/nestjs-mod/nestjs-mod-sso/commit/ac7dda4dca3a7769c73cfe7e10d30e1c6a7db895))
+- remove dependencies from public npm packages ([cc26fa2](https://github.com/nestjs-mod/nestjs-mod-sso/commit/cc26fa2d79e076fb9ff03307176b1652e0639644))
+
 ## [1.0.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.0.1...rest-sdk-angular-v1.0.2) (2025-05-05)
 
 ### Bug Fixes
