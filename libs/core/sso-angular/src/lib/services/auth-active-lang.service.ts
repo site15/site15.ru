@@ -4,12 +4,12 @@ import {
   LangToLocaleMapping,
   TRANSLOCO_LOCALE_LANG_MAPPING,
 } from '@jsverse/transloco-locale';
+import { ActiveLangService } from '@nestjs-mod-sso/common-angular';
 import {
+  RestSdkAngularService,
   SsoErrorEnumInterface,
   SsoErrorInterface,
-  SsoRestService,
 } from '@nestjs-mod-sso/rest-sdk-angular';
-import { ActiveLangService } from '@nestjs-mod-sso/common-angular';
 import { catchError, map, mergeMap, of, tap, throwError } from 'rxjs';
 import { TokensService } from './tokens.service';
 
@@ -19,7 +19,7 @@ const AUTH_ACTIVE_GUEST_LANG_LOCAL_STORAGE_KEY = 'activeGuestLang';
 @Injectable({ providedIn: 'root' })
 export class SsoActiveLangService {
   constructor(
-    private readonly ssoRestService: SsoRestService,
+    private readonly restSdkAngularService: RestSdkAngularService,
     private readonly translocoService: TranslocoService,
     @Inject(TRANSLOCO_LOCALE_LANG_MAPPING)
     readonly langToLocaleMapping: LangToLocaleMapping,
@@ -50,21 +50,24 @@ export class SsoActiveLangService {
       return this.localGetActiveLang();
     }
 
-    return this.ssoRestService.ssoControllerProfile().pipe(
-      mergeMap((profile) => {
-        return profile.lang ? of(profile.lang) : this.localGetActiveLang();
-      }),
-      catchError((err) => {
-        if (
-          'error' in err &&
-          (err.error as SsoErrorInterface).code ===
-            SsoErrorEnumInterface.SSO_013
-        ) {
-          return this.localGetActiveLang();
-        }
-        return throwError(() => err);
-      })
-    );
+    return this.restSdkAngularService
+      .getSsoApi()
+      .ssoControllerProfile()
+      .pipe(
+        mergeMap((profile) => {
+          return profile.lang ? of(profile.lang) : this.localGetActiveLang();
+        }),
+        catchError((err) => {
+          if (
+            'error' in err &&
+            (err.error as SsoErrorInterface).code ===
+              SsoErrorEnumInterface.SSO_013
+          ) {
+            return this.localGetActiveLang();
+          }
+          return throwError(() => err);
+        })
+      );
   }
 
   localSetActiveLang(lang: string, loadDictionaries?: boolean) {
@@ -88,18 +91,21 @@ export class SsoActiveLangService {
       return this.localSetActiveLang(lang, loadDictionaries);
     }
 
-    return this.ssoRestService.ssoControllerUpdateProfile({ lang }).pipe(
-      mergeMap(() => this.localSetActiveLang(lang, loadDictionaries)),
-      catchError((err) => {
-        if (
-          'error' in err &&
-          (err.error as SsoErrorInterface).code ===
-            SsoErrorEnumInterface.SSO_013
-        ) {
-          return this.localSetActiveLang(lang, loadDictionaries);
-        }
-        return throwError(() => err);
-      })
-    );
+    return this.restSdkAngularService
+      .getSsoApi()
+      .ssoControllerUpdateProfile({ lang })
+      .pipe(
+        mergeMap(() => this.localSetActiveLang(lang, loadDictionaries)),
+        catchError((err) => {
+          if (
+            'error' in err &&
+            (err.error as SsoErrorInterface).code ===
+              SsoErrorEnumInterface.SSO_013
+          ) {
+            return this.localSetActiveLang(lang, loadDictionaries);
+          }
+          return throwError(() => err);
+        })
+      );
   }
 }

@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
+import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import {
-  SsoRestService,
+  RestSdkAngularService,
   UpdateSsoEmailTemplateDtoInterface,
 } from '@nestjs-mod-sso/rest-sdk-angular';
-import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { map } from 'rxjs';
 import { SsoEmailTemplateMapperService } from './sso-email-template-mapper.service';
 
 @Injectable({ providedIn: 'root' })
 export class SsoEmailTemplateService {
   constructor(
-    private readonly ssoRestService: SsoRestService,
+    private readonly restSdkAngularService: RestSdkAngularService,
     private readonly ssoEmailTemplateMapperService: SsoEmailTemplateMapperService
   ) {}
 
   findOne(id: string) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoEmailTemplatesControllerFindOne(id)
       .pipe(map((t) => this.ssoEmailTemplateMapperService.toModel(t)));
   }
@@ -27,7 +28,8 @@ export class SsoEmailTemplateService {
     filters: Record<string, string>;
     meta?: RequestMeta;
   }) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoEmailTemplatesControllerFindMany(
         meta?.curPage,
         meta?.perPage,
@@ -49,7 +51,8 @@ export class SsoEmailTemplateService {
   }
 
   updateOne(id: string, data: UpdateSsoEmailTemplateDtoInterface) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoEmailTemplatesControllerUpdateOne(id, data)
       .pipe(map((t) => this.ssoEmailTemplateMapperService.toModel(t)));
   }

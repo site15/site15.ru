@@ -11,4 +11,3 @@ export * from './lib/services/active-lang.service';
 export * from './lib/services/validation.service';
 export * from './lib/transformers/map-graphql-errors';
 export * from './lib/transformers/safe-parse-json';
-export * from './lib/utils/web-socket';

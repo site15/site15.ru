@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
+import { ValidationService } from '@nestjs-mod-sso/common-angular';
 import {
-  SsoRestService,
+  RestSdkAngularService,
   SsoUserScalarFieldEnumInterface,
   UpdateSsoUserDtoInterface,
   ValidationErrorMetadataInterface,
 } from '@nestjs-mod-sso/rest-sdk-angular';
-import { ValidationService } from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FormlyFieldConfig } from '@ngx-formly/core';
-import { map, of, tap } from 'rxjs';
+import { map, of } from 'rxjs';
 
 @UntilDestroy()
 @Injectable({ providedIn: 'root' })
@@ -19,7 +19,7 @@ export class SsoUserFormService {
   constructor(
     protected readonly translocoService: TranslocoService,
     protected readonly validationService: ValidationService,
-    protected readonly ssoRestService: SsoRestService
+    protected readonly restSdkAngularService: RestSdkAngularService
   ) {}
 
   init() {
@@ -30,12 +30,15 @@ export class SsoUserFormService {
     if (this.cachedRoles) {
       return of(this.cachedRoles);
     }
-    return this.ssoRestService.ssoRolesControllerFindMany().pipe(
-      map((data) => {
-        this.cachedRoles = data.userAvailableRoles;
-        return this.cachedRoles;
-      })
-    );
+    return this.restSdkAngularService
+      .getSsoApi()
+      .ssoRolesControllerFindMany()
+      .pipe(
+        map((data) => {
+          this.cachedRoles = data.userAvailableRoles;
+          return this.cachedRoles;
+        })
+      );
   }
 
   getFormlyFields(options?: {

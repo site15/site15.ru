@@ -8,20 +8,18 @@ import {
   TranslocoService,
 } from '@jsverse/transloco';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
+import { BROWSER_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common-angular';
 import {
   SsoRoleInterface,
   TimeRestService,
 } from '@nestjs-mod-sso/rest-sdk-angular';
-import {
-  BROWSER_TIMEZONE_OFFSET,
-  webSocket,
-} from '@nestjs-mod-sso/common-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { addHours } from 'date-fns';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { Title } from '@angular/platform-browser';
+import { FilesService } from '@nestjs-mod-sso/files-angular';
 import {
   CheckUserRolesPipe,
   SsoActiveLangService,
@@ -31,6 +29,7 @@ import {
   TokensService,
   UserPipe,
 } from '@nestjs-mod-sso/sso-angular';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import {
@@ -43,9 +42,8 @@ import {
   tap,
 } from 'rxjs';
 import { APP_TITLE } from './app.constants';
-import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-import { FilesService } from '@nestjs-mod-sso/files-angular';
 
+import { RestSdkAngularService } from '@nestjs-mod-sso/rest-sdk-angular';
 @UntilDestroy()
 @Component({
   imports: [
@@ -79,7 +77,7 @@ export class AppComponent implements OnInit {
   activePublicProject$?: Observable<SsoProjectModel | undefined>;
 
   constructor(
-    private readonly timeRestService: TimeRestService,
+    private readonly restSdkAngularService: RestSdkAngularService,
     private readonly ssoService: SsoService,
     private readonly router: Router,
     private readonly translocoService: TranslocoService,
@@ -176,17 +174,15 @@ export class AppComponent implements OnInit {
 
   private fillServerTime() {
     return merge(
-      this.timeRestService.timeControllerTime(),
+      this.restSdkAngularService.getTimeApi().timeControllerTime(),
       this.tokensService
         .getStream()
         .pipe(
           switchMap((token) =>
-            webSocket<string>({
-              address:
-                this.timeRestService.configuration.basePath +
-                (token?.access_token
-                  ? `/ws/time?token=${token?.access_token}`
-                  : '/ws/time'),
+            this.restSdkAngularService.webSocket<string>({
+              path: token?.access_token
+                ? `/ws/time?token=${token?.access_token}`
+                : '/ws/time',
               eventName: 'ChangeTimeStream',
             })
           )

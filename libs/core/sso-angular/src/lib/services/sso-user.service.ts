@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
+import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import {
+  RestSdkAngularService,
   SendInvitationLinksArgsInterface,
-  SsoRestService,
   UpdateSsoUserDtoInterface,
 } from '@nestjs-mod-sso/rest-sdk-angular';
-import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { map } from 'rxjs';
 import { SsoUserMapperService } from './sso-user-mapper.service';
 
 @Injectable({ providedIn: 'root' })
 export class SsoUserService {
   constructor(
-    private readonly ssoRestService: SsoRestService,
+    private readonly restSdkAngularService: RestSdkAngularService,
     private readonly ssoUserMapperService: SsoUserMapperService
   ) {}
 
   findOne(id: string) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoUsersControllerFindOne(id)
       .pipe(map((u) => this.ssoUserMapperService.toModel(u)));
   }
@@ -28,7 +29,8 @@ export class SsoUserService {
     filters: Record<string, string>;
     meta?: RequestMeta;
   }) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoUsersControllerFindMany(
         meta?.curPage,
         meta?.perPage,
@@ -49,12 +51,15 @@ export class SsoUserService {
   }
 
   updateOne(id: string, data: UpdateSsoUserDtoInterface) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoUsersControllerUpdateOne(id, data)
       .pipe(map((p) => this.ssoUserMapperService.toModel(p)));
   }
 
   sendInvitationLinks(data: SendInvitationLinksArgsInterface) {
-    return this.ssoRestService.ssoUsersControllerSendInvitationLinks(data);
+    return this.restSdkAngularService
+      .getSsoApi()
+      .ssoUsersControllerSendInvitationLinks(data);
   }
 }

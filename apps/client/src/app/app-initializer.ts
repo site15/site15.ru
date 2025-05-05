@@ -1,13 +1,6 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@jsverse/transloco';
-import {
-  FilesRestService,
-  SsoRestService,
-  TimeRestService,
-  WebhookRestService,
-} from '@nestjs-mod-sso/rest-sdk-angular';
+import { RestSdkAngularService } from '@nestjs-mod-sso/rest-sdk-angular';
 import {
   SsoActiveLangService,
   SsoActiveProjectService,
@@ -21,16 +14,12 @@ export class AppInitializer {
   private subscribeToTokenUpdatesSubscription?: Subscription;
 
   constructor(
-    private readonly webhookRestService: WebhookRestService,
-    private readonly timeRestService: TimeRestService,
     private readonly ssoService: SsoService,
-    private readonly filesRestService: FilesRestService,
-    private readonly ssoRestService: SsoRestService,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
     private readonly ssoActiveLangService: SsoActiveLangService,
     private readonly ssoActiveProjectService: SsoActiveProjectService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly restSdkAngularService: RestSdkAngularService
   ) {}
 
   resolve() {
@@ -63,18 +52,7 @@ export class AppInitializer {
   private updateHeaders() {
     const authorizationHeaders = this.ssoService.getAuthorizationHeaders();
     if (authorizationHeaders) {
-      this.webhookRestService.defaultHeaders = new HttpHeaders(
-        authorizationHeaders
-      );
-      this.filesRestService.defaultHeaders = new HttpHeaders(
-        authorizationHeaders
-      );
-      this.timeRestService.defaultHeaders = new HttpHeaders(
-        authorizationHeaders
-      );
-      this.ssoRestService.defaultHeaders = new HttpHeaders(
-        authorizationHeaders
-      );
+      this.restSdkAngularService.updateHeaders(authorizationHeaders);
     }
   }
 }

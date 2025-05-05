@@ -1,7 +1,7 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import {
   FilesPresignedUrlsInterface,
-  FilesRestService,
+  RestSdkAngularService,
 } from '@nestjs-mod-sso/rest-sdk-angular';
 import { Observable, map, mergeMap, of } from 'rxjs';
 
@@ -12,7 +12,7 @@ export class FilesService {
   constructor(
     @Inject(MINIO_URL)
     private readonly minioURL: string,
-    private readonly filesRestService: FilesRestService
+    private readonly restSdkAngularService: RestSdkAngularService
   ) {}
 
   getPresignedUrlAndUploadFile(file: null | undefined | string | File) {
@@ -41,9 +41,9 @@ export class FilesService {
   }
 
   getPresignedUrl(file: File) {
-    return this.filesRestService.filesControllerGetPresignedUrl(
-      this.getFileExt(file)
-    );
+    return this.restSdkAngularService
+      .getFilesApi()
+      .filesControllerGetPresignedUrl(this.getFileExt(file));
   }
 
   uploadFile({
@@ -86,7 +86,9 @@ export class FilesService {
   }
 
   deleteFile(downloadUrl: string) {
-    return this.filesRestService.filesControllerDeleteFile(downloadUrl);
+    return this.restSdkAngularService
+      .getFilesApi()
+      .filesControllerDeleteFile(downloadUrl);
   }
 
   openTargetURI(uri: string) {

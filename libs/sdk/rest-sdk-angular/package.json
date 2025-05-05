@@ -1,14 +1,17 @@
 {
-    "name": "@nestjs-mod-sso/rest-sdk-angular",
-    "version": "0.0.1",
-    "private": true,
-    "peerDependencies": {},
-    "sideEffects": false,
-    "i18n": [
-        {
-            "scope": "rest-sdk-angular",
-            "path": "src/i18n",
-            "strategy": "join"
-        }
-    ]
+  "name": "@nestjs-mod-sso/rest-sdk-angular",
+  "version": "0.0.1",
+  "private": true,
+  "peerDependencies": {},
+  "sideEffects": false,
+  "i18n": [
+    {
+      "scope": "rest-sdk-angular",
+      "path": "src/i18n",
+      "strategy": "join"
+    }
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
 }

@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
+import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import {
   CreateSsoProjectDtoInterface,
-  SsoRestService,
+  RestSdkAngularService,
   UpdateSsoProjectDtoInterface,
 } from '@nestjs-mod-sso/rest-sdk-angular';
-import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import { map } from 'rxjs';
 import { SsoProjectMapperService } from './sso-project-mapper.service';
 @Injectable({ providedIn: 'root' })
 export class SsoProjectService {
   constructor(
-    private readonly ssoRestService: SsoRestService,
+    private readonly restSdkAngularService: RestSdkAngularService,
     private readonly ssoProjectMapperService: SsoProjectMapperService
   ) {}
 
   findOne(id: string) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoProjectsControllerFindOne(id)
       .pipe(map((p) => this.ssoProjectMapperService.toModel(p)));
   }
@@ -27,8 +28,8 @@ export class SsoProjectService {
     filters: Record<string, string>;
     meta?: RequestMeta;
   }) {
-    this.ssoRestService.defaultHeaders;
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoPublicProjectsControllerFindMany(
         meta?.curPage,
         meta?.perPage,
@@ -56,7 +57,8 @@ export class SsoProjectService {
     filters: Record<string, string>;
     meta?: RequestMeta;
   }) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoProjectsControllerFindMany(
         meta?.curPage,
         meta?.perPage,
@@ -78,17 +80,21 @@ export class SsoProjectService {
   }
 
   updateOne(id: string, data: UpdateSsoProjectDtoInterface) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoProjectsControllerUpdateOne(id, data)
       .pipe(map((p) => this.ssoProjectMapperService.toModel(p)));
   }
 
   deleteOne(id: string) {
-    return this.ssoRestService.ssoProjectsControllerDeleteOne(id);
+    return this.restSdkAngularService
+      .getSsoApi()
+      .ssoProjectsControllerDeleteOne(id);
   }
 
   createOne(data: CreateSsoProjectDtoInterface) {
-    return this.ssoRestService
+    return this.restSdkAngularService
+      .getSsoApi()
       .ssoProjectsControllerCreateOne(data)
       .pipe(map((p) => this.ssoProjectMapperService.toModel(p)));
   }
