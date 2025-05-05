@@ -35,11 +35,11 @@ jobs:
         run: |
           git fetch
           echo "root_version="$(npm pkg get version --workspaces=false | tr -d \") >> "$GITHUB_OUTPUT"
-      - name: Set SINGLE_SIGN_ON_version
-        id: SINGLE_SIGN_ON_version
+      - name: Set server_version
+        id: server_version
         run: |
           git fetch
-          echo "SINGLE_SIGN_ON_version="$(cd ./apps/server && npm pkg get version --workspaces=false | tr -d \") >> "$GITHUB_OUTPUT"
+          echo "server_version="$(cd ./apps/server && npm pkg get version --workspaces=false | tr -d \") >> "$GITHUB_OUTPUT"
       - name: Set client_version
         id: client_version
         run: |
@@ -47,7 +47,7 @@ jobs:
           echo "client_version="$(cd ./apps/client && npm pkg get version --workspaces=false | tr -d \") >> "$GITHUB_OUTPUT"
     outputs:
       root_version: ${{ steps.root_version.outputs.root_version }}
-      SINGLE_SIGN_ON_version: ${{ steps.SINGLE_SIGN_ON_version.outputs.SINGLE_SIGN_ON_version }}
+      server_version: ${{ steps.server_version.outputs.server_version }}
       client_version: ${{ steps.client_version.outputs.client_version }}
 
   check-server-image:
@@ -61,7 +61,7 @@ jobs:
         id: check-exists
         run: |
           export TOKEN=$(curl -u ${{ github.actor }}:${{ secrets.NESTJS_MOD_ACCESS_TOKEN_DOCKER }} https://${{ env.REGISTRY }}/token\?scope\="repository:${{ env.SINGLE_SIGN_ON_IMAGE_NAME}}:pull" | jq -r .token)
-          curl --head --fail -H "Authorization: Bearer $TOKEN" https://${{ env.REGISTRY }}/v2/${{ env.SINGLE_SIGN_ON_IMAGE_NAME}}/manifests/${{ needs.release.outputs.SINGLE_SIGN_ON_version }}
+          curl --head --fail -H "Authorization: Bearer $TOKEN" https://${{ env.REGISTRY }}/v2/${{ env.SINGLE_SIGN_ON_IMAGE_NAME}}/manifests/${{ needs.release.outputs.server_version }}
       - name: Store result of check exists docker image
         id: store-check-exists
         if: ${{ !contains(needs.check-exists.outputs.result, 'HTTP/2 404') }}
@@ -98,8 +98,8 @@ jobs:
           push: true
           file: ./.docker/server.Dockerfile
           build-args: BASE_SINGLE_SIGN_ON_IMAGE_TAG=${{ needs.release.outputs.root_version }}
-          tags: ${{ env.REGISTRY}}/${{ env.SINGLE_SIGN_ON_IMAGE_NAME}}:${{ needs.release.outputs.SINGLE_SIGN_ON_version }},${{ env.REGISTRY}}/${{ env.SINGLE_SIGN_ON_IMAGE_NAME}}:latest
-          cache-from: type=registry,ref=${{ env.REGISTRY}}/${{ env.SINGLE_SIGN_ON_IMAGE_NAME}}:${{ needs.release.outputs.SINGLE_SIGN_ON_version }}
+          tags: ${{ env.REGISTRY}}/${{ env.SINGLE_SIGN_ON_IMAGE_NAME}}:${{ needs.release.outputs.server_version }},${{ env.REGISTRY}}/${{ env.SINGLE_SIGN_ON_IMAGE_NAME}}:latest
+          cache-from: type=registry,ref=${{ env.REGISTRY}}/${{ env.SINGLE_SIGN_ON_IMAGE_NAME}}:${{ needs.release.outputs.server_version }}
           cache-to: type=inline
       - name: Generate artifact attestation
         continue-on-error: true
@@ -116,7 +116,7 @@ jobs:
     runs-on: [self-hosted]
     env:
       ROOT_VERSION: ${{ needs.release.outputs.root_version }}
-      SINGLE_SIGN_ON_VERSION: ${{ needs.release.outputs.SINGLE_SIGN_ON_version }}
+      SERVER_VERSION: ${{ needs.release.outputs.server_version }}
       CLIENT_VERSION: ${{ needs.release.outputs.client_version }}
 
     steps:
@@ -207,7 +207,7 @@ jobs:
       id-token: write
     env:
       ROOT_VERSION: ${{ needs.release.outputs.root_version }}
-      SINGLE_SIGN_ON_VERSION: ${{ needs.release.outputs.SINGLE_SIGN_ON_version }}
+      SERVER_VERSION: ${{ needs.release.outputs.server_version }}
       CLIENT_VERSION: ${{ needs.release.outputs.client_version }}
     steps:
       - name: Checkout repository

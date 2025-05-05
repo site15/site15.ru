@@ -18,8 +18,8 @@ export NX_SKIP_NX_CACHE=true
 if [ -z "${ROOT_VERSION}" ]; then
     export ROOT_VERSION=$(npm pkg get version --workspaces=false | tr -d \")
 fi
-if [ -z "${SINGLE_SIGN_ON_VERSION}" ]; then
-    export SINGLE_SIGN_ON_VERSION=$(cd ./apps/server && npm pkg get version --workspaces=false | tr -d \")
+if [ -z "${SERVER_VERSION}" ]; then
+    export SERVER_VERSION=$(cd ./apps/server && npm pkg get version --workspaces=false | tr -d \")
 fi
 
 if [ -z "${CLIENT_VERSION}" ]; then
