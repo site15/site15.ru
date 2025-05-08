@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import { ValidationService } from '@nestjs-mod-sso/common-angular';
 import {
-  RestSdkAngularService,
+  SsoRestSdkAngularService,
   SsoUserScalarFieldEnumInterface,
   UpdateSsoUserDtoInterface,
   ValidationErrorMetadataInterface,
@@ -19,7 +19,7 @@ export class SsoUserFormService {
   constructor(
     protected readonly translocoService: TranslocoService,
     protected readonly validationService: ValidationService,
-    protected readonly restSdkAngularService: RestSdkAngularService
+    protected readonly ssoRestSdkAngularService: SsoRestSdkAngularService
   ) {}
 
   init() {
@@ -30,7 +30,7 @@ export class SsoUserFormService {
     if (this.cachedRoles) {
       return of(this.cachedRoles);
     }
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoRolesControllerFindMany()
       .pipe(

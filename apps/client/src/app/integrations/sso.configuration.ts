@@ -2,7 +2,7 @@ import { Provider } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import { FilesService } from '@nestjs-mod-sso/files-angular';
 import {
-  RestSdkAngularService,
+  SsoRestSdkAngularService,
   SsoUserDtoInterface,
   TokensResponseInterface,
 } from '@nestjs-mod/sso-rest-sdk-angular';
@@ -28,7 +28,7 @@ import { catchError, map, mergeMap, Observable, of } from 'rxjs';
 
 export class SsoIntegrationConfiguration implements SsoConfiguration {
   constructor(
-    private readonly restSdkAngularService: RestSdkAngularService,
+    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
     private readonly filesService: FilesService,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
@@ -56,7 +56,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   }
 
   oAuthProviders(): Observable<OAuthProvider[]> {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoOAuthControllerOauthProviders();
   }
@@ -67,7 +67,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   }: OAuthVerificationInput): Observable<SsoUserAndTokens> {
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.restSdkAngularService
+        this.ssoRestSdkAngularService
           .getSsoApi()
           .ssoOAuthControllerOauthVerification({
             fingerprint,
@@ -85,7 +85,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
   logout(): Observable<void | null> {
     const refreshToken = this.tokensService.getRefreshToken();
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoControllerSignOut(
         refreshToken
@@ -102,7 +102,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   }
 
   getProfile(): Observable<SsoUser | undefined> {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoControllerProfile()
       .pipe(
@@ -154,7 +154,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
         return of(undefined);
       }),
       mergeMap((picture) => {
-        return this.restSdkAngularService
+        return this.ssoRestSdkAngularService
           .getSsoApi()
           .ssoControllerUpdateProfile({
             birthdate: data.birthdate,
@@ -169,7 +169,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
           });
       }),
       mergeMap(() =>
-        this.restSdkAngularService.getSsoApi().ssoControllerProfile()
+        this.ssoRestSdkAngularService.getSsoApi().ssoControllerProfile()
       ),
       mergeMap((newData) => {
         if (
@@ -191,7 +191,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     const refreshToken = this.tokensService.getRefreshToken();
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.restSdkAngularService
+        this.ssoRestSdkAngularService
           .getSsoApi()
           .ssoControllerRefreshTokens({
             ...(refreshToken
@@ -224,7 +224,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     }
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.restSdkAngularService
+        this.ssoRestSdkAngularService
           .getSsoApi()
           .ssoControllerSignUp({
             email,
@@ -250,7 +250,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     }
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.restSdkAngularService
+        this.ssoRestSdkAngularService
           .getSsoApi()
           .ssoControllerSignIn({
             email,
@@ -274,7 +274,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     }
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.restSdkAngularService
+        this.ssoRestSdkAngularService
           .getSsoApi()
           .ssoControllerCompleteSignUp({
             code,
@@ -305,7 +305,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     }
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.restSdkAngularService
+        this.ssoRestSdkAngularService
           .getSsoApi()
           .ssoControllerCompleteForgotPassword({
             password,
@@ -328,7 +328,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     if (!email) {
       throw new Error('email not set');
     }
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoControllerForgotPassword({
         email,
@@ -343,7 +343,7 @@ export function provideSsoConfiguration(): Provider {
     provide: SSO_CONFIGURATION_TOKEN,
     useClass: SsoIntegrationConfiguration,
     deps: [
-      RestSdkAngularService,
+      SsoRestSdkAngularService,
       FilesService,
       TranslocoService,
       TokensService,

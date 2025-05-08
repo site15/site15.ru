@@ -43,7 +43,7 @@ import {
 } from 'rxjs';
 import { APP_TITLE } from './app.constants';
 
-import { RestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
 @UntilDestroy()
 @Component({
   imports: [
@@ -77,7 +77,7 @@ export class AppComponent implements OnInit {
   activePublicProject$?: Observable<SsoProjectModel | undefined>;
 
   constructor(
-    private readonly restSdkAngularService: RestSdkAngularService,
+    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
     private readonly ssoService: SsoService,
     private readonly router: Router,
     private readonly translocoService: TranslocoService,
@@ -174,12 +174,12 @@ export class AppComponent implements OnInit {
 
   private fillServerTime() {
     return merge(
-      this.restSdkAngularService.getTimeApi().timeControllerTime(),
+      this.ssoRestSdkAngularService.getTimeApi().timeControllerTime(),
       this.tokensService
         .getStream()
         .pipe(
           switchMap((token) =>
-            this.restSdkAngularService.webSocket<string>({
+            this.ssoRestSdkAngularService.webSocket<string>({
               path: token?.access_token
                 ? `/ws/time?token=${token?.access_token}`
                 : '/ws/time',

@@ -11,7 +11,7 @@ import {
 } from './generated';
 
 @Injectable({ providedIn: 'root' })
-export class RestSdkAngularService {
+export class SsoRestSdkAngularService {
   constructor(
     private readonly restClientConfiguration: RestClientConfiguration,
     private readonly webhookRestService: WebhookRestService,

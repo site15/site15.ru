@@ -6,7 +6,7 @@ import {
 } from '@jsverse/transloco-locale';
 import { ActiveLangService } from '@nestjs-mod-sso/common-angular';
 import {
-  RestSdkAngularService,
+  SsoRestSdkAngularService,
   SsoErrorEnumInterface,
   SsoErrorInterface,
 } from '@nestjs-mod/sso-rest-sdk-angular';
@@ -19,7 +19,7 @@ const AUTH_ACTIVE_GUEST_LANG_LOCAL_STORAGE_KEY = 'activeGuestLang';
 @Injectable({ providedIn: 'root' })
 export class SsoActiveLangService {
   constructor(
-    private readonly restSdkAngularService: RestSdkAngularService,
+    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
     private readonly translocoService: TranslocoService,
     @Inject(TRANSLOCO_LOCALE_LANG_MAPPING)
     readonly langToLocaleMapping: LangToLocaleMapping,
@@ -50,7 +50,7 @@ export class SsoActiveLangService {
       return this.localGetActiveLang();
     }
 
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoControllerProfile()
       .pipe(
@@ -91,7 +91,7 @@ export class SsoActiveLangService {
       return this.localSetActiveLang(lang, loadDictionaries);
     }
 
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoControllerUpdateProfile({ lang })
       .pipe(

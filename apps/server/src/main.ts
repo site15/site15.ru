@@ -24,7 +24,10 @@ import cookieParser from 'cookie-parser';
 import { writeFileSync } from 'fs';
 import { Logger } from 'nestjs-pino';
 import { join } from 'path';
-import { createAndFillDatabases } from './create-and-fill-databases';
+import {
+  createAndFillDatabases,
+  fillAllNeedDatabaseEnvsFromOneMain,
+} from './create-and-fill-databases';
 import {
   appFolder,
   rootFolder,
@@ -83,6 +86,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
         JSON.stringify(document)
       );
     } else {
+      await fillAllNeedDatabaseEnvsFromOneMain();
       if (!skipCreateDatabases) {
         await replaceEnvs();
         await createAndFillDatabases();
@@ -158,6 +162,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
                     JSON.stringify(document)
                   );
                 } else {
+                  await fillAllNeedDatabaseEnvsFromOneMain();
                   if (!skipCreateDatabases) {
                     await replaceEnvs();
                     await createAndFillDatabases();

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RequestMeta } from '@nestjs-mod-sso/common-angular';
 import {
   CreateWebhookDtoInterface,
-  RestSdkAngularService,
+  SsoRestSdkAngularService,
   UpdateWebhookDtoInterface,
   WebhookLogInterface,
 } from '@nestjs-mod/sso-rest-sdk-angular';
@@ -12,13 +12,13 @@ import { WebhookMapperService } from './webhook-mapper.service';
 @Injectable({ providedIn: 'root' })
 export class WebhookService {
   constructor(
-    private readonly restSdkAngularService: RestSdkAngularService,
+    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
     private readonly webhookMapperService: WebhookMapperService,
     private readonly webhookLogMapperService: WebhookLogMapperService
   ) {}
 
   findOne(id: string) {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookControllerFindOne(id)
       .pipe(map((w) => this.webhookMapperService.toModel(w)));
@@ -31,7 +31,7 @@ export class WebhookService {
     filters: Record<string, string>;
     meta?: RequestMeta;
   }) {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookControllerFindMany(
         meta?.curPage,
@@ -52,27 +52,27 @@ export class WebhookService {
   }
 
   updateOne(id: string, data: UpdateWebhookDtoInterface) {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookControllerUpdateOne(id, data)
       .pipe(map((w) => this.webhookMapperService.toModel(w)));
   }
 
   deleteOne(id: string) {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookControllerDeleteOne(id);
   }
 
   createOne(data: CreateWebhookDtoInterface) {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookControllerCreateOne(data)
       .pipe(map((w) => this.webhookMapperService.toModel(w)));
   }
 
   testRequest(data: CreateWebhookDtoInterface) {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookControllerTestRequest(data)
       .pipe(

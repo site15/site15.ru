@@ -1,6 +1,6 @@
 import {
-  RestSdkService,
   SsoProject,
+  SsoRestSdkService,
   SsoRole,
   SsoUserDto,
   TokensResponse,
@@ -14,7 +14,7 @@ import { getUrls } from './get-urls';
 
 export class RestClientHelper<
   T extends 'strict' | 'no_strict' = 'strict'
-> extends RestSdkService {
+> extends SsoRestSdkService {
   ssoTokensResponse?: TokensResponse;
 
   private webhookProfile?: WebhookUser;

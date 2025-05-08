@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { RestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
 
 @Injectable({ providedIn: 'root' })
 export class WebhookEventsService {
-  constructor(private readonly restSdkAngularService: RestSdkAngularService) {}
+  constructor(
+    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService
+  ) {}
 
   findMany() {
-    return this.restSdkAngularService.getWebhookApi().webhookControllerEvents();
+    return this.ssoRestSdkAngularService
+      .getWebhookApi()
+      .webhookControllerEvents();
   }
 }

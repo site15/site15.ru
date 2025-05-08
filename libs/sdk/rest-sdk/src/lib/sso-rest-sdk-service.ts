@@ -11,7 +11,7 @@ import {
   WebhookApi,
 } from './generated';
 
-export class RestSdkService {
+export class SsoRestSdkService {
   private ssoApi?: SsoApi;
   private webhookApi?: WebhookApi;
   private filesApi?: FilesApi;

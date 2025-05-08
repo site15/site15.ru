@@ -6,24 +6,38 @@ import {
 } from 'pg-create-db';
 import { migrateHandler, PG_FLYWAY_DEFAULT_MIGRATE_CONFIG } from 'pg-flyway';
 
+const appEnvKeys = [
+  'SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL',
+  'SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL',
+  'SINGLE_SIGN_ON_SSO_DATABASE_URL',
+  'SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL',
+];
+const appKeys = ['webhook', 'notifications', 'sso', 'two-factor'];
+const appHistoryTables = [
+  '__migrations_webhook',
+  '__migrations_notifications',
+  '__migrations_sso',
+  '__migrations_two_factor',
+];
+const rootEnvKey = 'SINGLE_SIGN_ON_ROOT_DATABASE_URL';
+const mainEnvKey = 'DATABASE_URL';
+
+export async function fillAllNeedDatabaseEnvsFromOneMain() {
+  if (!process.env[rootEnvKey] && process.env[mainEnvKey]) {
+    process.env[rootEnvKey] = process.env[mainEnvKey];
+  }
+  for (let index = 0; index < appEnvKeys.length; index++) {
+    const appEnvKey = appEnvKeys[index];
+    if (!process.env[appEnvKey] && process.env[mainEnvKey]) {
+      process.env[appEnvKey] = process.env[mainEnvKey];
+    }
+  }
+}
+
 export async function createAndFillDatabases() {
   if (isInfrastructureMode()) {
     return;
   }
-  const appEnvKeys = [
-    'SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL',
-    'SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL',
-    'SINGLE_SIGN_ON_SSO_DATABASE_URL',
-    'SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL',
-  ];
-  const appKeys = ['webhook', 'notifications', 'sso', 'two-factor'];
-  const appHistoryTables = [
-    '__migrations_webhook',
-    '__migrations_notifications',
-    '__migrations_sso',
-    '__migrations_two_factor',
-  ];
-  const rootEnvKey = 'SINGLE_SIGN_ON_ROOT_DATABASE_URL';
 
   for (let index = 0; index < appEnvKeys.length; index++) {
     const appEnvKey = appEnvKeys[index];

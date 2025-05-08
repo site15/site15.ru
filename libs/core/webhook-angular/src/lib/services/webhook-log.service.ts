@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { RequestMeta } from '@nestjs-mod-sso/common-angular';
-import { RestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
 import { map } from 'rxjs';
 import { WebhookLogMapperService } from './webhook-log-mapper.service';
 
 @Injectable({ providedIn: 'root' })
 export class WebhookLogService {
   constructor(
-    private readonly restSdkAngularService: RestSdkAngularService,
+    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
     private readonly webhookLogMapperService: WebhookLogMapperService
   ) {}
 
   findOne(id: string) {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookLogsControllerFindOne(id)
       .pipe(map((w) => this.webhookLogMapperService.toModel(w)));
@@ -25,7 +25,7 @@ export class WebhookLogService {
     filters: Record<string, string>;
     meta?: RequestMeta;
   }) {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookLogsControllerFindManyLogs(
         filters['webhookId'],
@@ -41,7 +41,7 @@ export class WebhookLogService {
   }
 
   deleteOne(id: string) {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookLogsControllerDeleteOne(id);
   }

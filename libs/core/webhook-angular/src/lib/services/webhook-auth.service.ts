@@ -3,7 +3,7 @@ import {
   WebhookErrorInterface,
   WebhookRestService,
   WebhookUserInterface,
-  RestSdkAngularService,
+  SsoRestSdkAngularService,
 } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { BehaviorSubject, catchError, of, tap, throwError } from 'rxjs';
@@ -13,14 +13,16 @@ import { BehaviorSubject, catchError, of, tap, throwError } from 'rxjs';
 export class WebhookAuthService {
   private webhookUser$ = new BehaviorSubject<WebhookUserInterface | null>(null);
 
-  constructor(private readonly restSdkAngularService: RestSdkAngularService) {}
+  constructor(
+    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService
+  ) {}
 
   getWebhookUser() {
     return this.webhookUser$.value;
   }
 
   loadWebhookUser() {
-    return this.restSdkAngularService
+    return this.ssoRestSdkAngularService
       .getWebhookApi()
       .webhookControllerProfile()
       .pipe(

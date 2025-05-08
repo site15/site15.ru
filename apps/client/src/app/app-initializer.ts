@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
-import { RestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
 import {
   SsoActiveLangService,
   SsoActiveProjectService,
@@ -19,7 +19,7 @@ export class AppInitializer {
     private readonly tokensService: TokensService,
     private readonly ssoActiveLangService: SsoActiveLangService,
     private readonly ssoActiveProjectService: SsoActiveProjectService,
-    private readonly restSdkAngularService: RestSdkAngularService
+    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService
   ) {}
 
   resolve() {
@@ -52,7 +52,7 @@ export class AppInitializer {
   private updateHeaders() {
     const authorizationHeaders = this.ssoService.getAuthorizationHeaders();
     if (authorizationHeaders) {
-      this.restSdkAngularService.updateHeaders(authorizationHeaders);
+      this.ssoRestSdkAngularService.updateHeaders(authorizationHeaders);
     }
   }
 }
