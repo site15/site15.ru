@@ -1,3 +1,9 @@
+## [1.4.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.4.3...server-v1.4.4) (2025-05-08)
+
+### Bug Fixes
+
+- add support one DATABASE_URL, and create all needed from it, rename RestSdkService to SsoRestSdkService ([0f6570a](https://github.com/nestjs-mod/nestjs-mod-sso/commit/0f6570a1a8f06bed7c5fb0a1ccd81f5830624e54))
+
 ## [1.4.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.4.2...server-v1.4.3) (2025-05-05)
 
 ### Bug Fixes
