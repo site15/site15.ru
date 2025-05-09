@@ -33,13 +33,18 @@ import { FEATURE_MODULE_IMPORTS, FeatureModule } from './feature.module';
 import { INFRASTRUCTURE_MODULE_IMPORTS } from './infrastructure.module';
 import { replaceEnvs } from './replace-envs';
 
+fillAllNeedDatabaseEnvsFromOneMain();
+
 if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
   /**
    * NestJS way for run application
    */
 
   (async function bootstrap() {
-    fillAllNeedDatabaseEnvsFromOneMain();
+    if (!isInfrastructureMode()) {
+      await replaceEnvs();
+      await createAndFillDatabases();
+    }
 
     // copy nestjs-mod environments to nestjs environments, without prefix "SINGLE_SIGN_ON_"
     const dm = 'SINGLE_SIGN_ON_';
@@ -84,9 +89,6 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
         JSON.stringify(document)
       );
     } else {
-      await replaceEnvs();
-      await createAndFillDatabases();
-
       const logger = app.get(Logger);
       if (logger) {
         app.useLogger(logger);
@@ -158,7 +160,6 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
                   );
                 } else {
                   await replaceEnvs();
-                  fillAllNeedDatabaseEnvsFromOneMain();
                   await createAndFillDatabases();
                 }
               }
