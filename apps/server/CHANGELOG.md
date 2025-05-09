@@ -1,3 +1,9 @@
+## [1.5.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.0...server-v1.5.1) (2025-05-09)
+
+### Bug Fixes
+
+- add generate envs with database urls for migrations ([a860e15](https://github.com/nestjs-mod/nestjs-mod-sso/commit/a860e1516ac3f51b1f3aeeb5b9c1b940a9e0168f))
+
 # [1.5.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.4.4...server-v1.5.0) (2025-05-09)
 
 ### Features
