@@ -28,11 +28,7 @@ import {
   createAndFillDatabases,
   fillAllNeedDatabaseEnvsFromOneMain,
 } from './create-and-fill-databases';
-import {
-  appFolder,
-  rootFolder,
-  skipCreateDatabases,
-} from './environments/environment';
+import { appFolder, rootFolder } from './environments/environment';
 import { FEATURE_MODULE_IMPORTS, FeatureModule } from './feature.module';
 import { INFRASTRUCTURE_MODULE_IMPORTS } from './infrastructure.module';
 import { replaceEnvs } from './replace-envs';
@@ -43,6 +39,8 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
    */
 
   (async function bootstrap() {
+    fillAllNeedDatabaseEnvsFromOneMain();
+
     // copy nestjs-mod environments to nestjs environments, without prefix "SINGLE_SIGN_ON_"
     const dm = 'SINGLE_SIGN_ON_';
     for (const key of Object.keys(process.env)) {
@@ -86,11 +84,8 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
         JSON.stringify(document)
       );
     } else {
-      await fillAllNeedDatabaseEnvsFromOneMain();
-      if (!skipCreateDatabases) {
-        await replaceEnvs();
-        await createAndFillDatabases();
-      }
+      await replaceEnvs();
+      await createAndFillDatabases();
 
       const logger = app.get(Logger);
       if (logger) {
@@ -162,11 +157,9 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
                     JSON.stringify(document)
                   );
                 } else {
-                  await fillAllNeedDatabaseEnvsFromOneMain();
-                  if (!skipCreateDatabases) {
-                    await replaceEnvs();
-                    await createAndFillDatabases();
-                  }
+                  await replaceEnvs();
+                  fillAllNeedDatabaseEnvsFromOneMain();
+                  await createAndFillDatabases();
                 }
               }
             },

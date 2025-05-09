@@ -21,15 +21,19 @@ const appHistoryTables = [
 ];
 const rootEnvKey = 'SINGLE_SIGN_ON_ROOT_DATABASE_URL';
 const mainEnvKey = 'DATABASE_URL';
+const alterMainEnvKey = 'POSTGRES_URL';
 
-export async function fillAllNeedDatabaseEnvsFromOneMain() {
-  if (!process.env[rootEnvKey] && process.env[mainEnvKey]) {
-    process.env[rootEnvKey] = process.env[mainEnvKey];
+export function fillAllNeedDatabaseEnvsFromOneMain() {
+  const mainDatabaseUrl =
+    process.env[mainEnvKey] || process.env[alterMainEnvKey];
+
+  if (!process.env[rootEnvKey] && mainDatabaseUrl) {
+    process.env[rootEnvKey] = mainDatabaseUrl;
   }
   for (let index = 0; index < appEnvKeys.length; index++) {
     const appEnvKey = appEnvKeys[index];
-    if (!process.env[appEnvKey] && process.env[mainEnvKey]) {
-      process.env[appEnvKey] = process.env[mainEnvKey];
+    if (!process.env[appEnvKey] && mainDatabaseUrl) {
+      process.env[appEnvKey] = mainDatabaseUrl;
     }
   }
 }
@@ -44,7 +48,11 @@ export async function createAndFillDatabases() {
     const appKey = appKeys[index];
     const appHistoryTable = appHistoryTables[index];
 
-    if (process.env[appEnvKey] && process.env[rootEnvKey]) {
+    if (
+      process.env[appEnvKey] &&
+      process.env[rootEnvKey] &&
+      process.env[appEnvKey] !== process.env[rootEnvKey]
+    ) {
       await createDatabaseHandler({
         ...PG_CREATE_DB_DEFAULT_CONFIG,
         appDatabaseUrl: process.env[appEnvKey],

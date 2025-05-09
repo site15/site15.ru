@@ -46,6 +46,4 @@ export const MainMinioModule = MinioModule.forRoot({
   },
 });
 
-export const skipCreateDatabases = false;
-
 export { appFolder, rootFolder };
