@@ -34,6 +34,13 @@ if (!parsedEnvs.SINGLE_SIGN_ON_MINIO_SECRET_KEY) {
   throw new Error('SINGLE_SIGN_ON_MINIO_SECRET_KEY not set');
 }
 
+// need for apply migrations to supabase
+parsedEnvs.SINGLE_SIGN_ON_ROOT_DATABASE_URL = postgresUrl;
+parsedEnvs.SINGLE_SIGN_ON_SSO_DATABASE_URL = postgresUrl;
+parsedEnvs.SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL = postgresUrl;
+parsedEnvs.SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL = postgresUrl;
+parsedEnvs.SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL = postgresUrl;
+
 parsedEnvs.SINGLE_SIGN_ON_KEYV_URL = postgresUrl.replace('?schema=public', '');
 
 parsedEnvs.SINGLE_SIGN_ON_CLIENT_MINIO_URL = `https://${supabaseName}.supabase.co/storage/v1/s3`;
