@@ -1,3 +1,9 @@
+## [1.5.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.1...server-v1.5.2) (2025-05-09)
+
+### Bug Fixes
+
+- move fillAllNeedDatabaseEnvsFromOneMain to top ([9843a02](https://github.com/nestjs-mod/nestjs-mod-sso/commit/9843a023693f5e126b626a4e11b883b0498759a1))
+
 ## [1.5.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.0...server-v1.5.1) (2025-05-09)
 
 ### Bug Fixes
