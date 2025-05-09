@@ -1,3 +1,9 @@
+# [1.5.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.4.4...server-v1.5.0) (2025-05-09)
+
+### Features
+
+- try use one env "POSTGRES_URL" for all databases ([83789e0](https://github.com/nestjs-mod/nestjs-mod-sso/commit/83789e0d78adf981792af38880f7b5d970e1dd08))
+
 ## [1.4.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.4.3...server-v1.4.4) (2025-05-08)
 
 ### Bug Fixes
