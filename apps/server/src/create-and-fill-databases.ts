@@ -1,10 +1,14 @@
 import { isInfrastructureMode } from '@nestjs-mod/common';
+import { Logger } from '@nestjs/common';
 import { setTimeout } from 'node:timers/promises';
 import {
   createDatabaseHandler,
   PG_CREATE_DB_DEFAULT_CONFIG,
 } from 'pg-create-db';
 import { migrateHandler, PG_FLYWAY_DEFAULT_MIGRATE_CONFIG } from 'pg-flyway';
+
+const debugDbToolsIsEnable = Boolean(process.env['DEBUG_DB_TOOLS']);
+const logger = new Logger('DbTools');
 
 const appEnvKeys = [
   'SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL',
@@ -27,11 +31,36 @@ export function fillAllNeedDatabaseEnvsFromOneMain() {
   const mainDatabaseUrl =
     process.env[mainEnvKey] || process.env[alterMainEnvKey];
 
+  if (debugDbToolsIsEnable) {
+    logger.debug(
+      {
+        mainEnvKey,
+        mainEnvKeyValue: process.env[mainEnvKey],
+        alterMainEnvKey,
+        alterMainEnvKeyValue: process.env[alterMainEnvKey],
+        rootEnvKey,
+        rootEnvKeyValue: process.env[rootEnvKey],
+        mainDatabaseUrl,
+      },
+      'fillAllNeedDatabaseEnvsFromOneMain'
+    );
+  }
+
   if (!process.env[rootEnvKey] && mainDatabaseUrl) {
     process.env[rootEnvKey] = mainDatabaseUrl;
   }
+
   for (let index = 0; index < appEnvKeys.length; index++) {
     const appEnvKey = appEnvKeys[index];
+    if (debugDbToolsIsEnable) {
+      logger.debug(
+        {
+          appEnvKey,
+          appEnvKeyValue: process.env[appEnvKey],
+        },
+        'fillAllNeedDatabaseEnvsFromOneMain'
+      );
+    }
     if (!process.env[appEnvKey] && mainDatabaseUrl) {
       process.env[appEnvKey] = mainDatabaseUrl;
     }
@@ -39,6 +68,14 @@ export function fillAllNeedDatabaseEnvsFromOneMain() {
 }
 
 export async function createAndFillDatabases() {
+  if (debugDbToolsIsEnable) {
+    logger.debug(
+      {
+        isInfrastructureMode: isInfrastructureMode(),
+      },
+      'createAndFillDatabases'
+    );
+  }
   if (isInfrastructureMode()) {
     return;
   }
@@ -48,6 +85,21 @@ export async function createAndFillDatabases() {
     const appKey = appKeys[index];
     const appHistoryTable = appHistoryTables[index];
 
+    if (debugDbToolsIsEnable) {
+      logger.debug(
+        {
+          index,
+          appEnvKey,
+          appEnvKeyValue: process.env[appEnvKey],
+          appKey,
+          appKeyValue: process.env[appKey],
+          appHistoryTable,
+          rootEnvKey,
+          rootEnvKeyValue: process.env[rootEnvKey],
+        },
+        'createAndFillDatabases'
+      );
+    }
     if (
       process.env[appEnvKey] &&
       process.env[rootEnvKey] &&

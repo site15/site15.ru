@@ -46,6 +46,10 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
       await createAndFillDatabases();
     }
 
+    if (process.env.FORCE_EXIT) {
+      process.exit();
+    }
+
     // copy nestjs-mod environments to nestjs environments, without prefix "SINGLE_SIGN_ON_"
     const dm = 'SINGLE_SIGN_ON_';
     for (const key of Object.keys(process.env)) {
@@ -161,6 +165,10 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
                 } else {
                   await replaceEnvs();
                   await createAndFillDatabases();
+                }
+
+                if (process.env.FORCE_EXIT) {
+                  process.exit();
                 }
               }
             },
