@@ -1,3 +1,9 @@
+## [1.5.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.2...server-v1.5.3) (2025-05-10)
+
+### Bug Fixes
+
+- add log informations from DbTools, add support force exit after apply ([fd5a4a7](https://github.com/nestjs-mod/nestjs-mod-sso/commit/fd5a4a7c9536b966482dc1e658444da9904ffe94))
+
 ## [1.5.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.1...server-v1.5.2) (2025-05-09)
 
 ### Bug Fixes
