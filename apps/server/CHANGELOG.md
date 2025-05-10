@@ -1,3 +1,9 @@
+## [1.5.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.3...server-v1.5.4) (2025-05-10)
+
+### Bug Fixes
+
+- remove check equals root db url and app db url before run migrations ([01b91df](https://github.com/nestjs-mod/nestjs-mod-sso/commit/01b91df6950633fa378cfb3853d69437de470c49))
+
 ## [1.5.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.2...server-v1.5.3) (2025-05-10)
 
 ### Bug Fixes
