@@ -1,3 +1,9 @@
+## [1.5.5](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.4...server-v1.5.5) (2025-05-10)
+
+### Bug Fixes
+
+- revert main changes ([d9313a0](https://github.com/nestjs-mod/nestjs-mod-sso/commit/d9313a0182f3c3684d1c31c438f53844f4e8e207))
+
 ## [1.5.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.3...server-v1.5.4) (2025-05-10)
 
 ### Bug Fixes
