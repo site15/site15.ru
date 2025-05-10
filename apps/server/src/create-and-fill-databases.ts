@@ -100,16 +100,17 @@ export async function createAndFillDatabases() {
         'createAndFillDatabases'
       );
     }
-    if (
-      process.env[appEnvKey] &&
-      process.env[rootEnvKey] &&
-      process.env[appEnvKey] !== process.env[rootEnvKey]
-    ) {
-      await createDatabaseHandler({
-        ...PG_CREATE_DB_DEFAULT_CONFIG,
-        appDatabaseUrl: process.env[appEnvKey],
-        rootDatabaseUrl: process.env[rootEnvKey],
-      });
+    if (process.env[appEnvKey]) {
+      if (
+        process.env[rootEnvKey] &&
+        process.env[appEnvKey] !== process.env[rootEnvKey]
+      ) {
+        await createDatabaseHandler({
+          ...PG_CREATE_DB_DEFAULT_CONFIG,
+          appDatabaseUrl: process.env[appEnvKey],
+          rootDatabaseUrl: process.env[rootEnvKey],
+        });
+      }
 
       await migrateHandler({
         ...PG_FLYWAY_DEFAULT_MIGRATE_CONFIG,
