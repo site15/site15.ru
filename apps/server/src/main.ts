@@ -41,15 +41,6 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
    */
 
   (async function bootstrap() {
-    if (!isInfrastructureMode()) {
-      await replaceEnvs();
-      await createAndFillDatabases();
-    }
-
-    if (process.env.FORCE_EXIT) {
-      process.exit();
-    }
-
     // copy nestjs-mod environments to nestjs environments, without prefix "SINGLE_SIGN_ON_"
     const dm = 'SINGLE_SIGN_ON_';
     for (const key of Object.keys(process.env)) {
@@ -93,6 +84,9 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
         JSON.stringify(document)
       );
     } else {
+      await replaceEnvs();
+      await createAndFillDatabases();
+
       const logger = app.get(Logger);
       if (logger) {
         app.useLogger(logger);
@@ -109,77 +103,70 @@ if (!isInfrastructureMode() && process.env.APP_TYPE !== 'nestjs-mod') {
   /**
    * NestJS-mod way for run application
    */
-  (async function bootstrap() {
-    if (!isInfrastructureMode()) {
-      await replaceEnvs();
-      await createAndFillDatabases();
-    }
+  bootstrapNestApplication({
+    project: {
+      name: 'single-sign-on',
+      description:
+        'Single Sign-On on NestJS and Angular with webhooks and social authorization',
+    },
+    modules: {
+      system: [
+        ProjectUtils.forRoot({
+          staticConfiguration: {
+            applicationPackageJsonFile: join(appFolder, PACKAGE_JSON_FILE),
+            packageJsonFile: join(rootFolder, PACKAGE_JSON_FILE),
+            nxProjectJsonFile: join(appFolder, PROJECT_JSON_FILE),
+            envFile: join(rootFolder, '.env'),
+            printAllApplicationEnvs: true,
+          },
+        }),
+        DefaultNestApplicationInitializer.forRoot({
+          staticConfiguration: { bufferLogs: true },
+        }),
+        DefaultNestApplicationListener.forRoot({
+          staticConfiguration: {
+            // When running in infrastructure mode, the backend server does not start.
+            mode: isInfrastructureMode() ? 'silent' : 'listen',
+            async preListen(options) {
+              if (options.app) {
+                options.app.use(cookieParser());
 
-    if (process.env.FORCE_EXIT) {
-      process.exit();
-    }
-    await bootstrapNestApplication({
-      project: {
-        name: 'single-sign-on',
-        description:
-          'Single Sign-On on NestJS and Angular with webhooks and social authorization',
-      },
-      modules: {
-        system: [
-          ProjectUtils.forRoot({
-            staticConfiguration: {
-              applicationPackageJsonFile: join(appFolder, PACKAGE_JSON_FILE),
-              packageJsonFile: join(rootFolder, PACKAGE_JSON_FILE),
-              nxProjectJsonFile: join(appFolder, PROJECT_JSON_FILE),
-              envFile: join(rootFolder, '.env'),
-              printAllApplicationEnvs: true,
-            },
-          }),
-          DefaultNestApplicationInitializer.forRoot({
-            staticConfiguration: { bufferLogs: true },
-          }),
-          DefaultNestApplicationListener.forRoot({
-            staticConfiguration: {
-              // When running in infrastructure mode, the backend server does not start.
-              mode: isInfrastructureMode() ? 'silent' : 'listen',
-              async preListen(options) {
-                if (options.app) {
-                  options.app.use(cookieParser());
-
-                  const swaggerConf = new DocumentBuilder()
-                    .addBearerAuth()
-                    .build();
-                  const document = SwaggerModule.createDocument(
-                    options.app,
-                    swaggerConf,
-                    {
-                      extraModels: [
-                        ...FILES_EXTRA_MODELS,
-                        ...NOTIFICATIONS_EXTRA_MODELS,
-                        ...SSO_EXTRA_MODELS,
-                        ...VALIDATION_EXTRA_MODELS,
-                        ...WEBHOOK_EXTRA_MODELS,
-                      ],
-                    }
-                  );
-                  SwaggerModule.setup('swagger', options.app, document);
-
-                  options.app.useWebSocketAdapter(new WsAdapter(options.app));
-
-                  if (isInfrastructureMode()) {
-                    writeFileSync(
-                      join(rootFolder, 'app-swagger.json'),
-                      JSON.stringify(document)
-                    );
+                const swaggerConf = new DocumentBuilder()
+                  .addBearerAuth()
+                  .build();
+                const document = SwaggerModule.createDocument(
+                  options.app,
+                  swaggerConf,
+                  {
+                    extraModels: [
+                      ...FILES_EXTRA_MODELS,
+                      ...NOTIFICATIONS_EXTRA_MODELS,
+                      ...SSO_EXTRA_MODELS,
+                      ...VALIDATION_EXTRA_MODELS,
+                      ...WEBHOOK_EXTRA_MODELS,
+                    ],
                   }
+                );
+                SwaggerModule.setup('swagger', options.app, document);
+
+                options.app.useWebSocketAdapter(new WsAdapter(options.app));
+
+                if (isInfrastructureMode()) {
+                  writeFileSync(
+                    join(rootFolder, 'app-swagger.json'),
+                    JSON.stringify(document)
+                  );
+                } else {
+                  await replaceEnvs();
+                  await createAndFillDatabases();
                 }
-              },
+              }
             },
-          }),
-        ],
-        feature: FEATURE_MODULE_IMPORTS,
-        infrastructure: INFRASTRUCTURE_MODULE_IMPORTS,
-      },
-    });
-  })();
+          },
+        }),
+      ],
+      feature: FEATURE_MODULE_IMPORTS,
+      infrastructure: INFRASTRUCTURE_MODULE_IMPORTS,
+    },
+  });
 }
