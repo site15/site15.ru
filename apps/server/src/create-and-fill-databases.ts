@@ -24,12 +24,15 @@ const appHistoryTables = [
   '__migrations_two_factor',
 ];
 const rootEnvKey = 'SINGLE_SIGN_ON_ROOT_DATABASE_URL';
-const mainEnvKey = 'DATABASE_URL';
-const alterMainEnvKey = 'POSTGRES_URL';
+const mainEnvKey = 'SINGLE_SIGN_ON_POSTGRES_URL';
+const alterMainEnvKey = 'DATABASE_URL';
+const alterMainEnvKey2 = 'POSTGRES_URL';
 
 export function fillAllNeedDatabaseEnvsFromOneMain() {
   const mainDatabaseUrl =
-    process.env[mainEnvKey] || process.env[alterMainEnvKey];
+    process.env[mainEnvKey] ||
+    process.env[alterMainEnvKey] ||
+    process.env[alterMainEnvKey2];
 
   if (debugDbToolsIsEnable) {
     logger.debug(
@@ -38,6 +41,8 @@ export function fillAllNeedDatabaseEnvsFromOneMain() {
         mainEnvKeyValue: process.env[mainEnvKey],
         alterMainEnvKey,
         alterMainEnvKeyValue: process.env[alterMainEnvKey],
+        alterMainEnvKey2,
+        alterMainEnvKey2Value: process.env[alterMainEnvKey2],
         rootEnvKey,
         rootEnvKeyValue: process.env[rootEnvKey],
         mainDatabaseUrl,
