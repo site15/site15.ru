@@ -1,3 +1,9 @@
+# [1.6.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.5...server-v1.6.0) (2025-05-11)
+
+### Features
+
+- add serach SINGLE_SIGN_ON_POSTGRES_URL env for use as main db url ([105f483](https://github.com/nestjs-mod/nestjs-mod-sso/commit/105f483afb6b3cc949f9a66d0682c633e4fcb951))
+
 ## [1.5.5](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.4...server-v1.5.5) (2025-05-10)
 
 ### Bug Fixes
