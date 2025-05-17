@@ -1,3 +1,9 @@
+# [1.4.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.7...client-v1.4.0) (2025-05-17)
+
+### Features
+
+- rename angular services and module in rest-sdk-angular ([ebb0d58](https://github.com/nestjs-mod/nestjs-mod-sso/commit/ebb0d58d150157aecb260c84422f40de8108e74e))
+
 ## [1.3.7](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.6...client-v1.3.7) (2025-05-17)
 
 ### Bug Fixes
