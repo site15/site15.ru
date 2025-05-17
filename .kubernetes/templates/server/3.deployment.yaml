@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: %NAMESPACE%-server
-          image: ghcr.io/nestjs-mod/nestjs-mod-sso-server:%SERVER_VERSION%
+          image: ghcr.io/%SINGLE_SIGN_ON_IMAGE_NAME%
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: %SINGLE_SIGN_ON_PORT%
