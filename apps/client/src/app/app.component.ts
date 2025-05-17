@@ -9,10 +9,7 @@ import {
 } from '@jsverse/transloco';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { BROWSER_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common-angular';
-import {
-  SsoRoleInterface,
-  TimeRestService,
-} from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRoleInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { addHours } from 'date-fns';
 import { NzIconModule } from 'ng-zorro-antd/icon';

@@ -4,11 +4,11 @@ import { RouterModule } from '@angular/router';
 import { provideTransloco } from '@jsverse/transloco';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 import { provideTranslocoMessageformat } from '@jsverse/transloco-messageformat';
-import {
-  RestClientApiModule,
-  RestClientConfiguration,
-} from '@nestjs-mod/sso-rest-sdk-angular';
 import { MINIO_URL } from '@nestjs-mod-sso/files-angular';
+import {
+  SsoRestClientApiModule,
+  SsoRestClientConfiguration,
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import { minioURL } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { APP_TITLE } from './app.constants';
@@ -62,9 +62,9 @@ describe('AppComponent', () => {
         AppComponent,
         RouterModule.forRoot([]),
         HttpClientModule,
-        RestClientApiModule.forRoot(
+        SsoRestClientApiModule.forRoot(
           () =>
-            new RestClientConfiguration({
+            new SsoRestClientConfiguration({
               basePath: 'http://localhost:3000',
             })
         ),

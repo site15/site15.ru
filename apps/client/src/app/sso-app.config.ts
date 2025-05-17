@@ -16,12 +16,12 @@ import { GithubFill } from '@ant-design/icons-angular/icons';
 import { provideTransloco } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
-import {
-  RestClientApiModule,
-  RestClientConfiguration,
-} from '@nestjs-mod/sso-rest-sdk-angular';
 import { COMMON_FORMLY_FIELDS } from '@nestjs-mod-sso/common-angular';
 import { FILES_FORMLY_FIELDS, MINIO_URL } from '@nestjs-mod-sso/files-angular';
+import {
+  SsoRestClientApiModule,
+  SsoRestClientConfiguration,
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
@@ -49,9 +49,9 @@ export const ssoAppConfig = ({
       provideNzI18n(en_US),
       importProvidersFrom(
         BrowserAnimationsModule,
-        RestClientApiModule.forRoot(
+        SsoRestClientApiModule.forRoot(
           () =>
-            new RestClientConfiguration({
+            new SsoRestClientConfiguration({
               basePath: serverUrl,
             })
         ),

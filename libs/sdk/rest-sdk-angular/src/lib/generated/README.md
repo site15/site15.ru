@@ -59,12 +59,12 @@ In your Angular project:
 
 ```typescript
 // without configuring providers
-import { RestClientApiModule } from '';
+import { SsoRestClientApiModule } from '';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     imports: [
-        RestClientApiModule,
+        SsoRestClientApiModule,
         // make sure to import the HttpClientModule in the AppModule only,
         // see https://github.com/angular/angular/issues/20575
         HttpClientModule
@@ -78,17 +78,17 @@ export class AppModule {}
 
 ```typescript
 // configuring providers
-import { RestClientApiModule, RestClientConfiguration, RestClientConfigurationParameters } from '';
+import { SsoRestClientApiModule, SsoRestClientConfiguration, SsoRestClientConfigurationParameters } from '';
 
-export function apiConfigFactory (): RestClientConfiguration {
-  const params: RestClientConfigurationParameters = {
+export function apiConfigFactory (): SsoRestClientConfiguration {
+  const params: SsoRestClientConfigurationParameters = {
     // set configuration parameters here.
   }
-  return new RestClientConfiguration(params);
+  return new SsoRestClientConfiguration(params);
 }
 
 @NgModule({
-    imports: [ RestClientApiModule.forRoot(apiConfigFactory) ],
+    imports: [ SsoRestClientApiModule.forRoot(apiConfigFactory) ],
     declarations: [ AppComponent ],
     providers: [],
     bootstrap: [ AppComponent ]
@@ -98,15 +98,15 @@ export class AppModule {}
 
 ```typescript
 // configuring providers with an authentication service that manages your access tokens
-import { RestClientApiModule, RestClientConfiguration } from '';
+import { SsoRestClientApiModule, SsoRestClientConfiguration } from '';
 
 @NgModule({
-    imports: [ RestClientApiModule ],
+    imports: [ SsoRestClientApiModule ],
     declarations: [ AppComponent ],
     providers: [
       {
-        provide: RestClientConfiguration,
-        useFactory: (authService: AuthService) => new RestClientConfiguration(
+        provide: SsoRestClientConfiguration,
+        useFactory: (authService: AuthService) => new SsoRestClientConfiguration(
           {
             basePath: environment.apiUrl,
             accessToken: authService.getAccessToken.bind(authService)
@@ -129,23 +129,23 @@ export class AppComponent {
 }
 ```
 
-Note: The RestClientApiModule is restricted to being instantiated once app wide.
+Note: The SsoRestClientApiModule is restricted to being instantiated once app wide.
 This is to ensure that all services are treated as singletons.
 
-### Using multiple OpenAPI files / APIs / RestClientApiModules
+### Using multiple OpenAPI files / APIs / SsoRestClientApiModules
 
-In order to use multiple `RestClientApiModules` generated from different OpenAPI files,
+In order to use multiple `SsoRestClientApiModules` generated from different OpenAPI files,
 you can create an alias name when importing the modules
 in order to avoid naming conflicts:
 
 ```typescript
-import { RestClientApiModule } from 'my-api-path';
-import { RestClientApiModule as OtherApiModule } from 'my-other-api-path';
+import { SsoRestClientApiModule } from 'my-api-path';
+import { SsoRestClientApiModule as OtherApiModule } from 'my-other-api-path';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
-    RestClientApiModule,
+    SsoRestClientApiModule,
     OtherApiModule,
     // make sure to import the HttpClientModule in the AppModule only,
     // see https://github.com/angular/angular/issues/20575

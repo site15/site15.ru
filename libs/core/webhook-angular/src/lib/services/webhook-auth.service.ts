@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-  WebhookErrorInterface,
-  WebhookRestService,
-  WebhookUserInterface,
   SsoRestSdkAngularService,
+  WebhookErrorInterface,
+  WebhookUserInterface,
 } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { BehaviorSubject, catchError, of, tap, throwError } from 'rxjs';

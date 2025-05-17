@@ -19,21 +19,21 @@ import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { RestClientConfiguration }                                     from '../configuration';
+import { SsoRestClientConfiguration }                                     from '../configuration';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class TimeRestService {
+export class TimeSsoRestService {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();
-    public configuration = new RestClientConfiguration();
+    public configuration = new SsoRestClientConfiguration();
     public encoder: HttpParameterCodec;
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string|string[], @Optional() configuration: RestClientConfiguration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string|string[], @Optional() configuration: SsoRestClientConfiguration) {
         if (configuration) {
             this.configuration = configuration;
         }

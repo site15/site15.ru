@@ -1,5 +1,5 @@
 import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core';
-import { RestClientConfiguration } from './configuration';
+import { SsoRestClientConfiguration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -9,18 +9,18 @@ import { HttpClient } from '@angular/common/http';
   exports:      [],
   providers: []
 })
-export class RestClientApiModule {
-    public static forRoot(configurationFactory: () => RestClientConfiguration): ModuleWithProviders<RestClientApiModule> {
+export class SsoRestClientApiModule {
+    public static forRoot(configurationFactory: () => SsoRestClientConfiguration): ModuleWithProviders<SsoRestClientApiModule> {
         return {
-            ngModule: RestClientApiModule,
-            providers: [ { provide: RestClientConfiguration, useFactory: configurationFactory } ]
+            ngModule: SsoRestClientApiModule,
+            providers: [ { provide: SsoRestClientConfiguration, useFactory: configurationFactory } ]
         };
     }
 
-    constructor( @Optional() @SkipSelf() parentModule: RestClientApiModule,
+    constructor( @Optional() @SkipSelf() parentModule: SsoRestClientApiModule,
                  @Optional() http: HttpClient) {
         if (parentModule) {
-            throw new Error('RestClientApiModule is already loaded. Import in your base AppModule only.');
+            throw new Error('SsoRestClientApiModule is already loaded. Import in your base AppModule only.');
         }
         if (!http) {
             throw new Error('You need to import the HttpClientModule in your AppModule! \n' +

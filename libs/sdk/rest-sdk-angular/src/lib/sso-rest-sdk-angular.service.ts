@@ -2,67 +2,67 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
 import {
-  FilesRestService,
-  NotificationsRestService,
-  RestClientConfiguration,
-  SsoRestService,
-  TimeRestService,
-  WebhookRestService,
+  FilesSsoRestService,
+  NotificationsSsoRestService,
+  SsoRestClientConfiguration,
+  SsoSsoRestService,
+  TimeSsoRestService,
+  WebhookSsoRestService,
 } from './generated';
 
 @Injectable({ providedIn: 'root' })
 export class SsoRestSdkAngularService {
   constructor(
-    private readonly restClientConfiguration: RestClientConfiguration,
-    private readonly webhookRestService: WebhookRestService,
-    private readonly timeRestService: TimeRestService,
-    private readonly filesRestService: FilesRestService,
-    private readonly ssoRestService: SsoRestService,
-    private readonly notificationsRestService: NotificationsRestService
+    private readonly ssoRestClientConfiguration: SsoRestClientConfiguration,
+    private readonly webhookSsoRestService: WebhookSsoRestService,
+    private readonly timeSsoRestService: TimeSsoRestService,
+    private readonly filesSsoRestService: FilesSsoRestService,
+    private readonly ssoSsoRestService: SsoSsoRestService,
+    private readonly notificationsSsoRestService: NotificationsSsoRestService
   ) {
-    ssoRestService.configuration.withCredentials = true;
+    ssoSsoRestService.configuration.withCredentials = true;
   }
 
   getWebhookApi() {
-    if (!this.webhookRestService) {
+    if (!this.webhookSsoRestService) {
       throw new Error('webhookRestService not set');
     }
-    return this.webhookRestService;
+    return this.webhookSsoRestService;
   }
 
   getFilesApi() {
-    if (!this.filesRestService) {
+    if (!this.filesSsoRestService) {
       throw new Error('filesRestService not set');
     }
-    return this.filesRestService;
+    return this.filesSsoRestService;
   }
 
   getTimeApi() {
-    if (!this.timeRestService) {
+    if (!this.timeSsoRestService) {
       throw new Error('timeRestService not set');
     }
-    return this.timeRestService;
+    return this.timeSsoRestService;
   }
 
   getSsoApi() {
-    if (!this.ssoRestService) {
+    if (!this.ssoSsoRestService) {
       throw new Error('ssoApi not set');
     }
-    return this.ssoRestService;
+    return this.ssoSsoRestService;
   }
 
   getNotificationsApi() {
-    if (!this.notificationsRestService) {
+    if (!this.notificationsSsoRestService) {
       throw new Error('notificationsRestService not set');
     }
-    return this.notificationsRestService;
+    return this.notificationsSsoRestService;
   }
 
   updateHeaders(headers: Record<string, string>) {
-    this.webhookRestService.defaultHeaders = new HttpHeaders(headers);
-    this.filesRestService.defaultHeaders = new HttpHeaders(headers);
-    this.timeRestService.defaultHeaders = new HttpHeaders(headers);
-    this.ssoRestService.defaultHeaders = new HttpHeaders(headers);
+    this.webhookSsoRestService.defaultHeaders = new HttpHeaders(headers);
+    this.filesSsoRestService.defaultHeaders = new HttpHeaders(headers);
+    this.timeSsoRestService.defaultHeaders = new HttpHeaders(headers);
+    this.ssoSsoRestService.defaultHeaders = new HttpHeaders(headers);
   }
 
   webSocket<T>({
@@ -76,7 +76,7 @@ export class SsoRestSdkAngularService {
     options?: any;
   }) {
     const wss = new WebSocket(
-      (this.restClientConfiguration.basePath || '')
+      (this.ssoRestClientConfiguration.basePath || '')
         .replace('/api', '')
         .replace('http', 'ws') + path,
       options
