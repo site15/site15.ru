@@ -1,3 +1,9 @@
+## [1.3.7](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.6...client-v1.3.7) (2025-05-17)
+
+### Bug Fixes
+
+- update deps ([1e6c38a](https://github.com/nestjs-mod/nestjs-mod-sso/commit/1e6c38a75e902eb6c4ea1dbbe88df46a48cf4196))
+
 ## [1.3.6](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.5...client-v1.3.6) (2025-05-08)
 
 ### Bug Fixes
