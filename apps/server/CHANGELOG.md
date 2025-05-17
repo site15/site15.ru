@@ -1,3 +1,9 @@
+# [1.7.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.6.1...server-v1.7.0) (2025-05-17)
+
+### Features
+
+- rename angular services and module in rest-sdk-angular ([ebb0d58](https://github.com/nestjs-mod/nestjs-mod-sso/commit/ebb0d58d150157aecb260c84422f40de8108e74e))
+
 ## [1.6.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.6.0...server-v1.6.1) (2025-05-17)
 
 ### Bug Fixes
