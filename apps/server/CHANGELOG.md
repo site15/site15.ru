@@ -1,3 +1,9 @@
+## [1.6.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.6.0...server-v1.6.1) (2025-05-17)
+
+### Bug Fixes
+
+- update deps ([1e6c38a](https://github.com/nestjs-mod/nestjs-mod-sso/commit/1e6c38a75e902eb6c4ea1dbbe88df46a48cf4196))
+
 # [1.6.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.5.5...server-v1.6.0) (2025-05-11)
 
 ### Features
