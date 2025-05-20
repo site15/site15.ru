@@ -3221,10 +3221,10 @@
     fast-glob "3.3.2"
     tslib "^2.3.0"
 
-"@nestjs-mod/docker-compose@^1.19.2":
-  version "1.19.2"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/docker-compose/-/docker-compose-1.19.2.tgz#53c287c75a15e9a6773cb2dcc52e5f74ff491f3d"
-  integrity sha512-Xb3LjC3U7RV9HVwad/K441t1MfalEbf+8Vo6AWVVz4i85GvtUIqa7UXMx9mBs+Koyti1fkI7eWPEbLk7vumwMw==
+"@nestjs-mod/docker-compose@^1.19.3":
+  version "1.19.3"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/docker-compose/-/docker-compose-1.19.3.tgz#8f87d3e67b9f31b65211af27febd399994737fcf"
+  integrity sha512-Qw4wdt3FBj1tdZFzGEK/P85A1Op/fQMy89mah6Z94BvigsCq7dfongOiM1hR2iMUX3kj4MJULhKj2B7iyAb4Yw==
   dependencies:
     case-anything "2.1.13"
     compose-spec-schema "1.0.0"
@@ -3272,10 +3272,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/pm2@1.13.3":
-  version "1.13.3"
-  resolved "https://registry.npmjs.org/@nestjs-mod/pm2/-/pm2-1.13.3.tgz"
-  integrity sha512-Fs9ldNJOOgH3VcBg6cl5nV7iIfmEJK4/GQ0m6MUkrvfslrfkS5DkAo+McG3++lBw2V/qA9sqfRplU254MP3dqQ==
+"@nestjs-mod/pm2@1.13.4":
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/pm2/-/pm2-1.13.4.tgz#50e354e6b9976f5b82b9a81f94a89801e61eee91"
+  integrity sha512-3TULaM8d4amxOg1ah7fjB0uFmLCyimxkFzSnElbX1J6allKP4TqfILgfMBX+uNi5nQDn7OG/zxGtAv90z/W+ow==
   dependencies:
     pm2 "5.3.0"
     tslib "^2.3.0"

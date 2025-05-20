@@ -1,7 +1,7 @@
 {
   "name": "@nestjs-mod-sso/source",
   "description": "Single Sign-On on NestJS and Angular with webhooks and social authorization",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "license": "MIT",
   "scripts": {
     "_____pm2-supabase-full dev infra_____": "_____pm2-supabase-full dev infra_____",
@@ -385,12 +385,12 @@
     "@keyv/postgres": "2.0.4",
     "@keyv/redis": "4.2.0",
     "@nestjs-mod/common": "2.17.9",
-    "@nestjs-mod/docker-compose": "^1.19.2",
+    "@nestjs-mod/docker-compose": "^1.19.3",
     "@nestjs-mod/keyv": "1.1.3",
     "@nestjs-mod/minio": "^1.4.2",
     "@nestjs-mod/pg-flyway": "^1.0.5",
     "@nestjs-mod/pino": "1.15.2",
-    "@nestjs-mod/pm2": "1.13.3",
+    "@nestjs-mod/pm2": "1.13.4",
     "@nestjs-mod/prisma": "^1.12.1",
     "@nestjs-mod/reports": "2.17.9",
     "@nestjs-mod/terminus": "1.14.2",
