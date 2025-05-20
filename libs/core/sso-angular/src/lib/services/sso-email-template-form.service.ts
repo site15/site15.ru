@@ -37,11 +37,11 @@ export class SsoEmailTemplateFormService {
           },
           props: {
             readonly: true,
+            disabled: true,
             label: this.translocoService.translate(
               `sso-email-template.form.fields.operation-name`
             ),
             placeholder: 'operationName',
-            required: true,
           },
         },
         ...this.getAvailableLangs().map((a) => ({

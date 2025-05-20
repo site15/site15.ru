@@ -430,7 +430,7 @@ msgid "id not set"
 msgstr "ID not set"
 
 msgid "sso-invite-members.form.fields.emails"
-msgstr "Emails"
+msgstr "Emails (separated by commas)"
 
 msgid "Validation errors"
 msgstr "Validation errors"

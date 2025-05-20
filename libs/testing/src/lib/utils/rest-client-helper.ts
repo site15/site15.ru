@@ -147,7 +147,7 @@ export class RestClientHelper<
           undefined,
           this.randomUser.email,
           undefined,
-          this.project.id,
+          undefined,
           {
             headers: {
               'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],

@@ -49,9 +49,7 @@ export class SsoRefreshSessionsController {
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Query() args: FindManySsoRefreshSessionArgs
   ) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
-      ? undefined
-      : ssoRequest.ssoProject.id;
+    const projectId = ssoRequest.ssoProject.id;
     const { take, skip, curPage, perPage } =
       this.prismaToolsService.getFirstSkipFromCurPerPage({
         curPage: args.curPage,
@@ -79,7 +77,7 @@ export class SsoRefreshSessionsController {
         ssoRefreshSessions: await prisma.ssoRefreshSession.findMany({
           where: {
             enabled: true,
-            ...(projectId ? { projectId } : {}),
+            // ...(projectId ? { projectId } : {}),
             ...(searchText
               ? {
                   OR: [
@@ -110,7 +108,7 @@ export class SsoRefreshSessionsController {
         totalResults: await prisma.ssoRefreshSession.count({
           where: {
             enabled: true,
-            ...(projectId ? { projectId } : {}),
+            // ...(projectId ? { projectId } : {}),
             ...(searchText
               ? {
                   OR: [

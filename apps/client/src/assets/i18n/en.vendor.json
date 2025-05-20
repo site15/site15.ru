@@ -373,7 +373,7 @@
     "sso-email-template.grid.columns.text": "Text",
     "Success": "Success",
     "id not set": "ID not set",
-    "sso-invite-members.form.fields.emails": "Emails",
+    "sso-invite-members.form.fields.emails": "Emails (separated by commas)",
     "Validation errors": "Validation errors",
     "Profile data updated successfully!": "Profile data updated successfully!",
     "Update": "Update",

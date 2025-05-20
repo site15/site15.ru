@@ -431,7 +431,7 @@ msgid "id not set"
 msgstr "ИД. не установлен"
 
 msgid "sso-invite-members.form.fields.emails"
-msgstr "Адреса электронной почты"
+msgstr "Адреса электронной почты (через запятую)"
 
 msgid "Validation errors"
 msgstr "Ошибка при проверке данных"

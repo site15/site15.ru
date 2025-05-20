@@ -40,7 +40,7 @@ export class WebhookLogFormService {
               `webhook-log.form.fields.request`
             ),
             placeholder: 'request',
-            readonly: true,
+            disabled: true,
           },
         },
         {

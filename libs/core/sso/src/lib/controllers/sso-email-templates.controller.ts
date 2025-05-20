@@ -58,9 +58,7 @@ export class SsoEmailTemplatesController {
       });
 
     const searchText = args.searchText;
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
-      ? undefined
-      : ssoRequest.ssoProject.id;
+    const projectId = ssoRequest.ssoProject.id;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')

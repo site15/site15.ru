@@ -140,7 +140,7 @@
     "sso-email-template.grid.columns.text": "Текст",
     "Success": "Успешно",
     "id not set": "ИД. не установлен",
-    "sso-invite-members.form.fields.emails": "Адреса электронной почты",
+    "sso-invite-members.form.fields.emails": "Адреса электронной почты (через запятую)",
     "Validation errors": "Ошибка при проверке данных",
     "Profile data updated successfully!": "Данные профиля успешно обновлены!",
     "Update": "Изменить",
