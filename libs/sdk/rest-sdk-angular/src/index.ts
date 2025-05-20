@@ -1,3 +1,4 @@
+export * from './lib/sso-rest-sdk-angular.module';
 export * from './lib/sso-rest-sdk-angular.service';
 export * from './lib/generated/api.module';
 export * from './lib/generated/configuration';
