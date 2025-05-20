@@ -1,3 +1,9 @@
+## [1.0.8](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.0.7...rest-sdk-v1.0.8) (2025-05-20)
+
+### Bug Fixes
+
+- update deps ([fc22802](https://github.com/nestjs-mod/nestjs-mod-sso/commit/fc228028b668b96c9e6f5def5f91de44ad9c9733))
+
 ## [1.0.7](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.0.6...rest-sdk-v1.0.7) (2025-05-20)
 
 ### Bug Fixes
