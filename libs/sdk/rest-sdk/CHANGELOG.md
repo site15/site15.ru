@@ -1,3 +1,9 @@
+## [1.0.7](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.0.6...rest-sdk-v1.0.7) (2025-05-20)
+
+### Bug Fixes
+
+- update version for @nestjs-mod/pm2 and @nestjs-mod/docker-compose ([f439774](https://github.com/nestjs-mod/nestjs-mod-sso/commit/f43977470ff085e5bf9b29781bd98c49a4c24781))
+
 ## [1.0.6](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.0.5...rest-sdk-v1.0.6) (2025-05-17)
 
 ### Bug Fixes
