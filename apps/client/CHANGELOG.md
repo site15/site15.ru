@@ -1,3 +1,14 @@
+# [1.5.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.4.0...client-v1.5.0) (2025-05-20)
+
+### Bug Fixes
+
+- update many small errors with request filters, update translates, update some ui forms ([a0420d0](https://github.com/nestjs-mod/nestjs-mod-sso/commit/a0420d00c581f585b4ed3e40567b6151d4b8ab0e))
+- update version for @nestjs-mod/pm2 and @nestjs-mod/docker-compose ([f439774](https://github.com/nestjs-mod/nestjs-mod-sso/commit/f43977470ff085e5bf9b29781bd98c49a4c24781))
+
+### Features
+
+- append SsoRestSdkAngularModule for clear import ([8a063b3](https://github.com/nestjs-mod/nestjs-mod-sso/commit/8a063b33f6e2c222036b01c7e2ddcdeaaf088fc0))
+
 # [1.4.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.3.7...client-v1.4.0) (2025-05-17)
 
 ### Features
