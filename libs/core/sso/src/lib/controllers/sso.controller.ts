@@ -1,4 +1,4 @@
-import { StatusResponse } from '@nestjs-mod-sso/common';
+import { StatusResponse } from '@nestjs-mod/swagger';
 import {
   ValidationError,
   ValidationErrorEnum,

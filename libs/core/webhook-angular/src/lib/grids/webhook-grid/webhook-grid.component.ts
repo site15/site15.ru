@@ -28,11 +28,11 @@ import {
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import {
   BehaviorSubject,
+  Observable,
   catchError,
   debounceTime,
   distinctUntilChanged,
   merge,
-  Observable,
   tap,
 } from 'rxjs';
 
@@ -44,12 +44,11 @@ import {
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import {
-  getQueryMeta,
-  getQueryMetaByParams,
   NzTableSortOrderDetectorPipe,
-  RequestMeta,
   ValidationService,
-} from '@nestjs-mod-sso/common-angular';
+  getQueryMetaByParams,
+} from '@nestjs-mod/afat';
+import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { WebhookFormComponent } from '../../forms/webhook-form/webhook-form.component';
 import { WebhookLogFormComponent } from '../../forms/webhook-log-form/webhook-log-form.component';
 import { WebhookLogModel } from '../../services/webhook-log-mapper.service';

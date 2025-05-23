@@ -16,7 +16,7 @@ import { GithubFill } from '@ant-design/icons-angular/icons';
 import { provideTransloco } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
-import { COMMON_FORMLY_FIELDS } from '@nestjs-mod-sso/common-angular';
+import { COMMON_FORMLY_FIELDS } from '@nestjs-mod/afat';
 import { FILES_FORMLY_FIELDS, MINIO_URL } from '@nestjs-mod-sso/files-angular';
 import { SsoRestSdkAngularModule } from '@nestjs-mod/sso-rest-sdk-angular';
 import { FormlyModule } from '@ngx-formly/core';

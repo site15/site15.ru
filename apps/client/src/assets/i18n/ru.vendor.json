@@ -39,13 +39,11 @@
     "Profile data updated successfully!": "Данные профиля успешно обновлены!",
     "Update": "Изменить",
     "To complete the password change process, click the link in the email. If you haven't received the email, check your spam folder or try again.": "Чтобы завершить процесс смены пароля, перейдите по ссылке в электронном письме. Если вы не получили письмо, проверьте папку со спамом или повторите попытку.",
-    "Your password has been successfully changed!": "Ваш пароль успешно изменен!",
-    "field \"{{label}}\"": "поле \"{{label}}\""
+    "Your password has been successfully changed!": "Ваш пароль успешно изменен!"
   },
   "common": {},
   "common-angular": {
-    "Unauthorized": "Неавторизован",
-    "field \"{{label}}\"": "поле \"{{label}}\""
+    "Unauthorized": "Неавторизован"
   },
   "files-getText": {
     "Files error": "Ошибка файлов",
@@ -131,8 +129,7 @@
     "Fill user credentials": "Заполните учетные данные пользователя",
     "Fill admin credentials": "Заполните учетные данные администратора",
     "Sign-in": "Войти",
-    "Validation errors": "Ошибка при проверке данных",
-    "field \"{{label}}\"": "поле \"{{label}}\""
+    "Validation errors": "Ошибка при проверке данных"
   },
   "runtime-tools": {},
   "bridge-react-webpack-plugin": {},
@@ -386,8 +383,7 @@
     "sso-user.grid.columns.email-verified-at": "Дата подтверждения почты",
     "sso-user.grid.columns.lastname": "Фамилия",
     "sso-user.grid.columns.phone-verified-at": "Дата подтверждения телефона",
-    "sso-user.grid.columns.revoked-at": "Дата отключения",
-    "field \"{{label}}\"": "поле \"{{label}}\""
+    "sso-user.grid.columns.revoked-at": "Дата отключения"
   },
   "two-factor-getText": {
     "Number of attempts of two factor code has been exhausted": "Количество попыток ввода двухфакторного кода исчерпано",

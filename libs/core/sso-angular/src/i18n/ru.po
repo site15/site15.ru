@@ -479,6 +479,3 @@ msgstr "Дата подтверждения телефона"
 
 msgid "sso-user.grid.columns.revoked-at"
 msgstr "Дата отключения"
-
-msgid "field \"{{label}}\""
-msgstr "поле \"{{label}}\""

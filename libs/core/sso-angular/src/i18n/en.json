@@ -154,6 +154,5 @@
     "sso-user.grid.columns.email-verified-at": "Email verified at",
     "sso-user.grid.columns.lastname": "Last name",
     "sso-user.grid.columns.phone-verified-at": "Phone verified at",
-    "sso-user.grid.columns.revoked-at": "Revoked at",
-    "field \"{{label}}\"": "field \"{{label}}\""
+    "sso-user.grid.columns.revoked-at": "Revoked at"
 }

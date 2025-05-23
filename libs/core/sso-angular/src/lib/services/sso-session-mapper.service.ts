@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
+import { TIMEZONE_OFFSET, safeParseJson } from '@nestjs-mod/misc';
 import { SsoRefreshSessionDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
-import {
-  BROWSER_TIMEZONE_OFFSET,
-  safeParseJson,
-} from '@nestjs-mod-sso/common-angular';
 import { addHours, format } from 'date-fns';
 
 export interface SsoSessionModel
@@ -26,13 +23,13 @@ export class SsoSessionMapperService {
       ...item,
       userData: item?.userData ? JSON.stringify(item.userData) : '',
       expiresAt: item?.expiresAt
-        ? addHours(new Date(item.expiresAt), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.expiresAt), TIMEZONE_OFFSET)
         : null,
       createdAt: item?.createdAt
-        ? addHours(new Date(item.createdAt), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET)
         : null,
       updatedAt: item?.updatedAt
-        ? addHours(new Date(item.updatedAt), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET)
         : null,
     };
   }

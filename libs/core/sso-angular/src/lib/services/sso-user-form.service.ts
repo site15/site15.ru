@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
-import { ValidationService } from '@nestjs-mod-sso/common-angular';
+import { ValidationService } from '@nestjs-mod/afat';
 import {
   SsoRestSdkAngularService,
   SsoUserScalarFieldEnumInterface,

@@ -1,4 +1,4 @@
-import { FindManyResponseMeta } from '@nestjs-mod-sso/common';
+import { FindManyResponseMeta } from '@nestjs-mod/swagger';
 import { ApiProperty } from '@nestjs/swagger';
 import { SsoEmailTemplateDto } from '../generated/rest/dto/sso-email-template.dto';
 

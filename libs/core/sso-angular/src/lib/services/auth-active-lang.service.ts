@@ -4,7 +4,7 @@ import {
   LangToLocaleMapping,
   TRANSLOCO_LOCALE_LANG_MAPPING,
 } from '@jsverse/transloco-locale';
-import { ActiveLangService } from '@nestjs-mod-sso/common-angular';
+import { ActiveLangService } from '@nestjs-mod/afat';
 import {
   SsoRestSdkAngularService,
   SsoErrorEnumInterface,

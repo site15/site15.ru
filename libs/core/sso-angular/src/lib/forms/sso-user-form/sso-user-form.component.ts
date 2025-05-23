@@ -16,7 +16,7 @@ import {
 } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
-import { ValidationService } from '@nestjs-mod-sso/common-angular';
+import { ValidationService } from '@nestjs-mod/afat';
 import { FilesService } from '@nestjs-mod-sso/files-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';

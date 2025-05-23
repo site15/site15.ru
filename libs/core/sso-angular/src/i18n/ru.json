@@ -154,6 +154,5 @@
     "sso-user.grid.columns.email-verified-at": "Дата подтверждения почты",
     "sso-user.grid.columns.lastname": "Фамилия",
     "sso-user.grid.columns.phone-verified-at": "Дата подтверждения телефона",
-    "sso-user.grid.columns.revoked-at": "Дата отключения",
-    "field \"{{label}}\"": "поле \"{{label}}\""
+    "sso-user.grid.columns.revoked-at": "Дата отключения"
 }

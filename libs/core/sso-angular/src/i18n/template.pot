@@ -477,6 +477,3 @@ msgstr "Phone verified at"
 
 msgid "sso-user.grid.columns.revoked-at"
 msgstr "Revoked at"
-
-msgid "field \"{{label}}\""
-msgstr "field \"{{label}}\""

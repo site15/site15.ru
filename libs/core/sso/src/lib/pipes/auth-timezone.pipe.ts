@@ -1,4 +1,4 @@
-import { SINGLE_SIGN_ON_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common';
+import { TIMEZONE_OFFSET } from '@nestjs-mod/misc';
 import { Injectable, PipeTransform } from '@nestjs/common';
 import { SsoTimezoneService } from '../services/sso-timezone.service';
 import { SsoAsyncLocalStorageContext } from '../types/sso-async-local-storage-data';
@@ -13,8 +13,7 @@ export class SsoTimezonePipe implements PipeTransform {
   transform(value: unknown) {
     const result = this.authTimezoneService.convertObject(
       value,
-      -1 * (this.asyncLocalStorage.get()?.authTimezone || 0) -
-        SINGLE_SIGN_ON_TIMEZONE_OFFSET
+      -1 * (this.asyncLocalStorage.get()?.authTimezone || 0) - TIMEZONE_OFFSET
     );
 
     return this.authTimezoneService.convertDatesInObjectToDateStrings(result);

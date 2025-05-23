@@ -23,10 +23,10 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import {
   BehaviorSubject,
+  Observable,
   debounceTime,
   distinctUntilChanged,
   merge,
-  Observable,
   tap,
 } from 'rxjs';
 
@@ -37,14 +37,13 @@ import {
 } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { SsoRefreshSessionScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import {
-  getQueryMeta,
-  getQueryMetaByParams,
   NgChanges,
   NzTableSortOrderDetectorPipe,
-  RequestMeta,
-} from '@nestjs-mod-sso/common-angular';
+  getQueryMetaByParams,
+} from '@nestjs-mod/afat';
+import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
+import { SsoRefreshSessionScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { SsoSessionFormComponent } from '../../forms/sso-session-form/sso-session-form.component';
 import { SsoSessionModel } from '../../services/sso-session-mapper.service';
 import { SsoSessionService } from '../../services/sso-session.service';

@@ -11,6 +11,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "allowedCommonJsDependencies": [
+          "@nestjs-mod/misc",
           "@jsverse/transloco-messageformat",
           "@jsverse/transloco-keys-manager/marker",
           "lodash/fp/isEqual",
@@ -38,6 +39,11 @@
             "glob": "**/package.json",
             "input": "./apps/client/",
             "output": "./"
+          },
+          {
+            "glob": "**/*.json",
+            "input": "./node_modules/@nestjs-mod/afat/i18n/",
+            "output": "/assets/i18n/nestjs-mod-afat/"
           }
         ],
         "styles": ["apps/client/src/styles.scss"],

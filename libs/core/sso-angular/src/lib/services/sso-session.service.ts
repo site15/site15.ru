@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RequestMeta } from '@nestjs-mod-sso/common-angular';
+import { RequestMeta } from '@nestjs-mod/misc';
 import {
   SsoRestSdkAngularService,
   UpdateSsoRefreshSessionDtoInterface,

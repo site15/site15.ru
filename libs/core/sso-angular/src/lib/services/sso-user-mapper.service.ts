@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
+import { TIMEZONE_OFFSET, safeParseJson } from '@nestjs-mod/misc';
 import { SsoUserDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
-import {
-  BROWSER_TIMEZONE_OFFSET,
-  safeParseJson,
-} from '@nestjs-mod-sso/common-angular';
+
 import { addHours, format } from 'date-fns';
 
 export interface SsoUserModel
@@ -36,19 +34,19 @@ export class SsoUserMapperService {
       roles: item?.roles ? item.roles.split(',') : [],
       appData: item?.appData ? JSON.stringify(item.appData) : '',
       emailVerifiedAt: item?.emailVerifiedAt
-        ? addHours(new Date(item.emailVerifiedAt), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.emailVerifiedAt), TIMEZONE_OFFSET)
         : null,
       phoneVerifiedAt: item?.phoneVerifiedAt
-        ? addHours(new Date(item.phoneVerifiedAt), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.phoneVerifiedAt), TIMEZONE_OFFSET)
         : null,
       birthdate: item?.birthdate
-        ? addHours(new Date(item.birthdate), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.birthdate), TIMEZONE_OFFSET)
         : null,
       createdAt: item?.createdAt
-        ? addHours(new Date(item.createdAt), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET)
         : null,
       updatedAt: item?.updatedAt
-        ? addHours(new Date(item.updatedAt), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET)
         : null,
     };
   }

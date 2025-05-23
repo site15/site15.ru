@@ -27,10 +27,10 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import {
   BehaviorSubject,
+  Observable,
   debounceTime,
   distinctUntilChanged,
   merge,
-  Observable,
   tap,
 } from 'rxjs';
 
@@ -42,12 +42,11 @@ import {
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import {
-  getQueryMeta,
-  getQueryMetaByParams,
   NgChanges,
   NzTableSortOrderDetectorPipe,
-  RequestMeta,
-} from '@nestjs-mod-sso/common-angular';
+  getQueryMetaByParams,
+} from '@nestjs-mod/afat';
+import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { WebhookLogFormComponent } from '../../forms/webhook-log-form/webhook-log-form.component';
 import { WebhookLogService } from '../../services/webhook-log.service';
 

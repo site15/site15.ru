@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LangDefinition, TranslocoService } from '@jsverse/transloco';
+import { TIMEZONE_OFFSET } from '@nestjs-mod/misc';
 import { SsoEmailTemplateDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
-import { BROWSER_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common-angular';
 import { addHours } from 'date-fns';
 
 export interface SsoEmailTemplateModel
@@ -32,10 +32,10 @@ export class SsoEmailTemplateMapperService {
     return {
       ...item,
       createdAt: item?.createdAt
-        ? addHours(new Date(item.createdAt), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET)
         : null,
       updatedAt: item?.updatedAt
-        ? addHours(new Date(item.updatedAt), BROWSER_TIMEZONE_OFFSET)
+        ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET)
         : null,
       ...Object.fromEntries(
         this.getAvailableLangs().map((a) => {

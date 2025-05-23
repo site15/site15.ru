@@ -1,4 +1,4 @@
-import { FindManyResponseMeta } from '@nestjs-mod-sso/common';
+import { FindManyResponseMeta } from '@nestjs-mod/swagger';
 import { ApiProperty } from '@nestjs/swagger';
 import { SsoProjectDto } from '../generated/rest/dto/sso-project.dto';
 

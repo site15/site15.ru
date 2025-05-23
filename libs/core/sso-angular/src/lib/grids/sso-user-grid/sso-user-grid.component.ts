@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SsoUserScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { FilesService } from '@nestjs-mod-sso/files-angular';
+import { SsoUserScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';
@@ -25,10 +25,10 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
 import {
   BehaviorSubject,
+  Observable,
   debounceTime,
   distinctUntilChanged,
   merge,
-  Observable,
   tap,
 } from 'rxjs';
 
@@ -40,12 +40,11 @@ import {
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import {
-  getQueryMeta,
-  getQueryMetaByParams,
   NgChanges,
   NzTableSortOrderDetectorPipe,
-  RequestMeta,
-} from '@nestjs-mod-sso/common-angular';
+  getQueryMetaByParams,
+} from '@nestjs-mod/afat';
+import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { SsoInviteMembersFormComponent } from '../../forms/sso-invite-members-form/sso-invite-members-form.component';
 import { SsoUserFormComponent } from '../../forms/sso-user-form/sso-user-form.component';
 import { SsoUserModel } from '../../services/sso-user-mapper.service';

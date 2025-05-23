@@ -1,4 +1,4 @@
-import { FindManyArgs } from '@nestjs-mod-sso/common';
+import { FindManyArgs } from '@nestjs-mod/swagger';
 
 import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
 import { ValidationError } from '@nestjs-mod-sso/validation';

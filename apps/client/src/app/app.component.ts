@@ -8,7 +8,6 @@ import {
   TranslocoService,
 } from '@jsverse/transloco';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { BROWSER_TIMEZONE_OFFSET } from '@nestjs-mod-sso/common-angular';
 import { SsoRoleInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { addHours } from 'date-fns';
@@ -40,6 +39,7 @@ import {
 } from 'rxjs';
 import { APP_TITLE } from './app.constants';
 
+import { TIMEZONE_OFFSET } from '@nestjs-mod/misc';
 import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
 @UntilDestroy()
 @Component({
@@ -188,7 +188,7 @@ export class AppComponent implements OnInit {
     ).pipe(
       tap((result) =>
         this.serverTime$.next(
-          addHours(new Date(result as string), BROWSER_TIMEZONE_OFFSET)
+          addHours(new Date(result as string), TIMEZONE_OFFSET)
         )
       )
     );

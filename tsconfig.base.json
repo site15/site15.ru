@@ -27,8 +27,6 @@
         "libs/sdk/rest-sdk-angular/src/index.ts"
       ],
       "@nestjs-mod/sso-rest-sdk": ["libs/sdk/rest-sdk/src/index.ts"],
-      "@nestjs-mod-sso/common": ["libs/common/src/index.ts"],
-      "@nestjs-mod-sso/common-angular": ["libs/common-angular/src/index.ts"],
       "@nestjs-mod-sso/files": ["libs/core/files/src/index.ts"],
       "@nestjs-mod-sso/files-angular": ["libs/core/files-angular/src/index.ts"],
       "@nestjs-mod-sso/notifications": ["libs/core/notifications/src/index.ts"],
