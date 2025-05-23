@@ -1,3 +1,9 @@
+# [1.9.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.8.1...server-v1.9.0) (2025-05-23)
+
+### Features
+
+- move common and common-angular to nestjs-mod-contrib repository ([a8dea37](https://github.com/nestjs-mod/nestjs-mod-sso/commit/a8dea37a2d693b700bca3508a96feb6ecf740859))
+
 ## [1.8.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.8.0...server-v1.8.1) (2025-05-20)
 
 ### Bug Fixes
