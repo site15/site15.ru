@@ -1,3 +1,9 @@
+# [1.6.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.5.1...client-v1.6.0) (2025-05-23)
+
+### Features
+
+- move common and common-angular to nestjs-mod-contrib repository ([a8dea37](https://github.com/nestjs-mod/nestjs-mod-sso/commit/a8dea37a2d693b700bca3508a96feb6ecf740859))
+
 ## [1.5.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.5.0...client-v1.5.1) (2025-05-20)
 
 ### Bug Fixes
