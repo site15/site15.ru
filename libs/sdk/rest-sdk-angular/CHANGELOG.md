@@ -1,3 +1,9 @@
+# [1.3.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.2.1...rest-sdk-angular-v1.3.0) (2025-05-23)
+
+### Features
+
+- move common and common-angular to nestjs-mod-contrib repository ([a8dea37](https://github.com/nestjs-mod/nestjs-mod-sso/commit/a8dea37a2d693b700bca3508a96feb6ecf740859))
+
 ## [1.2.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.2.0...rest-sdk-angular-v1.2.1) (2025-05-20)
 
 ### Bug Fixes
