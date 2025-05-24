@@ -1,6 +1,6 @@
 import { FindManyArgs } from '@nestjs-mod/swagger';
 
-import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
+import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';

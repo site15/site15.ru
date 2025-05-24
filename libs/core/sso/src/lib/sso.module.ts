@@ -1,4 +1,4 @@
-import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
+import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
 import { WebhookModule } from '@nestjs-mod-sso/webhook';
 import {
   createNestModule,

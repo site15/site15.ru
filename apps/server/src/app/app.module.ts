@@ -5,10 +5,7 @@ import {
 } from '@nestjs-mod/common';
 
 import { SSO_FEATURE, SsoModule, SsoRequest } from '@nestjs-mod-sso/sso';
-import {
-  ValidationError,
-  ValidationErrorEnum,
-} from '@nestjs-mod-sso/validation';
+import { ValidationError, ValidationErrorEnum } from '@nestjs-mod/validation';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { APP_FILTER } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -39,7 +36,9 @@ export const { AppModule } = createNestModule({
       localePaths: [
         join(__dirname, 'assets', 'i18n'),
         join(__dirname, 'assets', 'i18n', 'getText'),
-        join(__dirname, 'assets', 'i18n', 'class-validator-messages'),
+        join(__dirname, 'assets', 'i18n', 'cv-messages'),
+        join(__dirname, 'assets', 'i18n', 'nestjs-mod-prisma-tools'),
+        join(__dirname, 'assets', 'i18n', 'nestjs-mod-validation'),
       ],
       vendorLocalePaths: [join(__dirname, 'assets', 'i18n')],
       locales: ['en', 'ru'],

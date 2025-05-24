@@ -1,8 +1,5 @@
 import { StatusResponse } from '@nestjs-mod/swagger';
-import {
-  ValidationError,
-  ValidationErrorEnum,
-} from '@nestjs-mod-sso/validation';
+import { ValidationError, ValidationErrorEnum } from '@nestjs-mod/validation';
 import { WebhookService } from '@nestjs-mod-sso/webhook';
 import {
   Body,

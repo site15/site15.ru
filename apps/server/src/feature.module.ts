@@ -4,14 +4,14 @@ import {
   NOTIFICATIONS_FOLDER,
   NotificationsModule,
 } from '@nestjs-mod-sso/notifications';
-import { PrismaToolsModule } from '@nestjs-mod-sso/prisma-tools';
+import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
 import { SSO_FEATURE, SSO_FOLDER, SsoModule } from '@nestjs-mod-sso/sso';
 import {
   TWO_FACTOR_FEATURE,
   TWO_FACTOR_FOLDER,
   TwoFactorModule,
 } from '@nestjs-mod-sso/two-factor';
-import { ValidationModule } from '@nestjs-mod-sso/validation';
+import { ValidationModule } from '@nestjs-mod/validation';
 import {
   WEBHOOK_FEATURE,
   WEBHOOK_FOLDER,

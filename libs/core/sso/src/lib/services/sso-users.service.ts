@@ -1,4 +1,4 @@
-import { PrismaToolsService } from '@nestjs-mod-sso/prisma-tools';
+import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';

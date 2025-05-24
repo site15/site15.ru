@@ -6,7 +6,7 @@ process.env.TZ = 'UTC';
 import { FILES_EXTRA_MODELS } from '@nestjs-mod-sso/files';
 import { NOTIFICATIONS_EXTRA_MODELS } from '@nestjs-mod-sso/notifications';
 import { SSO_EXTRA_MODELS } from '@nestjs-mod-sso/sso';
-import { VALIDATION_EXTRA_MODELS } from '@nestjs-mod-sso/validation';
+import { VALIDATION_EXTRA_MODELS } from '@nestjs-mod/validation';
 import { WEBHOOK_EXTRA_MODELS } from '@nestjs-mod-sso/webhook';
 import {
   bootstrapNestApplication,
