@@ -1,3 +1,9 @@
+# [1.10.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.9.0...server-v1.10.0) (2025-05-24)
+
+### Features
+
+- move prisma-tools and validation to nestjs-mod-contrib repository ([3ec9961](https://github.com/nestjs-mod/nestjs-mod-sso/commit/3ec996134954003fc1f8c33903ed811cd68e6fb1))
+
 # [1.9.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.8.1...server-v1.9.0) (2025-05-23)
 
 ### Features
