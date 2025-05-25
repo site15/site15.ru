@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.4.0...rest-sdk-angular-v1.4.1) (2025-05-25)
+
+### Bug Fixes
+
+- update prisma to 6.8.2 ([330bc5c](https://github.com/nestjs-mod/nestjs-mod-sso/commit/330bc5ca2c7d9a1c5d13839c0efbad98f395a91a))
+
 # [1.4.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.3.0...rest-sdk-angular-v1.4.0) (2025-05-24)
 
 ### Features
