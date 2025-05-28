@@ -21,3 +21,5 @@ export async function replaceEnvs() {
     }
   }
 }
+
+export const fake = 'fake';

@@ -26,8 +26,7 @@ RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOL
     echo '' > .env && \
     jq 'del(.devDependencies)' package.json > temp.json && mv temp.json package.json && \
     yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline && \
-    jq 'del(.targetDefaults, .plugins, .generators, .release)' nx.json > temp.json && mv temp.json nx.json && \
-    yarn add -D nx@20.8.0 prisma@5.22.0 @brakebein/prisma-generator-nestjs-dto@1.24.0-beta5 pg-flyway pg-create-db
+    jq 'del(.targetDefaults, .plugins, .generators, .release)' nx.json > temp.json && mv temp.json nx.json
 
 FROM node:23.11.0-alpine
 WORKDIR /app
