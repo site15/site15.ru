@@ -6,7 +6,7 @@ import { SsoRequest } from '../types/sso-request';
 import { SsoCacheService } from './sso-cache.service';
 
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
-import { PrismaClient } from '@prisma/sso-client';
+import { PrismaClient } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoTemplatesService } from './sso-templates.service';
 @Injectable()

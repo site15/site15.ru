@@ -1,9 +1,9 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   
-  output   = "../../../../../node_modules/@prisma/notifications-client"
-  binaryTargets = ["native","rhel-openssl-3.0.x","linux-musl-openssl-3.0.x","linux-musl"]
+  output   = "../../../../../libs/core/notifications/src/lib/generated/prisma-client"
   
+  previewFeatures = ["queryCompiler","driverAdapters"]
 }
 datasource db {
   provider          = "postgres"
@@ -12,21 +12,21 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  flatResourceStructure           = "false"
-  updateDtoPrefix                 = "Update"
+  annotateAllDtoProperties        = "true"
+  classValidation                 = "true"
   createDtoPrefix                 = "Create"
   definiteAssignmentAssertion     = "true"
-  reExport                        = "false"
-  prettier                        = "true"
-  noDependencies                  = "false"
-  classValidation                 = "true"
   dtoSuffix                       = "Dto"
-  fileNamingStyle                 = "kebab"
-  exportRelationModifierClasses   = "true"
   entityPrefix                    = ""
-  outputToNestJsResourceStructure = "false"
-  annotateAllDtoProperties        = "true"
   entitySuffix                    = ""
+  exportRelationModifierClasses   = "true"
+  fileNamingStyle                 = "kebab"
+  flatResourceStructure           = "false"
+  noDependencies                  = "false"
+  outputToNestJsResourceStructure = "false"
+  prettier                        = "true"
+  reExport                        = "false"
+  updateDtoPrefix                 = "Update"
 }
 
 model NotificationsUser {

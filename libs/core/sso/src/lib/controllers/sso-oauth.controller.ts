@@ -1,6 +1,6 @@
-import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { WebhookService } from '@nestjs-mod-sso/webhook';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import {
   Body,
   Controller,
@@ -12,11 +12,11 @@ import {
   Res,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { PrismaClient } from '@prisma/sso-client';
 import { Response } from 'express';
 import { omit } from 'lodash/fp';
 import { IpAddress } from '../decorators/ip-address.decorator';
 import { UserAgent } from '../decorators/user-agent.decorator';
+import { PrismaClient } from '../generated/prisma-client';
 import { SsoCookieService } from '../services/sso-cookie.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SSO_FEATURE } from '../sso.constants';

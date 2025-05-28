@@ -1,9 +1,9 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   
-  output   = "../../../../../node_modules/@prisma/two-factor-client"
-  binaryTargets = ["native","rhel-openssl-3.0.x","linux-musl-openssl-3.0.x","linux-musl"]
+  output   = "../../../../../libs/core/two-factor/src/lib/generated/prisma-client"
   
+  previewFeatures = ["queryCompiler","driverAdapters"]
 }
 datasource db {
   provider          = "postgres"
@@ -12,21 +12,21 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  reExport                        = "false"
-  noDependencies                  = "false"
-  entitySuffix                    = ""
+  annotateAllDtoProperties        = "true"
   classValidation                 = "true"
-  flatResourceStructure           = "false"
-  outputToNestJsResourceStructure = "false"
-  updateDtoPrefix                 = "Update"
+  createDtoPrefix                 = "Create"
   definiteAssignmentAssertion     = "true"
   dtoSuffix                       = "Dto"
-  exportRelationModifierClasses   = "true"
   entityPrefix                    = ""
+  entitySuffix                    = ""
+  exportRelationModifierClasses   = "true"
   fileNamingStyle                 = "kebab"
+  flatResourceStructure           = "false"
+  noDependencies                  = "false"
+  outputToNestJsResourceStructure = "false"
   prettier                        = "true"
-  createDtoPrefix                 = "Create"
-  annotateAllDtoProperties        = "true"
+  reExport                        = "false"
+  updateDtoPrefix                 = "Update"
 }
 
 model TwoFactorUser {

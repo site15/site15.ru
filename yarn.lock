@@ -3228,10 +3228,10 @@
     fast-glob "3.3.2"
     tslib "^2.3.0"
 
-"@nestjs-mod/docker-compose@^1.20.0":
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/docker-compose/-/docker-compose-1.20.0.tgz#1067c7466697842e62481ef1c82da68affd8bb49"
-  integrity sha512-6NR28Hea+UOfFuSgnj3i1PPHe3opBHqvIlT8g86sWdO5pWeF/Hjcf0wL84WBU87UiMTRFYEWlpFlCgt2i4+qVQ==
+"@nestjs-mod/docker-compose@^1.20.1":
+  version "1.20.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/docker-compose/-/docker-compose-1.20.1.tgz#410ee2a4375221d635b237aecbbded80fae494cc"
+  integrity sha512-VTWW/hK4xEipoD6smj9ntD1ZrL2hr2RxT9LWPhmWZfOGLLqV+BMQZXslOQcteuHIl0I7Id32yN1Iltn19sv3Gg==
   dependencies:
     case-anything "2.1.13"
     compose-spec-schema "1.0.0"
@@ -3287,17 +3287,17 @@
     pm2 "5.3.0"
     tslib "^2.3.0"
 
-"@nestjs-mod/prisma-tools@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma-tools/-/prisma-tools-1.0.1.tgz#1d6d14b3aebaf7e16824183ce06ea3b23990d081"
-  integrity sha512-upn2u1gAy+1llQNZOilFgPjVJnBGFsmyU4H9KkaW/wc/LjHD0m7DUlw+SNac1zCgcfgDXY/vLHfGYn5epjnDJA==
+"@nestjs-mod/prisma-tools@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma-tools/-/prisma-tools-1.0.3.tgz#3d9cc311564b5d4d4ff871d9a14f141c2399d03e"
+  integrity sha512-xlpfvus2S5V5A3WDsYMW7reOcyzF+YSwrju53foLT7MyTfKFe5JO2bqT4ig+kY1xxU/gIDsVEYFzv6UaTGm34g==
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/prisma@^1.13.0":
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma/-/prisma-1.13.0.tgz#6b51c860285295dad203bd2b913a12ca994d8087"
-  integrity sha512-DOw134ac1qf3RQtovsFALhT7SQT5UexkU6LdriPboVFUArcChgd/H65eUfmcSN1bgcfZzDaJLbpCuwPde0XKng==
+"@nestjs-mod/prisma@^1.14.1":
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma/-/prisma-1.14.1.tgz#735678d89c590ae9b2e719f9b7a150b354875786"
+  integrity sha512-QUWZaUDcpREp3uRe5QxaMjy5ple+naJW7toOV7MM8lUkVvNFXsA/tkudt43iFp7sh5/Lv7ZLl84H7PnDQTg9EQ==
   dependencies:
     case-anything "2.1.13"
     connection-string "4.3.5"
@@ -4789,6 +4789,14 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
+"@prisma/adapter-pg@6.8.2":
+  version "6.8.2"
+  resolved "https://registry.yarnpkg.com/@prisma/adapter-pg/-/adapter-pg-6.8.2.tgz#5a17c3bcb452dfe5b272364f3c84c662498c6894"
+  integrity sha512-T0c+oQsP0F47cTsoKPSEtPRmeuhFaCPcMFDev6N1QTnQZi+COkAiO6NKmblf1MM8D9ltYhs1PRsYBzPWB6QKwg==
+  dependencies:
+    "@prisma/driver-adapter-utils" "6.8.2"
+    postgres-array "3.0.4"
+
 "@prisma/client@^6.8.2":
   version "6.8.2"
   resolved "https://registry.yarnpkg.com/@prisma/client/-/client-6.8.2.tgz#f0af46643604cd38341f285483edc3c3ae7e6651"
@@ -4810,6 +4818,13 @@
   version "6.8.2"
   resolved "https://registry.yarnpkg.com/@prisma/debug/-/debug-6.8.2.tgz#59fb9e0ccb0f431fe7011c36c95f9bfcbe051749"
   integrity sha512-4muBSSUwJJ9BYth5N8tqts8JtiLT8QI/RSAzEogwEfpbYGFo9mYsInsVo8dqXdPO2+Rm5OG5q0qWDDE3nyUbVg==
+
+"@prisma/driver-adapter-utils@6.8.2":
+  version "6.8.2"
+  resolved "https://registry.yarnpkg.com/@prisma/driver-adapter-utils/-/driver-adapter-utils-6.8.2.tgz#214b32036a1144084b3078a02cd6ff1ac457edae"
+  integrity sha512-5+CzN/41gBsRmA3ekbVy1TXnSImSPBtMlxWAttVH6tg94bv4zGGRmyk5tUCdT83nl0hG1Sq2oMXR7ml6aqILvw==
+  dependencies:
+    "@prisma/debug" "6.8.2"
 
 "@prisma/engines-version@6.8.0-43.2060c79ba17c6bb9f5823312b6f6b7f4a845738e":
   version "6.8.0-43.2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
@@ -15559,6 +15574,11 @@ postcss@^8.2.14, postcss@^8.4.24, postcss@^8.4.33, postcss@^8.4.38, postcss@^8.4
     nanoid "^3.3.8"
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
+
+postgres-array@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/postgres-array/-/postgres-array-3.0.4.tgz#4efcaf4d2c688d8bcaa8620ed13f35f299f7528c"
+  integrity sha512-nAUSGfSDGOaOAEGwqsRY27GPOea7CNipJPOA7lPbdEpx5Kg3qzdP0AaWC5MlhTWV9s4hFX39nomVZ+C4tnGOJQ==
 
 postgres-array@~2.0.0:
   version "2.0.0"

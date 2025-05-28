@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaClient, SsoUser } from '@prisma/sso-client';
 import ms from 'ms';
 import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
+import { PrismaClient, SsoUser } from '../generated/prisma-client';
 import {
   OperationName,
   SsoConfiguration,

@@ -9,6 +9,7 @@ export * from './lib/notifications.errors';
 export * from './lib/notifications.filter';
 export * from './lib/notifications.guard';
 export * from './lib/notifications.module';
+export * from './lib/notifications.prisma-sdk';
 export * from './lib/notifications.service';
 export * from './lib/generated/rest/dto/connect-migrations-notifications.dto';
 export * from './lib/generated/rest/dto/connect-notifications-event.dto';

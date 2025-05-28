@@ -4,7 +4,7 @@ import {
 } from '@nestjs-mod/common';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { WebhookRole } from '@prisma/webhook-client';
+import { WebhookRole } from './generated/prisma-client';
 import { WebhookRequest } from './types/webhook-request';
 import { WEBHOOK_MODULE } from './webhook.constants';
 import { WebhookError, WebhookErrorEnum } from './webhook.errors';

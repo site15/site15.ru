@@ -23,7 +23,6 @@ import {
   ApiTags,
   refs,
 } from '@nestjs/swagger';
-import { Prisma, PrismaClient } from '@prisma/notifications-client';
 import { isUUID } from 'class-validator';
 import { NotificationsEventDto } from './generated/rest/dto/notifications-event.dto';
 import { UpdateNotificationsEventDto } from './generated/rest/dto/update-notifications-event.dto';
@@ -32,6 +31,7 @@ import { CurrentNotificationsExternalTenantId } from './notifications.decorators
 import { NotificationsError } from './notifications.errors';
 import { FindManyNotificationResponse } from './types/find-many-notification-event-response';
 import { NotificationsWebhookEvent } from './types/notifications-webhooks';
+import { Prisma, PrismaClient } from './generated/prisma-client';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(NotificationsError, ValidationError) },

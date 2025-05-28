@@ -1,9 +1,9 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
   
-  output   = "../../../../../node_modules/@prisma/sso-client"
-  binaryTargets = ["native","rhel-openssl-3.0.x","linux-musl-openssl-3.0.x","linux-musl"]
+  output   = "../../../../../libs/core/sso/src/lib/generated/prisma-client"
   
+  previewFeatures = ["queryCompiler","driverAdapters"]
 }
 datasource db {
   provider          = "postgres"
@@ -12,21 +12,21 @@ datasource db {
 generator prismaClassGenerator {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../lib/generated/rest/dto"
-  updateDtoPrefix                 = "Update"
-  prettier                        = "true"
-  definiteAssignmentAssertion     = "true"
   annotateAllDtoProperties        = "true"
-  reExport                        = "false"
-  outputToNestJsResourceStructure = "false"
-  fileNamingStyle                 = "kebab"
-  noDependencies                  = "false"
-  entitySuffix                    = ""
-  flatResourceStructure           = "false"
   classValidation                 = "true"
   createDtoPrefix                 = "Create"
+  definiteAssignmentAssertion     = "true"
   dtoSuffix                       = "Dto"
   entityPrefix                    = ""
+  entitySuffix                    = ""
   exportRelationModifierClasses   = "true"
+  fileNamingStyle                 = "kebab"
+  flatResourceStructure           = "false"
+  noDependencies                  = "false"
+  outputToNestJsResourceStructure = "false"
+  prettier                        = "true"
+  reExport                        = "false"
+  updateDtoPrefix                 = "Update"
 }
 
 model SsoProject {

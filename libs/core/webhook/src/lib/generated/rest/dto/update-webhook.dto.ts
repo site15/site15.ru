@@ -1,4 +1,4 @@
-import { Prisma } from '../../../../../../../../node_modules/@prisma/webhook-client';
+import { Prisma } from '../../prisma-client';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,

@@ -1,7 +1,7 @@
 import { NotificationsError } from './notifications.errors';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { Prisma } from '@prisma/notifications-client';
+import { Prisma } from './generated/prisma-client';
 
 export const NotificationsEntities = class {};
 

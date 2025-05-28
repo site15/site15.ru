@@ -1,14 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { NotificationsEvent, PrismaClient } from '@prisma/notifications-client';
 import { NotificationsUserDto } from './generated/rest/dto/notifications-user.dto';
 import { NOTIFICATIONS_FEATURE } from './notifications.constants';
 
+import { WebhookService } from '@nestjs-mod-sso/webhook';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { randomUUID } from 'crypto';
 import { getText } from 'nestjs-translates';
 import { createTransport, Transporter } from 'nodemailer';
 import { NotificationsStaticEnvironments } from './notifications.environments';
-import { WebhookService } from '@nestjs-mod-sso/webhook';
+import { NotificationsEvent, PrismaClient } from './generated/prisma-client';
 import { NotificationsWebhookEvent } from './types/notifications-webhooks';
 
 export enum SendNotificationOptionsType {

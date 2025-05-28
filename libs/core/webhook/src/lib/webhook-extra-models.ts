@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Prisma } from '@prisma/webhook-client';
 
+import { Prisma } from './generated/prisma-client';
 import { WebhookError } from './webhook.errors';
 
 export const WebhookEntities = class {};

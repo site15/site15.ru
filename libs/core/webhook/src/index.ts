@@ -7,6 +7,7 @@ export * from './lib/webhook.errors';
 export * from './lib/webhook.filter';
 export * from './lib/webhook.guard';
 export * from './lib/webhook.module';
+export * from './lib/webhook.prisma-sdk';
 export * from './lib/controllers/webhook-logs.controller';
 export * from './lib/controllers/webhook.controller';
 export * from './lib/generated/rest/dto/connect-migrations-webhook.dto';

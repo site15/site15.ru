@@ -1,8 +1,14 @@
-import { TWO_FACTOR_FEATURE } from '@nestjs-mod-sso/two-factor';
+import {
+  TWO_FACTOR_FEATURE,
+  TwoFactorPrismaSdk,
+} from '@nestjs-mod-sso/two-factor';
 
-import { NOTIFICATIONS_FEATURE } from '@nestjs-mod-sso/notifications';
-import { SSO_FEATURE } from '@nestjs-mod-sso/sso';
-import { WEBHOOK_FEATURE } from '@nestjs-mod-sso/webhook';
+import {
+  NOTIFICATIONS_FEATURE,
+  NotificationsPrismaSdk,
+} from '@nestjs-mod-sso/notifications';
+import { SSO_FEATURE, SsoPrismaSdk } from '@nestjs-mod-sso/sso';
+import { WEBHOOK_FEATURE, WebhookPrismaSdk } from '@nestjs-mod-sso/webhook';
 import { InjectPrismaClient, PrismaModule } from '@nestjs-mod/prisma';
 import {
   TERMINUS_MODULE_NAME,
@@ -11,16 +17,13 @@ import {
 } from '@nestjs-mod/terminus';
 import { Injectable } from '@nestjs/common';
 import { MemoryHealthIndicator, PrismaHealthIndicator } from '@nestjs/terminus';
-import { PrismaClient as NotificationsPrismaClient } from '@prisma/notifications-client';
-import { PrismaClient as SsoPrismaClient } from '@prisma/sso-client';
-import { PrismaClient as TwoFactorPrismaClient } from '@prisma/two-factor-client';
-import { PrismaClient as WebhookPrismaClient } from '@prisma/webhook-client';
 
 @Injectable()
 export class TerminusHealthCheckIntegrationConfiguration
   implements TerminusHealthCheckConfiguration
 {
   standardHealthIndicators = [
+    /*
     {
       name: 'memory_heap',
       check: () =>
@@ -61,20 +64,20 @@ export class TerminusHealthCheckIntegrationConfiguration
           this.notificationsPrismaClient,
           { timeout: 60 * 1000 }
         ),
-    },
+    },*/
   ];
 
   constructor(
     private readonly memoryHealthIndicator: MemoryHealthIndicator,
     private readonly prismaHealthIndicator: PrismaHealthIndicator,
     @InjectPrismaClient(WEBHOOK_FEATURE)
-    private readonly webhookPrismaClient: WebhookPrismaClient,
+    private readonly webhookPrismaClient: WebhookPrismaSdk.PrismaClient,
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly ssoPrismaClient: SsoPrismaClient,
+    private readonly ssoPrismaClient: SsoPrismaSdk.PrismaClient,
     @InjectPrismaClient(TWO_FACTOR_FEATURE)
-    private readonly twoFactorPrismaClient: TwoFactorPrismaClient,
+    private readonly twoFactorPrismaClient: TwoFactorPrismaSdk.PrismaClient,
     @InjectPrismaClient(NOTIFICATIONS_FEATURE)
-    private readonly notificationsPrismaClient: NotificationsPrismaClient
+    private readonly notificationsPrismaClient: NotificationsPrismaSdk.PrismaClient
   ) {}
 }
 

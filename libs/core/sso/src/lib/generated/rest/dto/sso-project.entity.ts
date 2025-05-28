@@ -1,4 +1,4 @@
-import { Prisma } from '../../../../../../../../node_modules/@prisma/sso-client';
+import { Prisma } from '../../prisma-client';
 import { ApiProperty } from '@nestjs/swagger';
 import { SsoEmailTemplate } from './sso-email-template.entity';
 import { SsoOAuthToken } from './sso-o-auth-token.entity';

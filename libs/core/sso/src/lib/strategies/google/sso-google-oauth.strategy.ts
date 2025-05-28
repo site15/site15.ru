@@ -1,12 +1,7 @@
-import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { isInfrastructureMode } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import {
-  PrismaClient,
-  SsoOAuthProvider,
-  SsoOAuthProviderSettings,
-} from '@prisma/sso-client';
 import { Request } from 'express';
 import { render } from 'mustache';
 import { randomUUID } from 'node:crypto';
@@ -17,6 +12,11 @@ import {
   Strategy,
   VerifyCallback,
 } from 'passport-google-oauth20';
+import {
+  PrismaClient,
+  SsoOAuthProvider,
+  SsoOAuthProviderSettings,
+} from '../../generated/prisma-client';
 import { SsoService } from '../../services/sso.service';
 import { SSO_FEATURE } from '../../sso.constants';
 import { SsoStaticEnvironments } from '../../sso.environments';

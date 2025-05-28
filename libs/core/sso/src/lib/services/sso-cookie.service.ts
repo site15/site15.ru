@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { SsoRefreshSession } from '@prisma/sso-client';
 import ms from 'ms';
+import { SsoRefreshSession } from '../generated/prisma-client';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoTokensService } from './sso-tokens.service';
 

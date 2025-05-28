@@ -1,8 +1,8 @@
 import { FindManyArgs, StatusResponse } from '@nestjs-mod/swagger';
 
+import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { ValidationError } from '@nestjs-mod/validation';
-import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,
   Controller,
@@ -21,7 +21,6 @@ import {
   ApiTags,
   refs,
 } from '@nestjs/swagger';
-import { Prisma, PrismaClient } from '@prisma/sso-client';
 import { isUUID } from 'class-validator';
 import {
   CurrentLocale,
@@ -31,6 +30,7 @@ import {
 import { CreateSsoProjectDto } from '../generated/rest/dto/create-sso-project.dto';
 import { SsoProjectDto } from '../generated/rest/dto/sso-project.dto';
 import { UpdateSsoProjectDto } from '../generated/rest/dto/update-sso-project.dto';
+import { Prisma, PrismaClient } from '../generated/prisma-client';
 import { SsoCacheService } from '../services/sso-cache.service';
 import { SsoTemplatesService } from '../services/sso-templates.service';
 import { SSO_FEATURE } from '../sso.constants';

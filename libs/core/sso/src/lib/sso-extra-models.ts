@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Prisma } from '@prisma/sso-client';
+import { Prisma } from './generated/prisma-client';
 import { SsoError } from './sso.errors';
 import { SsoRole } from './types/sso-role';
 

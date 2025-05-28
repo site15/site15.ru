@@ -3,28 +3,33 @@ import {
   NOTIFICATIONS_FEATURE,
   NOTIFICATIONS_FOLDER,
   NotificationsModule,
+  NotificationsPrismaSdk,
 } from '@nestjs-mod-sso/notifications';
-import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
-import { SSO_FEATURE, SSO_FOLDER, SsoModule } from '@nestjs-mod-sso/sso';
+import {
+  SSO_FEATURE,
+  SSO_FOLDER,
+  SsoModule,
+  SsoPrismaSdk,
+} from '@nestjs-mod-sso/sso';
 import {
   TWO_FACTOR_FEATURE,
   TWO_FACTOR_FOLDER,
   TwoFactorModule,
+  TwoFactorPrismaSdk,
 } from '@nestjs-mod-sso/two-factor';
-import { ValidationModule } from '@nestjs-mod/validation';
 import {
   WEBHOOK_FEATURE,
   WEBHOOK_FOLDER,
   WebhookModule,
+  WebhookPrismaSdk,
 } from '@nestjs-mod-sso/webhook';
-import {
-  createNestModule,
-  isInfrastructureMode,
-  PROJECT_JSON_FILE,
-} from '@nestjs-mod/common';
+import { createNestModule, PROJECT_JSON_FILE } from '@nestjs-mod/common';
 import { NestjsPinoLoggerModule } from '@nestjs-mod/pino';
 import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
+import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
 import { TerminusHealthCheckModule } from '@nestjs-mod/terminus';
+import { ValidationModule } from '@nestjs-mod/validation';
+import { PrismaPg } from '@prisma/adapter-pg';
 import { join } from 'path';
 import { AppModule } from './app/app.module';
 import {
@@ -56,21 +61,23 @@ export const FEATURE_MODULE_IMPORTS = [
         'prisma',
         PRISMA_SCHEMA_FILE
       ),
-      prismaModule: isInfrastructureMode()
-        ? import(`@nestjs-mod/prisma`)
-        : import(`@prisma/webhook-client`),
-      addMigrationScripts: false,
       nxProjectJsonFile: join(rootFolder, WEBHOOK_FOLDER, PROJECT_JSON_FILE),
 
-      binaryTargets:
-        process.env.PRISMA_TARGETS !== 'shorts'
-          ? [
-              'native',
-              'rhel-openssl-3.0.x',
-              'linux-musl-openssl-3.0.x',
-              'linux-musl',
-            ]
-          : ['native', 'rhel-openssl-3.0.x'],
+      prismaClientFactory: async (options) => {
+        const { url, ...otherOoptions } = options;
+        const adapter = new PrismaPg({ connectionString: url });
+        return new WebhookPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
+      },
+      addMigrationScripts: false,
+      previewFeatures: ['queryCompiler', 'driverAdapters'],
+      output: join(
+        rootFolder,
+        WEBHOOK_FOLDER,
+        'src',
+        'lib',
+        'generated',
+        'prisma-client'
+      ),
     },
   }),
   // sso
@@ -85,21 +92,23 @@ export const FEATURE_MODULE_IMPORTS = [
         'prisma',
         PRISMA_SCHEMA_FILE
       ),
-      prismaModule: isInfrastructureMode()
-        ? import(`@nestjs-mod/prisma`)
-        : import(`@prisma/sso-client`),
-      addMigrationScripts: false,
       nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
 
-      binaryTargets:
-        process.env.PRISMA_TARGETS !== 'shorts'
-          ? [
-              'native',
-              'rhel-openssl-3.0.x',
-              'linux-musl-openssl-3.0.x',
-              'linux-musl',
-            ]
-          : ['native', 'rhel-openssl-3.0.x'],
+      prismaClientFactory: async (options) => {
+        const { url, ...otherOoptions } = options;
+        const adapter = new PrismaPg({ connectionString: url });
+        return new SsoPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
+      },
+      addMigrationScripts: false,
+      previewFeatures: ['queryCompiler', 'driverAdapters'],
+      output: join(
+        rootFolder,
+        SSO_FOLDER,
+        'src',
+        'lib',
+        'generated',
+        'prisma-client'
+      ),
     },
   }),
   // two-factor
@@ -114,21 +123,25 @@ export const FEATURE_MODULE_IMPORTS = [
         'prisma',
         PRISMA_SCHEMA_FILE
       ),
-      prismaModule: isInfrastructureMode()
-        ? import(`@nestjs-mod/prisma`)
-        : import(`@prisma/two-factor-client`),
-      addMigrationScripts: false,
-      nxProjectJsonFile: join(rootFolder, TWO_FACTOR_FOLDER, PROJECT_JSON_FILE),
 
-      binaryTargets:
-        process.env.PRISMA_TARGETS !== 'shorts'
-          ? [
-              'native',
-              'rhel-openssl-3.0.x',
-              'linux-musl-openssl-3.0.x',
-              'linux-musl',
-            ]
-          : ['native', 'rhel-openssl-3.0.x'],
+      prismaClientFactory: async (options) => {
+        const { url, ...otherOoptions } = options;
+        const adapter = new PrismaPg({ connectionString: url });
+        return new TwoFactorPrismaSdk.PrismaClient({
+          adapter,
+          ...otherOoptions,
+        });
+      },
+      addMigrationScripts: false,
+      previewFeatures: ['queryCompiler', 'driverAdapters'],
+      output: join(
+        rootFolder,
+        TWO_FACTOR_FOLDER,
+        'src',
+        'lib',
+        'generated',
+        'prisma-client'
+      ),
     },
   }),
   // notify
@@ -143,25 +156,25 @@ export const FEATURE_MODULE_IMPORTS = [
         'prisma',
         PRISMA_SCHEMA_FILE
       ),
-      prismaModule: isInfrastructureMode()
-        ? import(`@nestjs-mod/prisma`)
-        : import(`@prisma/notifications-client`),
+
+      prismaClientFactory: async (options) => {
+        const { url, ...otherOoptions } = options;
+        const adapter = new PrismaPg({ connectionString: url });
+        return new NotificationsPrismaSdk.PrismaClient({
+          adapter,
+          ...otherOoptions,
+        });
+      },
       addMigrationScripts: false,
-      nxProjectJsonFile: join(
+      previewFeatures: ['queryCompiler', 'driverAdapters'],
+      output: join(
         rootFolder,
         NOTIFICATIONS_FOLDER,
-        PROJECT_JSON_FILE
+        'src',
+        'lib',
+        'generated',
+        'prisma-client'
       ),
-
-      binaryTargets:
-        process.env.PRISMA_TARGETS !== 'shorts'
-          ? [
-              'native',
-              'rhel-openssl-3.0.x',
-              'linux-musl-openssl-3.0.x',
-              'linux-musl',
-            ]
-          : ['native', 'rhel-openssl-3.0.x'],
     },
   }),
   // redis cache

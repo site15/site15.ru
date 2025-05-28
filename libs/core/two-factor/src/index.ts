@@ -6,6 +6,7 @@ export * from './lib/two-factor.environments';
 export * from './lib/two-factor.errors';
 export * from './lib/two-factor.filter';
 export * from './lib/two-factor.module';
+export * from './lib/two-factor.prisma-sdk';
 export * from './lib/two-factor.service';
 export * from './lib/generated/rest/dto/connect-migrations-two-factor.dto';
 export * from './lib/generated/rest/dto/connect-two-factor-code.dto';

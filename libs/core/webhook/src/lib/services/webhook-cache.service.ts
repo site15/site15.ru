@@ -1,7 +1,7 @@
 import { KeyvService } from '@nestjs-mod/keyv';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, WebhookUser } from '@prisma/webhook-client';
+import { PrismaClient, WebhookUser } from '../generated/prisma-client';
 import { WEBHOOK_FEATURE } from '../webhook.constants';
 import { WebhookStaticEnvironments } from '../webhook.environments';
 

@@ -1,12 +1,22 @@
 {
-  "ignorePatterns": ["**/*"],
+  "ignorePatterns": [
+    "**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
       "parserOptions": {
-        "project": ["tsconfig.*?.json"]
+        "project": [
+          "tsconfig.*?.json"
+        ]
       },
       "rules": {
+        "no-this-before-super": "off",
         "@nx/enforce-module-boundaries": [
           "error",
           {
@@ -15,7 +25,9 @@
             "depConstraints": [
               {
                 "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "onlyDependOnLibsWithTags": [
+                  "*"
+                ]
               }
             ]
           }
@@ -24,26 +36,48 @@
       }
     },
     {
-      "files": ["*.ts", "*.tsx"],
-      "rules": {}
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "rules": {
+        "no-this-before-super": "off"
+      }
     },
     {
-      "files": ["*.js", "*.jsx"],
-      "rules": {}
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "rules": {
+        "no-this-before-super": "off"
+      }
     },
     {
-      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "files": [
+        "*.spec.ts",
+        "*.spec.tsx",
+        "*.spec.js",
+        "*.spec.jsx"
+      ],
       "env": {
         "jest": true
       },
-      "rules": {}
+      "rules": {
+        "no-this-before-super": "off"
+      }
     },
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "rules": {
+        "no-this-before-super": "off",
         "@angular-eslint/prefer-standalone": "off"
       }
     }
   ],
-  "extends": ["./.eslintrc.base.json"]
+  "extends": [
+    "./.eslintrc.base.json"
+  ]
 }

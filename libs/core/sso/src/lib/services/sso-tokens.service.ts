@@ -1,11 +1,15 @@
-import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { Injectable, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaClient, SsoRefreshSession, SsoUser } from '@prisma/sso-client';
 import { addMilliseconds } from 'date-fns';
 import ms from 'ms';
 import { randomUUID } from 'node:crypto';
+import {
+  PrismaClient,
+  SsoRefreshSession,
+  SsoUser,
+} from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';

@@ -1,14 +1,14 @@
 import { FindManyArgs } from '@nestjs-mod/swagger';
 
-import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Prisma, PrismaClient } from '@prisma/sso-client';
 import { isUUID } from 'class-validator';
+import { Prisma, PrismaClient } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
-import { FindManySsoPublicProjectResponse } from '../types/find-many-sso-public-project-response';
 import { AllowEmptySsoUser } from '../sso.decorators';
+import { FindManySsoPublicProjectResponse } from '../types/find-many-sso-public-project-response';
 
 @ApiTags('Sso')
 @AllowEmptySsoUser()

@@ -1,7 +1,4 @@
-import {
-  Prisma,
-  WebhookStatus,
-} from '../../../../../../../../node_modules/@prisma/webhook-client';
+import { Prisma, WebhookStatus } from '../../prisma-client';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class WebhookLogDto {

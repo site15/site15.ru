@@ -1,9 +1,9 @@
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, WebhookRole } from '@prisma/webhook-client';
 import omit from 'lodash/fp/omit';
 import { randomUUID } from 'node:crypto';
 import { CreateWebhookUserDto } from '../generated/rest/dto/create-webhook-user.dto';
+import { PrismaClient, WebhookRole } from '../generated/prisma-client';
 import { WEBHOOK_FEATURE } from '../webhook.constants';
 
 @Injectable()

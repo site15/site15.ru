@@ -8,8 +8,8 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { PrismaClient, WebhookRole } from '@prisma/webhook-client';
 import { isUUID } from 'class-validator';
+import { PrismaClient, WebhookRole } from './generated/prisma-client';
 import { WebhookCacheService } from './services/webhook-cache.service';
 import { WebhookRequest } from './types/webhook-request';
 import { WEBHOOK_FEATURE } from './webhook.constants';

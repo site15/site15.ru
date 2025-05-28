@@ -6,7 +6,7 @@ import {
   SsoProject,
   SsoRefreshSession,
   SsoUser,
-} from '@prisma/sso-client';
+} from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 

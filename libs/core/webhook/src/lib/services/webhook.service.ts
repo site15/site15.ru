@@ -2,9 +2,9 @@ import { InjectableFeatureConfigurationType } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaClient, WebhookStatus } from '@prisma/webhook-client';
 import { AxiosHeaders } from 'axios';
 import { firstValueFrom, Subject, timeout, TimeoutError } from 'rxjs';
+import { PrismaClient, WebhookStatus } from '../generated/prisma-client';
 import { WebhookEvent } from '../types/webhook-event';
 import {
   WebhookConfiguration,
@@ -102,7 +102,7 @@ export class WebhookService<
     });
 
     for (const webhook of webhooks) {
-      if (!webhook.workUntilDate || now <= webhook.workUntilDate) {
+      if (!webhook.workUntilDate || (now && now <= webhook.workUntilDate)) {
         const headers = {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ...((webhook.headers as any) || {}),
@@ -167,7 +167,14 @@ export class WebhookService<
   }
 
   private async getCurrentDatabaseDate() {
-    return await this.prismaClient.$queryRaw<[{ now: Date }]>`SELECT NOW();`;
+    try {
+      return [{ now: new Date() }];
+      // todo: https://github.com/prisma/prisma/issues/27257, https://github.com/prisma/prisma/issues/27263
+      // return await this.prismaClient.$queryRaw<[{ now: Date }]>`SELECT NOW();`;
+    } catch (error: any) {
+      console.log({ ...error });
+      throw error;
+    }
   }
 
   async httpRequest({

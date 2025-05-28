@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { WebhookStatus } from '@prisma/webhook-client';
+import { WebhookStatus } from '../generated/prisma-client';
 
 export class WebhookTestRequestResponse {
   @ApiProperty({

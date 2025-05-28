@@ -1,8 +1,8 @@
 import { StatusResponse } from '@nestjs-mod/swagger';
 
+import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { ValidationError } from '@nestjs-mod/validation';
-import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Controller,
   Delete,
@@ -17,11 +17,11 @@ import {
   ApiTags,
   refs,
 } from '@nestjs/swagger';
-import { Prisma, PrismaClient, WebhookRole } from '@prisma/webhook-client';
 import { isUUID } from 'class-validator';
 import { CurrentLocale, TranslatesService } from 'nestjs-translates';
 import { WebhookLog } from '../generated/rest/dto/webhook-log.entity';
 import { WebhookUser } from '../generated/rest/dto/webhook-user.entity';
+import { Prisma, PrismaClient, WebhookRole } from '../generated/prisma-client';
 import { WebhookToolsService } from '../services/webhook-tools.service';
 import { FindManyWebhookLogArgs } from '../types/find-many-webhook-log-args';
 import { FindManyWebhookLogResponse } from '../types/find-many-webhook-log-response';

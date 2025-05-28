@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaClient } from '@prisma/two-factor-client';
 
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import * as OTPAuth from 'otpauth';
 import { TwoFactorUserDto } from './generated/rest/dto/two-factor-user.dto';
+import { PrismaClient } from './generated/prisma-client';
 import { TwoFactorEventsService } from './two-factor-events.service';
 import { TwoFactorConfiguration } from './two-factor.configuration';
 import { TWO_FACTOR_FEATURE } from './two-factor.constants';

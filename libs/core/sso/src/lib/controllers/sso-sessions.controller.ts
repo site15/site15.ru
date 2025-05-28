@@ -1,6 +1,7 @@
+import { searchIn } from '@nestjs-mod/misc';
+import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { ValidationError } from '@nestjs-mod/validation';
-import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,
   Controller,
@@ -16,10 +17,10 @@ import {
   ApiTags,
   refs,
 } from '@nestjs/swagger';
-import { Prisma, PrismaClient } from '@prisma/sso-client';
 import { isUUID } from 'class-validator';
 import { SsoRefreshSessionDto } from '../generated/rest/dto/sso-refresh-session.dto';
 import { UpdateSsoRefreshSessionDto } from '../generated/rest/dto/update-sso-refresh-session.dto';
+import { Prisma, PrismaClient } from '../generated/prisma-client';
 import { SsoCacheService } from '../services/sso-cache.service';
 import { SSO_FEATURE } from '../sso.constants';
 import { CurrentSsoRequest } from '../sso.decorators';
@@ -27,7 +28,6 @@ import { SsoError } from '../sso.errors';
 import { FindManySsoRefreshSessionArgs } from '../types/find-many-sso-refresh-session-args';
 import { FindManySsoRefreshSessionResponse } from '../types/find-many-sso-refresh-session-response';
 import { SsoRequest } from '../types/sso-request';
-import { searchIn } from '@nestjs-mod/misc';
 import { SsoRole } from '../types/sso-role';
 
 @ApiBadRequestResponse({

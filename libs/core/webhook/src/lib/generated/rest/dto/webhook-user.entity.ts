@@ -1,4 +1,4 @@
-import { WebhookRole } from '../../../../../../../../node_modules/@prisma/webhook-client';
+import { WebhookRole } from '../../prisma-client';
 import { ApiProperty } from '@nestjs/swagger';
 import { Webhook } from './webhook.entity';
 

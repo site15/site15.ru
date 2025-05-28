@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
-import { PrismaClient } from '@prisma/sso-client';
 import { TranslatesStorage } from 'nestjs-translates';
+import { PrismaClient } from '../generated/prisma-client';
 import { DEFAULT_EMAIL_TEMPLATES, SSO_FEATURE } from '../sso.constants';
 
 @Injectable()

@@ -1,11 +1,9 @@
-import { Prisma, PrismaClient } from '@prisma/sso-client';
-
-import { StatusResponse } from '@nestjs-mod/swagger';
-import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
-import { ValidationError } from '@nestjs-mod/validation';
 import { WebhookService } from '@nestjs-mod-sso/webhook';
 import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
+import { StatusResponse } from '@nestjs-mod/swagger';
+import { ValidationError } from '@nestjs-mod/validation';
 import {
   Body,
   Controller,
@@ -28,6 +26,7 @@ import { randomUUID } from 'crypto';
 import { omit } from 'lodash/fp';
 import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 import { UpdateSsoUserDto } from '../generated/rest/dto/update-sso-user.dto';
+import { Prisma, PrismaClient } from '../generated/prisma-client';
 import { SsoCacheService } from '../services/sso-cache.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SsoPasswordService } from '../services/sso-password.service';

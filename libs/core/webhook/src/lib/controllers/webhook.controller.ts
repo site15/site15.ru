@@ -1,8 +1,8 @@
 import { FindManyArgs, StatusResponse } from '@nestjs-mod/swagger';
 
+import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { ValidationError } from '@nestjs-mod/validation';
-import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import {
   Body,
   Controller,
@@ -21,7 +21,6 @@ import {
   ApiTags,
   refs,
 } from '@nestjs/swagger';
-import { Prisma, PrismaClient, WebhookRole } from '@prisma/webhook-client';
 import { isUUID } from 'class-validator';
 import {
   CurrentLocale,
@@ -32,6 +31,7 @@ import { CreateWebhookDto } from '../generated/rest/dto/create-webhook.dto';
 import { UpdateWebhookDto } from '../generated/rest/dto/update-webhook.dto';
 import { WebhookUser } from '../generated/rest/dto/webhook-user.entity';
 import { Webhook } from '../generated/rest/dto/webhook.entity';
+import { Prisma, PrismaClient, WebhookRole } from '../generated/prisma-client';
 import { WebhookToolsService } from '../services/webhook-tools.service';
 import { WebhookService } from '../services/webhook.service';
 import { FindManyWebhookResponse } from '../types/find-many-webhook-response';

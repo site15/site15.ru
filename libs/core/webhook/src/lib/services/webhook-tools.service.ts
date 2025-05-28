@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { WebhookUser } from '../generated/rest/dto/webhook-user.entity';
-import { WebhookRole } from '@prisma/webhook-client';
+import { WebhookRole } from '../generated/prisma-client';
 @Injectable()
 export class WebhookToolsService {
   externalTenantIdQuery(

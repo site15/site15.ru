@@ -20,6 +20,7 @@ import {
 import { TwoFactorModule, TwoFactorService } from '@nestjs-mod-sso/two-factor';
 import {
   WebhookModule,
+  WebhookPrismaSdk,
   WebhookRequest,
   WebhookUsersService,
 } from '@nestjs-mod-sso/webhook';
@@ -27,7 +28,6 @@ import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import { searchIn } from '@nestjs-mod/misc';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { ExecutionContext, Injectable } from '@nestjs/common';
-import { WebhookRole } from '@prisma/webhook-client';
 import { APP_FEATURE } from '../app/app.constants';
 
 @Injectable()
@@ -62,9 +62,9 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
       // webhook
       const webhookUserRole = searchIn(req.ssoUser?.roles, SsoRole.admin)
-        ? WebhookRole.Admin
+        ? WebhookPrismaSdk.WebhookRole.Admin
         : searchIn(req.ssoUser?.roles, SsoRole.manager)
-        ? WebhookRole.User
+        ? WebhookPrismaSdk.WebhookRole.User
         : undefined;
       if (webhookUserRole) {
         // todo: create in sso module options for local events and use event with name sign-up for run this logic

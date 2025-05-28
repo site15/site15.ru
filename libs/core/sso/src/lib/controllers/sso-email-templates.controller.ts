@@ -1,9 +1,9 @@
 import { FindManyArgs } from '@nestjs-mod/swagger';
 
-import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
-import { ValidationError } from '@nestjs-mod/validation';
 import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
+import { ValidationError } from '@nestjs-mod/validation';
 import {
   Body,
   Controller,
@@ -19,12 +19,12 @@ import {
   ApiTags,
   refs,
 } from '@nestjs/swagger';
-import { Prisma, PrismaClient } from '@prisma/sso-client';
 import { isUUID } from 'class-validator';
 import { omit } from 'lodash/fp';
 import { SkipTranslate } from 'nestjs-translates';
 import { SsoEmailTemplateDto } from '../generated/rest/dto/sso-email-template.dto';
 import { UpdateSsoEmailTemplateDto } from '../generated/rest/dto/update-sso-email-template.dto';
+import { Prisma, PrismaClient } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';

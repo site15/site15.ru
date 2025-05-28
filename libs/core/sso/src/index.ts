@@ -7,6 +7,7 @@ export * from './lib/sso.errors';
 export * from './lib/sso.filter';
 export * from './lib/sso.guard';
 export * from './lib/sso.module';
+export * from './lib/sso.prisma-sdk';
 export * from './lib/controllers/sso-email-templates.controller';
 export * from './lib/controllers/sso-oauth.controller';
 export * from './lib/controllers/sso-projects.controller';
