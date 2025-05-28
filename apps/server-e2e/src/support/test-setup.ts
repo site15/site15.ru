@@ -6,6 +6,7 @@ import { join } from 'node:path';
 
 module.exports = async function () {
   const serverUrl = process.env['E2E_SERVER_URL'];
+
   const parsed = config(
     process.env['ENV_FILE']
       ? {

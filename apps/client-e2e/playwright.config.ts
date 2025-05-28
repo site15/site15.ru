@@ -1,5 +1,6 @@
 import { nxE2EPreset } from '@nx/playwright/preset';
 import { defineConfig, devices } from '@playwright/test';
+import { execSync } from 'child_process';
 import { config } from 'dotenv';
 import { join } from 'path';
 
@@ -10,14 +11,12 @@ import { join } from 'path';
 // require('dotenv').config();
 
 const clientUrl = process.env['E2E_CLIENT_URL'];
-const parsed = config(
-  process.env['ENV_FILE']
-    ? {
-        path: join(__dirname, '..', '..', process.env['ENV_FILE']),
-        override: true,
-      }
-    : { path: join(__dirname, '..', '..', '.env'), override: true }
-);
+const envFile = process.env['ENV_FILE']
+  ? join(__dirname, '..', '..', process.env['ENV_FILE'])
+  : join(__dirname, '..', '..', '.env');
+const parsed = execSync(envFile)
+  ? config({ path: envFile, override: true })
+  : {};
 
 if (parsed.error) {
   throw parsed.error;
