@@ -1,3 +1,9 @@
+## [1.11.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.11.0...server-v1.11.1) (2025-05-28)
+
+### Bug Fixes
+
+- update ci [#1](https://github.com/nestjs-mod/nestjs-mod-sso/issues/1) ([3cceae3](https://github.com/nestjs-mod/nestjs-mod-sso/commit/3cceae323db795c6af634e57e54abf950def4762))
+
 # [1.11.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.10.1...server-v1.11.0) (2025-05-28)
 
 ### Bug Fixes
