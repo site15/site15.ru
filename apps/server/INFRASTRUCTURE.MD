@@ -83,6 +83,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
@@ -101,6 +102,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
@@ -118,6 +120,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
@@ -136,6 +139,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
@@ -159,6 +163,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
@@ -177,6 +182,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
@@ -194,6 +200,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
@@ -212,6 +219,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
@@ -235,6 +243,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
@@ -253,6 +262,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
@@ -270,6 +280,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
@@ -288,6 +299,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
@@ -311,6 +323,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
@@ -329,6 +342,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
@@ -346,6 +360,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
@@ -364,6 +379,7 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
 |`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
@@ -511,14 +527,14 @@ Validation module with an error filter and a pre-configured validation pipe
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-05-28T06:33:49.681Z","updatedAt":"2025-05-28T06:33:49.681Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-05-28T06:33:49.681Z","updatedAt":"2025-05-28T06:33:49.681Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-05-28T06:33:49.681Z","updatedAt":"2025-05-28T06:33:49.681Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-05-28T06:33:49.681Z","updatedAt":"2025-05-28T06:33:49.681Z"}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-05-28T07:06:34.789Z","updatedAt":"2025-05-28T07:06:34.789Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-05-28T07:06:34.789Z","updatedAt":"2025-05-28T07:06:34.789Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-05-28T07:06:34.789Z","updatedAt":"2025-05-28T07:06:34.789Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-05-28T07:06:34.789Z","updatedAt":"2025-05-28T07:06:34.789Z"}}``` ]|
 
 #### Modules that use feature configuration
 ##### Feature module name: sso
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T06:33:50.667Z","createdAt":"2025-05-28T06:33:50.667Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T06:33:50.667Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T06:33:50.667Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T06:33:50.667Z","roles":"user","updatedAt":"2025-05-28T06:33:50.667Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T06:33:50.667Z","createdAt":"2025-05-28T06:33:50.667Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T06:33:50.667Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T06:33:50.667Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T06:33:50.667Z","roles":"user","updatedAt":"2025-05-28T06:33:50.667Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T06:33:50.667Z","createdAt":"2025-05-28T06:33:50.667Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T06:33:50.667Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T06:33:50.667Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T06:33:50.667Z","roles":"user","updatedAt":"2025-05-28T06:33:50.667Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T06:33:50.667Z","createdAt":"2025-05-28T06:33:50.667Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T06:33:50.667Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T06:33:50.667Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T06:33:50.667Z","roles":"user","updatedAt":"2025-05-28T06:33:50.667Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T06:33:50.667Z","createdAt":"2025-05-28T06:33:50.667Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T06:33:50.667Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T06:33:50.667Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T06:33:50.667Z","roles":"user","updatedAt":"2025-05-28T06:33:50.667Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T06:33:50.667Z","createdAt":"2025-05-28T06:33:50.667Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T06:33:50.667Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T06:33:50.667Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T06:33:50.667Z","roles":"user","updatedAt":"2025-05-28T06:33:50.667Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T06:33:50.667Z","createdAt":"2025-05-28T06:33:50.667Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T06:33:50.667Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T06:33:50.667Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T06:33:50.667Z","roles":"user","updatedAt":"2025-05-28T06:33:50.667Z","username":"nickname","lang":"en","timezone":0}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T07:06:35.779Z","createdAt":"2025-05-28T07:06:35.779Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T07:06:35.779Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T07:06:35.779Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T07:06:35.779Z","roles":"user","updatedAt":"2025-05-28T07:06:35.779Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T07:06:35.779Z","createdAt":"2025-05-28T07:06:35.779Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T07:06:35.779Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T07:06:35.779Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T07:06:35.779Z","roles":"user","updatedAt":"2025-05-28T07:06:35.779Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T07:06:35.779Z","createdAt":"2025-05-28T07:06:35.779Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T07:06:35.779Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T07:06:35.779Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T07:06:35.779Z","roles":"user","updatedAt":"2025-05-28T07:06:35.779Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T07:06:35.779Z","createdAt":"2025-05-28T07:06:35.779Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T07:06:35.779Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T07:06:35.779Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T07:06:35.779Z","roles":"user","updatedAt":"2025-05-28T07:06:35.779Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T07:06:35.779Z","createdAt":"2025-05-28T07:06:35.779Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T07:06:35.779Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T07:06:35.779Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T07:06:35.779Z","roles":"user","updatedAt":"2025-05-28T07:06:35.779Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T07:06:35.779Z","createdAt":"2025-05-28T07:06:35.779Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T07:06:35.779Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T07:06:35.779Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T07:06:35.779Z","roles":"user","updatedAt":"2025-05-28T07:06:35.779Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-28T07:06:35.779Z","createdAt":"2025-05-28T07:06:35.779Z","email":"user@example.com","emailVerifiedAt":"2025-05-28T07:06:35.779Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-28T07:06:35.779Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-28T07:06:35.779Z","roles":"user","updatedAt":"2025-05-28T07:06:35.779Z","username":"nickname","lang":"en","timezone":0}}``` ]|
 
 ### SsoModule
 #### Shared providers

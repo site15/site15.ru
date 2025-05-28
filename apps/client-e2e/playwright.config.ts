@@ -2,6 +2,7 @@ import { nxE2EPreset } from '@nx/playwright/preset';
 import { defineConfig, devices } from '@playwright/test';
 import { execSync } from 'child_process';
 import { config } from 'dotenv';
+import { existsSync } from 'fs';
 import { join } from 'path';
 
 /**
@@ -14,7 +15,7 @@ const clientUrl = process.env['E2E_CLIENT_URL'];
 const envFile = process.env['ENV_FILE']
   ? join(__dirname, '..', '..', process.env['ENV_FILE'])
   : join(__dirname, '..', '..', '.env');
-const parsed = execSync(envFile)
+const parsed = existsSync(envFile)
   ? config({ path: envFile, override: true })
   : {};
 

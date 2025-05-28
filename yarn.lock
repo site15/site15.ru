@@ -3294,10 +3294,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/prisma@^1.14.1":
-  version "1.14.1"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma/-/prisma-1.14.1.tgz#735678d89c590ae9b2e719f9b7a150b354875786"
-  integrity sha512-QUWZaUDcpREp3uRe5QxaMjy5ple+naJW7toOV7MM8lUkVvNFXsA/tkudt43iFp7sh5/Lv7ZLl84H7PnDQTg9EQ==
+"@nestjs-mod/prisma@^1.14.2":
+  version "1.14.2"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma/-/prisma-1.14.2.tgz#4ed03fed26f164a95e1e88483108c66feb4d9d7a"
+  integrity sha512-6RTTnSOAXaiK83eRW1MKKf5SLSzfoaIG5m+QgrdoEygVKusMCQxqsUACDunsImGFdXA592Zh2nBtNhPUFIKd5Q==
   dependencies:
     case-anything "2.1.13"
     connection-string "4.3.5"

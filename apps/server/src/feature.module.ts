@@ -63,6 +63,7 @@ export const FEATURE_MODULE_IMPORTS = [
       ),
       nxProjectJsonFile: join(rootFolder, WEBHOOK_FOLDER, PROJECT_JSON_FILE),
 
+      provider: 'prisma-client',
       prismaClientFactory: async (options) => {
         const { url, ...otherOoptions } = options;
         const adapter = new PrismaPg({ connectionString: url });
@@ -94,6 +95,7 @@ export const FEATURE_MODULE_IMPORTS = [
       ),
       nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
 
+      provider: 'prisma-client',
       prismaClientFactory: async (options) => {
         const { url, ...otherOoptions } = options;
         const adapter = new PrismaPg({ connectionString: url });
@@ -124,6 +126,7 @@ export const FEATURE_MODULE_IMPORTS = [
         PRISMA_SCHEMA_FILE
       ),
 
+      provider: 'prisma-client',
       prismaClientFactory: async (options) => {
         const { url, ...otherOoptions } = options;
         const adapter = new PrismaPg({ connectionString: url });
@@ -157,6 +160,7 @@ export const FEATURE_MODULE_IMPORTS = [
         PRISMA_SCHEMA_FILE
       ),
 
+      provider: 'prisma-client',
       prismaClientFactory: async (options) => {
         const { url, ...otherOoptions } = options;
         const adapter = new PrismaPg({ connectionString: url });
