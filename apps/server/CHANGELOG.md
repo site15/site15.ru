@@ -1,3 +1,13 @@
+# [1.11.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.10.1...server-v1.11.0) (2025-05-28)
+
+### Bug Fixes
+
+- update ci [#1](https://github.com/nestjs-mod/nestjs-mod-sso/issues/1) ([91f110d](https://github.com/nestjs-mod/nestjs-mod-sso/commit/91f110dcba4ebe860267a56c4b1980da6cf39e2f))
+
+### Features
+
+- update deps and move to queryCompiler with driverAdapters ([079eb81](https://github.com/nestjs-mod/nestjs-mod-sso/commit/079eb81f672aca1780bb0caca928ead3582b1b0a))
+
 ## [1.10.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.10.0...server-v1.10.1) (2025-05-25)
 
 ### Bug Fixes
