@@ -73,6 +73,10 @@ export function fillAllNeedDatabaseEnvsFromOneMain() {
 }
 
 export async function createAndFillDatabases() {
+  if (process.env.CREATE_AND_FILL_DATABASES === 'false') {
+    return;
+  }
+
   if (debugDbToolsIsEnable) {
     logger.debug(
       {
