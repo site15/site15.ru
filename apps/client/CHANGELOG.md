@@ -1,3 +1,9 @@
+## [1.8.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.8.1...client-v1.8.2) (2025-05-29)
+
+### Bug Fixes
+
+- update ci [#1](https://github.com/nestjs-mod/nestjs-mod-sso/issues/1) ([cdee464](https://github.com/nestjs-mod/nestjs-mod-sso/commit/cdee46463c263d84dceac877913bef5c395e5beb))
+
 ## [1.8.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.8.0...client-v1.8.1) (2025-05-29)
 
 ### Bug Fixes
