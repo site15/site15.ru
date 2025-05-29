@@ -3218,10 +3218,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/common@2.18.0":
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/common/-/common-2.18.0.tgz#ed4f4a7bc36428e18d2dafc9d77644a016156cee"
-  integrity sha512-Kuk0dWCrGqpO/nxu3/Xl2EOTlqbmn0fkppNYa5yMVNmyhgttvjeoJx/eYukAQ7X17Kc9LFBH1FpiiUGzANUcQg==
+"@nestjs-mod/common@2.18.1":
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/common/-/common-2.18.1.tgz#cee1ae59b0c79a5875a974774f54f07757faaa4d"
+  integrity sha512-cFjJIyfJsVgdr461m6QkT4lCMJgPicqNTCDpKV6FpMOoZJbASdQjEfUl8p9ktHZ0W2re2cAlVTDL+lovG6m59A==
   dependencies:
     case-anything "2.1.13"
     dotenv ">=16.3.1"
@@ -3303,10 +3303,10 @@
     connection-string "4.3.5"
     tslib "^2.3.0"
 
-"@nestjs-mod/reports@2.18.0":
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/reports/-/reports-2.18.0.tgz#10788b1be31923f7370fbe6a8a41cbd60c5be201"
-  integrity sha512-ClDw9jFOXkFIJk8iZ8lX0g3Cd9ttuATU2/rtyD4B+lvVk+i5Ori3Eao75b/Qf415XFewKpBf7Ge6R0yqat/q+g==
+"@nestjs-mod/reports@2.18.1":
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/reports/-/reports-2.18.1.tgz#8d010cb3641f9cf7ae24eabdde27c5b14769f39c"
+  integrity sha512-QG0juPYCMP1HUavqY/jUtbp9ztZiR4j59hDjXvaGu/LXCT8QQ4cxdIqS1ja3kbK1k05803118eTnqR53+9JY/Q==
   dependencies:
     case-anything "2.1.13"
     fast-glob "3.3.2"
@@ -3340,10 +3340,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/testing@2.18.0":
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/testing/-/testing-2.18.0.tgz#415fc8e0202f839295652076f9a037664215348f"
-  integrity sha512-816B2YZVFCeRnAr5b79w2N4mC0YKV7n7s2XtvmjrjXi43CaEHPqHUmPMPcVWc8T4t7p5/9CYa2VOdgBZ7vwXrA==
+"@nestjs-mod/testing@2.18.1":
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/testing/-/testing-2.18.1.tgz#1d8262edeb091a0c73da1c1fc1331c6f08c4ad3c"
+  integrity sha512-CKRfF/3yYfIpqHodwmtdCM5JgITR1QX+vC3k9mC14pY80lVSddeefRJbrlT7AKkcnqMBLZtdD+RsKiQgVCFfBA==
   dependencies:
     tslib "^2.3.0"
 

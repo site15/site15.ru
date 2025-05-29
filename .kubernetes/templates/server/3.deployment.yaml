@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: %NAMESPACE%-server
-          image: ghcr.io/%SINGLE_SIGN_ON_IMAGE_NAME%
+          image: ghcr.io/%SINGLE_SIGN_ON_IMAGE_NAME%:%SERVER_VERSION%
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: %SINGLE_SIGN_ON_PORT%
