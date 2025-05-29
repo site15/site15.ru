@@ -1,3 +1,9 @@
+## [1.8.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.8.0...client-v1.8.1) (2025-05-29)
+
+### Bug Fixes
+
+- add use version of docker image in k8s ([943b2c0](https://github.com/nestjs-mod/nestjs-mod-sso/commit/943b2c07bb2fcd64abec753816a0c7213612e423))
+
 # [1.8.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.7.1...client-v1.8.0) (2025-05-28)
 
 ### Bug Fixes
