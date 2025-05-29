@@ -1,3 +1,9 @@
+## [1.11.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.11.1...server-v1.11.2) (2025-05-29)
+
+### Bug Fixes
+
+- add use version of docker image in k8s ([943b2c0](https://github.com/nestjs-mod/nestjs-mod-sso/commit/943b2c07bb2fcd64abec753816a0c7213612e423))
+
 ## [1.11.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.11.0...server-v1.11.1) (2025-05-28)
 
 ### Bug Fixes
