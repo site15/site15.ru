@@ -1,3 +1,9 @@
+## [1.11.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.11.3...server-v1.11.4) (2025-05-29)
+
+### Bug Fixes
+
+- update vercel config ([506e1de](https://github.com/nestjs-mod/nestjs-mod-sso/commit/506e1deaa4765f9361c1020066d28cf0399c2a7b))
+
 ## [1.11.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.11.2...server-v1.11.3) (2025-05-29)
 
 ### Bug Fixes
