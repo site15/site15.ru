@@ -1,3 +1,9 @@
+## [1.11.5](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.11.4...server-v1.11.5) (2025-05-30)
+
+### Bug Fixes
+
+- reduced the size of the docker image ([#1](https://github.com/nestjs-mod/nestjs-mod-sso/issues/1)) ([1f2dbb4](https://github.com/nestjs-mod/nestjs-mod-sso/commit/1f2dbb49e0b2670f4018564044e5ae915fc7c0d8))
+
 ## [1.11.4](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.11.3...server-v1.11.4) (2025-05-29)
 
 ### Bug Fixes
