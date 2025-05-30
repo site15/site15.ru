@@ -8,3 +8,6 @@ tmp
 *.md
 *.webm
 **/*.webm
+dist
+.husky
+.kubernetes
