@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.4.0...rest-sdk-v1.4.1) (2025-06-02)
+
+### Bug Fixes
+
+- move all libraries from core to feature ([828fa85](https://github.com/nestjs-mod/nestjs-mod-sso/commit/828fa85e660ae54873e411caccafb5ce62a91c99))
+
 # [1.4.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.3.1...rest-sdk-v1.4.0) (2025-06-02)
 
 ### Bug Fixes
