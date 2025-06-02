@@ -6,7 +6,7 @@ import {
   SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
   SsoCompleteForgotPasswordFormComponent,
   SsoService,
-} from '@nestjs-mod-sso/sso-angular';
+} from '@nestjs-mod-sso/sso-afat';
 import { searchIn } from '@nestjs-mod/misc';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 

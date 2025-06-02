@@ -53,7 +53,7 @@
     "Uploading files with extension \"{{ext}}\" is not supported": "Загрузка файлов с расширением \"{{ext}}\" не поддерживается.",
     "Event that fires after a file is deleted": "Событие которое срабатывает после удаления файла"
   },
-  "files-angular": {
+  "files-afat": {
     "files.image-file.change-file": "Изменить",
     "files.image-file.select-file": "Выбрать"
   },
@@ -66,7 +66,7 @@
     "User not found": "Пользователь не найден",
     "Webhook error": "Ошибка вебхука"
   },
-  "webhook-angular": {
+  "webhook-afat": {
     "Logs for webhook #{{webhookId}}": "Журналы для вебхука #{{webhookId}}",
     "input search text": "введите текст поиска",
     "Action": "Действия",
@@ -203,7 +203,7 @@
     "Event that fires after user update": "Событие которое срабатывает после обновления пользователя",
     "lang must have one of the values: {{values}}": "lang должен иметь одно из значений: {{values}}"
   },
-  "sso-angular": {
+  "sso-afat": {
     "Users for project #{{projectId}}": "Пользователи проекта #{{projectId}}",
     "input search text": "введите текст поиска",
     "Invite Members": "Пригласить пользователей",

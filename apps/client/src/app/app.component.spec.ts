@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { provideTransloco } from '@jsverse/transloco';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 import { provideTranslocoMessageformat } from '@jsverse/transloco-messageformat';
-import { MINIO_URL } from '@nestjs-mod-sso/files-angular';
+import { MINIO_URL } from '@nestjs-mod-sso/files-afat';
 import { SsoRestSdkAngularModule } from '@nestjs-mod/sso-rest-sdk-angular';
 import { minioURL, serverUrl } from '../environments/environment';
 import { AppComponent } from './app.component';

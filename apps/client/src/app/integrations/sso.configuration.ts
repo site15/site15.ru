@@ -1,6 +1,6 @@
 import { Provider } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
-import { FilesService } from '@nestjs-mod-sso/files-angular';
+import { FilesService } from '@nestjs-mod-sso/files-afat';
 import {
   SsoRestSdkAngularService,
   SsoUserDtoInterface,
@@ -22,7 +22,7 @@ import {
   SsoUser,
   SsoUserAndTokens,
   TokensService,
-} from '@nestjs-mod-sso/sso-angular';
+} from '@nestjs-mod-sso/sso-afat';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { catchError, map, mergeMap, Observable, of } from 'rxjs';
 

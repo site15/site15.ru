@@ -6,7 +6,7 @@ import {
   SsoActiveProjectService,
   SsoService,
   TokensService,
-} from '@nestjs-mod-sso/sso-angular';
+} from '@nestjs-mod-sso/sso-afat';
 import { catchError, merge, mergeMap, of, Subscription, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

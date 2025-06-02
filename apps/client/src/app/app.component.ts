@@ -15,7 +15,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { Title } from '@angular/platform-browser';
-import { FilesService } from '@nestjs-mod-sso/files-angular';
+import { FilesService } from '@nestjs-mod-sso/files-afat';
 import {
   CheckUserRolesPipe,
   SsoActiveLangService,
@@ -24,7 +24,7 @@ import {
   SsoService,
   TokensService,
   UserPipe,
-} from '@nestjs-mod-sso/sso-angular';
+} from '@nestjs-mod-sso/sso-afat';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';

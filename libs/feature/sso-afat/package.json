@@ -1,0 +1,32 @@
+{
+  "name": "@nestjs-mod-sso/sso-afat",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@nestjs-mod/afat": "1.1.0",
+    "@nestjs-mod/sso-rest-sdk-angular": "1.6.0",
+    "@nestjs-mod-sso/files-afat": "0.0.1",
+    "@angular/common": "19.0.5",
+    "@angular/core": "19.0.5",
+    "@angular/forms": "19.0.5",
+    "@angular/router": "19.0.5",
+    "@jsverse/transloco": "^7.5.0",
+    "@ngneat/until-destroy": "^10.0.0",
+    "@ngx-formly/core": "^6.3.12",
+    "ng-zorro-antd": "^19.0.0",
+    "rxjs": "^7.8.0",
+    "lodash": "^4.17.21",
+    "@jsverse/transloco-keys-manager": "^6.0.0",
+    "@jsverse/transloco-locale": "^7.0.1",
+    "@nestjs-mod/misc": "1.4.2",
+    "@fingerprintjs/fingerprintjs": "4.6.1",
+    "date-fns": "^4.1.0"
+  },
+  "sideEffects": false,
+  "i18n": [
+    {
+      "scope": "sso-afat",
+      "path": "src/i18n",
+      "strategy": "join"
+    }
+  ]
+}

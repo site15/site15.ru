@@ -1,8 +1,8 @@
 dist
 node_modules
-libs/core/webhook/src/lib/generated/rest
-libs/core/sso/src/lib/generated/rest
-libs/core/notifications/src/lib/generated/rest
-libs/core/two-factor/src/lib/generated/rest
+libs/feature/webhook/src/lib/generated/rest
+libs/feature/sso/src/lib/generated/rest
+libs/feature/notifications/src/lib/generated/rest
+libs/feature/two-factor/src/lib/generated/rest
 libs/sdk/rest-sdk/src/lib/generated
 libs/sdk/rest-sdk-angular/src/lib/generated
