@@ -4,5 +4,5 @@ metadata:
   namespace: '%NAMESPACE%'
   name: %NAMESPACE%-redis-config
 data:
-  REDIS_DATABASE: "0"
+  REDIS_DATABASE: '0'
   REDIS_PASSWORD: '%SINGLE_SIGN_ON_REDIS_REDIS_PASSWORD%'

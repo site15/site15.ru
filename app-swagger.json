@@ -1,1 +1,3438 @@
-{"openapi":"3.0.0","paths":{"/api/health":{"get":{"operationId":"TerminusHealthCheckController_check","parameters":[],"responses":{"200":{"description":"The Health Check is successful","content":{"application/json":{"schema":{"type":"object","properties":{"status":{"type":"string","example":"ok"},"info":{"type":"object","example":{"database":{"status":"up"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true},"nullable":true},"error":{"type":"object","example":{},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true},"nullable":true},"details":{"type":"object","example":{"database":{"status":"up"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true}}}}}}},"503":{"description":"The Health Check is not successful","content":{"application/json":{"schema":{"type":"object","properties":{"status":{"type":"string","example":"error"},"info":{"type":"object","example":{"database":{"status":"up"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true},"nullable":true},"error":{"type":"object","example":{"redis":{"status":"down","message":"Could not connect"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true},"nullable":true},"details":{"type":"object","example":{"database":{"status":"up"},"redis":{"status":"down","message":"Could not connect"}},"additionalProperties":{"type":"object","required":["status"],"properties":{"status":{"type":"string"}},"additionalProperties":true}}}}}}}},"tags":["TerminusHealthCheck"]}},"/api/files/get-presigned-url":{"get":{"operationId":"FilesController_getPresignedUrl","parameters":[{"name":"ext","required":true,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FilesPresignedUrls"}}}}},"tags":["Files"]}},"/api/files/delete-file":{"post":{"operationId":"FilesController_deleteFile","parameters":[{"name":"downloadUrl","required":true,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/StatusResponse"}}}}},"tags":["Files"]}},"/api/notifications":{"get":{"operationId":"NotificationsController_findMany","parameters":[{"name":"curPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"perPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"searchText","required":false,"in":"query","schema":{"type":"string"}},{"name":"sort","required":false,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FindManyNotificationResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/NotificationsError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Notifications"]}},"/api/notifications/{id}":{"put":{"operationId":"NotificationsController_updateOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateNotificationsEventDto"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/NotificationsEventDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/NotificationsError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Notifications"]},"get":{"operationId":"NotificationsController_findOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/NotificationsEventDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/NotificationsError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Notifications"]}},"/api/webhook/logs":{"get":{"operationId":"WebhookLogsController_findManyLogs","parameters":[{"name":"curPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"perPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"searchText","required":false,"in":"query","schema":{"type":"string"}},{"name":"sort","required":false,"in":"query","schema":{"type":"string"}},{"name":"webhookId","required":true,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FindManyWebhookLogResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]}},"/api/webhook/logs/{id}":{"delete":{"operationId":"WebhookLogsController_deleteOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/StatusResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]},"get":{"operationId":"WebhookLogsController_findOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/WebhookLog"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]}},"/api/webhook/profile":{"get":{"operationId":"WebhookController_profile","parameters":[],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/WebhookUser"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]}},"/api/webhook/events":{"get":{"operationId":"WebhookController_events","parameters":[],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/WebhookEvent"}}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]}},"/api/webhook":{"get":{"operationId":"WebhookController_findMany","parameters":[{"name":"curPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"perPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"searchText","required":false,"in":"query","schema":{"type":"string"}},{"name":"sort","required":false,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FindManyWebhookResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]},"post":{"operationId":"WebhookController_createOne","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateWebhookDto"}}}},"responses":{"201":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Webhook"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]}},"/api/webhook/test-request":{"post":{"operationId":"WebhookController_testRequest","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateWebhookDto"}}}},"responses":{"201":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/WebhookTestRequestResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]}},"/api/webhook/{id}":{"put":{"operationId":"WebhookController_updateOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateWebhookDto"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Webhook"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]},"delete":{"operationId":"WebhookController_deleteOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/StatusResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]},"get":{"operationId":"WebhookController_findOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Webhook"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/WebhookError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Webhook"]}},"/api/sso/sign-in":{"post":{"operationId":"SsoController_signIn","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SignInArgs"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/TokensResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/sign-up":{"post":{"operationId":"SsoController_signUp","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SignUpArgs"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/TokensResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/complete-sign-up":{"post":{"operationId":"SsoController_completeSignUp","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CompleteSignUpArgs"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/TokensResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/sign-out":{"post":{"operationId":"SsoController_signOut","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SignOutArgs"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/StatusResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/forgot-password":{"post":{"operationId":"SsoController_forgotPassword","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/ForgotPasswordArgs"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/StatusResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/complete-forgot-password":{"post":{"operationId":"SsoController_completeForgotPassword","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CompleteForgotPasswordArgs"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/TokensResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/refresh-tokens":{"post":{"operationId":"SsoController_refreshTokens","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/RefreshTokensResponse"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/TokensResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/profile":{"get":{"operationId":"SsoController_profile","parameters":[],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoUserDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]},"put":{"operationId":"SsoController_updateProfile","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateProfileArgs"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoUserDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/users":{"get":{"operationId":"SsoUsersController_findMany","parameters":[{"name":"curPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"perPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"searchText","required":false,"in":"query","schema":{"type":"string"}},{"name":"sort","required":false,"in":"query","schema":{"type":"string"}},{"name":"projectId","required":false,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FindManySsoUserResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/users/{id}":{"put":{"operationId":"SsoUsersController_updateOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateSsoUserDto"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoUserDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]},"get":{"operationId":"SsoUsersController_findOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoUserDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/users/send-invitation-links":{"post":{"operationId":"SsoUsersController_sendInvitationLinks","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SendInvitationLinksArgs"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/StatusResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/projects":{"get":{"operationId":"SsoProjectsController_findMany","parameters":[{"name":"curPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"perPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"searchText","required":false,"in":"query","schema":{"type":"string"}},{"name":"sort","required":false,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FindManySsoProjectResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]},"post":{"operationId":"SsoProjectsController_createOne","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/CreateSsoProjectDto"}}}},"responses":{"201":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoProjectDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/projects/{id}":{"put":{"operationId":"SsoProjectsController_updateOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateSsoProjectDto"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoProjectDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]},"delete":{"operationId":"SsoProjectsController_deleteOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/StatusResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]},"get":{"operationId":"SsoProjectsController_findOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoProjectDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/sessions":{"get":{"operationId":"SsoRefreshSessionsController_findMany","parameters":[{"name":"curPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"perPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"searchText","required":false,"in":"query","schema":{"type":"string"}},{"name":"sort","required":false,"in":"query","schema":{"type":"string"}},{"name":"userId","required":true,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FindManySsoRefreshSessionResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/sessions/{id}":{"put":{"operationId":"SsoRefreshSessionsController_updateOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateSsoRefreshSessionDto"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoRefreshSessionDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]},"get":{"operationId":"SsoRefreshSessionsController_findOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoRefreshSessionDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/roles":{"get":{"operationId":"SsoRolesController_findMany","parameters":[],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FindManySsoRoleResponse"}}}}},"tags":["Sso"]}},"/api/sso/public-projects":{"get":{"operationId":"SsoPublicProjectsController_findMany","parameters":[{"name":"curPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"perPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"searchText","required":false,"in":"query","schema":{"type":"string"}},{"name":"sort","required":false,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FindManySsoPublicProjectResponse"}}}}},"tags":["Sso"]}},"/api/sso/email-templates":{"get":{"operationId":"SsoEmailTemplatesController_findMany","parameters":[{"name":"curPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"perPage","required":false,"in":"query","schema":{"type":"number"}},{"name":"searchText","required":false,"in":"query","schema":{"type":"string"}},{"name":"sort","required":false,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/FindManySsoEmailTemplateResponse"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/email-templates/{id}":{"put":{"operationId":"SsoEmailTemplatesController_updateOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/UpdateSsoEmailTemplateDto"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoEmailTemplateDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]},"get":{"operationId":"SsoEmailTemplatesController_findOne","parameters":[{"name":"id","required":true,"in":"path","schema":{"type":"string"}}],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoEmailTemplateDto"}}}},"400":{"description":"","content":{"application/json":{"schema":{"allOf":[{"$ref":"#/components/schemas/SsoError"},{"$ref":"#/components/schemas/ValidationError"}]}}}}},"tags":["Sso"]}},"/api/sso/oauth/providers":{"get":{"operationId":"SsoOAuthController_oauthProviders","parameters":[],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/OAuthProvider"}}}}}},"tags":["Sso"]}},"/api/sso/oauth/verification":{"post":{"operationId":"SsoOAuthController_oauthVerification","parameters":[],"requestBody":{"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/SsoOAuthVerificationArgs"}}}},"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/TokensResponse"}}}}},"tags":["Sso"]}},"/api/sso/oauth/google":{"get":{"operationId":"SsoGoogleOAuthController_googleAuth","parameters":[{"name":"redirect_uri","required":true,"in":"query","schema":{"type":"string"}},{"name":"client_id","required":true,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":""}},"tags":["Sso"]}},"/api/sso/oauth/google/redirect":{"get":{"operationId":"SsoGoogleOAuthController_googleAuthRedirect","parameters":[{"name":"redirect_uri","required":true,"in":"query","schema":{"type":"string"}},{"name":"client_id","required":true,"in":"query","schema":{"type":"string"}}],"responses":{"200":{"description":""}},"tags":["Sso"]}},"/api/time":{"get":{"operationId":"TimeController_time","parameters":[],"responses":{"200":{"description":"","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Date"}}}}},"tags":["Time"]}}},"info":{"title":"","description":"","version":"1.0.0","contact":{}},"tags":[],"servers":[],"components":{"securitySchemes":{"bearer":{"scheme":"bearer","bearerFormat":"JWT","type":"http"}},"schemas":{"FilesPresignedUrls":{"type":"object","properties":{"downloadUrl":{"type":"string"},"uploadUrl":{"type":"string"}},"required":["downloadUrl","uploadUrl"]},"StatusResponse":{"type":"object","properties":{"message":{"type":"string"}},"required":["message"]},"NotificationsUser":{"type":"object","properties":{"id":{"type":"string"},"externalTenantId":{"type":"string"},"externalUserId":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"NotificationsEvent_NotificationsEvent_recipientUserIdToNotificationsUser":{"type":"array","items":{"$ref":"#/components/schemas/NotificationsEvent"}},"NotificationsEvent_NotificationsEvent_senderUserIdToNotificationsUser":{"type":"array","items":{"$ref":"#/components/schemas/NotificationsEvent"}}},"required":["id","externalTenantId","externalUserId","createdAt","updatedAt"]},"NotificationsEvent":{"type":"object","properties":{"id":{"type":"string"},"type":{"type":"string"},"operationName":{"type":"string"},"subject":{"type":"string"},"html":{"type":"string"},"text":{"type":"string","nullable":true},"attempt":{"type":"integer","format":"int32"},"used":{"type":"boolean"},"error":{"type":"object","nullable":true},"senderUserId":{"type":"string","nullable":true},"senderData":{"type":"object","nullable":true},"recipientGroupId":{"type":"string"},"recipientUserId":{"type":"string"},"recipientData":{"type":"object","nullable":true},"externalTenantId":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"NotificationsUser_NotificationsEvent_recipientUserIdToNotificationsUser":{"$ref":"#/components/schemas/NotificationsUser"},"NotificationsUser_NotificationsEvent_senderUserIdToNotificationsUser":{"nullable":true,"allOf":[{"$ref":"#/components/schemas/NotificationsUser"}]}},"required":["id","type","operationName","subject","html","text","attempt","used","error","senderUserId","senderData","recipientGroupId","recipientUserId","recipientData","externalTenantId","createdAt","updatedAt"]},"FindManyResponseMeta":{"type":"object","properties":{"curPage":{"type":"number"},"perPage":{"type":"number"},"totalResults":{"type":"number"}},"required":["totalResults"]},"FindManyNotificationResponse":{"type":"object","properties":{"notifications":{"type":"array","items":{"$ref":"#/components/schemas/NotificationsEvent"}},"meta":{"$ref":"#/components/schemas/FindManyResponseMeta"}},"required":["notifications","meta"]},"UpdateNotificationsEventDto":{"type":"object","properties":{"type":{"type":"string"},"operationName":{"type":"string"},"subject":{"type":"string"},"html":{"type":"string"},"text":{"type":"string","nullable":true},"attempt":{"type":"integer","format":"int32"},"used":{"type":"boolean"},"error":{"type":"object","nullable":true},"senderData":{"type":"object","nullable":true},"recipientGroupId":{"type":"string"},"recipientData":{"type":"object","nullable":true},"externalTenantId":{"type":"string"}}},"NotificationsEventDto":{"type":"object","properties":{"id":{"type":"string"},"type":{"type":"string"},"operationName":{"type":"string"},"subject":{"type":"string"},"html":{"type":"string"},"text":{"type":"string","nullable":true},"attempt":{"type":"integer","format":"int32"},"used":{"type":"boolean"},"error":{"type":"object","nullable":true},"senderData":{"type":"object","nullable":true},"recipientGroupId":{"type":"string"},"recipientData":{"type":"object","nullable":true},"externalTenantId":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"required":["id","type","operationName","subject","html","text","attempt","used","error","senderData","recipientGroupId","recipientData","externalTenantId","createdAt","updatedAt"]},"WebhookStatus":{"type":"string","enum":["Pending","Process","Success","Error","Timeout"]},"WebhookRole":{"type":"string","enum":["Admin","User"]},"WebhookUser":{"type":"object","properties":{"id":{"type":"string"},"externalTenantId":{"type":"string"},"externalUserId":{"type":"string"},"userRole":{"allOf":[{"$ref":"#/components/schemas/WebhookRole"}]},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"Webhook_Webhook_createdByToWebhookUser":{"type":"array","items":{"$ref":"#/components/schemas/Webhook"}},"Webhook_Webhook_updatedByToWebhookUser":{"type":"array","items":{"$ref":"#/components/schemas/Webhook"}}},"required":["id","externalTenantId","externalUserId","userRole","createdAt","updatedAt"]},"Webhook":{"type":"object","properties":{"id":{"type":"string"},"eventName":{"type":"string"},"endpoint":{"type":"string"},"enabled":{"type":"boolean"},"headers":{"type":"object","nullable":true},"requestTimeout":{"type":"integer","format":"int32","nullable":true},"externalTenantId":{"type":"string"},"createdBy":{"type":"string"},"updatedBy":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"workUntilDate":{"type":"string","format":"date-time","nullable":true},"WebhookUser_Webhook_createdByToWebhookUser":{"$ref":"#/components/schemas/WebhookUser"},"WebhookUser_Webhook_updatedByToWebhookUser":{"$ref":"#/components/schemas/WebhookUser"},"WebhookLog":{"type":"array","items":{"$ref":"#/components/schemas/WebhookLog"}}},"required":["id","eventName","endpoint","enabled","headers","requestTimeout","externalTenantId","createdBy","updatedBy","createdAt","updatedAt","workUntilDate"]},"WebhookLog":{"type":"object","properties":{"id":{"type":"string"},"request":{"type":"object"},"responseStatus":{"type":"string"},"response":{"type":"object","nullable":true},"webhookStatus":{"allOf":[{"$ref":"#/components/schemas/WebhookStatus"}]},"webhookId":{"type":"string"},"externalTenantId":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"Webhook":{"$ref":"#/components/schemas/Webhook"}},"required":["id","request","responseStatus","response","webhookStatus","webhookId","externalTenantId","createdAt","updatedAt"]},"FindManyWebhookLogResponse":{"type":"object","properties":{"webhookLogs":{"type":"array","items":{"$ref":"#/components/schemas/WebhookLog"}},"meta":{"$ref":"#/components/schemas/FindManyResponseMeta"}},"required":["webhookLogs","meta"]},"WebhookEvent":{"type":"object","properties":{"eventName":{"type":"string"},"description":{"type":"string"},"example":{"type":"object"}},"required":["eventName","description","example"]},"FindManyWebhookResponse":{"type":"object","properties":{"webhooks":{"type":"array","items":{"$ref":"#/components/schemas/Webhook"}},"meta":{"$ref":"#/components/schemas/FindManyResponseMeta"}},"required":["webhooks","meta"]},"CreateWebhookDto":{"type":"object","properties":{"eventName":{"type":"string"},"endpoint":{"type":"string"},"enabled":{"type":"boolean"},"headers":{"type":"object","nullable":true},"requestTimeout":{"type":"integer","format":"int32","nullable":true},"workUntilDate":{"type":"string","format":"date-time","nullable":true}},"required":["eventName","endpoint","enabled"]},"WebhookTestRequestResponse":{"type":"object","properties":{"request":{"type":"object"},"responseStatus":{"type":"string"},"response":{"type":"object","nullable":true},"webhookStatus":{"allOf":[{"$ref":"#/components/schemas/WebhookStatus"}]}},"required":["request","responseStatus","response","webhookStatus"]},"UpdateWebhookDto":{"type":"object","properties":{"eventName":{"type":"string"},"endpoint":{"type":"string"},"enabled":{"type":"boolean"},"headers":{"type":"object","nullable":true},"requestTimeout":{"type":"integer","format":"int32","nullable":true},"workUntilDate":{"type":"string","format":"date-time","nullable":true}}},"SignInArgs":{"type":"object","properties":{"email":{"type":"string"},"password":{"type":"string"},"fingerprint":{"type":"string"}},"required":["email","password","fingerprint"]},"SsoEmailTemplate":{"type":"object","properties":{"id":{"type":"string"},"subject":{"type":"string"},"subjectLocale":{"type":"object","nullable":true},"text":{"type":"string"},"textLocale":{"type":"object","nullable":true},"html":{"type":"string"},"htmlLocale":{"type":"object","nullable":true},"operationName":{"type":"string","nullable":true},"projectId":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"SsoProject":{"$ref":"#/components/schemas/SsoProject"}},"required":["id","subject","subjectLocale","text","textLocale","html","htmlLocale","operationName","projectId","createdAt","updatedAt"]},"SsoRefreshSession":{"type":"object","properties":{"id":{"type":"string"},"userAgent":{"type":"string","nullable":true},"userIp":{"type":"string","nullable":true},"expiresAt":{"type":"string","format":"date-time","nullable":true},"userData":{"type":"object","nullable":true},"enabled":{"type":"boolean"},"userId":{"type":"string"},"projectId":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"SsoProject":{"$ref":"#/components/schemas/SsoProject"},"SsoUser":{"$ref":"#/components/schemas/SsoUser"}},"required":["id","userAgent","userIp","expiresAt","userData","enabled","userId","projectId","createdAt","updatedAt"]},"SsoProject":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"nameLocale":{"type":"object","nullable":true},"clientId":{"type":"string"},"clientSecret":{"type":"string"},"public":{"type":"boolean"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"SsoEmailTemplate":{"type":"array","items":{"$ref":"#/components/schemas/SsoEmailTemplate"}},"SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider":{"type":"array","items":{"$ref":"#/components/schemas/SsoOAuthToken"}},"SsoRefreshSession":{"type":"array","items":{"$ref":"#/components/schemas/SsoRefreshSession"}},"SsoUser":{"type":"array","items":{"$ref":"#/components/schemas/SsoUser"}}},"required":["id","name","nameLocale","clientId","clientSecret","public","createdAt","updatedAt"]},"SsoOAuthProviderSettings":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"value":{"type":"string"},"providerId":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"SsoOAuthProvider":{"$ref":"#/components/schemas/SsoOAuthProvider"}},"required":["id","name","value","providerId","createdAt","updatedAt"]},"SsoOAuthProvider":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"SsoOAuthProviderSettings":{"type":"array","items":{"$ref":"#/components/schemas/SsoOAuthProviderSettings"}},"SsoOAuthToken":{"type":"array","items":{"$ref":"#/components/schemas/SsoOAuthToken"}}},"required":["id","name","createdAt","updatedAt"]},"SsoOAuthToken":{"type":"object","properties":{"id":{"type":"string"},"grantedAt":{"type":"string","format":"date-time"},"expiresAt":{"type":"string","format":"date-time","nullable":true},"tokenType":{"type":"string","nullable":true},"scope":{"type":"string","nullable":true},"verificationCode":{"type":"string","nullable":true},"userId":{"type":"string"},"projectId":{"type":"string"},"providerId":{"type":"string"},"providerUserId":{"type":"string"},"providerUserData":{"type":"object","nullable":true},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider":{"$ref":"#/components/schemas/SsoProject"},"SsoOAuthProvider":{"$ref":"#/components/schemas/SsoOAuthProvider"},"SsoUser":{"$ref":"#/components/schemas/SsoUser"}},"required":["id","grantedAt","expiresAt","tokenType","scope","verificationCode","userId","projectId","providerId","providerUserId","providerUserData","createdAt","updatedAt"]},"SsoUser":{"type":"object","properties":{"id":{"type":"string"},"email":{"type":"string"},"phone":{"type":"string","nullable":true},"username":{"type":"string","nullable":true},"roles":{"type":"string","nullable":true},"firstname":{"type":"string","nullable":true},"lastname":{"type":"string","nullable":true},"gender":{"type":"string","nullable":true},"birthdate":{"type":"string","format":"date-time","nullable":true},"picture":{"type":"string","nullable":true},"appData":{"type":"object","nullable":true},"revokedAt":{"type":"string","format":"date-time","nullable":true},"emailVerifiedAt":{"type":"string","format":"date-time","nullable":true},"phoneVerifiedAt":{"type":"string","format":"date-time","nullable":true},"timezone":{"type":"number","format":"float","nullable":true},"lang":{"type":"string","nullable":true},"projectId":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"SsoOAuthToken":{"type":"array","items":{"$ref":"#/components/schemas/SsoOAuthToken"}},"SsoRefreshSession":{"type":"array","items":{"$ref":"#/components/schemas/SsoRefreshSession"}},"SsoProject":{"$ref":"#/components/schemas/SsoProject"}},"required":["id","email","phone","username","roles","firstname","lastname","gender","birthdate","picture","appData","revokedAt","emailVerifiedAt","phoneVerifiedAt","timezone","lang","projectId","createdAt","updatedAt"]},"TokensResponse":{"type":"object","properties":{"accessToken":{"type":"string"},"refreshToken":{"type":"string"},"user":{"$ref":"#/components/schemas/SsoUser"}},"required":["accessToken","refreshToken","user"]},"SignUpArgs":{"type":"object","properties":{"email":{"type":"string"},"username":{"type":"string"},"password":{"type":"string"},"confirmPassword":{"type":"string"},"fingerprint":{"type":"string"},"redirectUri":{"type":"string"}},"required":["email","password","fingerprint"]},"CompleteSignUpArgs":{"type":"object","properties":{"fingerprint":{"type":"string"},"code":{"type":"string"}},"required":["fingerprint","code"]},"SignOutArgs":{"type":"object","properties":{"refreshToken":{"type":"string"}}},"ForgotPasswordArgs":{"type":"object","properties":{"email":{"type":"string"},"redirectUri":{"type":"string"}},"required":["email"]},"CompleteForgotPasswordArgs":{"type":"object","properties":{"password":{"type":"string"},"confirmPassword":{"type":"string"},"fingerprint":{"type":"string"},"code":{"type":"string"}},"required":["password","confirmPassword","fingerprint","code"]},"RefreshTokensResponse":{"type":"object","properties":{"fingerprint":{"type":"string"},"refreshToken":{"type":"string"}},"required":["fingerprint"]},"SsoUserDto":{"type":"object","properties":{"id":{"type":"string"},"email":{"type":"string"},"phone":{"type":"string","nullable":true},"username":{"type":"string","nullable":true},"roles":{"type":"string","nullable":true},"firstname":{"type":"string","nullable":true},"lastname":{"type":"string","nullable":true},"gender":{"type":"string","nullable":true},"birthdate":{"type":"string","format":"date-time","nullable":true},"picture":{"type":"string","nullable":true},"appData":{"type":"object","nullable":true},"revokedAt":{"type":"string","format":"date-time","nullable":true},"emailVerifiedAt":{"type":"string","format":"date-time","nullable":true},"phoneVerifiedAt":{"type":"string","format":"date-time","nullable":true},"timezone":{"type":"number","format":"float","nullable":true},"lang":{"type":"string","nullable":true},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"required":["id","email","phone","username","roles","firstname","lastname","gender","birthdate","picture","appData","revokedAt","emailVerifiedAt","phoneVerifiedAt","timezone","lang","createdAt","updatedAt"]},"UpdateProfileArgs":{"type":"object","properties":{"firstname":{"type":"string","nullable":true},"lastname":{"type":"string","nullable":true},"gender":{"type":"string","nullable":true},"birthdate":{"type":"string","format":"date-time","nullable":true},"picture":{"type":"string","nullable":true},"timezone":{"type":"number","format":"float","nullable":true},"lang":{"type":"string","nullable":true},"oldPassword":{"type":"string"},"password":{"type":"string"},"confirmPassword":{"type":"string"}}},"FindManySsoUserResponse":{"type":"object","properties":{"ssoUsers":{"type":"array","items":{"$ref":"#/components/schemas/SsoUserDto"}},"meta":{"$ref":"#/components/schemas/FindManyResponseMeta"}},"required":["ssoUsers","meta"]},"UpdateSsoUserDto":{"type":"object","properties":{"email":{"type":"string"},"phone":{"type":"string","nullable":true},"username":{"type":"string","nullable":true},"password":{"type":"string"},"roles":{"type":"string","nullable":true},"firstname":{"type":"string","nullable":true},"lastname":{"type":"string","nullable":true},"gender":{"type":"string","nullable":true},"birthdate":{"type":"string","format":"date-time","nullable":true},"picture":{"type":"string","nullable":true},"appData":{"type":"object","nullable":true},"revokedAt":{"type":"string","format":"date-time","nullable":true},"emailVerifiedAt":{"type":"string","format":"date-time","nullable":true},"phoneVerifiedAt":{"type":"string","format":"date-time","nullable":true},"timezone":{"type":"number","format":"float","nullable":true},"lang":{"type":"string","nullable":true}}},"SendInvitationLinksArgs":{"type":"object","properties":{"emails":{"type":"string"}},"required":["emails"]},"SsoProjectDto":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"nameLocale":{"type":"object","nullable":true},"clientId":{"type":"string"},"clientSecret":{"type":"string"},"public":{"type":"boolean"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"required":["id","name","nameLocale","clientId","clientSecret","public","createdAt","updatedAt"]},"FindManySsoProjectResponse":{"type":"object","properties":{"ssoProjects":{"type":"array","items":{"$ref":"#/components/schemas/SsoProjectDto"}},"meta":{"$ref":"#/components/schemas/FindManyResponseMeta"}},"required":["ssoProjects","meta"]},"CreateSsoProjectDto":{"type":"object","properties":{"name":{"type":"string"},"nameLocale":{"type":"object","nullable":true},"clientId":{"type":"string"},"clientSecret":{"type":"string"},"public":{"type":"boolean"}},"required":["name","clientId","clientSecret","public"]},"UpdateSsoProjectDto":{"type":"object","properties":{"name":{"type":"string"},"nameLocale":{"type":"object","nullable":true},"clientId":{"type":"string"},"clientSecret":{"type":"string"},"public":{"type":"boolean"}}},"SsoRefreshSessionDto":{"type":"object","properties":{"id":{"type":"string"},"userAgent":{"type":"string","nullable":true},"userIp":{"type":"string","nullable":true},"expiresAt":{"type":"string","format":"date-time","nullable":true},"userData":{"type":"object","nullable":true},"enabled":{"type":"boolean"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"required":["id","userAgent","userIp","expiresAt","userData","enabled","createdAt","updatedAt"]},"FindManySsoRefreshSessionResponse":{"type":"object","properties":{"ssoRefreshSessions":{"type":"array","items":{"$ref":"#/components/schemas/SsoRefreshSessionDto"}},"meta":{"$ref":"#/components/schemas/FindManyResponseMeta"}},"required":["ssoRefreshSessions","meta"]},"UpdateSsoRefreshSessionDto":{"type":"object","properties":{"refreshToken":{"type":"string"},"userAgent":{"type":"string","nullable":true},"fingerprint":{"type":"string","nullable":true},"userIp":{"type":"string","nullable":true},"expiresAt":{"type":"string","format":"date-time","nullable":true},"userData":{"type":"object","nullable":true},"enabled":{"type":"boolean"}}},"FindManySsoRoleResponse":{"type":"object","properties":{"userAvailableRoles":{"type":"array","items":{"type":"string"}},"userDefaultRoles":{"type":"array","items":{"type":"string"}},"adminDefaultRoles":{"type":"array","items":{"type":"string"}}},"required":["userAvailableRoles","userDefaultRoles","adminDefaultRoles"]},"SsoPublicProjectDto":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"nameLocale":{"type":"object","nullable":true},"clientId":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"required":["id","name","nameLocale","clientId","createdAt","updatedAt"]},"FindManySsoPublicProjectResponse":{"type":"object","properties":{"ssoPublicProjects":{"type":"array","items":{"$ref":"#/components/schemas/SsoPublicProjectDto"}},"meta":{"$ref":"#/components/schemas/FindManyResponseMeta"}},"required":["ssoPublicProjects","meta"]},"SsoEmailTemplateDto":{"type":"object","properties":{"id":{"type":"string"},"subject":{"type":"string"},"subjectLocale":{"type":"object","nullable":true},"text":{"type":"string"},"textLocale":{"type":"object","nullable":true},"html":{"type":"string"},"htmlLocale":{"type":"object","nullable":true},"operationName":{"type":"string","nullable":true},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"required":["id","subject","subjectLocale","text","textLocale","html","htmlLocale","operationName","createdAt","updatedAt"]},"FindManySsoEmailTemplateResponse":{"type":"object","properties":{"ssoEmailTemplates":{"type":"array","items":{"$ref":"#/components/schemas/SsoEmailTemplateDto"}},"meta":{"$ref":"#/components/schemas/FindManyResponseMeta"}},"required":["ssoEmailTemplates","meta"]},"UpdateSsoEmailTemplateDto":{"type":"object","properties":{"subject":{"type":"string"},"subjectLocale":{"type":"object","nullable":true},"text":{"type":"string"},"textLocale":{"type":"object","nullable":true},"html":{"type":"string"},"htmlLocale":{"type":"object","nullable":true},"operationName":{"type":"string","nullable":true}}},"OAuthProvider":{"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"},"url":{"type":"string"}},"required":["id","name","createdAt","updatedAt","url"]},"SsoOAuthVerificationArgs":{"type":"object","properties":{"verificationCode":{"type":"string"},"fingerprint":{"type":"string"}},"required":["verificationCode","fingerprint"]},"Date":{"type":"object","properties":{}},"FilesErrorEnum":{"type":"string","enum":["FILES-000","FILES-001"]},"FilesError":{"type":"object","properties":{"message":{"type":"string","description":"Files error (FILES-000), Forbidden (FILES-001)","example":"Files error"},"code":{"example":"FILES-000","allOf":[{"$ref":"#/components/schemas/FilesErrorEnum"}]},"metadata":{"type":"object"}},"required":["message","code"]},"NotificationsErrorEnum":{"type":"string","enum":["NOTIFICATIONS-000","NOTIFICATIONS-001","NOTIFICATIONS-002","NOTIFICATIONS-003"]},"NotificationsErrorMetadataConstraint":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"required":["name","description"]},"NotificationsErrorMetadata":{"type":"object","properties":{"property":{"type":"string"},"constraints":{"type":"array","items":{"$ref":"#/components/schemas/NotificationsErrorMetadataConstraint"}},"children":{"type":"array","items":{"$ref":"#/components/schemas/NotificationsErrorMetadata"}}},"required":["property","constraints"]},"NotificationsError":{"type":"object","properties":{"message":{"type":"string","description":"Notifications error (NOTIFICATIONS-000), Tenant ID not set (NOTIFICATIONS-001), User ID not set (NOTIFICATIONS-002), Forbidden (NOTIFICATIONS-003)","example":"Notifications error"},"code":{"example":"NOTIFICATIONS-000","allOf":[{"$ref":"#/components/schemas/NotificationsErrorEnum"}]},"metadata":{"type":"array","items":{"$ref":"#/components/schemas/NotificationsErrorMetadata"}}},"required":["message","code"]},"NotificationsUserScalarFieldEnum":{"type":"string","enum":["id","externalTenantId","externalUserId","createdAt","updatedAt"]},"NotificationsEventScalarFieldEnum":{"type":"string","enum":["id","type","operationName","subject","html","text","attempt","used","error","senderUserId","senderData","recipientGroupId","recipientUserId","recipientData","externalTenantId","createdAt","updatedAt"]},"NotificationsEntities":{"type":"object","properties":{"NotificationsUser":{"allOf":[{"$ref":"#/components/schemas/NotificationsUserScalarFieldEnum"}]},"NotificationsEvent":{"allOf":[{"$ref":"#/components/schemas/NotificationsEventScalarFieldEnum"}]}},"required":["NotificationsUser","NotificationsEvent"]},"SsoErrorEnum":{"type":"string","enum":["SSO-000","SSO-001","SSO-002","SSO-003","SSO-004","SSO-005","SSO-006","SSO-007","SSO-008","SSO-009","SSO-010","SSO-011","SSO-012","SSO-013","SSO-014","SSO-015","SSO-016","SSO-017","SSO-018"]},"SsoError":{"type":"object","properties":{"message":{"type":"string","description":"Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015), Bad access token (SSO-016), Your session has been blocked (SSO-017), Verification code not found (SSO-018)","example":"Sso error"},"code":{"example":"SSO-000","allOf":[{"$ref":"#/components/schemas/SsoErrorEnum"}]},"metadata":{"type":"object"}},"required":["message","code"]},"SsoProjectScalarFieldEnum":{"type":"string","enum":["id","name","nameLocale","clientId","clientSecret","public","createdAt","updatedAt"]},"SsoUserScalarFieldEnum":{"type":"string","enum":["id","email","phone","username","password","roles","firstname","lastname","gender","birthdate","picture","appData","revokedAt","emailVerifiedAt","phoneVerifiedAt","timezone","lang","projectId","createdAt","updatedAt"]},"SsoRefreshSessionScalarFieldEnum":{"type":"string","enum":["id","refreshToken","userAgent","fingerprint","userIp","expiresAt","userData","enabled","userId","projectId","createdAt","updatedAt"]},"SsoEmailTemplateScalarFieldEnum":{"type":"string","enum":["id","subject","subjectLocale","text","textLocale","html","htmlLocale","operationName","projectId","createdAt","updatedAt"]},"SsoOAuthProviderScalarFieldEnum":{"type":"string","enum":["id","name","createdAt","updatedAt"]},"SsoOAuthProviderSettingsScalarFieldEnum":{"type":"string","enum":["id","name","value","providerId","createdAt","updatedAt"]},"SsoOAuthTokenScalarFieldEnum":{"type":"string","enum":["id","grantedAt","accessToken","refreshToken","expiresAt","tokenType","scope","verificationCode","userId","projectId","providerId","providerUserId","providerUserData","createdAt","updatedAt"]},"SsoRole":{"type":"string","enum":["admin","manager","user"]},"SsoEntities":{"type":"object","properties":{"SsoProject":{"allOf":[{"$ref":"#/components/schemas/SsoProjectScalarFieldEnum"}]},"SsoUser":{"allOf":[{"$ref":"#/components/schemas/SsoUserScalarFieldEnum"}]},"SsoRefreshSession":{"allOf":[{"$ref":"#/components/schemas/SsoRefreshSessionScalarFieldEnum"}]},"SsoEmailTemplate":{"allOf":[{"$ref":"#/components/schemas/SsoEmailTemplateScalarFieldEnum"}]},"SsoOAuthProvider":{"allOf":[{"$ref":"#/components/schemas/SsoOAuthProviderScalarFieldEnum"}]},"SsoOAuthProviderSettings":{"allOf":[{"$ref":"#/components/schemas/SsoOAuthProviderSettingsScalarFieldEnum"}]},"SsoOAuthToken":{"allOf":[{"$ref":"#/components/schemas/SsoOAuthTokenScalarFieldEnum"}]},"role":{"allOf":[{"$ref":"#/components/schemas/SsoRole"}]}},"required":["SsoProject","SsoUser","SsoRefreshSession","SsoEmailTemplate","SsoOAuthProvider","SsoOAuthProviderSettings","SsoOAuthToken","role"]},"ValidationErrorEnum":{"type":"string","enum":["VALIDATION-000"]},"ValidationErrorMetadataConstraint":{"type":"object","properties":{"name":{"type":"string"},"description":{"type":"string"}},"required":["name","description"]},"ValidationErrorMetadata":{"type":"object","properties":{"property":{"type":"string"},"constraints":{"type":"array","items":{"$ref":"#/components/schemas/ValidationErrorMetadataConstraint"}},"children":{"type":"array","items":{"$ref":"#/components/schemas/ValidationErrorMetadata"}}},"required":["property","constraints"]},"ValidationError":{"type":"object","properties":{"message":{"type":"string","description":"Validation error (VALIDATION-000)","example":"Validation error"},"code":{"example":"VALIDATION-000","allOf":[{"$ref":"#/components/schemas/ValidationErrorEnum"}]},"metadata":{"type":"array","items":{"$ref":"#/components/schemas/ValidationErrorMetadata"}}},"required":["message","code"]},"WebhookErrorEnum":{"type":"string","enum":["WEBHOOK-000","WEBHOOK-001","WEBHOOK-002","WEBHOOK-003","WEBHOOK-004","WEBHOOK-005"]},"WebhookError":{"type":"object","properties":{"message":{"type":"string","description":"Webhook error (WEBHOOK-000), Tenant ID not set (WEBHOOK-003), User ID not set (WEBHOOK-002), Forbidden (WEBHOOK-001), User not found (WEBHOOK-004), Event not found (WEBHOOK-005)","example":"Webhook error"},"code":{"example":"WEBHOOK-000","allOf":[{"$ref":"#/components/schemas/WebhookErrorEnum"}]},"metadata":{"type":"object"}},"required":["message","code"]},"WebhookScalarFieldEnum":{"type":"string","enum":["id","eventName","endpoint","enabled","headers","requestTimeout","externalTenantId","createdBy","updatedBy","createdAt","updatedAt","workUntilDate"]},"WebhookLogScalarFieldEnum":{"type":"string","enum":["id","request","responseStatus","response","webhookStatus","webhookId","externalTenantId","createdAt","updatedAt"]},"WebhookUserScalarFieldEnum":{"type":"string","enum":["id","externalTenantId","externalUserId","userRole","createdAt","updatedAt"]},"WebhookEntities":{"type":"object","properties":{"Webhook":{"allOf":[{"$ref":"#/components/schemas/WebhookScalarFieldEnum"}]},"WebhookLog":{"allOf":[{"$ref":"#/components/schemas/WebhookLogScalarFieldEnum"}]},"WebhookUser":{"allOf":[{"$ref":"#/components/schemas/WebhookUserScalarFieldEnum"}]}},"required":["Webhook","WebhookLog","WebhookUser"]}}}}
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/health": {
+      "get": {
+        "operationId": "TerminusHealthCheckController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The Health Check is successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ok" },
+                    "info": {
+                      "type": "object",
+                      "example": { "database": { "status": "up" } },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": ["status"],
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {},
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": ["status"],
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": { "database": { "status": "up" } },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": ["status"],
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The Health Check is not successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "error" },
+                    "info": {
+                      "type": "object",
+                      "example": { "database": { "status": "up" } },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": ["status"],
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "object",
+                      "example": {
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": ["status"],
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": true
+                      },
+                      "nullable": true
+                    },
+                    "details": {
+                      "type": "object",
+                      "example": {
+                        "database": { "status": "up" },
+                        "redis": {
+                          "status": "down",
+                          "message": "Could not connect"
+                        }
+                      },
+                      "additionalProperties": {
+                        "type": "object",
+                        "required": ["status"],
+                        "properties": { "status": { "type": "string" } },
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["TerminusHealthCheck"]
+      }
+    },
+    "/api/files/get-presigned-url": {
+      "get": {
+        "operationId": "FilesController_getPresignedUrl",
+        "parameters": [
+          {
+            "name": "ext",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/FilesPresignedUrls" }
+              }
+            }
+          }
+        },
+        "tags": ["Files"]
+      }
+    },
+    "/api/files/delete-file": {
+      "post": {
+        "operationId": "FilesController_deleteFile",
+        "parameters": [
+          {
+            "name": "downloadUrl",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Files"]
+      }
+    },
+    "/api/notifications": {
+      "get": {
+        "operationId": "NotificationsController_findMany",
+        "parameters": [
+          {
+            "name": "curPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindManyNotificationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/NotificationsError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Notifications"]
+      }
+    },
+    "/api/notifications/{id}": {
+      "put": {
+        "operationId": "NotificationsController_updateOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNotificationsEventDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationsEventDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/NotificationsError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Notifications"]
+      },
+      "get": {
+        "operationId": "NotificationsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationsEventDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/NotificationsError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Notifications"]
+      }
+    },
+    "/api/webhook/logs": {
+      "get": {
+        "operationId": "WebhookLogsController_findManyLogs",
+        "parameters": [
+          {
+            "name": "curPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "webhookId",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindManyWebhookLogResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      }
+    },
+    "/api/webhook/logs/{id}": {
+      "delete": {
+        "operationId": "WebhookLogsController_deleteOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      },
+      "get": {
+        "operationId": "WebhookLogsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebhookLog" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      }
+    },
+    "/api/webhook/profile": {
+      "get": {
+        "operationId": "WebhookController_profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebhookUser" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      }
+    },
+    "/api/webhook/events": {
+      "get": {
+        "operationId": "WebhookController_events",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/WebhookEvent" }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      }
+    },
+    "/api/webhook": {
+      "get": {
+        "operationId": "WebhookController_findMany",
+        "parameters": [
+          {
+            "name": "curPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindManyWebhookResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      },
+      "post": {
+        "operationId": "WebhookController_createOne",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateWebhookDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Webhook" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      }
+    },
+    "/api/webhook/test-request": {
+      "post": {
+        "operationId": "WebhookController_testRequest",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateWebhookDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WebhookTestRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      }
+    },
+    "/api/webhook/{id}": {
+      "put": {
+        "operationId": "WebhookController_updateOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateWebhookDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Webhook" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      },
+      "delete": {
+        "operationId": "WebhookController_deleteOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      },
+      "get": {
+        "operationId": "WebhookController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Webhook" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/WebhookError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Webhook"]
+      }
+    },
+    "/api/sso/sign-in": {
+      "post": {
+        "operationId": "SsoController_signIn",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SignInArgs" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokensResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/sign-up": {
+      "post": {
+        "operationId": "SsoController_signUp",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SignUpArgs" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokensResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/complete-sign-up": {
+      "post": {
+        "operationId": "SsoController_completeSignUp",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CompleteSignUpArgs" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokensResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/sign-out": {
+      "post": {
+        "operationId": "SsoController_signOut",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SignOutArgs" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/forgot-password": {
+      "post": {
+        "operationId": "SsoController_forgotPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/ForgotPasswordArgs" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/complete-forgot-password": {
+      "post": {
+        "operationId": "SsoController_completeForgotPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteForgotPasswordArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokensResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/refresh-tokens": {
+      "post": {
+        "operationId": "SsoController_refreshTokens",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RefreshTokensResponse" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokensResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/profile": {
+      "get": {
+        "operationId": "SsoController_profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SsoUserDto" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      },
+      "put": {
+        "operationId": "SsoController_updateProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateProfileArgs" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SsoUserDto" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/users": {
+      "get": {
+        "operationId": "SsoUsersController_findMany",
+        "parameters": [
+          {
+            "name": "curPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "projectId",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindManySsoUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/users/{id}": {
+      "put": {
+        "operationId": "SsoUsersController_updateOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateSsoUserDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SsoUserDto" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      },
+      "get": {
+        "operationId": "SsoUsersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SsoUserDto" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/users/send-invitation-links": {
+      "post": {
+        "operationId": "SsoUsersController_sendInvitationLinks",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendInvitationLinksArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/projects": {
+      "get": {
+        "operationId": "SsoProjectsController_findMany",
+        "parameters": [
+          {
+            "name": "curPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindManySsoProjectResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      },
+      "post": {
+        "operationId": "SsoProjectsController_createOne",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateSsoProjectDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SsoProjectDto" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/projects/{id}": {
+      "put": {
+        "operationId": "SsoProjectsController_updateOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateSsoProjectDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SsoProjectDto" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      },
+      "delete": {
+        "operationId": "SsoProjectsController_deleteOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatusResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      },
+      "get": {
+        "operationId": "SsoProjectsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SsoProjectDto" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/sessions": {
+      "get": {
+        "operationId": "SsoRefreshSessionsController_findMany",
+        "parameters": [
+          {
+            "name": "curPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindManySsoRefreshSessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/sessions/{id}": {
+      "put": {
+        "operationId": "SsoRefreshSessionsController_updateOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSsoRefreshSessionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SsoRefreshSessionDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      },
+      "get": {
+        "operationId": "SsoRefreshSessionsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SsoRefreshSessionDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/roles": {
+      "get": {
+        "operationId": "SsoRolesController_findMany",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindManySsoRoleResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/public-projects": {
+      "get": {
+        "operationId": "SsoPublicProjectsController_findMany",
+        "parameters": [
+          {
+            "name": "curPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindManySsoPublicProjectResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/email-templates": {
+      "get": {
+        "operationId": "SsoEmailTemplatesController_findMany",
+        "parameters": [
+          {
+            "name": "curPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "searchText",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindManySsoEmailTemplateResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/email-templates/{id}": {
+      "put": {
+        "operationId": "SsoEmailTemplatesController_updateOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSsoEmailTemplateDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SsoEmailTemplateDto" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      },
+      "get": {
+        "operationId": "SsoEmailTemplatesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SsoEmailTemplateDto" }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    { "$ref": "#/components/schemas/SsoError" },
+                    { "$ref": "#/components/schemas/ValidationError" }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/oauth/providers": {
+      "get": {
+        "operationId": "SsoOAuthController_oauthProviders",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/OAuthProvider" }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/oauth/verification": {
+      "post": {
+        "operationId": "SsoOAuthController_oauthVerification",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SsoOAuthVerificationArgs"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokensResponse" }
+              }
+            }
+          }
+        },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/oauth/google": {
+      "get": {
+        "operationId": "SsoGoogleOAuthController_googleAuth",
+        "parameters": [
+          {
+            "name": "redirect_uri",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "client_id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/sso/oauth/google/redirect": {
+      "get": {
+        "operationId": "SsoGoogleOAuthController_googleAuthRedirect",
+        "parameters": [
+          {
+            "name": "redirect_uri",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "client_id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Sso"]
+      }
+    },
+    "/api/time": {
+      "get": {
+        "operationId": "TimeController_time",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Date" }
+              }
+            }
+          }
+        },
+        "tags": ["Time"]
+      }
+    }
+  },
+  "info": { "title": "", "description": "", "version": "1.0.0", "contact": {} },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
+    },
+    "schemas": {
+      "FilesPresignedUrls": {
+        "type": "object",
+        "properties": {
+          "downloadUrl": { "type": "string" },
+          "uploadUrl": { "type": "string" }
+        },
+        "required": ["downloadUrl", "uploadUrl"]
+      },
+      "StatusResponse": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "required": ["message"]
+      },
+      "NotificationsUser": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "externalTenantId": { "type": "string" },
+          "externalUserId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "NotificationsEvent_NotificationsEvent_recipientUserIdToNotificationsUser": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationsEvent" }
+          },
+          "NotificationsEvent_NotificationsEvent_senderUserIdToNotificationsUser": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationsEvent" }
+          }
+        },
+        "required": [
+          "id",
+          "externalTenantId",
+          "externalUserId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "NotificationsEvent": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "operationName": { "type": "string" },
+          "subject": { "type": "string" },
+          "html": { "type": "string" },
+          "text": { "type": "string", "nullable": true },
+          "attempt": { "type": "integer", "format": "int32" },
+          "used": { "type": "boolean" },
+          "error": { "type": "object", "nullable": true },
+          "senderUserId": { "type": "string", "nullable": true },
+          "senderData": { "type": "object", "nullable": true },
+          "recipientGroupId": { "type": "string" },
+          "recipientUserId": { "type": "string" },
+          "recipientData": { "type": "object", "nullable": true },
+          "externalTenantId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "NotificationsUser_NotificationsEvent_recipientUserIdToNotificationsUser": {
+            "$ref": "#/components/schemas/NotificationsUser"
+          },
+          "NotificationsUser_NotificationsEvent_senderUserIdToNotificationsUser": {
+            "nullable": true,
+            "allOf": [{ "$ref": "#/components/schemas/NotificationsUser" }]
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "operationName",
+          "subject",
+          "html",
+          "text",
+          "attempt",
+          "used",
+          "error",
+          "senderUserId",
+          "senderData",
+          "recipientGroupId",
+          "recipientUserId",
+          "recipientData",
+          "externalTenantId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "FindManyResponseMeta": {
+        "type": "object",
+        "properties": {
+          "curPage": { "type": "number" },
+          "perPage": { "type": "number" },
+          "totalResults": { "type": "number" }
+        },
+        "required": ["totalResults"]
+      },
+      "FindManyNotificationResponse": {
+        "type": "object",
+        "properties": {
+          "notifications": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/NotificationsEvent" }
+          },
+          "meta": { "$ref": "#/components/schemas/FindManyResponseMeta" }
+        },
+        "required": ["notifications", "meta"]
+      },
+      "UpdateNotificationsEventDto": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string" },
+          "operationName": { "type": "string" },
+          "subject": { "type": "string" },
+          "html": { "type": "string" },
+          "text": { "type": "string", "nullable": true },
+          "attempt": { "type": "integer", "format": "int32" },
+          "used": { "type": "boolean" },
+          "error": { "type": "object", "nullable": true },
+          "senderData": { "type": "object", "nullable": true },
+          "recipientGroupId": { "type": "string" },
+          "recipientData": { "type": "object", "nullable": true },
+          "externalTenantId": { "type": "string" }
+        }
+      },
+      "NotificationsEventDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "operationName": { "type": "string" },
+          "subject": { "type": "string" },
+          "html": { "type": "string" },
+          "text": { "type": "string", "nullable": true },
+          "attempt": { "type": "integer", "format": "int32" },
+          "used": { "type": "boolean" },
+          "error": { "type": "object", "nullable": true },
+          "senderData": { "type": "object", "nullable": true },
+          "recipientGroupId": { "type": "string" },
+          "recipientData": { "type": "object", "nullable": true },
+          "externalTenantId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": [
+          "id",
+          "type",
+          "operationName",
+          "subject",
+          "html",
+          "text",
+          "attempt",
+          "used",
+          "error",
+          "senderData",
+          "recipientGroupId",
+          "recipientData",
+          "externalTenantId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "WebhookStatus": {
+        "type": "string",
+        "enum": ["Pending", "Process", "Success", "Error", "Timeout"]
+      },
+      "WebhookRole": { "type": "string", "enum": ["Admin", "User"] },
+      "WebhookUser": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "externalTenantId": { "type": "string" },
+          "externalUserId": { "type": "string" },
+          "userRole": {
+            "allOf": [{ "$ref": "#/components/schemas/WebhookRole" }]
+          },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "Webhook_Webhook_createdByToWebhookUser": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Webhook" }
+          },
+          "Webhook_Webhook_updatedByToWebhookUser": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Webhook" }
+          }
+        },
+        "required": [
+          "id",
+          "externalTenantId",
+          "externalUserId",
+          "userRole",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "Webhook": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "eventName": { "type": "string" },
+          "endpoint": { "type": "string" },
+          "enabled": { "type": "boolean" },
+          "headers": { "type": "object", "nullable": true },
+          "requestTimeout": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "externalTenantId": { "type": "string" },
+          "createdBy": { "type": "string" },
+          "updatedBy": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "workUntilDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "WebhookUser_Webhook_createdByToWebhookUser": {
+            "$ref": "#/components/schemas/WebhookUser"
+          },
+          "WebhookUser_Webhook_updatedByToWebhookUser": {
+            "$ref": "#/components/schemas/WebhookUser"
+          },
+          "WebhookLog": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/WebhookLog" }
+          }
+        },
+        "required": [
+          "id",
+          "eventName",
+          "endpoint",
+          "enabled",
+          "headers",
+          "requestTimeout",
+          "externalTenantId",
+          "createdBy",
+          "updatedBy",
+          "createdAt",
+          "updatedAt",
+          "workUntilDate"
+        ]
+      },
+      "WebhookLog": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "request": { "type": "object" },
+          "responseStatus": { "type": "string" },
+          "response": { "type": "object", "nullable": true },
+          "webhookStatus": {
+            "allOf": [{ "$ref": "#/components/schemas/WebhookStatus" }]
+          },
+          "webhookId": { "type": "string" },
+          "externalTenantId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "Webhook": { "$ref": "#/components/schemas/Webhook" }
+        },
+        "required": [
+          "id",
+          "request",
+          "responseStatus",
+          "response",
+          "webhookStatus",
+          "webhookId",
+          "externalTenantId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "FindManyWebhookLogResponse": {
+        "type": "object",
+        "properties": {
+          "webhookLogs": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/WebhookLog" }
+          },
+          "meta": { "$ref": "#/components/schemas/FindManyResponseMeta" }
+        },
+        "required": ["webhookLogs", "meta"]
+      },
+      "WebhookEvent": {
+        "type": "object",
+        "properties": {
+          "eventName": { "type": "string" },
+          "description": { "type": "string" },
+          "example": { "type": "object" }
+        },
+        "required": ["eventName", "description", "example"]
+      },
+      "FindManyWebhookResponse": {
+        "type": "object",
+        "properties": {
+          "webhooks": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Webhook" }
+          },
+          "meta": { "$ref": "#/components/schemas/FindManyResponseMeta" }
+        },
+        "required": ["webhooks", "meta"]
+      },
+      "CreateWebhookDto": {
+        "type": "object",
+        "properties": {
+          "eventName": { "type": "string" },
+          "endpoint": { "type": "string" },
+          "enabled": { "type": "boolean" },
+          "headers": { "type": "object", "nullable": true },
+          "requestTimeout": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "workUntilDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "required": ["eventName", "endpoint", "enabled"]
+      },
+      "WebhookTestRequestResponse": {
+        "type": "object",
+        "properties": {
+          "request": { "type": "object" },
+          "responseStatus": { "type": "string" },
+          "response": { "type": "object", "nullable": true },
+          "webhookStatus": {
+            "allOf": [{ "$ref": "#/components/schemas/WebhookStatus" }]
+          }
+        },
+        "required": ["request", "responseStatus", "response", "webhookStatus"]
+      },
+      "UpdateWebhookDto": {
+        "type": "object",
+        "properties": {
+          "eventName": { "type": "string" },
+          "endpoint": { "type": "string" },
+          "enabled": { "type": "boolean" },
+          "headers": { "type": "object", "nullable": true },
+          "requestTimeout": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "workUntilDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "SignInArgs": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "password": { "type": "string" },
+          "fingerprint": { "type": "string" }
+        },
+        "required": ["email", "password", "fingerprint"]
+      },
+      "SsoEmailTemplate": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "subject": { "type": "string" },
+          "subjectLocale": { "type": "object", "nullable": true },
+          "text": { "type": "string" },
+          "textLocale": { "type": "object", "nullable": true },
+          "html": { "type": "string" },
+          "htmlLocale": { "type": "object", "nullable": true },
+          "operationName": { "type": "string", "nullable": true },
+          "projectId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "SsoProject": { "$ref": "#/components/schemas/SsoProject" }
+        },
+        "required": [
+          "id",
+          "subject",
+          "subjectLocale",
+          "text",
+          "textLocale",
+          "html",
+          "htmlLocale",
+          "operationName",
+          "projectId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoRefreshSession": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "userAgent": { "type": "string", "nullable": true },
+          "userIp": { "type": "string", "nullable": true },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "userData": { "type": "object", "nullable": true },
+          "enabled": { "type": "boolean" },
+          "userId": { "type": "string" },
+          "projectId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "SsoProject": { "$ref": "#/components/schemas/SsoProject" },
+          "SsoUser": { "$ref": "#/components/schemas/SsoUser" }
+        },
+        "required": [
+          "id",
+          "userAgent",
+          "userIp",
+          "expiresAt",
+          "userData",
+          "enabled",
+          "userId",
+          "projectId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoProject": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "nameLocale": { "type": "object", "nullable": true },
+          "clientId": { "type": "string" },
+          "clientSecret": { "type": "string" },
+          "public": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "SsoEmailTemplate": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoEmailTemplate" }
+          },
+          "SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoOAuthToken" }
+          },
+          "SsoRefreshSession": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoRefreshSession" }
+          },
+          "SsoUser": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoUser" }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "nameLocale",
+          "clientId",
+          "clientSecret",
+          "public",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoOAuthProviderSettings": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "value": { "type": "string" },
+          "providerId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "SsoOAuthProvider": {
+            "$ref": "#/components/schemas/SsoOAuthProvider"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "value",
+          "providerId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoOAuthProvider": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "SsoOAuthProviderSettings": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoOAuthProviderSettings" }
+          },
+          "SsoOAuthToken": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoOAuthToken" }
+          }
+        },
+        "required": ["id", "name", "createdAt", "updatedAt"]
+      },
+      "SsoOAuthToken": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "grantedAt": { "type": "string", "format": "date-time" },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "tokenType": { "type": "string", "nullable": true },
+          "scope": { "type": "string", "nullable": true },
+          "verificationCode": { "type": "string", "nullable": true },
+          "userId": { "type": "string" },
+          "projectId": { "type": "string" },
+          "providerId": { "type": "string" },
+          "providerUserId": { "type": "string" },
+          "providerUserData": { "type": "object", "nullable": true },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider": {
+            "$ref": "#/components/schemas/SsoProject"
+          },
+          "SsoOAuthProvider": {
+            "$ref": "#/components/schemas/SsoOAuthProvider"
+          },
+          "SsoUser": { "$ref": "#/components/schemas/SsoUser" }
+        },
+        "required": [
+          "id",
+          "grantedAt",
+          "expiresAt",
+          "tokenType",
+          "scope",
+          "verificationCode",
+          "userId",
+          "projectId",
+          "providerId",
+          "providerUserId",
+          "providerUserData",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoUser": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string", "nullable": true },
+          "username": { "type": "string", "nullable": true },
+          "roles": { "type": "string", "nullable": true },
+          "firstname": { "type": "string", "nullable": true },
+          "lastname": { "type": "string", "nullable": true },
+          "gender": { "type": "string", "nullable": true },
+          "birthdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "picture": { "type": "string", "nullable": true },
+          "appData": { "type": "object", "nullable": true },
+          "revokedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "emailVerifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "phoneVerifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "timezone": { "type": "number", "format": "float", "nullable": true },
+          "lang": { "type": "string", "nullable": true },
+          "projectId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "SsoOAuthToken": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoOAuthToken" }
+          },
+          "SsoRefreshSession": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoRefreshSession" }
+          },
+          "SsoProject": { "$ref": "#/components/schemas/SsoProject" }
+        },
+        "required": [
+          "id",
+          "email",
+          "phone",
+          "username",
+          "roles",
+          "firstname",
+          "lastname",
+          "gender",
+          "birthdate",
+          "picture",
+          "appData",
+          "revokedAt",
+          "emailVerifiedAt",
+          "phoneVerifiedAt",
+          "timezone",
+          "lang",
+          "projectId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "TokensResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": { "type": "string" },
+          "refreshToken": { "type": "string" },
+          "user": { "$ref": "#/components/schemas/SsoUser" }
+        },
+        "required": ["accessToken", "refreshToken", "user"]
+      },
+      "SignUpArgs": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "username": { "type": "string" },
+          "password": { "type": "string" },
+          "confirmPassword": { "type": "string" },
+          "fingerprint": { "type": "string" },
+          "redirectUri": { "type": "string" }
+        },
+        "required": ["email", "password", "fingerprint"]
+      },
+      "CompleteSignUpArgs": {
+        "type": "object",
+        "properties": {
+          "fingerprint": { "type": "string" },
+          "code": { "type": "string" }
+        },
+        "required": ["fingerprint", "code"]
+      },
+      "SignOutArgs": {
+        "type": "object",
+        "properties": { "refreshToken": { "type": "string" } }
+      },
+      "ForgotPasswordArgs": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "redirectUri": { "type": "string" }
+        },
+        "required": ["email"]
+      },
+      "CompleteForgotPasswordArgs": {
+        "type": "object",
+        "properties": {
+          "password": { "type": "string" },
+          "confirmPassword": { "type": "string" },
+          "fingerprint": { "type": "string" },
+          "code": { "type": "string" }
+        },
+        "required": ["password", "confirmPassword", "fingerprint", "code"]
+      },
+      "RefreshTokensResponse": {
+        "type": "object",
+        "properties": {
+          "fingerprint": { "type": "string" },
+          "refreshToken": { "type": "string" }
+        },
+        "required": ["fingerprint"]
+      },
+      "SsoUserDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string", "nullable": true },
+          "username": { "type": "string", "nullable": true },
+          "roles": { "type": "string", "nullable": true },
+          "firstname": { "type": "string", "nullable": true },
+          "lastname": { "type": "string", "nullable": true },
+          "gender": { "type": "string", "nullable": true },
+          "birthdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "picture": { "type": "string", "nullable": true },
+          "appData": { "type": "object", "nullable": true },
+          "revokedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "emailVerifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "phoneVerifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "timezone": { "type": "number", "format": "float", "nullable": true },
+          "lang": { "type": "string", "nullable": true },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": [
+          "id",
+          "email",
+          "phone",
+          "username",
+          "roles",
+          "firstname",
+          "lastname",
+          "gender",
+          "birthdate",
+          "picture",
+          "appData",
+          "revokedAt",
+          "emailVerifiedAt",
+          "phoneVerifiedAt",
+          "timezone",
+          "lang",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "UpdateProfileArgs": {
+        "type": "object",
+        "properties": {
+          "firstname": { "type": "string", "nullable": true },
+          "lastname": { "type": "string", "nullable": true },
+          "gender": { "type": "string", "nullable": true },
+          "birthdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "picture": { "type": "string", "nullable": true },
+          "timezone": { "type": "number", "format": "float", "nullable": true },
+          "lang": { "type": "string", "nullable": true },
+          "oldPassword": { "type": "string" },
+          "password": { "type": "string" },
+          "confirmPassword": { "type": "string" }
+        }
+      },
+      "FindManySsoUserResponse": {
+        "type": "object",
+        "properties": {
+          "ssoUsers": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoUserDto" }
+          },
+          "meta": { "$ref": "#/components/schemas/FindManyResponseMeta" }
+        },
+        "required": ["ssoUsers", "meta"]
+      },
+      "UpdateSsoUserDto": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "phone": { "type": "string", "nullable": true },
+          "username": { "type": "string", "nullable": true },
+          "password": { "type": "string" },
+          "roles": { "type": "string", "nullable": true },
+          "firstname": { "type": "string", "nullable": true },
+          "lastname": { "type": "string", "nullable": true },
+          "gender": { "type": "string", "nullable": true },
+          "birthdate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "picture": { "type": "string", "nullable": true },
+          "appData": { "type": "object", "nullable": true },
+          "revokedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "emailVerifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "phoneVerifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "timezone": { "type": "number", "format": "float", "nullable": true },
+          "lang": { "type": "string", "nullable": true }
+        }
+      },
+      "SendInvitationLinksArgs": {
+        "type": "object",
+        "properties": { "emails": { "type": "string" } },
+        "required": ["emails"]
+      },
+      "SsoProjectDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "nameLocale": { "type": "object", "nullable": true },
+          "clientId": { "type": "string" },
+          "clientSecret": { "type": "string" },
+          "public": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": [
+          "id",
+          "name",
+          "nameLocale",
+          "clientId",
+          "clientSecret",
+          "public",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "FindManySsoProjectResponse": {
+        "type": "object",
+        "properties": {
+          "ssoProjects": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoProjectDto" }
+          },
+          "meta": { "$ref": "#/components/schemas/FindManyResponseMeta" }
+        },
+        "required": ["ssoProjects", "meta"]
+      },
+      "CreateSsoProjectDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "nameLocale": { "type": "object", "nullable": true },
+          "clientId": { "type": "string" },
+          "clientSecret": { "type": "string" },
+          "public": { "type": "boolean" }
+        },
+        "required": ["name", "clientId", "clientSecret", "public"]
+      },
+      "UpdateSsoProjectDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "nameLocale": { "type": "object", "nullable": true },
+          "clientId": { "type": "string" },
+          "clientSecret": { "type": "string" },
+          "public": { "type": "boolean" }
+        }
+      },
+      "SsoRefreshSessionDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "userAgent": { "type": "string", "nullable": true },
+          "userIp": { "type": "string", "nullable": true },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "userData": { "type": "object", "nullable": true },
+          "enabled": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": [
+          "id",
+          "userAgent",
+          "userIp",
+          "expiresAt",
+          "userData",
+          "enabled",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "FindManySsoRefreshSessionResponse": {
+        "type": "object",
+        "properties": {
+          "ssoRefreshSessions": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoRefreshSessionDto" }
+          },
+          "meta": { "$ref": "#/components/schemas/FindManyResponseMeta" }
+        },
+        "required": ["ssoRefreshSessions", "meta"]
+      },
+      "UpdateSsoRefreshSessionDto": {
+        "type": "object",
+        "properties": {
+          "refreshToken": { "type": "string" },
+          "userAgent": { "type": "string", "nullable": true },
+          "fingerprint": { "type": "string", "nullable": true },
+          "userIp": { "type": "string", "nullable": true },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "userData": { "type": "object", "nullable": true },
+          "enabled": { "type": "boolean" }
+        }
+      },
+      "FindManySsoRoleResponse": {
+        "type": "object",
+        "properties": {
+          "userAvailableRoles": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "userDefaultRoles": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "adminDefaultRoles": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": [
+          "userAvailableRoles",
+          "userDefaultRoles",
+          "adminDefaultRoles"
+        ]
+      },
+      "SsoPublicProjectDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "nameLocale": { "type": "object", "nullable": true },
+          "clientId": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": [
+          "id",
+          "name",
+          "nameLocale",
+          "clientId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "FindManySsoPublicProjectResponse": {
+        "type": "object",
+        "properties": {
+          "ssoPublicProjects": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoPublicProjectDto" }
+          },
+          "meta": { "$ref": "#/components/schemas/FindManyResponseMeta" }
+        },
+        "required": ["ssoPublicProjects", "meta"]
+      },
+      "SsoEmailTemplateDto": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "subject": { "type": "string" },
+          "subjectLocale": { "type": "object", "nullable": true },
+          "text": { "type": "string" },
+          "textLocale": { "type": "object", "nullable": true },
+          "html": { "type": "string" },
+          "htmlLocale": { "type": "object", "nullable": true },
+          "operationName": { "type": "string", "nullable": true },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        },
+        "required": [
+          "id",
+          "subject",
+          "subjectLocale",
+          "text",
+          "textLocale",
+          "html",
+          "htmlLocale",
+          "operationName",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "FindManySsoEmailTemplateResponse": {
+        "type": "object",
+        "properties": {
+          "ssoEmailTemplates": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/SsoEmailTemplateDto" }
+          },
+          "meta": { "$ref": "#/components/schemas/FindManyResponseMeta" }
+        },
+        "required": ["ssoEmailTemplates", "meta"]
+      },
+      "UpdateSsoEmailTemplateDto": {
+        "type": "object",
+        "properties": {
+          "subject": { "type": "string" },
+          "subjectLocale": { "type": "object", "nullable": true },
+          "text": { "type": "string" },
+          "textLocale": { "type": "object", "nullable": true },
+          "html": { "type": "string" },
+          "htmlLocale": { "type": "object", "nullable": true },
+          "operationName": { "type": "string", "nullable": true }
+        }
+      },
+      "OAuthProvider": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" },
+          "url": { "type": "string" }
+        },
+        "required": ["id", "name", "createdAt", "updatedAt", "url"]
+      },
+      "SsoOAuthVerificationArgs": {
+        "type": "object",
+        "properties": {
+          "verificationCode": { "type": "string" },
+          "fingerprint": { "type": "string" }
+        },
+        "required": ["verificationCode", "fingerprint"]
+      },
+      "Date": { "type": "object", "properties": {} },
+      "FilesErrorEnum": {
+        "type": "string",
+        "enum": ["FILES-000", "FILES-001"]
+      },
+      "FilesError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Files error (FILES-000), Forbidden (FILES-001)",
+            "example": "Files error"
+          },
+          "code": {
+            "example": "FILES-000",
+            "allOf": [{ "$ref": "#/components/schemas/FilesErrorEnum" }]
+          },
+          "metadata": { "type": "object" }
+        },
+        "required": ["message", "code"]
+      },
+      "NotificationsErrorEnum": {
+        "type": "string",
+        "enum": [
+          "NOTIFICATIONS-000",
+          "NOTIFICATIONS-001",
+          "NOTIFICATIONS-002",
+          "NOTIFICATIONS-003"
+        ]
+      },
+      "NotificationsErrorMetadataConstraint": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["name", "description"]
+      },
+      "NotificationsErrorMetadata": {
+        "type": "object",
+        "properties": {
+          "property": { "type": "string" },
+          "constraints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationsErrorMetadataConstraint"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationsErrorMetadata"
+            }
+          }
+        },
+        "required": ["property", "constraints"]
+      },
+      "NotificationsError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Notifications error (NOTIFICATIONS-000), Tenant ID not set (NOTIFICATIONS-001), User ID not set (NOTIFICATIONS-002), Forbidden (NOTIFICATIONS-003)",
+            "example": "Notifications error"
+          },
+          "code": {
+            "example": "NOTIFICATIONS-000",
+            "allOf": [{ "$ref": "#/components/schemas/NotificationsErrorEnum" }]
+          },
+          "metadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationsErrorMetadata"
+            }
+          }
+        },
+        "required": ["message", "code"]
+      },
+      "NotificationsUserScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "externalTenantId",
+          "externalUserId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "NotificationsEventScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "type",
+          "operationName",
+          "subject",
+          "html",
+          "text",
+          "attempt",
+          "used",
+          "error",
+          "senderUserId",
+          "senderData",
+          "recipientGroupId",
+          "recipientUserId",
+          "recipientData",
+          "externalTenantId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "NotificationsEntities": {
+        "type": "object",
+        "properties": {
+          "NotificationsUser": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NotificationsUserScalarFieldEnum"
+              }
+            ]
+          },
+          "NotificationsEvent": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NotificationsEventScalarFieldEnum"
+              }
+            ]
+          }
+        },
+        "required": ["NotificationsUser", "NotificationsEvent"]
+      },
+      "SsoErrorEnum": {
+        "type": "string",
+        "enum": [
+          "SSO-000",
+          "SSO-001",
+          "SSO-002",
+          "SSO-003",
+          "SSO-004",
+          "SSO-005",
+          "SSO-006",
+          "SSO-007",
+          "SSO-008",
+          "SSO-009",
+          "SSO-010",
+          "SSO-011",
+          "SSO-012",
+          "SSO-013",
+          "SSO-014",
+          "SSO-015",
+          "SSO-016",
+          "SSO-017",
+          "SSO-018"
+        ]
+      },
+      "SsoError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Sso error (SSO-000), User not found (SSO-001), Wrong password (SSO-002), User is exists (SSO-003), Wrong activate email code (SSO-004), Activate email not processed (SSO-005), Activate email processed (SSO-006), Refresh token not provided (SSO-007), Session expired (SSO-008), Invalid refresh session (SSO-009), Access token expired (SSO-010), User is exists (SSO-011), Email not verified (SSO-012), Forbidden (SSO-013), Wrong old password (SSO-014), Non-existent role specified (SSO-015), Bad access token (SSO-016), Your session has been blocked (SSO-017), Verification code not found (SSO-018)",
+            "example": "Sso error"
+          },
+          "code": {
+            "example": "SSO-000",
+            "allOf": [{ "$ref": "#/components/schemas/SsoErrorEnum" }]
+          },
+          "metadata": { "type": "object" }
+        },
+        "required": ["message", "code"]
+      },
+      "SsoProjectScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "name",
+          "nameLocale",
+          "clientId",
+          "clientSecret",
+          "public",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoUserScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "email",
+          "phone",
+          "username",
+          "password",
+          "roles",
+          "firstname",
+          "lastname",
+          "gender",
+          "birthdate",
+          "picture",
+          "appData",
+          "revokedAt",
+          "emailVerifiedAt",
+          "phoneVerifiedAt",
+          "timezone",
+          "lang",
+          "projectId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoRefreshSessionScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "refreshToken",
+          "userAgent",
+          "fingerprint",
+          "userIp",
+          "expiresAt",
+          "userData",
+          "enabled",
+          "userId",
+          "projectId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoEmailTemplateScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "subject",
+          "subjectLocale",
+          "text",
+          "textLocale",
+          "html",
+          "htmlLocale",
+          "operationName",
+          "projectId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoOAuthProviderScalarFieldEnum": {
+        "type": "string",
+        "enum": ["id", "name", "createdAt", "updatedAt"]
+      },
+      "SsoOAuthProviderSettingsScalarFieldEnum": {
+        "type": "string",
+        "enum": ["id", "name", "value", "providerId", "createdAt", "updatedAt"]
+      },
+      "SsoOAuthTokenScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "grantedAt",
+          "accessToken",
+          "refreshToken",
+          "expiresAt",
+          "tokenType",
+          "scope",
+          "verificationCode",
+          "userId",
+          "projectId",
+          "providerId",
+          "providerUserId",
+          "providerUserData",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "SsoRole": { "type": "string", "enum": ["admin", "manager", "user"] },
+      "SsoEntities": {
+        "type": "object",
+        "properties": {
+          "SsoProject": {
+            "allOf": [
+              { "$ref": "#/components/schemas/SsoProjectScalarFieldEnum" }
+            ]
+          },
+          "SsoUser": {
+            "allOf": [{ "$ref": "#/components/schemas/SsoUserScalarFieldEnum" }]
+          },
+          "SsoRefreshSession": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SsoRefreshSessionScalarFieldEnum"
+              }
+            ]
+          },
+          "SsoEmailTemplate": {
+            "allOf": [
+              { "$ref": "#/components/schemas/SsoEmailTemplateScalarFieldEnum" }
+            ]
+          },
+          "SsoOAuthProvider": {
+            "allOf": [
+              { "$ref": "#/components/schemas/SsoOAuthProviderScalarFieldEnum" }
+            ]
+          },
+          "SsoOAuthProviderSettings": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SsoOAuthProviderSettingsScalarFieldEnum"
+              }
+            ]
+          },
+          "SsoOAuthToken": {
+            "allOf": [
+              { "$ref": "#/components/schemas/SsoOAuthTokenScalarFieldEnum" }
+            ]
+          },
+          "role": { "allOf": [{ "$ref": "#/components/schemas/SsoRole" }] }
+        },
+        "required": [
+          "SsoProject",
+          "SsoUser",
+          "SsoRefreshSession",
+          "SsoEmailTemplate",
+          "SsoOAuthProvider",
+          "SsoOAuthProviderSettings",
+          "SsoOAuthToken",
+          "role"
+        ]
+      },
+      "ValidationErrorEnum": { "type": "string", "enum": ["VALIDATION-000"] },
+      "ValidationErrorMetadataConstraint": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["name", "description"]
+      },
+      "ValidationErrorMetadata": {
+        "type": "object",
+        "properties": {
+          "property": { "type": "string" },
+          "constraints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationErrorMetadataConstraint"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ValidationErrorMetadata" }
+          }
+        },
+        "required": ["property", "constraints"]
+      },
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Validation error (VALIDATION-000)",
+            "example": "Validation error"
+          },
+          "code": {
+            "example": "VALIDATION-000",
+            "allOf": [{ "$ref": "#/components/schemas/ValidationErrorEnum" }]
+          },
+          "metadata": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ValidationErrorMetadata" }
+          }
+        },
+        "required": ["message", "code"]
+      },
+      "WebhookErrorEnum": {
+        "type": "string",
+        "enum": [
+          "WEBHOOK-000",
+          "WEBHOOK-001",
+          "WEBHOOK-002",
+          "WEBHOOK-003",
+          "WEBHOOK-004",
+          "WEBHOOK-005"
+        ]
+      },
+      "WebhookError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Webhook error (WEBHOOK-000), Tenant ID not set (WEBHOOK-003), User ID not set (WEBHOOK-002), Forbidden (WEBHOOK-001), User not found (WEBHOOK-004), Event not found (WEBHOOK-005)",
+            "example": "Webhook error"
+          },
+          "code": {
+            "example": "WEBHOOK-000",
+            "allOf": [{ "$ref": "#/components/schemas/WebhookErrorEnum" }]
+          },
+          "metadata": { "type": "object" }
+        },
+        "required": ["message", "code"]
+      },
+      "WebhookScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "eventName",
+          "endpoint",
+          "enabled",
+          "headers",
+          "requestTimeout",
+          "externalTenantId",
+          "createdBy",
+          "updatedBy",
+          "createdAt",
+          "updatedAt",
+          "workUntilDate"
+        ]
+      },
+      "WebhookLogScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "request",
+          "responseStatus",
+          "response",
+          "webhookStatus",
+          "webhookId",
+          "externalTenantId",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "WebhookUserScalarFieldEnum": {
+        "type": "string",
+        "enum": [
+          "id",
+          "externalTenantId",
+          "externalUserId",
+          "userRole",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "WebhookEntities": {
+        "type": "object",
+        "properties": {
+          "Webhook": {
+            "allOf": [{ "$ref": "#/components/schemas/WebhookScalarFieldEnum" }]
+          },
+          "WebhookLog": {
+            "allOf": [
+              { "$ref": "#/components/schemas/WebhookLogScalarFieldEnum" }
+            ]
+          },
+          "WebhookUser": {
+            "allOf": [
+              { "$ref": "#/components/schemas/WebhookUserScalarFieldEnum" }
+            ]
+          }
+        },
+        "required": ["Webhook", "WebhookLog", "WebhookUser"]
+      }
+    }
+  }
+}

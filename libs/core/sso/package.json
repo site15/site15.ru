@@ -1,22 +1,22 @@
 {
-    "name": "@nestjs-mod-sso/sso",
-    "version": "0.0.1",
-    "dependencies": {
-        "tslib": "^2.3.0"
+  "name": "@nestjs-mod-sso/sso",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "i18n": [
+    {
+      "scope": "sso",
+      "path": "src/i18n",
+      "strategy": "join"
     },
-    "type": "commonjs",
-    "main": "./src/index.js",
-    "typings": "./src/index.d.ts",
-    "i18n": [
-        {
-            "scope": "sso",
-            "path": "src/i18n",
-            "strategy": "join"
-        },
-        {
-            "scope": "sso-getText",
-            "path": "src/i18n/getText",
-            "strategy": "join"
-        }
-    ]
+    {
+      "scope": "sso-getText",
+      "path": "src/i18n/getText",
+      "strategy": "join"
+    }
+  ]
 }

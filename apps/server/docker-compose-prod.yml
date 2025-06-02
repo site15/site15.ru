@@ -1,101 +1,101 @@
 # Do not modify this file, it is generated using the DockerCompose module included with NestJS-mod.
-version: "3"
+version: '3'
 services:
   single-sign-on-postgre-sql:
-    image: "bitnami/postgresql:15.5.0"
-    container_name: "single-sign-on-postgre-sql"
+    image: 'bitnami/postgresql:15.5.0'
+    container_name: 'single-sign-on-postgre-sql'
     volumes:
-      - "single-sign-on-postgre-sql-volume:/bitnami/postgresql"
+      - 'single-sign-on-postgre-sql-volume:/bitnami/postgresql'
     ports:
-      - "5432:5432"
+      - '5432:5432'
     networks:
-      - "single-sign-on-network"
+      - 'single-sign-on-network'
     healthcheck:
       test:
-        - "CMD-SHELL"
-        - "pg_isready -U postgres"
-      interval: "5s"
-      timeout: "5s"
+        - 'CMD-SHELL'
+        - 'pg_isready -U postgres'
+      interval: '5s'
+      timeout: '5s'
       retries: 5
     tty: true
-    restart: "always"
+    restart: 'always'
     environment:
-      POSTGRESQL_USERNAME: "${SINGLE_SIGN_ON_POSTGRE_SQL_POSTGRESQL_USERNAME}"
-      POSTGRESQL_PASSWORD: "${SINGLE_SIGN_ON_POSTGRE_SQL_POSTGRESQL_PASSWORD}"
-      POSTGRESQL_DATABASE: "${SINGLE_SIGN_ON_POSTGRE_SQL_POSTGRESQL_DATABASE}"
+      POSTGRESQL_USERNAME: '${SINGLE_SIGN_ON_POSTGRE_SQL_POSTGRESQL_USERNAME}'
+      POSTGRESQL_PASSWORD: '${SINGLE_SIGN_ON_POSTGRE_SQL_POSTGRESQL_PASSWORD}'
+      POSTGRESQL_DATABASE: '${SINGLE_SIGN_ON_POSTGRE_SQL_POSTGRESQL_DATABASE}'
   single-sign-on-redis:
-    image: "bitnami/redis:7.4.1"
-    container_name: "single-sign-on-redis"
+    image: 'bitnami/redis:7.4.1'
+    container_name: 'single-sign-on-redis'
     volumes:
-      - "single-sign-on-redis-volume:/bitnami/redis/data"
+      - 'single-sign-on-redis-volume:/bitnami/redis/data'
     ports:
-      - "6379:6379"
+      - '6379:6379'
     networks:
-      - "single-sign-on-network"
+      - 'single-sign-on-network'
     environment:
-      REDIS_DATABASE: "${SINGLE_SIGN_ON_REDIS_REDIS_DATABASE}"
-      REDIS_PASSWORD: "${SINGLE_SIGN_ON_REDIS_REDIS_PASSWORD}"
-      REDIS_DISABLE_COMMANDS: "${SINGLE_SIGN_ON_REDIS_REDIS_DISABLE_COMMANDS}"
-      REDIS_IO_THREADS: "${SINGLE_SIGN_ON_REDIS_REDIS_IO_THREADS}"
-      REDIS_IO_THREADS_DO_READS: "${SINGLE_SIGN_ON_REDIS_REDIS_IO_THREADS_DO_READS}"
+      REDIS_DATABASE: '${SINGLE_SIGN_ON_REDIS_REDIS_DATABASE}'
+      REDIS_PASSWORD: '${SINGLE_SIGN_ON_REDIS_REDIS_PASSWORD}'
+      REDIS_DISABLE_COMMANDS: '${SINGLE_SIGN_ON_REDIS_REDIS_DISABLE_COMMANDS}'
+      REDIS_IO_THREADS: '${SINGLE_SIGN_ON_REDIS_REDIS_IO_THREADS}'
+      REDIS_IO_THREADS_DO_READS: '${SINGLE_SIGN_ON_REDIS_REDIS_IO_THREADS_DO_READS}'
     healthcheck:
       test:
-        - "CMD-SHELL"
-        - "redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG"
-      interval: "5s"
-      timeout: "5s"
+        - 'CMD-SHELL'
+        - 'redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG'
+      interval: '5s'
+      timeout: '5s'
       retries: 5
     tty: true
-    restart: "always"
+    restart: 'always'
   single-sign-on-minio:
-    image: "bitnami/minio:2024.11.7"
-    container_name: "single-sign-on-minio"
+    image: 'bitnami/minio:2024.11.7'
+    container_name: 'single-sign-on-minio'
     volumes:
-      - "single-sign-on-minio-volume:/bitnami/minio/data"
+      - 'single-sign-on-minio-volume:/bitnami/minio/data'
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - '9000:9000'
+      - '9001:9001'
     networks:
-      - "single-sign-on-network"
+      - 'single-sign-on-network'
     environment:
-      MINIO_ROOT_USER: "${SINGLE_SIGN_ON_MINIO_MINIO_ROOT_USER}"
-      MINIO_ROOT_PASSWORD: "${SINGLE_SIGN_ON_MINIO_MINIO_ROOT_PASSWORD}"
+      MINIO_ROOT_USER: '${SINGLE_SIGN_ON_MINIO_MINIO_ROOT_USER}'
+      MINIO_ROOT_PASSWORD: '${SINGLE_SIGN_ON_MINIO_MINIO_ROOT_PASSWORD}'
     healthcheck:
       test:
-        - "CMD-SHELL"
-        - "mc"
-        - "ready"
-        - "local"
-      interval: "5s"
-      timeout: "5s"
+        - 'CMD-SHELL'
+        - 'mc'
+        - 'ready'
+        - 'local'
+      interval: '5s'
+      timeout: '5s'
       retries: 5
     tty: true
-    restart: "always"
+    restart: 'always'
   single-sign-on-maildev:
-    image: "maildev/maildev:2.2.1"
-    container_name: "single-sign-on-maildev"
+    image: 'maildev/maildev:2.2.1'
+    container_name: 'single-sign-on-maildev'
     ports:
-      - "1025:1025"
-      - "1080:1080"
+      - '1025:1025'
+      - '1080:1080'
     networks:
-      - "single-sign-on-network"
+      - 'single-sign-on-network'
     environment:
-      MAILDEV_SMTP_PORT: "${SINGLE_SIGN_ON_MAILDEV_MAILDEV_SMTP_PORT}"
-      MAILDEV_WEB_PORT: "${SINGLE_SIGN_ON_MAILDEV_MAILDEV_WEB_PORT}"
+      MAILDEV_SMTP_PORT: '${SINGLE_SIGN_ON_MAILDEV_MAILDEV_SMTP_PORT}'
+      MAILDEV_WEB_PORT: '${SINGLE_SIGN_ON_MAILDEV_MAILDEV_WEB_PORT}'
     healthcheck:
-      test: "wget -O - http://localhost:${MAILDEV_WEB_PORT}${MAILDEV_BASE_PATHNAME}/healthz || exit 1"
-      interval: "10s"
-      timeout: "5s"
+      test: 'wget -O - http://localhost:${MAILDEV_WEB_PORT}${MAILDEV_BASE_PATHNAME}/healthz || exit 1'
+      interval: '10s'
+      timeout: '5s'
       retries: 5
     tty: true
-    restart: "always"
+    restart: 'always'
 networks:
   single-sign-on-network:
-    driver: "bridge"
+    driver: 'bridge'
 volumes:
   single-sign-on-postgre-sql-volume:
-    name: "single-sign-on-postgre-sql-volume"
+    name: 'single-sign-on-postgre-sql-volume'
   single-sign-on-redis-volume:
-    name: "single-sign-on-redis-volume"
+    name: 'single-sign-on-redis-volume'
   single-sign-on-minio-volume:
-    name: "single-sign-on-minio-volume"
+    name: 'single-sign-on-minio-volume'

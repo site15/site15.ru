@@ -10,10 +10,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -28,43 +25,22 @@
     "noImplicitAny": false,
     "useDefineForClassFields": false,
     "paths": {
-      "@nestjs-mod/sso-rest-sdk-angular": [
-        "libs/sdk/rest-sdk-angular/src/index.ts"
-      ],
-      "@nestjs-mod/sso-rest-sdk": [
-        "libs/sdk/rest-sdk/src/index.ts"
-      ],
-      "@nestjs-mod-sso/files": [
-        "libs/core/files/src/index.ts"
-      ],
-      "@nestjs-mod-sso/files-angular": [
-        "libs/core/files-angular/src/index.ts"
-      ],
-      "@nestjs-mod-sso/notifications": [
-        "libs/core/notifications/src/index.ts"
-      ],
-      "@nestjs-mod-sso/sso": [
-        "libs/core/sso/src/index.ts"
-      ],
-      "@nestjs-mod-sso/sso-angular": [
-        "libs/core/sso-angular/src/index.ts"
-      ],
-      "@nestjs-mod-sso/testing": [
-        "libs/testing/src/index.ts"
-      ],
-      "@nestjs-mod-sso/two-factor": [
-        "libs/core/two-factor/src/index.ts"
-      ],
-      "@nestjs-mod-sso/webhook": [
-        "libs/core/webhook/src/index.ts"
-      ],
+      "@nestjs-mod-sso/files": ["libs/core/files/src/index.ts"],
+      "@nestjs-mod-sso/files-angular": ["libs/core/files-angular/src/index.ts"],
+      "@nestjs-mod-sso/notifications": ["libs/core/notifications/src/index.ts"],
+      "@nestjs-mod-sso/sso": ["libs/core/sso/src/index.ts"],
+      "@nestjs-mod-sso/sso-angular": ["libs/core/sso-angular/src/index.ts"],
+      "@nestjs-mod-sso/testing": ["libs/testing/src/index.ts"],
+      "@nestjs-mod-sso/two-factor": ["libs/core/two-factor/src/index.ts"],
+      "@nestjs-mod-sso/webhook": ["libs/core/webhook/src/index.ts"],
       "@nestjs-mod-sso/webhook-angular": [
         "libs/core/webhook-angular/src/index.ts"
+      ],
+      "@nestjs-mod/sso-rest-sdk": ["libs/sdk/rest-sdk/src/index.ts"],
+      "@nestjs-mod/sso-rest-sdk-angular": [
+        "libs/sdk/rest-sdk-angular/src/index.ts"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
