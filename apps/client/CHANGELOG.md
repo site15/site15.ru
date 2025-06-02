@@ -1,3 +1,9 @@
+## [1.9.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.9.0...client-v1.9.1) (2025-06-02)
+
+### Bug Fixes
+
+- move all libraries from core to feature ([828fa85](https://github.com/nestjs-mod/nestjs-mod-sso/commit/828fa85e660ae54873e411caccafb5ce62a91c99))
+
 # [1.9.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.8.2...client-v1.9.0) (2025-06-02)
 
 ### Bug Fixes
