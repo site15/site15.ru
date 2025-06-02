@@ -13,6 +13,8 @@ import { TWO_FACTOR_FEATURE, TWO_FACTOR_MODULE } from './two-factor.constants';
 import { TwoFactorStaticEnvironments } from './two-factor.environments';
 import { TwoFactorExceptionsFilter } from './two-factor.filter';
 import { TwoFactorService } from './two-factor.service';
+import { TwoFactorPrismaSdk } from './two-factor.prisma-sdk';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 export const { TwoFactorModule } = createNestModule({
   moduleName: TWO_FACTOR_MODULE,
@@ -26,6 +28,22 @@ export const { TwoFactorModule } = createNestModule({
     }),
     PrismaToolsModule.forFeature({
       featureModuleName: TWO_FACTOR_FEATURE,
+    }),
+    PrismaModule.forRoot({
+      contextName: TWO_FACTOR_FEATURE,
+      staticConfiguration: {
+        featureName: TWO_FACTOR_FEATURE,
+
+        provider: 'prisma-client',
+        prismaClientFactory: async (options) => {
+          const { url, ...otherOoptions } = options;
+          const adapter = new PrismaPg({ connectionString: url });
+          return new TwoFactorPrismaSdk.PrismaClient({
+            adapter,
+            ...otherOoptions,
+          });
+        },
+      },
     }),
   ],
   sharedImports: [

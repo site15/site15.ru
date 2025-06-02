@@ -14,10 +14,10 @@ Utilities for setting global application parameters, such as project name, descr
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`applicationPackageJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/apps/server/package.json```|
-|`packageJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/package.json```|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/apps/server/project.json```|
-|`envFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/.env```|
+|`applicationPackageJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/package.json```|
+|`packageJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/package.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/project.json```|
+|`envFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/.env```|
 
 ### DefaultNestApplicationInitializer
 Default NestJS application initializer.
@@ -62,326 +62,6 @@ Functions and helpers for work with prisma used in NestJS-mod modules
 |`paginationInitialPage`|`obj['paginationInitialPage']`, `process.env['SINGLE_SIGN_ON_PRISMA_TOOLS_PAGINATION_INITIAL_PAGE']`|**optional**|```1```|
 |`paginationPerPageSteps`|`obj['paginationPerPageSteps']`, `process.env['SINGLE_SIGN_ON_PRISMA_TOOLS_PAGINATION_PER_PAGE_STEPS']`|**optional**|-|
 |`paginationPerPage`|`obj['paginationPerPage']`, `process.env['SINGLE_SIGN_ON_PRISMA_TOOLS_PAGINATION_PER_PAGE']`|**optional**|```5```|
-
-### PrismaModule
-Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
-
-#### Shared providers
-`PrismaClientFactoryService`, `PrismaClient`
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/project.json```|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(notifications)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
-
-#### Static configuration(notifications)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(sso)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
-
-#### Static configuration(sso)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/project.json```|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(two-factor)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
-
-#### Static configuration(two-factor)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-### PrismaModule
-Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
-
-#### Shared providers
-`PrismaClientFactoryService`, `PrismaClient`
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/project.json```|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(notifications)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
-
-#### Static configuration(notifications)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(sso)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
-
-#### Static configuration(sso)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/project.json```|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(two-factor)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
-
-#### Static configuration(two-factor)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-### PrismaModule
-Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
-
-#### Shared providers
-`PrismaClientFactoryService`, `PrismaClient`
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/project.json```|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(notifications)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
-
-#### Static configuration(notifications)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(sso)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
-
-#### Static configuration(sso)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/project.json```|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(two-factor)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
-
-#### Static configuration(two-factor)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-### PrismaModule
-Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
-
-#### Shared providers
-`PrismaClientFactoryService`, `PrismaClient`
-
-#### Environments(webhook)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
-
-#### Static configuration(webhook)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```webhook```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/project.json```|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(notifications)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
-
-#### Static configuration(notifications)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```notifications```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(sso)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
-
-#### Static configuration(sso)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/project.json```|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
-
-#### Environments(two-factor)
-
-| Key    | Sources | Constraints | Value |
-| ------ | ------- | ----------- | ----- |
-|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
-
-#### Static configuration(two-factor)
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`featureName`|**optional**|```two-factor```|
-|`schemaFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
-|`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
-|`provider`|**optional**|```prisma-client```|
-|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 ### KeyvModule
 Simple key-value storage with support for multiple backends, and a consistent interface for NestJS-mod (Wrapper for https://www.npmjs.com/package/keyv)
@@ -527,14 +207,14 @@ Validation module with an error filter and a pre-configured validation pipe
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-05-30T07:21:58.448Z","updatedAt":"2025-05-30T07:21:58.448Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-05-30T07:21:58.448Z","updatedAt":"2025-05-30T07:21:58.448Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-05-30T07:21:58.448Z","updatedAt":"2025-05-30T07:21:58.448Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-05-30T07:21:58.448Z","updatedAt":"2025-05-30T07:21:58.448Z"}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-06-02T11:54:57.746Z","updatedAt":"2025-06-02T11:54:57.746Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-06-02T11:54:57.746Z","updatedAt":"2025-06-02T11:54:57.746Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-06-02T11:54:57.746Z","updatedAt":"2025-06-02T11:54:57.746Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-06-02T11:54:57.746Z","updatedAt":"2025-06-02T11:54:57.746Z"}}``` ]|
 
 #### Modules that use feature configuration
 ##### Feature module name: sso
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-30T07:21:58.601Z","createdAt":"2025-05-30T07:21:58.601Z","email":"user@example.com","emailVerifiedAt":"2025-05-30T07:21:58.601Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-30T07:21:58.601Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-30T07:21:58.601Z","roles":"user","updatedAt":"2025-05-30T07:21:58.601Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-30T07:21:58.601Z","createdAt":"2025-05-30T07:21:58.601Z","email":"user@example.com","emailVerifiedAt":"2025-05-30T07:21:58.601Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-30T07:21:58.601Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-30T07:21:58.601Z","roles":"user","updatedAt":"2025-05-30T07:21:58.601Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-30T07:21:58.601Z","createdAt":"2025-05-30T07:21:58.601Z","email":"user@example.com","emailVerifiedAt":"2025-05-30T07:21:58.601Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-30T07:21:58.601Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-30T07:21:58.601Z","roles":"user","updatedAt":"2025-05-30T07:21:58.601Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-30T07:21:58.601Z","createdAt":"2025-05-30T07:21:58.601Z","email":"user@example.com","emailVerifiedAt":"2025-05-30T07:21:58.601Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-30T07:21:58.601Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-30T07:21:58.601Z","roles":"user","updatedAt":"2025-05-30T07:21:58.601Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-30T07:21:58.601Z","createdAt":"2025-05-30T07:21:58.601Z","email":"user@example.com","emailVerifiedAt":"2025-05-30T07:21:58.601Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-30T07:21:58.601Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-30T07:21:58.601Z","roles":"user","updatedAt":"2025-05-30T07:21:58.601Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-30T07:21:58.601Z","createdAt":"2025-05-30T07:21:58.601Z","email":"user@example.com","emailVerifiedAt":"2025-05-30T07:21:58.601Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-30T07:21:58.601Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-30T07:21:58.601Z","roles":"user","updatedAt":"2025-05-30T07:21:58.601Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-05-30T07:21:58.601Z","createdAt":"2025-05-30T07:21:58.601Z","email":"user@example.com","emailVerifiedAt":"2025-05-30T07:21:58.601Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-05-30T07:21:58.601Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-05-30T07:21:58.601Z","roles":"user","updatedAt":"2025-05-30T07:21:58.601Z","username":"nickname","lang":"en","timezone":0}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-06-02T11:54:58.261Z","createdAt":"2025-06-02T11:54:58.261Z","email":"user@example.com","emailVerifiedAt":"2025-06-02T11:54:58.261Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-06-02T11:54:58.261Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-06-02T11:54:58.261Z","roles":"user","updatedAt":"2025-06-02T11:54:58.261Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-06-02T11:54:58.261Z","createdAt":"2025-06-02T11:54:58.261Z","email":"user@example.com","emailVerifiedAt":"2025-06-02T11:54:58.261Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-06-02T11:54:58.261Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-06-02T11:54:58.261Z","roles":"user","updatedAt":"2025-06-02T11:54:58.261Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-06-02T11:54:58.261Z","createdAt":"2025-06-02T11:54:58.261Z","email":"user@example.com","emailVerifiedAt":"2025-06-02T11:54:58.261Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-06-02T11:54:58.261Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-06-02T11:54:58.261Z","roles":"user","updatedAt":"2025-06-02T11:54:58.261Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-06-02T11:54:58.261Z","createdAt":"2025-06-02T11:54:58.261Z","email":"user@example.com","emailVerifiedAt":"2025-06-02T11:54:58.261Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-06-02T11:54:58.261Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-06-02T11:54:58.261Z","roles":"user","updatedAt":"2025-06-02T11:54:58.261Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-06-02T11:54:58.261Z","createdAt":"2025-06-02T11:54:58.261Z","email":"user@example.com","emailVerifiedAt":"2025-06-02T11:54:58.261Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-06-02T11:54:58.261Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-06-02T11:54:58.261Z","roles":"user","updatedAt":"2025-06-02T11:54:58.261Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-06-02T11:54:58.261Z","createdAt":"2025-06-02T11:54:58.261Z","email":"user@example.com","emailVerifiedAt":"2025-06-02T11:54:58.261Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-06-02T11:54:58.261Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-06-02T11:54:58.261Z","roles":"user","updatedAt":"2025-06-02T11:54:58.261Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-06-02T11:54:58.261Z","createdAt":"2025-06-02T11:54:58.261Z","email":"user@example.com","emailVerifiedAt":"2025-06-02T11:54:58.261Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-06-02T11:54:58.261Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-06-02T11:54:58.261Z","roles":"user","updatedAt":"2025-06-02T11:54:58.261Z","username":"nickname","lang":"en","timezone":0}}``` ]|
 
 ### SsoModule
 #### Shared providers
@@ -609,7 +289,7 @@ Production process manager for Node.JS applications with a built-in load balance
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/ecosystem.config.json```|
+|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/ecosystem.config.json```|
 |`applicationScriptFile`|**isNotEmpty** (applicationScriptFile should not be empty)|```dist/apps/server/main.js```|
 
 ### DockerCompose
@@ -622,7 +302,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/apps/server/docker-compose.yml```|
+|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/docker-compose.yml```|
 
 #### Modules that use feature configuration
 ##### Feature module name: SINGLE_SIGN_ON_POSTGRE_SQL
@@ -673,8 +353,88 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
+### PrismaModule
+Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
+
+#### Shared providers
+`PrismaClientFactoryService`, `PrismaClient`
+
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(notifications)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+
+#### Static configuration(notifications)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```notifications```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(two-factor)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+
+#### Static configuration(two-factor)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```two-factor```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -690,8 +450,88 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
+### PrismaModule
+Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
+
+#### Shared providers
+`PrismaClientFactoryService`, `PrismaClient`
+
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(notifications)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+
+#### Static configuration(notifications)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```notifications```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(two-factor)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+
+#### Static configuration(two-factor)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```two-factor```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -707,8 +547,88 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
+### PrismaModule
+Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
+
+#### Shared providers
+`PrismaClientFactoryService`, `PrismaClient`
+
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(notifications)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+
+#### Static configuration(notifications)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```notifications```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(two-factor)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+
+#### Static configuration(two-factor)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```two-factor```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 ### PgFlyway
 PgFlyway - utility for working with database migrations (site: https://www.npmjs.com/package/pg-flyway, preview version only for Postgres)
@@ -724,8 +644,88 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+
+### PrismaModule
+Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
+
+#### Shared providers
+`PrismaClientFactoryService`, `PrismaClient`
+
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```webhook```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(notifications)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+
+#### Static configuration(notifications)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```notifications```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(two-factor)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+
+#### Static configuration(two-factor)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```two-factor```|
+|`schemaFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 ### InfrastructureMarkdownReportGenerator
 Infrastructure markdown report generator.
@@ -737,7 +737,7 @@ Infrastructure markdown report generator.
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`markdownFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/apps/server/INFRASTRUCTURE.MD```|
+|`markdownFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/apps/server/INFRASTRUCTURE.MD```|
 |`skipEmptySettings`|**optional**|```true```|
 |`style`|**optional**|```pretty```|
 
@@ -761,28 +761,28 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/sso/project.json```|
 
 #### Modules that use feature configuration
 ##### Feature module name: two-factor
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/two-factor/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/two-factor/project.json```|
 
 #### Modules that use feature configuration
 ##### Feature module name: notifications
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/notifications/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/notifications/project.json```|
 
 #### Modules that use feature configuration
 ##### Feature module name: webhook
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/nestjs-mod-sso/nestjs-mod-sso/libs/core/webhook/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/core/webhook/project.json```|
 
 #### Modules that use feature environments
 ##### Feature module name: sso

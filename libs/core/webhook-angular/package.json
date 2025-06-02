@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "peerDependencies": {
         "@nestjs-mod/sso-rest-sdk-angular": "0.0.1",
-        "@nestjs-mod/afat": "0.0.1"
+        "@nestjs-mod/afat": "1.1.0"
     },
     "sideEffects": false,
     "i18n": [

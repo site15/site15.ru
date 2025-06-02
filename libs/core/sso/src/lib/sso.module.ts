@@ -41,6 +41,8 @@ import { SsoGoogleOAuthController } from './strategies/google/sso-google-oauth.c
 import { SsoGoogleOAuthStrategy } from './strategies/google/sso-google-oauth.strategy';
 import { SsoAsyncLocalStorageContext } from './types/sso-async-local-storage-data';
 import { SSO_WEBHOOK_EVENTS } from './types/sso-webhooks';
+import { SsoPrismaSdk } from './sso.prisma-sdk';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -64,6 +66,18 @@ export const { SsoModule } = createNestModule({
       },
     }),
     TranslatesModule,
+    PrismaModule.forRoot({
+      contextName: SSO_FEATURE,
+      staticConfiguration: {
+        featureName: SSO_FEATURE,
+        provider: 'prisma-client',
+        prismaClientFactory: async (options) => {
+          const { url, ...otherOoptions } = options;
+          const adapter = new PrismaPg({ connectionString: url });
+          return new SsoPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
+        },
+      },
+    }),
   ],
   sharedImports: [
     KeyvModule.forFeature({ featureModuleName: SSO_FEATURE }),

@@ -27,6 +27,8 @@ import { APP_FILTER } from '@nestjs/core';
 import { TranslatesModule } from 'nestjs-translates';
 import { WebhookLogsController } from './controllers/webhook-logs.controller';
 import { WebhookCacheService } from './services/webhook-cache.service';
+import { WebhookPrismaSdk } from './webhook.prisma-sdk';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 export const { WebhookModule } = createNestModule({
   moduleName: WEBHOOK_MODULE,
@@ -48,6 +50,21 @@ export const { WebhookModule } = createNestModule({
       featureModuleName: WEBHOOK_FEATURE,
     }),
     TranslatesModule,
+    PrismaModule.forRoot({
+      contextName: WEBHOOK_FEATURE,
+      staticConfiguration: {
+        featureName: WEBHOOK_FEATURE,
+        provider: 'prisma-client',
+        prismaClientFactory: async (options) => {
+          const { url, ...otherOoptions } = options;
+          const adapter = new PrismaPg({ connectionString: url });
+          return new WebhookPrismaSdk.PrismaClient({
+            adapter,
+            ...otherOoptions,
+          });
+        },
+      },
+    }),
   ],
   sharedImports: [
     HttpModule,

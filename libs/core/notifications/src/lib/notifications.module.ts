@@ -23,6 +23,8 @@ import { NotificationsExceptionsFilter } from './notifications.filter';
 import { NotificationsGuard } from './notifications.guard';
 import { NotificationsService } from './notifications.service';
 import { NOTIFICATIONS_WEBHOOK_EVENTS } from './types/notifications-webhooks';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { NotificationsPrismaSdk } from './notifications.prisma-sdk';
 
 export const { NotificationsModule } = createNestModule({
   moduleName: NOTIFICATIONS_MODULE,
@@ -37,6 +39,22 @@ export const { NotificationsModule } = createNestModule({
     }),
     PrismaToolsModule.forFeature({
       featureModuleName: NOTIFICATIONS_FEATURE,
+    }),
+    PrismaModule.forRoot({
+      contextName: NOTIFICATIONS_FEATURE,
+      staticConfiguration: {
+        featureName: NOTIFICATIONS_FEATURE,
+
+        provider: 'prisma-client',
+        prismaClientFactory: async (options) => {
+          const { url, ...otherOoptions } = options;
+          const adapter = new PrismaPg({ connectionString: url });
+          return new NotificationsPrismaSdk.PrismaClient({
+            adapter,
+            ...otherOoptions,
+          });
+        },
+      },
     }),
     WebhookModule.forFeature({
       featureModuleName: NOTIFICATIONS_FEATURE,

@@ -97,6 +97,12 @@ msgstr "Завершение регистрации"
 msgid "Сomplete forgot password"
 msgstr "Завершить восстановление пароля"
 
+msgid "Complete OAuth sign up"
+msgstr "Завершить регистрацию через OAuth"
+
+msgid "Single Sign-On"
+msgstr "Единый вход"
+
 msgid "en"
 msgstr "EN"
 
@@ -109,11 +115,8 @@ msgstr "RU"
 msgid "app.locale.name.russian"
 msgstr "Русский"
 
-msgid "Complete OAuth sign up"
-msgstr "Завершить регистрацию через OAuth"
-
-msgid "Single Sign-On"
-msgstr "Единый вход"
+msgid "Error while saving image"
+msgstr "Ошибка при сохранении изображения"
 
 msgid "auth.sign-in-form.fields.timezone"
 msgstr "Часовой пояс"

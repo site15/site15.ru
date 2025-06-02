@@ -13,7 +13,7 @@
   },
   "tags": [],
   "targets": {
-    "build-skip": {
+    "build": {
       "executor": "@nx/js:tsc",
       "outputs": [
         "{options.outputPath}"
@@ -24,7 +24,17 @@
         "packageJson": "libs/core/webhook/package.json",
         "main": "libs/core/webhook/src/index.ts",
         "assets": [
-          "libs/core/webhook/*.md"
+          "libs/core/webhook/*.md",
+          {
+            "glob": "**/*.json",
+            "input": "./libs/core/webhook/src/i18n/getText/",
+            "output": "i18n"
+          },
+          {
+            "glob": "**/*.sql",
+            "input": "./libs/core/webhook/src/migrations/",
+            "output": "migrations"
+          }
         ]
       }
     },
@@ -42,7 +52,7 @@
         "jestConfig": "libs/core/webhook/jest.config.ts"
       }
     },
-    "semantic-release": {
+    "skip-semantic-release": {
       "executor": "@theunderscorer/nx-semantic-release:semantic-release",
       "options": {
         "buildTarget": "${PROJECT_NAME}:build",

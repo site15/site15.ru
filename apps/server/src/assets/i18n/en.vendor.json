@@ -434,5 +434,6 @@
     "Two factor code is outdated": "Two factor code is outdated",
     "Please wait 30 seconds": "Please wait 30 seconds",
     "Two-factor code has already been used": "Two-factor code has already been used"
-  }
+  },
+  "testing": {}
 }

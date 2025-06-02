@@ -26,7 +26,7 @@
     "pm2-full:prod:test:e2e": "export E2E_CLIENT_URL=http://localhost:3000 && npm run test:e2e",
     "_____prod infra_____": "_____prod infra_____",
     "start": "./node_modules/.bin/nx run-many --all -t=start",
-    "build:prod": "./node_modules/.bin/nx run-many -p rest-sdk rest-sdk-angular server client -t=build --configuration=production --parallel=1",
+    "build:prod": "./node_modules/.bin/nx run-many --all -t=build --configuration=production --parallel=1",
     "_____pm2 prod infra_____": "_____pm2 prod infra_____",
     "pm2:start": "./node_modules/.bin/pm2 start ./ecosystem-prod.config.json && npm run wait-on -- --log http://localhost:3000/api/health --log http://localhost:3000",
     "pm2:stop": "./node_modules/.bin/pm2 delete all",

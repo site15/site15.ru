@@ -1,13 +1,19 @@
 import {
   NOTIFICATIONS_FEATURE,
   NOTIFICATIONS_FOLDER,
+  NotificationsPrismaSdk,
 } from '@nestjs-mod-sso/notifications';
-import { SSO_FEATURE, SSO_FOLDER } from '@nestjs-mod-sso/sso';
+import { SSO_FEATURE, SSO_FOLDER, SsoPrismaSdk } from '@nestjs-mod-sso/sso';
 import {
   TWO_FACTOR_FEATURE,
   TWO_FACTOR_FOLDER,
+  TwoFactorPrismaSdk,
 } from '@nestjs-mod-sso/two-factor';
-import { WEBHOOK_FEATURE, WEBHOOK_FOLDER } from '@nestjs-mod-sso/webhook';
+import {
+  WEBHOOK_FEATURE,
+  WEBHOOK_FOLDER,
+  WebhookPrismaSdk,
+} from '@nestjs-mod-sso/webhook';
 import {
   InfrastructureMarkdownReportGenerator,
   PROJECT_JSON_FILE,
@@ -22,6 +28,8 @@ import {
 } from '@nestjs-mod/docker-compose';
 import { PgFlyway } from '@nestjs-mod/pg-flyway';
 import { ECOSYSTEM_CONFIG_FILE, Pm2 } from '@nestjs-mod/pm2';
+import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
+import { PrismaPg } from '@prisma/adapter-pg';
 import { join } from 'path';
 import { appFolder, rootFolder } from './environments/environment';
 export const INFRASTRUCTURE_MODULE_IMPORTS = [
@@ -73,6 +81,37 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
       nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
     },
   }),
+  PrismaModule.forRoot({
+    contextName: SSO_FEATURE,
+    staticConfiguration: {
+      featureName: SSO_FEATURE,
+      schemaFile: join(
+        rootFolder,
+        SSO_FOLDER,
+        'src',
+        'prisma',
+        PRISMA_SCHEMA_FILE
+      ),
+      nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
+
+      provider: 'prisma-client',
+      prismaClientFactory: async (options) => {
+        const { url, ...otherOoptions } = options;
+        const adapter = new PrismaPg({ connectionString: url });
+        return new SsoPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
+      },
+      addMigrationScripts: false,
+      previewFeatures: ['queryCompiler', 'driverAdapters'],
+      output: join(
+        rootFolder,
+        SSO_FOLDER,
+        'src',
+        'lib',
+        'generated',
+        'prisma-client'
+      ),
+    },
+  }),
   // two-factor
   DockerComposePostgreSQL.forFeatureAsync({
     featureModuleName: TWO_FACTOR_FEATURE,
@@ -90,6 +129,39 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
         'migrations'
       ),
       nxProjectJsonFile: join(rootFolder, TWO_FACTOR_FOLDER, PROJECT_JSON_FILE),
+    },
+  }),
+  PrismaModule.forRoot({
+    contextName: TWO_FACTOR_FEATURE,
+    staticConfiguration: {
+      featureName: TWO_FACTOR_FEATURE,
+      schemaFile: join(
+        rootFolder,
+        TWO_FACTOR_FOLDER,
+        'src',
+        'prisma',
+        PRISMA_SCHEMA_FILE
+      ),
+
+      provider: 'prisma-client',
+      prismaClientFactory: async (options) => {
+        const { url, ...otherOoptions } = options;
+        const adapter = new PrismaPg({ connectionString: url });
+        return new TwoFactorPrismaSdk.PrismaClient({
+          adapter,
+          ...otherOoptions,
+        });
+      },
+      addMigrationScripts: false,
+      previewFeatures: ['queryCompiler', 'driverAdapters'],
+      output: join(
+        rootFolder,
+        TWO_FACTOR_FOLDER,
+        'src',
+        'lib',
+        'generated',
+        'prisma-client'
+      ),
     },
   }),
   // notify
@@ -119,6 +191,39 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
       ),
     },
   }),
+  PrismaModule.forRoot({
+    contextName: NOTIFICATIONS_FEATURE,
+    staticConfiguration: {
+      featureName: NOTIFICATIONS_FEATURE,
+      schemaFile: join(
+        rootFolder,
+        NOTIFICATIONS_FOLDER,
+        'src',
+        'prisma',
+        PRISMA_SCHEMA_FILE
+      ),
+
+      provider: 'prisma-client',
+      prismaClientFactory: async (options) => {
+        const { url, ...otherOoptions } = options;
+        const adapter = new PrismaPg({ connectionString: url });
+        return new NotificationsPrismaSdk.PrismaClient({
+          adapter,
+          ...otherOoptions,
+        });
+      },
+      addMigrationScripts: false,
+      previewFeatures: ['queryCompiler', 'driverAdapters'],
+      output: join(
+        rootFolder,
+        NOTIFICATIONS_FOLDER,
+        'src',
+        'lib',
+        'generated',
+        'prisma-client'
+      ),
+    },
+  }),
   // webhook
   DockerComposePostgreSQL.forFeatureAsync({
     featureModuleName: WEBHOOK_FEATURE,
@@ -131,6 +236,37 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
       featureName: WEBHOOK_FEATURE,
       migrationsFolder: join(rootFolder, WEBHOOK_FOLDER, 'src', 'migrations'),
       nxProjectJsonFile: join(rootFolder, WEBHOOK_FOLDER, PROJECT_JSON_FILE),
+    },
+  }),
+  PrismaModule.forRoot({
+    contextName: WEBHOOK_FEATURE,
+    staticConfiguration: {
+      featureName: WEBHOOK_FEATURE,
+      schemaFile: join(
+        rootFolder,
+        WEBHOOK_FOLDER,
+        'src',
+        'prisma',
+        PRISMA_SCHEMA_FILE
+      ),
+      nxProjectJsonFile: join(rootFolder, WEBHOOK_FOLDER, PROJECT_JSON_FILE),
+
+      provider: 'prisma-client',
+      prismaClientFactory: async (options) => {
+        const { url, ...otherOoptions } = options;
+        const adapter = new PrismaPg({ connectionString: url });
+        return new WebhookPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
+      },
+      addMigrationScripts: false,
+      previewFeatures: ['queryCompiler', 'driverAdapters'],
+      output: join(
+        rootFolder,
+        WEBHOOK_FOLDER,
+        'src',
+        'lib',
+        'generated',
+        'prisma-client'
+      ),
     },
   }),
 ];

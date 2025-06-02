@@ -433,5 +433,6 @@
     "Two factor code is outdated": "Двухфакторный код устарел",
     "Please wait 30 seconds": "Пожалуйста, подождите 30 секунд",
     "Two-factor code has already been used": "Код двухфакторной аутентификации уже использован"
-  }
+  },
+  "testing": {}
 }
