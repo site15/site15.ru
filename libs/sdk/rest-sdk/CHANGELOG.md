@@ -1,3 +1,13 @@
+# [1.4.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.3.1...rest-sdk-v1.4.0) (2025-06-02)
+
+### Bug Fixes
+
+- fomat source ([d34ee1c](https://github.com/nestjs-mod/nestjs-mod-sso/commit/d34ee1c1f057bcc04227590b70331b9cffae189f))
+
+### Features
+
+- add support buil in libs ([34ce28d](https://github.com/nestjs-mod/nestjs-mod-sso/commit/34ce28de38ca136a616ab3d465426bfde506a6bc))
+
 ## [1.3.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.3.0...rest-sdk-v1.3.1) (2025-05-29)
 
 ### Bug Fixes
