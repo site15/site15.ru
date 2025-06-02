@@ -1,3 +1,14 @@
+# [1.12.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.11.5...server-v1.12.0) (2025-06-02)
+
+### Bug Fixes
+
+- fomat source ([d34ee1c](https://github.com/nestjs-mod/nestjs-mod-sso/commit/d34ee1c1f057bcc04227590b70331b9cffae189f))
+- update fix-new-clients ([3859aa8](https://github.com/nestjs-mod/nestjs-mod-sso/commit/3859aa8dc058c604c513afe1c0cca36bcf4ef480))
+
+### Features
+
+- add support buil in libs ([34ce28d](https://github.com/nestjs-mod/nestjs-mod-sso/commit/34ce28de38ca136a616ab3d465426bfde506a6bc))
+
 ## [1.11.5](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.11.4...server-v1.11.5) (2025-05-30)
 
 ### Bug Fixes
