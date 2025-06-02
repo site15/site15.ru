@@ -78,9 +78,8 @@ config.compilerWasm = {
 
   getQueryCompilerWasmModule: async () => {
     const { readFile } = await import('node:fs/promises');
-    const { resolve } = await import('node:path');
 
-    const wasmModulePath = resolve(
+    const wasmModulePath = (await import('node:path')).resolve(
       'node_modules/@prisma/client/runtime/query_compiler_bg.postgresql.wasm'
     );
     const wasmModuleBytes = await readFile(wasmModulePath);

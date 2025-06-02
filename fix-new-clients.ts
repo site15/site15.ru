@@ -13,5 +13,7 @@ for (let file of files2) {
       .toString()
       .split('("@prisma/client/runtime')
       .join('("node_modules/@prisma/client/runtime')
+      .split('require.resolve(')
+      .join("(await import('node:path')).resolve(")
   );
 }
