@@ -1,3 +1,9 @@
+## [1.6.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.6.1...rest-sdk-angular-v1.6.2) (2025-06-03)
+
+### Bug Fixes
+
+- update deps ([3dc3bc1](https://github.com/nestjs-mod/nestjs-mod-sso/commit/3dc3bc11ce5c6c28200f246626f07e7a08d91ddd))
+
 ## [1.6.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.6.0...rest-sdk-angular-v1.6.1) (2025-06-02)
 
 ### Bug Fixes
