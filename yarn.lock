@@ -3211,10 +3211,10 @@
     "@emnapi/runtime" "^1.4.0"
     "@tybys/wasm-util" "^0.9.0"
 
-"@nestjs-mod/afat@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/afat/-/afat-1.1.0.tgz#9b35f89caa791a9352bdebb92bbf68d36605df3d"
-  integrity sha512-Kih6hs483TVKuvSuwZwHDa4ZHEGZNbI8z9Lm9U7rqBdyd0LI7joOYLC2VR5TpCodswfu+x/K4fN7dlhyFmyTxQ==
+"@nestjs-mod/afat@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/afat/-/afat-1.2.0.tgz#63df8fcbcec90f595df6a53fb418b056787df861"
+  integrity sha512-4iWQOKCG5M0/nzpw47EeewEcpn0zREt8kxj6TpH320thARZ+4zF3stAnqA+r0nPuwqhzjLz7iXeMtbQ3N7D87Q==
   dependencies:
     tslib "^2.3.0"
 
@@ -3287,17 +3287,17 @@
     pm2 "5.3.0"
     tslib "^2.3.0"
 
-"@nestjs-mod/prisma-tools@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma-tools/-/prisma-tools-1.0.3.tgz#3d9cc311564b5d4d4ff871d9a14f141c2399d03e"
-  integrity sha512-xlpfvus2S5V5A3WDsYMW7reOcyzF+YSwrju53foLT7MyTfKFe5JO2bqT4ig+kY1xxU/gIDsVEYFzv6UaTGm34g==
+"@nestjs-mod/prisma-tools@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma-tools/-/prisma-tools-1.1.0.tgz#2f0395cc8d207efa2940047f54f4ad4f4d81e9ab"
+  integrity sha512-TiZGOFfoK1L34obefLXcXBJioAFQtHa6rEndbvM1fbfV+5nldHuw3DFeKw3FZdQo2+ZwEKSecqWf2uDZXpZAyQ==
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/prisma@^1.14.2":
-  version "1.14.2"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma/-/prisma-1.14.2.tgz#4ed03fed26f164a95e1e88483108c66feb4d9d7a"
-  integrity sha512-6RTTnSOAXaiK83eRW1MKKf5SLSzfoaIG5m+QgrdoEygVKusMCQxqsUACDunsImGFdXA592Zh2nBtNhPUFIKd5Q==
+"@nestjs-mod/prisma@^1.15.0":
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma/-/prisma-1.15.0.tgz#3f6dd83d09e9306323dfa26fbe4550b891817fd4"
+  integrity sha512-9WEXRznAqZZTpVAFiDFFQa0vrSuC2blKoc4m6k6nHN/EawFtWAEZcSv7GSAxQEqoK1l1ZXj8l2i8ndYD3DJvOw==
   dependencies:
     case-anything "2.1.13"
     connection-string "4.3.5"
@@ -3347,10 +3347,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/validation@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/validation/-/validation-1.1.1.tgz#a935f551f482ccd8ac5f4343b5922de0cfc40fb8"
-  integrity sha512-Pkk2ZzH6GmyySpRXDhcqWGNjuu6SmR7GrhoaSTPCwRZj3XfAMY4ry1/xJW5qKB4EL4UTvcd4S38yMtH9v998gw==
+"@nestjs-mod/validation@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/validation/-/validation-1.2.0.tgz#2602ac1a94f201eeb26f641bab909ab3b5adaf66"
+  integrity sha512-M9ABh449KDLmblVrpJFLAL8LZC6xDxT35qqbRs+Sc/83cP3abocR7R7AAcnR1bNE64j0vZBu+hDuazRqns2aEA==
   dependencies:
     tslib "^2.3.0"
 
