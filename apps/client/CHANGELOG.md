@@ -1,3 +1,9 @@
+## [1.9.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.9.1...client-v1.9.2) (2025-06-03)
+
+### Bug Fixes
+
+- update deps ([3dc3bc1](https://github.com/nestjs-mod/nestjs-mod-sso/commit/3dc3bc11ce5c6c28200f246626f07e7a08d91ddd))
+
 ## [1.9.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.9.0...client-v1.9.1) (2025-06-02)
 
 ### Bug Fixes
