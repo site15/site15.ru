@@ -1,42 +1,15 @@
-import { FilesModule } from '@nestjs-mod-sso/files';
-import {
-  NOTIFICATIONS_FEATURE,
-  NOTIFICATIONS_FOLDER,
-  NotificationsModule,
-  NotificationsPrismaSdk,
-} from '@nestjs-mod-sso/notifications';
-import {
-  SSO_FEATURE,
-  SSO_FOLDER,
-  SsoModule,
-  SsoPrismaSdk,
-} from '@nestjs-mod-sso/sso';
-import {
-  TWO_FACTOR_FEATURE,
-  TWO_FACTOR_FOLDER,
-  TwoFactorModule,
-  TwoFactorPrismaSdk,
-} from '@nestjs-mod-sso/two-factor';
-import {
-  WEBHOOK_FEATURE,
-  WEBHOOK_FOLDER,
-  WebhookModule,
-  WebhookPrismaSdk,
-} from '@nestjs-mod-sso/webhook';
-import { createNestModule, PROJECT_JSON_FILE } from '@nestjs-mod/common';
+import { SsoModule } from '@nestjs-mod-sso/sso';
+import { createNestModule } from '@nestjs-mod/common';
+import { FilesModule } from '@nestjs-mod/files';
+import { NotificationsModule } from '@nestjs-mod/notifications';
 import { NestjsPinoLoggerModule } from '@nestjs-mod/pino';
-import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
 import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
 import { TerminusHealthCheckModule } from '@nestjs-mod/terminus';
+import { TwoFactorModule } from '@nestjs-mod/two-factor';
 import { ValidationModule } from '@nestjs-mod/validation';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { join } from 'path';
+import { WebhookModule } from '@nestjs-mod/webhook';
 import { AppModule } from './app/app.module';
-import {
-  MainKeyvModule,
-  MainMinioModule,
-  rootFolder,
-} from './environments/environment';
+import { MainKeyvModule, MainMinioModule } from './environments/environment';
 import { filesModuleForRootAsyncOptions } from './integrations/minio-files-integration.configuration';
 import { notificationsModuleForRootAsyncOptions } from './integrations/notifications-integration.configuration';
 import { ssoModuleForRootAsyncOptions } from './integrations/sso-integration.configuration';

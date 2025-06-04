@@ -1,4 +1,4 @@
-import { WebhookEvent } from '@nestjs-mod-sso/webhook';
+import { WebhookEvent } from '@nestjs-mod/webhook';
 import { getText } from 'nestjs-translates';
 import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 

@@ -1,4 +1,4 @@
-import { WebhookService } from '@nestjs-mod-sso/webhook';
+import { WebhookService } from '@nestjs-mod/webhook';
 import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';

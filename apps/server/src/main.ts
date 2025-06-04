@@ -3,11 +3,11 @@ process.env.TZ = 'UTC';
 (BigInt.prototype as any).toJSON = function () {
   return this.toString();
 };
-import { FILES_EXTRA_MODELS } from '@nestjs-mod-sso/files';
-import { NOTIFICATIONS_EXTRA_MODELS } from '@nestjs-mod-sso/notifications';
+import { FILES_EXTRA_MODELS } from '@nestjs-mod/files';
+import { NOTIFICATIONS_EXTRA_MODELS } from '@nestjs-mod/notifications';
 import { SSO_EXTRA_MODELS } from '@nestjs-mod-sso/sso';
 import { VALIDATION_EXTRA_MODELS } from '@nestjs-mod/validation';
-import { WEBHOOK_EXTRA_MODELS } from '@nestjs-mod-sso/webhook';
+import { WEBHOOK_EXTRA_MODELS } from '@nestjs-mod/webhook';
 import {
   bootstrapNestApplication,
   DefaultNestApplicationInitializer,

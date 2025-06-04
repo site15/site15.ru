@@ -2,9 +2,9 @@
   "name": "@nestjs-mod-sso/sso-afat",
   "version": "0.0.1",
   "peerDependencies": {
-    "@nestjs-mod/afat": "1.1.0",
-    "@nestjs-mod/sso-rest-sdk-angular": "1.6.0",
-    "@nestjs-mod-sso/files-afat": "0.0.1",
+    "@nestjs-mod/afat": "1.2.0",
+    "@nestjs-mod/sso-rest-sdk-angular": "1.6.2",
+    "@nestjs-mod/files-afat": "1.1.1",
     "@angular/common": "19.0.5",
     "@angular/core": "19.0.5",
     "@angular/forms": "19.0.5",

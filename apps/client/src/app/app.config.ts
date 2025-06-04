@@ -16,9 +16,14 @@ import { GithubFill } from '@ant-design/icons-angular/icons';
 import { provideTransloco } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
-import { FILES_FORMLY_FIELDS, MINIO_URL } from '@nestjs-mod-sso/files-afat';
 import { COMMON_FORMLY_FIELDS } from '@nestjs-mod/afat';
+import {
+  FILES_FORMLY_FIELDS,
+  FilesRestSdkAngularModule,
+  MINIO_URL,
+} from '@nestjs-mod/files-afat';
 import { SsoRestSdkAngularModule } from '@nestjs-mod/sso-rest-sdk-angular';
+import { WebhookRestSdkAngularModule } from '@nestjs-mod/webhook-afat';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
@@ -47,6 +52,12 @@ export const ssoAppConfig = ({
       importProvidersFrom(
         BrowserAnimationsModule,
         SsoRestSdkAngularModule.forRoot({
+          basePath: serverUrl,
+        }),
+        FilesRestSdkAngularModule.forRoot({
+          basePath: serverUrl,
+        }),
+        WebhookRestSdkAngularModule.forRoot({
           basePath: serverUrl,
         }),
         FormlyModule.forRoot({

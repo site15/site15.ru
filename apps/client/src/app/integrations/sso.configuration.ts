@@ -1,6 +1,6 @@
 import { Provider } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
-import { FilesService } from '@nestjs-mod-sso/files-afat';
+import { FilesService } from '@nestjs-mod/files-afat';
 import {
   SsoRestSdkAngularService,
   SsoUserDtoInterface,

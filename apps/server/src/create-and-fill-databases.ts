@@ -125,7 +125,7 @@ export async function createAndFillDatabases() {
         ...PG_FLYWAY_DEFAULT_MIGRATE_CONFIG,
         databaseUrl: process.env[appEnvKey],
         historyTable: appHistoryTable,
-        locations: `./libs/feature/${appKey}/src/migrations,./dist/libs/feature/${appKey}/migrations`,
+        locations: `./libs/feature/${appKey}/src/migrations,./dist/libs/feature/${appKey}/migrations,./node_modules/@nestjs-mod/${appKey}/migrations`,
       });
 
       // delay

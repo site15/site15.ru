@@ -5,7 +5,7 @@ import {
   SsoModule,
   SsoRole,
 } from '@nestjs-mod-sso/sso';
-import { WEBHOOK_FEATURE, WebhookModule } from '@nestjs-mod-sso/webhook';
+import { WEBHOOK_FEATURE, WebhookModule } from '@nestjs-mod/webhook';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { TranslatesModule } from 'nestjs-translates';
 

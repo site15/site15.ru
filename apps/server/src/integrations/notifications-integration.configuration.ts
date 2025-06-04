@@ -2,7 +2,7 @@ import {
   NOTIFICATIONS_FEATURE,
   NotificationsModule,
   NotificationsRequest,
-} from '@nestjs-mod-sso/notifications';
+} from '@nestjs-mod/notifications';
 import {
   CheckSsoRole,
   SsoGuard,

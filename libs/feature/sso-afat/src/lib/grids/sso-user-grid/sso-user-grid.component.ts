@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FilesService } from '@nestjs-mod-sso/files-afat';
+import { FilesService } from '@nestjs-mod/files-afat';
 import { SsoUserScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash/fp/isEqual';

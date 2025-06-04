@@ -1,4 +1,4 @@
-import { FilesConfiguration, FilesModule } from '@nestjs-mod-sso/files';
+import { FilesConfiguration, FilesModule } from '@nestjs-mod/files';
 import { SsoModule } from '@nestjs-mod-sso/sso';
 import { MinioFilesService, MinioModule } from '@nestjs-mod/minio';
 import { Injectable } from '@nestjs/common';

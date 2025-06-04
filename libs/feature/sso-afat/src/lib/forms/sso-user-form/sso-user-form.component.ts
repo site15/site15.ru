@@ -17,7 +17,7 @@ import {
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod/afat';
-import { FilesService } from '@nestjs-mod-sso/files-afat';
+import { FilesService } from '@nestjs-mod/files-afat';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
