@@ -25,19 +25,9 @@
     "noImplicitAny": false,
     "useDefineForClassFields": false,
     "paths": {
-      "@nestjs-mod-sso/files": ["libs/feature/files/src/index.ts"],
-      "@nestjs-mod-sso/files-afat": ["libs/feature/files-afat/src/index.ts"],
-      "@nestjs-mod-sso/notifications": [
-        "libs/feature/notifications/src/index.ts"
-      ],
       "@nestjs-mod-sso/sso": ["libs/feature/sso/src/index.ts"],
       "@nestjs-mod-sso/sso-afat": ["libs/feature/sso-afat/src/index.ts"],
       "@nestjs-mod-sso/testing": ["libs/testing/src/index.ts"],
-      "@nestjs-mod-sso/two-factor": ["libs/feature/two-factor/src/index.ts"],
-      "@nestjs-mod-sso/webhook": ["libs/feature/webhook/src/index.ts"],
-      "@nestjs-mod-sso/webhook-afat": [
-        "libs/feature/webhook-afat/src/index.ts"
-      ],
       "@nestjs-mod/sso-rest-sdk": ["libs/sdk/rest-sdk/src/index.ts"],
       "@nestjs-mod/sso-rest-sdk-angular": [
         "libs/sdk/rest-sdk-angular/src/index.ts"
