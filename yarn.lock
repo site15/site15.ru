@@ -3240,6 +3240,20 @@
     tslib "^2.3.0"
     yaml "2.3.4"
 
+"@nestjs-mod/files-afat@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/files-afat/-/files-afat-1.1.1.tgz#b1ec27cc1b5885b7798665788bed9c057cf06c3a"
+  integrity sha512-lqsGj1rU/imOGgdACR29mPPbT6eNR0RDqE5LFY2e7nChkdDc9ePNjkqxasVEpoS1ioqblu/NRXvlnP9UsqSPuw==
+  dependencies:
+    tslib "^2.3.0"
+
+"@nestjs-mod/files@1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/files/-/files-1.1.4.tgz#e63fd0e2e32111d77a02f0353cc9a524df60cf91"
+  integrity sha512-tdwReFJK0Tt1uKsh7X1FMkk+x8vjfizpSf5TcE+WHnE6r19VfMHJ+MYDr+kO439MiQkpN8B4KT/Ib2dvjROr7Q==
+  dependencies:
+    tslib "^2.3.0"
+
 "@nestjs-mod/keyv@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@nestjs-mod/keyv/-/keyv-1.2.0.tgz#2978a1239fcf786193da920a61d5db41048cef26"
@@ -3262,6 +3276,13 @@
     lodash.isequal "4.5.0"
     lodash.map "4.6.0"
     lodash.reduce "4.6.0"
+    tslib "^2.3.0"
+
+"@nestjs-mod/notifications@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/notifications/-/notifications-1.1.3.tgz#7482a8f68a182080dfed0d846c35828ab4a9091e"
+  integrity sha512-yNkmg8r7of/e+nQAfNjssPTNHt7yd97EbzoZGUgf85Wo8BjLnUiEzk8M+Yj3Xnh3xBN1O+h+yvAhx1V/5CFAXA==
+  dependencies:
     tslib "^2.3.0"
 
 "@nestjs-mod/pg-flyway@^1.1.0":
@@ -3347,10 +3368,31 @@
   dependencies:
     tslib "^2.3.0"
 
+"@nestjs-mod/two-factor@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/two-factor/-/two-factor-1.0.2.tgz#e6fb308ab338b4351ed60d0f448a505ea5df31df"
+  integrity sha512-ailZRGuOYSW8djnHetsM6bGeQ52NNxwrARCqRQSyP5m21WsOvXBM/5wF6Uc8UCLBPEmE0t3EA9TOCzuiN/rzrQ==
+  dependencies:
+    tslib "^2.3.0"
+
 "@nestjs-mod/validation@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@nestjs-mod/validation/-/validation-1.2.0.tgz#2602ac1a94f201eeb26f641bab909ab3b5adaf66"
   integrity sha512-M9ABh449KDLmblVrpJFLAL8LZC6xDxT35qqbRs+Sc/83cP3abocR7R7AAcnR1bNE64j0vZBu+hDuazRqns2aEA==
+  dependencies:
+    tslib "^2.3.0"
+
+"@nestjs-mod/webhook-afat@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook-afat/-/webhook-afat-1.1.1.tgz#cb76c17727831e6459870017a6886aff1d7f67ba"
+  integrity sha512-d6WCYzNaJlZzjZGCTb1Z5p6da6OpJzoOIbQ6PgZHWiTEEsuOL348HS25zOwoPxkjnpPhwFqdoHIX6riG2feCqQ==
+  dependencies:
+    tslib "^2.3.0"
+
+"@nestjs-mod/webhook@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook/-/webhook-1.1.3.tgz#519b48ac1966bce91e839373d20fab3617c484fb"
+  integrity sha512-3sfR9NyjoL0dLu6TnY120bZDog8v/v2CfeU+imQmetNQOc4eG3KU9gjA3tcAPtXZmZ1pVb8SeOqwxg94GkNqIA==
   dependencies:
     tslib "^2.3.0"
 
