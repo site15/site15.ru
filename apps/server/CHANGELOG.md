@@ -1,3 +1,13 @@
+# [1.13.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.12.2...server-v1.13.0) (2025-06-04)
+
+### Bug Fixes
+
+- move all libraries from current application to nestjs-mod/contrib and remove them from this project ([017aeb7](https://github.com/nestjs-mod/nestjs-mod-sso/commit/017aeb7af5812bd774f0a681ede9207034fdb80c))
+
+### Features
+
+- replace all usage internal libraries to new external ([fe70fc2](https://github.com/nestjs-mod/nestjs-mod-sso/commit/fe70fc2488b7a1b0696e5681066d9a982608ab1b))
+
 ## [1.12.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.12.1...server-v1.12.2) (2025-06-03)
 
 ### Bug Fixes
