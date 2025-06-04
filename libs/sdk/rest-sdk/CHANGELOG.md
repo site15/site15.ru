@@ -1,3 +1,9 @@
+## [1.4.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.4.2...rest-sdk-v1.4.3) (2025-06-04)
+
+### Bug Fixes
+
+- move all libraries from current application to nestjs-mod/contrib and remove them from this project ([017aeb7](https://github.com/nestjs-mod/nestjs-mod-sso/commit/017aeb7af5812bd774f0a681ede9207034fdb80c))
+
 ## [1.4.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.4.1...rest-sdk-v1.4.2) (2025-06-03)
 
 ### Bug Fixes
