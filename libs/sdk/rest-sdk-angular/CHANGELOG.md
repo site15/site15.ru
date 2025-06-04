@@ -1,3 +1,9 @@
+## [1.6.3](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.6.2...rest-sdk-angular-v1.6.3) (2025-06-04)
+
+### Bug Fixes
+
+- move all libraries from current application to nestjs-mod/contrib and remove them from this project ([017aeb7](https://github.com/nestjs-mod/nestjs-mod-sso/commit/017aeb7af5812bd774f0a681ede9207034fdb80c))
+
 ## [1.6.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.6.1...rest-sdk-angular-v1.6.2) (2025-06-03)
 
 ### Bug Fixes
