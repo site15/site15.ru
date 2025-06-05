@@ -1,3 +1,9 @@
+# [1.11.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.10.0...client-v1.11.0) (2025-06-05)
+
+### Features
+
+- update libs ([c019284](https://github.com/nestjs-mod/nestjs-mod-sso/commit/c0192841108b6d30e0bd84f1a4cfbbbf05bdc84e))
+
 # [1.10.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.9.2...client-v1.10.0) (2025-06-04)
 
 ### Bug Fixes
