@@ -93,6 +93,7 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
       },
       addMigrationScripts: false,
       previewFeatures: ['queryCompiler', 'driverAdapters'],
+      moduleFormat: 'cjs',
       output: join(
         rootFolder,
         SSO_FOLDER,

@@ -1,5 +1,3 @@
-import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
-import { WebhookModule } from '@nestjs-mod/webhook';
 import {
   createNestModule,
   getFeatureDotEnvPropertyNameFormatter,
@@ -7,9 +5,12 @@ import {
 } from '@nestjs-mod/common';
 import { KeyvModule } from '@nestjs-mod/keyv';
 import { PrismaModule } from '@nestjs-mod/prisma';
+import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
+import { WebhookModule } from '@nestjs-mod/webhook';
 import { UseGuards } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaPg } from '@prisma/adapter-pg';
 import { TranslatesModule } from 'nestjs-translates';
 import { SsoEmailTemplatesController } from './controllers/sso-email-templates.controller';
 import { SsoOAuthController } from './controllers/sso-oauth.controller';
@@ -37,12 +38,11 @@ import { SSO_FEATURE, SSO_MODULE } from './sso.constants';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
 import { SsoGuard } from './sso.guard';
+import { SsoPrismaSdk } from './sso.prisma-sdk';
 import { SsoGoogleOAuthController } from './strategies/google/sso-google-oauth.controller';
 import { SsoGoogleOAuthStrategy } from './strategies/google/sso-google-oauth.strategy';
 import { SsoAsyncLocalStorageContext } from './types/sso-async-local-storage-data';
 import { SSO_WEBHOOK_EVENTS } from './types/sso-webhooks';
-import { SsoPrismaSdk } from './sso.prisma-sdk';
-import { PrismaPg } from '@prisma/adapter-pg';
 
 export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
@@ -76,6 +76,7 @@ export const { SsoModule } = createNestModule({
           const adapter = new PrismaPg({ connectionString: url });
           return new SsoPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
         },
+        moduleFormat: 'cjs',
       },
     }),
   ],

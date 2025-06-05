@@ -4,6 +4,10 @@ generator client {
   output   = "../../../../../libs/feature/sso/src/lib/generated/prisma-client"
   
   previewFeatures = ["queryCompiler","driverAdapters"]
+  
+  moduleFormat = "cjs"
+  
+  
 }
 datasource db {
   provider          = "postgres"
