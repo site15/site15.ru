@@ -1,3 +1,9 @@
+# [1.15.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.14.0...server-v1.15.0) (2025-06-12)
+
+### Features
+
+- update deps ([49da6cb](https://github.com/nestjs-mod/nestjs-mod-sso/commit/49da6cb9586a79628fd4daf5925ff1288e60f024))
+
 # [1.14.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.13.0...server-v1.14.0) (2025-06-05)
 
 ### Features
