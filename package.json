@@ -360,12 +360,12 @@
     "prepare": []
   },
   "dependencies": {
-    "@nestjs-mod/two-factor": "1.1.0",
-    "@nestjs-mod/webhook": "1.2.0",
+    "@nestjs-mod/two-factor": "1.1.1",
+    "@nestjs-mod/webhook": "1.2.1",
     "@nestjs-mod/webhook-afat": "1.1.1",
-    "@nestjs-mod/files": "1.2.0",
+    "@nestjs-mod/files": "1.2.1",
     "@nestjs-mod/files-afat": "1.1.1",
-    "@nestjs-mod/notifications": "1.2.0",
+    "@nestjs-mod/notifications": "1.2.1",
     "@prisma/adapter-pg": "6.9.0",
     "@nestjs-mod/prisma-tools": "1.1.0",
     "@nestjs-mod/validation": "1.2.0",

@@ -3247,10 +3247,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/files@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/files/-/files-1.2.0.tgz#b0e464e243a44f5551d0446077efae9cd08e6f91"
-  integrity sha512-Yt+w8QItElaCc7g9vRYMzjmDe2ivph+eUGJNeSxt6KN0hyzAZyd+MwZRb1FlQ8pzDAQmn4GD6kWZgcFCsTvhLg==
+"@nestjs-mod/files@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/files/-/files-1.2.1.tgz#f0fdab06b15212671bd7f7ab6229082a01f51c02"
+  integrity sha512-l8Kdcie3wHdcyDqaonmQKX6MPiCmlg7jn5zUJiSAhYpxj8TJ4pbEr6yG1jc6bYBic5ZskGw4lz0H25ddOvYc2Q==
   dependencies:
     tslib "^2.3.0"
 
@@ -3278,10 +3278,10 @@
     lodash.reduce "4.6.0"
     tslib "^2.3.0"
 
-"@nestjs-mod/notifications@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/notifications/-/notifications-1.2.0.tgz#d5adf25146bef11f638d8bf2b006d93025e52b85"
-  integrity sha512-aFIAZL6WrIdXSz6VFq19BM+YzOEpOQO7VXJUBcwsRCw5W0P6DmqTGiXaOgX+p0VyyOSP92WiBcZzQCizIstbRQ==
+"@nestjs-mod/notifications@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/notifications/-/notifications-1.2.1.tgz#a32ec48bccbe1ff324644b4f887d3d0352c600dc"
+  integrity sha512-llWgVdqNtz1FdwQjNg5LXyTCJK6kEkYzChfVGVCcDcZXPy6ASJnJmLhedcItOematJvHdG9RyVEXquFq8MwPpQ==
   dependencies:
     tslib "^2.3.0"
 
@@ -3368,10 +3368,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/two-factor@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/two-factor/-/two-factor-1.1.0.tgz#cec8d26c581e9d88163eb1599584cf09728d06c5"
-  integrity sha512-6WMgnJC9UvEnSzLENFouyTp1D70NLbSTUi3ybXqxOnzIOMfAUsoAGvA42zlrVSW5HZrps51qO7sS14TMRQq+5Q==
+"@nestjs-mod/two-factor@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/two-factor/-/two-factor-1.1.1.tgz#ad3141b57b36cf802067e4ab6442354920a0ed37"
+  integrity sha512-r9lKqi7LZcEQOysikoLmVII6vkzXRXgKTux+er9/rWKBcm65g8p530jxmIlspkXKFxFkchYZkohjVyAq4b65Hw==
   dependencies:
     tslib "^2.3.0"
 
@@ -3389,10 +3389,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/webhook@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook/-/webhook-1.2.0.tgz#a8758ec641136c5dbbb66c5c33f72acf3fd472ac"
-  integrity sha512-MALqcOvoY3wlnbKJ9G/NwUGtDVYFSjVBKD6l4Mm3bPu84DrAnci8fjrVCQ+WP5KXbIUCAJVsVXVOLTAvxl9S0A==
+"@nestjs-mod/webhook@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook/-/webhook-1.2.1.tgz#24b1789c2e2c385b20f4d3c9a04b2df1060eac45"
+  integrity sha512-WNDF7Krw+FcYQPh6JVB6Kjj9V+1nT0Sj33m3nSBOWBGoHmAD8Z8rBdvVpGC37/FgEsT6pUXJS3KbI2Tc9T5NGQ==
   dependencies:
     tslib "^2.3.0"
 

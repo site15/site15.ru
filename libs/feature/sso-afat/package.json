@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "peerDependencies": {
     "@nestjs-mod/afat": "1.2.0",
-    "@nestjs-mod/sso-rest-sdk-angular": "1.6.3",
     "@nestjs-mod/files-afat": "1.1.1",
     "@angular/common": "19.0.5",
     "@angular/core": "19.0.5",
