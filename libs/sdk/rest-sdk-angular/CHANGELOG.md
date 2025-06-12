@@ -1,3 +1,9 @@
+# [1.8.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.7.0...rest-sdk-angular-v1.8.0) (2025-06-12)
+
+### Features
+
+- update deps ([49da6cb](https://github.com/nestjs-mod/nestjs-mod-sso/commit/49da6cb9586a79628fd4daf5925ff1288e60f024))
+
 # [1.7.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.6.3...rest-sdk-angular-v1.7.0) (2025-06-05)
 
 ### Features
