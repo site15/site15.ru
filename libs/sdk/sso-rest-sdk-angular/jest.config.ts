@@ -3,7 +3,7 @@ export default {
   displayName: 'rest-sdk-angular',
   preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../coverage/libs/sdk/rest-sdk-angular',
+  coverageDirectory: '../../../coverage/libs/sdk/sso-rest-sdk-angular',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

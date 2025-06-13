@@ -1,4 +1,4 @@
-import { RestClientHelper } from '@nestjs-mod-sso/testing';
+import { SsoRestClientHelper } from '@nestjs-mod-sso/testing';
 import { isDateString } from 'class-validator';
 import { get } from 'env-var';
 import { lastValueFrom, take, timeout, toArray } from 'rxjs';
@@ -7,7 +7,7 @@ describe('Get server time from rest api and ws (timezone)', () => {
   jest.setTimeout(60000);
 
   const correctStringDateLength = '0000-00-00T00:00:00.000Z'.length;
-  const restClientHelper = new RestClientHelper({
+  const restClientHelper = new SsoRestClientHelper({
     headers: {
       'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
     },

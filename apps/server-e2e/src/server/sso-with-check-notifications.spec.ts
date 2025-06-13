@@ -1,28 +1,28 @@
 import { TokensResponse } from '@nestjs-mod/sso-rest-sdk';
-import { RestClientHelper } from '@nestjs-mod-sso/testing';
+import { SsoRestClientHelper } from '@nestjs-mod-sso/testing';
 
 describe('Sso with check notifications (e2e)', () => {
-  let user: RestClientHelper<'strict'>;
-  let admin: RestClientHelper<'strict'>;
-  let project: RestClientHelper<'strict'>;
+  let user: SsoRestClientHelper<'strict'>;
+  let admin: SsoRestClientHelper<'strict'>;
+  let project: SsoRestClientHelper<'strict'>;
 
   let userTokens: TokensResponse;
 
   jest.setTimeout(5 * 60 * 1000);
 
   beforeAll(async () => {
-    project = await new RestClientHelper({
+    project = await new SsoRestClientHelper({
       headers: {
         'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
-    user = await new RestClientHelper({
+    user = await new SsoRestClientHelper({
       headers: {
         'x-client-id': project.randomUser.id,
         'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
-    admin = new RestClientHelper({
+    admin = new SsoRestClientHelper({
       headers: {
         'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
         'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,

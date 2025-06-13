@@ -79,7 +79,7 @@
     "pg-flyway:create:notifications": "./node_modules/.bin/nx run notifications:pg-flyway-create-migration",
     "pg-flyway:migrate:notifications": "./node_modules/.bin/nx run notifications:pg-flyway-migrate",
     "_____utils_____": "_____utils_____",
-    "generate": "./node_modules/.bin/nx run-many --all -t=generate --parallel=1 && ./node_modules/.bin/ts-node fix-new-clients.ts && npm run make-ts-list && npm run lint:fix",
+    "generate": "./node_modules/.bin/nx run-many --all -t=generate --parallel=1 --skip-nx-cache=true && ./node_modules/.bin/ts-node fix-new-clients.ts && npm run make-ts-list && npm run lint:fix",
     "tsc": "tsc",
     "nx": "nx",
     "dep-graph": "./node_modules/.bin/nx dep-graph",

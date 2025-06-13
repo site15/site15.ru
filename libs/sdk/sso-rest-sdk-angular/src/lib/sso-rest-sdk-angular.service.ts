@@ -2,39 +2,20 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
 import {
-  FilesSsoRestService,
-  NotificationsSsoRestService,
   SsoRestClientConfiguration,
   SsoSsoRestService,
   TimeSsoRestService,
-  WebhookSsoRestService,
 } from './generated';
 
 @Injectable({ providedIn: 'root' })
 export class SsoRestSdkAngularService {
   constructor(
     private readonly ssoRestClientConfiguration: SsoRestClientConfiguration,
-    private readonly webhookSsoRestService: WebhookSsoRestService,
     private readonly timeSsoRestService: TimeSsoRestService,
-    private readonly filesSsoRestService: FilesSsoRestService,
-    private readonly ssoSsoRestService: SsoSsoRestService,
-    private readonly notificationsSsoRestService: NotificationsSsoRestService
+    private readonly ssoSsoRestService: SsoSsoRestService
   ) {
+    timeSsoRestService.configuration.withCredentials = true;
     ssoSsoRestService.configuration.withCredentials = true;
-  }
-
-  getWebhookApi() {
-    if (!this.webhookSsoRestService) {
-      throw new Error('webhookRestService not set');
-    }
-    return this.webhookSsoRestService;
-  }
-
-  getFilesApi() {
-    if (!this.filesSsoRestService) {
-      throw new Error('filesRestService not set');
-    }
-    return this.filesSsoRestService;
   }
 
   getTimeApi() {
@@ -51,16 +32,7 @@ export class SsoRestSdkAngularService {
     return this.ssoSsoRestService;
   }
 
-  getNotificationsApi() {
-    if (!this.notificationsSsoRestService) {
-      throw new Error('notificationsRestService not set');
-    }
-    return this.notificationsSsoRestService;
-  }
-
   updateHeaders(headers: Record<string, string>) {
-    this.webhookSsoRestService.defaultHeaders = new HttpHeaders(headers);
-    this.filesSsoRestService.defaultHeaders = new HttpHeaders(headers);
     this.timeSsoRestService.defaultHeaders = new HttpHeaders(headers);
     this.ssoSsoRestService.defaultHeaders = new HttpHeaders(headers);
   }
