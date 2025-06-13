@@ -1,3 +1,9 @@
+# [1.9.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.8.0...rest-sdk-angular-v1.9.0) (2025-06-13)
+
+### Features
+
+- update imports ([2117a84](https://github.com/nestjs-mod/nestjs-mod-sso/commit/2117a84da323cf2b6d1acc811fea185b67e431e9))
+
 # [1.8.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-angular-v1.7.0...rest-sdk-angular-v1.8.0) (2025-06-12)
 
 ### Features
