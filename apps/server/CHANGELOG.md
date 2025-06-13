@@ -1,3 +1,9 @@
+# [1.17.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.16.0...server-v1.17.0) (2025-06-13)
+
+### Features
+
+- update imports ([2117a84](https://github.com/nestjs-mod/nestjs-mod-sso/commit/2117a84da323cf2b6d1acc811fea185b67e431e9))
+
 # [1.16.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.15.0...server-v1.16.0) (2025-06-12)
 
 ### Features
