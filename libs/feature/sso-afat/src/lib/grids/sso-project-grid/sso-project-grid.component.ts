@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  ViewContainerRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SsoProjectScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
@@ -21,26 +15,12 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import {
-  BehaviorSubject,
-  Observable,
-  debounceTime,
-  distinctUntilChanged,
-  merge,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge, tap } from 'rxjs';
 
-import {
-  TranslocoDirective,
-  TranslocoPipe,
-  TranslocoService,
-} from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import {
-  NzTableSortOrderDetectorPipe,
-  getQueryMetaByParams,
-} from '@nestjs-mod/afat';
+import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { SsoProjectFormComponent } from '../../forms/sso-project-form/sso-project-form.component';
 import { SsoProjectModel } from '../../services/sso-project-mapper.service';
@@ -87,21 +67,11 @@ export class SsoProjectGridComponent implements OnInit {
     SsoProjectScalarFieldEnumInterface.public,
   ];
   columns = {
-    [SsoProjectScalarFieldEnumInterface.id]: marker(
-      'sso-project.grid.columns.id'
-    ),
-    [SsoProjectScalarFieldEnumInterface.name]: marker(
-      'sso-project.grid.columns.name'
-    ),
-    [SsoProjectScalarFieldEnumInterface.clientId]: marker(
-      'sso-project.grid.columns.client-id'
-    ),
-    [SsoProjectScalarFieldEnumInterface.clientSecret]: marker(
-      'sso-project.grid.columns.client-secret'
-    ),
-    [SsoProjectScalarFieldEnumInterface.public]: marker(
-      'sso-project.grid.columns.public'
-    ),
+    [SsoProjectScalarFieldEnumInterface.id]: marker('sso-project.grid.columns.id'),
+    [SsoProjectScalarFieldEnumInterface.name]: marker('sso-project.grid.columns.name'),
+    [SsoProjectScalarFieldEnumInterface.clientId]: marker('sso-project.grid.columns.client-id'),
+    [SsoProjectScalarFieldEnumInterface.clientSecret]: marker('sso-project.grid.columns.client-secret'),
+    [SsoProjectScalarFieldEnumInterface.public]: marker('sso-project.grid.columns.public'),
   };
   SsoProjectScalarFieldEnumInterface = SsoProjectScalarFieldEnumInterface;
 
@@ -111,20 +81,17 @@ export class SsoProjectGridComponent implements OnInit {
     private readonly ssoProjectService: SsoProjectService,
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
-    private readonly translocoService: TranslocoService
+    private readonly translocoService: TranslocoService,
   ) {}
 
   ngOnInit(): void {
     merge(
-      this.searchField.valueChanges.pipe(
-        debounceTime(700),
-        distinctUntilChanged()
-      ),
-      ...(this.forceLoadStream ? this.forceLoadStream : [])
+      this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
+      ...(this.forceLoadStream ? this.forceLoadStream : []),
     )
       .pipe(
         tap(() => this.loadMany({ force: true })),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
 
@@ -157,7 +124,7 @@ export class SsoProjectGridComponent implements OnInit {
         omit(['totalResults'], {
           ...this.meta$.value,
           ...this.filters,
-        })
+        }),
       )
     ) {
       return;
@@ -172,16 +139,13 @@ export class SsoProjectGridComponent implements OnInit {
           this.filters = filters;
           this.selectedIds$.next([]);
         }),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
   }
 
   showCreateOrUpdateModal(id?: string): void {
-    const modal = this.nzModalService.create<
-      SsoProjectFormComponent,
-      SsoProjectFormComponent
-    >({
+    const modal = this.nzModalService.create<SsoProjectFormComponent, SsoProjectFormComponent>({
       nzTitle: id
         ? this.translocoService.translate('sso-project.update-modal.title', {
             id,
@@ -201,9 +165,7 @@ export class SsoProjectGridComponent implements OnInit {
           },
         },
         {
-          label: id
-            ? this.translocoService.translate('Save')
-            : this.translocoService.translate('Create'),
+          label: id ? this.translocoService.translate('Save') : this.translocoService.translate('Create'),
           onClick: () => {
             modal.componentInstance?.afterUpdate
               .pipe(
@@ -211,7 +173,7 @@ export class SsoProjectGridComponent implements OnInit {
                   modal.close();
                   this.loadMany({ force: true });
                 }),
-                untilDestroyed(modal.componentInstance)
+                untilDestroyed(modal.componentInstance),
               )
               .subscribe();
 
@@ -221,7 +183,7 @@ export class SsoProjectGridComponent implements OnInit {
                   modal.close();
                   this.loadMany({ force: true });
                 }),
-                untilDestroyed(modal.componentInstance)
+                untilDestroyed(modal.componentInstance),
               )
               .subscribe();
 
@@ -238,12 +200,9 @@ export class SsoProjectGridComponent implements OnInit {
       return;
     }
     this.nzModalService.confirm({
-      nzTitle: this.translocoService.translate(
-        `sso-project.delete-modal.title`,
-        {
-          id,
-        }
-      ),
+      nzTitle: this.translocoService.translate(`sso-project.delete-modal.title`, {
+        id,
+      }),
       nzOkText: this.translocoService.translate('Yes'),
       nzCancelText: this.translocoService.translate('No'),
       nzOnOk: () => {
@@ -253,7 +212,7 @@ export class SsoProjectGridComponent implements OnInit {
             tap(() => {
               this.loadMany({ force: true });
             }),
-            untilDestroyed(this)
+            untilDestroyed(this),
           )
           .subscribe();
       },

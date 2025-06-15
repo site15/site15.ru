@@ -1,10 +1,4 @@
-import {
-  ArgumentsHost,
-  Catch,
-  HttpException,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { SsoError, SsoErrorEnum } from './sso.errors';
 
@@ -22,11 +16,9 @@ export class SsoExceptionsFilter extends BaseExceptionFilter {
             message: exception.message,
             metadata: exception.metadata,
           },
-          exception.code === SsoErrorEnum.AccessTokenExpired
-            ? HttpStatus.UNAUTHORIZED
-            : HttpStatus.BAD_REQUEST
+          exception.code === SsoErrorEnum.AccessTokenExpired ? HttpStatus.UNAUTHORIZED : HttpStatus.BAD_REQUEST,
         ),
-        host
+        host,
       );
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

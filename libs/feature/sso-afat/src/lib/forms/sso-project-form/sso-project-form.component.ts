@@ -9,11 +9,7 @@ import {
   Optional,
   Output,
 } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod/afat';
@@ -24,19 +20,9 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
-import {
-  BehaviorSubject,
-  catchError,
-  mergeMap,
-  of,
-  tap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, catchError, mergeMap, of, tap, throwError } from 'rxjs';
 import { SsoProjectFormService } from '../../services/sso-project-form.service';
-import {
-  SsoProjectMapperService,
-  SsoProjectModel,
-} from '../../services/sso-project-mapper.service';
+import { SsoProjectMapperService, SsoProjectModel } from '../../services/sso-project-mapper.service';
 import { SsoProjectService } from '../../services/sso-project.service';
 
 @UntilDestroy()
@@ -84,7 +70,7 @@ export class SsoProjectFormComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly ssoProjectFormService: SsoProjectFormService,
     private readonly ssoProjectMapperService: SsoProjectMapperService,
-    private readonly validationService: ValidationService
+    private readonly validationService: ValidationService,
   ) {}
 
   ngOnInit(): void {
@@ -95,7 +81,7 @@ export class SsoProjectFormComponent implements OnInit {
         untilDestroyed(this),
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
-        })
+        }),
       )
       .subscribe();
 
@@ -108,15 +94,15 @@ export class SsoProjectFormComponent implements OnInit {
               tap((result) =>
                 this.afterFind.next({
                   ...result,
-                })
-              )
+                }),
+              ),
             );
           } else {
             this.setFieldsAndModel();
           }
           return of(true);
         }),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
   }
@@ -132,15 +118,13 @@ export class SsoProjectFormComponent implements OnInit {
         .pipe(
           tap((result) => {
             if (result) {
-              this.nzMessageService.success(
-                this.translocoService.translate('Success')
-              );
+              this.nzMessageService.success(this.translocoService.translate('Success'));
               this.afterUpdate.next({
                 ...result,
               });
             }
           }),
-          untilDestroyed(this)
+          untilDestroyed(this),
         )
         .subscribe();
     } else {
@@ -148,16 +132,14 @@ export class SsoProjectFormComponent implements OnInit {
         .pipe(
           tap((result) => {
             if (result) {
-              this.nzMessageService.success(
-                this.translocoService.translate('Success')
-              );
+              this.nzMessageService.success(this.translocoService.translate('Success'));
               this.afterCreate.next({
                 ...result,
               });
             }
           }),
 
-          untilDestroyed(this)
+          untilDestroyed(this),
         )
         .subscribe();
     }
@@ -168,48 +150,36 @@ export class SsoProjectFormComponent implements OnInit {
       .createOne(this.ssoProjectMapperService.toJson(this.form.value))
       .pipe(
         catchError((err) =>
-          this.validationService.catchAndProcessServerError(err, (options) =>
-            this.setFormlyFields(options)
-          )
-        )
+          this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
+        ),
       );
   }
 
   updateOne() {
     if (!this.id) {
-      return throwError(
-        () => new Error(this.translocoService.translate('id not set'))
-      );
+      return throwError(() => new Error(this.translocoService.translate('id not set')));
     }
     return this.ssoProjectService
       .updateOne(this.id, this.ssoProjectMapperService.toJson(this.form.value))
       .pipe(
         catchError((err) =>
-          this.validationService.catchAndProcessServerError(err, (options) =>
-            this.setFormlyFields(options)
-          )
-        )
+          this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
+        ),
       );
   }
 
   findOne() {
     if (!this.id) {
-      return throwError(
-        () => new Error(this.translocoService.translate('id not set'))
-      );
+      return throwError(() => new Error(this.translocoService.translate('id not set')));
     }
     return this.ssoProjectService.findOne(this.id).pipe(
       tap((result) => {
         this.setFieldsAndModel(this.ssoProjectMapperService.toForm(result));
-      })
+      }),
     );
   }
 
-  private setFormlyFields(options?: {
-    errors?: ValidationErrorMetadataInterface[];
-  }) {
-    this.formlyFields$.next(
-      this.ssoProjectFormService.getFormlyFields(options)
-    );
+  private setFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
+    this.formlyFields$.next(this.ssoProjectFormService.getFormlyFields(options));
   }
 }

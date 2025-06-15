@@ -24,14 +24,11 @@ export class SsoUsersService {
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoCacheService: SsoCacheService,
     private readonly ssoProjectService: SsoProjectService,
-    private readonly ssoStaticEnvironments: SsoStaticEnvironments
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
   ) {}
 
   async createAdmin() {
-    if (
-      this.ssoStaticEnvironments.adminEmail &&
-      this.ssoStaticEnvironments.adminPassword
-    ) {
+    if (this.ssoStaticEnvironments.adminEmail && this.ssoStaticEnvironments.adminPassword) {
       try {
         const signupUserResult = await this.create({
           user: {
@@ -53,13 +50,9 @@ export class SsoUsersService {
           userId: signupUserResult.id,
         });
 
-        this.logger.debug(
-          `Admin with email: ${signupUserResult.email} successfully created!`
-        );
+        this.logger.debug(`Admin with email: ${signupUserResult.email} successfully created!`);
       } catch (err: any) {
-        if (
-          !(err instanceof SsoError && err.code === SsoErrorEnum.EmailIsExists)
-        ) {
+        if (!(err instanceof SsoError && err.code === SsoErrorEnum.EmailIsExists)) {
           this.logger.error(err, err.stack);
         }
       }
@@ -141,13 +134,7 @@ export class SsoUsersService {
     }
   }
 
-  async getAdminByEmailAndPassword({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) {
+  async getAdminByEmailAndPassword({ email, password }: { email: string; password: string }) {
     const OR =
       this.ssoStaticEnvironments.adminDefaultRoles?.map((r) => ({
         roles: {
@@ -182,15 +169,7 @@ export class SsoUsersService {
     }
   }
 
-  async getByEmailAndPassword({
-    email,
-    password,
-    projectId,
-  }: {
-    email: string;
-    password: string;
-    projectId: string;
-  }) {
+  async getByEmailAndPassword({ email, password, projectId }: { email: string; password: string; projectId: string }) {
     try {
       const user = await this.prismaClient.ssoUser.findUniqueOrThrow({
         include: { SsoProject: true },
@@ -224,19 +203,8 @@ export class SsoUsersService {
     }
   }
 
-  async create({
-    user,
-    projectId,
-    roles,
-  }: {
-    user: CreateSsoUserDto;
-    projectId?: string;
-    roles?: string[];
-  }) {
-    if (
-      roles?.length &&
-      !searchIn(roles, this.ssoStaticEnvironments.userAvailableRoles)
-    ) {
+  async create({ user, projectId, roles }: { user: CreateSsoUserDto; projectId?: string; roles?: string[] }) {
+    if (roles?.length && !searchIn(roles, this.ssoStaticEnvironments.userAvailableRoles)) {
       this.logger.debug({
         create: {
           user,
@@ -249,9 +217,7 @@ export class SsoUsersService {
       throw new SsoError(SsoErrorEnum.NonExistentRoleSpecified);
     }
 
-    const hashedPassword = await this.ssoPasswordService.createPasswordHash(
-      user.password
-    );
+    const hashedPassword = await this.ssoPasswordService.createPasswordHash(user.password);
 
     try {
       const result = await this.prismaClient.ssoUser.create({
@@ -269,9 +235,7 @@ export class SsoUsersService {
             connect: projectId
               ? { id: projectId }
               : {
-                  clientId: (
-                    await this.ssoProjectService.getOrCreateDefaultProject()
-                  )?.clientId,
+                  clientId: (await this.ssoProjectService.getOrCreateDefaultProject())?.clientId,
                 },
           },
           roles: roles ? roles.join(',') : null,
@@ -286,22 +250,10 @@ export class SsoUsersService {
       return result;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (
-        this.prismaToolsService.isErrorOfUniqueField<{ email: string }>(
-          err,
-          'email',
-          true
-        )
-      ) {
+      if (this.prismaToolsService.isErrorOfUniqueField<{ email: string }>(err, 'email', true)) {
         throw new SsoError(SsoErrorEnum.EmailIsExists);
       }
-      if (
-        this.prismaToolsService.isErrorOfUniqueField<{ username: string }>(
-          err,
-          'username',
-          true
-        )
-      ) {
+      if (this.prismaToolsService.isErrorOfUniqueField<{ username: string }>(err, 'username', true)) {
         throw new SsoError(SsoErrorEnum.UserIsExists);
       }
       this.logger.debug({
@@ -315,18 +267,8 @@ export class SsoUsersService {
     }
   }
 
-  async changePassword({
-    id,
-    password,
-    projectId,
-  }: {
-    id: string;
-    password: string;
-    projectId: string;
-  }) {
-    const hashedPassword = await this.ssoPasswordService.createPasswordHash(
-      password
-    );
+  async changePassword({ id, password, projectId }: { id: string; password: string; projectId: string }) {
+    const hashedPassword = await this.ssoPasswordService.createPasswordHash(password);
 
     await this.prismaClient.ssoUser.update({
       data: {
@@ -345,17 +287,10 @@ export class SsoUsersService {
     user,
     projectId,
   }: {
-    user: Pick<
-      SsoUser,
-      | 'birthdate'
-      | 'firstname'
-      | 'lastname'
-      | 'id'
-      | 'picture'
-      | 'gender'
-      | 'lang'
-      | 'timezone'
-    > & { password: string | null; oldPassword: string | null };
+    user: Pick<SsoUser, 'birthdate' | 'firstname' | 'lastname' | 'id' | 'picture' | 'gender' | 'lang' | 'timezone'> & {
+      password: string | null;
+      oldPassword: string | null;
+    };
     projectId: string;
   }) {
     const { password, oldPassword, lang, timezone, ...profile } = user;
@@ -392,9 +327,7 @@ export class SsoUsersService {
         projectId,
         ...(user.password
           ? {
-              password: await this.ssoPasswordService.createPasswordHash(
-                user.password
-              ),
+              password: await this.ssoPasswordService.createPasswordHash(user.password),
             }
           : {}),
         ...(lang === undefined

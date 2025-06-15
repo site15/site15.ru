@@ -1,8 +1,5 @@
 import { SSO_FEATURE, SSO_FOLDER, SsoPrismaSdk } from '@nestjs-mod-sso/sso';
-import {
-  InfrastructureMarkdownReportGenerator,
-  PROJECT_JSON_FILE,
-} from '@nestjs-mod/common';
+import { InfrastructureMarkdownReportGenerator, PROJECT_JSON_FILE } from '@nestjs-mod/common';
 import {
   DOCKER_COMPOSE_FILE,
   DockerCompose,
@@ -11,10 +8,7 @@ import {
   DockerComposePostgreSQL,
   DockerComposeRedis,
 } from '@nestjs-mod/docker-compose';
-import {
-  NOTIFICATIONS_FEATURE,
-  NOTIFICATIONS_FOLDER,
-} from '@nestjs-mod/notifications';
+import { NOTIFICATIONS_FEATURE, NOTIFICATIONS_FOLDER } from '@nestjs-mod/notifications';
 import { PgFlyway } from '@nestjs-mod/pg-flyway';
 import { ECOSYSTEM_CONFIG_FILE, Pm2 } from '@nestjs-mod/pm2';
 import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
@@ -76,13 +70,7 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
     contextName: SSO_FEATURE,
     staticConfiguration: {
       featureName: SSO_FEATURE,
-      schemaFile: join(
-        rootFolder,
-        SSO_FOLDER,
-        'src',
-        'prisma',
-        PRISMA_SCHEMA_FILE
-      ),
+      schemaFile: join(rootFolder, SSO_FOLDER, 'src', 'prisma', PRISMA_SCHEMA_FILE),
       nxProjectJsonFile: join(rootFolder, SSO_FOLDER, PROJECT_JSON_FILE),
 
       provider: 'prisma-client',
@@ -94,14 +82,7 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
       addMigrationScripts: false,
       previewFeatures: ['queryCompiler', 'driverAdapters'],
       moduleFormat: 'cjs',
-      output: join(
-        rootFolder,
-        SSO_FOLDER,
-        'src',
-        'lib',
-        'generated',
-        'prisma-client'
-      ),
+      output: join(rootFolder, SSO_FOLDER, 'src', 'lib', 'generated', 'prisma-client'),
     },
   }),
 ];

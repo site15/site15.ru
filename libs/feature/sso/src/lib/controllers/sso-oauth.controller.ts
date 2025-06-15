@@ -1,16 +1,7 @@
 import { WebhookService } from '@nestjs-mod/webhook';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Logger,
-  Post,
-  Res,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Logger, Post, Res } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { omit } from 'lodash/fp';
@@ -42,22 +33,18 @@ export class SsoOAuthController {
     private readonly ssoEventsService: SsoEventsService,
     private readonly webhookService: WebhookService,
     private readonly prismaToolsService: PrismaToolsService,
-    private readonly ssoStaticEnvironments: SsoStaticEnvironments
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
   ) {}
 
   @ApiOkResponse({ type: OAuthProvider, isArray: true })
   @Get('providers')
-  async oauthProviders(
-    @CurrentSsoRequest() ssoRequest: SsoRequest
-  ): Promise<OAuthProvider[]> {
+  async oauthProviders(@CurrentSsoRequest() ssoRequest: SsoRequest): Promise<OAuthProvider[]> {
     const domain = this.ssoStaticEnvironments.serverUrl;
     const providers = await this.prismaClient.ssoOAuthProvider.findMany({});
     return providers.map((provider) => ({
       ...provider,
-      url: `${domain}/api/sso/oauth/${
-        provider.name
-      }?redirect_uri=${encodeURIComponent(
-        `${domain}/api/sso/oauth/${provider.name}/redirect?client_id=${ssoRequest.ssoClientId}`
+      url: `${domain}/api/sso/oauth/${provider.name}?redirect_uri=${encodeURIComponent(
+        `${domain}/api/sso/oauth/${provider.name}/redirect?client_id=${ssoRequest.ssoClientId}`,
       )}`,
     }));
   }
@@ -70,7 +57,7 @@ export class SsoOAuthController {
     @Body() ssoOAuthVerificationArgs: SsoOAuthVerificationArgs,
     @Res({ passthrough: true }) response: Response,
     @IpAddress() userIp: string,
-    @UserAgent() userAgent: string
+    @UserAgent() userAgent: string,
   ) {
     try {
       let oAuthToken = await this.prismaClient.ssoOAuthToken.findFirstOrThrow({
@@ -121,15 +108,14 @@ export class SsoOAuthController {
         });
       }
 
-      const cookieWithJwtToken =
-        await this.ssoCookieService.getCookieWithJwtToken({
-          userId: oAuthToken.userId,
-          userIp,
-          userAgent,
-          fingerprint: ssoOAuthVerificationArgs.fingerprint,
-          roles: oAuthToken.SsoUser.roles,
-          projectId: user.projectId,
-        });
+      const cookieWithJwtToken = await this.ssoCookieService.getCookieWithJwtToken({
+        userId: oAuthToken.userId,
+        userIp,
+        userAgent,
+        fingerprint: ssoOAuthVerificationArgs.fingerprint,
+        roles: oAuthToken.SsoUser.roles,
+        projectId: user.projectId,
+      });
 
       response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 

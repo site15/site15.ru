@@ -7,13 +7,13 @@ import { SsoAsyncLocalStorageContext } from '../types/sso-async-local-storage-da
 export class SsoTimezonePipe implements PipeTransform {
   constructor(
     private readonly asyncLocalStorage: SsoAsyncLocalStorageContext,
-    private readonly authTimezoneService: SsoTimezoneService
+    private readonly authTimezoneService: SsoTimezoneService,
   ) {}
 
   transform(value: unknown) {
     const result = this.authTimezoneService.convertObject(
       value,
-      -1 * (this.asyncLocalStorage.get()?.authTimezone || 0) - TIMEZONE_OFFSET
+      -1 * (this.asyncLocalStorage.get()?.authTimezone || 0) - TIMEZONE_OFFSET,
     );
 
     return this.authTimezoneService.convertDatesInObjectToDateStrings(result);

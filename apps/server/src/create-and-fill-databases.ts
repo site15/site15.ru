@@ -1,10 +1,7 @@
 import { isInfrastructureMode } from '@nestjs-mod/common';
 import { Logger } from '@nestjs/common';
 import { setTimeout } from 'node:timers/promises';
-import {
-  createDatabaseHandler,
-  PG_CREATE_DB_DEFAULT_CONFIG,
-} from 'pg-create-db';
+import { createDatabaseHandler, PG_CREATE_DB_DEFAULT_CONFIG } from 'pg-create-db';
 import { migrateHandler, PG_FLYWAY_DEFAULT_MIGRATE_CONFIG } from 'pg-flyway';
 
 const debugDbToolsIsEnable = Boolean(process.env['DEBUG_DB_TOOLS']);
@@ -29,10 +26,7 @@ const alterMainEnvKey = 'DATABASE_URL';
 const alterMainEnvKey2 = 'POSTGRES_URL';
 
 export function fillAllNeedDatabaseEnvsFromOneMain() {
-  const mainDatabaseUrl =
-    process.env[mainEnvKey] ||
-    process.env[alterMainEnvKey] ||
-    process.env[alterMainEnvKey2];
+  const mainDatabaseUrl = process.env[mainEnvKey] || process.env[alterMainEnvKey] || process.env[alterMainEnvKey2];
 
   if (debugDbToolsIsEnable) {
     logger.debug(
@@ -47,7 +41,7 @@ export function fillAllNeedDatabaseEnvsFromOneMain() {
         rootEnvKeyValue: process.env[rootEnvKey],
         mainDatabaseUrl,
       },
-      'fillAllNeedDatabaseEnvsFromOneMain'
+      'fillAllNeedDatabaseEnvsFromOneMain',
     );
   }
 
@@ -63,7 +57,7 @@ export function fillAllNeedDatabaseEnvsFromOneMain() {
           appEnvKey,
           appEnvKeyValue: process.env[appEnvKey],
         },
-        'fillAllNeedDatabaseEnvsFromOneMain'
+        'fillAllNeedDatabaseEnvsFromOneMain',
       );
     }
     if (!process.env[appEnvKey] && mainDatabaseUrl) {
@@ -82,7 +76,7 @@ export async function createAndFillDatabases() {
       {
         isInfrastructureMode: isInfrastructureMode(),
       },
-      'createAndFillDatabases'
+      'createAndFillDatabases',
     );
   }
   if (isInfrastructureMode()) {
@@ -106,14 +100,11 @@ export async function createAndFillDatabases() {
           rootEnvKey,
           rootEnvKeyValue: process.env[rootEnvKey],
         },
-        'createAndFillDatabases'
+        'createAndFillDatabases',
       );
     }
     if (process.env[appEnvKey]) {
-      if (
-        process.env[rootEnvKey] &&
-        process.env[appEnvKey] !== process.env[rootEnvKey]
-      ) {
+      if (process.env[rootEnvKey] && process.env[appEnvKey] !== process.env[rootEnvKey]) {
         await createDatabaseHandler({
           ...PG_CREATE_DB_DEFAULT_CONFIG,
           appDatabaseUrl: process.env[appEnvKey],

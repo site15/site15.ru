@@ -15,17 +15,14 @@ const clientUrl = process.env['E2E_CLIENT_URL'];
 const envFile = process.env['ENV_FILE']
   ? join(__dirname, '..', '..', process.env['ENV_FILE'])
   : join(__dirname, '..', '..', '.env');
-const parsed = existsSync(envFile)
-  ? config({ path: envFile, override: true })
-  : {};
+const parsed = existsSync(envFile) ? config({ path: envFile, override: true }) : {};
 
 if (parsed.error) {
   throw parsed.error;
 }
 
 // For CI, you may want to set E2E_CLIENT_URL to the deployed application.
-const baseURL =
-  clientUrl || process.env['E2E_CLIENT_URL'] || 'http://localhost:4200';
+const baseURL = clientUrl || process.env['E2E_CLIENT_URL'] || 'http://localhost:4200';
 
 process.env['E2E_CLIENT_URL'] = baseURL;
 

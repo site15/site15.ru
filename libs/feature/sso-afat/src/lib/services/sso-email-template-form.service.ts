@@ -15,7 +15,7 @@ import { of } from 'rxjs';
 export class SsoEmailTemplateFormService {
   constructor(
     protected readonly translocoService: TranslocoService,
-    protected readonly validationService: ValidationService
+    protected readonly validationService: ValidationService,
   ) {}
 
   init() {
@@ -38,17 +38,12 @@ export class SsoEmailTemplateFormService {
           props: {
             readonly: true,
             disabled: true,
-            label: this.translocoService.translate(
-              `sso-email-template.form.fields.operation-name`
-            ),
+            label: this.translocoService.translate(`sso-email-template.form.fields.operation-name`),
             placeholder: 'operationName',
           },
         },
         ...this.getAvailableLangs().map((a) => ({
-          key:
-            a.id === this.translocoService.getDefaultLang()
-              ? 'subject'
-              : `subject_${a.id}`,
+          key: a.id === this.translocoService.getDefaultLang() ? 'subject' : `subject_${a.id}`,
           type: 'textarea',
           validation: {
             show: true,
@@ -57,20 +52,14 @@ export class SsoEmailTemplateFormService {
             label: this.translocoService.translate(
               `sso-email-template.form.fields.subject-locale`,
               // id, label
-              { locale: a.id, label: this.translocoService.translate(a.label) }
+              { locale: a.id, label: this.translocoService.translate(a.label) },
             ),
-            placeholder:
-              a.id === this.translocoService.getDefaultLang()
-                ? 'subject'
-                : `subject ${a.id}`,
+            placeholder: a.id === this.translocoService.getDefaultLang() ? 'subject' : `subject ${a.id}`,
             required: a.id === this.translocoService.getDefaultLang(),
           },
         })),
         ...this.getAvailableLangs().map((a) => ({
-          key:
-            a.id === this.translocoService.getDefaultLang()
-              ? 'html'
-              : `html_${a.id}`,
+          key: a.id === this.translocoService.getDefaultLang() ? 'html' : `html_${a.id}`,
           type: 'textarea',
           validation: {
             show: true,
@@ -79,20 +68,14 @@ export class SsoEmailTemplateFormService {
             label: this.translocoService.translate(
               `sso-email-template.form.fields.html-locale`,
               // id, label
-              { locale: a.id, label: this.translocoService.translate(a.label) }
+              { locale: a.id, label: this.translocoService.translate(a.label) },
             ),
-            placeholder:
-              a.id === this.translocoService.getDefaultLang()
-                ? 'html'
-                : `html ${a.id}`,
+            placeholder: a.id === this.translocoService.getDefaultLang() ? 'html' : `html ${a.id}`,
             required: a.id === this.translocoService.getDefaultLang(),
           },
         })),
         ...this.getAvailableLangs().map((a) => ({
-          key:
-            a.id === this.translocoService.getDefaultLang()
-              ? 'text'
-              : `text_${a.id}`,
+          key: a.id === this.translocoService.getDefaultLang() ? 'text' : `text_${a.id}`,
           type: 'textarea',
           validation: {
             show: true,
@@ -101,17 +84,14 @@ export class SsoEmailTemplateFormService {
             label: this.translocoService.translate(
               `sso-email-template.form.fields.text-locale`,
               // id, label
-              { locale: a.id, label: this.translocoService.translate(a.label) }
+              { locale: a.id, label: this.translocoService.translate(a.label) },
             ),
-            placeholder:
-              a.id === this.translocoService.getDefaultLang()
-                ? 'text'
-                : `text ${a.id}`,
+            placeholder: a.id === this.translocoService.getDefaultLang() ? 'text' : `text ${a.id}`,
             required: a.id === this.translocoService.getDefaultLang(),
           },
         })),
       ],
-      options?.errors || []
+      options?.errors || [],
     );
   }
 

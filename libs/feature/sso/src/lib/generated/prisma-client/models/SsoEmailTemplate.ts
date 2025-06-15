@@ -14,8 +14,7 @@ import type * as Prisma from '../internal/prismaNamespace';
  * Model SsoEmailTemplate
  *
  */
-export type SsoEmailTemplateModel =
-  runtime.Types.Result.DefaultSelection<Prisma.$SsoEmailTemplatePayload>;
+export type SsoEmailTemplateModel = runtime.Types.Result.DefaultSelection<Prisma.$SsoEmailTemplatePayload>;
 
 export type AggregateSsoEmailTemplate = {
   _count: SsoEmailTemplateCountAggregateOutputType | null;
@@ -98,7 +97,7 @@ export type SsoEmailTemplateCountAggregateInputType = {
 };
 
 export type SsoEmailTemplateAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Filter which SsoEmailTemplate to aggregate.
@@ -109,9 +108,7 @@ export type SsoEmailTemplateAggregateArgs<
    *
    * Determine the order of SsoEmailTemplates to fetch.
    */
-  orderBy?:
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoEmailTemplateOrderByWithRelationInput | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -150,9 +147,7 @@ export type SsoEmailTemplateAggregateArgs<
   _max?: SsoEmailTemplateMaxAggregateInputType;
 };
 
-export type GetSsoEmailTemplateAggregateType<
-  T extends SsoEmailTemplateAggregateArgs
-> = {
+export type GetSsoEmailTemplateAggregateType<T extends SsoEmailTemplateAggregateArgs> = {
   [P in keyof T & keyof AggregateSsoEmailTemplate]: P extends '_count' | 'count'
     ? T[P] extends true
       ? number
@@ -161,15 +156,11 @@ export type GetSsoEmailTemplateAggregateType<
 };
 
 export type SsoEmailTemplateGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoEmailTemplateWhereInput;
-  orderBy?:
-    | Prisma.SsoEmailTemplateOrderByWithAggregationInput
-    | Prisma.SsoEmailTemplateOrderByWithAggregationInput[];
-  by:
-    | Prisma.SsoEmailTemplateScalarFieldEnum[]
-    | Prisma.SsoEmailTemplateScalarFieldEnum;
+  orderBy?: Prisma.SsoEmailTemplateOrderByWithAggregationInput | Prisma.SsoEmailTemplateOrderByWithAggregationInput[];
+  by: Prisma.SsoEmailTemplateScalarFieldEnum[] | Prisma.SsoEmailTemplateScalarFieldEnum;
   having?: Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput;
   take?: number;
   skip?: number;
@@ -195,19 +186,17 @@ export type SsoEmailTemplateGroupByOutputType = {
   _max: SsoEmailTemplateMaxAggregateOutputType | null;
 };
 
-type GetSsoEmailTemplateGroupByPayload<T extends SsoEmailTemplateGroupByArgs> =
-  Prisma.PrismaPromise<
-    Array<
-      Prisma.PickEnumerable<SsoEmailTemplateGroupByOutputType, T['by']> & {
-        [P in keyof T &
-          keyof SsoEmailTemplateGroupByOutputType]: P extends '_count'
-          ? T[P] extends boolean
-            ? number
-            : Prisma.GetScalarType<T[P], SsoEmailTemplateGroupByOutputType[P]>
-          : Prisma.GetScalarType<T[P], SsoEmailTemplateGroupByOutputType[P]>;
-      }
-    >
-  >;
+type GetSsoEmailTemplateGroupByPayload<T extends SsoEmailTemplateGroupByArgs> = Prisma.PrismaPromise<
+  Array<
+    Prisma.PickEnumerable<SsoEmailTemplateGroupByOutputType, T['by']> & {
+      [P in keyof T & keyof SsoEmailTemplateGroupByOutputType]: P extends '_count'
+        ? T[P] extends boolean
+          ? number
+          : Prisma.GetScalarType<T[P], SsoEmailTemplateGroupByOutputType[P]>
+        : Prisma.GetScalarType<T[P], SsoEmailTemplateGroupByOutputType[P]>;
+    }
+  >
+>;
 
 export type SsoEmailTemplateWhereInput = {
   AND?: Prisma.SsoEmailTemplateWhereInput | Prisma.SsoEmailTemplateWhereInput[];
@@ -220,17 +209,11 @@ export type SsoEmailTemplateWhereInput = {
   textLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
   html?: Prisma.StringFilter<'SsoEmailTemplate'> | string;
   htmlLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
-  operationName?:
-    | Prisma.StringNullableFilter<'SsoEmailTemplate'>
-    | string
-    | null;
+  operationName?: Prisma.StringNullableFilter<'SsoEmailTemplate'> | string | null;
   projectId?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
   createdAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
-  SsoProject?: Prisma.XOR<
-    Prisma.SsoProjectScalarRelationFilter,
-    Prisma.SsoProjectWhereInput
-  >;
+  SsoProject?: Prisma.XOR<Prisma.SsoProjectScalarRelationFilter, Prisma.SsoProjectWhereInput>;
 };
 
 export type SsoEmailTemplateOrderByWithRelationInput = {
@@ -252,30 +235,20 @@ export type SsoEmailTemplateWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string;
     projectId_operationName?: Prisma.SsoEmailTemplateProjectIdOperationNameCompoundUniqueInput;
-    AND?:
-      | Prisma.SsoEmailTemplateWhereInput
-      | Prisma.SsoEmailTemplateWhereInput[];
+    AND?: Prisma.SsoEmailTemplateWhereInput | Prisma.SsoEmailTemplateWhereInput[];
     OR?: Prisma.SsoEmailTemplateWhereInput[];
-    NOT?:
-      | Prisma.SsoEmailTemplateWhereInput
-      | Prisma.SsoEmailTemplateWhereInput[];
+    NOT?: Prisma.SsoEmailTemplateWhereInput | Prisma.SsoEmailTemplateWhereInput[];
     subject?: Prisma.StringFilter<'SsoEmailTemplate'> | string;
     subjectLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
     text?: Prisma.StringFilter<'SsoEmailTemplate'> | string;
     textLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
     html?: Prisma.StringFilter<'SsoEmailTemplate'> | string;
     htmlLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
-    operationName?:
-      | Prisma.StringNullableFilter<'SsoEmailTemplate'>
-      | string
-      | null;
+    operationName?: Prisma.StringNullableFilter<'SsoEmailTemplate'> | string | null;
     projectId?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
     createdAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
-    SsoProject?: Prisma.XOR<
-      Prisma.SsoProjectScalarRelationFilter,
-      Prisma.SsoProjectWhereInput
-    >;
+    SsoProject?: Prisma.XOR<Prisma.SsoProjectScalarRelationFilter, Prisma.SsoProjectWhereInput>;
   },
   'id' | 'projectId_operationName'
 >;
@@ -298,13 +271,9 @@ export type SsoEmailTemplateOrderByWithAggregationInput = {
 };
 
 export type SsoEmailTemplateScalarWhereWithAggregatesInput = {
-  AND?:
-    | Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput
-    | Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput[];
+  AND?: Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput | Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput[];
   OR?: Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput[];
-  NOT?:
-    | Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput
-    | Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput[];
+  NOT?: Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput | Prisma.SsoEmailTemplateScalarWhereWithAggregatesInput[];
   id?: Prisma.UuidWithAggregatesFilter<'SsoEmailTemplate'> | string;
   subject?: Prisma.StringWithAggregatesFilter<'SsoEmailTemplate'> | string;
   subjectLocale?: Prisma.JsonNullableWithAggregatesFilter<'SsoEmailTemplate'>;
@@ -312,19 +281,10 @@ export type SsoEmailTemplateScalarWhereWithAggregatesInput = {
   textLocale?: Prisma.JsonNullableWithAggregatesFilter<'SsoEmailTemplate'>;
   html?: Prisma.StringWithAggregatesFilter<'SsoEmailTemplate'> | string;
   htmlLocale?: Prisma.JsonNullableWithAggregatesFilter<'SsoEmailTemplate'>;
-  operationName?:
-    | Prisma.StringNullableWithAggregatesFilter<'SsoEmailTemplate'>
-    | string
-    | null;
+  operationName?: Prisma.StringNullableWithAggregatesFilter<'SsoEmailTemplate'> | string | null;
   projectId?: Prisma.UuidWithAggregatesFilter<'SsoEmailTemplate'> | string;
-  createdAt?:
-    | Prisma.DateTimeWithAggregatesFilter<'SsoEmailTemplate'>
-    | Date
-    | string;
-  updatedAt?:
-    | Prisma.DateTimeWithAggregatesFilter<'SsoEmailTemplate'>
-    | Date
-    | string;
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<'SsoEmailTemplate'> | Date | string;
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<'SsoEmailTemplate'> | Date | string;
 };
 
 export type SsoEmailTemplateCreateInput = {
@@ -363,10 +323,7 @@ export type SsoEmailTemplateUpdateInput = {
   textLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   html?: Prisma.StringFieldUpdateOperationsInput | string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  operationName?:
-    | Prisma.NullableStringFieldUpdateOperationsInput
-    | string
-    | null;
+  operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   SsoProject?: Prisma.SsoProjectUpdateOneRequiredWithoutSsoEmailTemplateNestedInput;
@@ -380,10 +337,7 @@ export type SsoEmailTemplateUncheckedUpdateInput = {
   textLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   html?: Prisma.StringFieldUpdateOperationsInput | string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  operationName?:
-    | Prisma.NullableStringFieldUpdateOperationsInput
-    | string
-    | null;
+  operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   projectId?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -411,10 +365,7 @@ export type SsoEmailTemplateUpdateManyMutationInput = {
   textLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   html?: Prisma.StringFieldUpdateOperationsInput | string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  operationName?:
-    | Prisma.NullableStringFieldUpdateOperationsInput
-    | string
-    | null;
+  operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -427,10 +378,7 @@ export type SsoEmailTemplateUncheckedUpdateManyInput = {
   textLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   html?: Prisma.StringFieldUpdateOperationsInput | string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  operationName?:
-    | Prisma.NullableStringFieldUpdateOperationsInput
-    | string
-    | null;
+  operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   projectId?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -499,9 +447,7 @@ export type SsoEmailTemplateCreateNestedManyWithoutSsoProjectInput = {
     | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput
     | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput[];
   createMany?: Prisma.SsoEmailTemplateCreateManySsoProjectInputEnvelope;
-  connect?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  connect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
 };
 
 export type SsoEmailTemplateUncheckedCreateNestedManyWithoutSsoProjectInput = {
@@ -516,9 +462,7 @@ export type SsoEmailTemplateUncheckedCreateNestedManyWithoutSsoProjectInput = {
     | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput
     | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput[];
   createMany?: Prisma.SsoEmailTemplateCreateManySsoProjectInputEnvelope;
-  connect?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  connect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
 };
 
 export type SsoEmailTemplateUpdateManyWithoutSsoProjectNestedInput = {
@@ -536,27 +480,17 @@ export type SsoEmailTemplateUpdateManyWithoutSsoProjectNestedInput = {
     | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoProjectInput
     | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoProjectInput[];
   createMany?: Prisma.SsoEmailTemplateCreateManySsoProjectInputEnvelope;
-  set?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
-  disconnect?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
-  delete?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
-  connect?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  set?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  disconnect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  delete?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  connect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   update?:
     | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoProjectInput
     | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoProjectInput[];
   updateMany?:
     | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput
     | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput[];
-  deleteMany?:
-    | Prisma.SsoEmailTemplateScalarWhereInput
-    | Prisma.SsoEmailTemplateScalarWhereInput[];
+  deleteMany?: Prisma.SsoEmailTemplateScalarWhereInput | Prisma.SsoEmailTemplateScalarWhereInput[];
 };
 
 export type SsoEmailTemplateUncheckedUpdateManyWithoutSsoProjectNestedInput = {
@@ -574,27 +508,17 @@ export type SsoEmailTemplateUncheckedUpdateManyWithoutSsoProjectNestedInput = {
     | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoProjectInput
     | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoProjectInput[];
   createMany?: Prisma.SsoEmailTemplateCreateManySsoProjectInputEnvelope;
-  set?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
-  disconnect?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
-  delete?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
-  connect?:
-    | Prisma.SsoEmailTemplateWhereUniqueInput
-    | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  set?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  disconnect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  delete?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
+  connect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   update?:
     | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoProjectInput
     | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoProjectInput[];
   updateMany?:
     | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput
     | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput[];
-  deleteMany?:
-    | Prisma.SsoEmailTemplateScalarWhereInput
-    | Prisma.SsoEmailTemplateScalarWhereInput[];
+  deleteMany?: Prisma.SsoEmailTemplateScalarWhereInput | Prisma.SsoEmailTemplateScalarWhereInput[];
 };
 
 export type SsoEmailTemplateCreateWithoutSsoProjectInput = {
@@ -632,9 +556,7 @@ export type SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput = {
 };
 
 export type SsoEmailTemplateCreateManySsoProjectInputEnvelope = {
-  data:
-    | Prisma.SsoEmailTemplateCreateManySsoProjectInput
-    | Prisma.SsoEmailTemplateCreateManySsoProjectInput[];
+  data: Prisma.SsoEmailTemplateCreateManySsoProjectInput | Prisma.SsoEmailTemplateCreateManySsoProjectInput[];
   skipDuplicates?: boolean;
 };
 
@@ -667,13 +589,9 @@ export type SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput = {
 };
 
 export type SsoEmailTemplateScalarWhereInput = {
-  AND?:
-    | Prisma.SsoEmailTemplateScalarWhereInput
-    | Prisma.SsoEmailTemplateScalarWhereInput[];
+  AND?: Prisma.SsoEmailTemplateScalarWhereInput | Prisma.SsoEmailTemplateScalarWhereInput[];
   OR?: Prisma.SsoEmailTemplateScalarWhereInput[];
-  NOT?:
-    | Prisma.SsoEmailTemplateScalarWhereInput
-    | Prisma.SsoEmailTemplateScalarWhereInput[];
+  NOT?: Prisma.SsoEmailTemplateScalarWhereInput | Prisma.SsoEmailTemplateScalarWhereInput[];
   id?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
   subject?: Prisma.StringFilter<'SsoEmailTemplate'> | string;
   subjectLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
@@ -681,10 +599,7 @@ export type SsoEmailTemplateScalarWhereInput = {
   textLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
   html?: Prisma.StringFilter<'SsoEmailTemplate'> | string;
   htmlLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
-  operationName?:
-    | Prisma.StringNullableFilter<'SsoEmailTemplate'>
-    | string
-    | null;
+  operationName?: Prisma.StringNullableFilter<'SsoEmailTemplate'> | string | null;
   projectId?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
   createdAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
@@ -711,10 +626,7 @@ export type SsoEmailTemplateUpdateWithoutSsoProjectInput = {
   textLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   html?: Prisma.StringFieldUpdateOperationsInput | string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  operationName?:
-    | Prisma.NullableStringFieldUpdateOperationsInput
-    | string
-    | null;
+  operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -727,10 +639,7 @@ export type SsoEmailTemplateUncheckedUpdateWithoutSsoProjectInput = {
   textLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   html?: Prisma.StringFieldUpdateOperationsInput | string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  operationName?:
-    | Prisma.NullableStringFieldUpdateOperationsInput
-    | string
-    | null;
+  operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -743,16 +652,13 @@ export type SsoEmailTemplateUncheckedUpdateManyWithoutSsoProjectInput = {
   textLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   html?: Prisma.StringFieldUpdateOperationsInput | string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  operationName?:
-    | Prisma.NullableStringFieldUpdateOperationsInput
-    | string
-    | null;
+  operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 
 export type SsoEmailTemplateSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -772,7 +678,7 @@ export type SsoEmailTemplateSelect<
 >;
 
 export type SsoEmailTemplateSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -792,7 +698,7 @@ export type SsoEmailTemplateSelectCreateManyAndReturn<
 >;
 
 export type SsoEmailTemplateSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -826,7 +732,7 @@ export type SsoEmailTemplateSelectScalar = {
 };
 
 export type SsoEmailTemplateOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
   | 'id'
   | 'subject'
@@ -842,23 +748,23 @@ export type SsoEmailTemplateOmit<
   ExtArgs['result']['ssoEmailTemplate']
 >;
 export type SsoEmailTemplateInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
 };
 export type SsoEmailTemplateIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
 };
 export type SsoEmailTemplateIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
 };
 
 export type $SsoEmailTemplatePayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   name: 'SsoEmailTemplate';
   objects: {
@@ -894,27 +800,20 @@ export type $SsoEmailTemplatePayload<
   composites: {};
 };
 
-export type SsoEmailTemplateGetPayload<
-  S extends boolean | null | undefined | SsoEmailTemplateDefaultArgs
-> = runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload, S>;
+export type SsoEmailTemplateGetPayload<S extends boolean | null | undefined | SsoEmailTemplateDefaultArgs> =
+  runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload, S>;
 
 export type SsoEmailTemplateCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-> = Omit<
-  SsoEmailTemplateFindManyArgs,
-  'select' | 'include' | 'distinct' | 'omit'
-> & {
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = Omit<SsoEmailTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
   select?: SsoEmailTemplateCountAggregateInputType | true;
 };
 
 export interface SsoEmailTemplateDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-  GlobalOmitOptions = {}
+  GlobalOmitOptions = {},
 > {
-  [K: symbol]: {
-    types: Prisma.TypeMap<ExtArgs>['model']['SsoEmailTemplate'];
-    meta: { name: 'SsoEmailTemplate' };
-  };
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SsoEmailTemplate']; meta: { name: 'SsoEmailTemplate' } };
   /**
    * Find zero or one SsoEmailTemplate that matches the filter.
    * @param {SsoEmailTemplateFindUniqueArgs} args - Arguments to find a SsoEmailTemplate
@@ -927,14 +826,9 @@ export interface SsoEmailTemplateDelegate<
    * })
    */
   findUnique<T extends SsoEmailTemplateFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, SsoEmailTemplateFindUniqueArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoEmailTemplateFindUniqueArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoEmailTemplateClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'findUnique', GlobalOmitOptions> | null,
     null,
     ExtArgs,
     GlobalOmitOptions
@@ -953,14 +847,9 @@ export interface SsoEmailTemplateDelegate<
    * })
    */
   findUniqueOrThrow<T extends SsoEmailTemplateFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, SsoEmailTemplateFindUniqueOrThrowArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoEmailTemplateFindUniqueOrThrowArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoEmailTemplateClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-      T,
-      'findUniqueOrThrow',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -980,14 +869,9 @@ export interface SsoEmailTemplateDelegate<
    * })
    */
   findFirst<T extends SsoEmailTemplateFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, SsoEmailTemplateFindFirstArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoEmailTemplateFindFirstArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoEmailTemplateClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-      T,
-      'findFirst',
-      GlobalOmitOptions
-    > | null,
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'findFirst', GlobalOmitOptions> | null,
     null,
     ExtArgs,
     GlobalOmitOptions
@@ -1008,14 +892,9 @@ export interface SsoEmailTemplateDelegate<
    * })
    */
   findFirstOrThrow<T extends SsoEmailTemplateFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, SsoEmailTemplateFindFirstOrThrowArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoEmailTemplateFindFirstOrThrowArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoEmailTemplateClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-      T,
-      'findFirstOrThrow',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'findFirstOrThrow', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1038,14 +917,9 @@ export interface SsoEmailTemplateDelegate<
    *
    */
   findMany<T extends SsoEmailTemplateFindManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoEmailTemplateFindManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoEmailTemplateFindManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-      T,
-      'findMany',
-      GlobalOmitOptions
-    >
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
   >;
 
   /**
@@ -1061,14 +935,9 @@ export interface SsoEmailTemplateDelegate<
    *
    */
   create<T extends SsoEmailTemplateCreateArgs>(
-    args: Prisma.SelectSubset<T, SsoEmailTemplateCreateArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoEmailTemplateCreateArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoEmailTemplateClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-      T,
-      'create',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1087,7 +956,7 @@ export interface SsoEmailTemplateDelegate<
    *
    */
   createMany<T extends SsoEmailTemplateCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoEmailTemplateCreateManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoEmailTemplateCreateManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1113,10 +982,7 @@ export interface SsoEmailTemplateDelegate<
    *
    */
   createManyAndReturn<T extends SsoEmailTemplateCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<
-      T,
-      SsoEmailTemplateCreateManyAndReturnArgs<ExtArgs>
-    >
+    args?: Prisma.SelectSubset<T, SsoEmailTemplateCreateManyAndReturnArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SsoEmailTemplatePayload<ExtArgs>,
@@ -1139,14 +1005,9 @@ export interface SsoEmailTemplateDelegate<
    *
    */
   delete<T extends SsoEmailTemplateDeleteArgs>(
-    args: Prisma.SelectSubset<T, SsoEmailTemplateDeleteArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoEmailTemplateDeleteArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoEmailTemplateClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-      T,
-      'delete',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1168,14 +1029,9 @@ export interface SsoEmailTemplateDelegate<
    *
    */
   update<T extends SsoEmailTemplateUpdateArgs>(
-    args: Prisma.SelectSubset<T, SsoEmailTemplateUpdateArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoEmailTemplateUpdateArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoEmailTemplateClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-      T,
-      'update',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1194,7 +1050,7 @@ export interface SsoEmailTemplateDelegate<
    *
    */
   deleteMany<T extends SsoEmailTemplateDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoEmailTemplateDeleteManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoEmailTemplateDeleteManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1215,7 +1071,7 @@ export interface SsoEmailTemplateDelegate<
    *
    */
   updateMany<T extends SsoEmailTemplateUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, SsoEmailTemplateUpdateManyArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoEmailTemplateUpdateManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1247,10 +1103,7 @@ export interface SsoEmailTemplateDelegate<
    *
    */
   updateManyAndReturn<T extends SsoEmailTemplateUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<
-      T,
-      SsoEmailTemplateUpdateManyAndReturnArgs<ExtArgs>
-    >
+    args: Prisma.SelectSubset<T, SsoEmailTemplateUpdateManyAndReturnArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SsoEmailTemplatePayload<ExtArgs>,
@@ -1278,14 +1131,9 @@ export interface SsoEmailTemplateDelegate<
    * })
    */
   upsert<T extends SsoEmailTemplateUpsertArgs>(
-    args: Prisma.SelectSubset<T, SsoEmailTemplateUpsertArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoEmailTemplateUpsertArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoEmailTemplateClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-      T,
-      'upsert',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1305,15 +1153,12 @@ export interface SsoEmailTemplateDelegate<
    * })
    **/
   count<T extends SsoEmailTemplateCountArgs>(
-    args?: Prisma.Subset<T, SsoEmailTemplateCountArgs>
+    args?: Prisma.Subset<T, SsoEmailTemplateCountArgs>,
   ): Prisma.PrismaPromise<
     T extends runtime.Types.Utils.Record<'select', any>
       ? T['select'] extends true
         ? number
-        : Prisma.GetScalarType<
-            T['select'],
-            SsoEmailTemplateCountAggregateOutputType
-          >
+        : Prisma.GetScalarType<T['select'], SsoEmailTemplateCountAggregateOutputType>
       : number
   >;
 
@@ -1342,7 +1187,7 @@ export interface SsoEmailTemplateDelegate<
    * })
    **/
   aggregate<T extends SsoEmailTemplateAggregateArgs>(
-    args: Prisma.Subset<T, SsoEmailTemplateAggregateArgs>
+    args: Prisma.Subset<T, SsoEmailTemplateAggregateArgs>,
   ): Prisma.PrismaPromise<GetSsoEmailTemplateAggregateType<T>>;
 
   /**
@@ -1365,16 +1210,11 @@ export interface SsoEmailTemplateDelegate<
    **/
   groupBy<
     T extends SsoEmailTemplateGroupByArgs,
-    HasSelectOrTake extends Prisma.Or<
-      Prisma.Extends<'skip', Prisma.Keys<T>>,
-      Prisma.Extends<'take', Prisma.Keys<T>>
-    >,
+    HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>,
     OrderByArg extends Prisma.True extends HasSelectOrTake
       ? { orderBy: SsoEmailTemplateGroupByArgs['orderBy'] }
       : { orderBy?: SsoEmailTemplateGroupByArgs['orderBy'] },
-    OrderFields extends Prisma.ExcludeUnderscoreKeys<
-      Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>
-    >,
+    OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
     ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
     HavingFields extends Prisma.GetHavingFields<T['having']>,
@@ -1383,50 +1223,43 @@ export interface SsoEmailTemplateDelegate<
     InputErrors extends ByEmpty extends Prisma.True
       ? `Error: "by" must not be empty.`
       : HavingValid extends Prisma.False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
-        }[HavingFields]
-      : 'take' extends Prisma.Keys<T>
-      ? 'orderBy' extends Prisma.Keys<T>
-        ? ByValid extends Prisma.True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Prisma.Keys<T>
-      ? 'orderBy' extends Prisma.Keys<T>
-        ? ByValid extends Prisma.True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends Prisma.True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-        }[OrderFields]
+        ? {
+            [P in HavingFields]: P extends ByFields
+              ? never
+              : P extends string
+                ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
+          }[HavingFields]
+        : 'take' extends Prisma.Keys<T>
+          ? 'orderBy' extends Prisma.Keys<T>
+            ? ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields]
+            : 'Error: If you provide "take", you also need to provide "orderBy"'
+          : 'skip' extends Prisma.Keys<T>
+            ? 'orderBy' extends Prisma.Keys<T>
+              ? ByValid extends Prisma.True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "skip", you also need to provide "orderBy"'
+            : ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<
-      T,
-      SsoEmailTemplateGroupByArgs,
-      OrderByArg
-    > &
-      InputErrors
-  ): {} extends InputErrors
-    ? GetSsoEmailTemplateGroupByPayload<T>
-    : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, SsoEmailTemplateGroupByArgs, OrderByArg> & InputErrors,
+  ): {} extends InputErrors ? GetSsoEmailTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the SsoEmailTemplate model
    */
@@ -1443,18 +1276,13 @@ export interface Prisma__SsoEmailTemplateClient<
   T,
   Null = never,
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-  GlobalOmitOptions = {}
+  GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
   SsoProject<T extends Prisma.SsoProjectDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.SsoProjectDefaultArgs<ExtArgs>>
+    args?: Prisma.Subset<T, Prisma.SsoProjectDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SsoProjectPayload<ExtArgs>,
-        T,
-        'findUniqueOrThrow',
-        GlobalOmitOptions
-      >
+    | runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions>
     | Null,
     Null,
     ExtArgs,
@@ -1467,14 +1295,8 @@ export interface Prisma__SsoEmailTemplateClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?:
-      | ((value: T) => TResult1 | PromiseLike<TResult1>)
-      | undefined
-      | null,
-    onrejected?:
-      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-      | undefined
-      | null
+    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -1482,10 +1304,7 @@ export interface Prisma__SsoEmailTemplateClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?:
-      | ((reason: any) => TResult | PromiseLike<TResult>)
-      | undefined
-      | null
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -1493,9 +1312,7 @@ export interface Prisma__SsoEmailTemplateClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(
-    onfinally?: (() => void) | undefined | null
-  ): runtime.Types.Utils.JsPromise<T>;
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1520,7 +1337,7 @@ export interface SsoEmailTemplateFieldRefs {
  * SsoEmailTemplate findUnique
  */
 export type SsoEmailTemplateFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1544,7 +1361,7 @@ export type SsoEmailTemplateFindUniqueArgs<
  * SsoEmailTemplate findUniqueOrThrow
  */
 export type SsoEmailTemplateFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1568,7 +1385,7 @@ export type SsoEmailTemplateFindUniqueOrThrowArgs<
  * SsoEmailTemplate findFirst
  */
 export type SsoEmailTemplateFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1591,9 +1408,7 @@ export type SsoEmailTemplateFindFirstArgs<
    *
    * Determine the order of SsoEmailTemplates to fetch.
    */
-  orderBy?:
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoEmailTemplateOrderByWithRelationInput | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1617,16 +1432,14 @@ export type SsoEmailTemplateFindFirstArgs<
    *
    * Filter by unique combinations of SsoEmailTemplates.
    */
-  distinct?:
-    | Prisma.SsoEmailTemplateScalarFieldEnum
-    | Prisma.SsoEmailTemplateScalarFieldEnum[];
+  distinct?: Prisma.SsoEmailTemplateScalarFieldEnum | Prisma.SsoEmailTemplateScalarFieldEnum[];
 };
 
 /**
  * SsoEmailTemplate findFirstOrThrow
  */
 export type SsoEmailTemplateFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1649,9 +1462,7 @@ export type SsoEmailTemplateFindFirstOrThrowArgs<
    *
    * Determine the order of SsoEmailTemplates to fetch.
    */
-  orderBy?:
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoEmailTemplateOrderByWithRelationInput | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1675,16 +1486,14 @@ export type SsoEmailTemplateFindFirstOrThrowArgs<
    *
    * Filter by unique combinations of SsoEmailTemplates.
    */
-  distinct?:
-    | Prisma.SsoEmailTemplateScalarFieldEnum
-    | Prisma.SsoEmailTemplateScalarFieldEnum[];
+  distinct?: Prisma.SsoEmailTemplateScalarFieldEnum | Prisma.SsoEmailTemplateScalarFieldEnum[];
 };
 
 /**
  * SsoEmailTemplate findMany
  */
 export type SsoEmailTemplateFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1707,9 +1516,7 @@ export type SsoEmailTemplateFindManyArgs<
    *
    * Determine the order of SsoEmailTemplates to fetch.
    */
-  orderBy?:
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoEmailTemplateOrderByWithRelationInput | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1728,16 +1535,14 @@ export type SsoEmailTemplateFindManyArgs<
    * Skip the first `n` SsoEmailTemplates.
    */
   skip?: number;
-  distinct?:
-    | Prisma.SsoEmailTemplateScalarFieldEnum
-    | Prisma.SsoEmailTemplateScalarFieldEnum[];
+  distinct?: Prisma.SsoEmailTemplateScalarFieldEnum | Prisma.SsoEmailTemplateScalarFieldEnum[];
 };
 
 /**
  * SsoEmailTemplate create
  */
 export type SsoEmailTemplateCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1754,24 +1559,19 @@ export type SsoEmailTemplateCreateArgs<
   /**
    * The data needed to create a SsoEmailTemplate.
    */
-  data: Prisma.XOR<
-    Prisma.SsoEmailTemplateCreateInput,
-    Prisma.SsoEmailTemplateUncheckedCreateInput
-  >;
+  data: Prisma.XOR<Prisma.SsoEmailTemplateCreateInput, Prisma.SsoEmailTemplateUncheckedCreateInput>;
 };
 
 /**
  * SsoEmailTemplate createMany
  */
 export type SsoEmailTemplateCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * The data used to create many SsoEmailTemplates.
    */
-  data:
-    | Prisma.SsoEmailTemplateCreateManyInput
-    | Prisma.SsoEmailTemplateCreateManyInput[];
+  data: Prisma.SsoEmailTemplateCreateManyInput | Prisma.SsoEmailTemplateCreateManyInput[];
   skipDuplicates?: boolean;
 };
 
@@ -1779,7 +1579,7 @@ export type SsoEmailTemplateCreateManyArgs<
  * SsoEmailTemplate createManyAndReturn
  */
 export type SsoEmailTemplateCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1792,9 +1592,7 @@ export type SsoEmailTemplateCreateManyAndReturnArgs<
   /**
    * The data used to create many SsoEmailTemplates.
    */
-  data:
-    | Prisma.SsoEmailTemplateCreateManyInput
-    | Prisma.SsoEmailTemplateCreateManyInput[];
+  data: Prisma.SsoEmailTemplateCreateManyInput | Prisma.SsoEmailTemplateCreateManyInput[];
   skipDuplicates?: boolean;
   /**
    * Choose, which related nodes to fetch as well
@@ -1806,7 +1604,7 @@ export type SsoEmailTemplateCreateManyAndReturnArgs<
  * SsoEmailTemplate update
  */
 export type SsoEmailTemplateUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1823,10 +1621,7 @@ export type SsoEmailTemplateUpdateArgs<
   /**
    * The data needed to update a SsoEmailTemplate.
    */
-  data: Prisma.XOR<
-    Prisma.SsoEmailTemplateUpdateInput,
-    Prisma.SsoEmailTemplateUncheckedUpdateInput
-  >;
+  data: Prisma.XOR<Prisma.SsoEmailTemplateUpdateInput, Prisma.SsoEmailTemplateUncheckedUpdateInput>;
   /**
    * Choose, which SsoEmailTemplate to update.
    */
@@ -1837,15 +1632,12 @@ export type SsoEmailTemplateUpdateArgs<
  * SsoEmailTemplate updateMany
  */
 export type SsoEmailTemplateUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * The data used to update SsoEmailTemplates.
    */
-  data: Prisma.XOR<
-    Prisma.SsoEmailTemplateUpdateManyMutationInput,
-    Prisma.SsoEmailTemplateUncheckedUpdateManyInput
-  >;
+  data: Prisma.XOR<Prisma.SsoEmailTemplateUpdateManyMutationInput, Prisma.SsoEmailTemplateUncheckedUpdateManyInput>;
   /**
    * Filter which SsoEmailTemplates to update
    */
@@ -1860,7 +1652,7 @@ export type SsoEmailTemplateUpdateManyArgs<
  * SsoEmailTemplate updateManyAndReturn
  */
 export type SsoEmailTemplateUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1873,10 +1665,7 @@ export type SsoEmailTemplateUpdateManyAndReturnArgs<
   /**
    * The data used to update SsoEmailTemplates.
    */
-  data: Prisma.XOR<
-    Prisma.SsoEmailTemplateUpdateManyMutationInput,
-    Prisma.SsoEmailTemplateUncheckedUpdateManyInput
-  >;
+  data: Prisma.XOR<Prisma.SsoEmailTemplateUpdateManyMutationInput, Prisma.SsoEmailTemplateUncheckedUpdateManyInput>;
   /**
    * Filter which SsoEmailTemplates to update
    */
@@ -1895,7 +1684,7 @@ export type SsoEmailTemplateUpdateManyAndReturnArgs<
  * SsoEmailTemplate upsert
  */
 export type SsoEmailTemplateUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1916,24 +1705,18 @@ export type SsoEmailTemplateUpsertArgs<
   /**
    * In case the SsoEmailTemplate found by the `where` argument doesn't exist, create a new SsoEmailTemplate with this data.
    */
-  create: Prisma.XOR<
-    Prisma.SsoEmailTemplateCreateInput,
-    Prisma.SsoEmailTemplateUncheckedCreateInput
-  >;
+  create: Prisma.XOR<Prisma.SsoEmailTemplateCreateInput, Prisma.SsoEmailTemplateUncheckedCreateInput>;
   /**
    * In case the SsoEmailTemplate was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<
-    Prisma.SsoEmailTemplateUpdateInput,
-    Prisma.SsoEmailTemplateUncheckedUpdateInput
-  >;
+  update: Prisma.XOR<Prisma.SsoEmailTemplateUpdateInput, Prisma.SsoEmailTemplateUncheckedUpdateInput>;
 };
 
 /**
  * SsoEmailTemplate delete
  */
 export type SsoEmailTemplateDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -1957,7 +1740,7 @@ export type SsoEmailTemplateDeleteArgs<
  * SsoEmailTemplate deleteMany
  */
 export type SsoEmailTemplateDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Filter which SsoEmailTemplates to delete
@@ -1973,7 +1756,7 @@ export type SsoEmailTemplateDeleteManyArgs<
  * SsoEmailTemplate without action
  */
 export type SsoEmailTemplateDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate

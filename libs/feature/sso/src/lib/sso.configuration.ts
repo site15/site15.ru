@@ -41,15 +41,13 @@ export type SsoSendNotificationResponse = {
 export class SsoConfiguration {
   // header names
   @ConfigModelProperty({
-    description:
-      'The name of the header key that stores the register client ID',
+    description: 'The name of the header key that stores the register client ID',
     default: 'x-client-id',
   })
   clientIdHeaderName?: string;
 
   @ConfigModelProperty({
-    description:
-      'The name of the header key that stores the register client secret',
+    description: 'The name of the header key that stores the register client secret',
     default: 'x-client-secret',
   })
   clientSecretHeaderName?: string;
@@ -63,38 +61,27 @@ export class SsoConfiguration {
   // two factor
   @ConfigModelProperty({
     description: 'Function for generating two-factor authentication code',
-    default: (options: SsoTwoFactorCodeGenerateOptions) =>
-      Buffer.from(options.user.id).toString('hex'),
+    default: (options: SsoTwoFactorCodeGenerateOptions) => Buffer.from(options.user.id).toString('hex'),
   })
-  twoFactorCodeGenerate?: (
-    options: SsoTwoFactorCodeGenerateOptions
-  ) => Promise<string>;
+  twoFactorCodeGenerate?: (options: SsoTwoFactorCodeGenerateOptions) => Promise<string>;
 
   @ConfigModelProperty({
     description: 'Two-factor authentication code verification function',
-    default: (options: SsoTwoFactorCodeValidateOptions) =>
-      Buffer.from(options.code, 'hex').toString(),
+    default: (options: SsoTwoFactorCodeValidateOptions) => Buffer.from(options.code, 'hex').toString(),
   })
-  twoFactorCodeValidate?: (
-    options: SsoTwoFactorCodeValidateOptions
-  ) => Promise<SsoTwoFactorCodeValidateResponse>;
+  twoFactorCodeValidate?: (options: SsoTwoFactorCodeValidateOptions) => Promise<SsoTwoFactorCodeValidateResponse>;
 
   // notification
   @ConfigModelProperty({
     description: 'Function for sending notifications',
   })
-  sendNotification?: (
-    options: SsoSendNotificationOptions
-  ) => Promise<SsoSendNotificationResponse | null>;
+  sendNotification?: (options: SsoSendNotificationOptions) => Promise<SsoSendNotificationResponse | null>;
 
   // external validator
   @ConfigModelProperty({
     description: 'External function for validate permissions',
   })
-  checkAccessValidator?: (
-    authUser?: SsoUser | null,
-    ctx?: ExecutionContext
-  ) => Promise<void>;
+  checkAccessValidator?: (authUser?: SsoUser | null, ctx?: ExecutionContext) => Promise<void>;
 }
 
 @ConfigModel()

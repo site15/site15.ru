@@ -31,7 +31,7 @@ export class SsoGuardService implements CanActivate {
     private readonly ssoService: SsoService,
     private readonly nzMessageService: NzMessageService,
     private readonly translocoService: TranslocoService,
-    private readonly router: Router
+    private readonly router: Router,
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
@@ -60,9 +60,7 @@ export class SsoGuardService implements CanActivate {
         }),
         catchError((err) => {
           console.error(err);
-          this.nzMessageService.error(
-            this.translocoService.translate(err.error?.message || err.message)
-          );
+          this.nzMessageService.error(this.translocoService.translate(err.error?.message || err.message));
           if (ssoGuardData.afterActivate) {
             return from(
               ssoGuardData.afterActivate({
@@ -70,11 +68,11 @@ export class SsoGuardService implements CanActivate {
                 ssoService: this.ssoService,
                 router: this.router,
                 error: err,
-              })
+              }),
             );
           }
           return of(false);
-        })
+        }),
       );
     }
     return of(true);
@@ -83,16 +81,12 @@ export class SsoGuardService implements CanActivate {
   checkUserRoles(ssoRoles?: string[]) {
     return this.ssoService.profile$.pipe(
       map((ssoUser) => {
-        const ssoGuardDataRoles = (ssoRoles || []).map((role) =>
-          role.toLowerCase()
-        );
+        const ssoGuardDataRoles = (ssoRoles || []).map((role) => role.toLowerCase());
         const result = Boolean(
           (ssoUser &&
             ssoGuardDataRoles.length > 0 &&
-            ssoGuardDataRoles.some((r) =>
-              ssoUser.roles?.map((r) => r.toLowerCase()).includes(r)
-            )) ||
-            (ssoGuardDataRoles.length === 0 && !ssoUser?.roles)
+            ssoGuardDataRoles.some((r) => ssoUser.roles?.map((r) => r.toLowerCase()).includes(r))) ||
+            (ssoGuardDataRoles.length === 0 && !ssoUser?.roles),
         );
         if (!result) {
           console.log(result, { ssoUser: ssoUser, ssoGuardDataRoles }, [
@@ -102,15 +96,13 @@ export class SsoGuardService implements CanActivate {
               ssoUser &&
                 ssoGuardDataRoles
                   .map((role) => role.toLowerCase())
-                  .some((r) =>
-                    ssoUser.roles?.map((r) => r.toLowerCase()).includes(r)
-                  ),
+                  .some((r) => ssoUser.roles?.map((r) => r.toLowerCase()).includes(r)),
             ],
             [ssoGuardDataRoles.length === 0, !ssoUser?.roles],
           ]);
         }
         return result;
-      })
+      }),
     );
   }
 }

@@ -9,11 +9,7 @@ import {
   Optional,
   Output,
 } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod/afat';
@@ -25,20 +21,9 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
-import {
-  BehaviorSubject,
-  catchError,
-  map,
-  mergeMap,
-  of,
-  tap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, catchError, map, mergeMap, of, tap, throwError } from 'rxjs';
 import { SsoUserFormService } from '../../services/sso-user-form.service';
-import {
-  SsoUserMapperService,
-  SsoUserModel,
-} from '../../services/sso-user-mapper.service';
+import { SsoUserMapperService, SsoUserModel } from '../../services/sso-user-mapper.service';
 import { SsoUserService } from '../../services/sso-user.service';
 
 @UntilDestroy()
@@ -87,7 +72,7 @@ export class SsoUserFormComponent implements OnInit {
     private readonly ssoUserFormService: SsoUserFormService,
     private readonly ssoUserMapperService: SsoUserMapperService,
     private readonly validationService: ValidationService,
-    private readonly filesService: FilesService
+    private readonly filesService: FilesService,
   ) {}
 
   ngOnInit(): void {
@@ -98,7 +83,7 @@ export class SsoUserFormComponent implements OnInit {
         untilDestroyed(this),
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
-        })
+        }),
       )
       .subscribe();
 
@@ -111,15 +96,15 @@ export class SsoUserFormComponent implements OnInit {
               tap((result) =>
                 this.afterFind.next({
                   ...result,
-                })
-              )
+                }),
+              ),
             );
           } else {
             this.setFieldsAndModel();
           }
           return of(true);
         }),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
   }
@@ -135,15 +120,13 @@ export class SsoUserFormComponent implements OnInit {
         .pipe(
           tap((result) => {
             if (result) {
-              this.nzMessageService.success(
-                this.translocoService.translate('Success')
-              );
+              this.nzMessageService.success(this.translocoService.translate('Success'));
               this.afterUpdate.next({
                 ...result,
               });
             }
           }),
-          untilDestroyed(this)
+          untilDestroyed(this),
         )
         .subscribe();
     }
@@ -151,60 +134,40 @@ export class SsoUserFormComponent implements OnInit {
 
   updateOne() {
     if (!this.id) {
-      return throwError(
-        () => new Error(this.translocoService.translate('id not set'))
-      );
+      return throwError(() => new Error(this.translocoService.translate('id not set')));
     }
     const data = this.ssoUserMapperService.toJson(this.form.value);
     const oldData = data;
-    return (
-      data.picture
-        ? this.filesService.getPresignedUrlAndUploadFile(data.picture)
-        : of('')
-    ).pipe(
+    return (data.picture ? this.filesService.getPresignedUrlAndUploadFile(data.picture) : of('')).pipe(
       mergeMap((picture) =>
         !this.id
-          ? throwError(
-              () => new Error(this.translocoService.translate('id not set'))
-            )
-          : this.ssoUserService.updateOne(this.id, { ...data, picture })
+          ? throwError(() => new Error(this.translocoService.translate('id not set')))
+          : this.ssoUserService.updateOne(this.id, { ...data, picture }),
       ),
       mergeMap((newData) => {
-        if (
-          oldData.picture &&
-          typeof oldData.picture === 'string' &&
-          newData.picture !== oldData.picture
-        ) {
-          return this.filesService
-            .deleteFile(oldData.picture)
-            .pipe(map(() => newData));
+        if (oldData.picture && typeof oldData.picture === 'string' && newData.picture !== oldData.picture) {
+          return this.filesService.deleteFile(oldData.picture).pipe(map(() => newData));
         }
         return of(newData);
       }),
       catchError((err) =>
-        this.validationService.catchAndProcessServerError(err, (options) =>
-          this.setFormlyFields(options)
-        )
-      )
+        this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
+      ),
     );
   }
 
   findOne() {
     if (!this.id) {
-      return throwError(
-        () => new Error(this.translocoService.translate('id not set'))
-      );
+      return throwError(() => new Error(this.translocoService.translate('id not set')));
     }
     return this.ssoUserService.findOne(this.id).pipe(
       tap((result) => {
         this.setFieldsAndModel(this.ssoUserMapperService.toForm(result));
-      })
+      }),
     );
   }
 
-  private setFormlyFields(options?: {
-    errors?: ValidationErrorMetadataInterface[];
-  }) {
+  private setFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
     this.formlyFields$.next(this.ssoUserFormService.getFormlyFields(options));
   }
 }

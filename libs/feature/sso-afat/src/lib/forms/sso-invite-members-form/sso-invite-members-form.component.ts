@@ -9,16 +9,9 @@ import {
   Optional,
   Output,
 } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import {
-  SsoUserScalarFieldEnumInterface,
-  ValidationErrorMetadataInterface,
-} from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoUserScalarFieldEnumInterface, ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod/afat';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
@@ -64,7 +57,7 @@ export class SsoInviteMembersFormComponent implements OnInit {
     private readonly ssoUserService: SsoUserService,
     private readonly nzMessageService: NzMessageService,
     private readonly translocoService: TranslocoService,
-    private readonly validationService: ValidationService
+    private readonly validationService: ValidationService,
   ) {}
 
   ngOnInit(): void {
@@ -75,7 +68,7 @@ export class SsoInviteMembersFormComponent implements OnInit {
         untilDestroyed(this),
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
-        })
+        }),
       )
       .subscribe();
 
@@ -92,28 +85,20 @@ export class SsoInviteMembersFormComponent implements OnInit {
       .sendInvitationLinks(this.form.value)
       .pipe(
         catchError((err) =>
-          this.validationService.catchAndProcessServerError(err, (options) =>
-            this.setFormlyFields(options)
-          )
+          this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
         ),
         tap((result) => {
           if (result) {
-            this.nzMessageService.success(
-              this.translocoService.translate('Success')
-            );
-            this.afterSendInvitationLinks.next(
-              this.formlyModel$.value?.['emails'] || ''
-            );
+            this.nzMessageService.success(this.translocoService.translate('Success'));
+            this.afterSendInvitationLinks.next(this.formlyModel$.value?.['emails'] || '');
           }
         }),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
   }
 
-  private setFormlyFields(options?: {
-    errors?: ValidationErrorMetadataInterface[];
-  }) {
+  private setFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
     this.formlyFields$.next(
       this.validationService.appendServerErrorsAsValidatorsToFields(
         [
@@ -124,16 +109,14 @@ export class SsoInviteMembersFormComponent implements OnInit {
               show: true,
             },
             props: {
-              label: this.translocoService.translate(
-                `sso-invite-members.form.fields.emails`
-              ),
+              label: this.translocoService.translate(`sso-invite-members.form.fields.emails`),
               placeholder: 'emails',
               required: true,
             },
           },
         ],
-        options?.errors || []
-      )
+        options?.errors || [],
+      ),
     );
   }
 }

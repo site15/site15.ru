@@ -9,11 +9,7 @@ import {
   Optional,
   Output,
 } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
@@ -75,7 +71,7 @@ export class SsoSignUpFormComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly authSignUpFormService: SsoSignUpFormService,
     private readonly authSignUpMapperService: SsoSignUpMapperService,
-    private readonly validationService: ValidationService
+    private readonly validationService: ValidationService,
   ) {}
 
   ngOnInit(): void {
@@ -86,16 +82,14 @@ export class SsoSignUpFormComponent implements OnInit {
         untilDestroyed(this),
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
-        })
+        }),
       )
       .subscribe();
 
     this.setFieldsAndModel({ password: '', confirmPassword: '' });
   }
 
-  setFieldsAndModel(
-    data: SsoSignupInput = { password: '', confirmPassword: '' }
-  ) {
+  setFieldsAndModel(data: SsoSignupInput = { password: '', confirmPassword: '' }) {
     const model = this.authSignUpMapperService.toModel(data);
     this.setFormlyFields({ data: model });
     this.formlyModel$.next(model);
@@ -110,41 +104,28 @@ export class SsoSignUpFormComponent implements OnInit {
           tap((result) => {
             if (result.tokens) {
               this.afterSignUp.next(result);
-              this.nzMessageService.success(
-                this.translocoService.translate('Success')
-              );
+              this.nzMessageService.success(this.translocoService.translate('Success'));
             }
           }),
           catchError((err) =>
-            this.validationService.catchAndProcessServerError(err, (options) =>
-              this.setFormlyFields(options)
-            )
+            this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
           ),
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           catchError((err: any) => {
             console.error(err);
-            this.nzMessageService.error(
-              this.translocoService.translate(err.error?.message || err.message)
-            );
+            this.nzMessageService.error(this.translocoService.translate(err.error?.message || err.message));
             return of(null);
           }),
-          untilDestroyed(this)
+          untilDestroyed(this),
         )
         .subscribe();
     } else {
       console.log(this.form.controls);
-      this.nzMessageService.warning(
-        this.translocoService.translate('Validation errors')
-      );
+      this.nzMessageService.warning(this.translocoService.translate('Validation errors'));
     }
   }
 
-  private setFormlyFields(options?: {
-    data?: SsoSignupInput;
-    errors?: ValidationErrorMetadataInterface[];
-  }) {
-    this.formlyFields$.next(
-      this.authSignUpFormService.getFormlyFields(options)
-    );
+  private setFormlyFields(options?: { data?: SsoSignupInput; errors?: ValidationErrorMetadataInterface[] }) {
+    this.formlyFields$.next(this.authSignUpFormService.getFormlyFields(options));
   }
 }

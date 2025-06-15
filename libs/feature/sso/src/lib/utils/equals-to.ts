@@ -1,8 +1,4 @@
-import {
-  ValidationArguments,
-  ValidatorConstraint,
-  ValidatorConstraintInterface,
-} from 'class-validator';
+import { ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
 import { getText } from 'nestjs-translates';
 
 @ValidatorConstraint({ name: 'equalsTo', async: false })
@@ -15,7 +11,7 @@ export class EqualsTo implements ValidatorConstraintInterface {
       validationArguments.constraints.filter(
         (otherField) =>
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          obj.hasOwnProperty!(otherField) && obj[otherField] === value
+          obj.hasOwnProperty!(otherField) && obj[otherField] === value,
       ).length > 0
     );
   }

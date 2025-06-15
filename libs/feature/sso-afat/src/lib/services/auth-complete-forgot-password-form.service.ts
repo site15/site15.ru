@@ -12,7 +12,7 @@ import { SsoCompleteForgotPasswordInput } from './auth.types';
 export class SsoCompleteForgotPasswordFormService {
   constructor(
     protected readonly translocoService: TranslocoService,
-    protected readonly validationService: ValidationService
+    protected readonly validationService: ValidationService,
   ) {}
 
   init() {
@@ -33,9 +33,7 @@ export class SsoCompleteForgotPasswordFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso.complete-forgot-password-form.fields.password`
-            ),
+            label: this.translocoService.translate(`sso.complete-forgot-password-form.fields.password`),
             placeholder: 'password',
             required: true,
             type: 'password',
@@ -48,16 +46,14 @@ export class SsoCompleteForgotPasswordFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso.complete-forgot-password-form.fields.confirm-password`
-            ),
+            label: this.translocoService.translate(`sso.complete-forgot-password-form.fields.confirm-password`),
             placeholder: 'confirmPassword',
             required: true,
             type: 'password',
           },
         },
       ],
-      options?.errors || []
+      options?.errors || [],
     );
   }
 }

@@ -1,9 +1,6 @@
 import { TWO_FACTOR_FEATURE, TwoFactorPrismaSdk } from '@nestjs-mod/two-factor';
 
-import {
-  NOTIFICATIONS_FEATURE,
-  NotificationsPrismaSdk,
-} from '@nestjs-mod/notifications';
+import { NOTIFICATIONS_FEATURE, NotificationsPrismaSdk } from '@nestjs-mod/notifications';
 import { SSO_FEATURE, SsoPrismaSdk } from '@nestjs-mod-sso/sso';
 import { WEBHOOK_FEATURE, WebhookPrismaSdk } from '@nestjs-mod/webhook';
 import { InjectPrismaClient, PrismaModule } from '@nestjs-mod/prisma';
@@ -16,9 +13,7 @@ import { Injectable } from '@nestjs/common';
 import { MemoryHealthIndicator, PrismaHealthIndicator } from '@nestjs/terminus';
 
 @Injectable()
-export class TerminusHealthCheckIntegrationConfiguration
-  implements TerminusHealthCheckConfiguration
-{
+export class TerminusHealthCheckIntegrationConfiguration implements TerminusHealthCheckConfiguration {
   standardHealthIndicators = [
     /*
     {
@@ -74,7 +69,7 @@ export class TerminusHealthCheckIntegrationConfiguration
     @InjectPrismaClient(TWO_FACTOR_FEATURE)
     private readonly twoFactorPrismaClient: TwoFactorPrismaSdk.PrismaClient,
     @InjectPrismaClient(NOTIFICATIONS_FEATURE)
-    private readonly notificationsPrismaClient: NotificationsPrismaSdk.PrismaClient
+    private readonly notificationsPrismaClient: NotificationsPrismaSdk.PrismaClient,
   ) {}
 }
 

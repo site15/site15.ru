@@ -8,13 +8,7 @@ export interface SsoUserModel
   extends Partial<
     Omit<
       SsoUserDtoInterface,
-      | 'emailVerifiedAt'
-      | 'phoneVerifiedAt'
-      | 'birthdate'
-      | 'createdAt'
-      | 'updatedAt'
-      | 'appData'
-      | 'roles'
+      'emailVerifiedAt' | 'phoneVerifiedAt' | 'birthdate' | 'createdAt' | 'updatedAt' | 'appData' | 'roles'
     >
   > {
   roles: string[];
@@ -33,36 +27,20 @@ export class SsoUserMapperService {
       ...item,
       roles: item?.roles ? item.roles.split(',') : [],
       appData: item?.appData ? JSON.stringify(item.appData) : '',
-      emailVerifiedAt: item?.emailVerifiedAt
-        ? addHours(new Date(item.emailVerifiedAt), TIMEZONE_OFFSET)
-        : null,
-      phoneVerifiedAt: item?.phoneVerifiedAt
-        ? addHours(new Date(item.phoneVerifiedAt), TIMEZONE_OFFSET)
-        : null,
-      birthdate: item?.birthdate
-        ? addHours(new Date(item.birthdate), TIMEZONE_OFFSET)
-        : null,
-      createdAt: item?.createdAt
-        ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET)
-        : null,
-      updatedAt: item?.updatedAt
-        ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET)
-        : null,
+      emailVerifiedAt: item?.emailVerifiedAt ? addHours(new Date(item.emailVerifiedAt), TIMEZONE_OFFSET) : null,
+      phoneVerifiedAt: item?.phoneVerifiedAt ? addHours(new Date(item.phoneVerifiedAt), TIMEZONE_OFFSET) : null,
+      birthdate: item?.birthdate ? addHours(new Date(item.birthdate), TIMEZONE_OFFSET) : null,
+      createdAt: item?.createdAt ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET) : null,
+      updatedAt: item?.updatedAt ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET) : null,
     };
   }
 
   toForm(model: SsoUserModel) {
     return {
       ...model,
-      emailVerifiedAt: model.emailVerifiedAt
-        ? format(model.emailVerifiedAt, 'yyyy-MM-dd HH:mm:ss')
-        : null,
-      phoneVerifiedAt: model.phoneVerifiedAt
-        ? format(model.phoneVerifiedAt, 'yyyy-MM-dd HH:mm:ss')
-        : null,
-      birthdate: model.birthdate
-        ? format(model.birthdate, 'yyyy-MM-dd HH:mm:ss')
-        : null,
+      emailVerifiedAt: model.emailVerifiedAt ? format(model.emailVerifiedAt, 'yyyy-MM-dd HH:mm:ss') : null,
+      phoneVerifiedAt: model.phoneVerifiedAt ? format(model.phoneVerifiedAt, 'yyyy-MM-dd HH:mm:ss') : null,
+      birthdate: model.birthdate ? format(model.birthdate, 'yyyy-MM-dd HH:mm:ss') : null,
     };
   }
 
@@ -75,20 +53,12 @@ export class SsoUserMapperService {
       firstname: data.firstname || '',
       lastname: data.lastname || '',
       gender: data.gender || '',
-      birthdate: data.birthdate
-        ? format(new Date(data.birthdate), 'yyyy-MM-dd HH:mm:ss')
-        : undefined,
+      birthdate: data.birthdate ? format(new Date(data.birthdate), 'yyyy-MM-dd HH:mm:ss') : undefined,
       picture: data.picture || '',
       appData: data.appData ? safeParseJson(data.appData) : null,
-      revokedAt: data.revokedAt
-        ? format(new Date(data.revokedAt), 'yyyy-MM-dd HH:mm:ss')
-        : undefined,
-      emailVerifiedAt: data.emailVerifiedAt
-        ? format(new Date(data.emailVerifiedAt), 'yyyy-MM-dd HH:mm:ss')
-        : undefined,
-      phoneVerifiedAt: data.phoneVerifiedAt
-        ? format(new Date(data.phoneVerifiedAt), 'yyyy-MM-dd HH:mm:ss')
-        : undefined,
+      revokedAt: data.revokedAt ? format(new Date(data.revokedAt), 'yyyy-MM-dd HH:mm:ss') : undefined,
+      emailVerifiedAt: data.emailVerifiedAt ? format(new Date(data.emailVerifiedAt), 'yyyy-MM-dd HH:mm:ss') : undefined,
+      phoneVerifiedAt: data.phoneVerifiedAt ? format(new Date(data.phoneVerifiedAt), 'yyyy-MM-dd HH:mm:ss') : undefined,
     };
   }
 }

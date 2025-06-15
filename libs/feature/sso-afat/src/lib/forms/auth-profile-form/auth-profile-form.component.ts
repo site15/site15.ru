@@ -1,17 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  Input,
-  OnInit,
-  Optional,
-} from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, Optional } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
@@ -45,28 +34,17 @@ import { SsoUpdateProfileInput } from '../../services/auth.types';
   selector: 'sso-profile-form',
   template: `@if (formlyFields$ | async; as formlyFields) {
     <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
-      <formly-form
-        [model]="formlyModel$ | async"
-        [fields]="formlyFields"
-        [form]="form"
-      >
-      </formly-form>
+      <formly-form [model]="formlyModel$ | async" [fields]="formlyFields" [form]="form"> </formly-form>
       @if (!hideButtons) {
-      <nz-form-control>
-        <div class="flex justify-between">
-          <div></div>
-          <button
-            nz-button
-            nzType="primary"
-            type="submit"
-            [disabled]="!form.valid"
-            transloco="Update"
-          ></button>
-        </div>
-      </nz-form-control>
+        <nz-form-control>
+          <div class="flex justify-between">
+            <div></div>
+            <button nz-button nzType="primary" type="submit" [disabled]="!form.valid" transloco="Update"></button>
+          </div>
+        </nz-form-control>
       }
     </form>
-    } `,
+  } `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SsoProfileFormComponent implements OnInit {
@@ -86,22 +64,19 @@ export class SsoProfileFormComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly authProfileFormService: SsoProfileFormService,
     private readonly authProfileMapperService: SsoProfileMapperService,
-    private readonly validationService: ValidationService
+    private readonly validationService: ValidationService,
   ) {}
 
   ngOnInit(): void {
     Object.assign(this, this.nzModalData);
 
-    merge(
-      this.authProfileFormService.init(),
-      this.translocoService.langChanges$
-    )
+    merge(this.authProfileFormService.init(), this.translocoService.langChanges$)
       .pipe(
         mergeMap(() => {
           this.fillFromProfile();
           return of(true);
         }),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
   }
@@ -116,9 +91,7 @@ export class SsoProfileFormComponent implements OnInit {
     data?: Partial<SsoUpdateProfileInput>;
     errors?: ValidationErrorMetadataInterface[];
   }) {
-    this.formlyFields$.next(
-      this.authProfileFormService.getFormlyFields(options)
-    );
+    this.formlyFields$.next(this.authProfileFormService.getFormlyFields(options));
   }
 
   submitForm(): void {
@@ -129,40 +102,28 @@ export class SsoProfileFormComponent implements OnInit {
         .pipe(
           tap(() => {
             this.fillFromProfile();
-            this.nzMessageService.success(
-              this.translocoService.translate(
-                'Profile data updated successfully!'
-              )
-            );
+            this.nzMessageService.success(this.translocoService.translate('Profile data updated successfully!'));
           }),
           catchError((err) =>
-            this.validationService.catchAndProcessServerError(err, (options) =>
-              this.setFormlyFields(options)
-            )
+            this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
           ),
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           catchError((err: any) => {
             console.error(err);
-            this.nzMessageService.error(
-              this.translocoService.translate(err.error?.message || err.message)
-            );
+            this.nzMessageService.error(this.translocoService.translate(err.error?.message || err.message));
             return of(null);
           }),
-          untilDestroyed(this)
+          untilDestroyed(this),
         )
         .subscribe();
     } else {
       console.log(this.form.controls);
-      this.nzMessageService.warning(
-        this.translocoService.translate('Validation errors')
-      );
+      this.nzMessageService.warning(this.translocoService.translate('Validation errors'));
     }
   }
 
   private fillFromProfile() {
     this.formlyFields$.next(this.formlyFields$.value);
-    this.setFieldsAndModel(
-      this.authService.profile$.value as SsoUpdateProfileInput
-    );
+    this.setFieldsAndModel(this.authService.profile$.value as SsoUpdateProfileInput);
   }
 }

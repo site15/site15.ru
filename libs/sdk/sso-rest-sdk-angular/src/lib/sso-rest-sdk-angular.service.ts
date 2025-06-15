@@ -1,18 +1,14 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
-import {
-  SsoRestClientConfiguration,
-  SsoSsoRestService,
-  TimeSsoRestService,
-} from './generated';
+import { SsoRestClientConfiguration, SsoSsoRestService, TimeSsoRestService } from './generated';
 
 @Injectable({ providedIn: 'root' })
 export class SsoRestSdkAngularService {
   constructor(
     private readonly ssoRestClientConfiguration: SsoRestClientConfiguration,
     private readonly timeSsoRestService: TimeSsoRestService,
-    private readonly ssoSsoRestService: SsoSsoRestService
+    private readonly ssoSsoRestService: SsoSsoRestService,
   ) {
     timeSsoRestService.configuration.withCredentials = true;
     ssoSsoRestService.configuration.withCredentials = true;
@@ -48,10 +44,8 @@ export class SsoRestSdkAngularService {
     options?: any;
   }) {
     const wss = new WebSocket(
-      (this.ssoRestClientConfiguration.basePath || '')
-        .replace('/api', '')
-        .replace('http', 'ws') + path,
-      options
+      (this.ssoRestClientConfiguration.basePath || '').replace('/api', '').replace('http', 'ws') + path,
+      options,
     );
     return new Observable<{ data: T; event: string }>((observer) => {
       wss.addEventListener('open', () => {
@@ -68,7 +62,7 @@ export class SsoRestSdkAngularService {
           JSON.stringify({
             event: eventName,
             data: true,
-          })
+          }),
         );
       });
     }).pipe(
@@ -76,7 +70,7 @@ export class SsoRestSdkAngularService {
         if (wss?.readyState == WebSocket.OPEN) {
           wss.close();
         }
-      })
+      }),
     );
   }
 }

@@ -53,25 +53,17 @@ parsedEnvs.SINGLE_SIGN_ON_DISABLE_SERVE_STATIC = 'true';
 parsedEnvs.SINGLE_SIGN_ON_PORT = '3000';
 
 // check real process envs
-parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_EMAIL =
-  process.env.SINGLE_SIGN_ON_SSO_ADMIN_EMAIL || 'nestjs-mod-sso@site15.ru';
+parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_EMAIL = process.env.SINGLE_SIGN_ON_SSO_ADMIN_EMAIL || 'nestjs-mod-sso@site15.ru';
 parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_PASSWORD =
-  process.env.SINGLE_SIGN_ON_SSO_ADMIN_PASSWORD ||
-  'SbxcbII7RUvCOe9TDXnKhfRrLJW5cGDA';
-parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_USERNAME =
-  process.env.SINGLE_SIGN_ON_SSO_ADMIN_USERNAME || 'admin';
-parsedEnvs.SINGLE_SIGN_ON_SSO_SERVER_URL =
-  process.env.SINGLE_SIGN_ON_SSO_SERVER_URL || 'http://localhost:3000';
-parsedEnvs.SINGLE_SIGN_ON_SSO_CLIENT_URL =
-  process.env.SINGLE_SIGN_ON_SSO_CLIENT_URL || 'http://localhost:4200';
+  process.env.SINGLE_SIGN_ON_SSO_ADMIN_PASSWORD || 'SbxcbII7RUvCOe9TDXnKhfRrLJW5cGDA';
+parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_USERNAME = process.env.SINGLE_SIGN_ON_SSO_ADMIN_USERNAME || 'admin';
+parsedEnvs.SINGLE_SIGN_ON_SSO_SERVER_URL = process.env.SINGLE_SIGN_ON_SSO_SERVER_URL || 'http://localhost:3000';
+parsedEnvs.SINGLE_SIGN_ON_SSO_CLIENT_URL = process.env.SINGLE_SIGN_ON_SSO_CLIENT_URL || 'http://localhost:4200';
 parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_SECRET =
-  process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET ||
-  'VfKSfPPljhHBXCEohnitursmgDxfAyiD';
+  process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET || 'VfKSfPPljhHBXCEohnitursmgDxfAyiD';
 
-parsedEnvs.E2E_CLIENT_URL =
-  parsedEnvs.E2E_CLIENT_URL || 'http://localhost:4200';
-parsedEnvs.E2E_SERVER_URL =
-  parsedEnvs.E2E_SERVER_URL || 'http://localhost:3000';
+parsedEnvs.E2E_CLIENT_URL = parsedEnvs.E2E_CLIENT_URL || 'http://localhost:4200';
+parsedEnvs.E2E_SERVER_URL = parsedEnvs.E2E_SERVER_URL || 'http://localhost:3000';
 
 parsedEnvs.SINGLE_SIGN_ON_SSO_DEFAULT_PUBLIC_PROJECTS =
   process.env.SINGLE_SIGN_ON_SSO_DEFAULT_PUBLIC_PROJECTS ||
@@ -89,7 +81,7 @@ export const minioURL =
 export const supabaseURL = 'https://${supabaseName}.supabase.co';
 export const supabaseKey =
   '${supabaseAnonKey}';
-`
+`,
 );
 writeFileSync(
   join(__dirname, 'apps/client/src/environments/environment.supabase.ts'),
@@ -99,7 +91,7 @@ export const minioURL =
 export const supabaseURL = 'https://${supabaseName}.supabase.co';
 export const supabaseKey =
   '${supabaseAnonKey}';
-`
+`,
 );
 
 const envContent = Object.entries(parsedEnvs)
@@ -111,13 +103,7 @@ const envContent = Object.entries(parsedEnvs)
     if (value !== undefined && value !== null && !isNaN(+value)) {
       return `${key}=${value}`;
     }
-    if (
-      value &&
-      (value.includes('*') ||
-        value.includes('!') ||
-        value.includes('$') ||
-        value.includes(' '))
-    ) {
+    if (value && (value.includes('*') || value.includes('!') || value.includes('$') || value.includes(' '))) {
       if (value.includes("'")) {
         return `${key}='${value.split("'").join("\\'")}'`;
       }

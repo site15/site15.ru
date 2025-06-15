@@ -1,10 +1,4 @@
-import {
-  ArgumentsHost,
-  Catch,
-  HttpException,
-  HttpStatus,
-  Logger,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { ThrottlerException } from '@nestjs/throttler';
 import { getText } from 'nestjs-translates';
@@ -22,9 +16,9 @@ export class AppExceptionsFilter extends BaseExceptionFilter {
             code: 'THROTTLER-001',
             message: getText('Too Many Requests'),
           },
-          HttpStatus.BAD_REQUEST
+          HttpStatus.BAD_REQUEST,
         ),
-        host
+        host,
       );
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

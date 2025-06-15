@@ -17,17 +17,16 @@ export class SsoPublicProjectsController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly prismaToolsService: PrismaToolsService
+    private readonly prismaToolsService: PrismaToolsService,
   ) {}
 
   @Get()
   @ApiOkResponse({ type: FindManySsoPublicProjectResponse })
   async findMany(@Query() args: FindManyArgs) {
-    const { take, skip, curPage, perPage } =
-      this.prismaToolsService.getFirstSkipFromCurPerPage({
-        curPage: args.curPage,
-        perPage: args.perPage,
-      });
+    const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
+      curPage: args.curPage,
+      perPage: args.perPage,
+    });
     const searchText = args.searchText;
 
     const orderBy = (args.sort || 'name:asc')
@@ -42,7 +41,7 @@ export class SsoPublicProjectsController {
               }
             : {}),
         }),
-        {}
+        {},
       );
     const result = await this.prismaClient.$transaction(async (prisma) => {
       return {
@@ -59,9 +58,7 @@ export class SsoPublicProjectsController {
             ...(searchText
               ? {
                   OR: [
-                    ...(isUUID(searchText)
-                      ? [{ id: { equals: searchText } }]
-                      : []),
+                    ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     {
                       clientId: { contains: searchText, mode: 'insensitive' },
                     },
@@ -79,9 +76,7 @@ export class SsoPublicProjectsController {
             ...(searchText
               ? {
                   OR: [
-                    ...(isUUID(searchText)
-                      ? [{ id: { equals: searchText } }]
-                      : []),
+                    ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     {
                       clientId: { contains: searchText, mode: 'insensitive' },
                     },

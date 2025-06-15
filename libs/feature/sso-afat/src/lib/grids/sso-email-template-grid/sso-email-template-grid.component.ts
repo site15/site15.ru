@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  ViewContainerRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SsoEmailTemplateScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
@@ -21,26 +15,12 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import {
-  BehaviorSubject,
-  Observable,
-  debounceTime,
-  distinctUntilChanged,
-  merge,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge, tap } from 'rxjs';
 
-import {
-  TranslocoDirective,
-  TranslocoPipe,
-  TranslocoService,
-} from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import {
-  NzTableSortOrderDetectorPipe,
-  getQueryMetaByParams,
-} from '@nestjs-mod/afat';
+import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { SsoEmailTemplateFormComponent } from '../../forms/sso-email-template-form/sso-email-template-form.component';
 import { SsoEmailTemplateModel } from '../../services/sso-email-template-mapper.service';
@@ -86,21 +66,12 @@ export class SsoEmailTemplateGridComponent implements OnInit {
     SsoEmailTemplateScalarFieldEnumInterface.text,
   ];
   columns = {
-    [SsoEmailTemplateScalarFieldEnumInterface.id]: marker(
-      'sso-email-template.grid.columns.id'
-    ),
-    [SsoEmailTemplateScalarFieldEnumInterface.operationName]: marker(
-      'sso-email-template.grid.columns.operation-name'
-    ),
-    [SsoEmailTemplateScalarFieldEnumInterface.subject]: marker(
-      'sso-email-template.grid.columns.subject'
-    ),
-    [SsoEmailTemplateScalarFieldEnumInterface.text]: marker(
-      'sso-email-template.grid.columns.text'
-    ),
+    [SsoEmailTemplateScalarFieldEnumInterface.id]: marker('sso-email-template.grid.columns.id'),
+    [SsoEmailTemplateScalarFieldEnumInterface.operationName]: marker('sso-email-template.grid.columns.operation-name'),
+    [SsoEmailTemplateScalarFieldEnumInterface.subject]: marker('sso-email-template.grid.columns.subject'),
+    [SsoEmailTemplateScalarFieldEnumInterface.text]: marker('sso-email-template.grid.columns.text'),
   };
-  SsoEmailTemplateScalarFieldEnumInterface =
-    SsoEmailTemplateScalarFieldEnumInterface;
+  SsoEmailTemplateScalarFieldEnumInterface = SsoEmailTemplateScalarFieldEnumInterface;
 
   private filters?: Record<string, string>;
 
@@ -108,20 +79,17 @@ export class SsoEmailTemplateGridComponent implements OnInit {
     private readonly ssoEmailTemplateService: SsoEmailTemplateService,
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
-    private readonly translocoService: TranslocoService
+    private readonly translocoService: TranslocoService,
   ) {}
 
   ngOnInit(): void {
     merge(
-      this.searchField.valueChanges.pipe(
-        debounceTime(700),
-        distinctUntilChanged()
-      ),
-      ...(this.forceLoadStream ? this.forceLoadStream : [])
+      this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
+      ...(this.forceLoadStream ? this.forceLoadStream : []),
     )
       .pipe(
         tap(() => this.loadMany({ force: true })),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
 
@@ -154,7 +122,7 @@ export class SsoEmailTemplateGridComponent implements OnInit {
         omit(['totalResults'], {
           ...this.meta$.value,
           ...this.filters,
-        })
+        }),
       )
     ) {
       return;
@@ -169,27 +137,19 @@ export class SsoEmailTemplateGridComponent implements OnInit {
           this.filters = filters;
           this.selectedIds$.next([]);
         }),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
   }
 
   showCreateOrUpdateModal(id?: string): void {
-    const modal = this.nzModalService.create<
-      SsoEmailTemplateFormComponent,
-      SsoEmailTemplateFormComponent
-    >({
+    const modal = this.nzModalService.create<SsoEmailTemplateFormComponent, SsoEmailTemplateFormComponent>({
       nzWidth: '700px',
       nzTitle: id
-        ? this.translocoService.translate(
-            'sso-email-template.update-modal.title',
-            {
-              id,
-            }
-          )
-        : this.translocoService.translate(
-            'sso-email-template.create-modal.title'
-          ),
+        ? this.translocoService.translate('sso-email-template.update-modal.title', {
+            id,
+          })
+        : this.translocoService.translate('sso-email-template.create-modal.title'),
       nzContent: SsoEmailTemplateFormComponent,
       nzViewContainerRef: this.viewContainerRef,
       nzData: {
@@ -204,9 +164,7 @@ export class SsoEmailTemplateGridComponent implements OnInit {
           },
         },
         {
-          label: id
-            ? this.translocoService.translate('Save')
-            : this.translocoService.translate('Create'),
+          label: id ? this.translocoService.translate('Save') : this.translocoService.translate('Create'),
           onClick: () => {
             modal.componentInstance?.afterUpdate
               .pipe(
@@ -214,7 +172,7 @@ export class SsoEmailTemplateGridComponent implements OnInit {
                   modal.close();
                   this.loadMany({ force: true });
                 }),
-                untilDestroyed(modal.componentInstance)
+                untilDestroyed(modal.componentInstance),
               )
               .subscribe();
 
@@ -224,7 +182,7 @@ export class SsoEmailTemplateGridComponent implements OnInit {
                   modal.close();
                   this.loadMany({ force: true });
                 }),
-                untilDestroyed(modal.componentInstance)
+                untilDestroyed(modal.componentInstance),
               )
               .subscribe();
 

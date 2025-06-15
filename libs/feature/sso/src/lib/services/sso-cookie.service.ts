@@ -8,7 +8,7 @@ import { SsoTokensService } from './sso-tokens.service';
 export class SsoCookieService {
   constructor(
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
-    private readonly ssoTokensService: SsoTokensService
+    private readonly ssoTokensService: SsoTokensService,
   ) {}
 
   async getCookieWithJwtToken({
@@ -26,17 +26,16 @@ export class SsoCookieService {
     roles: string | null;
     projectId: string;
   }) {
-    const tokens =
-      await this.ssoTokensService.getAccessAndRefreshTokensByUserId(
-        {
-          fingerprint,
-          roles,
-          userAgent,
-          userId,
-          userIp,
-        },
-        projectId
-      );
+    const tokens = await this.ssoTokensService.getAccessAndRefreshTokensByUserId(
+      {
+        fingerprint,
+        roles,
+        userAgent,
+        userId,
+        userIp,
+      },
+      projectId,
+    );
     return {
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
@@ -44,9 +43,7 @@ export class SsoCookieService {
         name: 'refreshToken',
         value: tokens.refreshToken,
         options: {
-          ['max-age']: Math.round(
-            ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn) / 1000
-          ),
+          ['max-age']: Math.round(ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn) / 1000),
           // domain,
           path: '/',
           httponly: true,
@@ -79,26 +76,19 @@ export class SsoCookieService {
         typeof (options as any)[key] === 'boolean'
           ? key
           : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            `${key}=${(options as any)[key]}`
+            `${key}=${(options as any)[key]}`,
       )
       .join('; ')}`;
   }
 
-  async getCookieForSignOut({
-    refreshToken,
-    projectId,
-  }: {
-    refreshToken: string;
-    projectId: string;
-  }): Promise<{
+  async getCookieForSignOut({ refreshToken, projectId }: { refreshToken: string; projectId: string }): Promise<{
     refreshSession: SsoRefreshSession | null;
     cookie: string;
   }> {
-    const refreshSession =
-      await this.ssoTokensService.disableRefreshSessionByRefreshToken({
-        refreshToken,
-        projectId,
-      });
+    const refreshSession = await this.ssoTokensService.disableRefreshSessionByRefreshToken({
+      refreshToken,
+      projectId,
+    });
     return {
       refreshSession,
       cookie: this.getCookie({

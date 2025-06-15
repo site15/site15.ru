@@ -1,17 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  catchError,
-  map,
-  mergeMap,
-  Observable,
-  of,
-  Subject,
-} from 'rxjs';
-import {
-  SSO_CONFIGURATION_TOKEN,
-  SsoConfiguration,
-} from './auth.configuration';
+import { BehaviorSubject, catchError, map, mergeMap, Observable, of, Subject } from 'rxjs';
+import { SSO_CONFIGURATION_TOKEN, SsoConfiguration } from './auth.configuration';
 import {
   SsoCompleteForgotPasswordInput,
   SsoCompleteSignUpInput,
@@ -33,16 +22,14 @@ export class SsoService {
   constructor(
     protected readonly tokensService: TokensService,
     @Inject(SSO_CONFIGURATION_TOKEN)
-    protected readonly ssoConfiguration: SsoConfiguration
+    protected readonly ssoConfiguration: SsoConfiguration,
   ) {}
 
   updateHeaders() {
     this.updateHeaders$.next(true);
   }
 
-  completeSignUp(
-    data: SsoCompleteSignUpInput
-  ): Observable<SsoUserAndTokens | null> {
+  completeSignUp(data: SsoCompleteSignUpInput): Observable<SsoUserAndTokens | null> {
     return this.ssoConfiguration.completeSignUp
       ? this.ssoConfiguration.completeSignUp(data).pipe(
           mergeMap((result) => {
@@ -50,22 +37,18 @@ export class SsoService {
               map((profile) => ({
                 profile,
                 tokens: result.tokens,
-              }))
+              })),
             );
-          })
+          }),
         )
       : of(null);
   }
 
   forgotPassword(data: SsoForgotPasswordInput): Observable<true | null> {
-    return this.ssoConfiguration.forgotPassword
-      ? this.ssoConfiguration.forgotPassword(data)
-      : of(null);
+    return this.ssoConfiguration.forgotPassword ? this.ssoConfiguration.forgotPassword(data) : of(null);
   }
 
-  completeForgotPassword(
-    data: SsoCompleteForgotPasswordInput
-  ): Observable<SsoUserAndTokens | null> {
+  completeForgotPassword(data: SsoCompleteForgotPasswordInput): Observable<SsoUserAndTokens | null> {
     return this.ssoConfiguration.completeForgotPassword
       ? this.ssoConfiguration.completeForgotPassword(data).pipe(
           mergeMap((result) => {
@@ -73,17 +56,15 @@ export class SsoService {
               map((profile) => ({
                 profile,
                 tokens: result.tokens,
-              }))
+              })),
             );
-          })
+          }),
         )
       : of(null);
   }
 
   getAuthorizationHeaders() {
-    return this.ssoConfiguration.getAuthorizationHeaders
-      ? this.ssoConfiguration.getAuthorizationHeaders()
-      : undefined;
+    return this.ssoConfiguration.getAuthorizationHeaders ? this.ssoConfiguration.getAuthorizationHeaders() : undefined;
   }
 
   signUp(data: SsoSignupInput) {
@@ -98,16 +79,16 @@ export class SsoService {
             map((profile) => ({
               profile,
               tokens: result.tokens,
-            }))
+            })),
           );
-        })
+        }),
       );
   }
 
   updateProfile(data: SsoUpdateProfileInput) {
     return this.ssoConfiguration.updateProfile(data).pipe(
       mergeMap(() => this.ssoConfiguration.getProfile()),
-      mergeMap((result) => this.setProfile(result))
+      mergeMap((result) => this.setProfile(result)),
     );
   }
 
@@ -123,9 +104,9 @@ export class SsoService {
             map((profile) => ({
               profile,
               tokens: result.tokens,
-            }))
+            })),
           );
-        })
+        }),
       );
   }
 
@@ -137,7 +118,7 @@ export class SsoService {
       catchError((err) => {
         console.error(err);
         return this.clearProfileAndTokens();
-      })
+      }),
     );
   }
 
@@ -149,7 +130,7 @@ export class SsoService {
       catchError((err) => {
         console.error(err);
         return this.clearProfileAndTokens();
-      })
+      }),
     );
   }
 

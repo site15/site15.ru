@@ -19,7 +19,7 @@ export class SsoUserFormService {
   constructor(
     protected readonly translocoService: TranslocoService,
     protected readonly validationService: ValidationService,
-    protected readonly ssoRestSdkAngularService: SsoRestSdkAngularService
+    protected readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
   ) {}
 
   init() {
@@ -37,7 +37,7 @@ export class SsoUserFormService {
         map((data) => {
           this.cachedRoles = data.userAvailableRoles;
           return this.cachedRoles;
-        })
+        }),
       );
   }
 
@@ -55,9 +55,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.app-data`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.app-data`),
             placeholder: 'appData',
             required: false,
           },
@@ -69,9 +67,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.birthdate`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.birthdate`),
             placeholder: 'birthdate',
             required: false,
           },
@@ -83,9 +79,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.email`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.email`),
             placeholder: 'email',
             required: true,
           },
@@ -97,9 +91,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.email-verified-at`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.email-verified-at`),
             placeholder: 'emailVerifiedAt',
             required: false,
           },
@@ -111,9 +103,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.firstname`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.firstname`),
             placeholder: 'firstname',
             required: false,
           },
@@ -125,9 +115,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.gender`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.gender`),
             placeholder: 'gender',
             required: false,
             options: [
@@ -149,9 +137,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.lastname`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.lastname`),
             placeholder: 'lastname',
             required: false,
           },
@@ -163,9 +149,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.phone`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.phone`),
             placeholder: 'phone',
             required: false,
           },
@@ -177,9 +161,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.phone-verified-at`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.phone-verified-at`),
             placeholder: 'phoneVerifiedAt',
             required: false,
           },
@@ -191,9 +173,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.picture`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.picture`),
             placeholder: 'picture',
             required: false,
           },
@@ -205,9 +185,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.revoked-at`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.revoked-at`),
             placeholder: 'revokedAt',
             required: false,
           },
@@ -219,9 +197,7 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.roles`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.roles`),
             placeholder: 'roles',
             required: false,
             multiple: true,
@@ -230,8 +206,8 @@ export class SsoUserFormService {
                 roles.map((role) => ({
                   value: role,
                   label: role,
-                }))
-              )
+                })),
+              ),
             ),
           },
         },
@@ -242,15 +218,13 @@ export class SsoUserFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso-user.form.fields.username`
-            ),
+            label: this.translocoService.translate(`sso-user.form.fields.username`),
             placeholder: 'username',
             required: false,
           },
         },
       ],
-      options?.errors || []
+      options?.errors || [],
     );
   }
 }

@@ -21,17 +21,13 @@ import { webhookModuleForRootAsyncOptions } from './integrations/webhook-integra
 
 export const FEATURE_MODULE_IMPORTS = [
   NestjsPinoLoggerModule.forRoot(),
-  TerminusHealthCheckModule.forRootAsync(
-    terminusHealthCheckModuleForRootAsyncOptions()
-  ),
+  TerminusHealthCheckModule.forRootAsync(terminusHealthCheckModuleForRootAsyncOptions()),
   PrismaToolsModule.forRoot(),
   // redis cache
   KeyvModule.forRoot({
     staticConfiguration: {
       storeFactoryByEnvironmentUrl: (uri) => {
-        return isInfrastructureMode()
-          ? undefined
-          : [new KeyvRedis(createClient({ url: uri }))];
+        return isInfrastructureMode() ? undefined : [new KeyvRedis(createClient({ url: uri }))];
       },
     },
   }),

@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Get,
-  Logger,
-  Next,
-  Query,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Logger, Next, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
@@ -33,7 +24,7 @@ export class SsoGoogleOAuthController {
     @Next() next: any,
     @Query('redirect_uri') redirectUrl: string,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    @Query('client_id') clientId: string
+    @Query('client_id') clientId: string,
   ): void {
     try {
       passport.authenticate(SsoGoogleOAuthStrategy.oauthProviderName, {
@@ -53,7 +44,7 @@ export class SsoGoogleOAuthController {
     @Query('redirect_uri') redirectUrl: string,
     @Query('client_id') clientId: string,
     @Req() req: { user: { verificationCode: string } },
-    @Res({ passthrough: true }) res: Response
+    @Res({ passthrough: true }) res: Response,
   ) {
     const domain = this.ssoStaticEnvironments.clientUrl;
     const redirectUrlAfterLogin = clientId
@@ -70,9 +61,7 @@ export class SsoGoogleOAuthController {
       }
       res.redirect(url);
     } catch (error) {
-      throw Error(
-        `Error in render url from template: "${redirectUrlAfterLogin}",  context: "${context}"`
-      );
+      throw Error(`Error in render url from template: "${redirectUrlAfterLogin}",  context: "${context}"`);
     }
   }
 }

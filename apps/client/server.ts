@@ -13,10 +13,7 @@ export function app(): express.Express {
 
   let distFolder = join(process.cwd(), 'dist/apps/client/browser');
 
-  if (
-    !existsSync(distFolder) &&
-    existsSync(join(__dirname, '..', 'client/browser'))
-  ) {
+  if (!existsSync(distFolder) && existsSync(join(__dirname, '..', 'client/browser'))) {
     distFolder = join(__dirname, '..', 'client/browser');
   }
 
@@ -36,7 +33,7 @@ export function app(): express.Express {
     '*.*',
     express.static(distFolder, {
       maxAge: '1y',
-    })
+    }),
   );
 
   // All regular routes use the Angular engine

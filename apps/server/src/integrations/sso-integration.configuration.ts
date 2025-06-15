@@ -13,19 +13,10 @@ import {
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import { FilesRequest, FilesRole } from '@nestjs-mod/files';
 import { searchIn } from '@nestjs-mod/misc';
-import {
-  NotificationsModule,
-  NotificationsService,
-  SendNotificationOptionsType,
-} from '@nestjs-mod/notifications';
+import { NotificationsModule, NotificationsService, SendNotificationOptionsType } from '@nestjs-mod/notifications';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { TwoFactorModule, TwoFactorService } from '@nestjs-mod/two-factor';
-import {
-  WebhookModule,
-  WebhookPrismaSdk,
-  WebhookRequest,
-  WebhookUsersService,
-} from '@nestjs-mod/webhook';
+import { WebhookModule, WebhookPrismaSdk, WebhookRequest, WebhookUsersService } from '@nestjs-mod/webhook';
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { APP_FEATURE } from '../app/app.constants';
 
@@ -34,16 +25,11 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   constructor(
     private readonly webhookUsersService: WebhookUsersService,
     private readonly twoFactorService: TwoFactorService,
-    private readonly notificationsService: NotificationsService
+    private readonly notificationsService: NotificationsService,
   ) {}
 
-  async checkAccessValidator(
-    authUser?: SsoUser | null,
-    ctx?: ExecutionContext
-  ) {
-    const req: SsoRequest & WebhookRequest & FilesRequest = ctx
-      ? getRequestFromExecutionContext(ctx)
-      : {};
+  async checkAccessValidator(authUser?: SsoUser | null, ctx?: ExecutionContext) {
+    const req: SsoRequest & WebhookRequest & FilesRequest = ctx ? getRequestFromExecutionContext(ctx) : {};
 
     if (
       typeof ctx?.getClass === 'function' &&
@@ -63,8 +49,8 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
       const webhookUserRole = searchIn(req.ssoUser?.roles, SsoRole.admin)
         ? WebhookPrismaSdk.WebhookRole.Admin
         : searchIn(req.ssoUser?.roles, SsoRole.manager)
-        ? WebhookPrismaSdk.WebhookRole.User
-        : undefined;
+          ? WebhookPrismaSdk.WebhookRole.User
+          : undefined;
       if (webhookUserRole) {
         // todo: create in sso module options for local events and use event with name sign-up for run this logic
         req.webhookUser = await this.webhookUsersService.createUserIfNotExists({
@@ -77,9 +63,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
       // files
       req.filesUser = {
-        userRole: searchIn(req.ssoUser?.roles, SsoRole.admin)
-          ? FilesRole.Admin
-          : FilesRole.User,
+        userRole: searchIn(req.ssoUser?.roles, SsoRole.admin) ? FilesRole.Admin : FilesRole.User,
       };
     }
   }
@@ -140,9 +124,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   }
 }
 
-export function ssoModuleForRootAsyncOptions(): Parameters<
-  typeof SsoModule.forRootAsync
->[0] {
+export function ssoModuleForRootAsyncOptions(): Parameters<typeof SsoModule.forRootAsync>[0] {
   return {
     imports: [
       SsoModule.forFeature({

@@ -29,9 +29,7 @@ export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
   [SsoErrorEnum.WrongPassword]: getText('Wrong password'),
   [SsoErrorEnum.UserIsExists]: getText('User is exists'),
   [SsoErrorEnum.ActivateEmailWrongCode]: getText('Wrong activate email code'),
-  [SsoErrorEnum.ActivateEmailNotProcessed]: getText(
-    'Activate email not processed'
-  ),
+  [SsoErrorEnum.ActivateEmailNotProcessed]: getText('Activate email not processed'),
   [SsoErrorEnum.ActivateEmailProcessed]: getText('Activate email processed'),
   [SsoErrorEnum.RefreshTokenNotProvided]: getText('Refresh token not provided'),
   [SsoErrorEnum.SessionExpired]: getText('Session expired'),
@@ -41,16 +39,10 @@ export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
   [SsoErrorEnum.EmailNotVerified]: getText('Email not verified'),
   [SsoErrorEnum.Forbidden]: getText('Forbidden'),
   [SsoErrorEnum.WrongOldPassword]: getText('Wrong old password'),
-  [SsoErrorEnum.NonExistentRoleSpecified]: getText(
-    'Non-existent role specified'
-  ),
+  [SsoErrorEnum.NonExistentRoleSpecified]: getText('Non-existent role specified'),
   [SsoErrorEnum.BadAccessToken]: getText('Bad access token'),
-  [SsoErrorEnum.YourSessionHasBeenBlocked]: getText(
-    'Your session has been blocked'
-  ),
-  [SsoErrorEnum.VerificationCodeNotFound]: getText(
-    'Verification code not found'
-  ),
+  [SsoErrorEnum.YourSessionHasBeenBlocked]: getText('Your session has been blocked'),
+  [SsoErrorEnum.VerificationCodeNotFound]: getText('Verification code not found'),
 };
 
 export class SsoError<T = unknown> extends Error {
@@ -73,19 +65,10 @@ export class SsoError<T = unknown> extends Error {
   @ApiPropertyOptional({ type: Object })
   metadata?: T;
 
-  constructor(
-    message?: string | SsoErrorEnum,
-    code?: SsoErrorEnum,
-    metadata?: T
-  ) {
-    const messageAsCode = Boolean(
-      message && Object.values(SsoErrorEnum).includes(message as SsoErrorEnum)
-    );
+  constructor(message?: string | SsoErrorEnum, code?: SsoErrorEnum, metadata?: T) {
+    const messageAsCode = Boolean(message && Object.values(SsoErrorEnum).includes(message as SsoErrorEnum));
     const preparedCode = messageAsCode ? (message as SsoErrorEnum) : code;
-    const preparedMessage =
-      messageAsCode && preparedCode
-        ? SSO_ERROR_ENUM_TITLES[preparedCode]
-        : message;
+    const preparedMessage = messageAsCode && preparedCode ? SSO_ERROR_ENUM_TITLES[preparedCode] : message;
 
     code = preparedCode || SsoErrorEnum.COMMON;
     message = preparedMessage || SSO_ERROR_ENUM_TITLES[code];

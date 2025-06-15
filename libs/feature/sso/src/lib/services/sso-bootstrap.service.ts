@@ -9,7 +9,7 @@ export class SsoServiceBootstrap implements OnModuleInit {
 
   constructor(
     private readonly ssoProjectService: SsoProjectService,
-    private readonly ssoUsersService: SsoUsersService
+    private readonly ssoUsersService: SsoUsersService,
   ) {}
 
   async onModuleInit() {

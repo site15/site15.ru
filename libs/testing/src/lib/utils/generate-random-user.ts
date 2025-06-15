@@ -25,7 +25,7 @@ export interface GenerateRandomUserResult {
 
 export async function generateRandomUser(
   prefix?: string,
-  options?: Partial<GenerateRandomUserResult>
+  options?: Partial<GenerateRandomUserResult>,
 ): Promise<Required<GenerateRandomUserResult>> {
   prefix = prefix || 'test';
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -35,12 +35,9 @@ export async function generateRandomUser(
 
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const uniqId = options?.uniqId || faker.string.nanoid();
-  const firstName =
-    options?.firstName || `${prefix}${uniqId}${faker.person.firstName()}`;
-  const middleName =
-    options?.middleName || `${prefix}${uniqId}${faker.person.middleName()}`;
-  const lastName =
-    options?.lastName || `${prefix}${uniqId}${faker.person.lastName()}`;
+  const firstName = options?.firstName || `${prefix}${uniqId}${faker.person.firstName()}`;
+  const middleName = options?.middleName || `${prefix}${uniqId}${faker.person.middleName()}`;
+  const lastName = options?.lastName || `${prefix}${uniqId}${faker.person.lastName()}`;
 
   const email = (
     options?.email ||

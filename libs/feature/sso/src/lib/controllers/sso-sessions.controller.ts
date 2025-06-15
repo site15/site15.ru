@@ -2,21 +2,8 @@ import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { ValidationError } from '@nestjs-mod/validation';
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  ParseUUIDPipe,
-  Put,
-  Query,
-} from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiOkResponse,
-  ApiTags,
-  refs,
-} from '@nestjs/swagger';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Put, Query } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { SsoRefreshSessionDto } from '../generated/rest/dto/sso-refresh-session.dto';
 import { UpdateSsoRefreshSessionDto } from '../generated/rest/dto/update-sso-refresh-session.dto';
@@ -40,21 +27,17 @@ export class SsoRefreshSessionsController {
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
-    private readonly ssoCacheService: SsoCacheService
+    private readonly ssoCacheService: SsoCacheService,
   ) {}
 
   @Get()
   @ApiOkResponse({ type: FindManySsoRefreshSessionResponse })
-  async findMany(
-    @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Query() args: FindManySsoRefreshSessionArgs
-  ) {
+  async findMany(@CurrentSsoRequest() ssoRequest: SsoRequest, @Query() args: FindManySsoRefreshSessionArgs) {
     const projectId = ssoRequest.ssoProject.id;
-    const { take, skip, curPage, perPage } =
-      this.prismaToolsService.getFirstSkipFromCurPerPage({
-        curPage: args.curPage,
-        perPage: args.perPage,
-      });
+    const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
+      curPage: args.curPage,
+      perPage: args.perPage,
+    });
     const searchText = args.searchText;
     const userId = args.userId;
 
@@ -70,7 +53,7 @@ export class SsoRefreshSessionsController {
               }
             : {}),
         }),
-        {}
+        {},
       );
     const result = await this.prismaClient.$transaction(async (prisma) => {
       return {
@@ -81,9 +64,7 @@ export class SsoRefreshSessionsController {
             ...(searchText
               ? {
                   OR: [
-                    ...(isUUID(searchText)
-                      ? [{ id: { equals: searchText } }]
-                      : []),
+                    ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     {
                       userIp: { contains: searchText, mode: 'insensitive' },
                     },
@@ -112,9 +93,7 @@ export class SsoRefreshSessionsController {
             ...(searchText
               ? {
                   OR: [
-                    ...(isUUID(searchText)
-                      ? [{ id: { equals: searchText } }]
-                      : []),
+                    ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     {
                       userIp: { contains: searchText, mode: 'insensitive' },
                     },
@@ -150,11 +129,9 @@ export class SsoRefreshSessionsController {
   async updateOne(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() args: UpdateSsoRefreshSessionDto
+    @Body() args: UpdateSsoRefreshSessionDto,
   ) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
-      ? undefined
-      : ssoRequest.ssoProject.id;
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
     const result = await this.prismaClient.ssoRefreshSession.update({
       data: { ...args, updatedAt: new Date() },
       where: {
@@ -170,13 +147,8 @@ export class SsoRefreshSessionsController {
 
   @Get(':id')
   @ApiOkResponse({ type: SsoRefreshSessionDto })
-  async findOne(
-    @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Param('id', new ParseUUIDPipe()) id: string
-  ) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
-      ? undefined
-      : ssoRequest.ssoProject.id;
+  async findOne(@CurrentSsoRequest() ssoRequest: SsoRequest, @Param('id', new ParseUUIDPipe()) id: string) {
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
     return await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
       where: {
         ...(projectId ? { projectId } : {}),

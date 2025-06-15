@@ -11,9 +11,7 @@ describe('Get server time from rest api and ws', () => {
     headers: {
       'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
     },
-    serverUrl: process.env.IS_DOCKER_COMPOSE
-      ? get('E2E_SERVER_URL').asString()
-      : undefined,
+    serverUrl: process.env.IS_DOCKER_COMPOSE ? get('E2E_SERVER_URL').asString() : undefined,
   });
   const timeApi = restClientHelper.getTimeApi();
 
@@ -32,7 +30,7 @@ describe('Get server time from rest api and ws', () => {
           path: '/ws/time',
           eventName: 'ChangeTimeStream',
         })
-        .pipe(take(3), toArray())
+        .pipe(take(3), toArray()),
     );
 
     expect(last3ChangeTimeEvents).toHaveLength(3);

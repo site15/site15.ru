@@ -1,8 +1,4 @@
-import {
-  createNestModule,
-  getRequestFromExecutionContext,
-  NestModuleCategory,
-} from '@nestjs-mod/common';
+import { createNestModule, getRequestFromExecutionContext, NestModuleCategory } from '@nestjs-mod/common';
 
 import { SSO_FEATURE, SsoModule, SsoRequest } from '@nestjs-mod-sso/sso';
 import { ValidationError, ValidationErrorEnum } from '@nestjs-mod/validation';
@@ -51,11 +47,7 @@ export const { AppModule } = createNestModule({
         },
         exceptionFactory: (errors) => {
           console.log(errors);
-          return new ValidationError(
-            ValidationErrorEnum.COMMON,
-            undefined,
-            errors
-          );
+          return new ValidationError(ValidationErrorEnum.COMMON, undefined, errors);
         },
       },
       usePipes: true,
@@ -82,8 +74,5 @@ export const { AppModule } = createNestModule({
         ]),
   ],
   controllers: [TimeController],
-  providers: [
-    TimeController,
-    { provide: APP_FILTER, useClass: AppExceptionsFilter },
-  ],
+  providers: [TimeController, { provide: APP_FILTER, useClass: AppExceptionsFilter }],
 });

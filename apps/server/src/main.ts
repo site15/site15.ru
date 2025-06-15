@@ -24,10 +24,7 @@ import cookieParser from 'cookie-parser';
 import { writeFileSync } from 'fs';
 import { Logger } from 'nestjs-pino';
 import { join } from 'path';
-import {
-  createAndFillDatabases,
-  fillAllNeedDatabaseEnvsFromOneMain,
-} from './create-and-fill-databases';
+import { createAndFillDatabases, fillAllNeedDatabaseEnvsFromOneMain } from './create-and-fill-databases';
 import { appFolder, rootFolder } from './environments/environment';
 import { FEATURE_MODULE_IMPORTS, FeatureModule } from './feature.module';
 import { INFRASTRUCTURE_MODULE_IMPORTS } from './infrastructure.module';
@@ -79,10 +76,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
     SwaggerModule.setup('swagger', app, document);
 
     if (isInfrastructureMode()) {
-      writeFileSync(
-        join(rootFolder, 'app-swagger.json'),
-        JSON.stringify(document)
-      );
+      writeFileSync(join(rootFolder, 'app-swagger.json'), JSON.stringify(document));
     } else {
       await replaceEnvs();
       await createAndFillDatabases();
@@ -106,8 +100,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
   bootstrapNestApplication({
     project: {
       name: 'single-sign-on',
-      description:
-        'Single Sign-On on NestJS and Angular with webhooks and social authorization',
+      description: 'Single Sign-On on NestJS and Angular with webhooks and social authorization',
     },
     modules: {
       system: [
@@ -131,31 +124,22 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
               if (options.app) {
                 options.app.use(cookieParser());
 
-                const swaggerConf = new DocumentBuilder()
-                  .addBearerAuth()
-                  .build();
-                const document = SwaggerModule.createDocument(
-                  options.app,
-                  swaggerConf,
-                  {
-                    extraModels: [
-                      ...FILES_EXTRA_MODELS,
-                      ...NOTIFICATIONS_EXTRA_MODELS,
-                      ...SSO_EXTRA_MODELS,
-                      ...VALIDATION_EXTRA_MODELS,
-                      ...WEBHOOK_EXTRA_MODELS,
-                    ],
-                  }
-                );
+                const swaggerConf = new DocumentBuilder().addBearerAuth().build();
+                const document = SwaggerModule.createDocument(options.app, swaggerConf, {
+                  extraModels: [
+                    ...FILES_EXTRA_MODELS,
+                    ...NOTIFICATIONS_EXTRA_MODELS,
+                    ...SSO_EXTRA_MODELS,
+                    ...VALIDATION_EXTRA_MODELS,
+                    ...WEBHOOK_EXTRA_MODELS,
+                  ],
+                });
                 SwaggerModule.setup('swagger', options.app, document);
 
                 options.app.useWebSocketAdapter(new WsAdapter(options.app));
 
                 if (isInfrastructureMode()) {
-                  writeFileSync(
-                    join(rootFolder, 'app-swagger.json'),
-                    JSON.stringify(document)
-                  );
+                  writeFileSync(join(rootFolder, 'app-swagger.json'), JSON.stringify(document));
                 } else {
                   await replaceEnvs();
                   await createAndFillDatabases();

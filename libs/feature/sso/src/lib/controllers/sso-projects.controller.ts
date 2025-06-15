@@ -3,30 +3,10 @@ import { FindManyArgs, StatusResponse } from '@nestjs-mod/swagger';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { ValidationError } from '@nestjs-mod/validation';
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseUUIDPipe,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiCreatedResponse,
-  ApiOkResponse,
-  ApiTags,
-  refs,
-} from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
-import {
-  CurrentLocale,
-  SkipTranslate,
-  TranslatesService,
-} from 'nestjs-translates';
+import { CurrentLocale, SkipTranslate, TranslatesService } from 'nestjs-translates';
 import { CreateSsoProjectDto } from '../generated/rest/dto/create-sso-project.dto';
 import { SsoProjectDto } from '../generated/rest/dto/sso-project.dto';
 import { UpdateSsoProjectDto } from '../generated/rest/dto/update-sso-project.dto';
@@ -53,17 +33,16 @@ export class SsoProjectsController {
     private readonly prismaToolsService: PrismaToolsService,
     private readonly translatesService: TranslatesService,
     private readonly ssoCacheService: SsoCacheService,
-    private readonly ssoTemplatesService: SsoTemplatesService
+    private readonly ssoTemplatesService: SsoTemplatesService,
   ) {}
 
   @Get()
   @ApiOkResponse({ type: FindManySsoProjectResponse })
   async findMany(@Query() args: FindManyArgs) {
-    const { take, skip, curPage, perPage } =
-      this.prismaToolsService.getFirstSkipFromCurPerPage({
-        curPage: args.curPage,
-        perPage: args.perPage,
-      });
+    const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
+      curPage: args.curPage,
+      perPage: args.perPage,
+    });
     const searchText = args.searchText;
 
     const orderBy = (args.sort || 'createdAt:desc')
@@ -78,7 +57,7 @@ export class SsoProjectsController {
               }
             : {}),
         }),
-        {}
+        {},
       );
     const result = await this.prismaClient.$transaction(async (prisma) => {
       return {
@@ -87,9 +66,7 @@ export class SsoProjectsController {
             ...(searchText
               ? {
                   OR: [
-                    ...(isUUID(searchText)
-                      ? [{ id: { equals: searchText } }]
-                      : []),
+                    ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     {
                       clientId: { contains: searchText, mode: 'insensitive' },
                     },
@@ -106,9 +83,7 @@ export class SsoProjectsController {
             ...(searchText
               ? {
                   OR: [
-                    ...(isUUID(searchText)
-                      ? [{ id: { equals: searchText } }]
-                      : []),
+                    ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     {
                       clientId: { contains: searchText, mode: 'insensitive' },
                     },
@@ -138,9 +113,7 @@ export class SsoProjectsController {
       },
     });
 
-    await this.ssoTemplatesService.createProjectDefaultEmailTemplates(
-      result.id
-    );
+    await this.ssoTemplatesService.createProjectDefaultEmailTemplates(result.id);
 
     // fill cache
     await this.ssoCacheService.getCachedProject(result.clientId);
@@ -150,10 +123,7 @@ export class SsoProjectsController {
 
   @Put(':id')
   @ApiOkResponse({ type: SsoProjectDto })
-  async updateOne(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() args: UpdateSsoProjectDto
-  ) {
+  async updateOne(@Param('id', new ParseUUIDPipe()) id: string, @Body() args: UpdateSsoProjectDto) {
     const result = await this.prismaClient.ssoProject.update({
       data: { ...args, updatedAt: new Date() },
       where: {
@@ -171,7 +141,7 @@ export class SsoProjectsController {
   async deleteOne(
     @Param('id', new ParseUUIDPipe()) id: string,
     // todo: change to InjectTranslateFunction, after write all posts
-    @CurrentLocale() locale: string
+    @CurrentLocale() locale: string,
   ) {
     await this.prismaClient.ssoProject.delete({
       where: {

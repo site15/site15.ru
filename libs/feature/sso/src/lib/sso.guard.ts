@@ -1,11 +1,6 @@
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import { searchIn, splitIn } from '@nestjs-mod/misc';
-import {
-  CanActivate,
-  ExecutionContext,
-  Injectable,
-  Logger,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, Logger } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ACCEPT_LANGUAGE, TranslatesStorage } from 'nestjs-translates';
 import { SsoUser } from './generated/rest/dto/sso-user.entity';
@@ -37,17 +32,12 @@ export class SsoGuard implements CanActivate {
     private readonly ssoProjectService: SsoProjectService,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoConfiguration: SsoConfiguration,
-    private readonly translatesStorage: TranslatesStorage
+    private readonly translatesStorage: TranslatesStorage,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const {
-      allowEmptyUserMetadata,
-      skipValidateRefreshSession,
-      checkHaveSsoClientSecret,
-      checkSsoRole,
-      skipSsoGuard,
-    } = this.getHandlersReflectMetadata(context);
+    const { allowEmptyUserMetadata, skipValidateRefreshSession, checkHaveSsoClientSecret, checkSsoRole, skipSsoGuard } =
+      this.getHandlersReflectMetadata(context);
 
     const req = this.getRequestFromExecutionContext(context);
 
@@ -56,10 +46,7 @@ export class SsoGuard implements CanActivate {
         req.skipEmptySsoUser = true;
       }
 
-      if (
-        req.headers[X_SKIP_THROTTLE] &&
-        req.headers[X_SKIP_THROTTLE] === this.ssoStaticEnvironments.adminSecret
-      ) {
+      if (req.headers[X_SKIP_THROTTLE] && req.headers[X_SKIP_THROTTLE] === this.ssoStaticEnvironments.adminSecret) {
         req.skipThrottle = true;
       }
 
@@ -74,15 +61,11 @@ export class SsoGuard implements CanActivate {
       req.ssoProject = await this.ssoProjectService.getProjectByRequest(req);
 
       // process jwt token
-      req.ssoAccessTokenData =
-        await this.ssoTokensService.verifyAndDecodeAccessToken(
-          req.headers['authorization']?.split(' ')?.[1]
-        );
+      req.ssoAccessTokenData = await this.ssoTokensService.verifyAndDecodeAccessToken(
+        req.headers['authorization']?.split(' ')?.[1],
+      );
       if (!skipValidateRefreshSession && req.ssoAccessTokenData?.refreshToken) {
-        const refreshSession =
-          await this.ssoCacheService.getCachedRefreshSession(
-            req.ssoAccessTokenData?.refreshToken
-          );
+        const refreshSession = await this.ssoCacheService.getCachedRefreshSession(req.ssoAccessTokenData?.refreshToken);
         if (!refreshSession?.enabled) {
           throw new SsoError(SsoErrorEnum.YourSessionHasBeenBlocked);
         }
@@ -113,14 +96,8 @@ export class SsoGuard implements CanActivate {
       }
 
       // set admin roles
-      if (
-        this.ssoConfiguration.adminSecretHeaderName &&
-        req.headers?.[this.ssoConfiguration.adminSecretHeaderName]
-      ) {
-        if (
-          req.headers?.[this.ssoConfiguration.adminSecretHeaderName] !==
-          this.ssoStaticEnvironments.adminSecret
-        ) {
+      if (this.ssoConfiguration.adminSecretHeaderName && req.headers?.[this.ssoConfiguration.adminSecretHeaderName]) {
+        if (req.headers?.[this.ssoConfiguration.adminSecretHeaderName] !== this.ssoStaticEnvironments.adminSecret) {
           throw new SsoError(SsoErrorEnum.Forbidden);
         }
         if (!req.ssoUser) {
@@ -138,36 +115,22 @@ export class SsoGuard implements CanActivate {
       if (
         req.ssoUser &&
         this.ssoStaticEnvironments.adminDefaultRoles &&
-        searchIn(
-          this.ssoStaticEnvironments.adminDefaultRoles,
-          req.ssoUser.roles
-        )
+        searchIn(this.ssoStaticEnvironments.adminDefaultRoles, req.ssoUser.roles)
       ) {
-        req.ssoUser.roles = [
-          ...new Set([...splitIn(req.ssoUser.roles), SsoRole.admin]),
-        ].join(',');
+        req.ssoUser.roles = [...new Set([...splitIn(req.ssoUser.roles), SsoRole.admin])].join(',');
       }
 
       // set manager roles
       if (
         req.ssoUser &&
         this.ssoStaticEnvironments.adminDefaultRoles &&
-        searchIn(
-          this.ssoStaticEnvironments.managerDefaultRoles,
-          req.ssoUser.roles
-        )
+        searchIn(this.ssoStaticEnvironments.managerDefaultRoles, req.ssoUser.roles)
       ) {
-        req.ssoUser.roles = [
-          ...new Set([...splitIn(req.ssoUser.roles), SsoRole.manager]),
-        ].join(',');
+        req.ssoUser.roles = [...new Set([...splitIn(req.ssoUser.roles), SsoRole.manager])].join(',');
       }
 
       // check roles by handler roles
-      if (
-        checkSsoRole &&
-        req.ssoUser?.id &&
-        !searchIn(req.ssoUser.roles, checkSsoRole)
-      ) {
+      if (checkSsoRole && req.ssoUser?.id && !searchIn(req.ssoUser.roles, checkSsoRole)) {
         throw new SsoError(SsoErrorEnum.Forbidden);
       }
 
@@ -178,10 +141,7 @@ export class SsoGuard implements CanActivate {
 
       if (
         !req.headers[ACCEPT_LANGUAGE] ||
-        (req.headers[ACCEPT_LANGUAGE] &&
-          !this.translatesStorage.locales.includes(
-            req.headers[ACCEPT_LANGUAGE]
-          ))
+        (req.headers[ACCEPT_LANGUAGE] && !this.translatesStorage.locales.includes(req.headers[ACCEPT_LANGUAGE]))
       ) {
         req.headers[ACCEPT_LANGUAGE] = this.translatesStorage.defaultLocale;
       }
@@ -242,16 +202,14 @@ export class SsoGuard implements CanActivate {
   }) {
     const message = `${context.getClass().name}.${context.getHandler().name}${
       error ? `: ${String(error)}` : result ? `: ${result}` : ''
-    }, projectId: ${JSON.stringify(
-      req.ssoProject?.id
-    )}, clientId: ${JSON.stringify(
-      req.ssoClientId
+    }, projectId: ${JSON.stringify(req.ssoProject?.id)}, clientId: ${JSON.stringify(
+      req.ssoClientId,
     )}, accessTokenData: ${JSON.stringify(
-      req.ssoAccessTokenData
+      req.ssoAccessTokenData,
     )}, userId: ${JSON.stringify(req.ssoUser?.id)}, userRoles: ${JSON.stringify(
-      req.ssoUser?.roles
+      req.ssoUser?.roles,
     )}, skipGuard: ${JSON.stringify(skipSsoGuard)}, checkRole: ${JSON.stringify(
-      checkSsoRole
+      checkSsoRole,
     )}, language: ${JSON.stringify(req.headers[ACCEPT_LANGUAGE])}`;
     if (error) {
       this.logger.error(message);
@@ -269,43 +227,34 @@ export class SsoGuard implements CanActivate {
   private getHandlersReflectMetadata(context: ExecutionContext) {
     const skipValidateRefreshSession = Boolean(
       (typeof context.getHandler === 'function' &&
-        this.reflector.get(SkipValidateRefreshSession, context.getHandler()) ===
-          true) ||
+        this.reflector.get(SkipValidateRefreshSession, context.getHandler()) === true) ||
         (typeof context.getClass === 'function' &&
-          this.reflector.get(SkipValidateRefreshSession, context.getClass()) ===
-            true) ||
-        undefined
+          this.reflector.get(SkipValidateRefreshSession, context.getClass()) === true) ||
+        undefined,
     );
 
     const allowEmptyUserMetadata = Boolean(
-      (typeof context.getHandler === 'function' &&
-        this.reflector.get(AllowEmptySsoUser, context.getHandler())) ||
-        (typeof context.getClass === 'function' &&
-          this.reflector.get(AllowEmptySsoUser, context.getClass())) ||
-        undefined
+      (typeof context.getHandler === 'function' && this.reflector.get(AllowEmptySsoUser, context.getHandler())) ||
+        (typeof context.getClass === 'function' && this.reflector.get(AllowEmptySsoUser, context.getClass())) ||
+        undefined,
     );
 
     const checkHaveSsoClientSecret = Boolean(
       (typeof context.getHandler === 'function' &&
         this.reflector.get(CheckHaveSsoClientSecret, context.getHandler())) ||
-        (typeof context.getClass === 'function' &&
-          this.reflector.get(CheckHaveSsoClientSecret, context.getClass())) ||
-        undefined
+        (typeof context.getClass === 'function' && this.reflector.get(CheckHaveSsoClientSecret, context.getClass())) ||
+        undefined,
     );
 
     const skipSsoGuard = Boolean(
-      (typeof context.getHandler === 'function' &&
-        this.reflector.get(SkipSsoGuard, context.getHandler())) ||
-        (typeof context.getClass === 'function' &&
-          this.reflector.get(SkipSsoGuard, context.getClass())) ||
-        undefined
+      (typeof context.getHandler === 'function' && this.reflector.get(SkipSsoGuard, context.getHandler())) ||
+        (typeof context.getClass === 'function' && this.reflector.get(SkipSsoGuard, context.getClass())) ||
+        undefined,
     );
 
     const checkSsoRole =
-      (typeof context.getHandler === 'function' &&
-        this.reflector.get(CheckSsoRole, context.getHandler())) ||
-      (typeof context.getClass === 'function' &&
-        this.reflector.get(CheckSsoRole, context.getClass())) ||
+      (typeof context.getHandler === 'function' && this.reflector.get(CheckSsoRole, context.getHandler())) ||
+      (typeof context.getClass === 'function' && this.reflector.get(CheckSsoRole, context.getClass())) ||
       undefined;
 
     return {

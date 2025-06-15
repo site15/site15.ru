@@ -32,7 +32,7 @@ test.describe('Validation (ru)', () => {
     });
     await page.evaluate(
       (minioURL) => localStorage.setItem('minioURL', minioURL),
-      get('SINGLE_SIGN_ON_MINIO_URL').required().asString()
+      get('SINGLE_SIGN_ON_MINIO_URL').required().asString(),
     );
   });
 
@@ -42,30 +42,19 @@ test.describe('Validation (ru)', () => {
   });
 
   test('should change language to RU', async () => {
-    await expect(
-      page.locator('nz-header').locator('[nz-submenu]').first()
-    ).toContainText(`EN`);
+    await expect(page.locator('nz-header').locator('[nz-submenu]').first()).toContainText(`EN`);
     await page.locator('nz-header').locator('[nz-submenu]').first().click();
 
-    await expect(
-      page
-        .locator('[nz-submenu-none-inline-child]')
-        .locator('[nz-menu-item]')
-        .last()
-    ).toContainText(`Russian`);
+    await expect(page.locator('[nz-submenu-none-inline-child]').locator('[nz-menu-item]').last()).toContainText(
+      `Russian`,
+    );
 
-    await page
-      .locator('[nz-submenu-none-inline-child]')
-      .locator('[nz-menu-item]')
-      .last()
-      .click();
+    await page.locator('[nz-submenu-none-inline-child]').locator('[nz-menu-item]').last().click();
 
     await setTimeout(7000);
     //
 
-    await expect(
-      page.locator('nz-header').locator('[nz-submenu]').first()
-    ).toContainText(`RU`);
+    await expect(page.locator('nz-header').locator('[nz-submenu]').first()).toContainText(`RU`);
   });
 
   test('sign up as user', async () => {
@@ -73,53 +62,33 @@ test.describe('Validation (ru)', () => {
       timeout: 7000,
     });
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('[placeholder=email]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('[placeholder=email]').click();
     await page.keyboard.type(user.email.toLowerCase(), {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-up-form').locator('[placeholder=email]')
-    ).toHaveValue(user.email.toLowerCase());
+    await expect(page.locator('sso-sign-up-form').locator('[placeholder=email]')).toHaveValue(user.email.toLowerCase());
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('[placeholder=password]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('[placeholder=password]').click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-up-form').locator('[placeholder=password]')
-    ).toHaveValue(user.password);
+    await expect(page.locator('sso-sign-up-form').locator('[placeholder=password]')).toHaveValue(user.password);
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('[placeholder=confirmPassword]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]').click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]')
-    ).toHaveValue(user.password);
+    await expect(page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]')).toHaveValue(user.password);
 
-    await expect(
-      page.locator('sso-sign-up-form').locator('button[type=submit]')
-    ).toHaveText('Зарегистрироваться');
+    await expect(page.locator('sso-sign-up-form').locator('button[type=submit]')).toHaveText('Зарегистрироваться');
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('button[type=submit]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('button[type=submit]').click();
 
     await setTimeout(7000);
 
-    await expect(
-      page.locator('nz-header').locator('[nz-submenu]').first()
-    ).toContainText(`Вы вошли в систему как ${user.email.toLowerCase()}`);
+    await expect(page.locator('nz-header').locator('[nz-submenu]').first()).toContainText(
+      `Вы вошли в систему как ${user.email.toLowerCase()}`,
+    );
   });
   /*
   xtest('should catch error on create new webhook', async () => {

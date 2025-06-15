@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestMeta } from '@nestjs-mod/misc';
-import {
-  SsoRestSdkAngularService,
-  UpdateSsoRefreshSessionDtoInterface,
-} from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRestSdkAngularService, UpdateSsoRefreshSessionDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { map } from 'rxjs';
 import { SsoSessionMapperService } from './sso-session-mapper.service';
 
@@ -11,7 +8,7 @@ import { SsoSessionMapperService } from './sso-session-mapper.service';
 export class SsoSessionService {
   constructor(
     private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
-    private readonly ssoSessionMapperService: SsoSessionMapperService
+    private readonly ssoSessionMapperService: SsoSessionMapperService,
   ) {}
 
   findOne(id: string) {
@@ -21,13 +18,7 @@ export class SsoSessionService {
       .pipe(map((s) => this.ssoSessionMapperService.toModel(s)));
   }
 
-  findMany({
-    filters,
-    meta,
-  }: {
-    filters: Record<string, string>;
-    meta?: RequestMeta;
-  }) {
+  findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoRefreshSessionsControllerFindMany(
@@ -39,15 +30,13 @@ export class SsoSessionService {
           ? Object.entries(meta?.sort)
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
-          : undefined
+          : undefined,
       )
       .pipe(
         map(({ meta, ssoRefreshSessions }) => ({
           meta,
-          ssoRefreshSessions: ssoRefreshSessions.map((t) =>
-            this.ssoSessionMapperService.toModel(t)
-          ),
-        }))
+          ssoRefreshSessions: ssoRefreshSessions.map((t) => this.ssoSessionMapperService.toModel(t)),
+        })),
       );
   }
 

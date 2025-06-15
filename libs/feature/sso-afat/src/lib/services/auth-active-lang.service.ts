@@ -1,15 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
-import {
-  LangToLocaleMapping,
-  TRANSLOCO_LOCALE_LANG_MAPPING,
-} from '@jsverse/transloco-locale';
+import { LangToLocaleMapping, TRANSLOCO_LOCALE_LANG_MAPPING } from '@jsverse/transloco-locale';
 import { ActiveLangService } from '@nestjs-mod/afat';
-import {
-  SsoRestSdkAngularService,
-  SsoErrorEnumInterface,
-  SsoErrorInterface,
-} from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRestSdkAngularService, SsoErrorEnumInterface, SsoErrorInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { catchError, map, mergeMap, of, tap, throwError } from 'rxjs';
 import { TokensService } from './tokens.service';
 
@@ -24,13 +17,11 @@ export class SsoActiveLangService {
     @Inject(TRANSLOCO_LOCALE_LANG_MAPPING)
     readonly langToLocaleMapping: LangToLocaleMapping,
     private readonly activeLangService: ActiveLangService,
-    private readonly tokensService: TokensService
+    private readonly tokensService: TokensService,
   ) {}
 
   refreshActiveLang(loadDictionaries?: boolean) {
-    return this.getActiveLang().pipe(
-      mergeMap((lang) => this.localSetActiveLang(lang, loadDictionaries))
-    );
+    return this.getActiveLang().pipe(mergeMap((lang) => this.localSetActiveLang(lang, loadDictionaries)));
   }
 
   clearLocalStorage() {
@@ -41,7 +32,7 @@ export class SsoActiveLangService {
     return of(
       localStorage.getItem(AUTH_ACTIVE_USER_LANG_LOCAL_STORAGE_KEY) ||
         localStorage.getItem(AUTH_ACTIVE_GUEST_LANG_LOCAL_STORAGE_KEY) ||
-        this.translocoService.getDefaultLang()
+        this.translocoService.getDefaultLang(),
     );
   }
 
@@ -58,15 +49,11 @@ export class SsoActiveLangService {
           return profile.lang ? of(profile.lang) : this.localGetActiveLang();
         }),
         catchError((err) => {
-          if (
-            'error' in err &&
-            (err.error as SsoErrorInterface).code ===
-              SsoErrorEnumInterface.SSO_013
-          ) {
+          if ('error' in err && (err.error as SsoErrorInterface).code === SsoErrorEnumInterface.SSO_013) {
             return this.localGetActiveLang();
           }
           return throwError(() => err);
-        })
+        }),
       );
   }
 
@@ -79,7 +66,7 @@ export class SsoActiveLangService {
         tap(() => {
           this.activeLangService.applyActiveLang(lang);
         }),
-        map(() => null)
+        map(() => null),
       );
     }
     this.activeLangService.applyActiveLang(lang);
@@ -97,15 +84,11 @@ export class SsoActiveLangService {
       .pipe(
         mergeMap(() => this.localSetActiveLang(lang, loadDictionaries)),
         catchError((err) => {
-          if (
-            'error' in err &&
-            (err.error as SsoErrorInterface).code ===
-              SsoErrorEnumInterface.SSO_013
-          ) {
+          if ('error' in err && (err.error as SsoErrorInterface).code === SsoErrorEnumInterface.SSO_013) {
             return this.localSetActiveLang(lang, loadDictionaries);
           }
           return throwError(() => err);
-        })
+        }),
       );
   }
 }

@@ -3,6 +3,4 @@ import { AppComponent } from './app/app.component';
 import { minioURL } from './environments/environment';
 import { ssoAppConfig } from './app/app.config';
 
-bootstrapApplication(AppComponent, ssoAppConfig({ minioURL })).catch((err) =>
-  console.error(err)
-);
+bootstrapApplication(AppComponent, ssoAppConfig({ minioURL })).catch((err) => console.error(err));

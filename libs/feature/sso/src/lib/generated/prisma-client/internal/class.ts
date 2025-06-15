@@ -20,8 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
       value: 'prisma-client',
     },
     output: {
-      value:
-        '/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/sso/src/lib/generated/prisma-client',
+      value: '/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/sso/src/lib/generated/prisma-client',
       fromEnvVar: null,
     },
     config: {
@@ -36,8 +35,7 @@ const config: runtime.GetPrismaClientConfig = {
       },
     ],
     previewFeatures: ['driverAdapters', 'queryCompiler'],
-    sourceFilePath:
-      '/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/sso/src/prisma/schema.prisma',
+    sourceFilePath: '/home/endy/Projects/nestjs-mod/nestjs-mod-sso/libs/feature/sso/src/prisma/schema.prisma',
     isCustomOutput: true,
   },
   relativePath: '../../../prisma',
@@ -56,8 +54,7 @@ const config: runtime.GetPrismaClientConfig = {
   },
   inlineSchema:
     'generator client {\n  provider = "prisma-client"\n\n  output = "../../../../../libs/feature/sso/src/lib/generated/prisma-client"\n\n  previewFeatures = ["queryCompiler", "driverAdapters"]\n\n  moduleFormat = "cjs"\n}\n\ndatasource db {\n  provider = "postgres"\n  url      = env("SINGLE_SIGN_ON_SSO_DATABASE_URL")\n}\n\ngenerator prismaClassGenerator {\n  provider                        = "prisma-generator-nestjs-dto"\n  output                          = "../lib/generated/rest/dto"\n  annotateAllDtoProperties        = "true"\n  classValidation                 = "true"\n  createDtoPrefix                 = "Create"\n  definiteAssignmentAssertion     = "true"\n  dtoSuffix                       = "Dto"\n  entityPrefix                    = ""\n  entitySuffix                    = ""\n  exportRelationModifierClasses   = "true"\n  fileNamingStyle                 = "kebab"\n  flatResourceStructure           = "false"\n  noDependencies                  = "false"\n  outputToNestJsResourceStructure = "false"\n  prettier                        = "true"\n  reExport                        = "false"\n  updateDtoPrefix                 = "Update"\n}\n\nmodel SsoProject {\n  /// @DtoCreateHidden\n  id                                                      String              @id(map: "PK_SSO_PROJECTS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid\n  name                                                    String              @db.VarChar(255)\n  nameLocale                                              Json?\n  clientId                                                String              @unique(map: "UQ_SSO_PROJECTS__CLIENT_ID") @db.VarChar(100)\n  clientSecret                                            String              @db.VarChar(255)\n  public                                                  Boolean\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  createdAt                                               DateTime            @default(now()) @db.Timestamp(6)\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  updatedAt                                               DateTime            @default(now()) @db.Timestamp(6)\n  SsoEmailTemplate                                        SsoEmailTemplate[]\n  SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider SsoOAuthToken[]     @relation("SsoOAuthToken_projectIdToSsoOAuthProvider")\n  SsoRefreshSession                                       SsoRefreshSession[]\n  SsoUser                                                 SsoUser[]\n\n  @@index([public], map: "IDX_SSO_PROJECTS__PUBLIC")\n}\n\nmodel SsoUser {\n  /// @DtoCreateHidden\n  id                String              @id(map: "PK_SSO_USERS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid\n  email             String              @db.VarChar(255)\n  phone             String?             @db.VarChar(255)\n  username          String?             @db.VarChar(255)\n  /// @DtoEntityHidden\n  password          String              @db.VarChar(255)\n  roles             String?             @db.VarChar(255)\n  firstname         String?             @db.VarChar(255)\n  lastname          String?             @db.VarChar(255)\n  gender            String?             @db.VarChar(1)\n  birthdate         DateTime?           @db.Timestamp(6)\n  picture           String?\n  appData           Json?\n  revokedAt         DateTime?           @db.Timestamp(6)\n  emailVerifiedAt   DateTime?           @db.Timestamp(6)\n  phoneVerifiedAt   DateTime?           @db.Timestamp(6)\n  timezone          Float?\n  lang              String?             @db.VarChar(2)\n  projectId         String              @db.Uuid\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  createdAt         DateTime            @default(now()) @db.Timestamp(6)\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  updatedAt         DateTime            @default(now()) @db.Timestamp(6)\n  SsoOAuthToken     SsoOAuthToken[]\n  SsoRefreshSession SsoRefreshSession[]\n  SsoProject        SsoProject          @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_USERS__PROJECT_ID")\n\n  @@unique([email, projectId], map: "UQ_SSO_USERS__EMAIL")\n  @@unique([username, projectId], map: "UQ_SSO_USERS__USERNAME")\n  @@index([projectId], map: "IDX_SSO_USERS__PROJECT_ID")\n}\n\nmodel migrations_sso {\n  installed_rank Int      @id(map: "__migrations_sso_pk")\n  version        String?  @db.VarChar(50)\n  description    String   @db.VarChar(200)\n  type           String   @db.VarChar(20)\n  script         String   @db.VarChar(1000)\n  checksum       Int?\n  installed_by   String   @db.VarChar(100)\n  installed_on   DateTime @default(now()) @db.Timestamp(6)\n  execution_time Int\n  success        Boolean\n\n  @@index([success], map: "__migrations_sso_s_idx")\n  @@map("__migrations_sso")\n}\n\nmodel SsoRefreshSession {\n  /// @DtoCreateHidden\n  id           String     @id(map: "PK_SSO_REFRESH_SESSIONS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid\n  /// @DtoEntityHidden\n  refreshToken String     @db.Uuid\n  userAgent    String?    @db.VarChar(255)\n  /// @DtoEntityHidden\n  fingerprint  String?    @db.VarChar(255)\n  userIp       String?    @db.VarChar(128)\n  expiresAt    DateTime?  @db.Timestamp(6)\n  userData     Json?\n  enabled      Boolean\n  userId       String     @db.Uuid\n  projectId    String     @db.Uuid\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  createdAt    DateTime   @default(now()) @db.Timestamp(6)\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  updatedAt    DateTime   @default(now()) @db.Timestamp(6)\n  SsoProject   SsoProject @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_REFRESH_SESSIONS__PROJECT_ID")\n  SsoUser      SsoUser    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_REFRESH_SESSIONS__USER_ID")\n\n  @@index([userId, projectId], map: "IDX_SSO_REFRESH_SESSIONS_USER_ID")\n  @@index([projectId], map: "IDX_SSO_REFRESH_SESSIONS__PROJECT_ID")\n}\n\nmodel SsoEmailTemplate {\n  /// @DtoCreateHidden\n  id            String     @id(map: "PK_SSO_EMAIL_TEMPLATES") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid\n  subject       String\n  subjectLocale Json?\n  text          String\n  textLocale    Json?\n  html          String\n  htmlLocale    Json?\n  operationName String?    @db.VarChar(128)\n  projectId     String     @db.Uuid\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  createdAt     DateTime   @default(now()) @db.Timestamp(6)\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  updatedAt     DateTime   @default(now()) @db.Timestamp(6)\n  SsoProject    SsoProject @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_EMAIL_TEMPLATES__PROJECT_ID")\n\n  @@unique([projectId, operationName], map: "UQ_SSO_EMAIL_TEMPLATES__OPERATION_NAME")\n  @@index([projectId], map: "IDX_SSO_EMAIL_TEMPLATES__PROJECT_ID")\n}\n\nmodel SsoOAuthProvider {\n  /// @DtoCreateHidden\n  id                       String                     @id(map: "PK_SSO_OAUTH_PROVIDER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid\n  name                     String                     @unique(map: "UQ_SSO_OAUTH_PROVIDER__NAME") @db.VarChar(255)\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  createdAt                DateTime                   @default(now()) @db.Timestamp(6)\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  updatedAt                DateTime                   @default(now()) @db.Timestamp(6)\n  SsoOAuthProviderSettings SsoOAuthProviderSettings[]\n  SsoOAuthToken            SsoOAuthToken[]\n}\n\nmodel SsoOAuthProviderSettings {\n  /// @DtoCreateHidden\n  id               String           @id(map: "PK_SSO_OAUTH_PROVIDER_SETTINGS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid\n  name             String           @db.VarChar(255)\n  value            String\n  providerId       String           @db.Uuid\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  createdAt        DateTime         @default(now()) @db.Timestamp(6)\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  updatedAt        DateTime         @default(now()) @db.Timestamp(6)\n  SsoOAuthProvider SsoOAuthProvider @relation(fields: [providerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_OAUTH_PROVIDER_SETTINGS__PROVIDER_ID")\n\n  @@unique([providerId, name], map: "UQ_SSO_OAUTH_PROVIDER_SETTINGS__NAME")\n  @@index([providerId], map: "IDX_SSO_OAUTH_PROVIDER_SETTINGS__PROVIDER_ID")\n}\n\nmodel SsoOAuthToken {\n  /// @DtoCreateHidden\n  id                                                         String           @id(map: "PK_SSO_OAUTH_TOKENS_SETTINGS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid\n  grantedAt                                                  DateTime         @default(now()) @db.Timestamp(6)\n  /// @DtoEntityHidden\n  accessToken                                                String           @db.VarChar(512)\n  /// @DtoEntityHidden\n  refreshToken                                               String?          @db.VarChar(512)\n  expiresAt                                                  DateTime?        @db.Timestamp(6)\n  tokenType                                                  String?          @db.VarChar(255)\n  scope                                                      String?          @db.VarChar(512)\n  verificationCode                                           String?          @db.VarChar(512)\n  userId                                                     String           @db.Uuid\n  projectId                                                  String           @db.Uuid\n  providerId                                                 String           @db.Uuid\n  providerUserId                                             String           @db.VarChar(512)\n  providerUserData                                           Json?\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  createdAt                                                  DateTime         @default(now()) @db.Timestamp(6)\n  /// @DtoCreateHidden\n  /// @DtoUpdateHidden\n  updatedAt                                                  DateTime         @default(now()) @db.Timestamp(6)\n  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider SsoProject       @relation("SsoOAuthToken_projectIdToSsoOAuthProvider", fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_OAUTH_TOKENS__PROJECT_ID")\n  SsoOAuthProvider                                           SsoOAuthProvider @relation(fields: [providerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_OAUTH_TOKENS__PROVIDER_ID")\n  SsoUser                                                    SsoUser          @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_OAUTH_TOKENS__USER_ID")\n\n  @@unique([providerId, projectId, userId, accessToken], map: "UQ_SSO_OAUTH_TOKENS__NAME")\n  @@index([projectId], map: "IDX_SSO_OAUTH_TOKENS__PROJECT_ID")\n  @@index([providerId], map: "IDX_SSO_OAUTH_TOKENS__PROVIDER_ID")\n  @@index([userId], map: "IDX_SSO_OAUTH_TOKENS__USER_ID")\n}\n',
-  inlineSchemaHash:
-    '8b268042a29d0e0f77b683f05ed191051b75d536b0768ff65849760a060b9fa0',
+  inlineSchemaHash: '8b268042a29d0e0f77b683f05ed191051b75d536b0768ff65849760a060b9fa0',
   copyEngine: true,
   runtimeDataModel: {
     models: {},
@@ -68,18 +65,17 @@ const config: runtime.GetPrismaClientConfig = {
 };
 
 config.runtimeDataModel = JSON.parse(
-  '{"models":{"SsoProject":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"nameLocale","kind":"scalar","type":"Json"},{"name":"clientId","kind":"scalar","type":"String"},{"name":"clientSecret","kind":"scalar","type":"String"},{"name":"public","kind":"scalar","type":"Boolean"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoEmailTemplate","kind":"object","type":"SsoEmailTemplate","relationName":"SsoEmailTemplateToSsoProject"},{"name":"SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider","kind":"object","type":"SsoOAuthToken","relationName":"SsoOAuthToken_projectIdToSsoOAuthProvider"},{"name":"SsoRefreshSession","kind":"object","type":"SsoRefreshSession","relationName":"SsoProjectToSsoRefreshSession"},{"name":"SsoUser","kind":"object","type":"SsoUser","relationName":"SsoProjectToSsoUser"}],"dbName":null},"SsoUser":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"email","kind":"scalar","type":"String"},{"name":"phone","kind":"scalar","type":"String"},{"name":"username","kind":"scalar","type":"String"},{"name":"password","kind":"scalar","type":"String"},{"name":"roles","kind":"scalar","type":"String"},{"name":"firstname","kind":"scalar","type":"String"},{"name":"lastname","kind":"scalar","type":"String"},{"name":"gender","kind":"scalar","type":"String"},{"name":"birthdate","kind":"scalar","type":"DateTime"},{"name":"picture","kind":"scalar","type":"String"},{"name":"appData","kind":"scalar","type":"Json"},{"name":"revokedAt","kind":"scalar","type":"DateTime"},{"name":"emailVerifiedAt","kind":"scalar","type":"DateTime"},{"name":"phoneVerifiedAt","kind":"scalar","type":"DateTime"},{"name":"timezone","kind":"scalar","type":"Float"},{"name":"lang","kind":"scalar","type":"String"},{"name":"projectId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoOAuthToken","kind":"object","type":"SsoOAuthToken","relationName":"SsoOAuthTokenToSsoUser"},{"name":"SsoRefreshSession","kind":"object","type":"SsoRefreshSession","relationName":"SsoRefreshSessionToSsoUser"},{"name":"SsoProject","kind":"object","type":"SsoProject","relationName":"SsoProjectToSsoUser"}],"dbName":null},"migrations_sso":{"fields":[{"name":"installed_rank","kind":"scalar","type":"Int"},{"name":"version","kind":"scalar","type":"String"},{"name":"description","kind":"scalar","type":"String"},{"name":"type","kind":"scalar","type":"String"},{"name":"script","kind":"scalar","type":"String"},{"name":"checksum","kind":"scalar","type":"Int"},{"name":"installed_by","kind":"scalar","type":"String"},{"name":"installed_on","kind":"scalar","type":"DateTime"},{"name":"execution_time","kind":"scalar","type":"Int"},{"name":"success","kind":"scalar","type":"Boolean"}],"dbName":"__migrations_sso"},"SsoRefreshSession":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"refreshToken","kind":"scalar","type":"String"},{"name":"userAgent","kind":"scalar","type":"String"},{"name":"fingerprint","kind":"scalar","type":"String"},{"name":"userIp","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"userData","kind":"scalar","type":"Json"},{"name":"enabled","kind":"scalar","type":"Boolean"},{"name":"userId","kind":"scalar","type":"String"},{"name":"projectId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoProject","kind":"object","type":"SsoProject","relationName":"SsoProjectToSsoRefreshSession"},{"name":"SsoUser","kind":"object","type":"SsoUser","relationName":"SsoRefreshSessionToSsoUser"}],"dbName":null},"SsoEmailTemplate":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"subject","kind":"scalar","type":"String"},{"name":"subjectLocale","kind":"scalar","type":"Json"},{"name":"text","kind":"scalar","type":"String"},{"name":"textLocale","kind":"scalar","type":"Json"},{"name":"html","kind":"scalar","type":"String"},{"name":"htmlLocale","kind":"scalar","type":"Json"},{"name":"operationName","kind":"scalar","type":"String"},{"name":"projectId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoProject","kind":"object","type":"SsoProject","relationName":"SsoEmailTemplateToSsoProject"}],"dbName":null},"SsoOAuthProvider":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoOAuthProviderSettings","kind":"object","type":"SsoOAuthProviderSettings","relationName":"SsoOAuthProviderToSsoOAuthProviderSettings"},{"name":"SsoOAuthToken","kind":"object","type":"SsoOAuthToken","relationName":"SsoOAuthProviderToSsoOAuthToken"}],"dbName":null},"SsoOAuthProviderSettings":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"value","kind":"scalar","type":"String"},{"name":"providerId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoOAuthProvider","kind":"object","type":"SsoOAuthProvider","relationName":"SsoOAuthProviderToSsoOAuthProviderSettings"}],"dbName":null},"SsoOAuthToken":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"grantedAt","kind":"scalar","type":"DateTime"},{"name":"accessToken","kind":"scalar","type":"String"},{"name":"refreshToken","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"tokenType","kind":"scalar","type":"String"},{"name":"scope","kind":"scalar","type":"String"},{"name":"verificationCode","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"projectId","kind":"scalar","type":"String"},{"name":"providerId","kind":"scalar","type":"String"},{"name":"providerUserId","kind":"scalar","type":"String"},{"name":"providerUserData","kind":"scalar","type":"Json"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider","kind":"object","type":"SsoProject","relationName":"SsoOAuthToken_projectIdToSsoOAuthProvider"},{"name":"SsoOAuthProvider","kind":"object","type":"SsoOAuthProvider","relationName":"SsoOAuthProviderToSsoOAuthToken"},{"name":"SsoUser","kind":"object","type":"SsoUser","relationName":"SsoOAuthTokenToSsoUser"}],"dbName":null}},"enums":{},"types":{}}'
+  '{"models":{"SsoProject":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"nameLocale","kind":"scalar","type":"Json"},{"name":"clientId","kind":"scalar","type":"String"},{"name":"clientSecret","kind":"scalar","type":"String"},{"name":"public","kind":"scalar","type":"Boolean"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoEmailTemplate","kind":"object","type":"SsoEmailTemplate","relationName":"SsoEmailTemplateToSsoProject"},{"name":"SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider","kind":"object","type":"SsoOAuthToken","relationName":"SsoOAuthToken_projectIdToSsoOAuthProvider"},{"name":"SsoRefreshSession","kind":"object","type":"SsoRefreshSession","relationName":"SsoProjectToSsoRefreshSession"},{"name":"SsoUser","kind":"object","type":"SsoUser","relationName":"SsoProjectToSsoUser"}],"dbName":null},"SsoUser":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"email","kind":"scalar","type":"String"},{"name":"phone","kind":"scalar","type":"String"},{"name":"username","kind":"scalar","type":"String"},{"name":"password","kind":"scalar","type":"String"},{"name":"roles","kind":"scalar","type":"String"},{"name":"firstname","kind":"scalar","type":"String"},{"name":"lastname","kind":"scalar","type":"String"},{"name":"gender","kind":"scalar","type":"String"},{"name":"birthdate","kind":"scalar","type":"DateTime"},{"name":"picture","kind":"scalar","type":"String"},{"name":"appData","kind":"scalar","type":"Json"},{"name":"revokedAt","kind":"scalar","type":"DateTime"},{"name":"emailVerifiedAt","kind":"scalar","type":"DateTime"},{"name":"phoneVerifiedAt","kind":"scalar","type":"DateTime"},{"name":"timezone","kind":"scalar","type":"Float"},{"name":"lang","kind":"scalar","type":"String"},{"name":"projectId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoOAuthToken","kind":"object","type":"SsoOAuthToken","relationName":"SsoOAuthTokenToSsoUser"},{"name":"SsoRefreshSession","kind":"object","type":"SsoRefreshSession","relationName":"SsoRefreshSessionToSsoUser"},{"name":"SsoProject","kind":"object","type":"SsoProject","relationName":"SsoProjectToSsoUser"}],"dbName":null},"migrations_sso":{"fields":[{"name":"installed_rank","kind":"scalar","type":"Int"},{"name":"version","kind":"scalar","type":"String"},{"name":"description","kind":"scalar","type":"String"},{"name":"type","kind":"scalar","type":"String"},{"name":"script","kind":"scalar","type":"String"},{"name":"checksum","kind":"scalar","type":"Int"},{"name":"installed_by","kind":"scalar","type":"String"},{"name":"installed_on","kind":"scalar","type":"DateTime"},{"name":"execution_time","kind":"scalar","type":"Int"},{"name":"success","kind":"scalar","type":"Boolean"}],"dbName":"__migrations_sso"},"SsoRefreshSession":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"refreshToken","kind":"scalar","type":"String"},{"name":"userAgent","kind":"scalar","type":"String"},{"name":"fingerprint","kind":"scalar","type":"String"},{"name":"userIp","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"userData","kind":"scalar","type":"Json"},{"name":"enabled","kind":"scalar","type":"Boolean"},{"name":"userId","kind":"scalar","type":"String"},{"name":"projectId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoProject","kind":"object","type":"SsoProject","relationName":"SsoProjectToSsoRefreshSession"},{"name":"SsoUser","kind":"object","type":"SsoUser","relationName":"SsoRefreshSessionToSsoUser"}],"dbName":null},"SsoEmailTemplate":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"subject","kind":"scalar","type":"String"},{"name":"subjectLocale","kind":"scalar","type":"Json"},{"name":"text","kind":"scalar","type":"String"},{"name":"textLocale","kind":"scalar","type":"Json"},{"name":"html","kind":"scalar","type":"String"},{"name":"htmlLocale","kind":"scalar","type":"Json"},{"name":"operationName","kind":"scalar","type":"String"},{"name":"projectId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoProject","kind":"object","type":"SsoProject","relationName":"SsoEmailTemplateToSsoProject"}],"dbName":null},"SsoOAuthProvider":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoOAuthProviderSettings","kind":"object","type":"SsoOAuthProviderSettings","relationName":"SsoOAuthProviderToSsoOAuthProviderSettings"},{"name":"SsoOAuthToken","kind":"object","type":"SsoOAuthToken","relationName":"SsoOAuthProviderToSsoOAuthToken"}],"dbName":null},"SsoOAuthProviderSettings":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"name","kind":"scalar","type":"String"},{"name":"value","kind":"scalar","type":"String"},{"name":"providerId","kind":"scalar","type":"String"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoOAuthProvider","kind":"object","type":"SsoOAuthProvider","relationName":"SsoOAuthProviderToSsoOAuthProviderSettings"}],"dbName":null},"SsoOAuthToken":{"fields":[{"name":"id","kind":"scalar","type":"String"},{"name":"grantedAt","kind":"scalar","type":"DateTime"},{"name":"accessToken","kind":"scalar","type":"String"},{"name":"refreshToken","kind":"scalar","type":"String"},{"name":"expiresAt","kind":"scalar","type":"DateTime"},{"name":"tokenType","kind":"scalar","type":"String"},{"name":"scope","kind":"scalar","type":"String"},{"name":"verificationCode","kind":"scalar","type":"String"},{"name":"userId","kind":"scalar","type":"String"},{"name":"projectId","kind":"scalar","type":"String"},{"name":"providerId","kind":"scalar","type":"String"},{"name":"providerUserId","kind":"scalar","type":"String"},{"name":"providerUserData","kind":"scalar","type":"Json"},{"name":"createdAt","kind":"scalar","type":"DateTime"},{"name":"updatedAt","kind":"scalar","type":"DateTime"},{"name":"SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider","kind":"object","type":"SsoProject","relationName":"SsoOAuthToken_projectIdToSsoOAuthProvider"},{"name":"SsoOAuthProvider","kind":"object","type":"SsoOAuthProvider","relationName":"SsoOAuthProviderToSsoOAuthToken"},{"name":"SsoUser","kind":"object","type":"SsoUser","relationName":"SsoOAuthTokenToSsoUser"}],"dbName":null}},"enums":{},"types":{}}',
 );
 config.engineWasm = undefined;
 config.compilerWasm = {
-  getRuntime: async () =>
-    await import('@prisma/client/runtime/query_compiler_bg.postgresql.mjs'),
+  getRuntime: async () => await import('node_modules/@prisma/client/runtime/query_compiler_bg.postgresql.mjs'),
 
   getQueryCompilerWasmModule: async () => {
     const { readFile } = await import('node:fs/promises');
 
-    const wasmModulePath = require.resolve(
-      '@prisma/client/runtime/query_compiler_bg.postgresql.wasm'
+    const wasmModulePath = (await import('node:path')).resolve(
+      'node_modules/@prisma/client/runtime/query_compiler_bg.postgresql.wasm',
     );
     const wasmModuleBytes = await readFile(wasmModulePath);
 
@@ -87,12 +83,11 @@ config.compilerWasm = {
   },
 };
 
-export type LogOptions<ClientOptions extends Prisma.PrismaClientOptions> =
-  'log' extends keyof ClientOptions
-    ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition>
-      ? Prisma.GetEvents<ClientOptions['log']>
-      : never
-    : never;
+export type LogOptions<ClientOptions extends Prisma.PrismaClientOptions> = 'log' extends keyof ClientOptions
+  ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition>
+    ? Prisma.GetEvents<ClientOptions['log']>
+    : never
+  : never;
 
 export interface PrismaClientConstructor {
   /**
@@ -112,9 +107,9 @@ export interface PrismaClientConstructor {
   new <
     ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
     U = LogOptions<ClientOptions>,
-    ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+    ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
   >(
-    options?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>
+    options?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>,
   ): PrismaClient<ClientOptions, U, ExtArgs>;
 }
 
@@ -135,15 +130,13 @@ export interface PrismaClientConstructor {
 export interface PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
   U = LogOptions<ClientOptions>,
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] };
 
   $on<V extends U>(
     eventType: V,
-    callback: (
-      event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent
-    ) => void
+    callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void,
   ): PrismaClient;
 
   /**
@@ -172,10 +165,7 @@ export interface PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $executeRaw<T = unknown>(
-    query: TemplateStringsArray | Prisma.Sql,
-    ...values: any[]
-  ): Prisma.PrismaPromise<number>;
+  $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
   /**
    * Executes a raw query and returns the number of affected rows.
@@ -187,10 +177,7 @@ export interface PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $executeRawUnsafe<T = unknown>(
-    query: string,
-    ...values: any[]
-  ): Prisma.PrismaPromise<number>;
+  $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
   /**
    * Performs a prepared raw query and returns the `SELECT` data.
@@ -201,10 +188,7 @@ export interface PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $queryRaw<T = unknown>(
-    query: TemplateStringsArray | Prisma.Sql,
-    ...values: any[]
-  ): Prisma.PrismaPromise<T>;
+  $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
   /**
    * Performs a raw query and returns the `SELECT` data.
@@ -216,10 +200,7 @@ export interface PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $queryRawUnsafe<T = unknown>(
-    query: string,
-    ...values: any[]
-  ): Prisma.PrismaPromise<T>;
+  $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
   /**
    * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
@@ -236,18 +217,12 @@ export interface PrismaClient<
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(
     arg: [...P],
-    options?: { isolationLevel?: Prisma.TransactionIsolationLevel }
+    options?: { isolationLevel?: Prisma.TransactionIsolationLevel },
   ): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>;
 
   $transaction<R>(
-    fn: (
-      prisma: Omit<PrismaClient, runtime.ITXClientDenyList>
-    ) => runtime.Types.Utils.JsPromise<R>,
-    options?: {
-      maxWait?: number;
-      timeout?: number;
-      isolationLevel?: Prisma.TransactionIsolationLevel;
-    }
+    fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => runtime.Types.Utils.JsPromise<R>,
+    options?: { maxWait?: number; timeout?: number; isolationLevel?: Prisma.TransactionIsolationLevel },
   ): runtime.Types.Utils.JsPromise<R>;
 
   $extends: runtime.Types.Extensions.ExtendsHook<
@@ -300,10 +275,7 @@ export interface PrismaClient<
    * const ssoRefreshSessions = await prisma.ssoRefreshSession.findMany()
    * ```
    */
-  get ssoRefreshSession(): Prisma.SsoRefreshSessionDelegate<
-    ExtArgs,
-    ClientOptions
-  >;
+  get ssoRefreshSession(): Prisma.SsoRefreshSessionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.ssoEmailTemplate`: Exposes CRUD operations for the **SsoEmailTemplate** model.
@@ -313,10 +285,7 @@ export interface PrismaClient<
    * const ssoEmailTemplates = await prisma.ssoEmailTemplate.findMany()
    * ```
    */
-  get ssoEmailTemplate(): Prisma.SsoEmailTemplateDelegate<
-    ExtArgs,
-    ClientOptions
-  >;
+  get ssoEmailTemplate(): Prisma.SsoEmailTemplateDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.ssoOAuthProvider`: Exposes CRUD operations for the **SsoOAuthProvider** model.
@@ -326,10 +295,7 @@ export interface PrismaClient<
    * const ssoOAuthProviders = await prisma.ssoOAuthProvider.findMany()
    * ```
    */
-  get ssoOAuthProvider(): Prisma.SsoOAuthProviderDelegate<
-    ExtArgs,
-    ClientOptions
-  >;
+  get ssoOAuthProvider(): Prisma.SsoOAuthProviderDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.ssoOAuthProviderSettings`: Exposes CRUD operations for the **SsoOAuthProviderSettings** model.
@@ -339,10 +305,7 @@ export interface PrismaClient<
    * const ssoOAuthProviderSettings = await prisma.ssoOAuthProviderSettings.findMany()
    * ```
    */
-  get ssoOAuthProviderSettings(): Prisma.SsoOAuthProviderSettingsDelegate<
-    ExtArgs,
-    ClientOptions
-  >;
+  get ssoOAuthProviderSettings(): Prisma.SsoOAuthProviderSettingsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.ssoOAuthToken`: Exposes CRUD operations for the **SsoOAuthToken** model.

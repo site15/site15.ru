@@ -7,15 +7,12 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 export class AppErrorHandler implements ErrorHandler {
   constructor(
     private nzNotificationService: NzNotificationService,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
   ) {}
 
   handleError(err: { error: WebhookErrorInterface }) {
     if ('error' in err && 'code' in err['error']) {
-      this.nzNotificationService.error(
-        err.error.code,
-        this.translocoService.translate(err.error.message)
-      );
+      this.nzNotificationService.error(err.error.code, this.translocoService.translate(err.error.message));
     } else {
       console.log(err);
     }

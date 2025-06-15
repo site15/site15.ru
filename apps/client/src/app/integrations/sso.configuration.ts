@@ -34,14 +34,13 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     private readonly tokensService: TokensService,
     private readonly ssoActiveProjectService: SsoActiveProjectService,
     private readonly fingerprintService: FingerprintService,
-    private readonly nzMessageService: NzMessageService
+    private readonly nzMessageService: NzMessageService,
   ) {}
 
   getAuthorizationHeaders(): Record<string, string> {
     const lang = this.translocoService.getActiveLang();
     const accessToken = this.tokensService.getAccessToken();
-    const activeProjectAuthorizationHeaders =
-      this.ssoActiveProjectService.getAuthorizationHeaders();
+    const activeProjectAuthorizationHeaders = this.ssoActiveProjectService.getAuthorizationHeaders();
     if (!accessToken) {
       return {
         'Accept-language': lang,
@@ -56,15 +55,10 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   }
 
   oAuthProviders(): Observable<OAuthProvider[]> {
-    return this.ssoRestSdkAngularService
-      .getSsoApi()
-      .ssoOAuthControllerOauthProviders();
+    return this.ssoRestSdkAngularService.getSsoApi().ssoOAuthControllerOauthProviders();
   }
 
-  oAuthVerification({
-    verificationCode,
-    clientId,
-  }: OAuthVerificationInput): Observable<SsoUserAndTokens> {
+  oAuthVerification({ verificationCode, clientId }: OAuthVerificationInput): Observable<SsoUserAndTokens> {
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
         this.ssoRestSdkAngularService
@@ -77,9 +71,9 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
             map((result: TokensResponseInterface) => ({
               tokens: this.mapToSsoTokens(result),
               user: this.mapToSsoUser(result.user),
-            }))
-          )
-      )
+            })),
+          ),
+      ),
     );
   }
 
@@ -92,12 +86,12 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
           ? {
               refreshToken,
             }
-          : {}
+          : {},
       )
       .pipe(
         map(() => {
           this.tokensService.setTokens({});
-        })
+        }),
       );
   }
 
@@ -108,7 +102,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
       .pipe(
         map((result) => {
           return this.mapToSsoUser(result);
-        })
+        }),
       );
   }
 
@@ -141,49 +135,37 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
   updateProfile(data: SsoUpdateProfileInput): Observable<void | null> {
     const oldData = data;
-    return (
-      data.picture
-        ? this.filesService.getPresignedUrlAndUploadFile(data.picture)
-        : of('')
-    ).pipe(
+    return (data.picture ? this.filesService.getPresignedUrlAndUploadFile(data.picture) : of('')).pipe(
       catchError((err) => {
         console.error(err);
-        this.nzMessageService.error(
-          this.translocoService.translate('Error while saving image')
-        );
+        this.nzMessageService.error(this.translocoService.translate('Error while saving image'));
         return of(undefined);
       }),
       mergeMap((picture) => {
-        return this.ssoRestSdkAngularService
-          .getSsoApi()
-          .ssoControllerUpdateProfile({
-            birthdate: data.birthdate,
-            firstname: data.givenName,
-            gender: data.gender,
-            lastname: data.familyName,
-            picture,
-            password: data.newPassword,
-            confirmPassword: data.confirmNewPassword,
-            oldPassword: data.oldPassword,
-            timezone: data.timezone,
-          });
+        return this.ssoRestSdkAngularService.getSsoApi().ssoControllerUpdateProfile({
+          birthdate: data.birthdate,
+          firstname: data.givenName,
+          gender: data.gender,
+          lastname: data.familyName,
+          picture,
+          password: data.newPassword,
+          confirmPassword: data.confirmNewPassword,
+          oldPassword: data.oldPassword,
+          timezone: data.timezone,
+        });
       }),
-      mergeMap(() =>
-        this.ssoRestSdkAngularService.getSsoApi().ssoControllerProfile()
-      ),
+      mergeMap(() => this.ssoRestSdkAngularService.getSsoApi().ssoControllerProfile()),
       mergeMap((newData) => {
         if (
           oldData?.picture &&
           typeof oldData?.picture === 'string' &&
           (newData as SsoUpdateProfileInput)?.picture !== oldData.picture
         ) {
-          return this.filesService
-            .deleteFile(oldData.picture)
-            .pipe(map(() => newData));
+          return this.filesService.deleteFile(oldData.picture).pipe(map(() => newData));
         }
         return of(newData);
       }),
-      map(() => null)
+      map(() => null),
     );
   }
 
@@ -205,9 +187,9 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
             map((result: TokensResponseInterface) => ({
               tokens: this.mapToSsoTokens(result),
               user: this.mapToSsoUser(result.user),
-            }))
-          )
-      )
+            })),
+          ),
+      ),
     );
   }
 
@@ -237,9 +219,9 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
             map((result) => ({
               tokens: this.mapToSsoTokens(result),
               user: this.mapToSsoUser(result.user),
-            }))
-          )
-      )
+            })),
+          ),
+      ),
     );
   }
 
@@ -261,9 +243,9 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
             map((result) => ({
               tokens: this.mapToSsoTokens(result),
               user: this.mapToSsoUser(result.user),
-            }))
-          )
-      )
+            })),
+          ),
+      ),
     );
   }
 
@@ -284,15 +266,13 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
             map((result) => ({
               tokens: this.mapToSsoTokens(result),
               user: this.mapToSsoUser(result.user),
-            }))
-          )
-      )
+            })),
+          ),
+      ),
     );
   }
 
-  completeForgotPassword(
-    data: SsoCompleteForgotPasswordInput
-  ): Observable<SsoUserAndTokens> {
+  completeForgotPassword(data: SsoCompleteForgotPasswordInput): Observable<SsoUserAndTokens> {
     const { password, confirmPassword: confirmPassword, code } = data;
     if (!password) {
       throw new Error('password not set');
@@ -317,9 +297,9 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
             map((result) => ({
               tokens: this.mapToSsoTokens(result),
               user: this.mapToSsoUser(result.user),
-            }))
-          )
-      )
+            })),
+          ),
+      ),
     );
   }
 

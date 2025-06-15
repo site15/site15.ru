@@ -4,23 +4,8 @@ import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { StatusResponse } from '@nestjs-mod/swagger';
 import { ValidationError } from '@nestjs-mod/validation';
-import {
-  Body,
-  Controller,
-  Get,
-  Logger,
-  Param,
-  ParseUUIDPipe,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiOkResponse,
-  ApiTags,
-  refs,
-} from '@nestjs/swagger';
+import { Body, Controller, Get, Logger, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { randomUUID } from 'crypto';
 import { omit } from 'lodash/fp';
@@ -58,24 +43,18 @@ export class SsoUsersController {
     private readonly ssoCacheService: SsoCacheService,
     private readonly ssoService: SsoService,
     private readonly webhookService: WebhookService,
-    private readonly ssoEventsService: SsoEventsService
+    private readonly ssoEventsService: SsoEventsService,
   ) {}
 
   @Get()
   @ApiOkResponse({ type: FindManySsoUserResponse })
-  async findMany(
-    @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Query() args: FindManySsoUserArgs
-  ) {
-    const { take, skip, curPage, perPage } =
-      this.prismaToolsService.getFirstSkipFromCurPerPage({
-        curPage: args.curPage,
-        perPage: args.perPage,
-      });
+  async findMany(@CurrentSsoRequest() ssoRequest: SsoRequest, @Query() args: FindManySsoUserArgs) {
+    const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
+      curPage: args.curPage,
+      perPage: args.perPage,
+    });
     const searchText = args.searchText;
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
-      ? args.projectId
-      : ssoRequest.ssoProject.id;
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? args.projectId : ssoRequest.ssoProject.id;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')
@@ -89,7 +68,7 @@ export class SsoUsersController {
               }
             : {}),
         }),
-        {}
+        {},
       );
 
     const result = await this.prismaClient.$transaction(async (prisma) => {
@@ -171,19 +150,15 @@ export class SsoUsersController {
   async updateOne(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() args: UpdateSsoUserDto
+    @Body() args: UpdateSsoUserDto,
   ) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
-      ? undefined
-      : ssoRequest.ssoProject.id;
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
     const result = await this.prismaClient.ssoUser.update({
       data: {
         ...args,
         ...(args.password
           ? {
-              password: await this.ssoPasswordService.createPasswordHash(
-                args.password
-              ),
+              password: await this.ssoPasswordService.createPasswordHash(args.password),
             }
           : {}),
         updatedAt: new Date(),
@@ -201,10 +176,7 @@ export class SsoUsersController {
 
   @Post('send-invitation-links')
   @ApiOkResponse({ type: StatusResponse })
-  async sendInvitationLinks(
-    @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Body() args: SendInvitationLinksArgs
-  ) {
+  async sendInvitationLinks(@CurrentSsoRequest() ssoRequest: SsoRequest, @Body() args: SendInvitationLinksArgs) {
     const emails = args.emails.split(',').map((e) => e.trim());
     for (const email of emails) {
       const signUpArgs = {
@@ -216,8 +188,7 @@ export class SsoUsersController {
       const user = await this.ssoService.signUp({
         signUpArgs,
         projectId: ssoRequest.ssoProject.id,
-        operationName:
-          OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
+        operationName: OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
       });
 
       await this.webhookService.sendEvent({
@@ -238,13 +209,8 @@ export class SsoUsersController {
 
   @Get(':id')
   @ApiOkResponse({ type: SsoUserDto })
-  async findOne(
-    @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Param('id', new ParseUUIDPipe()) id: string
-  ) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
-      ? undefined
-      : ssoRequest.ssoProject.id;
+  async findOne(@CurrentSsoRequest() ssoRequest: SsoRequest, @Param('id', new ParseUUIDPipe()) id: string) {
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
     return await this.prismaClient.ssoUser.findFirstOrThrow({
       where: {
         id,

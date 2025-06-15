@@ -1,32 +1,12 @@
 import { StatusResponse } from '@nestjs-mod/swagger';
 import { ValidationError, ValidationErrorEnum } from '@nestjs-mod/validation';
 import { WebhookService } from '@nestjs-mod/webhook';
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Logger,
-  Post,
-  Put,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiOkResponse,
-  ApiTags,
-  refs,
-} from '@nestjs/swagger';
+import { Body, Controller, Get, HttpCode, HttpStatus, Logger, Post, Put, Res, UseGuards } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { ThrottlerGuard } from '@nestjs/throttler';
 import { Response } from 'express';
 import { omit } from 'lodash/fp';
-import {
-  InjectTranslateFunction,
-  TranslateFunction,
-  TranslatesStorage,
-} from 'nestjs-translates';
+import { InjectTranslateFunction, TranslateFunction, TranslatesStorage } from 'nestjs-translates';
 import assert from 'node:assert';
 import { Cookies } from '../decorators/cookie.decorator';
 import { IpAddress } from '../decorators/ip-address.decorator';
@@ -37,16 +17,9 @@ import { SsoCookieService } from '../services/sso-cookie.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SsoService } from '../services/sso.service';
 import { OperationName } from '../sso.configuration';
-import {
-  AllowEmptySsoUser,
-  CurrentSsoRequest,
-  SkipValidateRefreshSession,
-} from '../sso.decorators';
+import { AllowEmptySsoUser, CurrentSsoRequest, SkipValidateRefreshSession } from '../sso.decorators';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
-import {
-  CompleteForgotPasswordArgs,
-  ForgotPasswordArgs,
-} from '../types/forgot-password.dto';
+import { CompleteForgotPasswordArgs, ForgotPasswordArgs } from '../types/forgot-password.dto';
 import { RefreshTokensResponse } from '../types/refresh-tokens.dto';
 import { SignInArgs } from '../types/sign-in.dto';
 import { SignOutArgs } from '../types/sign-out.dto';
@@ -70,7 +43,7 @@ export class SsoController {
     private readonly ssoEventsService: SsoEventsService,
     private readonly webhookService: WebhookService,
     private readonly ssoCacheService: SsoCacheService,
-    private readonly translatesStorage: TranslatesStorage
+    private readonly translatesStorage: TranslatesStorage,
   ) {}
 
   @AllowEmptySsoUser()
@@ -82,7 +55,7 @@ export class SsoController {
     @Body() signInArgs: SignInArgs,
     @Res({ passthrough: true }) response: Response,
     @IpAddress() userIp: string,
-    @UserAgent() userAgent: string
+    @UserAgent() userAgent: string,
   ): Promise<void> {
     const user = await this.ssoService.signIn({
       signInArgs,
@@ -112,15 +85,14 @@ export class SsoController {
       });
     }
 
-    const cookieWithJwtToken =
-      await this.ssoCookieService.getCookieWithJwtToken({
-        userId: user.id,
-        userIp,
-        userAgent,
-        fingerprint: signInArgs.fingerprint,
-        roles: user.roles,
-        projectId: ssoRequest.ssoProject.id,
-      });
+    const cookieWithJwtToken = await this.ssoCookieService.getCookieWithJwtToken({
+      userId: user.id,
+      userIp,
+      userAgent,
+      fingerprint: signInArgs.fingerprint,
+      roles: user.roles,
+      projectId: ssoRequest.ssoProject.id,
+    });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
@@ -142,7 +114,7 @@ export class SsoController {
     @Body() signUpArgs: SignUpArgs,
     @Res({ passthrough: true }) response: Response,
     @IpAddress() userIp: string,
-    @UserAgent() userAgent: string
+    @UserAgent() userAgent: string,
   ): Promise<void> {
     const user = await this.ssoService.signUp({
       signUpArgs,
@@ -173,15 +145,14 @@ export class SsoController {
       });
     }
 
-    const cookieWithJwtToken =
-      await this.ssoCookieService.getCookieWithJwtToken({
-        userId: user.id,
-        userIp,
-        userAgent,
-        fingerprint: signUpArgs.fingerprint,
-        roles: user.roles,
-        projectId: ssoRequest.ssoProject.id,
-      });
+    const cookieWithJwtToken = await this.ssoCookieService.getCookieWithJwtToken({
+      userId: user.id,
+      userIp,
+      userAgent,
+      fingerprint: signUpArgs.fingerprint,
+      roles: user.roles,
+      projectId: ssoRequest.ssoProject.id,
+    });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
@@ -202,7 +173,7 @@ export class SsoController {
     @Body() completeSignUpArgs: CompleteSignUpArgs,
     @Res({ passthrough: true }) response: Response,
     @IpAddress() userIp: string,
-    @UserAgent() userAgent: string
+    @UserAgent() userAgent: string,
   ): Promise<void> {
     const user = await this.ssoService.completeSignUp({
       code: completeSignUpArgs.code,
@@ -226,15 +197,14 @@ export class SsoController {
       userAgent,
     });
 
-    const cookieWithJwtToken =
-      await this.ssoCookieService.getCookieWithJwtToken({
-        userId: user.id,
-        userIp,
-        userAgent,
-        fingerprint: completeSignUpArgs.fingerprint,
-        roles: user.roles,
-        projectId: ssoRequest.ssoProject.id,
-      });
+    const cookieWithJwtToken = await this.ssoCookieService.getCookieWithJwtToken({
+      userId: user.id,
+      userIp,
+      userAgent,
+      fingerprint: completeSignUpArgs.fingerprint,
+      roles: user.roles,
+      projectId: ssoRequest.ssoProject.id,
+    });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
@@ -256,7 +226,7 @@ export class SsoController {
     @Res({ passthrough: true }) response: Response,
     @Cookies('refreshToken') cookieRefreshToken: string | null,
     @IpAddress() userIp: string,
-    @UserAgent() userAgent: string
+    @UserAgent() userAgent: string,
   ): Promise<void> {
     const refreshToken = cookieRefreshToken || signOutArgs?.refreshToken;
     if (!refreshToken) {
@@ -292,7 +262,7 @@ export class SsoController {
   @Post('forgot-password')
   async forgotPassword(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Body() forgotPasswordArgs: ForgotPasswordArgs
+    @Body() forgotPasswordArgs: ForgotPasswordArgs,
   ): Promise<StatusResponse> {
     await this.ssoService.forgotPassword({
       forgotPasswordArgs,
@@ -318,7 +288,7 @@ export class SsoController {
     @Body() completeForgotPasswordArgs: CompleteForgotPasswordArgs,
     @Res({ passthrough: true }) response: Response,
     @IpAddress() userIp: string,
-    @UserAgent() userAgent: string
+    @UserAgent() userAgent: string,
   ): Promise<void> {
     const user = await this.ssoService.completeForgotPassword({
       completeForgotPasswordArgs,
@@ -335,15 +305,14 @@ export class SsoController {
       eventHeaders: { projectId: ssoRequest.ssoProject.id },
     });
 
-    const cookieWithJwtToken =
-      await this.ssoCookieService.getCookieWithJwtToken({
-        userId: user.id,
-        userIp,
-        userAgent,
-        fingerprint: completeForgotPasswordArgs.fingerprint,
-        roles: user.roles,
-        projectId: ssoRequest.ssoProject.id,
-      });
+    const cookieWithJwtToken = await this.ssoCookieService.getCookieWithJwtToken({
+      userId: user.id,
+      userIp,
+      userAgent,
+      fingerprint: completeForgotPasswordArgs.fingerprint,
+      roles: user.roles,
+      projectId: ssoRequest.ssoProject.id,
+    });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
 
@@ -365,7 +334,7 @@ export class SsoController {
     @Res({ passthrough: true }) response: Response,
     @Cookies('refreshToken') cookieRefreshToken: string | null,
     @IpAddress() userIp: string,
-    @UserAgent() userAgent: string
+    @UserAgent() userAgent: string,
   ): Promise<void> {
     const refreshToken = cookieRefreshToken || refreshTokensArgs.refreshToken;
     if (!refreshToken) {
@@ -402,24 +371,20 @@ export class SsoController {
   async updateProfile(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Body() updateProfileArgs: UpdateProfileArgs,
-    @InjectTranslateFunction() getText: TranslateFunction
+    @InjectTranslateFunction() getText: TranslateFunction,
   ): Promise<SsoUserDto> {
     assert(ssoRequest.ssoUser);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...profile } = updateProfileArgs;
 
-    if (
-      profile.lang &&
-      !this.translatesStorage.locales.includes(profile.lang)
-    ) {
+    if (profile.lang && !this.translatesStorage.locales.includes(profile.lang)) {
       throw new ValidationError(undefined, ValidationErrorEnum.COMMON, [
         {
           property: 'lang',
           constraints: {
-            isWrongEnumValue: getText(
-              'lang must have one of the values: {{values}}',
-              { values: this.translatesStorage.locales.join(', ') }
-            ),
+            isWrongEnumValue: getText('lang must have one of the values: {{values}}', {
+              values: this.translatesStorage.locales.join(', '),
+            }),
           },
         },
       ]);

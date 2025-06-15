@@ -12,7 +12,7 @@ import { SsoUserMapperService } from './sso-user-mapper.service';
 export class SsoUserService {
   constructor(
     private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
-    private readonly ssoUserMapperService: SsoUserMapperService
+    private readonly ssoUserMapperService: SsoUserMapperService,
   ) {}
 
   findOne(id: string) {
@@ -22,13 +22,7 @@ export class SsoUserService {
       .pipe(map((u) => this.ssoUserMapperService.toModel(u)));
   }
 
-  findMany({
-    filters,
-    meta,
-  }: {
-    filters: Record<string, string>;
-    meta?: RequestMeta;
-  }) {
+  findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoUsersControllerFindMany(
@@ -40,13 +34,13 @@ export class SsoUserService {
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
           : undefined,
-        filters['projectId']
+        filters['projectId'],
       )
       .pipe(
         map(({ meta, ssoUsers }) => ({
           meta,
           ssoUsers: ssoUsers.map((p) => this.ssoUserMapperService.toModel(p)),
-        }))
+        })),
       );
   }
 
@@ -58,8 +52,6 @@ export class SsoUserService {
   }
 
   sendInvitationLinks(data: SendInvitationLinksArgsInterface) {
-    return this.ssoRestSdkAngularService
-      .getSsoApi()
-      .ssoUsersControllerSendInvitationLinks(data);
+    return this.ssoRestSdkAngularService.getSsoApi().ssoUsersControllerSendInvitationLinks(data);
   }
 }

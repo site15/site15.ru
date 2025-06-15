@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  EnvModelOptions,
-  EnvModelPropertyOptions,
-  EnvModelPropertyValueTransformer,
-} from '@nestjs-mod/common';
+import { EnvModelOptions, EnvModelPropertyOptions, EnvModelPropertyValueTransformer } from '@nestjs-mod/common';
 
 export type SsoProjectType = {
   name: string;
@@ -14,9 +10,7 @@ export type SsoProjectType = {
   clientSecret: string;
 };
 
-export class StringToProjectsTransformer
-  implements EnvModelPropertyValueTransformer
-{
+export class StringToProjectsTransformer implements EnvModelPropertyValueTransformer {
   name = 'string-to-projects';
   transform(params: {
     value: any;

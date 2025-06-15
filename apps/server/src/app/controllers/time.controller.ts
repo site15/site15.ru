@@ -2,11 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 
 import { SsoGuard, UseSsoInterceptorsAndGuards } from '@nestjs-mod-sso/sso';
 import { ApiOkResponse } from '@nestjs/swagger';
-import {
-  SubscribeMessage,
-  WebSocketGateway,
-  WsResponse,
-} from '@nestjs/websockets';
+import { SubscribeMessage, WebSocketGateway, WsResponse } from '@nestjs/websockets';
 import { interval, map, Observable } from 'rxjs';
 import { ChangeTimeStream } from '../app.constants';
 
@@ -36,7 +32,7 @@ export class TimeController {
       map(() => ({
         data: new Date(),
         event: ChangeTimeStream,
-      }))
+      })),
     );
   }
 }

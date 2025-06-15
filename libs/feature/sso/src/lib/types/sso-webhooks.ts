@@ -36,9 +36,7 @@ const example = {
 export const SSO_WEBHOOK_EVENTS: WebhookEvent[] = [
   {
     eventName: SsoWebhookEvent['sso.sign-up'],
-    description: getText(
-      'An event that is triggered after a new user registers'
-    ),
+    description: getText('An event that is triggered after a new user registers'),
     example,
   },
   {
@@ -48,9 +46,7 @@ export const SSO_WEBHOOK_EVENTS: WebhookEvent[] = [
   },
   {
     eventName: SsoWebhookEvent['sso.complete-sign-up'],
-    description: getText(
-      'An event that is triggered after complete a new user registers'
-    ),
+    description: getText('An event that is triggered after complete a new user registers'),
     example,
   },
   {
@@ -60,23 +56,17 @@ export const SSO_WEBHOOK_EVENTS: WebhookEvent[] = [
   },
   {
     eventName: SsoWebhookEvent['sso.forgot-password'],
-    description: getText(
-      'An event that is triggered after a user call forgot password method'
-    ),
+    description: getText('An event that is triggered after a user call forgot password method'),
     example,
   },
   {
     eventName: SsoWebhookEvent['sso.complete-forgot-password'],
-    description: getText(
-      'An event that is triggered after a user calls to confirm a forgotten password change'
-    ),
+    description: getText('An event that is triggered after a user calls to confirm a forgotten password change'),
     example,
   },
   {
     eventName: SsoWebhookEvent['sso.update-profile'],
-    description: getText(
-      'An event that fires after user information is updated.'
-    ),
+    description: getText('An event that fires after user information is updated.'),
     example,
   },
 ];

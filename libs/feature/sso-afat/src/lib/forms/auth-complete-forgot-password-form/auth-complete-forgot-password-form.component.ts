@@ -9,11 +9,7 @@ import {
   Optional,
   Output,
 } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
@@ -28,10 +24,7 @@ import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { SsoCompleteForgotPasswordFormService } from '../../services/auth-complete-forgot-password-form.service';
 import { SsoService } from '../../services/auth.service';
-import {
-  SsoCompleteForgotPasswordInput,
-  SsoUserAndTokens,
-} from '../../services/auth.types';
+import { SsoCompleteForgotPasswordInput, SsoUserAndTokens } from '../../services/auth.types';
 
 @UntilDestroy()
 @Component({
@@ -81,7 +74,7 @@ export class SsoCompleteForgotPasswordFormComponent implements OnInit {
     private readonly nzMessageService: NzMessageService,
     private readonly translocoService: TranslocoService,
     private readonly authCompleteForgotPasswordFormService: SsoCompleteForgotPasswordFormService,
-    private readonly validationService: ValidationService
+    private readonly validationService: ValidationService,
   ) {}
 
   ngOnInit(): void {
@@ -92,7 +85,7 @@ export class SsoCompleteForgotPasswordFormComponent implements OnInit {
         untilDestroyed(this),
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
-        })
+        }),
       )
       .subscribe();
 
@@ -108,7 +101,7 @@ export class SsoCompleteForgotPasswordFormComponent implements OnInit {
       code: '',
       password: '',
       confirmPassword: '',
-    }
+    },
   ) {
     const model = {
       code: this.code,
@@ -129,33 +122,25 @@ export class SsoCompleteForgotPasswordFormComponent implements OnInit {
             if (result) {
               this.afterCompleteForgotPassword.next(result);
               this.nzMessageService.success(
-                this.translocoService.translate(
-                  'Your password has been successfully changed!'
-                )
+                this.translocoService.translate('Your password has been successfully changed!'),
               );
             }
           }),
           catchError((err) =>
-            this.validationService.catchAndProcessServerError(err, (options) =>
-              this.setFormlyFields(options)
-            )
+            this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
           ),
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           catchError((err: any) => {
             console.error(err);
-            this.nzMessageService.error(
-              this.translocoService.translate(err.error?.message || err.message)
-            );
+            this.nzMessageService.error(this.translocoService.translate(err.error?.message || err.message));
             return of(null);
           }),
-          untilDestroyed(this)
+          untilDestroyed(this),
         )
         .subscribe();
     } else {
       console.log(this.form.controls);
-      this.nzMessageService.warning(
-        this.translocoService.translate('Validation errors')
-      );
+      this.nzMessageService.warning(this.translocoService.translate('Validation errors'));
     }
   }
 
@@ -163,8 +148,6 @@ export class SsoCompleteForgotPasswordFormComponent implements OnInit {
     data?: SsoCompleteForgotPasswordInput;
     errors?: ValidationErrorMetadataInterface[];
   }) {
-    this.formlyFields$.next(
-      this.authCompleteForgotPasswordFormService.getFormlyFields(options)
-    );
+    this.formlyFields$.next(this.authCompleteForgotPasswordFormService.getFormlyFields(options));
   }
 }

@@ -11,7 +11,7 @@ import { SsoProjectMapperService } from './sso-project-mapper.service';
 export class SsoProjectService {
   constructor(
     private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
-    private readonly ssoProjectMapperService: SsoProjectMapperService
+    private readonly ssoProjectMapperService: SsoProjectMapperService,
   ) {}
 
   findOne(id: string) {
@@ -21,13 +21,7 @@ export class SsoProjectService {
       .pipe(map((p) => this.ssoProjectMapperService.toModel(p)));
   }
 
-  findManyPublic({
-    filters,
-    meta,
-  }: {
-    filters: Record<string, string>;
-    meta?: RequestMeta;
-  }) {
+  findManyPublic({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoPublicProjectsControllerFindMany(
@@ -38,25 +32,17 @@ export class SsoProjectService {
           ? Object.entries(meta?.sort)
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
-          : undefined
+          : undefined,
       )
       .pipe(
         map(({ meta, ssoPublicProjects }) => ({
           meta,
-          ssoPublicProjects: ssoPublicProjects.map((p) =>
-            this.ssoProjectMapperService.toPublicModel(p)
-          ),
-        }))
+          ssoPublicProjects: ssoPublicProjects.map((p) => this.ssoProjectMapperService.toPublicModel(p)),
+        })),
       );
   }
 
-  findMany({
-    filters,
-    meta,
-  }: {
-    filters: Record<string, string>;
-    meta?: RequestMeta;
-  }) {
+  findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoProjectsControllerFindMany(
@@ -67,15 +53,13 @@ export class SsoProjectService {
           ? Object.entries(meta?.sort)
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
-          : undefined
+          : undefined,
       )
       .pipe(
         map(({ meta, ssoProjects }) => ({
           meta,
-          ssoProjects: ssoProjects.map((p) =>
-            this.ssoProjectMapperService.toModel(p)
-          ),
-        }))
+          ssoProjects: ssoProjects.map((p) => this.ssoProjectMapperService.toModel(p)),
+        })),
       );
   }
 
@@ -87,9 +71,7 @@ export class SsoProjectService {
   }
 
   deleteOne(id: string) {
-    return this.ssoRestSdkAngularService
-      .getSsoApi()
-      .ssoProjectsControllerDeleteOne(id);
+    return this.ssoRestSdkAngularService.getSsoApi().ssoProjectsControllerDeleteOne(id);
   }
 
   createOne(data: CreateSsoProjectDtoInterface) {

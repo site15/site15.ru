@@ -10,13 +10,10 @@ export class SsoTemplatesService {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly translatesStorage: TranslatesStorage
+    private readonly translatesStorage: TranslatesStorage,
   ) {}
 
-  async getEmailTemplate(options: {
-    projectId: string;
-    operationName: string;
-  }) {
+  async getEmailTemplate(options: { projectId: string; operationName: string }) {
     return this.prismaClient.ssoEmailTemplate.findFirst({
       where: {
         projectId: { equals: options.projectId },
@@ -27,9 +24,7 @@ export class SsoTemplatesService {
 
   // todo: need create project level handler for recreate or reset to default email templates
   async createProjectDefaultEmailTemplates(projectId: string) {
-    const locales = this.translatesStorage.locales.filter(
-      (l) => l !== this.translatesStorage.defaultLocale
-    );
+    const locales = this.translatesStorage.locales.filter((l) => l !== this.translatesStorage.defaultLocale);
     for (const template of DEFAULT_EMAIL_TEMPLATES) {
       await this.prismaClient.ssoEmailTemplate.upsert({
         create: {
@@ -41,23 +36,20 @@ export class SsoTemplatesService {
           htmlLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesStorage.translates[locale]?.[template.html] ||
-                template.html,
-            ])
+              this.translatesStorage.translates[locale]?.[template.html] || template.html,
+            ]),
           ),
           subjectLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesStorage.translates[locale]?.[template.subject] ||
-                template.subject,
-            ])
+              this.translatesStorage.translates[locale]?.[template.subject] || template.subject,
+            ]),
           ),
           textLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesStorage.translates[locale]?.[template.text] ||
-                template.text,
-            ])
+              this.translatesStorage.translates[locale]?.[template.text] || template.text,
+            ]),
           ),
         },
         update: {
@@ -67,23 +59,20 @@ export class SsoTemplatesService {
           htmlLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesStorage.translates[locale]?.[template.html] ||
-                template.html,
-            ])
+              this.translatesStorage.translates[locale]?.[template.html] || template.html,
+            ]),
           ),
           subjectLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesStorage.translates[locale]?.[template.subject] ||
-                template.subject,
-            ])
+              this.translatesStorage.translates[locale]?.[template.subject] || template.subject,
+            ]),
           ),
           textLocale: Object.fromEntries(
             locales.map((locale) => [
               locale,
-              this.translatesStorage.translates[locale]?.[template.text] ||
-                template.text,
-            ])
+              this.translatesStorage.translates[locale]?.[template.text] || template.text,
+            ]),
           ),
         },
         where: {

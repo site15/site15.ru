@@ -1,10 +1,5 @@
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class SsoTwoFactorCodeUserIdOperationNameCodeProjectIdUniqueInputDto {
@@ -50,7 +45,7 @@ export class SsoTwoFactorCodeUserIdProjectIdUniqueInputDto {
 
 @ApiExtraModels(
   SsoTwoFactorCodeUserIdOperationNameCodeProjectIdUniqueInputDto,
-  SsoTwoFactorCodeUserIdProjectIdUniqueInputDto
+  SsoTwoFactorCodeUserIdProjectIdUniqueInputDto,
 )
 export class ConnectSsoTwoFactorCodeDto {
   @ApiProperty({

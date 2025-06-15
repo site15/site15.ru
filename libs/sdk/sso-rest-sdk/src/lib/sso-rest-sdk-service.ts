@@ -20,7 +20,7 @@ export class SsoRestSdkService {
     private options?: {
       serverUrl?: string;
       headers?: Record<string, string>;
-    }
+    },
   ) {
     this.createApiClients();
     this.updateHeaders(options?.headers || {});
@@ -51,22 +51,11 @@ export class SsoRestSdkService {
     }
   }
 
-  webSocket<T>({
-    path,
-    eventName,
-    options,
-  }: {
-    path: string;
-    eventName: string;
-    options?: WebSocket.ClientOptions;
-  }) {
-    const wss = new WebSocket(
-      this.options?.serverUrl?.replace('/api', '').replace('http', 'ws') + path,
-      {
-        ...(options || {}),
-        headers: this.wsHeaders || {},
-      }
-    );
+  webSocket<T>({ path, eventName, options }: { path: string; eventName: string; options?: WebSocket.ClientOptions }) {
+    const wss = new WebSocket(this.options?.serverUrl?.replace('/api', '').replace('http', 'ws') + path, {
+      ...(options || {}),
+      headers: this.wsHeaders || {},
+    });
     return new Observable<{ data: T; event: string }>((observer) => {
       wss.on('open', () => {
         wss.on('message', (data) => {
@@ -82,7 +71,7 @@ export class SsoRestSdkService {
           JSON.stringify({
             event: eventName,
             data: true,
-          })
+          }),
         );
       });
     }).pipe(
@@ -90,7 +79,7 @@ export class SsoRestSdkService {
         if (wss?.readyState == WebSocket.OPEN) {
           wss.close();
         }
-      })
+      }),
     );
   }
 
@@ -101,7 +90,7 @@ export class SsoRestSdkService {
         basePath: this.options?.serverUrl,
       }),
       undefined,
-      this.ssoApiAxios
+      this.ssoApiAxios,
     );
     //
 
@@ -111,7 +100,7 @@ export class SsoRestSdkService {
         basePath: this.options?.serverUrl,
       }),
       undefined,
-      this.timeApiAxios
+      this.timeApiAxios,
     );
   }
 }

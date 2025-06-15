@@ -1,8 +1,4 @@
-import {
-  createNestModule,
-  getFeatureDotEnvPropertyNameFormatter,
-  NestModuleCategory,
-} from '@nestjs-mod/common';
+import { createNestModule, getFeatureDotEnvPropertyNameFormatter, NestModuleCategory } from '@nestjs-mod/common';
 import { KeyvModule } from '@nestjs-mod/keyv';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
@@ -117,9 +113,7 @@ export const { SsoModule } = createNestModule({
     ...(asyncModuleOptions.staticEnvironments.useInterceptors
       ? [{ provide: APP_INTERCEPTOR, useClass: SsoTimezoneInterceptor }]
       : []),
-    ...(asyncModuleOptions.staticEnvironments.usePipes
-      ? [{ provide: APP_PIPE, useClass: SsoTimezonePipe }]
-      : []),
+    ...(asyncModuleOptions.staticEnvironments.usePipes ? [{ provide: APP_PIPE, useClass: SsoTimezonePipe }] : []),
   ],
   sharedProviders: [
     SsoService,

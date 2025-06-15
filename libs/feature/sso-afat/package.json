@@ -19,7 +19,7 @@
     "@nestjs-mod/misc": "1.4.2",
     "@fingerprintjs/fingerprintjs": "4.6.1",
     "date-fns": "^4.1.0",
-    "@nestjs-mod/sso-rest-sdk-angular": "1.8.0"
+    "@nestjs-mod/sso-rest-sdk-angular": "1.9.0"
   },
   "sideEffects": false,
   "i18n": [

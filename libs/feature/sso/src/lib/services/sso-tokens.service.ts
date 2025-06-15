@@ -5,11 +5,7 @@ import { JwtService } from '@nestjs/jwt';
 import { addMilliseconds } from 'date-fns';
 import ms from 'ms';
 import { randomUUID } from 'node:crypto';
-import {
-  PrismaClient,
-  SsoRefreshSession,
-  SsoUser,
-} from '../generated/prisma-client';
+import { PrismaClient, SsoRefreshSession, SsoUser } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
@@ -26,7 +22,7 @@ export class SsoTokensService {
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
-    private readonly ssoCacheService: SsoCacheService
+    private readonly ssoCacheService: SsoCacheService,
   ) {}
 
   async getAccessAndRefreshTokensByRefreshToken({
@@ -42,17 +38,13 @@ export class SsoTokensService {
     fingerprint: string;
     projectId: string;
   }) {
-    const expiresAt = addMilliseconds(
-      new Date(),
-      ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn)
-    );
+    const expiresAt = addMilliseconds(new Date(), ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn));
     let currentRefreshSession: SsoRefreshSession & { SsoUser: SsoUser };
     try {
-      currentRefreshSession =
-        await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
-          include: { SsoUser: true },
-          where: { fingerprint, refreshToken, enabled: true },
-        });
+      currentRefreshSession = await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
+        include: { SsoUser: true },
+        where: { fingerprint, refreshToken, enabled: true },
+      });
       // if (
       //   !currentRefreshSession.SsoUser.roles
       //     ?.split(',')
@@ -119,9 +111,7 @@ export class SsoTokensService {
       userId: session.userId,
       projectId: session.projectId,
       refreshToken,
-      ...(currentRefreshSession.SsoUser.roles
-        ? { roles: currentRefreshSession.SsoUser.roles }
-        : {}),
+      ...(currentRefreshSession.SsoUser.roles ? { roles: currentRefreshSession.SsoUser.roles } : {}),
     };
 
     const accessToken = this.jwtService.sign(accessTokenData, {
@@ -146,10 +136,7 @@ export class SsoTokensService {
     newIp?: string;
   }) {
     const nowTime = new Date();
-    if (
-      !oldRefreshSession.expiresAt ||
-      +nowTime > +new Date(oldRefreshSession.expiresAt)
-    ) {
+    if (!oldRefreshSession.expiresAt || +nowTime > +new Date(oldRefreshSession.expiresAt)) {
       this.logger.debug({
         verifyRefreshSession: {
           expiresAt: oldRefreshSession.expiresAt,
@@ -159,10 +146,7 @@ export class SsoTokensService {
       throw new SsoError(SsoErrorEnum.SessionExpired);
     }
     if (newFingerprint && newIp) {
-      if (
-        oldRefreshSession.userIp !== newIp ||
-        oldRefreshSession.fingerprint !== newFingerprint
-      ) {
+      if (oldRefreshSession.userIp !== newIp || oldRefreshSession.fingerprint !== newFingerprint) {
         this.logger.debug({ oldRefreshSession, newFingerprint, newIp });
         throw new SsoError(SsoErrorEnum.InvalidRefreshSession);
       }
@@ -183,12 +167,9 @@ export class SsoTokensService {
       fingerprint: string;
       roles: string | null;
     },
-    projectId: string
+    projectId: string,
   ) {
-    const expiresAt = addMilliseconds(
-      new Date(),
-      ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn)
-    );
+    const expiresAt = addMilliseconds(new Date(), ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn));
     try {
       const sessions = await this.prismaClient.ssoRefreshSession.findMany({
         select: { id: true, refreshToken: true },
@@ -205,9 +186,7 @@ export class SsoTokensService {
           where: { id: session.id, projectId },
         });
 
-        await this.ssoCacheService.clearCacheByRefreshSession(
-          session.refreshToken
-        );
+        await this.ssoCacheService.clearCacheByRefreshSession(session.refreshToken);
       }
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -244,20 +223,13 @@ export class SsoTokensService {
     };
   }
 
-  async disableRefreshSessionByRefreshToken({
-    refreshToken,
-    projectId,
-  }: {
-    refreshToken: string;
-    projectId: string;
-  }) {
+  async disableRefreshSessionByRefreshToken({ refreshToken, projectId }: { refreshToken: string; projectId: string }) {
     try {
-      const refreshSession =
-        await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
-          where: {
-            refreshToken,
-          },
-        });
+      const refreshSession = await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
+        where: {
+          refreshToken,
+        },
+      });
 
       this.prismaClient.ssoRefreshSession.updateMany({
         data: { enabled: false },

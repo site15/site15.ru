@@ -32,7 +32,7 @@ test.describe('Validation with store lang in db (ru)', () => {
     });
     await page.evaluate(
       (minioURL) => localStorage.setItem('minioURL', minioURL),
-      get('SINGLE_SIGN_ON_MINIO_URL').required().asString()
+      get('SINGLE_SIGN_ON_MINIO_URL').required().asString(),
     );
   });
 
@@ -46,92 +46,57 @@ test.describe('Validation with store lang in db (ru)', () => {
       timeout: 7000,
     });
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('[placeholder=email]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('[placeholder=email]').click();
     await page.keyboard.type(user.email.toLowerCase(), {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-up-form').locator('[placeholder=email]')
-    ).toHaveValue(user.email.toLowerCase());
+    await expect(page.locator('sso-sign-up-form').locator('[placeholder=email]')).toHaveValue(user.email.toLowerCase());
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('[placeholder=password]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('[placeholder=password]').click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-up-form').locator('[placeholder=password]')
-    ).toHaveValue(user.password);
+    await expect(page.locator('sso-sign-up-form').locator('[placeholder=password]')).toHaveValue(user.password);
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('[placeholder=confirmPassword]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]').click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]')
-    ).toHaveValue(user.password);
+    await expect(page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]')).toHaveValue(user.password);
 
-    await expect(
-      page.locator('sso-sign-up-form').locator('button[type=submit]')
-    ).toHaveText('Sign-up');
+    await expect(page.locator('sso-sign-up-form').locator('button[type=submit]')).toHaveText('Sign-up');
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('button[type=submit]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('button[type=submit]').click();
 
-    await page.waitForSelector(
-      'div.cdk-overlay-container>div.cdk-global-overlay-wrapper'
-    );
+    await page.waitForSelector('div.cdk-overlay-container>div.cdk-global-overlay-wrapper');
 
     await page.waitForSelector('span.you-are-logged-in-as');
 
-    await expect(
-      page.locator('nz-header').locator('[nz-submenu]').first()
-    ).toContainText(`You are logged in as ${user.email.toLowerCase()}`);
+    await expect(page.locator('nz-header').locator('[nz-submenu]').first()).toContainText(
+      `You are logged in as ${user.email.toLowerCase()}`,
+    );
   });
 
   test('should change language to RU', async () => {
-    await expect(
-      page.locator('nz-header').locator('[nz-submenu]').last()
-    ).toContainText(`EN`);
+    await expect(page.locator('nz-header').locator('[nz-submenu]').last()).toContainText(`EN`);
     await page.locator('nz-header').locator('[nz-submenu]').last().click();
 
-    await expect(
-      page
-        .locator('[nz-submenu-none-inline-child]')
-        .locator('[nz-menu-item]')
-        .last()
-    ).toContainText(`Russian`);
+    await expect(page.locator('[nz-submenu-none-inline-child]').locator('[nz-menu-item]').last()).toContainText(
+      `Russian`,
+    );
 
-    await page
-      .locator('[nz-submenu-none-inline-child]')
-      .locator('[nz-menu-item]')
-      .last()
-      .click();
+    await page.locator('[nz-submenu-none-inline-child]').locator('[nz-menu-item]').last().click();
 
     await setTimeout(7000);
     //
 
-    await expect(
-      page.locator('nz-header').locator('[nz-submenu]').last()
-    ).toContainText(`RU`);
+    await expect(page.locator('nz-header').locator('[nz-submenu]').last()).toContainText(`RU`);
   });
 
   test('change lang to en in localStorage', async () => {
     await page.evaluate(() => localStorage.setItem('activeUserLang', 'en'));
 
-    const activeUserLang = await page.evaluate(() =>
-      localStorage.getItem('activeUserLang')
-    );
+    const activeUserLang = await page.evaluate(() => localStorage.getItem('activeUserLang'));
 
     expect(activeUserLang).toEqual('en');
   });

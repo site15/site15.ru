@@ -48,9 +48,7 @@ export class SsoConfiguration {
   forgotPassword(data: SsoForgotPasswordInput): Observable<true> {
     return throwError(() => new Error('not implemented'));
   }
-  completeForgotPassword(
-    data: SsoCompleteForgotPasswordInput
-  ): Observable<SsoUserAndTokens> {
+  completeForgotPassword(data: SsoCompleteForgotPasswordInput): Observable<SsoUserAndTokens> {
     return throwError(() => new Error('not implemented'));
   }
   getAuthorizationHeaders(): Record<string, string> {
@@ -59,14 +57,9 @@ export class SsoConfiguration {
   oAuthProviders(): Observable<OAuthProvider[]> {
     return throwError(() => new Error('not implemented'));
   }
-  oAuthVerification({
-    verificationCode,
-    clientId,
-  }: OAuthVerificationInput): Observable<SsoUserAndTokens> {
+  oAuthVerification({ verificationCode, clientId }: OAuthVerificationInput): Observable<SsoUserAndTokens> {
     return throwError(() => new Error('not implemented'));
   }
 }
 
-export const SSO_CONFIGURATION_TOKEN = new InjectionToken<string>(
-  'SSO_CONFIGURATION_TOKEN'
-);
+export const SSO_CONFIGURATION_TOKEN = new InjectionToken<string>('SSO_CONFIGURATION_TOKEN');

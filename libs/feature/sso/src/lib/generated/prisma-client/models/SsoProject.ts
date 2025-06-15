@@ -14,8 +14,7 @@ import type * as Prisma from '../internal/prismaNamespace';
  * Model SsoProject
  *
  */
-export type SsoProjectModel =
-  runtime.Types.Result.DefaultSelection<Prisma.$SsoProjectPayload>;
+export type SsoProjectModel = runtime.Types.Result.DefaultSelection<Prisma.$SsoProjectPayload>;
 
 export type AggregateSsoProject = {
   _count: SsoProjectCountAggregateOutputType | null;
@@ -88,7 +87,7 @@ export type SsoProjectCountAggregateInputType = {
 };
 
 export type SsoProjectAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Filter which SsoProject to aggregate.
@@ -99,9 +98,7 @@ export type SsoProjectAggregateArgs<
    *
    * Determine the order of SsoProjects to fetch.
    */
-  orderBy?:
-    | Prisma.SsoProjectOrderByWithRelationInput
-    | Prisma.SsoProjectOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoProjectOrderByWithRelationInput | Prisma.SsoProjectOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -149,12 +146,10 @@ export type GetSsoProjectAggregateType<T extends SsoProjectAggregateArgs> = {
 };
 
 export type SsoProjectGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoProjectWhereInput;
-  orderBy?:
-    | Prisma.SsoProjectOrderByWithAggregationInput
-    | Prisma.SsoProjectOrderByWithAggregationInput[];
+  orderBy?: Prisma.SsoProjectOrderByWithAggregationInput | Prisma.SsoProjectOrderByWithAggregationInput[];
   by: Prisma.SsoProjectScalarFieldEnum[] | Prisma.SsoProjectScalarFieldEnum;
   having?: Prisma.SsoProjectScalarWhereWithAggregatesInput;
   take?: number;
@@ -178,18 +173,17 @@ export type SsoProjectGroupByOutputType = {
   _max: SsoProjectMaxAggregateOutputType | null;
 };
 
-type GetSsoProjectGroupByPayload<T extends SsoProjectGroupByArgs> =
-  Prisma.PrismaPromise<
-    Array<
-      Prisma.PickEnumerable<SsoProjectGroupByOutputType, T['by']> & {
-        [P in keyof T & keyof SsoProjectGroupByOutputType]: P extends '_count'
-          ? T[P] extends boolean
-            ? number
-            : Prisma.GetScalarType<T[P], SsoProjectGroupByOutputType[P]>
-          : Prisma.GetScalarType<T[P], SsoProjectGroupByOutputType[P]>;
-      }
-    >
-  >;
+type GetSsoProjectGroupByPayload<T extends SsoProjectGroupByArgs> = Prisma.PrismaPromise<
+  Array<
+    Prisma.PickEnumerable<SsoProjectGroupByOutputType, T['by']> & {
+      [P in keyof T & keyof SsoProjectGroupByOutputType]: P extends '_count'
+        ? T[P] extends boolean
+          ? number
+          : Prisma.GetScalarType<T[P], SsoProjectGroupByOutputType[P]>
+        : Prisma.GetScalarType<T[P], SsoProjectGroupByOutputType[P]>;
+    }
+  >
+>;
 
 export type SsoProjectWhereInput = {
   AND?: Prisma.SsoProjectWhereInput | Prisma.SsoProjectWhereInput[];
@@ -260,13 +254,9 @@ export type SsoProjectOrderByWithAggregationInput = {
 };
 
 export type SsoProjectScalarWhereWithAggregatesInput = {
-  AND?:
-    | Prisma.SsoProjectScalarWhereWithAggregatesInput
-    | Prisma.SsoProjectScalarWhereWithAggregatesInput[];
+  AND?: Prisma.SsoProjectScalarWhereWithAggregatesInput | Prisma.SsoProjectScalarWhereWithAggregatesInput[];
   OR?: Prisma.SsoProjectScalarWhereWithAggregatesInput[];
-  NOT?:
-    | Prisma.SsoProjectScalarWhereWithAggregatesInput
-    | Prisma.SsoProjectScalarWhereWithAggregatesInput[];
+  NOT?: Prisma.SsoProjectScalarWhereWithAggregatesInput | Prisma.SsoProjectScalarWhereWithAggregatesInput[];
   id?: Prisma.UuidWithAggregatesFilter<'SsoProject'> | string;
   name?: Prisma.StringWithAggregatesFilter<'SsoProject'> | string;
   nameLocale?: Prisma.JsonNullableWithAggregatesFilter<'SsoProject'>;
@@ -419,27 +409,18 @@ export type DateTimeFieldUpdateOperationsInput = {
 };
 
 export type SsoProjectCreateNestedOneWithoutSsoUserInput = {
-  create?: Prisma.XOR<
-    Prisma.SsoProjectCreateWithoutSsoUserInput,
-    Prisma.SsoProjectUncheckedCreateWithoutSsoUserInput
-  >;
+  create?: Prisma.XOR<Prisma.SsoProjectCreateWithoutSsoUserInput, Prisma.SsoProjectUncheckedCreateWithoutSsoUserInput>;
   connectOrCreate?: Prisma.SsoProjectCreateOrConnectWithoutSsoUserInput;
   connect?: Prisma.SsoProjectWhereUniqueInput;
 };
 
 export type SsoProjectUpdateOneRequiredWithoutSsoUserNestedInput = {
-  create?: Prisma.XOR<
-    Prisma.SsoProjectCreateWithoutSsoUserInput,
-    Prisma.SsoProjectUncheckedCreateWithoutSsoUserInput
-  >;
+  create?: Prisma.XOR<Prisma.SsoProjectCreateWithoutSsoUserInput, Prisma.SsoProjectUncheckedCreateWithoutSsoUserInput>;
   connectOrCreate?: Prisma.SsoProjectCreateOrConnectWithoutSsoUserInput;
   upsert?: Prisma.SsoProjectUpsertWithoutSsoUserInput;
   connect?: Prisma.SsoProjectWhereUniqueInput;
   update?: Prisma.XOR<
-    Prisma.XOR<
-      Prisma.SsoProjectUpdateToOneWithWhereWithoutSsoUserInput,
-      Prisma.SsoProjectUpdateWithoutSsoUserInput
-    >,
+    Prisma.XOR<Prisma.SsoProjectUpdateToOneWithWhereWithoutSsoUserInput, Prisma.SsoProjectUpdateWithoutSsoUserInput>,
     Prisma.SsoProjectUncheckedUpdateWithoutSsoUserInput
   >;
 };
@@ -496,33 +477,31 @@ export type SsoProjectUpdateOneRequiredWithoutSsoEmailTemplateNestedInput = {
   >;
 };
 
-export type SsoProjectCreateNestedOneWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput =
-  {
-    create?: Prisma.XOR<
-      Prisma.SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-      Prisma.SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    >;
-    connectOrCreate?: Prisma.SsoProjectCreateOrConnectWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput;
-    connect?: Prisma.SsoProjectWhereUniqueInput;
-  };
+export type SsoProjectCreateNestedOneWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
+  create?: Prisma.XOR<
+    Prisma.SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
+    Prisma.SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
+  >;
+  connectOrCreate?: Prisma.SsoProjectCreateOrConnectWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput;
+  connect?: Prisma.SsoProjectWhereUniqueInput;
+};
 
-export type SsoProjectUpdateOneRequiredWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderNestedInput =
-  {
-    create?: Prisma.XOR<
-      Prisma.SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-      Prisma.SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    >;
-    connectOrCreate?: Prisma.SsoProjectCreateOrConnectWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput;
-    upsert?: Prisma.SsoProjectUpsertWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput;
-    connect?: Prisma.SsoProjectWhereUniqueInput;
-    update?: Prisma.XOR<
-      Prisma.XOR<
-        Prisma.SsoProjectUpdateToOneWithWhereWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-        Prisma.SsoProjectUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-      >,
-      Prisma.SsoProjectUncheckedUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    >;
-  };
+export type SsoProjectUpdateOneRequiredWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
+    Prisma.SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
+  >;
+  connectOrCreate?: Prisma.SsoProjectCreateOrConnectWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput;
+  upsert?: Prisma.SsoProjectUpsertWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput;
+  connect?: Prisma.SsoProjectWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.SsoProjectUpdateToOneWithWhereWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
+      Prisma.SsoProjectUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
+    >,
+    Prisma.SsoProjectUncheckedUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
+  >;
+};
 
 export type SsoProjectCreateWithoutSsoUserInput = {
   id?: string;
@@ -554,30 +533,18 @@ export type SsoProjectUncheckedCreateWithoutSsoUserInput = {
 
 export type SsoProjectCreateOrConnectWithoutSsoUserInput = {
   where: Prisma.SsoProjectWhereUniqueInput;
-  create: Prisma.XOR<
-    Prisma.SsoProjectCreateWithoutSsoUserInput,
-    Prisma.SsoProjectUncheckedCreateWithoutSsoUserInput
-  >;
+  create: Prisma.XOR<Prisma.SsoProjectCreateWithoutSsoUserInput, Prisma.SsoProjectUncheckedCreateWithoutSsoUserInput>;
 };
 
 export type SsoProjectUpsertWithoutSsoUserInput = {
-  update: Prisma.XOR<
-    Prisma.SsoProjectUpdateWithoutSsoUserInput,
-    Prisma.SsoProjectUncheckedUpdateWithoutSsoUserInput
-  >;
-  create: Prisma.XOR<
-    Prisma.SsoProjectCreateWithoutSsoUserInput,
-    Prisma.SsoProjectUncheckedCreateWithoutSsoUserInput
-  >;
+  update: Prisma.XOR<Prisma.SsoProjectUpdateWithoutSsoUserInput, Prisma.SsoProjectUncheckedUpdateWithoutSsoUserInput>;
+  create: Prisma.XOR<Prisma.SsoProjectCreateWithoutSsoUserInput, Prisma.SsoProjectUncheckedCreateWithoutSsoUserInput>;
   where?: Prisma.SsoProjectWhereInput;
 };
 
 export type SsoProjectUpdateToOneWithWhereWithoutSsoUserInput = {
   where?: Prisma.SsoProjectWhereInput;
-  data: Prisma.XOR<
-    Prisma.SsoProjectUpdateWithoutSsoUserInput,
-    Prisma.SsoProjectUncheckedUpdateWithoutSsoUserInput
-  >;
+  data: Prisma.XOR<Prisma.SsoProjectUpdateWithoutSsoUserInput, Prisma.SsoProjectUncheckedUpdateWithoutSsoUserInput>;
 };
 
 export type SsoProjectUpdateWithoutSsoUserInput = {
@@ -776,96 +743,89 @@ export type SsoProjectUncheckedUpdateWithoutSsoEmailTemplateInput = {
   SsoUser?: Prisma.SsoUserUncheckedUpdateManyWithoutSsoProjectNestedInput;
 };
 
-export type SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput =
-  {
-    id?: string;
-    name: string;
-    nameLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    clientId: string;
-    clientSecret: string;
-    public: boolean;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    SsoEmailTemplate?: Prisma.SsoEmailTemplateCreateNestedManyWithoutSsoProjectInput;
-    SsoRefreshSession?: Prisma.SsoRefreshSessionCreateNestedManyWithoutSsoProjectInput;
-    SsoUser?: Prisma.SsoUserCreateNestedManyWithoutSsoProjectInput;
-  };
+export type SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
+  id?: string;
+  name: string;
+  nameLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+  clientId: string;
+  clientSecret: string;
+  public: boolean;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  SsoEmailTemplate?: Prisma.SsoEmailTemplateCreateNestedManyWithoutSsoProjectInput;
+  SsoRefreshSession?: Prisma.SsoRefreshSessionCreateNestedManyWithoutSsoProjectInput;
+  SsoUser?: Prisma.SsoUserCreateNestedManyWithoutSsoProjectInput;
+};
 
-export type SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput =
-  {
-    id?: string;
-    name: string;
-    nameLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    clientId: string;
-    clientSecret: string;
-    public: boolean;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    SsoEmailTemplate?: Prisma.SsoEmailTemplateUncheckedCreateNestedManyWithoutSsoProjectInput;
-    SsoRefreshSession?: Prisma.SsoRefreshSessionUncheckedCreateNestedManyWithoutSsoProjectInput;
-    SsoUser?: Prisma.SsoUserUncheckedCreateNestedManyWithoutSsoProjectInput;
-  };
+export type SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
+  id?: string;
+  name: string;
+  nameLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+  clientId: string;
+  clientSecret: string;
+  public: boolean;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  SsoEmailTemplate?: Prisma.SsoEmailTemplateUncheckedCreateNestedManyWithoutSsoProjectInput;
+  SsoRefreshSession?: Prisma.SsoRefreshSessionUncheckedCreateNestedManyWithoutSsoProjectInput;
+  SsoUser?: Prisma.SsoUserUncheckedCreateNestedManyWithoutSsoProjectInput;
+};
 
-export type SsoProjectCreateOrConnectWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput =
-  {
-    where: Prisma.SsoProjectWhereUniqueInput;
-    create: Prisma.XOR<
-      Prisma.SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-      Prisma.SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    >;
-  };
+export type SsoProjectCreateOrConnectWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
+  where: Prisma.SsoProjectWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
+    Prisma.SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
+  >;
+};
 
-export type SsoProjectUpsertWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput =
-  {
-    update: Prisma.XOR<
-      Prisma.SsoProjectUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-      Prisma.SsoProjectUncheckedUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    >;
-    create: Prisma.XOR<
-      Prisma.SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-      Prisma.SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    >;
-    where?: Prisma.SsoProjectWhereInput;
-  };
+export type SsoProjectUpsertWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
+  update: Prisma.XOR<
+    Prisma.SsoProjectUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
+    Prisma.SsoProjectUncheckedUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
+  >;
+  create: Prisma.XOR<
+    Prisma.SsoProjectCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
+    Prisma.SsoProjectUncheckedCreateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
+  >;
+  where?: Prisma.SsoProjectWhereInput;
+};
 
-export type SsoProjectUpdateToOneWithWhereWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput =
-  {
-    where?: Prisma.SsoProjectWhereInput;
-    data: Prisma.XOR<
-      Prisma.SsoProjectUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-      Prisma.SsoProjectUncheckedUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    >;
-  };
+export type SsoProjectUpdateToOneWithWhereWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
+  where?: Prisma.SsoProjectWhereInput;
+  data: Prisma.XOR<
+    Prisma.SsoProjectUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
+    Prisma.SsoProjectUncheckedUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput
+  >;
+};
 
-export type SsoProjectUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput =
-  {
-    id?: Prisma.StringFieldUpdateOperationsInput | string;
-    name?: Prisma.StringFieldUpdateOperationsInput | string;
-    nameLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    clientId?: Prisma.StringFieldUpdateOperationsInput | string;
-    clientSecret?: Prisma.StringFieldUpdateOperationsInput | string;
-    public?: Prisma.BoolFieldUpdateOperationsInput | boolean;
-    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    SsoEmailTemplate?: Prisma.SsoEmailTemplateUpdateManyWithoutSsoProjectNestedInput;
-    SsoRefreshSession?: Prisma.SsoRefreshSessionUpdateManyWithoutSsoProjectNestedInput;
-    SsoUser?: Prisma.SsoUserUpdateManyWithoutSsoProjectNestedInput;
-  };
+export type SsoProjectUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.StringFieldUpdateOperationsInput | string;
+  nameLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientSecret?: Prisma.StringFieldUpdateOperationsInput | string;
+  public?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  SsoEmailTemplate?: Prisma.SsoEmailTemplateUpdateManyWithoutSsoProjectNestedInput;
+  SsoRefreshSession?: Prisma.SsoRefreshSessionUpdateManyWithoutSsoProjectNestedInput;
+  SsoUser?: Prisma.SsoUserUpdateManyWithoutSsoProjectNestedInput;
+};
 
-export type SsoProjectUncheckedUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput =
-  {
-    id?: Prisma.StringFieldUpdateOperationsInput | string;
-    name?: Prisma.StringFieldUpdateOperationsInput | string;
-    nameLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-    clientId?: Prisma.StringFieldUpdateOperationsInput | string;
-    clientSecret?: Prisma.StringFieldUpdateOperationsInput | string;
-    public?: Prisma.BoolFieldUpdateOperationsInput | boolean;
-    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    SsoEmailTemplate?: Prisma.SsoEmailTemplateUncheckedUpdateManyWithoutSsoProjectNestedInput;
-    SsoRefreshSession?: Prisma.SsoRefreshSessionUncheckedUpdateManyWithoutSsoProjectNestedInput;
-    SsoUser?: Prisma.SsoUserUncheckedUpdateManyWithoutSsoProjectNestedInput;
-  };
+export type SsoProjectUncheckedUpdateWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.StringFieldUpdateOperationsInput | string;
+  nameLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string;
+  clientSecret?: Prisma.StringFieldUpdateOperationsInput | string;
+  public?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  SsoEmailTemplate?: Prisma.SsoEmailTemplateUncheckedUpdateManyWithoutSsoProjectNestedInput;
+  SsoRefreshSession?: Prisma.SsoRefreshSessionUncheckedUpdateManyWithoutSsoProjectNestedInput;
+  SsoUser?: Prisma.SsoUserUncheckedUpdateManyWithoutSsoProjectNestedInput;
+};
 
 /**
  * Count Type SsoProjectCountOutputType
@@ -879,17 +839,13 @@ export type SsoProjectCountOutputType = {
 };
 
 export type SsoProjectCountOutputTypeSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  SsoEmailTemplate?:
-    | boolean
-    | SsoProjectCountOutputTypeCountSsoEmailTemplateArgs;
+  SsoEmailTemplate?: boolean | SsoProjectCountOutputTypeCountSsoEmailTemplateArgs;
   SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider?:
     | boolean
     | SsoProjectCountOutputTypeCountSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderArgs;
-  SsoRefreshSession?:
-    | boolean
-    | SsoProjectCountOutputTypeCountSsoRefreshSessionArgs;
+  SsoRefreshSession?: boolean | SsoProjectCountOutputTypeCountSsoRefreshSessionArgs;
   SsoUser?: boolean | SsoProjectCountOutputTypeCountSsoUserArgs;
 };
 
@@ -897,7 +853,7 @@ export type SsoProjectCountOutputTypeSelect<
  * SsoProjectCountOutputType without action
  */
 export type SsoProjectCountOutputTypeDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProjectCountOutputType
@@ -909,7 +865,7 @@ export type SsoProjectCountOutputTypeDefaultArgs<
  * SsoProjectCountOutputType without action
  */
 export type SsoProjectCountOutputTypeCountSsoEmailTemplateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoEmailTemplateWhereInput;
 };
@@ -918,7 +874,7 @@ export type SsoProjectCountOutputTypeCountSsoEmailTemplateArgs<
  * SsoProjectCountOutputType without action
  */
 export type SsoProjectCountOutputTypeCountSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoOAuthTokenWhereInput;
 };
@@ -927,7 +883,7 @@ export type SsoProjectCountOutputTypeCountSsoOAuthToken_SsoOAuthToken_projectIdT
  * SsoProjectCountOutputType without action
  */
 export type SsoProjectCountOutputTypeCountSsoRefreshSessionArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoRefreshSessionWhereInput;
 };
@@ -936,13 +892,13 @@ export type SsoProjectCountOutputTypeCountSsoRefreshSessionArgs<
  * SsoProjectCountOutputType without action
  */
 export type SsoProjectCountOutputTypeCountSsoUserArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoUserWhereInput;
 };
 
 export type SsoProjectSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -953,15 +909,11 @@ export type SsoProjectSelect<
     public?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    SsoEmailTemplate?:
-      | boolean
-      | Prisma.SsoProject$SsoEmailTemplateArgs<ExtArgs>;
+    SsoEmailTemplate?: boolean | Prisma.SsoProject$SsoEmailTemplateArgs<ExtArgs>;
     SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider?:
       | boolean
       | Prisma.SsoProject$SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderArgs<ExtArgs>;
-    SsoRefreshSession?:
-      | boolean
-      | Prisma.SsoProject$SsoRefreshSessionArgs<ExtArgs>;
+    SsoRefreshSession?: boolean | Prisma.SsoProject$SsoRefreshSessionArgs<ExtArgs>;
     SsoUser?: boolean | Prisma.SsoProject$SsoUserArgs<ExtArgs>;
     _count?: boolean | Prisma.SsoProjectCountOutputTypeDefaultArgs<ExtArgs>;
   },
@@ -969,7 +921,7 @@ export type SsoProjectSelect<
 >;
 
 export type SsoProjectSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -985,7 +937,7 @@ export type SsoProjectSelectCreateManyAndReturn<
 >;
 
 export type SsoProjectSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1012,40 +964,31 @@ export type SsoProjectSelectScalar = {
 };
 
 export type SsoProjectOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
-  | 'id'
-  | 'name'
-  | 'nameLocale'
-  | 'clientId'
-  | 'clientSecret'
-  | 'public'
-  | 'createdAt'
-  | 'updatedAt',
+  'id' | 'name' | 'nameLocale' | 'clientId' | 'clientSecret' | 'public' | 'createdAt' | 'updatedAt',
   ExtArgs['result']['ssoProject']
 >;
 export type SsoProjectInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   SsoEmailTemplate?: boolean | Prisma.SsoProject$SsoEmailTemplateArgs<ExtArgs>;
   SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider?:
     | boolean
     | Prisma.SsoProject$SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderArgs<ExtArgs>;
-  SsoRefreshSession?:
-    | boolean
-    | Prisma.SsoProject$SsoRefreshSessionArgs<ExtArgs>;
+  SsoRefreshSession?: boolean | Prisma.SsoProject$SsoRefreshSessionArgs<ExtArgs>;
   SsoUser?: boolean | Prisma.SsoProject$SsoUserArgs<ExtArgs>;
   _count?: boolean | Prisma.SsoProjectCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type SsoProjectIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {};
 export type SsoProjectIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {};
 
 export type $SsoProjectPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   name: 'SsoProject';
   objects: {
@@ -1081,24 +1024,20 @@ export type $SsoProjectPayload<
   composites: {};
 };
 
-export type SsoProjectGetPayload<
-  S extends boolean | null | undefined | SsoProjectDefaultArgs
-> = runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload, S>;
+export type SsoProjectGetPayload<S extends boolean | null | undefined | SsoProjectDefaultArgs> =
+  runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload, S>;
 
 export type SsoProjectCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = Omit<SsoProjectFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
   select?: SsoProjectCountAggregateInputType | true;
 };
 
 export interface SsoProjectDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-  GlobalOmitOptions = {}
+  GlobalOmitOptions = {},
 > {
-  [K: symbol]: {
-    types: Prisma.TypeMap<ExtArgs>['model']['SsoProject'];
-    meta: { name: 'SsoProject' };
-  };
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SsoProject']; meta: { name: 'SsoProject' } };
   /**
    * Find zero or one SsoProject that matches the filter.
    * @param {SsoProjectFindUniqueArgs} args - Arguments to find a SsoProject
@@ -1111,14 +1050,9 @@ export interface SsoProjectDelegate<
    * })
    */
   findUnique<T extends SsoProjectFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, SsoProjectFindUniqueArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoProjectFindUniqueArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'findUnique', GlobalOmitOptions> | null,
     null,
     ExtArgs,
     GlobalOmitOptions
@@ -1137,14 +1071,9 @@ export interface SsoProjectDelegate<
    * })
    */
   findUniqueOrThrow<T extends SsoProjectFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, SsoProjectFindUniqueOrThrowArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoProjectFindUniqueOrThrowArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'findUniqueOrThrow',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1164,14 +1093,9 @@ export interface SsoProjectDelegate<
    * })
    */
   findFirst<T extends SsoProjectFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, SsoProjectFindFirstArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoProjectFindFirstArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'findFirst',
-      GlobalOmitOptions
-    > | null,
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'findFirst', GlobalOmitOptions> | null,
     null,
     ExtArgs,
     GlobalOmitOptions
@@ -1192,14 +1116,9 @@ export interface SsoProjectDelegate<
    * })
    */
   findFirstOrThrow<T extends SsoProjectFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, SsoProjectFindFirstOrThrowArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoProjectFindFirstOrThrowArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'findFirstOrThrow',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'findFirstOrThrow', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1222,14 +1141,9 @@ export interface SsoProjectDelegate<
    *
    */
   findMany<T extends SsoProjectFindManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoProjectFindManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoProjectFindManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'findMany',
-      GlobalOmitOptions
-    >
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
   >;
 
   /**
@@ -1245,14 +1159,9 @@ export interface SsoProjectDelegate<
    *
    */
   create<T extends SsoProjectCreateArgs>(
-    args: Prisma.SelectSubset<T, SsoProjectCreateArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoProjectCreateArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'create',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1271,7 +1180,7 @@ export interface SsoProjectDelegate<
    *
    */
   createMany<T extends SsoProjectCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoProjectCreateManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoProjectCreateManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1297,14 +1206,9 @@ export interface SsoProjectDelegate<
    *
    */
   createManyAndReturn<T extends SsoProjectCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<T, SsoProjectCreateManyAndReturnArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoProjectCreateManyAndReturnArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'createManyAndReturn',
-      GlobalOmitOptions
-    >
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'createManyAndReturn', GlobalOmitOptions>
   >;
 
   /**
@@ -1320,14 +1224,9 @@ export interface SsoProjectDelegate<
    *
    */
   delete<T extends SsoProjectDeleteArgs>(
-    args: Prisma.SelectSubset<T, SsoProjectDeleteArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoProjectDeleteArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'delete',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1349,14 +1248,9 @@ export interface SsoProjectDelegate<
    *
    */
   update<T extends SsoProjectUpdateArgs>(
-    args: Prisma.SelectSubset<T, SsoProjectUpdateArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoProjectUpdateArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'update',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1375,7 +1269,7 @@ export interface SsoProjectDelegate<
    *
    */
   deleteMany<T extends SsoProjectDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoProjectDeleteManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoProjectDeleteManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1396,7 +1290,7 @@ export interface SsoProjectDelegate<
    *
    */
   updateMany<T extends SsoProjectUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, SsoProjectUpdateManyArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoProjectUpdateManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1428,14 +1322,9 @@ export interface SsoProjectDelegate<
    *
    */
   updateManyAndReturn<T extends SsoProjectUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<T, SsoProjectUpdateManyAndReturnArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoProjectUpdateManyAndReturnArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'updateManyAndReturn',
-      GlobalOmitOptions
-    >
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'updateManyAndReturn', GlobalOmitOptions>
   >;
 
   /**
@@ -1456,14 +1345,9 @@ export interface SsoProjectDelegate<
    * })
    */
   upsert<T extends SsoProjectUpsertArgs>(
-    args: Prisma.SelectSubset<T, SsoProjectUpsertArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoProjectUpsertArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoProjectPayload<ExtArgs>,
-      T,
-      'upsert',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1483,7 +1367,7 @@ export interface SsoProjectDelegate<
    * })
    **/
   count<T extends SsoProjectCountArgs>(
-    args?: Prisma.Subset<T, SsoProjectCountArgs>
+    args?: Prisma.Subset<T, SsoProjectCountArgs>,
   ): Prisma.PrismaPromise<
     T extends runtime.Types.Utils.Record<'select', any>
       ? T['select'] extends true
@@ -1517,7 +1401,7 @@ export interface SsoProjectDelegate<
    * })
    **/
   aggregate<T extends SsoProjectAggregateArgs>(
-    args: Prisma.Subset<T, SsoProjectAggregateArgs>
+    args: Prisma.Subset<T, SsoProjectAggregateArgs>,
   ): Prisma.PrismaPromise<GetSsoProjectAggregateType<T>>;
 
   /**
@@ -1540,16 +1424,11 @@ export interface SsoProjectDelegate<
    **/
   groupBy<
     T extends SsoProjectGroupByArgs,
-    HasSelectOrTake extends Prisma.Or<
-      Prisma.Extends<'skip', Prisma.Keys<T>>,
-      Prisma.Extends<'take', Prisma.Keys<T>>
-    >,
+    HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>,
     OrderByArg extends Prisma.True extends HasSelectOrTake
       ? { orderBy: SsoProjectGroupByArgs['orderBy'] }
       : { orderBy?: SsoProjectGroupByArgs['orderBy'] },
-    OrderFields extends Prisma.ExcludeUnderscoreKeys<
-      Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>
-    >,
+    OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
     ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
     HavingFields extends Prisma.GetHavingFields<T['having']>,
@@ -1558,46 +1437,43 @@ export interface SsoProjectDelegate<
     InputErrors extends ByEmpty extends Prisma.True
       ? `Error: "by" must not be empty.`
       : HavingValid extends Prisma.False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
-        }[HavingFields]
-      : 'take' extends Prisma.Keys<T>
-      ? 'orderBy' extends Prisma.Keys<T>
-        ? ByValid extends Prisma.True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Prisma.Keys<T>
-      ? 'orderBy' extends Prisma.Keys<T>
-        ? ByValid extends Prisma.True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends Prisma.True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-        }[OrderFields]
+        ? {
+            [P in HavingFields]: P extends ByFields
+              ? never
+              : P extends string
+                ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
+          }[HavingFields]
+        : 'take' extends Prisma.Keys<T>
+          ? 'orderBy' extends Prisma.Keys<T>
+            ? ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields]
+            : 'Error: If you provide "take", you also need to provide "orderBy"'
+          : 'skip' extends Prisma.Keys<T>
+            ? 'orderBy' extends Prisma.Keys<T>
+              ? ByValid extends Prisma.True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "skip", you also need to provide "orderBy"'
+            : ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<T, SsoProjectGroupByArgs, OrderByArg> &
-      InputErrors
-  ): {} extends InputErrors
-    ? GetSsoProjectGroupByPayload<T>
-    : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, SsoProjectGroupByArgs, OrderByArg> & InputErrors,
+  ): {} extends InputErrors ? GetSsoProjectGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the SsoProject model
    */
@@ -1614,61 +1490,30 @@ export interface Prisma__SsoProjectClient<
   T,
   Null = never,
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-  GlobalOmitOptions = {}
+  GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
-  SsoEmailTemplate<
-    T extends Prisma.SsoProject$SsoEmailTemplateArgs<ExtArgs> = {}
-  >(
-    args?: Prisma.Subset<T, Prisma.SsoProject$SsoEmailTemplateArgs<ExtArgs>>
+  SsoEmailTemplate<T extends Prisma.SsoProject$SsoEmailTemplateArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.SsoProject$SsoEmailTemplateArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SsoEmailTemplatePayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
+    runtime.Types.Result.GetResult<Prisma.$SsoEmailTemplatePayload<ExtArgs>, T, 'findMany', GlobalOmitOptions> | Null
   >;
   SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider<
-    T extends Prisma.SsoProject$SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderArgs<ExtArgs> = {}
+    T extends Prisma.SsoProject$SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderArgs<ExtArgs> = {},
   >(
-    args?: Prisma.Subset<
-      T,
-      Prisma.SsoProject$SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderArgs<ExtArgs>
-    >
+    args?: Prisma.Subset<T, Prisma.SsoProject$SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SsoOAuthTokenPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthTokenPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions> | Null
   >;
-  SsoRefreshSession<
-    T extends Prisma.SsoProject$SsoRefreshSessionArgs<ExtArgs> = {}
-  >(
-    args?: Prisma.Subset<T, Prisma.SsoProject$SsoRefreshSessionArgs<ExtArgs>>
+  SsoRefreshSession<T extends Prisma.SsoProject$SsoRefreshSessionArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.SsoProject$SsoRefreshSessionArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SsoRefreshSessionPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
+    runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions> | Null
   >;
   SsoUser<T extends Prisma.SsoProject$SsoUserArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.SsoProject$SsoUserArgs<ExtArgs>>
+    args?: Prisma.Subset<T, Prisma.SsoProject$SsoUserArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SsoUserPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
+    runtime.Types.Result.GetResult<Prisma.$SsoUserPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions> | Null
   >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1677,14 +1522,8 @@ export interface Prisma__SsoProjectClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?:
-      | ((value: T) => TResult1 | PromiseLike<TResult1>)
-      | undefined
-      | null,
-    onrejected?:
-      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-      | undefined
-      | null
+    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -1692,10 +1531,7 @@ export interface Prisma__SsoProjectClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?:
-      | ((reason: any) => TResult | PromiseLike<TResult>)
-      | undefined
-      | null
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -1703,9 +1539,7 @@ export interface Prisma__SsoProjectClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(
-    onfinally?: (() => void) | undefined | null
-  ): runtime.Types.Utils.JsPromise<T>;
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1727,7 +1561,7 @@ export interface SsoProjectFieldRefs {
  * SsoProject findUnique
  */
 export type SsoProjectFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -1751,7 +1585,7 @@ export type SsoProjectFindUniqueArgs<
  * SsoProject findUniqueOrThrow
  */
 export type SsoProjectFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -1775,7 +1609,7 @@ export type SsoProjectFindUniqueOrThrowArgs<
  * SsoProject findFirst
  */
 export type SsoProjectFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -1798,9 +1632,7 @@ export type SsoProjectFindFirstArgs<
    *
    * Determine the order of SsoProjects to fetch.
    */
-  orderBy?:
-    | Prisma.SsoProjectOrderByWithRelationInput
-    | Prisma.SsoProjectOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoProjectOrderByWithRelationInput | Prisma.SsoProjectOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1824,16 +1656,14 @@ export type SsoProjectFindFirstArgs<
    *
    * Filter by unique combinations of SsoProjects.
    */
-  distinct?:
-    | Prisma.SsoProjectScalarFieldEnum
-    | Prisma.SsoProjectScalarFieldEnum[];
+  distinct?: Prisma.SsoProjectScalarFieldEnum | Prisma.SsoProjectScalarFieldEnum[];
 };
 
 /**
  * SsoProject findFirstOrThrow
  */
 export type SsoProjectFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -1856,9 +1686,7 @@ export type SsoProjectFindFirstOrThrowArgs<
    *
    * Determine the order of SsoProjects to fetch.
    */
-  orderBy?:
-    | Prisma.SsoProjectOrderByWithRelationInput
-    | Prisma.SsoProjectOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoProjectOrderByWithRelationInput | Prisma.SsoProjectOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1882,16 +1710,14 @@ export type SsoProjectFindFirstOrThrowArgs<
    *
    * Filter by unique combinations of SsoProjects.
    */
-  distinct?:
-    | Prisma.SsoProjectScalarFieldEnum
-    | Prisma.SsoProjectScalarFieldEnum[];
+  distinct?: Prisma.SsoProjectScalarFieldEnum | Prisma.SsoProjectScalarFieldEnum[];
 };
 
 /**
  * SsoProject findMany
  */
 export type SsoProjectFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -1914,9 +1740,7 @@ export type SsoProjectFindManyArgs<
    *
    * Determine the order of SsoProjects to fetch.
    */
-  orderBy?:
-    | Prisma.SsoProjectOrderByWithRelationInput
-    | Prisma.SsoProjectOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoProjectOrderByWithRelationInput | Prisma.SsoProjectOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1935,16 +1759,14 @@ export type SsoProjectFindManyArgs<
    * Skip the first `n` SsoProjects.
    */
   skip?: number;
-  distinct?:
-    | Prisma.SsoProjectScalarFieldEnum
-    | Prisma.SsoProjectScalarFieldEnum[];
+  distinct?: Prisma.SsoProjectScalarFieldEnum | Prisma.SsoProjectScalarFieldEnum[];
 };
 
 /**
  * SsoProject create
  */
 export type SsoProjectCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -1961,17 +1783,14 @@ export type SsoProjectCreateArgs<
   /**
    * The data needed to create a SsoProject.
    */
-  data: Prisma.XOR<
-    Prisma.SsoProjectCreateInput,
-    Prisma.SsoProjectUncheckedCreateInput
-  >;
+  data: Prisma.XOR<Prisma.SsoProjectCreateInput, Prisma.SsoProjectUncheckedCreateInput>;
 };
 
 /**
  * SsoProject createMany
  */
 export type SsoProjectCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * The data used to create many SsoProjects.
@@ -1984,7 +1803,7 @@ export type SsoProjectCreateManyArgs<
  * SsoProject createManyAndReturn
  */
 export type SsoProjectCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -2005,7 +1824,7 @@ export type SsoProjectCreateManyAndReturnArgs<
  * SsoProject update
  */
 export type SsoProjectUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -2022,10 +1841,7 @@ export type SsoProjectUpdateArgs<
   /**
    * The data needed to update a SsoProject.
    */
-  data: Prisma.XOR<
-    Prisma.SsoProjectUpdateInput,
-    Prisma.SsoProjectUncheckedUpdateInput
-  >;
+  data: Prisma.XOR<Prisma.SsoProjectUpdateInput, Prisma.SsoProjectUncheckedUpdateInput>;
   /**
    * Choose, which SsoProject to update.
    */
@@ -2036,15 +1852,12 @@ export type SsoProjectUpdateArgs<
  * SsoProject updateMany
  */
 export type SsoProjectUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * The data used to update SsoProjects.
    */
-  data: Prisma.XOR<
-    Prisma.SsoProjectUpdateManyMutationInput,
-    Prisma.SsoProjectUncheckedUpdateManyInput
-  >;
+  data: Prisma.XOR<Prisma.SsoProjectUpdateManyMutationInput, Prisma.SsoProjectUncheckedUpdateManyInput>;
   /**
    * Filter which SsoProjects to update
    */
@@ -2059,7 +1872,7 @@ export type SsoProjectUpdateManyArgs<
  * SsoProject updateManyAndReturn
  */
 export type SsoProjectUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -2072,10 +1885,7 @@ export type SsoProjectUpdateManyAndReturnArgs<
   /**
    * The data used to update SsoProjects.
    */
-  data: Prisma.XOR<
-    Prisma.SsoProjectUpdateManyMutationInput,
-    Prisma.SsoProjectUncheckedUpdateManyInput
-  >;
+  data: Prisma.XOR<Prisma.SsoProjectUpdateManyMutationInput, Prisma.SsoProjectUncheckedUpdateManyInput>;
   /**
    * Filter which SsoProjects to update
    */
@@ -2090,7 +1900,7 @@ export type SsoProjectUpdateManyAndReturnArgs<
  * SsoProject upsert
  */
 export type SsoProjectUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -2111,24 +1921,18 @@ export type SsoProjectUpsertArgs<
   /**
    * In case the SsoProject found by the `where` argument doesn't exist, create a new SsoProject with this data.
    */
-  create: Prisma.XOR<
-    Prisma.SsoProjectCreateInput,
-    Prisma.SsoProjectUncheckedCreateInput
-  >;
+  create: Prisma.XOR<Prisma.SsoProjectCreateInput, Prisma.SsoProjectUncheckedCreateInput>;
   /**
    * In case the SsoProject was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<
-    Prisma.SsoProjectUpdateInput,
-    Prisma.SsoProjectUncheckedUpdateInput
-  >;
+  update: Prisma.XOR<Prisma.SsoProjectUpdateInput, Prisma.SsoProjectUncheckedUpdateInput>;
 };
 
 /**
  * SsoProject delete
  */
 export type SsoProjectDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject
@@ -2152,7 +1956,7 @@ export type SsoProjectDeleteArgs<
  * SsoProject deleteMany
  */
 export type SsoProjectDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Filter which SsoProjects to delete
@@ -2168,7 +1972,7 @@ export type SsoProjectDeleteManyArgs<
  * SsoProject.SsoEmailTemplate
  */
 export type SsoProject$SsoEmailTemplateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoEmailTemplate
@@ -2183,22 +1987,18 @@ export type SsoProject$SsoEmailTemplateArgs<
    */
   include?: Prisma.SsoEmailTemplateInclude<ExtArgs> | null;
   where?: Prisma.SsoEmailTemplateWhereInput;
-  orderBy?:
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput
-    | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoEmailTemplateOrderByWithRelationInput | Prisma.SsoEmailTemplateOrderByWithRelationInput[];
   cursor?: Prisma.SsoEmailTemplateWhereUniqueInput;
   take?: number;
   skip?: number;
-  distinct?:
-    | Prisma.SsoEmailTemplateScalarFieldEnum
-    | Prisma.SsoEmailTemplateScalarFieldEnum[];
+  distinct?: Prisma.SsoEmailTemplateScalarFieldEnum | Prisma.SsoEmailTemplateScalarFieldEnum[];
 };
 
 /**
  * SsoProject.SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider
  */
 export type SsoProject$SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthToken
@@ -2213,22 +2013,18 @@ export type SsoProject$SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderAr
    */
   include?: Prisma.SsoOAuthTokenInclude<ExtArgs> | null;
   where?: Prisma.SsoOAuthTokenWhereInput;
-  orderBy?:
-    | Prisma.SsoOAuthTokenOrderByWithRelationInput
-    | Prisma.SsoOAuthTokenOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoOAuthTokenOrderByWithRelationInput | Prisma.SsoOAuthTokenOrderByWithRelationInput[];
   cursor?: Prisma.SsoOAuthTokenWhereUniqueInput;
   take?: number;
   skip?: number;
-  distinct?:
-    | Prisma.SsoOAuthTokenScalarFieldEnum
-    | Prisma.SsoOAuthTokenScalarFieldEnum[];
+  distinct?: Prisma.SsoOAuthTokenScalarFieldEnum | Prisma.SsoOAuthTokenScalarFieldEnum[];
 };
 
 /**
  * SsoProject.SsoRefreshSession
  */
 export type SsoProject$SsoRefreshSessionArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -2243,22 +2039,18 @@ export type SsoProject$SsoRefreshSessionArgs<
    */
   include?: Prisma.SsoRefreshSessionInclude<ExtArgs> | null;
   where?: Prisma.SsoRefreshSessionWhereInput;
-  orderBy?:
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoRefreshSessionOrderByWithRelationInput | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
   cursor?: Prisma.SsoRefreshSessionWhereUniqueInput;
   take?: number;
   skip?: number;
-  distinct?:
-    | Prisma.SsoRefreshSessionScalarFieldEnum
-    | Prisma.SsoRefreshSessionScalarFieldEnum[];
+  distinct?: Prisma.SsoRefreshSessionScalarFieldEnum | Prisma.SsoRefreshSessionScalarFieldEnum[];
 };
 
 /**
  * SsoProject.SsoUser
  */
 export type SsoProject$SsoUserArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoUser
@@ -2273,9 +2065,7 @@ export type SsoProject$SsoUserArgs<
    */
   include?: Prisma.SsoUserInclude<ExtArgs> | null;
   where?: Prisma.SsoUserWhereInput;
-  orderBy?:
-    | Prisma.SsoUserOrderByWithRelationInput
-    | Prisma.SsoUserOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoUserOrderByWithRelationInput | Prisma.SsoUserOrderByWithRelationInput[];
   cursor?: Prisma.SsoUserWhereUniqueInput;
   take?: number;
   skip?: number;
@@ -2286,7 +2076,7 @@ export type SsoProject$SsoUserArgs<
  * SsoProject without action
  */
 export type SsoProjectDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoProject

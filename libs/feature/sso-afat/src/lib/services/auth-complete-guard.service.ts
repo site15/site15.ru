@@ -16,11 +16,7 @@ export type CompleteSignUpOptions = {
 };
 
 export class SsoCompleteGuardData {
-  type?:
-    | 'complete-sign-up'
-    | 'complete-forgot-password'
-    | 'complete-invite'
-    | 'complete-oauth-sign-up';
+  type?: 'complete-sign-up' | 'complete-forgot-password' | 'complete-invite' | 'complete-oauth-sign-up';
 
   beforeCompleteSignUp?: (options: CompleteSignUpOptions) => Promise<boolean>;
 
@@ -37,14 +33,12 @@ export class SsoCompleteGuardService implements CanActivate {
     private readonly nzMessageService: NzMessageService,
     private readonly translocoService: TranslocoService,
     private readonly ssoService: SsoService,
-    private readonly router: Router
+    private readonly router: Router,
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot) {
     const ssoCompleteGuardData =
-      route.data &&
-      route.data[SSO_COMPLETE_GUARD_DATA_ROUTE_KEY] instanceof
-        SsoCompleteGuardData
+      route.data && route.data[SSO_COMPLETE_GUARD_DATA_ROUTE_KEY] instanceof SsoCompleteGuardData
         ? route.data[SSO_COMPLETE_GUARD_DATA_ROUTE_KEY]
         : null;
     if (ssoCompleteGuardData) {
@@ -59,7 +53,7 @@ export class SsoCompleteGuardService implements CanActivate {
                     activatedRouteSnapshot: route,
                     ssoService: this.ssoService,
                     router: this.router,
-                  })
+                  }),
                 )
               : of(true)
           ).pipe(
@@ -67,13 +61,11 @@ export class SsoCompleteGuardService implements CanActivate {
               this.ssoService.oAuthVerification({
                 verificationCode,
                 clientId: clientId || undefined,
-              })
+              }),
             ),
             map(async () => {
               this.nzMessageService.success(
-                this.translocoService.translate(
-                  'Successful login using external single sign-on system'
-                )
+                this.translocoService.translate('Successful login using external single sign-on system'),
               );
               return true;
             }),
@@ -90,11 +82,7 @@ export class SsoCompleteGuardService implements CanActivate {
             }),
             catchError((err) => {
               console.error(err);
-              this.nzMessageService.error(
-                this.translocoService.translate(
-                  err.error?.message || err.message
-                )
-              );
+              this.nzMessageService.error(this.translocoService.translate(err.error?.message || err.message));
               if (ssoCompleteGuardData.afterCompleteSignUp) {
                 return from(
                   ssoCompleteGuardData.afterCompleteSignUp({
@@ -102,11 +90,11 @@ export class SsoCompleteGuardService implements CanActivate {
                     ssoService: this.ssoService,
                     router: this.router,
                     error: err,
-                  })
+                  }),
                 );
               }
               return of(false);
-            })
+            }),
           );
         }
       }
@@ -120,21 +108,17 @@ export class SsoCompleteGuardService implements CanActivate {
                     activatedRouteSnapshot: route,
                     ssoService: this.ssoService,
                     router: this.router,
-                  })
+                  }),
                 )
               : of(true)
           ).pipe(
             mergeMap(() =>
               this.ssoService.completeSignUp({
                 code,
-              })
+              }),
             ),
             map(async () => {
-              this.nzMessageService.success(
-                this.translocoService.translate(
-                  'Email address successfully verified'
-                )
-              );
+              this.nzMessageService.success(this.translocoService.translate('Email address successfully verified'));
               return true;
             }),
             mergeMap(() => this.ssoService.refreshToken()),
@@ -150,11 +134,7 @@ export class SsoCompleteGuardService implements CanActivate {
             }),
             catchError((err) => {
               console.error(err);
-              this.nzMessageService.error(
-                this.translocoService.translate(
-                  err.error?.message || err.message
-                )
-              );
+              this.nzMessageService.error(this.translocoService.translate(err.error?.message || err.message));
               if (ssoCompleteGuardData.afterCompleteSignUp) {
                 return from(
                   ssoCompleteGuardData.afterCompleteSignUp({
@@ -162,11 +142,11 @@ export class SsoCompleteGuardService implements CanActivate {
                     ssoService: this.ssoService,
                     router: this.router,
                     error: err,
-                  })
+                  }),
                 );
               }
               return of(false);
-            })
+            }),
           );
         }
       }

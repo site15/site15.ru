@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestMeta } from '@nestjs-mod/misc';
-import {
-  SsoRestSdkAngularService,
-  UpdateSsoEmailTemplateDtoInterface,
-} from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRestSdkAngularService, UpdateSsoEmailTemplateDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { map } from 'rxjs';
 import { SsoEmailTemplateMapperService } from './sso-email-template-mapper.service';
 
@@ -11,7 +8,7 @@ import { SsoEmailTemplateMapperService } from './sso-email-template-mapper.servi
 export class SsoEmailTemplateService {
   constructor(
     private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
-    private readonly ssoEmailTemplateMapperService: SsoEmailTemplateMapperService
+    private readonly ssoEmailTemplateMapperService: SsoEmailTemplateMapperService,
   ) {}
 
   findOne(id: string) {
@@ -21,13 +18,7 @@ export class SsoEmailTemplateService {
       .pipe(map((t) => this.ssoEmailTemplateMapperService.toModel(t)));
   }
 
-  findMany({
-    filters,
-    meta,
-  }: {
-    filters: Record<string, string>;
-    meta?: RequestMeta;
-  }) {
+  findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.ssoRestSdkAngularService
       .getSsoApi()
       .ssoEmailTemplatesControllerFindMany(
@@ -38,15 +29,13 @@ export class SsoEmailTemplateService {
           ? Object.entries(meta?.sort)
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
-          : undefined
+          : undefined,
       )
       .pipe(
         map(({ meta, ssoEmailTemplates }) => ({
           meta,
-          ssoEmailTemplates: ssoEmailTemplates.map((t) =>
-            this.ssoEmailTemplateMapperService.toModel(t)
-          ),
-        }))
+          ssoEmailTemplates: ssoEmailTemplates.map((t) => this.ssoEmailTemplateMapperService.toModel(t)),
+        })),
       );
   }
 

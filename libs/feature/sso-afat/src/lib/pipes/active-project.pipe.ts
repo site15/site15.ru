@@ -8,17 +8,13 @@ import { SsoActiveProjectService } from '../services/sso-active-project.service'
   standalone: true,
 })
 export class ActiveProjectPipe implements PipeTransform {
-  constructor(
-    private readonly ssoActiveProjectService: SsoActiveProjectService
-  ) {}
+  constructor(private readonly ssoActiveProjectService: SsoActiveProjectService) {}
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public transform(value: any) {
-    return this.ssoActiveProjectService.activePublicProject$
-      .asObservable()
-      .pipe(
-        distinctUntilChanged((prev, cur) => prev?.id === cur?.id),
-        map((p) => p || value)
-      );
+    return this.ssoActiveProjectService.activePublicProject$.asObservable().pipe(
+      distinctUntilChanged((prev, cur) => prev?.id === cur?.id),
+      map((p) => p || value),
+    );
   }
 }

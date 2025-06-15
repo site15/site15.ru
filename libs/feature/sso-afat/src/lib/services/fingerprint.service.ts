@@ -12,7 +12,7 @@ export class FingerprintService {
         map((result) => {
           localStorage.setItem('fingerprint', result.visitorId);
           return result.visitorId;
-        })
+        }),
       );
     }
     return of(fingerprint);

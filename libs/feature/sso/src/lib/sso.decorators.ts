@@ -1,7 +1,4 @@
-import {
-  getRequestFromExecutionContext,
-  prepareHeaders,
-} from '@nestjs-mod/common';
+import { getRequestFromExecutionContext, prepareHeaders } from '@nestjs-mod/common';
 import {
   applyDecorators,
   CanActivate,
@@ -22,19 +19,15 @@ export const CheckHaveSsoClientSecret = Reflector.createDecorator<true>();
 export const SkipSsoGuard = Reflector.createDecorator<true>();
 export const CheckSsoRole = Reflector.createDecorator<SsoRole[]>();
 
-export const CurrentSsoRequest = createParamDecorator(
-  (_data: unknown, ctx: ExecutionContext) => {
-    const req = getRequestFromExecutionContext(ctx) as SsoRequest;
-    return req;
-  }
-);
+export const CurrentSsoRequest = createParamDecorator((_data: unknown, ctx: ExecutionContext) => {
+  const req = getRequestFromExecutionContext(ctx) as SsoRequest;
+  return req;
+});
 
-export const CurrentSsoUser = createParamDecorator(
-  (_data: unknown, ctx: ExecutionContext) => {
-    const req = getRequestFromExecutionContext(ctx) as SsoRequest;
-    return req.ssoUser;
-  }
-);
+export const CurrentSsoUser = createParamDecorator((_data: unknown, ctx: ExecutionContext) => {
+  const req = getRequestFromExecutionContext(ctx) as SsoRequest;
+  return req.ssoUser;
+});
 
 function AddHandleConnection() {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -46,9 +39,7 @@ function AddHandleConnection() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ...args: any[]
       ) {
-        const url = args[0]?.url
-          ? new URL(`http://localhost${args[0]?.url}`)
-          : null;
+        const url = args[0]?.url ? new URL(`http://localhost${args[0]?.url}`) : null;
 
         const queryToken = url?.searchParams.get('token');
         const queryClientId = url?.searchParams.get('clientId');
@@ -61,11 +52,7 @@ function AddHandleConnection() {
         client.headers = {
           ...(authorizationHeader || queryToken
             ? {
-                authorization: authorizationHeader
-                  ? authorizationHeader
-                  : queryToken
-                  ? `Bearer ${queryToken}`
-                  : '',
+                authorization: authorizationHeader ? authorizationHeader : queryToken ? `Bearer ${queryToken}` : '',
               }
             : {}),
           ...(xClientIdHeader
@@ -86,12 +73,10 @@ export function UseSsoInterceptorsAndGuards(options?: {
 }) {
   return applyDecorators(
     ...[
-      ...(options?.skipInterceptor
-        ? []
-        : [UseInterceptors(SsoTimezoneInterceptor)]),
+      ...(options?.skipInterceptor ? [] : [UseInterceptors(SsoTimezoneInterceptor)]),
       UseGuards(...(options?.guards || []), SsoGuard),
       AllowEmptySsoUser(),
       AddHandleConnection(),
-    ]
+    ],
   );
 }

@@ -15,12 +15,10 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 export class SignUpComponent {
   constructor(
     private readonly router: Router,
-    private readonly ssoService: SsoService
+    private readonly ssoService: SsoService,
   ) {}
   onAfterSignUp() {
-    if (
-      searchIn(SsoRoleInterface.admin, this.ssoService.profile$.value?.roles)
-    ) {
+    if (searchIn(SsoRoleInterface.admin, this.ssoService.profile$.value?.roles)) {
       this.router.navigate(['/projects']);
     } else {
       this.router.navigate(['/home']);

@@ -14,8 +14,7 @@ import type * as Prisma from '../internal/prismaNamespace';
  * Model SsoRefreshSession
  *
  */
-export type SsoRefreshSessionModel =
-  runtime.Types.Result.DefaultSelection<Prisma.$SsoRefreshSessionPayload>;
+export type SsoRefreshSessionModel = runtime.Types.Result.DefaultSelection<Prisma.$SsoRefreshSessionPayload>;
 
 export type AggregateSsoRefreshSession = {
   _count: SsoRefreshSessionCountAggregateOutputType | null;
@@ -112,7 +111,7 @@ export type SsoRefreshSessionCountAggregateInputType = {
 };
 
 export type SsoRefreshSessionAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Filter which SsoRefreshSession to aggregate.
@@ -123,9 +122,7 @@ export type SsoRefreshSessionAggregateArgs<
    *
    * Determine the order of SsoRefreshSessions to fetch.
    */
-  orderBy?:
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoRefreshSessionOrderByWithRelationInput | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -164,12 +161,8 @@ export type SsoRefreshSessionAggregateArgs<
   _max?: SsoRefreshSessionMaxAggregateInputType;
 };
 
-export type GetSsoRefreshSessionAggregateType<
-  T extends SsoRefreshSessionAggregateArgs
-> = {
-  [P in keyof T & keyof AggregateSsoRefreshSession]: P extends
-    | '_count'
-    | 'count'
+export type GetSsoRefreshSessionAggregateType<T extends SsoRefreshSessionAggregateArgs> = {
+  [P in keyof T & keyof AggregateSsoRefreshSession]: P extends '_count' | 'count'
     ? T[P] extends true
       ? number
       : Prisma.GetScalarType<T[P], AggregateSsoRefreshSession[P]>
@@ -177,15 +170,11 @@ export type GetSsoRefreshSessionAggregateType<
 };
 
 export type SsoRefreshSessionGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoRefreshSessionWhereInput;
-  orderBy?:
-    | Prisma.SsoRefreshSessionOrderByWithAggregationInput
-    | Prisma.SsoRefreshSessionOrderByWithAggregationInput[];
-  by:
-    | Prisma.SsoRefreshSessionScalarFieldEnum[]
-    | Prisma.SsoRefreshSessionScalarFieldEnum;
+  orderBy?: Prisma.SsoRefreshSessionOrderByWithAggregationInput | Prisma.SsoRefreshSessionOrderByWithAggregationInput[];
+  by: Prisma.SsoRefreshSessionScalarFieldEnum[] | Prisma.SsoRefreshSessionScalarFieldEnum;
   having?: Prisma.SsoRefreshSessionScalarWhereWithAggregatesInput;
   take?: number;
   skip?: number;
@@ -212,13 +201,10 @@ export type SsoRefreshSessionGroupByOutputType = {
   _max: SsoRefreshSessionMaxAggregateOutputType | null;
 };
 
-type GetSsoRefreshSessionGroupByPayload<
-  T extends SsoRefreshSessionGroupByArgs
-> = Prisma.PrismaPromise<
+type GetSsoRefreshSessionGroupByPayload<T extends SsoRefreshSessionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<SsoRefreshSessionGroupByOutputType, T['by']> & {
-      [P in keyof T &
-        keyof SsoRefreshSessionGroupByOutputType]: P extends '_count'
+      [P in keyof T & keyof SsoRefreshSessionGroupByOutputType]: P extends '_count'
         ? T[P] extends boolean
           ? number
           : Prisma.GetScalarType<T[P], SsoRefreshSessionGroupByOutputType[P]>
@@ -228,40 +214,23 @@ type GetSsoRefreshSessionGroupByPayload<
 >;
 
 export type SsoRefreshSessionWhereInput = {
-  AND?:
-    | Prisma.SsoRefreshSessionWhereInput
-    | Prisma.SsoRefreshSessionWhereInput[];
+  AND?: Prisma.SsoRefreshSessionWhereInput | Prisma.SsoRefreshSessionWhereInput[];
   OR?: Prisma.SsoRefreshSessionWhereInput[];
-  NOT?:
-    | Prisma.SsoRefreshSessionWhereInput
-    | Prisma.SsoRefreshSessionWhereInput[];
+  NOT?: Prisma.SsoRefreshSessionWhereInput | Prisma.SsoRefreshSessionWhereInput[];
   id?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
   refreshToken?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
   userAgent?: Prisma.StringNullableFilter<'SsoRefreshSession'> | string | null;
-  fingerprint?:
-    | Prisma.StringNullableFilter<'SsoRefreshSession'>
-    | string
-    | null;
+  fingerprint?: Prisma.StringNullableFilter<'SsoRefreshSession'> | string | null;
   userIp?: Prisma.StringNullableFilter<'SsoRefreshSession'> | string | null;
-  expiresAt?:
-    | Prisma.DateTimeNullableFilter<'SsoRefreshSession'>
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.DateTimeNullableFilter<'SsoRefreshSession'> | Date | string | null;
   userData?: Prisma.JsonNullableFilter<'SsoRefreshSession'>;
   enabled?: Prisma.BoolFilter<'SsoRefreshSession'> | boolean;
   userId?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
   projectId?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
   createdAt?: Prisma.DateTimeFilter<'SsoRefreshSession'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'SsoRefreshSession'> | Date | string;
-  SsoProject?: Prisma.XOR<
-    Prisma.SsoProjectScalarRelationFilter,
-    Prisma.SsoProjectWhereInput
-  >;
-  SsoUser?: Prisma.XOR<
-    Prisma.SsoUserScalarRelationFilter,
-    Prisma.SsoUserWhereInput
-  >;
+  SsoProject?: Prisma.XOR<Prisma.SsoProjectScalarRelationFilter, Prisma.SsoProjectWhereInput>;
+  SsoUser?: Prisma.XOR<Prisma.SsoUserScalarRelationFilter, Prisma.SsoUserWhereInput>;
 };
 
 export type SsoRefreshSessionOrderByWithRelationInput = {
@@ -284,42 +253,22 @@ export type SsoRefreshSessionOrderByWithRelationInput = {
 export type SsoRefreshSessionWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string;
-    AND?:
-      | Prisma.SsoRefreshSessionWhereInput
-      | Prisma.SsoRefreshSessionWhereInput[];
+    AND?: Prisma.SsoRefreshSessionWhereInput | Prisma.SsoRefreshSessionWhereInput[];
     OR?: Prisma.SsoRefreshSessionWhereInput[];
-    NOT?:
-      | Prisma.SsoRefreshSessionWhereInput
-      | Prisma.SsoRefreshSessionWhereInput[];
+    NOT?: Prisma.SsoRefreshSessionWhereInput | Prisma.SsoRefreshSessionWhereInput[];
     refreshToken?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
-    userAgent?:
-      | Prisma.StringNullableFilter<'SsoRefreshSession'>
-      | string
-      | null;
-    fingerprint?:
-      | Prisma.StringNullableFilter<'SsoRefreshSession'>
-      | string
-      | null;
+    userAgent?: Prisma.StringNullableFilter<'SsoRefreshSession'> | string | null;
+    fingerprint?: Prisma.StringNullableFilter<'SsoRefreshSession'> | string | null;
     userIp?: Prisma.StringNullableFilter<'SsoRefreshSession'> | string | null;
-    expiresAt?:
-      | Prisma.DateTimeNullableFilter<'SsoRefreshSession'>
-      | Date
-      | string
-      | null;
+    expiresAt?: Prisma.DateTimeNullableFilter<'SsoRefreshSession'> | Date | string | null;
     userData?: Prisma.JsonNullableFilter<'SsoRefreshSession'>;
     enabled?: Prisma.BoolFilter<'SsoRefreshSession'> | boolean;
     userId?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
     projectId?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
     createdAt?: Prisma.DateTimeFilter<'SsoRefreshSession'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'SsoRefreshSession'> | Date | string;
-    SsoProject?: Prisma.XOR<
-      Prisma.SsoProjectScalarRelationFilter,
-      Prisma.SsoProjectWhereInput
-    >;
-    SsoUser?: Prisma.XOR<
-      Prisma.SsoUserScalarRelationFilter,
-      Prisma.SsoUserWhereInput
-    >;
+    SsoProject?: Prisma.XOR<Prisma.SsoProjectScalarRelationFilter, Prisma.SsoProjectWhereInput>;
+    SsoUser?: Prisma.XOR<Prisma.SsoUserScalarRelationFilter, Prisma.SsoUserWhereInput>;
   },
   'id'
 >;
@@ -352,35 +301,16 @@ export type SsoRefreshSessionScalarWhereWithAggregatesInput = {
     | Prisma.SsoRefreshSessionScalarWhereWithAggregatesInput[];
   id?: Prisma.UuidWithAggregatesFilter<'SsoRefreshSession'> | string;
   refreshToken?: Prisma.UuidWithAggregatesFilter<'SsoRefreshSession'> | string;
-  userAgent?:
-    | Prisma.StringNullableWithAggregatesFilter<'SsoRefreshSession'>
-    | string
-    | null;
-  fingerprint?:
-    | Prisma.StringNullableWithAggregatesFilter<'SsoRefreshSession'>
-    | string
-    | null;
-  userIp?:
-    | Prisma.StringNullableWithAggregatesFilter<'SsoRefreshSession'>
-    | string
-    | null;
-  expiresAt?:
-    | Prisma.DateTimeNullableWithAggregatesFilter<'SsoRefreshSession'>
-    | Date
-    | string
-    | null;
+  userAgent?: Prisma.StringNullableWithAggregatesFilter<'SsoRefreshSession'> | string | null;
+  fingerprint?: Prisma.StringNullableWithAggregatesFilter<'SsoRefreshSession'> | string | null;
+  userIp?: Prisma.StringNullableWithAggregatesFilter<'SsoRefreshSession'> | string | null;
+  expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<'SsoRefreshSession'> | Date | string | null;
   userData?: Prisma.JsonNullableWithAggregatesFilter<'SsoRefreshSession'>;
   enabled?: Prisma.BoolWithAggregatesFilter<'SsoRefreshSession'> | boolean;
   userId?: Prisma.UuidWithAggregatesFilter<'SsoRefreshSession'> | string;
   projectId?: Prisma.UuidWithAggregatesFilter<'SsoRefreshSession'> | string;
-  createdAt?:
-    | Prisma.DateTimeWithAggregatesFilter<'SsoRefreshSession'>
-    | Date
-    | string;
-  updatedAt?:
-    | Prisma.DateTimeWithAggregatesFilter<'SsoRefreshSession'>
-    | Date
-    | string;
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<'SsoRefreshSession'> | Date | string;
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<'SsoRefreshSession'> | Date | string;
 };
 
 export type SsoRefreshSessionCreateInput = {
@@ -419,11 +349,7 @@ export type SsoRefreshSessionUpdateInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -438,11 +364,7 @@ export type SsoRefreshSessionUncheckedUpdateInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -472,11 +394,7 @@ export type SsoRefreshSessionUpdateManyMutationInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -489,11 +407,7 @@ export type SsoRefreshSessionUncheckedUpdateManyInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -567,9 +481,7 @@ export type SsoRefreshSessionCreateNestedManyWithoutSsoProjectInput = {
     | Prisma.SsoRefreshSessionCreateOrConnectWithoutSsoProjectInput
     | Prisma.SsoRefreshSessionCreateOrConnectWithoutSsoProjectInput[];
   createMany?: Prisma.SsoRefreshSessionCreateManySsoProjectInputEnvelope;
-  connect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  connect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
 };
 
 export type SsoRefreshSessionUncheckedCreateNestedManyWithoutSsoProjectInput = {
@@ -584,9 +496,7 @@ export type SsoRefreshSessionUncheckedCreateNestedManyWithoutSsoProjectInput = {
     | Prisma.SsoRefreshSessionCreateOrConnectWithoutSsoProjectInput
     | Prisma.SsoRefreshSessionCreateOrConnectWithoutSsoProjectInput[];
   createMany?: Prisma.SsoRefreshSessionCreateManySsoProjectInputEnvelope;
-  connect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  connect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
 };
 
 export type SsoRefreshSessionUpdateManyWithoutSsoProjectNestedInput = {
@@ -604,27 +514,17 @@ export type SsoRefreshSessionUpdateManyWithoutSsoProjectNestedInput = {
     | Prisma.SsoRefreshSessionUpsertWithWhereUniqueWithoutSsoProjectInput
     | Prisma.SsoRefreshSessionUpsertWithWhereUniqueWithoutSsoProjectInput[];
   createMany?: Prisma.SsoRefreshSessionCreateManySsoProjectInputEnvelope;
-  set?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  disconnect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  delete?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  connect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  set?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  disconnect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  delete?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  connect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
   update?:
     | Prisma.SsoRefreshSessionUpdateWithWhereUniqueWithoutSsoProjectInput
     | Prisma.SsoRefreshSessionUpdateWithWhereUniqueWithoutSsoProjectInput[];
   updateMany?:
     | Prisma.SsoRefreshSessionUpdateManyWithWhereWithoutSsoProjectInput
     | Prisma.SsoRefreshSessionUpdateManyWithWhereWithoutSsoProjectInput[];
-  deleteMany?:
-    | Prisma.SsoRefreshSessionScalarWhereInput
-    | Prisma.SsoRefreshSessionScalarWhereInput[];
+  deleteMany?: Prisma.SsoRefreshSessionScalarWhereInput | Prisma.SsoRefreshSessionScalarWhereInput[];
 };
 
 export type SsoRefreshSessionUncheckedUpdateManyWithoutSsoProjectNestedInput = {
@@ -642,27 +542,17 @@ export type SsoRefreshSessionUncheckedUpdateManyWithoutSsoProjectNestedInput = {
     | Prisma.SsoRefreshSessionUpsertWithWhereUniqueWithoutSsoProjectInput
     | Prisma.SsoRefreshSessionUpsertWithWhereUniqueWithoutSsoProjectInput[];
   createMany?: Prisma.SsoRefreshSessionCreateManySsoProjectInputEnvelope;
-  set?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  disconnect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  delete?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  connect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  set?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  disconnect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  delete?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  connect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
   update?:
     | Prisma.SsoRefreshSessionUpdateWithWhereUniqueWithoutSsoProjectInput
     | Prisma.SsoRefreshSessionUpdateWithWhereUniqueWithoutSsoProjectInput[];
   updateMany?:
     | Prisma.SsoRefreshSessionUpdateManyWithWhereWithoutSsoProjectInput
     | Prisma.SsoRefreshSessionUpdateManyWithWhereWithoutSsoProjectInput[];
-  deleteMany?:
-    | Prisma.SsoRefreshSessionScalarWhereInput
-    | Prisma.SsoRefreshSessionScalarWhereInput[];
+  deleteMany?: Prisma.SsoRefreshSessionScalarWhereInput | Prisma.SsoRefreshSessionScalarWhereInput[];
 };
 
 export type SsoRefreshSessionCreateNestedManyWithoutSsoUserInput = {
@@ -677,9 +567,7 @@ export type SsoRefreshSessionCreateNestedManyWithoutSsoUserInput = {
     | Prisma.SsoRefreshSessionCreateOrConnectWithoutSsoUserInput
     | Prisma.SsoRefreshSessionCreateOrConnectWithoutSsoUserInput[];
   createMany?: Prisma.SsoRefreshSessionCreateManySsoUserInputEnvelope;
-  connect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  connect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
 };
 
 export type SsoRefreshSessionUncheckedCreateNestedManyWithoutSsoUserInput = {
@@ -694,9 +582,7 @@ export type SsoRefreshSessionUncheckedCreateNestedManyWithoutSsoUserInput = {
     | Prisma.SsoRefreshSessionCreateOrConnectWithoutSsoUserInput
     | Prisma.SsoRefreshSessionCreateOrConnectWithoutSsoUserInput[];
   createMany?: Prisma.SsoRefreshSessionCreateManySsoUserInputEnvelope;
-  connect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  connect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
 };
 
 export type SsoRefreshSessionUpdateManyWithoutSsoUserNestedInput = {
@@ -714,27 +600,17 @@ export type SsoRefreshSessionUpdateManyWithoutSsoUserNestedInput = {
     | Prisma.SsoRefreshSessionUpsertWithWhereUniqueWithoutSsoUserInput
     | Prisma.SsoRefreshSessionUpsertWithWhereUniqueWithoutSsoUserInput[];
   createMany?: Prisma.SsoRefreshSessionCreateManySsoUserInputEnvelope;
-  set?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  disconnect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  delete?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  connect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  set?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  disconnect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  delete?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  connect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
   update?:
     | Prisma.SsoRefreshSessionUpdateWithWhereUniqueWithoutSsoUserInput
     | Prisma.SsoRefreshSessionUpdateWithWhereUniqueWithoutSsoUserInput[];
   updateMany?:
     | Prisma.SsoRefreshSessionUpdateManyWithWhereWithoutSsoUserInput
     | Prisma.SsoRefreshSessionUpdateManyWithWhereWithoutSsoUserInput[];
-  deleteMany?:
-    | Prisma.SsoRefreshSessionScalarWhereInput
-    | Prisma.SsoRefreshSessionScalarWhereInput[];
+  deleteMany?: Prisma.SsoRefreshSessionScalarWhereInput | Prisma.SsoRefreshSessionScalarWhereInput[];
 };
 
 export type SsoRefreshSessionUncheckedUpdateManyWithoutSsoUserNestedInput = {
@@ -752,27 +628,17 @@ export type SsoRefreshSessionUncheckedUpdateManyWithoutSsoUserNestedInput = {
     | Prisma.SsoRefreshSessionUpsertWithWhereUniqueWithoutSsoUserInput
     | Prisma.SsoRefreshSessionUpsertWithWhereUniqueWithoutSsoUserInput[];
   createMany?: Prisma.SsoRefreshSessionCreateManySsoUserInputEnvelope;
-  set?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  disconnect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  delete?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
-  connect?:
-    | Prisma.SsoRefreshSessionWhereUniqueInput
-    | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  set?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  disconnect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  delete?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
+  connect?: Prisma.SsoRefreshSessionWhereUniqueInput | Prisma.SsoRefreshSessionWhereUniqueInput[];
   update?:
     | Prisma.SsoRefreshSessionUpdateWithWhereUniqueWithoutSsoUserInput
     | Prisma.SsoRefreshSessionUpdateWithWhereUniqueWithoutSsoUserInput[];
   updateMany?:
     | Prisma.SsoRefreshSessionUpdateManyWithWhereWithoutSsoUserInput
     | Prisma.SsoRefreshSessionUpdateManyWithWhereWithoutSsoUserInput[];
-  deleteMany?:
-    | Prisma.SsoRefreshSessionScalarWhereInput
-    | Prisma.SsoRefreshSessionScalarWhereInput[];
+  deleteMany?: Prisma.SsoRefreshSessionScalarWhereInput | Prisma.SsoRefreshSessionScalarWhereInput[];
 };
 
 export type SsoRefreshSessionCreateWithoutSsoProjectInput = {
@@ -812,9 +678,7 @@ export type SsoRefreshSessionCreateOrConnectWithoutSsoProjectInput = {
 };
 
 export type SsoRefreshSessionCreateManySsoProjectInputEnvelope = {
-  data:
-    | Prisma.SsoRefreshSessionCreateManySsoProjectInput
-    | Prisma.SsoRefreshSessionCreateManySsoProjectInput[];
+  data: Prisma.SsoRefreshSessionCreateManySsoProjectInput | Prisma.SsoRefreshSessionCreateManySsoProjectInput[];
   skipDuplicates?: boolean;
 };
 
@@ -847,26 +711,15 @@ export type SsoRefreshSessionUpdateManyWithWhereWithoutSsoProjectInput = {
 };
 
 export type SsoRefreshSessionScalarWhereInput = {
-  AND?:
-    | Prisma.SsoRefreshSessionScalarWhereInput
-    | Prisma.SsoRefreshSessionScalarWhereInput[];
+  AND?: Prisma.SsoRefreshSessionScalarWhereInput | Prisma.SsoRefreshSessionScalarWhereInput[];
   OR?: Prisma.SsoRefreshSessionScalarWhereInput[];
-  NOT?:
-    | Prisma.SsoRefreshSessionScalarWhereInput
-    | Prisma.SsoRefreshSessionScalarWhereInput[];
+  NOT?: Prisma.SsoRefreshSessionScalarWhereInput | Prisma.SsoRefreshSessionScalarWhereInput[];
   id?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
   refreshToken?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
   userAgent?: Prisma.StringNullableFilter<'SsoRefreshSession'> | string | null;
-  fingerprint?:
-    | Prisma.StringNullableFilter<'SsoRefreshSession'>
-    | string
-    | null;
+  fingerprint?: Prisma.StringNullableFilter<'SsoRefreshSession'> | string | null;
   userIp?: Prisma.StringNullableFilter<'SsoRefreshSession'> | string | null;
-  expiresAt?:
-    | Prisma.DateTimeNullableFilter<'SsoRefreshSession'>
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.DateTimeNullableFilter<'SsoRefreshSession'> | Date | string | null;
   userData?: Prisma.JsonNullableFilter<'SsoRefreshSession'>;
   enabled?: Prisma.BoolFilter<'SsoRefreshSession'> | boolean;
   userId?: Prisma.UuidFilter<'SsoRefreshSession'> | string;
@@ -912,9 +765,7 @@ export type SsoRefreshSessionCreateOrConnectWithoutSsoUserInput = {
 };
 
 export type SsoRefreshSessionCreateManySsoUserInputEnvelope = {
-  data:
-    | Prisma.SsoRefreshSessionCreateManySsoUserInput
-    | Prisma.SsoRefreshSessionCreateManySsoUserInput[];
+  data: Prisma.SsoRefreshSessionCreateManySsoUserInput | Prisma.SsoRefreshSessionCreateManySsoUserInput[];
   skipDuplicates?: boolean;
 };
 
@@ -966,11 +817,7 @@ export type SsoRefreshSessionUpdateWithoutSsoProjectInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -984,11 +831,7 @@ export type SsoRefreshSessionUncheckedUpdateWithoutSsoProjectInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1002,11 +845,7 @@ export type SsoRefreshSessionUncheckedUpdateManyWithoutSsoProjectInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1034,11 +873,7 @@ export type SsoRefreshSessionUpdateWithoutSsoUserInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1052,11 +887,7 @@ export type SsoRefreshSessionUncheckedUpdateWithoutSsoUserInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectId?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1070,11 +901,7 @@ export type SsoRefreshSessionUncheckedUpdateManyWithoutSsoUserInput = {
   userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   fingerprint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userIp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
   userData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   projectId?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1083,7 +910,7 @@ export type SsoRefreshSessionUncheckedUpdateManyWithoutSsoUserInput = {
 };
 
 export type SsoRefreshSessionSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1105,7 +932,7 @@ export type SsoRefreshSessionSelect<
 >;
 
 export type SsoRefreshSessionSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1127,7 +954,7 @@ export type SsoRefreshSessionSelectCreateManyAndReturn<
 >;
 
 export type SsoRefreshSessionSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -1164,7 +991,7 @@ export type SsoRefreshSessionSelectScalar = {
 };
 
 export type SsoRefreshSessionOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
   | 'id'
   | 'refreshToken'
@@ -1181,26 +1008,26 @@ export type SsoRefreshSessionOmit<
   ExtArgs['result']['ssoRefreshSession']
 >;
 export type SsoRefreshSessionInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
   SsoUser?: boolean | Prisma.SsoUserDefaultArgs<ExtArgs>;
 };
 export type SsoRefreshSessionIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
   SsoUser?: boolean | Prisma.SsoUserDefaultArgs<ExtArgs>;
 };
 export type SsoRefreshSessionIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
   SsoUser?: boolean | Prisma.SsoUserDefaultArgs<ExtArgs>;
 };
 
 export type $SsoRefreshSessionPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   name: 'SsoRefreshSession';
   objects: {
@@ -1244,27 +1071,20 @@ export type $SsoRefreshSessionPayload<
   composites: {};
 };
 
-export type SsoRefreshSessionGetPayload<
-  S extends boolean | null | undefined | SsoRefreshSessionDefaultArgs
-> = runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload, S>;
+export type SsoRefreshSessionGetPayload<S extends boolean | null | undefined | SsoRefreshSessionDefaultArgs> =
+  runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload, S>;
 
 export type SsoRefreshSessionCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-> = Omit<
-  SsoRefreshSessionFindManyArgs,
-  'select' | 'include' | 'distinct' | 'omit'
-> & {
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = Omit<SsoRefreshSessionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
   select?: SsoRefreshSessionCountAggregateInputType | true;
 };
 
 export interface SsoRefreshSessionDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-  GlobalOmitOptions = {}
+  GlobalOmitOptions = {},
 > {
-  [K: symbol]: {
-    types: Prisma.TypeMap<ExtArgs>['model']['SsoRefreshSession'];
-    meta: { name: 'SsoRefreshSession' };
-  };
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SsoRefreshSession']; meta: { name: 'SsoRefreshSession' } };
   /**
    * Find zero or one SsoRefreshSession that matches the filter.
    * @param {SsoRefreshSessionFindUniqueArgs} args - Arguments to find a SsoRefreshSession
@@ -1277,7 +1097,7 @@ export interface SsoRefreshSessionDelegate<
    * })
    */
   findUnique<T extends SsoRefreshSessionFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, SsoRefreshSessionFindUniqueArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoRefreshSessionFindUniqueArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoRefreshSessionClient<
     runtime.Types.Result.GetResult<
       Prisma.$SsoRefreshSessionPayload<ExtArgs>,
@@ -1303,10 +1123,7 @@ export interface SsoRefreshSessionDelegate<
    * })
    */
   findUniqueOrThrow<T extends SsoRefreshSessionFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<
-      T,
-      SsoRefreshSessionFindUniqueOrThrowArgs<ExtArgs>
-    >
+    args: Prisma.SelectSubset<T, SsoRefreshSessionFindUniqueOrThrowArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoRefreshSessionClient<
     runtime.Types.Result.GetResult<
       Prisma.$SsoRefreshSessionPayload<ExtArgs>,
@@ -1333,14 +1150,9 @@ export interface SsoRefreshSessionDelegate<
    * })
    */
   findFirst<T extends SsoRefreshSessionFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, SsoRefreshSessionFindFirstArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoRefreshSessionFindFirstArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoRefreshSessionClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoRefreshSessionPayload<ExtArgs>,
-      T,
-      'findFirst',
-      GlobalOmitOptions
-    > | null,
+    runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload<ExtArgs>, T, 'findFirst', GlobalOmitOptions> | null,
     null,
     ExtArgs,
     GlobalOmitOptions
@@ -1361,17 +1173,9 @@ export interface SsoRefreshSessionDelegate<
    * })
    */
   findFirstOrThrow<T extends SsoRefreshSessionFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<
-      T,
-      SsoRefreshSessionFindFirstOrThrowArgs<ExtArgs>
-    >
+    args?: Prisma.SelectSubset<T, SsoRefreshSessionFindFirstOrThrowArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoRefreshSessionClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoRefreshSessionPayload<ExtArgs>,
-      T,
-      'findFirstOrThrow',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload<ExtArgs>, T, 'findFirstOrThrow', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1394,14 +1198,9 @@ export interface SsoRefreshSessionDelegate<
    *
    */
   findMany<T extends SsoRefreshSessionFindManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoRefreshSessionFindManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoRefreshSessionFindManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoRefreshSessionPayload<ExtArgs>,
-      T,
-      'findMany',
-      GlobalOmitOptions
-    >
+    runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
   >;
 
   /**
@@ -1417,14 +1216,9 @@ export interface SsoRefreshSessionDelegate<
    *
    */
   create<T extends SsoRefreshSessionCreateArgs>(
-    args: Prisma.SelectSubset<T, SsoRefreshSessionCreateArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoRefreshSessionCreateArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoRefreshSessionClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoRefreshSessionPayload<ExtArgs>,
-      T,
-      'create',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1443,7 +1237,7 @@ export interface SsoRefreshSessionDelegate<
    *
    */
   createMany<T extends SsoRefreshSessionCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoRefreshSessionCreateManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoRefreshSessionCreateManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1469,10 +1263,7 @@ export interface SsoRefreshSessionDelegate<
    *
    */
   createManyAndReturn<T extends SsoRefreshSessionCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<
-      T,
-      SsoRefreshSessionCreateManyAndReturnArgs<ExtArgs>
-    >
+    args?: Prisma.SelectSubset<T, SsoRefreshSessionCreateManyAndReturnArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SsoRefreshSessionPayload<ExtArgs>,
@@ -1495,14 +1286,9 @@ export interface SsoRefreshSessionDelegate<
    *
    */
   delete<T extends SsoRefreshSessionDeleteArgs>(
-    args: Prisma.SelectSubset<T, SsoRefreshSessionDeleteArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoRefreshSessionDeleteArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoRefreshSessionClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoRefreshSessionPayload<ExtArgs>,
-      T,
-      'delete',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1524,14 +1310,9 @@ export interface SsoRefreshSessionDelegate<
    *
    */
   update<T extends SsoRefreshSessionUpdateArgs>(
-    args: Prisma.SelectSubset<T, SsoRefreshSessionUpdateArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoRefreshSessionUpdateArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoRefreshSessionClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoRefreshSessionPayload<ExtArgs>,
-      T,
-      'update',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1550,7 +1331,7 @@ export interface SsoRefreshSessionDelegate<
    *
    */
   deleteMany<T extends SsoRefreshSessionDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoRefreshSessionDeleteManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoRefreshSessionDeleteManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1571,7 +1352,7 @@ export interface SsoRefreshSessionDelegate<
    *
    */
   updateMany<T extends SsoRefreshSessionUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, SsoRefreshSessionUpdateManyArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoRefreshSessionUpdateManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1603,10 +1384,7 @@ export interface SsoRefreshSessionDelegate<
    *
    */
   updateManyAndReturn<T extends SsoRefreshSessionUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<
-      T,
-      SsoRefreshSessionUpdateManyAndReturnArgs<ExtArgs>
-    >
+    args: Prisma.SelectSubset<T, SsoRefreshSessionUpdateManyAndReturnArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SsoRefreshSessionPayload<ExtArgs>,
@@ -1634,14 +1412,9 @@ export interface SsoRefreshSessionDelegate<
    * })
    */
   upsert<T extends SsoRefreshSessionUpsertArgs>(
-    args: Prisma.SelectSubset<T, SsoRefreshSessionUpsertArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoRefreshSessionUpsertArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoRefreshSessionClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoRefreshSessionPayload<ExtArgs>,
-      T,
-      'upsert',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoRefreshSessionPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1661,15 +1434,12 @@ export interface SsoRefreshSessionDelegate<
    * })
    **/
   count<T extends SsoRefreshSessionCountArgs>(
-    args?: Prisma.Subset<T, SsoRefreshSessionCountArgs>
+    args?: Prisma.Subset<T, SsoRefreshSessionCountArgs>,
   ): Prisma.PrismaPromise<
     T extends runtime.Types.Utils.Record<'select', any>
       ? T['select'] extends true
         ? number
-        : Prisma.GetScalarType<
-            T['select'],
-            SsoRefreshSessionCountAggregateOutputType
-          >
+        : Prisma.GetScalarType<T['select'], SsoRefreshSessionCountAggregateOutputType>
       : number
   >;
 
@@ -1698,7 +1468,7 @@ export interface SsoRefreshSessionDelegate<
    * })
    **/
   aggregate<T extends SsoRefreshSessionAggregateArgs>(
-    args: Prisma.Subset<T, SsoRefreshSessionAggregateArgs>
+    args: Prisma.Subset<T, SsoRefreshSessionAggregateArgs>,
   ): Prisma.PrismaPromise<GetSsoRefreshSessionAggregateType<T>>;
 
   /**
@@ -1721,16 +1491,11 @@ export interface SsoRefreshSessionDelegate<
    **/
   groupBy<
     T extends SsoRefreshSessionGroupByArgs,
-    HasSelectOrTake extends Prisma.Or<
-      Prisma.Extends<'skip', Prisma.Keys<T>>,
-      Prisma.Extends<'take', Prisma.Keys<T>>
-    >,
+    HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>,
     OrderByArg extends Prisma.True extends HasSelectOrTake
       ? { orderBy: SsoRefreshSessionGroupByArgs['orderBy'] }
       : { orderBy?: SsoRefreshSessionGroupByArgs['orderBy'] },
-    OrderFields extends Prisma.ExcludeUnderscoreKeys<
-      Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>
-    >,
+    OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
     ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
     HavingFields extends Prisma.GetHavingFields<T['having']>,
@@ -1739,50 +1504,43 @@ export interface SsoRefreshSessionDelegate<
     InputErrors extends ByEmpty extends Prisma.True
       ? `Error: "by" must not be empty.`
       : HavingValid extends Prisma.False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
-        }[HavingFields]
-      : 'take' extends Prisma.Keys<T>
-      ? 'orderBy' extends Prisma.Keys<T>
-        ? ByValid extends Prisma.True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Prisma.Keys<T>
-      ? 'orderBy' extends Prisma.Keys<T>
-        ? ByValid extends Prisma.True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends Prisma.True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-        }[OrderFields]
+        ? {
+            [P in HavingFields]: P extends ByFields
+              ? never
+              : P extends string
+                ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
+          }[HavingFields]
+        : 'take' extends Prisma.Keys<T>
+          ? 'orderBy' extends Prisma.Keys<T>
+            ? ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields]
+            : 'Error: If you provide "take", you also need to provide "orderBy"'
+          : 'skip' extends Prisma.Keys<T>
+            ? 'orderBy' extends Prisma.Keys<T>
+              ? ByValid extends Prisma.True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "skip", you also need to provide "orderBy"'
+            : ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<
-      T,
-      SsoRefreshSessionGroupByArgs,
-      OrderByArg
-    > &
-      InputErrors
-  ): {} extends InputErrors
-    ? GetSsoRefreshSessionGroupByPayload<T>
-    : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, SsoRefreshSessionGroupByArgs, OrderByArg> & InputErrors,
+  ): {} extends InputErrors ? GetSsoRefreshSessionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the SsoRefreshSession model
    */
@@ -1799,33 +1557,22 @@ export interface Prisma__SsoRefreshSessionClient<
   T,
   Null = never,
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-  GlobalOmitOptions = {}
+  GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
   SsoProject<T extends Prisma.SsoProjectDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.SsoProjectDefaultArgs<ExtArgs>>
+    args?: Prisma.Subset<T, Prisma.SsoProjectDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoProjectClient<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SsoProjectPayload<ExtArgs>,
-        T,
-        'findUniqueOrThrow',
-        GlobalOmitOptions
-      >
+    | runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions>
     | Null,
     Null,
     ExtArgs,
     GlobalOmitOptions
   >;
   SsoUser<T extends Prisma.SsoUserDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.SsoUserDefaultArgs<ExtArgs>>
+    args?: Prisma.Subset<T, Prisma.SsoUserDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoUserClient<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SsoUserPayload<ExtArgs>,
-        T,
-        'findUniqueOrThrow',
-        GlobalOmitOptions
-      >
-    | Null,
+    runtime.Types.Result.GetResult<Prisma.$SsoUserPayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions> | Null,
     Null,
     ExtArgs,
     GlobalOmitOptions
@@ -1837,14 +1584,8 @@ export interface Prisma__SsoRefreshSessionClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?:
-      | ((value: T) => TResult1 | PromiseLike<TResult1>)
-      | undefined
-      | null,
-    onrejected?:
-      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-      | undefined
-      | null
+    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -1852,10 +1593,7 @@ export interface Prisma__SsoRefreshSessionClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?:
-      | ((reason: any) => TResult | PromiseLike<TResult>)
-      | undefined
-      | null
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -1863,9 +1601,7 @@ export interface Prisma__SsoRefreshSessionClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(
-    onfinally?: (() => void) | undefined | null
-  ): runtime.Types.Utils.JsPromise<T>;
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1891,7 +1627,7 @@ export interface SsoRefreshSessionFieldRefs {
  * SsoRefreshSession findUnique
  */
 export type SsoRefreshSessionFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -1915,7 +1651,7 @@ export type SsoRefreshSessionFindUniqueArgs<
  * SsoRefreshSession findUniqueOrThrow
  */
 export type SsoRefreshSessionFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -1939,7 +1675,7 @@ export type SsoRefreshSessionFindUniqueOrThrowArgs<
  * SsoRefreshSession findFirst
  */
 export type SsoRefreshSessionFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -1962,9 +1698,7 @@ export type SsoRefreshSessionFindFirstArgs<
    *
    * Determine the order of SsoRefreshSessions to fetch.
    */
-  orderBy?:
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoRefreshSessionOrderByWithRelationInput | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1988,16 +1722,14 @@ export type SsoRefreshSessionFindFirstArgs<
    *
    * Filter by unique combinations of SsoRefreshSessions.
    */
-  distinct?:
-    | Prisma.SsoRefreshSessionScalarFieldEnum
-    | Prisma.SsoRefreshSessionScalarFieldEnum[];
+  distinct?: Prisma.SsoRefreshSessionScalarFieldEnum | Prisma.SsoRefreshSessionScalarFieldEnum[];
 };
 
 /**
  * SsoRefreshSession findFirstOrThrow
  */
 export type SsoRefreshSessionFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -2020,9 +1752,7 @@ export type SsoRefreshSessionFindFirstOrThrowArgs<
    *
    * Determine the order of SsoRefreshSessions to fetch.
    */
-  orderBy?:
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoRefreshSessionOrderByWithRelationInput | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -2046,16 +1776,14 @@ export type SsoRefreshSessionFindFirstOrThrowArgs<
    *
    * Filter by unique combinations of SsoRefreshSessions.
    */
-  distinct?:
-    | Prisma.SsoRefreshSessionScalarFieldEnum
-    | Prisma.SsoRefreshSessionScalarFieldEnum[];
+  distinct?: Prisma.SsoRefreshSessionScalarFieldEnum | Prisma.SsoRefreshSessionScalarFieldEnum[];
 };
 
 /**
  * SsoRefreshSession findMany
  */
 export type SsoRefreshSessionFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -2078,9 +1806,7 @@ export type SsoRefreshSessionFindManyArgs<
    *
    * Determine the order of SsoRefreshSessions to fetch.
    */
-  orderBy?:
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput
-    | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoRefreshSessionOrderByWithRelationInput | Prisma.SsoRefreshSessionOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -2099,16 +1825,14 @@ export type SsoRefreshSessionFindManyArgs<
    * Skip the first `n` SsoRefreshSessions.
    */
   skip?: number;
-  distinct?:
-    | Prisma.SsoRefreshSessionScalarFieldEnum
-    | Prisma.SsoRefreshSessionScalarFieldEnum[];
+  distinct?: Prisma.SsoRefreshSessionScalarFieldEnum | Prisma.SsoRefreshSessionScalarFieldEnum[];
 };
 
 /**
  * SsoRefreshSession create
  */
 export type SsoRefreshSessionCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -2125,24 +1849,19 @@ export type SsoRefreshSessionCreateArgs<
   /**
    * The data needed to create a SsoRefreshSession.
    */
-  data: Prisma.XOR<
-    Prisma.SsoRefreshSessionCreateInput,
-    Prisma.SsoRefreshSessionUncheckedCreateInput
-  >;
+  data: Prisma.XOR<Prisma.SsoRefreshSessionCreateInput, Prisma.SsoRefreshSessionUncheckedCreateInput>;
 };
 
 /**
  * SsoRefreshSession createMany
  */
 export type SsoRefreshSessionCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * The data used to create many SsoRefreshSessions.
    */
-  data:
-    | Prisma.SsoRefreshSessionCreateManyInput
-    | Prisma.SsoRefreshSessionCreateManyInput[];
+  data: Prisma.SsoRefreshSessionCreateManyInput | Prisma.SsoRefreshSessionCreateManyInput[];
   skipDuplicates?: boolean;
 };
 
@@ -2150,7 +1869,7 @@ export type SsoRefreshSessionCreateManyArgs<
  * SsoRefreshSession createManyAndReturn
  */
 export type SsoRefreshSessionCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -2163,9 +1882,7 @@ export type SsoRefreshSessionCreateManyAndReturnArgs<
   /**
    * The data used to create many SsoRefreshSessions.
    */
-  data:
-    | Prisma.SsoRefreshSessionCreateManyInput
-    | Prisma.SsoRefreshSessionCreateManyInput[];
+  data: Prisma.SsoRefreshSessionCreateManyInput | Prisma.SsoRefreshSessionCreateManyInput[];
   skipDuplicates?: boolean;
   /**
    * Choose, which related nodes to fetch as well
@@ -2177,7 +1894,7 @@ export type SsoRefreshSessionCreateManyAndReturnArgs<
  * SsoRefreshSession update
  */
 export type SsoRefreshSessionUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -2194,10 +1911,7 @@ export type SsoRefreshSessionUpdateArgs<
   /**
    * The data needed to update a SsoRefreshSession.
    */
-  data: Prisma.XOR<
-    Prisma.SsoRefreshSessionUpdateInput,
-    Prisma.SsoRefreshSessionUncheckedUpdateInput
-  >;
+  data: Prisma.XOR<Prisma.SsoRefreshSessionUpdateInput, Prisma.SsoRefreshSessionUncheckedUpdateInput>;
   /**
    * Choose, which SsoRefreshSession to update.
    */
@@ -2208,15 +1922,12 @@ export type SsoRefreshSessionUpdateArgs<
  * SsoRefreshSession updateMany
  */
 export type SsoRefreshSessionUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * The data used to update SsoRefreshSessions.
    */
-  data: Prisma.XOR<
-    Prisma.SsoRefreshSessionUpdateManyMutationInput,
-    Prisma.SsoRefreshSessionUncheckedUpdateManyInput
-  >;
+  data: Prisma.XOR<Prisma.SsoRefreshSessionUpdateManyMutationInput, Prisma.SsoRefreshSessionUncheckedUpdateManyInput>;
   /**
    * Filter which SsoRefreshSessions to update
    */
@@ -2231,7 +1942,7 @@ export type SsoRefreshSessionUpdateManyArgs<
  * SsoRefreshSession updateManyAndReturn
  */
 export type SsoRefreshSessionUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -2244,10 +1955,7 @@ export type SsoRefreshSessionUpdateManyAndReturnArgs<
   /**
    * The data used to update SsoRefreshSessions.
    */
-  data: Prisma.XOR<
-    Prisma.SsoRefreshSessionUpdateManyMutationInput,
-    Prisma.SsoRefreshSessionUncheckedUpdateManyInput
-  >;
+  data: Prisma.XOR<Prisma.SsoRefreshSessionUpdateManyMutationInput, Prisma.SsoRefreshSessionUncheckedUpdateManyInput>;
   /**
    * Filter which SsoRefreshSessions to update
    */
@@ -2266,7 +1974,7 @@ export type SsoRefreshSessionUpdateManyAndReturnArgs<
  * SsoRefreshSession upsert
  */
 export type SsoRefreshSessionUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -2287,24 +1995,18 @@ export type SsoRefreshSessionUpsertArgs<
   /**
    * In case the SsoRefreshSession found by the `where` argument doesn't exist, create a new SsoRefreshSession with this data.
    */
-  create: Prisma.XOR<
-    Prisma.SsoRefreshSessionCreateInput,
-    Prisma.SsoRefreshSessionUncheckedCreateInput
-  >;
+  create: Prisma.XOR<Prisma.SsoRefreshSessionCreateInput, Prisma.SsoRefreshSessionUncheckedCreateInput>;
   /**
    * In case the SsoRefreshSession was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<
-    Prisma.SsoRefreshSessionUpdateInput,
-    Prisma.SsoRefreshSessionUncheckedUpdateInput
-  >;
+  update: Prisma.XOR<Prisma.SsoRefreshSessionUpdateInput, Prisma.SsoRefreshSessionUncheckedUpdateInput>;
 };
 
 /**
  * SsoRefreshSession delete
  */
 export type SsoRefreshSessionDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession
@@ -2328,7 +2030,7 @@ export type SsoRefreshSessionDeleteArgs<
  * SsoRefreshSession deleteMany
  */
 export type SsoRefreshSessionDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Filter which SsoRefreshSessions to delete
@@ -2344,7 +2046,7 @@ export type SsoRefreshSessionDeleteManyArgs<
  * SsoRefreshSession without action
  */
 export type SsoRefreshSessionDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoRefreshSession

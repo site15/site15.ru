@@ -12,7 +12,7 @@ import { SsoForgotPasswordInput } from './auth.types';
 export class SsoForgotPasswordFormService {
   constructor(
     protected readonly translocoService: TranslocoService,
-    protected readonly validationService: ValidationService
+    protected readonly validationService: ValidationService,
   ) {}
 
   init() {
@@ -33,15 +33,13 @@ export class SsoForgotPasswordFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso.forgot-password-form.fields.email`
-            ),
+            label: this.translocoService.translate(`sso.forgot-password-form.fields.email`),
             placeholder: 'email',
             required: true,
           },
         },
       ],
-      options?.errors || []
+      options?.errors || [],
     );
   }
 }

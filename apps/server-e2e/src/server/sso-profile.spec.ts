@@ -23,21 +23,19 @@ describe('Sso profile (e2e)', () => {
   });
 
   it('Create project', async () => {
-    const { data: createOneResult } = await user
-      .getSsoApi()
-      .ssoProjectsControllerCreateOne(
-        {
-          public: false,
-          name: project.randomUser.uniqId,
-          clientId: project.randomUser.id,
-          clientSecret: project.randomUser.password,
+    const { data: createOneResult } = await user.getSsoApi().ssoProjectsControllerCreateOne(
+      {
+        public: false,
+        name: project.randomUser.uniqId,
+        clientId: project.randomUser.id,
+        clientSecret: project.randomUser.password,
+      },
+      {
+        headers: {
+          'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
         },
-        {
-          headers: {
-            'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
-          },
-        }
-      );
+      },
+    );
     expect(createOneResult).toHaveProperty('id');
   });
 
@@ -54,7 +52,7 @@ describe('Sso profile (e2e)', () => {
         headers: {
           'x-client-id': project.randomUser.id,
         },
-      }
+      },
     );
     expect(signUpResult).toHaveProperty('accessToken');
     expect(signUpResult).toHaveProperty('refreshToken');
@@ -64,17 +62,11 @@ describe('Sso profile (e2e)', () => {
   it('As admin set current date to emailVerifiedAt column', async () => {
     const { data: findManyProjectsResult } = await user
       .getSsoApi()
-      .ssoProjectsControllerFindMany(
-        undefined,
-        undefined,
-        project.randomUser.id,
-        undefined,
-        {
-          headers: {
-            'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
-          },
-        }
-      );
+      .ssoProjectsControllerFindMany(undefined, undefined, project.randomUser.id, undefined, {
+        headers: {
+          'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+        },
+      });
 
     const { data: findManyResult } = await user
       .getSsoApi()
@@ -88,24 +80,22 @@ describe('Sso profile (e2e)', () => {
           headers: {
             'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
           },
-        }
+        },
       );
 
     expect(findManyResult.ssoUsers).toHaveLength(1);
 
-    const { data: updateOneResult } = await user
-      .getSsoApi()
-      .ssoUsersControllerUpdateOne(
-        findManyResult.ssoUsers[0].id,
-        {
-          emailVerifiedAt: new Date().toISOString(),
+    const { data: updateOneResult } = await user.getSsoApi().ssoUsersControllerUpdateOne(
+      findManyResult.ssoUsers[0].id,
+      {
+        emailVerifiedAt: new Date().toISOString(),
+      },
+      {
+        headers: {
+          'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
         },
-        {
-          headers: {
-            'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
-          },
-        }
-      );
+      },
+    );
 
     expect(updateOneResult.emailVerifiedAt).not.toBeNull();
   });
@@ -121,7 +111,7 @@ describe('Sso profile (e2e)', () => {
         headers: {
           'x-client-id': project.randomUser.id,
         },
-      }
+      },
     );
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
@@ -130,35 +120,27 @@ describe('Sso profile (e2e)', () => {
   });
 
   it('Update user profile data', async () => {
-    const { data: profileResult } = await user
-      .getSsoApi()
-      .ssoControllerProfile({
+    const { data: profileResult } = await user.getSsoApi().ssoControllerProfile({
+      headers: {
+        ...(userTokens.accessToken ? { Authorization: `Bearer ${userTokens.accessToken}` } : {}),
+        'x-client-id': project.randomUser.id,
+      },
+    });
+    const { data: updatedProfileResult } = await user.getSsoApi().ssoControllerUpdateProfile(
+      {
+        firstname: user.randomUser.firstName,
+        birthdate: user.randomUser.dateOfBirth.toISOString(),
+        gender: 'm',
+        lastname: user.randomUser.lastName,
+        picture: 'pic',
+      },
+      {
         headers: {
-          ...(userTokens.accessToken
-            ? { Authorization: `Bearer ${userTokens.accessToken}` }
-            : {}),
+          ...(userTokens.accessToken ? { Authorization: `Bearer ${userTokens.accessToken}` } : {}),
           'x-client-id': project.randomUser.id,
         },
-      });
-    const { data: updatedProfileResult } = await user
-      .getSsoApi()
-      .ssoControllerUpdateProfile(
-        {
-          firstname: user.randomUser.firstName,
-          birthdate: user.randomUser.dateOfBirth.toISOString(),
-          gender: 'm',
-          lastname: user.randomUser.lastName,
-          picture: 'pic',
-        },
-        {
-          headers: {
-            ...(userTokens.accessToken
-              ? { Authorization: `Bearer ${userTokens.accessToken}` }
-              : {}),
-            'x-client-id': project.randomUser.id,
-          },
-        }
-      );
+      },
+    );
     expect(profileResult).toMatchObject({
       email: user.randomUser.email,
       phone: null,

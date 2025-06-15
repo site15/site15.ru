@@ -1,10 +1,5 @@
 import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class SsoUserEmailProjectIdUniqueInputDto {
@@ -36,10 +31,7 @@ export class SsoUserUsernameProjectIdUniqueInputDto {
   projectId!: string;
 }
 
-@ApiExtraModels(
-  SsoUserEmailProjectIdUniqueInputDto,
-  SsoUserUsernameProjectIdUniqueInputDto
-)
+@ApiExtraModels(SsoUserEmailProjectIdUniqueInputDto, SsoUserUsernameProjectIdUniqueInputDto)
 export class ConnectSsoUserDto {
   @ApiProperty({
     type: 'string',

@@ -34,7 +34,7 @@ test.describe('Work with profile as "User" role (timezone', () => {
     });
     await page.evaluate(
       (minioURL) => localStorage.setItem('minioURL', minioURL),
-      get('SINGLE_SIGN_ON_MINIO_URL').required().asString()
+      get('SINGLE_SIGN_ON_MINIO_URL').required().asString(),
     );
   });
 
@@ -48,85 +48,54 @@ test.describe('Work with profile as "User" role (timezone', () => {
       timeout: 7000,
     });
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('[placeholder=email]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('[placeholder=email]').click();
     await page.keyboard.type(user.email.toLowerCase(), {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-up-form').locator('[placeholder=email]')
-    ).toHaveValue(user.email.toLowerCase());
+    await expect(page.locator('sso-sign-up-form').locator('[placeholder=email]')).toHaveValue(user.email.toLowerCase());
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('[placeholder=password]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('[placeholder=password]').click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-up-form').locator('[placeholder=password]')
-    ).toHaveValue(user.password);
+    await expect(page.locator('sso-sign-up-form').locator('[placeholder=password]')).toHaveValue(user.password);
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('[placeholder=confirmPassword]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]').click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]')
-    ).toHaveValue(user.password);
+    await expect(page.locator('sso-sign-up-form').locator('[placeholder=confirmPassword]')).toHaveValue(user.password);
 
-    await expect(
-      page.locator('sso-sign-up-form').locator('button[type=submit]')
-    ).toHaveText('Sign-up');
+    await expect(page.locator('sso-sign-up-form').locator('button[type=submit]')).toHaveText('Sign-up');
 
-    await page
-      .locator('sso-sign-up-form')
-      .locator('button[type=submit]')
-      .click();
+    await page.locator('sso-sign-up-form').locator('button[type=submit]').click();
 
-    await page.waitForSelector(
-      'div.cdk-overlay-container>div.cdk-global-overlay-wrapper'
-    );
+    await page.waitForSelector('div.cdk-overlay-container>div.cdk-global-overlay-wrapper');
 
     await page.waitForSelector('span.you-are-logged-in-as');
 
-    await expect(
-      page.locator('nz-header').locator('[nz-submenu]').first()
-    ).toContainText(`You are logged in as ${user.email.toLowerCase()}`);
+    await expect(page.locator('nz-header').locator('[nz-submenu]').first()).toContainText(
+      `You are logged in as ${user.email.toLowerCase()}`,
+    );
   });
 
   test('sign out after sign-up', async () => {
     await page.waitForSelector('span.you-are-logged-in-as');
 
-    await expect(
-      page.locator('nz-header').locator('[nz-submenu]').first()
-    ).toContainText(`You are logged in as ${user.email.toLowerCase()}`);
+    await expect(page.locator('nz-header').locator('[nz-submenu]').first()).toContainText(
+      `You are logged in as ${user.email.toLowerCase()}`,
+    );
     await page.locator('nz-header').locator('[nz-submenu]').first().click();
 
-    await expect(
-      page
-        .locator('[nz-submenu-none-inline-child]')
-        .locator('[nz-menu-item]')
-        .last()
-    ).toContainText(`Sign-out`);
+    await expect(page.locator('[nz-submenu-none-inline-child]').locator('[nz-menu-item]').last()).toContainText(
+      `Sign-out`,
+    );
 
-    await page
-      .locator('[nz-submenu-none-inline-child]')
-      .locator('[nz-menu-item]')
-      .last()
-      .click();
+    await page.locator('[nz-submenu-none-inline-child]').locator('[nz-menu-item]').last().click();
 
     await setTimeout(4000);
 
-    await expect(
-      page.locator('nz-header').locator('[nz-menu-item]').nth(-2)
-    ).toContainText(`Sign-in`);
+    await expect(page.locator('nz-header').locator('[nz-menu-item]').nth(-2)).toContainText(`Sign-in`);
   });
 
   test('sign in as user', async () => {
@@ -134,46 +103,29 @@ test.describe('Work with profile as "User" role (timezone', () => {
       timeout: 7000,
     });
 
-    await page
-      .locator('sso-sign-in-form')
-      .locator('[placeholder=email]')
-      .click();
+    await page.locator('sso-sign-in-form').locator('[placeholder=email]').click();
     await page.keyboard.type(user.email.toLowerCase(), {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-in-form').locator('[placeholder=email]')
-    ).toHaveValue(user.email.toLowerCase());
+    await expect(page.locator('sso-sign-in-form').locator('[placeholder=email]')).toHaveValue(user.email.toLowerCase());
 
-    await page
-      .locator('sso-sign-in-form')
-      .locator('[placeholder=password]')
-      .click();
+    await page.locator('sso-sign-in-form').locator('[placeholder=password]').click();
     await page.keyboard.type(user.password, {
       delay: 50,
     });
-    await expect(
-      page.locator('sso-sign-in-form').locator('[placeholder=password]')
-    ).toHaveValue(user.password);
+    await expect(page.locator('sso-sign-in-form').locator('[placeholder=password]')).toHaveValue(user.password);
 
-    await expect(
-      page.locator('sso-sign-in-form').locator('button[type=submit]')
-    ).toHaveText('Sign-in');
+    await expect(page.locator('sso-sign-in-form').locator('button[type=submit]')).toHaveText('Sign-in');
 
-    await page
-      .locator('sso-sign-in-form')
-      .locator('button[type=submit]')
-      .click();
+    await page.locator('sso-sign-in-form').locator('button[type=submit]').click();
 
-    await page.waitForSelector(
-      'div.cdk-overlay-container>div.cdk-global-overlay-wrapper'
-    );
+    await page.waitForSelector('div.cdk-overlay-container>div.cdk-global-overlay-wrapper');
 
     await page.waitForSelector('span.you-are-logged-in-as');
 
-    await expect(
-      page.locator('nz-header').locator('[nz-submenu]').first()
-    ).toContainText(`You are logged in as ${user.email.toLowerCase()}`);
+    await expect(page.locator('nz-header').locator('[nz-submenu]').first()).toContainText(
+      `You are logged in as ${user.email.toLowerCase()}`,
+    );
   });
 
   /* todo: I don't know why this test is failing, I temporarily disabled it

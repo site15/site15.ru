@@ -4,17 +4,10 @@ import { Injectable, Logger } from '@nestjs/common';
 import ms from 'ms';
 import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
 import { PrismaClient, SsoUser } from '../generated/prisma-client';
-import {
-  OperationName,
-  SsoConfiguration,
-  SsoSendNotificationOptions,
-} from '../sso.configuration';
+import { OperationName, SsoConfiguration, SsoSendNotificationOptions } from '../sso.configuration';
 import { DEFAULT_EMAIL_TEMPLATE_BY_NAMES, SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
-import {
-  CompleteForgotPasswordArgs,
-  ForgotPasswordArgs,
-} from '../types/forgot-password.dto';
+import { CompleteForgotPasswordArgs, ForgotPasswordArgs } from '../types/forgot-password.dto';
 import { SignInArgs } from '../types/sign-in.dto';
 import { SignUpArgs } from '../types/sign-up.dto';
 import { SsoRequest } from '../types/sso-request';
@@ -38,16 +31,10 @@ export class SsoService {
     private readonly translatesAsyncLocalStorageContext: TranslatesAsyncLocalStorageContext,
     private readonly ssoTokensService: SsoTokensService,
     private readonly ssoCacheService: SsoCacheService,
-    private readonly ssoTemplatesService: SsoTemplatesService
+    private readonly ssoTemplatesService: SsoTemplatesService,
   ) {}
 
-  signIn({
-    signInArgs,
-    projectId,
-  }: {
-    signInArgs: SignInArgs;
-    projectId: string;
-  }) {
+  signIn({ signInArgs, projectId }: { signInArgs: SignInArgs; projectId: string }) {
     return this.ssoUsersService.getByEmailAndPassword({
       email: signInArgs.email,
       password: signInArgs.password,
@@ -102,10 +89,7 @@ export class SsoService {
       user: {
         ...data,
         emailVerifiedAt:
-          this.ssoConfiguration.twoFactorCodeGenerate &&
-          this.ssoConfiguration.sendNotification
-            ? null
-            : new Date(),
+          this.ssoConfiguration.twoFactorCodeGenerate && this.ssoConfiguration.sendNotification ? null : new Date(),
       },
       projectId,
       roles: this.ssoStaticEnvironments.userDefaultRoles,
@@ -122,9 +106,7 @@ export class SsoService {
             });
 
       if (this.ssoConfiguration.sendNotification) {
-        const result = await this.ssoConfiguration.sendNotification(
-          sendNotificationOptions
-        );
+        const result = await this.ssoConfiguration.sendNotification(sendNotificationOptions);
         if (!result || this.ssoStaticEnvironments.disableEmailVerification) {
           user = await this.prismaClient.ssoUser.update({
             include: { SsoProject: true },
@@ -157,11 +139,10 @@ export class SsoService {
     const project = await this.prismaClient.ssoProject.findFirst({
       where: { id: { equals: projectId } },
     });
-    const { operationName, subject, text, html } =
-      await this.getSendNotificationOptions(
-        OperationName.VERIFY_EMAIL,
-        projectId
-      );
+    const { operationName, subject, text, html } = await this.getSendNotificationOptions(
+      OperationName.VERIFY_EMAIL,
+      projectId,
+    );
 
     const code = this.ssoConfiguration.twoFactorCodeGenerate
       ? await this.ssoConfiguration.twoFactorCodeGenerate({
@@ -198,17 +179,15 @@ export class SsoService {
     const project = await this.prismaClient.ssoProject.findFirst({
       where: { id: { equals: projectId } },
     });
-    const { operationName, subject, text, html } =
-      await this.getSendNotificationOptions(
-        OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
-        projectId
-      );
+    const { operationName, subject, text, html } = await this.getSendNotificationOptions(
+      OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
+      projectId,
+    );
 
     const code = this.ssoConfiguration.twoFactorCodeGenerate
       ? await this.ssoConfiguration.twoFactorCodeGenerate({
           user,
-          operationName:
-            OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
+          operationName: OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
         })
       : 'undefined';
 
@@ -228,15 +207,9 @@ export class SsoService {
     return sendNotificationOptions;
   }
 
-  private async getSendNotificationOptions(
-    operationName: OperationName,
-    projectId: string
-  ) {
-    const defaultLocale =
-      this.translatesAsyncLocalStorageContext.get().config?.defaultLocale ||
-      'en';
-    const locale =
-      this.translatesAsyncLocalStorageContext.get().locale || defaultLocale;
+  private async getSendNotificationOptions(operationName: OperationName, projectId: string) {
+    const defaultLocale = this.translatesAsyncLocalStorageContext.get().config?.defaultLocale || 'en';
+    const locale = this.translatesAsyncLocalStorageContext.get().locale || defaultLocale;
 
     const template = await this.ssoTemplatesService.getEmailTemplate({
       operationName,
@@ -245,31 +218,18 @@ export class SsoService {
     const defaultTemplate = DEFAULT_EMAIL_TEMPLATE_BY_NAMES[operationName];
 
     const subject =
-      (locale === defaultLocale
-        ? template?.subject
-        : (template?.subjectLocale as any)?.[locale]) ||
+      (locale === defaultLocale ? template?.subject : (template?.subjectLocale as any)?.[locale]) ||
       defaultTemplate.subject;
 
     const text =
-      (locale === defaultLocale
-        ? template?.text
-        : (template?.textLocale as any)?.[locale]) || defaultTemplate.text;
+      (locale === defaultLocale ? template?.text : (template?.textLocale as any)?.[locale]) || defaultTemplate.text;
     const html =
-      (locale === defaultLocale
-        ? template?.html
-        : (template?.htmlLocale as any)?.[locale]) || defaultTemplate.html;
+      (locale === defaultLocale ? template?.html : (template?.htmlLocale as any)?.[locale]) || defaultTemplate.html;
     return { operationName, subject, text, html };
   }
 
-  async completeSignUp({
-    code,
-    projectId,
-  }: {
-    code: string;
-    projectId: string;
-  }) {
-    const twoFactorCodeValidateResult = this.ssoConfiguration
-      .twoFactorCodeValidate
+  async completeSignUp({ code, projectId }: { code: string; projectId: string }) {
+    const twoFactorCodeValidateResult = this.ssoConfiguration.twoFactorCodeValidate
       ? await this.ssoConfiguration.twoFactorCodeValidate({
           code,
           projectId,
@@ -318,11 +278,10 @@ export class SsoService {
       projectId,
     });
     if (this.ssoConfiguration.twoFactorCodeGenerate) {
-      const { operationName, subject, text, html } =
-        await this.getSendNotificationOptions(
-          OperationName.COMPLETE_FORGOT_PASSWORD,
-          projectId
-        );
+      const { operationName, subject, text, html } = await this.getSendNotificationOptions(
+        OperationName.COMPLETE_FORGOT_PASSWORD,
+        projectId,
+      );
 
       const code = await this.ssoConfiguration.twoFactorCodeGenerate({
         ...ssoRequest,
@@ -337,9 +296,7 @@ export class SsoService {
         await this.ssoConfiguration.sendNotification({
           projectId,
           recipientUsers: [user],
-          subject: this.translatesAsyncLocalStorageContext
-            .get()
-            .translate(subject),
+          subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
           text: this.translatesAsyncLocalStorageContext.get().translate(text, {
             link,
           }),
@@ -360,8 +317,7 @@ export class SsoService {
     projectId: string;
   }) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { fingerprint, confirmPassword, ...data } =
-      completeForgotPasswordArgs;
+    const { fingerprint, confirmPassword, ...data } = completeForgotPasswordArgs;
     if (this.ssoConfiguration.twoFactorCodeValidate) {
       const result = await this.ssoConfiguration.twoFactorCodeValidate({
         code: completeForgotPasswordArgs.code,
@@ -381,17 +337,10 @@ export class SsoService {
     user,
     projectId,
   }: {
-    user: Pick<
-      SsoUser,
-      | 'birthdate'
-      | 'firstname'
-      | 'lastname'
-      | 'id'
-      | 'picture'
-      | 'gender'
-      | 'lang'
-      | 'timezone'
-    > & { password: string | null; oldPassword: string | null };
+    user: Pick<SsoUser, 'birthdate' | 'firstname' | 'lastname' | 'id' | 'picture' | 'gender' | 'lang' | 'timezone'> & {
+      password: string | null;
+      oldPassword: string | null;
+    };
     projectId: string;
   }) {
     return this.ssoUsersService.update({
@@ -413,21 +362,18 @@ export class SsoService {
     fingerprint: string;
     projectId: string;
   }) {
-    const tokens =
-      await this.ssoTokensService.getAccessAndRefreshTokensByRefreshToken({
-        refreshToken,
-        userIp,
-        userAgent,
-        fingerprint,
-        projectId,
-      });
+    const tokens = await this.ssoTokensService.getAccessAndRefreshTokensByRefreshToken({
+      refreshToken,
+      userIp,
+      userAgent,
+      fingerprint,
+      projectId,
+    });
     const cookie = this.ssoCookieService.getCookie({
       name: 'refreshToken',
       value: tokens.refreshToken,
       options: {
-        ['max-age']: Math.round(
-          ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn) / 1000
-        ),
+        ['max-age']: Math.round(ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn) / 1000),
         path: '/',
         httponly: true,
         signed: true,

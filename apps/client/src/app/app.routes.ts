@@ -116,11 +116,7 @@ export const appRoutes: Route[] = [
     canActivate: [SsoGuardService],
     data: {
       [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
-        roles: [
-          SsoRoleInterface.admin,
-          SsoRoleInterface.manager,
-          SsoRoleInterface.user,
-        ],
+        roles: [SsoRoleInterface.admin, SsoRoleInterface.manager, SsoRoleInterface.user],
         afterActivate: async (options: OnActivateOptions) => {
           if (options.error) {
             options.router.navigate(['/home']);
@@ -177,13 +173,9 @@ export const appRoutes: Route[] = [
         type: 'complete-sign-up',
 
         beforeCompleteSignUp: async (options: CompleteSignUpOptions) => {
-          const clientId =
-            options.activatedRouteSnapshot.queryParamMap.get('client_id');
+          const clientId = options.activatedRouteSnapshot.queryParamMap.get('client_id');
           if (clientId && clientId !== undefined) {
-            localStorage.setItem(
-              SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
-              clientId
-            );
+            localStorage.setItem(SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY, clientId);
             options.ssoService.updateHeaders();
           }
           return true;
@@ -193,16 +185,10 @@ export const appRoutes: Route[] = [
             return false;
           }
 
-          const redirectUri =
-            options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
+          const redirectUri = options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
           if (!redirectUri) {
             if (options.ssoService && options.router) {
-              if (
-                searchIn(
-                  SsoRoleInterface.admin,
-                  options.ssoService.profile$.value?.roles
-                )
-              ) {
+              if (searchIn(SsoRoleInterface.admin, options.ssoService.profile$.value?.roles)) {
                 options.router.navigate(['/projects']);
               } else {
                 options.router.navigate(['/home']);
@@ -226,13 +212,9 @@ export const appRoutes: Route[] = [
         type: 'complete-oauth-sign-up',
 
         beforeCompleteSignUp: async (options: CompleteSignUpOptions) => {
-          const clientId =
-            options.activatedRouteSnapshot.queryParamMap.get('client_id');
+          const clientId = options.activatedRouteSnapshot.queryParamMap.get('client_id');
           if (clientId && clientId !== undefined) {
-            localStorage.setItem(
-              SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY,
-              clientId
-            );
+            localStorage.setItem(SSO_ACTIVE_USER_CLIENT_ID_STORAGE_KEY, clientId);
             options.ssoService.updateHeaders();
           }
           return true;
@@ -242,16 +224,10 @@ export const appRoutes: Route[] = [
             return false;
           }
 
-          const redirectUri =
-            options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
+          const redirectUri = options.activatedRouteSnapshot.queryParamMap.get('redirect_uri');
           if (!redirectUri) {
             if (options.ssoService && options.router) {
-              if (
-                searchIn(
-                  SsoRoleInterface.admin,
-                  options.ssoService.profile$.value?.roles
-                )
-              ) {
+              if (searchIn(SsoRoleInterface.admin, options.ssoService.profile$.value?.roles)) {
                 options.router.navigate(['/projects']);
               } else {
                 options.router.navigate(['/home']);

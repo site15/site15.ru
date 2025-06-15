@@ -8,7 +8,7 @@ import { APP_TITLE } from './app.constants';
 export class AppTitleStrategy extends TitleStrategy {
   constructor(
     private readonly titleService: Title,
-    private readonly translocoService: TranslocoService
+    private readonly translocoService: TranslocoService,
   ) {
     super();
   }
@@ -17,9 +17,7 @@ export class AppTitleStrategy extends TitleStrategy {
     const title = this.buildTitle(routerState);
     if (title !== undefined) {
       this.titleService.setTitle(
-        `${this.translocoService.translate(
-          APP_TITLE
-        )} - ${this.translocoService.translate(title)}`
+        `${this.translocoService.translate(APP_TITLE)} - ${this.translocoService.translate(title)}`,
       );
     }
   }

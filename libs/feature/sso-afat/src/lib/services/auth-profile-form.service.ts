@@ -172,7 +172,7 @@ export class SsoProfileFormService {
 
   constructor(
     protected readonly translocoService: TranslocoService,
-    protected readonly validationService: ValidationService
+    protected readonly validationService: ValidationService,
   ) {}
 
   init() {
@@ -193,9 +193,7 @@ export class SsoProfileFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso.profile-form.fields.picture`
-            ),
+            label: this.translocoService.translate(`sso.profile-form.fields.picture`),
             placeholder: 'picture',
           },
         },
@@ -206,9 +204,7 @@ export class SsoProfileFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso.profile-form.fields.old-password`
-            ),
+            label: this.translocoService.translate(`sso.profile-form.fields.old-password`),
             placeholder: 'oldPassword',
             type: 'password',
           },
@@ -220,9 +216,7 @@ export class SsoProfileFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso.profile-form.fields.new-password`
-            ),
+            label: this.translocoService.translate(`sso.profile-form.fields.new-password`),
             placeholder: 'newPassword',
             type: 'password',
           },
@@ -234,9 +228,7 @@ export class SsoProfileFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso.profile-form.fields.confirm-new-password`
-            ),
+            label: this.translocoService.translate(`sso.profile-form.fields.confirm-new-password`),
             placeholder: 'confirmNewPassword',
             type: 'password',
           },
@@ -248,9 +240,7 @@ export class SsoProfileFormService {
             show: true,
           },
           props: {
-            label: this.translocoService.translate(
-              `sso.sign-in-form.fields.timezone`
-            ),
+            label: this.translocoService.translate(`sso.sign-in-form.fields.timezone`),
             placeholder: 'timezone',
             required: false,
             options: this.utcTimeZones.map((z) => ({
@@ -260,7 +250,7 @@ export class SsoProfileFormService {
           },
         },
       ],
-      options?.errors || []
+      options?.errors || [],
     );
   }
 }

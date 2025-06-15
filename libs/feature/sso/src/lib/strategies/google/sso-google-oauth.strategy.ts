@@ -6,17 +6,8 @@ import { Request } from 'express';
 import { render } from 'mustache';
 import { randomUUID } from 'node:crypto';
 import passport from 'passport';
-import {
-  GoogleCallbackParameters,
-  Profile,
-  Strategy,
-  VerifyCallback,
-} from 'passport-google-oauth20';
-import {
-  PrismaClient,
-  SsoOAuthProvider,
-  SsoOAuthProviderSettings,
-} from '../../generated/prisma-client';
+import { GoogleCallbackParameters, Profile, Strategy, VerifyCallback } from 'passport-google-oauth20';
+import { PrismaClient, SsoOAuthProvider, SsoOAuthProviderSettings } from '../../generated/prisma-client';
 import { SsoService } from '../../services/sso.service';
 import { SSO_FEATURE } from '../../sso.constants';
 import { SsoStaticEnvironments } from '../../sso.environments';
@@ -41,7 +32,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
     private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoService: SsoService,
-    private readonly ssoStaticEnvironments: SsoStaticEnvironments
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
   ) {}
 
   public async getProvider(): Promise<
@@ -59,10 +50,8 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
     } catch (err: any) {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
         try {
-          const googleOauthClientId =
-            this.ssoStaticEnvironments.googleOauthClientId;
-          const googleOauthClientSecretKey =
-            this.ssoStaticEnvironments.googleOauthClientSecretKey;
+          const googleOauthClientId = this.ssoStaticEnvironments.googleOauthClientId;
+          const googleOauthClientSecretKey = this.ssoStaticEnvironments.googleOauthClientSecretKey;
 
           return await this.prismaClient.ssoOAuthProvider.create({
             include: { SsoOAuthProviderSettings: true },
@@ -84,13 +73,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
           });
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-          if (
-            this.prismaToolsService.isErrorOfUniqueField<SsoOAuthProvider>(
-              err,
-              'name',
-              true
-            )
-          ) {
+          if (this.prismaToolsService.isErrorOfUniqueField<SsoOAuthProvider>(err, 'name', true)) {
             return null;
           }
           throw err;
@@ -123,7 +106,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
           refreshToken: string,
           params: GoogleCallbackParameters,
           profile: Profile,
-          done: VerifyCallback
+          done: VerifyCallback,
         ) => {
           this.verify({
             req,
@@ -134,8 +117,8 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
           })
             .then((result) => done(null, result))
             .catch((err) => done(err, undefined));
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -159,38 +142,30 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
       return undefined;
     }
     try {
-      const oAuthToken = await this.prismaClient.ssoOAuthToken.findFirstOrThrow(
-        {
-          include: {
-            SsoUser: {
-              select: {
-                picture: true,
-                firstname: true,
-                lastname: true,
-              },
+      const oAuthToken = await this.prismaClient.ssoOAuthToken.findFirstOrThrow({
+        include: {
+          SsoUser: {
+            select: {
+              picture: true,
+              firstname: true,
+              lastname: true,
             },
           },
-          where: {
-            providerUserId: String(profile.id),
-            providerId,
-          },
-        }
-      );
+        },
+        where: {
+          providerUserId: String(profile.id),
+          providerId,
+        },
+      });
       const user = await this.prismaClient.ssoUser.update({
         where: {
           id: oAuthToken.userId,
         },
         data: {
           picture:
-            oAuthToken.SsoUser.picture ||
-            (profile.photos &&
-              profile.photos.length &&
-              profile.photos[0].value) ||
-            null,
-          firstname:
-            oAuthToken.SsoUser.firstname || profile.name?.givenName || null,
-          lastname:
-            oAuthToken.SsoUser.lastname || profile.name?.familyName || null,
+            oAuthToken.SsoUser.picture || (profile.photos && profile.photos.length && profile.photos[0].value) || null,
+          firstname: oAuthToken.SsoUser.firstname || profile.name?.givenName || null,
+          lastname: oAuthToken.SsoUser.lastname || profile.name?.familyName || null,
         },
       });
       await this.prismaClient.ssoOAuthToken.update({
@@ -210,13 +185,10 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
     } catch (err: any) {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
         const username =
-          (profile.displayName &&
-            profile.displayName.split(' ').join('_').toLowerCase()) ||
+          (profile.displayName && profile.displayName.split(' ').join('_').toLowerCase()) ||
           `${this.oauthProviderName}_${profile.id}`;
         const email =
-          (profile.emails &&
-            profile.emails.length &&
-            profile.emails[0]?.value) ||
+          (profile.emails && profile.emails.length && profile.emails[0]?.value) ||
           `${this.oauthProviderName}_${profile.id}`;
 
         const password = `${this.oauthProviderName}_${profile.id}`;
@@ -246,11 +218,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
               email,
               password,
               username,
-              picture:
-                (profile.photos &&
-                  profile.photos.length &&
-                  profile.photos[0].value) ||
-                undefined,
+              picture: (profile.photos && profile.photos.length && profile.photos[0].value) || undefined,
               firstname: profile.name?.givenName || undefined,
               lastname: profile.name?.familyName || undefined,
             });
@@ -295,12 +263,8 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
     };
 
     const ssoOAuthProviderSettings = provider.SsoOAuthProviderSettings || [];
-    const clientID =
-      ssoOAuthProviderSettings.find((s) => s.name === this.clientIDKey)
-        ?.value || '';
-    const clientSecret =
-      ssoOAuthProviderSettings.find((s) => s.name === this.clientSecretKey)
-        ?.value || '';
+    const clientID = ssoOAuthProviderSettings.find((s) => s.name === this.clientIDKey)?.value || '';
+    const clientSecret = ssoOAuthProviderSettings.find((s) => s.name === this.clientSecretKey)?.value || '';
 
     if (!clientID || !clientSecret) {
       return null;
@@ -316,9 +280,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
         scope: ['email', 'profile'],
       };
     } catch (err) {
-      throw Error(
-        `Error in render callbackURL from template: "${redirectUrl}",  context: "${context}"`
-      );
+      throw Error(`Error in render callbackURL from template: "${redirectUrl}",  context: "${context}"`);
     }
   }
 }

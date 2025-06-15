@@ -11,10 +11,7 @@ import {
 import { WebhookRestSdkService } from '@nestjs-mod/webhook';
 import { Observable, finalize } from 'rxjs';
 import WebSocket from 'ws';
-import {
-  GenerateRandomUserResult,
-  generateRandomUser,
-} from './generate-random-user';
+import { GenerateRandomUserResult, generateRandomUser } from './generate-random-user';
 import { getUrls } from './get-urls';
 
 export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
@@ -23,9 +20,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   private webhookProfile?: WebhookUser;
   private ssoProfile?: SsoUserDto;
 
-  randomUser: T extends 'strict'
-    ? GenerateRandomUserResult
-    : GenerateRandomUserResult | undefined;
+  randomUser: T extends 'strict' ? GenerateRandomUserResult : GenerateRandomUserResult | undefined;
 
   private projectHelper?: SsoRestClientHelper<'strict'>;
   private project?: SsoProject;
@@ -43,7 +38,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       headers?: any;
       skipCreateProjectHelper?: boolean;
-    }
+    },
   ) {
     this.randomUser = options?.randomUser as GenerateRandomUserResult;
 
@@ -109,26 +104,15 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     return this.ssoProfile;
   }
 
-  webSocket<T>({
-    path,
-    eventName,
-    options,
-  }: {
-    path: string;
-    eventName: string;
-    options?: WebSocket.ClientOptions;
-  }) {
+  webSocket<T>({ path, eventName, options }: { path: string; eventName: string; options?: WebSocket.ClientOptions }) {
     const headers = {
       ...(options?.headers || {}),
       ...this.getAuthorizationHeaders(),
     };
-    const wss = new WebSocket(
-      this.getServerUrl().replace('/api', '').replace('http', 'ws') + path,
-      {
-        ...(options || {}),
-        headers,
-      }
-    );
+    const wss = new WebSocket(this.getServerUrl().replace('/api', '').replace('http', 'ws') + path, {
+      ...(options || {}),
+      headers,
+    });
     return new Observable<{ data: T; event: string }>((observer) => {
       wss.on('open', () => {
         wss.on('message', (data) => {
@@ -144,7 +128,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
           JSON.stringify({
             event: eventName,
             data: true,
-          })
+          }),
         );
       });
     }).pipe(
@@ -152,7 +136,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         if (wss?.readyState == WebSocket.OPEN) {
           wss.close();
         }
-      })
+      }),
     );
   }
 
@@ -164,18 +148,14 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   }
 
   async setRoles(userId: string, roles: SsoRole[]) {
-    await this.ssoRestSdkService
-      .getSsoApi()
-      .ssoUsersControllerUpdateOne(userId, {
-        roles: roles.map((r) => r.toLowerCase()).join(','),
-      });
+    await this.ssoRestSdkService.getSsoApi().ssoUsersControllerUpdateOne(userId, {
+      roles: roles.map((r) => r.toLowerCase()).join(','),
+    });
 
     return this;
   }
 
-  async createAndLoginAsUser(
-    options?: Pick<GenerateRandomUserResult, 'email' | 'password'>
-  ) {
+  async createAndLoginAsUser(options?: Pick<GenerateRandomUserResult, 'email' | 'password'>) {
     await this.generateRandomUser(options);
     await this.reg();
     await this.login(options);
@@ -183,9 +163,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     return this;
   }
 
-  async generateRandomUser(
-    options?: Pick<GenerateRandomUserResult, 'email' | 'password'> | undefined
-  ) {
+  async generateRandomUser(options?: Pick<GenerateRandomUserResult, 'email' | 'password'> | undefined) {
     if (!this.randomUser || options) {
       this.randomUser = await generateRandomUser(undefined, options);
     }
@@ -204,75 +182,60 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
     if (this.projectHelper) {
       if (!this.project) {
-        const { data: createOneResult } =
-          await this.projectHelper.ssoRestSdkService
-            .getSsoApi()
-            .ssoProjectsControllerCreateOne(
-              {
-                public: false,
-                name: this.projectHelper.randomUser.uniqId,
-                clientId: this.projectHelper.randomUser.id,
-                clientSecret: this.projectHelper.randomUser.password,
+        const { data: createOneResult } = await this.projectHelper.ssoRestSdkService
+          .getSsoApi()
+          .ssoProjectsControllerCreateOne(
+            {
+              public: false,
+              name: this.projectHelper.randomUser.uniqId,
+              clientId: this.projectHelper.randomUser.id,
+              clientSecret: this.projectHelper.randomUser.password,
+            },
+            {
+              headers: {
+                'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
               },
-              {
-                headers: {
-                  'x-admin-secret':
-                    process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
-                },
-              }
-            );
+            },
+          );
         this.project = createOneResult;
       }
 
-      const { data: signUpResult } = await this.ssoRestSdkService
-        .getSsoApi()
-        .ssoControllerSignUp(
-          {
-            username: this.randomUser.username,
-            email: this.randomUser.email,
-            password: this.randomUser.password,
-            confirmPassword: this.randomUser.password,
-            fingerprint: this.randomUser.id,
+      const { data: signUpResult } = await this.ssoRestSdkService.getSsoApi().ssoControllerSignUp(
+        {
+          username: this.randomUser.username,
+          email: this.randomUser.email,
+          password: this.randomUser.password,
+          confirmPassword: this.randomUser.password,
+          fingerprint: this.randomUser.id,
+        },
+        {
+          headers: {
+            'x-client-id': this.project.clientId,
           },
-          {
-            headers: {
-              'x-client-id': this.project.clientId,
-            },
-          }
-        );
+        },
+      );
 
       this.ssoTokensResponse = signUpResult;
 
-      const { data: findManyResult } =
-        await this.projectHelper.ssoRestSdkService
-          .getSsoApi()
-          .ssoUsersControllerFindMany(
-            undefined,
-            undefined,
-            this.randomUser.email,
-            undefined,
-            undefined,
-            {
-              headers: {
-                'x-admin-secret':
-                  process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
-              },
-            }
-          );
-
-      await this.projectHelper.ssoRestSdkService
+      const { data: findManyResult } = await this.projectHelper.ssoRestSdkService
         .getSsoApi()
-        .ssoUsersControllerUpdateOne(
-          findManyResult.ssoUsers[0].id,
-          {
-            emailVerifiedAt: new Date().toISOString(),
+        .ssoUsersControllerFindMany(undefined, undefined, this.randomUser.email, undefined, undefined, {
+          headers: {
+            'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
           },
-          {
-            headers: {
-              'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
-            },
-          }
-        );
+        });
+
+      await this.projectHelper.ssoRestSdkService.getSsoApi().ssoUsersControllerUpdateOne(
+        findManyResult.ssoUsers[0].id,
+        {
+          emailVerifiedAt: new Date().toISOString(),
+        },
+        {
+          headers: {
+            'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
+          },
+        },
+      );
     }
 
     this.setAuthorizationHeadersFromAuthorizationTokens();
@@ -282,11 +245,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     return this;
   }
 
-  async login(
-    options?: Partial<
-      Pick<GenerateRandomUserResult, 'id' | 'email' | 'password'>
-    >
-  ) {
+  async login(options?: Partial<Pick<GenerateRandomUserResult, 'id' | 'email' | 'password'>>) {
     if (!this.randomUser) {
       this.randomUser = await generateRandomUser();
     }
@@ -297,13 +256,11 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     };
 
     if (this.projectHelper) {
-      const { data: loginResult } = await this.ssoRestSdkService
-        .getSsoApi()
-        .ssoControllerSignIn({
-          email: loginOptions.email,
-          fingerprint: loginOptions.id,
-          password: loginOptions.password,
-        });
+      const { data: loginResult } = await this.ssoRestSdkService.getSsoApi().ssoControllerSignIn({
+        email: loginOptions.email,
+        fingerprint: loginOptions.id,
+        password: loginOptions.password,
+      });
 
       this.ssoTokensResponse = loginResult;
 
@@ -317,15 +274,9 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   }
 
   private async loadProfile() {
-    this.webhookProfile = (
-      await this.webhookRestSdkService
-        .getWebhookApi()
-        .webhookControllerProfile()
-    ).data;
+    this.webhookProfile = (await this.webhookRestSdkService.getWebhookApi().webhookControllerProfile()).data;
 
-    this.ssoProfile = (
-      await this.ssoRestSdkService.getSsoApi().ssoControllerProfile()
-    ).data;
+    this.ssoProfile = (await this.ssoRestSdkService.getSsoApi().ssoControllerProfile()).data;
   }
 
   async logout() {
@@ -352,9 +303,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     this.ssoRestSdkService.updateHeaders(this.getAuthorizationHeaders());
     this.webhookRestSdkService.updateHeaders(this.getAuthorizationHeaders());
     this.filesRestSdkService.updateHeaders(this.getAuthorizationHeaders());
-    this.notificationsRestSdkService.updateHeaders(
-      this.getAuthorizationHeaders()
-    );
+    this.notificationsRestSdkService.updateHeaders(this.getAuthorizationHeaders());
   }
 
   getAuthorizationHeaders() {
@@ -367,9 +316,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
           }
         : {}),
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
-      ...(this.options?.activeLang
-        ? { ['Accept-Language']: this.options?.activeLang }
-        : {}),
+      ...(this.options?.activeLang ? { ['Accept-Language']: this.options?.activeLang } : {}),
     };
   }
 

@@ -9,10 +9,7 @@
       "src": "dist/apps/server/main.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": [
-          "dist/apps/server/assets/**",
-          "node_modules/@prisma/client/runtime/**"
-        ]
+        "includeFiles": ["dist/apps/server/assets/**", "node_modules/@prisma/client/runtime/**"]
       }
     }
   ],

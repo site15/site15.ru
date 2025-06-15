@@ -37,10 +37,7 @@ function existy(value: any): boolean {
  * @returns {boolean} True if the value is an IP address, otherwise false
  */
 function ip(value: string | null): boolean {
-  return Boolean(
-    value &&
-      ((existy(value) && regexes.ipv4.test(value)) || regexes.ipv6.test(value))
-  );
+  return Boolean(value && ((existy(value) && regexes.ipv4.test(value)) || regexes.ipv6.test(value)));
 }
 
 /**
@@ -142,9 +139,7 @@ function getClientIp(req: {
     }
 
     // Load-balancers (AWS ELB) or proxies.
-    const xForwardedFor = getClientIpFromXForwardedFor(
-      req.headers['x-forwarded-for']
-    );
+    const xForwardedFor = getClientIpFromXForwardedFor(req.headers['x-forwarded-for']);
     if (is.ip(xForwardedFor)) {
       return xForwardedFor || null;
     }
@@ -211,10 +206,7 @@ function getClientIp(req: {
     if (is.ip(req.connection.remoteAddress)) {
       return req.connection.remoteAddress;
     }
-    if (
-      is.existy(req.connection.socket) &&
-      is.ip(req.connection.socket.remoteAddress)
-    ) {
+    if (is.existy(req.connection.socket) && is.ip(req.connection.socket.remoteAddress)) {
       return req.connection.socket.remoteAddress;
     }
   }

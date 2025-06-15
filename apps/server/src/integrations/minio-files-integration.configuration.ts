@@ -9,18 +9,10 @@ export class MinioFilesIntegrationConfiguration implements FilesConfiguration {
   constructor(private readonly minioFilesService: MinioFilesService) {}
 
   getFromDownloadUrlWithoutBucketNames(downloadUrl: string) {
-    return this.minioFilesService.getFromDownloadUrlWithoutBucketNames(
-      downloadUrl
-    );
+    return this.minioFilesService.getFromDownloadUrlWithoutBucketNames(downloadUrl);
   }
 
-  async deleteFile({
-    downloadUrl,
-  }: {
-    bucketName: string;
-    objectName: string;
-    downloadUrl: string;
-  }) {
+  async deleteFile({ downloadUrl }: { bucketName: string; objectName: string; downloadUrl: string }) {
     return await lastValueFrom(this.minioFilesService.deleteFile(downloadUrl));
   }
 
@@ -40,14 +32,12 @@ export class MinioFilesIntegrationConfiguration implements FilesConfiguration {
         expiry: 60,
         ext: ext,
         userId: userId,
-      })
+      }),
     );
   }
 }
 
-export function filesModuleForRootAsyncOptions(): Parameters<
-  typeof FilesModule.forRootAsync
->[0] {
+export function filesModuleForRootAsyncOptions(): Parameters<typeof FilesModule.forRootAsync>[0] {
   return {
     imports: [SsoModule.forFeature(), MinioModule.forFeature()],
     configurationClass: MinioFilesIntegrationConfiguration,

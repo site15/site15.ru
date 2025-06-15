@@ -14,8 +14,7 @@ import type * as Prisma from '../internal/prismaNamespace';
  * Model SsoOAuthProvider
  *
  */
-export type SsoOAuthProviderModel =
-  runtime.Types.Result.DefaultSelection<Prisma.$SsoOAuthProviderPayload>;
+export type SsoOAuthProviderModel = runtime.Types.Result.DefaultSelection<Prisma.$SsoOAuthProviderPayload>;
 
 export type AggregateSsoOAuthProvider = {
   _count: SsoOAuthProviderCountAggregateOutputType | null;
@@ -68,7 +67,7 @@ export type SsoOAuthProviderCountAggregateInputType = {
 };
 
 export type SsoOAuthProviderAggregateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Filter which SsoOAuthProvider to aggregate.
@@ -79,9 +78,7 @@ export type SsoOAuthProviderAggregateArgs<
    *
    * Determine the order of SsoOAuthProviders to fetch.
    */
-  orderBy?:
-    | Prisma.SsoOAuthProviderOrderByWithRelationInput
-    | Prisma.SsoOAuthProviderOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoOAuthProviderOrderByWithRelationInput | Prisma.SsoOAuthProviderOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -120,9 +117,7 @@ export type SsoOAuthProviderAggregateArgs<
   _max?: SsoOAuthProviderMaxAggregateInputType;
 };
 
-export type GetSsoOAuthProviderAggregateType<
-  T extends SsoOAuthProviderAggregateArgs
-> = {
+export type GetSsoOAuthProviderAggregateType<T extends SsoOAuthProviderAggregateArgs> = {
   [P in keyof T & keyof AggregateSsoOAuthProvider]: P extends '_count' | 'count'
     ? T[P] extends true
       ? number
@@ -131,15 +126,11 @@ export type GetSsoOAuthProviderAggregateType<
 };
 
 export type SsoOAuthProviderGroupByArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoOAuthProviderWhereInput;
-  orderBy?:
-    | Prisma.SsoOAuthProviderOrderByWithAggregationInput
-    | Prisma.SsoOAuthProviderOrderByWithAggregationInput[];
-  by:
-    | Prisma.SsoOAuthProviderScalarFieldEnum[]
-    | Prisma.SsoOAuthProviderScalarFieldEnum;
+  orderBy?: Prisma.SsoOAuthProviderOrderByWithAggregationInput | Prisma.SsoOAuthProviderOrderByWithAggregationInput[];
+  by: Prisma.SsoOAuthProviderScalarFieldEnum[] | Prisma.SsoOAuthProviderScalarFieldEnum;
   having?: Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput;
   take?: number;
   skip?: number;
@@ -158,19 +149,17 @@ export type SsoOAuthProviderGroupByOutputType = {
   _max: SsoOAuthProviderMaxAggregateOutputType | null;
 };
 
-type GetSsoOAuthProviderGroupByPayload<T extends SsoOAuthProviderGroupByArgs> =
-  Prisma.PrismaPromise<
-    Array<
-      Prisma.PickEnumerable<SsoOAuthProviderGroupByOutputType, T['by']> & {
-        [P in keyof T &
-          keyof SsoOAuthProviderGroupByOutputType]: P extends '_count'
-          ? T[P] extends boolean
-            ? number
-            : Prisma.GetScalarType<T[P], SsoOAuthProviderGroupByOutputType[P]>
-          : Prisma.GetScalarType<T[P], SsoOAuthProviderGroupByOutputType[P]>;
-      }
-    >
-  >;
+type GetSsoOAuthProviderGroupByPayload<T extends SsoOAuthProviderGroupByArgs> = Prisma.PrismaPromise<
+  Array<
+    Prisma.PickEnumerable<SsoOAuthProviderGroupByOutputType, T['by']> & {
+      [P in keyof T & keyof SsoOAuthProviderGroupByOutputType]: P extends '_count'
+        ? T[P] extends boolean
+          ? number
+          : Prisma.GetScalarType<T[P], SsoOAuthProviderGroupByOutputType[P]>
+        : Prisma.GetScalarType<T[P], SsoOAuthProviderGroupByOutputType[P]>;
+    }
+  >
+>;
 
 export type SsoOAuthProviderWhereInput = {
   AND?: Prisma.SsoOAuthProviderWhereInput | Prisma.SsoOAuthProviderWhereInput[];
@@ -197,13 +186,9 @@ export type SsoOAuthProviderWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string;
     name?: string;
-    AND?:
-      | Prisma.SsoOAuthProviderWhereInput
-      | Prisma.SsoOAuthProviderWhereInput[];
+    AND?: Prisma.SsoOAuthProviderWhereInput | Prisma.SsoOAuthProviderWhereInput[];
     OR?: Prisma.SsoOAuthProviderWhereInput[];
-    NOT?:
-      | Prisma.SsoOAuthProviderWhereInput
-      | Prisma.SsoOAuthProviderWhereInput[];
+    NOT?: Prisma.SsoOAuthProviderWhereInput | Prisma.SsoOAuthProviderWhereInput[];
     createdAt?: Prisma.DateTimeFilter<'SsoOAuthProvider'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'SsoOAuthProvider'> | Date | string;
     SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsListRelationFilter;
@@ -223,23 +208,13 @@ export type SsoOAuthProviderOrderByWithAggregationInput = {
 };
 
 export type SsoOAuthProviderScalarWhereWithAggregatesInput = {
-  AND?:
-    | Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput
-    | Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput[];
+  AND?: Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput | Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput[];
   OR?: Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput[];
-  NOT?:
-    | Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput
-    | Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput[];
+  NOT?: Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput | Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput[];
   id?: Prisma.UuidWithAggregatesFilter<'SsoOAuthProvider'> | string;
   name?: Prisma.StringWithAggregatesFilter<'SsoOAuthProvider'> | string;
-  createdAt?:
-    | Prisma.DateTimeWithAggregatesFilter<'SsoOAuthProvider'>
-    | Date
-    | string;
-  updatedAt?:
-    | Prisma.DateTimeWithAggregatesFilter<'SsoOAuthProvider'>
-    | Date
-    | string;
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<'SsoOAuthProvider'> | Date | string;
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<'SsoOAuthProvider'> | Date | string;
 };
 
 export type SsoOAuthProviderCreateInput = {
@@ -325,33 +300,31 @@ export type SsoOAuthProviderScalarRelationFilter = {
   isNot?: Prisma.SsoOAuthProviderWhereInput;
 };
 
-export type SsoOAuthProviderCreateNestedOneWithoutSsoOAuthProviderSettingsInput =
-  {
-    create?: Prisma.XOR<
-      Prisma.SsoOAuthProviderCreateWithoutSsoOAuthProviderSettingsInput,
-      Prisma.SsoOAuthProviderUncheckedCreateWithoutSsoOAuthProviderSettingsInput
-    >;
-    connectOrCreate?: Prisma.SsoOAuthProviderCreateOrConnectWithoutSsoOAuthProviderSettingsInput;
-    connect?: Prisma.SsoOAuthProviderWhereUniqueInput;
-  };
+export type SsoOAuthProviderCreateNestedOneWithoutSsoOAuthProviderSettingsInput = {
+  create?: Prisma.XOR<
+    Prisma.SsoOAuthProviderCreateWithoutSsoOAuthProviderSettingsInput,
+    Prisma.SsoOAuthProviderUncheckedCreateWithoutSsoOAuthProviderSettingsInput
+  >;
+  connectOrCreate?: Prisma.SsoOAuthProviderCreateOrConnectWithoutSsoOAuthProviderSettingsInput;
+  connect?: Prisma.SsoOAuthProviderWhereUniqueInput;
+};
 
-export type SsoOAuthProviderUpdateOneRequiredWithoutSsoOAuthProviderSettingsNestedInput =
-  {
-    create?: Prisma.XOR<
-      Prisma.SsoOAuthProviderCreateWithoutSsoOAuthProviderSettingsInput,
-      Prisma.SsoOAuthProviderUncheckedCreateWithoutSsoOAuthProviderSettingsInput
-    >;
-    connectOrCreate?: Prisma.SsoOAuthProviderCreateOrConnectWithoutSsoOAuthProviderSettingsInput;
-    upsert?: Prisma.SsoOAuthProviderUpsertWithoutSsoOAuthProviderSettingsInput;
-    connect?: Prisma.SsoOAuthProviderWhereUniqueInput;
-    update?: Prisma.XOR<
-      Prisma.XOR<
-        Prisma.SsoOAuthProviderUpdateToOneWithWhereWithoutSsoOAuthProviderSettingsInput,
-        Prisma.SsoOAuthProviderUpdateWithoutSsoOAuthProviderSettingsInput
-      >,
-      Prisma.SsoOAuthProviderUncheckedUpdateWithoutSsoOAuthProviderSettingsInput
-    >;
-  };
+export type SsoOAuthProviderUpdateOneRequiredWithoutSsoOAuthProviderSettingsNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.SsoOAuthProviderCreateWithoutSsoOAuthProviderSettingsInput,
+    Prisma.SsoOAuthProviderUncheckedCreateWithoutSsoOAuthProviderSettingsInput
+  >;
+  connectOrCreate?: Prisma.SsoOAuthProviderCreateOrConnectWithoutSsoOAuthProviderSettingsInput;
+  upsert?: Prisma.SsoOAuthProviderUpsertWithoutSsoOAuthProviderSettingsInput;
+  connect?: Prisma.SsoOAuthProviderWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.SsoOAuthProviderUpdateToOneWithWhereWithoutSsoOAuthProviderSettingsInput,
+      Prisma.SsoOAuthProviderUpdateWithoutSsoOAuthProviderSettingsInput
+    >,
+    Prisma.SsoOAuthProviderUncheckedUpdateWithoutSsoOAuthProviderSettingsInput
+  >;
+};
 
 export type SsoOAuthProviderCreateNestedOneWithoutSsoOAuthTokenInput = {
   create?: Prisma.XOR<
@@ -387,23 +360,21 @@ export type SsoOAuthProviderCreateWithoutSsoOAuthProviderSettingsInput = {
   SsoOAuthToken?: Prisma.SsoOAuthTokenCreateNestedManyWithoutSsoOAuthProviderInput;
 };
 
-export type SsoOAuthProviderUncheckedCreateWithoutSsoOAuthProviderSettingsInput =
-  {
-    id?: string;
-    name: string;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    SsoOAuthToken?: Prisma.SsoOAuthTokenUncheckedCreateNestedManyWithoutSsoOAuthProviderInput;
-  };
+export type SsoOAuthProviderUncheckedCreateWithoutSsoOAuthProviderSettingsInput = {
+  id?: string;
+  name: string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  SsoOAuthToken?: Prisma.SsoOAuthTokenUncheckedCreateNestedManyWithoutSsoOAuthProviderInput;
+};
 
-export type SsoOAuthProviderCreateOrConnectWithoutSsoOAuthProviderSettingsInput =
-  {
-    where: Prisma.SsoOAuthProviderWhereUniqueInput;
-    create: Prisma.XOR<
-      Prisma.SsoOAuthProviderCreateWithoutSsoOAuthProviderSettingsInput,
-      Prisma.SsoOAuthProviderUncheckedCreateWithoutSsoOAuthProviderSettingsInput
-    >;
-  };
+export type SsoOAuthProviderCreateOrConnectWithoutSsoOAuthProviderSettingsInput = {
+  where: Prisma.SsoOAuthProviderWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.SsoOAuthProviderCreateWithoutSsoOAuthProviderSettingsInput,
+    Prisma.SsoOAuthProviderUncheckedCreateWithoutSsoOAuthProviderSettingsInput
+  >;
+};
 
 export type SsoOAuthProviderUpsertWithoutSsoOAuthProviderSettingsInput = {
   update: Prisma.XOR<
@@ -417,14 +388,13 @@ export type SsoOAuthProviderUpsertWithoutSsoOAuthProviderSettingsInput = {
   where?: Prisma.SsoOAuthProviderWhereInput;
 };
 
-export type SsoOAuthProviderUpdateToOneWithWhereWithoutSsoOAuthProviderSettingsInput =
-  {
-    where?: Prisma.SsoOAuthProviderWhereInput;
-    data: Prisma.XOR<
-      Prisma.SsoOAuthProviderUpdateWithoutSsoOAuthProviderSettingsInput,
-      Prisma.SsoOAuthProviderUncheckedUpdateWithoutSsoOAuthProviderSettingsInput
-    >;
-  };
+export type SsoOAuthProviderUpdateToOneWithWhereWithoutSsoOAuthProviderSettingsInput = {
+  where?: Prisma.SsoOAuthProviderWhereInput;
+  data: Prisma.XOR<
+    Prisma.SsoOAuthProviderUpdateWithoutSsoOAuthProviderSettingsInput,
+    Prisma.SsoOAuthProviderUncheckedUpdateWithoutSsoOAuthProviderSettingsInput
+  >;
+};
 
 export type SsoOAuthProviderUpdateWithoutSsoOAuthProviderSettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -434,14 +404,13 @@ export type SsoOAuthProviderUpdateWithoutSsoOAuthProviderSettingsInput = {
   SsoOAuthToken?: Prisma.SsoOAuthTokenUpdateManyWithoutSsoOAuthProviderNestedInput;
 };
 
-export type SsoOAuthProviderUncheckedUpdateWithoutSsoOAuthProviderSettingsInput =
-  {
-    id?: Prisma.StringFieldUpdateOperationsInput | string;
-    name?: Prisma.StringFieldUpdateOperationsInput | string;
-    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    SsoOAuthToken?: Prisma.SsoOAuthTokenUncheckedUpdateManyWithoutSsoOAuthProviderNestedInput;
-  };
+export type SsoOAuthProviderUncheckedUpdateWithoutSsoOAuthProviderSettingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.StringFieldUpdateOperationsInput | string;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  SsoOAuthToken?: Prisma.SsoOAuthTokenUncheckedUpdateManyWithoutSsoOAuthProviderNestedInput;
+};
 
 export type SsoOAuthProviderCreateWithoutSsoOAuthTokenInput = {
   id?: string;
@@ -513,21 +482,17 @@ export type SsoOAuthProviderCountOutputType = {
 };
 
 export type SsoOAuthProviderCountOutputTypeSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  SsoOAuthProviderSettings?:
-    | boolean
-    | SsoOAuthProviderCountOutputTypeCountSsoOAuthProviderSettingsArgs;
-  SsoOAuthToken?:
-    | boolean
-    | SsoOAuthProviderCountOutputTypeCountSsoOAuthTokenArgs;
+  SsoOAuthProviderSettings?: boolean | SsoOAuthProviderCountOutputTypeCountSsoOAuthProviderSettingsArgs;
+  SsoOAuthToken?: boolean | SsoOAuthProviderCountOutputTypeCountSsoOAuthTokenArgs;
 };
 
 /**
  * SsoOAuthProviderCountOutputType without action
  */
 export type SsoOAuthProviderCountOutputTypeDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProviderCountOutputType
@@ -539,7 +504,7 @@ export type SsoOAuthProviderCountOutputTypeDefaultArgs<
  * SsoOAuthProviderCountOutputType without action
  */
 export type SsoOAuthProviderCountOutputTypeCountSsoOAuthProviderSettingsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoOAuthProviderSettingsWhereInput;
 };
@@ -548,34 +513,28 @@ export type SsoOAuthProviderCountOutputTypeCountSsoOAuthProviderSettingsArgs<
  * SsoOAuthProviderCountOutputType without action
  */
 export type SsoOAuthProviderCountOutputTypeCountSsoOAuthTokenArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   where?: Prisma.SsoOAuthTokenWhereInput;
 };
 
 export type SsoOAuthProviderSelect<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
     name?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    SsoOAuthProviderSettings?:
-      | boolean
-      | Prisma.SsoOAuthProvider$SsoOAuthProviderSettingsArgs<ExtArgs>;
-    SsoOAuthToken?:
-      | boolean
-      | Prisma.SsoOAuthProvider$SsoOAuthTokenArgs<ExtArgs>;
-    _count?:
-      | boolean
-      | Prisma.SsoOAuthProviderCountOutputTypeDefaultArgs<ExtArgs>;
+    SsoOAuthProviderSettings?: boolean | Prisma.SsoOAuthProvider$SsoOAuthProviderSettingsArgs<ExtArgs>;
+    SsoOAuthToken?: boolean | Prisma.SsoOAuthProvider$SsoOAuthTokenArgs<ExtArgs>;
+    _count?: boolean | Prisma.SsoOAuthProviderCountOutputTypeDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['ssoOAuthProvider']
 >;
 
 export type SsoOAuthProviderSelectCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -587,7 +546,7 @@ export type SsoOAuthProviderSelectCreateManyAndReturn<
 >;
 
 export type SsoOAuthProviderSelectUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetSelect<
   {
     id?: boolean;
@@ -606,29 +565,24 @@ export type SsoOAuthProviderSelectScalar = {
 };
 
 export type SsoOAuthProviderOmit<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-> = runtime.Types.Extensions.GetOmit<
-  'id' | 'name' | 'createdAt' | 'updatedAt',
-  ExtArgs['result']['ssoOAuthProvider']
->;
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = runtime.Types.Extensions.GetOmit<'id' | 'name' | 'createdAt' | 'updatedAt', ExtArgs['result']['ssoOAuthProvider']>;
 export type SsoOAuthProviderInclude<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  SsoOAuthProviderSettings?:
-    | boolean
-    | Prisma.SsoOAuthProvider$SsoOAuthProviderSettingsArgs<ExtArgs>;
+  SsoOAuthProviderSettings?: boolean | Prisma.SsoOAuthProvider$SsoOAuthProviderSettingsArgs<ExtArgs>;
   SsoOAuthToken?: boolean | Prisma.SsoOAuthProvider$SsoOAuthTokenArgs<ExtArgs>;
   _count?: boolean | Prisma.SsoOAuthProviderCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type SsoOAuthProviderIncludeCreateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {};
 export type SsoOAuthProviderIncludeUpdateManyAndReturn<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {};
 
 export type $SsoOAuthProviderPayload<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   name: 'SsoOAuthProvider';
   objects: {
@@ -658,27 +612,20 @@ export type $SsoOAuthProviderPayload<
   composites: {};
 };
 
-export type SsoOAuthProviderGetPayload<
-  S extends boolean | null | undefined | SsoOAuthProviderDefaultArgs
-> = runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload, S>;
+export type SsoOAuthProviderGetPayload<S extends boolean | null | undefined | SsoOAuthProviderDefaultArgs> =
+  runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload, S>;
 
 export type SsoOAuthProviderCountArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-> = Omit<
-  SsoOAuthProviderFindManyArgs,
-  'select' | 'include' | 'distinct' | 'omit'
-> & {
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = Omit<SsoOAuthProviderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
   select?: SsoOAuthProviderCountAggregateInputType | true;
 };
 
 export interface SsoOAuthProviderDelegate<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-  GlobalOmitOptions = {}
+  GlobalOmitOptions = {},
 > {
-  [K: symbol]: {
-    types: Prisma.TypeMap<ExtArgs>['model']['SsoOAuthProvider'];
-    meta: { name: 'SsoOAuthProvider' };
-  };
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SsoOAuthProvider']; meta: { name: 'SsoOAuthProvider' } };
   /**
    * Find zero or one SsoOAuthProvider that matches the filter.
    * @param {SsoOAuthProviderFindUniqueArgs} args - Arguments to find a SsoOAuthProvider
@@ -691,14 +638,9 @@ export interface SsoOAuthProviderDelegate<
    * })
    */
   findUnique<T extends SsoOAuthProviderFindUniqueArgs>(
-    args: Prisma.SelectSubset<T, SsoOAuthProviderFindUniqueArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoOAuthProviderFindUniqueArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoOAuthProviderClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoOAuthProviderPayload<ExtArgs>,
-      T,
-      'findUnique',
-      GlobalOmitOptions
-    > | null,
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload<ExtArgs>, T, 'findUnique', GlobalOmitOptions> | null,
     null,
     ExtArgs,
     GlobalOmitOptions
@@ -717,14 +659,9 @@ export interface SsoOAuthProviderDelegate<
    * })
    */
   findUniqueOrThrow<T extends SsoOAuthProviderFindUniqueOrThrowArgs>(
-    args: Prisma.SelectSubset<T, SsoOAuthProviderFindUniqueOrThrowArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoOAuthProviderFindUniqueOrThrowArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoOAuthProviderClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoOAuthProviderPayload<ExtArgs>,
-      T,
-      'findUniqueOrThrow',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -744,14 +681,9 @@ export interface SsoOAuthProviderDelegate<
    * })
    */
   findFirst<T extends SsoOAuthProviderFindFirstArgs>(
-    args?: Prisma.SelectSubset<T, SsoOAuthProviderFindFirstArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoOAuthProviderFindFirstArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoOAuthProviderClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoOAuthProviderPayload<ExtArgs>,
-      T,
-      'findFirst',
-      GlobalOmitOptions
-    > | null,
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload<ExtArgs>, T, 'findFirst', GlobalOmitOptions> | null,
     null,
     ExtArgs,
     GlobalOmitOptions
@@ -772,14 +704,9 @@ export interface SsoOAuthProviderDelegate<
    * })
    */
   findFirstOrThrow<T extends SsoOAuthProviderFindFirstOrThrowArgs>(
-    args?: Prisma.SelectSubset<T, SsoOAuthProviderFindFirstOrThrowArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoOAuthProviderFindFirstOrThrowArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoOAuthProviderClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoOAuthProviderPayload<ExtArgs>,
-      T,
-      'findFirstOrThrow',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload<ExtArgs>, T, 'findFirstOrThrow', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -802,14 +729,9 @@ export interface SsoOAuthProviderDelegate<
    *
    */
   findMany<T extends SsoOAuthProviderFindManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoOAuthProviderFindManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoOAuthProviderFindManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoOAuthProviderPayload<ExtArgs>,
-      T,
-      'findMany',
-      GlobalOmitOptions
-    >
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
   >;
 
   /**
@@ -825,14 +747,9 @@ export interface SsoOAuthProviderDelegate<
    *
    */
   create<T extends SsoOAuthProviderCreateArgs>(
-    args: Prisma.SelectSubset<T, SsoOAuthProviderCreateArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoOAuthProviderCreateArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoOAuthProviderClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoOAuthProviderPayload<ExtArgs>,
-      T,
-      'create',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload<ExtArgs>, T, 'create', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -851,7 +768,7 @@ export interface SsoOAuthProviderDelegate<
    *
    */
   createMany<T extends SsoOAuthProviderCreateManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoOAuthProviderCreateManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoOAuthProviderCreateManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -877,10 +794,7 @@ export interface SsoOAuthProviderDelegate<
    *
    */
   createManyAndReturn<T extends SsoOAuthProviderCreateManyAndReturnArgs>(
-    args?: Prisma.SelectSubset<
-      T,
-      SsoOAuthProviderCreateManyAndReturnArgs<ExtArgs>
-    >
+    args?: Prisma.SelectSubset<T, SsoOAuthProviderCreateManyAndReturnArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SsoOAuthProviderPayload<ExtArgs>,
@@ -903,14 +817,9 @@ export interface SsoOAuthProviderDelegate<
    *
    */
   delete<T extends SsoOAuthProviderDeleteArgs>(
-    args: Prisma.SelectSubset<T, SsoOAuthProviderDeleteArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoOAuthProviderDeleteArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoOAuthProviderClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoOAuthProviderPayload<ExtArgs>,
-      T,
-      'delete',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload<ExtArgs>, T, 'delete', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -932,14 +841,9 @@ export interface SsoOAuthProviderDelegate<
    *
    */
   update<T extends SsoOAuthProviderUpdateArgs>(
-    args: Prisma.SelectSubset<T, SsoOAuthProviderUpdateArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoOAuthProviderUpdateArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoOAuthProviderClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoOAuthProviderPayload<ExtArgs>,
-      T,
-      'update',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload<ExtArgs>, T, 'update', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -958,7 +862,7 @@ export interface SsoOAuthProviderDelegate<
    *
    */
   deleteMany<T extends SsoOAuthProviderDeleteManyArgs>(
-    args?: Prisma.SelectSubset<T, SsoOAuthProviderDeleteManyArgs<ExtArgs>>
+    args?: Prisma.SelectSubset<T, SsoOAuthProviderDeleteManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -979,7 +883,7 @@ export interface SsoOAuthProviderDelegate<
    *
    */
   updateMany<T extends SsoOAuthProviderUpdateManyArgs>(
-    args: Prisma.SelectSubset<T, SsoOAuthProviderUpdateManyArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoOAuthProviderUpdateManyArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<Prisma.BatchPayload>;
 
   /**
@@ -1011,10 +915,7 @@ export interface SsoOAuthProviderDelegate<
    *
    */
   updateManyAndReturn<T extends SsoOAuthProviderUpdateManyAndReturnArgs>(
-    args: Prisma.SelectSubset<
-      T,
-      SsoOAuthProviderUpdateManyAndReturnArgs<ExtArgs>
-    >
+    args: Prisma.SelectSubset<T, SsoOAuthProviderUpdateManyAndReturnArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
     runtime.Types.Result.GetResult<
       Prisma.$SsoOAuthProviderPayload<ExtArgs>,
@@ -1042,14 +943,9 @@ export interface SsoOAuthProviderDelegate<
    * })
    */
   upsert<T extends SsoOAuthProviderUpsertArgs>(
-    args: Prisma.SelectSubset<T, SsoOAuthProviderUpsertArgs<ExtArgs>>
+    args: Prisma.SelectSubset<T, SsoOAuthProviderUpsertArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoOAuthProviderClient<
-    runtime.Types.Result.GetResult<
-      Prisma.$SsoOAuthProviderPayload<ExtArgs>,
-      T,
-      'upsert',
-      GlobalOmitOptions
-    >,
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderPayload<ExtArgs>, T, 'upsert', GlobalOmitOptions>,
     never,
     ExtArgs,
     GlobalOmitOptions
@@ -1069,15 +965,12 @@ export interface SsoOAuthProviderDelegate<
    * })
    **/
   count<T extends SsoOAuthProviderCountArgs>(
-    args?: Prisma.Subset<T, SsoOAuthProviderCountArgs>
+    args?: Prisma.Subset<T, SsoOAuthProviderCountArgs>,
   ): Prisma.PrismaPromise<
     T extends runtime.Types.Utils.Record<'select', any>
       ? T['select'] extends true
         ? number
-        : Prisma.GetScalarType<
-            T['select'],
-            SsoOAuthProviderCountAggregateOutputType
-          >
+        : Prisma.GetScalarType<T['select'], SsoOAuthProviderCountAggregateOutputType>
       : number
   >;
 
@@ -1106,7 +999,7 @@ export interface SsoOAuthProviderDelegate<
    * })
    **/
   aggregate<T extends SsoOAuthProviderAggregateArgs>(
-    args: Prisma.Subset<T, SsoOAuthProviderAggregateArgs>
+    args: Prisma.Subset<T, SsoOAuthProviderAggregateArgs>,
   ): Prisma.PrismaPromise<GetSsoOAuthProviderAggregateType<T>>;
 
   /**
@@ -1129,16 +1022,11 @@ export interface SsoOAuthProviderDelegate<
    **/
   groupBy<
     T extends SsoOAuthProviderGroupByArgs,
-    HasSelectOrTake extends Prisma.Or<
-      Prisma.Extends<'skip', Prisma.Keys<T>>,
-      Prisma.Extends<'take', Prisma.Keys<T>>
-    >,
+    HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>,
     OrderByArg extends Prisma.True extends HasSelectOrTake
       ? { orderBy: SsoOAuthProviderGroupByArgs['orderBy'] }
       : { orderBy?: SsoOAuthProviderGroupByArgs['orderBy'] },
-    OrderFields extends Prisma.ExcludeUnderscoreKeys<
-      Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>
-    >,
+    OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>,
     ByFields extends Prisma.MaybeTupleToUnion<T['by']>,
     ByValid extends Prisma.Has<ByFields, OrderFields>,
     HavingFields extends Prisma.GetHavingFields<T['having']>,
@@ -1147,50 +1035,43 @@ export interface SsoOAuthProviderDelegate<
     InputErrors extends ByEmpty extends Prisma.True
       ? `Error: "by" must not be empty.`
       : HavingValid extends Prisma.False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
-        }[HavingFields]
-      : 'take' extends Prisma.Keys<T>
-      ? 'orderBy' extends Prisma.Keys<T>
-        ? ByValid extends Prisma.True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Prisma.Keys<T>
-      ? 'orderBy' extends Prisma.Keys<T>
-        ? ByValid extends Prisma.True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends Prisma.True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
-        }[OrderFields]
+        ? {
+            [P in HavingFields]: P extends ByFields
+              ? never
+              : P extends string
+                ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                : [Error, 'Field ', P, ` in "having" needs to be provided in "by"`];
+          }[HavingFields]
+        : 'take' extends Prisma.Keys<T>
+          ? 'orderBy' extends Prisma.Keys<T>
+            ? ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields]
+            : 'Error: If you provide "take", you also need to provide "orderBy"'
+          : 'skip' extends Prisma.Keys<T>
+            ? 'orderBy' extends Prisma.Keys<T>
+              ? ByValid extends Prisma.True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "skip", you also need to provide "orderBy"'
+            : ByValid extends Prisma.True
+              ? {}
+              : {
+                  [P in OrderFields]: P extends ByFields
+                    ? never
+                    : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                }[OrderFields],
   >(
-    args: Prisma.SubsetIntersection<
-      T,
-      SsoOAuthProviderGroupByArgs,
-      OrderByArg
-    > &
-      InputErrors
-  ): {} extends InputErrors
-    ? GetSsoOAuthProviderGroupByPayload<T>
-    : Prisma.PrismaPromise<InputErrors>;
+    args: Prisma.SubsetIntersection<T, SsoOAuthProviderGroupByArgs, OrderByArg> & InputErrors,
+  ): {} extends InputErrors ? GetSsoOAuthProviderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
   /**
    * Fields of the SsoOAuthProvider model
    */
@@ -1207,37 +1088,19 @@ export interface Prisma__SsoOAuthProviderClient<
   T,
   Null = never,
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-  GlobalOmitOptions = {}
+  GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
-  SsoOAuthProviderSettings<
-    T extends Prisma.SsoOAuthProvider$SsoOAuthProviderSettingsArgs<ExtArgs> = {}
-  >(
-    args?: Prisma.Subset<
-      T,
-      Prisma.SsoOAuthProvider$SsoOAuthProviderSettingsArgs<ExtArgs>
-    >
+  SsoOAuthProviderSettings<T extends Prisma.SsoOAuthProvider$SsoOAuthProviderSettingsArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.SsoOAuthProvider$SsoOAuthProviderSettingsArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SsoOAuthProviderSettingsPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
+    | runtime.Types.Result.GetResult<Prisma.$SsoOAuthProviderSettingsPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions>
     | Null
   >;
-  SsoOAuthToken<
-    T extends Prisma.SsoOAuthProvider$SsoOAuthTokenArgs<ExtArgs> = {}
-  >(
-    args?: Prisma.Subset<T, Prisma.SsoOAuthProvider$SsoOAuthTokenArgs<ExtArgs>>
+  SsoOAuthToken<T extends Prisma.SsoOAuthProvider$SsoOAuthTokenArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.SsoOAuthProvider$SsoOAuthTokenArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$SsoOAuthTokenPayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
+    runtime.Types.Result.GetResult<Prisma.$SsoOAuthTokenPayload<ExtArgs>, T, 'findMany', GlobalOmitOptions> | Null
   >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1246,14 +1109,8 @@ export interface Prisma__SsoOAuthProviderClient<
    * @returns A Promise for the completion of which ever callback is executed.
    */
   then<TResult1 = T, TResult2 = never>(
-    onfulfilled?:
-      | ((value: T) => TResult1 | PromiseLike<TResult1>)
-      | undefined
-      | null,
-    onrejected?:
-      | ((reason: any) => TResult2 | PromiseLike<TResult2>)
-      | undefined
-      | null
+    onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+    onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null,
   ): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
   /**
    * Attaches a callback for only the rejection of the Promise.
@@ -1261,10 +1118,7 @@ export interface Prisma__SsoOAuthProviderClient<
    * @returns A Promise for the completion of the callback.
    */
   catch<TResult = never>(
-    onrejected?:
-      | ((reason: any) => TResult | PromiseLike<TResult>)
-      | undefined
-      | null
+    onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null,
   ): runtime.Types.Utils.JsPromise<T | TResult>;
   /**
    * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
@@ -1272,9 +1126,7 @@ export interface Prisma__SsoOAuthProviderClient<
    * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
    * @returns A Promise for the completion of the callback.
    */
-  finally(
-    onfinally?: (() => void) | undefined | null
-  ): runtime.Types.Utils.JsPromise<T>;
+  finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
 }
 
 /**
@@ -1292,7 +1144,7 @@ export interface SsoOAuthProviderFieldRefs {
  * SsoOAuthProvider findUnique
  */
 export type SsoOAuthProviderFindUniqueArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1316,7 +1168,7 @@ export type SsoOAuthProviderFindUniqueArgs<
  * SsoOAuthProvider findUniqueOrThrow
  */
 export type SsoOAuthProviderFindUniqueOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1340,7 +1192,7 @@ export type SsoOAuthProviderFindUniqueOrThrowArgs<
  * SsoOAuthProvider findFirst
  */
 export type SsoOAuthProviderFindFirstArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1363,9 +1215,7 @@ export type SsoOAuthProviderFindFirstArgs<
    *
    * Determine the order of SsoOAuthProviders to fetch.
    */
-  orderBy?:
-    | Prisma.SsoOAuthProviderOrderByWithRelationInput
-    | Prisma.SsoOAuthProviderOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoOAuthProviderOrderByWithRelationInput | Prisma.SsoOAuthProviderOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1389,16 +1239,14 @@ export type SsoOAuthProviderFindFirstArgs<
    *
    * Filter by unique combinations of SsoOAuthProviders.
    */
-  distinct?:
-    | Prisma.SsoOAuthProviderScalarFieldEnum
-    | Prisma.SsoOAuthProviderScalarFieldEnum[];
+  distinct?: Prisma.SsoOAuthProviderScalarFieldEnum | Prisma.SsoOAuthProviderScalarFieldEnum[];
 };
 
 /**
  * SsoOAuthProvider findFirstOrThrow
  */
 export type SsoOAuthProviderFindFirstOrThrowArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1421,9 +1269,7 @@ export type SsoOAuthProviderFindFirstOrThrowArgs<
    *
    * Determine the order of SsoOAuthProviders to fetch.
    */
-  orderBy?:
-    | Prisma.SsoOAuthProviderOrderByWithRelationInput
-    | Prisma.SsoOAuthProviderOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoOAuthProviderOrderByWithRelationInput | Prisma.SsoOAuthProviderOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1447,16 +1293,14 @@ export type SsoOAuthProviderFindFirstOrThrowArgs<
    *
    * Filter by unique combinations of SsoOAuthProviders.
    */
-  distinct?:
-    | Prisma.SsoOAuthProviderScalarFieldEnum
-    | Prisma.SsoOAuthProviderScalarFieldEnum[];
+  distinct?: Prisma.SsoOAuthProviderScalarFieldEnum | Prisma.SsoOAuthProviderScalarFieldEnum[];
 };
 
 /**
  * SsoOAuthProvider findMany
  */
 export type SsoOAuthProviderFindManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1479,9 +1323,7 @@ export type SsoOAuthProviderFindManyArgs<
    *
    * Determine the order of SsoOAuthProviders to fetch.
    */
-  orderBy?:
-    | Prisma.SsoOAuthProviderOrderByWithRelationInput
-    | Prisma.SsoOAuthProviderOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoOAuthProviderOrderByWithRelationInput | Prisma.SsoOAuthProviderOrderByWithRelationInput[];
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
    *
@@ -1500,16 +1342,14 @@ export type SsoOAuthProviderFindManyArgs<
    * Skip the first `n` SsoOAuthProviders.
    */
   skip?: number;
-  distinct?:
-    | Prisma.SsoOAuthProviderScalarFieldEnum
-    | Prisma.SsoOAuthProviderScalarFieldEnum[];
+  distinct?: Prisma.SsoOAuthProviderScalarFieldEnum | Prisma.SsoOAuthProviderScalarFieldEnum[];
 };
 
 /**
  * SsoOAuthProvider create
  */
 export type SsoOAuthProviderCreateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1526,24 +1366,19 @@ export type SsoOAuthProviderCreateArgs<
   /**
    * The data needed to create a SsoOAuthProvider.
    */
-  data: Prisma.XOR<
-    Prisma.SsoOAuthProviderCreateInput,
-    Prisma.SsoOAuthProviderUncheckedCreateInput
-  >;
+  data: Prisma.XOR<Prisma.SsoOAuthProviderCreateInput, Prisma.SsoOAuthProviderUncheckedCreateInput>;
 };
 
 /**
  * SsoOAuthProvider createMany
  */
 export type SsoOAuthProviderCreateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * The data used to create many SsoOAuthProviders.
    */
-  data:
-    | Prisma.SsoOAuthProviderCreateManyInput
-    | Prisma.SsoOAuthProviderCreateManyInput[];
+  data: Prisma.SsoOAuthProviderCreateManyInput | Prisma.SsoOAuthProviderCreateManyInput[];
   skipDuplicates?: boolean;
 };
 
@@ -1551,7 +1386,7 @@ export type SsoOAuthProviderCreateManyArgs<
  * SsoOAuthProvider createManyAndReturn
  */
 export type SsoOAuthProviderCreateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1564,9 +1399,7 @@ export type SsoOAuthProviderCreateManyAndReturnArgs<
   /**
    * The data used to create many SsoOAuthProviders.
    */
-  data:
-    | Prisma.SsoOAuthProviderCreateManyInput
-    | Prisma.SsoOAuthProviderCreateManyInput[];
+  data: Prisma.SsoOAuthProviderCreateManyInput | Prisma.SsoOAuthProviderCreateManyInput[];
   skipDuplicates?: boolean;
 };
 
@@ -1574,7 +1407,7 @@ export type SsoOAuthProviderCreateManyAndReturnArgs<
  * SsoOAuthProvider update
  */
 export type SsoOAuthProviderUpdateArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1591,10 +1424,7 @@ export type SsoOAuthProviderUpdateArgs<
   /**
    * The data needed to update a SsoOAuthProvider.
    */
-  data: Prisma.XOR<
-    Prisma.SsoOAuthProviderUpdateInput,
-    Prisma.SsoOAuthProviderUncheckedUpdateInput
-  >;
+  data: Prisma.XOR<Prisma.SsoOAuthProviderUpdateInput, Prisma.SsoOAuthProviderUncheckedUpdateInput>;
   /**
    * Choose, which SsoOAuthProvider to update.
    */
@@ -1605,15 +1435,12 @@ export type SsoOAuthProviderUpdateArgs<
  * SsoOAuthProvider updateMany
  */
 export type SsoOAuthProviderUpdateManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * The data used to update SsoOAuthProviders.
    */
-  data: Prisma.XOR<
-    Prisma.SsoOAuthProviderUpdateManyMutationInput,
-    Prisma.SsoOAuthProviderUncheckedUpdateManyInput
-  >;
+  data: Prisma.XOR<Prisma.SsoOAuthProviderUpdateManyMutationInput, Prisma.SsoOAuthProviderUncheckedUpdateManyInput>;
   /**
    * Filter which SsoOAuthProviders to update
    */
@@ -1628,7 +1455,7 @@ export type SsoOAuthProviderUpdateManyArgs<
  * SsoOAuthProvider updateManyAndReturn
  */
 export type SsoOAuthProviderUpdateManyAndReturnArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1641,10 +1468,7 @@ export type SsoOAuthProviderUpdateManyAndReturnArgs<
   /**
    * The data used to update SsoOAuthProviders.
    */
-  data: Prisma.XOR<
-    Prisma.SsoOAuthProviderUpdateManyMutationInput,
-    Prisma.SsoOAuthProviderUncheckedUpdateManyInput
-  >;
+  data: Prisma.XOR<Prisma.SsoOAuthProviderUpdateManyMutationInput, Prisma.SsoOAuthProviderUncheckedUpdateManyInput>;
   /**
    * Filter which SsoOAuthProviders to update
    */
@@ -1659,7 +1483,7 @@ export type SsoOAuthProviderUpdateManyAndReturnArgs<
  * SsoOAuthProvider upsert
  */
 export type SsoOAuthProviderUpsertArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1680,24 +1504,18 @@ export type SsoOAuthProviderUpsertArgs<
   /**
    * In case the SsoOAuthProvider found by the `where` argument doesn't exist, create a new SsoOAuthProvider with this data.
    */
-  create: Prisma.XOR<
-    Prisma.SsoOAuthProviderCreateInput,
-    Prisma.SsoOAuthProviderUncheckedCreateInput
-  >;
+  create: Prisma.XOR<Prisma.SsoOAuthProviderCreateInput, Prisma.SsoOAuthProviderUncheckedCreateInput>;
   /**
    * In case the SsoOAuthProvider was found with the provided `where` argument, update it with this data.
    */
-  update: Prisma.XOR<
-    Prisma.SsoOAuthProviderUpdateInput,
-    Prisma.SsoOAuthProviderUncheckedUpdateInput
-  >;
+  update: Prisma.XOR<Prisma.SsoOAuthProviderUpdateInput, Prisma.SsoOAuthProviderUncheckedUpdateInput>;
 };
 
 /**
  * SsoOAuthProvider delete
  */
 export type SsoOAuthProviderDeleteArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider
@@ -1721,7 +1539,7 @@ export type SsoOAuthProviderDeleteArgs<
  * SsoOAuthProvider deleteMany
  */
 export type SsoOAuthProviderDeleteManyArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Filter which SsoOAuthProviders to delete
@@ -1737,7 +1555,7 @@ export type SsoOAuthProviderDeleteManyArgs<
  * SsoOAuthProvider.SsoOAuthProviderSettings
  */
 export type SsoOAuthProvider$SsoOAuthProviderSettingsArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProviderSettings
@@ -1758,16 +1576,14 @@ export type SsoOAuthProvider$SsoOAuthProviderSettingsArgs<
   cursor?: Prisma.SsoOAuthProviderSettingsWhereUniqueInput;
   take?: number;
   skip?: number;
-  distinct?:
-    | Prisma.SsoOAuthProviderSettingsScalarFieldEnum
-    | Prisma.SsoOAuthProviderSettingsScalarFieldEnum[];
+  distinct?: Prisma.SsoOAuthProviderSettingsScalarFieldEnum | Prisma.SsoOAuthProviderSettingsScalarFieldEnum[];
 };
 
 /**
  * SsoOAuthProvider.SsoOAuthToken
  */
 export type SsoOAuthProvider$SsoOAuthTokenArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthToken
@@ -1782,22 +1598,18 @@ export type SsoOAuthProvider$SsoOAuthTokenArgs<
    */
   include?: Prisma.SsoOAuthTokenInclude<ExtArgs> | null;
   where?: Prisma.SsoOAuthTokenWhereInput;
-  orderBy?:
-    | Prisma.SsoOAuthTokenOrderByWithRelationInput
-    | Prisma.SsoOAuthTokenOrderByWithRelationInput[];
+  orderBy?: Prisma.SsoOAuthTokenOrderByWithRelationInput | Prisma.SsoOAuthTokenOrderByWithRelationInput[];
   cursor?: Prisma.SsoOAuthTokenWhereUniqueInput;
   take?: number;
   skip?: number;
-  distinct?:
-    | Prisma.SsoOAuthTokenScalarFieldEnum
-    | Prisma.SsoOAuthTokenScalarFieldEnum[];
+  distinct?: Prisma.SsoOAuthTokenScalarFieldEnum | Prisma.SsoOAuthTokenScalarFieldEnum[];
 };
 
 /**
  * SsoOAuthProvider without action
  */
 export type SsoOAuthProviderDefaultArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
    * Select specific fields to fetch from the SsoOAuthProvider

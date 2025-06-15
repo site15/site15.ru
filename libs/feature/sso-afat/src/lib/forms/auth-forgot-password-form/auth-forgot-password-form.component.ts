@@ -9,11 +9,7 @@ import {
   Optional,
   Output,
 } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
@@ -73,7 +69,7 @@ export class SsoForgotPasswordFormComponent implements OnInit {
     private readonly nzMessageService: NzMessageService,
     private readonly translocoService: TranslocoService,
     private readonly authForgotPasswordFormService: SsoForgotPasswordFormService,
-    private readonly validationService: ValidationService
+    private readonly validationService: ValidationService,
   ) {}
 
   ngOnInit(): void {
@@ -84,7 +80,7 @@ export class SsoForgotPasswordFormComponent implements OnInit {
         untilDestroyed(this),
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
-        })
+        }),
       )
       .subscribe();
 
@@ -108,41 +104,30 @@ export class SsoForgotPasswordFormComponent implements OnInit {
               this.afterForgotPassword.next(result);
               this.nzMessageService.success(
                 this.translocoService.translate(
-                  "To complete the password change process, click the link in the email. If you haven't received the email, check your spam folder or try again."
-                )
+                  "To complete the password change process, click the link in the email. If you haven't received the email, check your spam folder or try again.",
+                ),
               );
             }
           }),
           catchError((err) =>
-            this.validationService.catchAndProcessServerError(err, (options) =>
-              this.setFormlyFields(options)
-            )
+            this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
           ),
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           catchError((err: any) => {
             console.error(err);
-            this.nzMessageService.error(
-              this.translocoService.translate(err.error?.message || err.message)
-            );
+            this.nzMessageService.error(this.translocoService.translate(err.error?.message || err.message));
             return of(null);
           }),
-          untilDestroyed(this)
+          untilDestroyed(this),
         )
         .subscribe();
     } else {
       console.log(this.form.controls);
-      this.nzMessageService.warning(
-        this.translocoService.translate('Validation errors')
-      );
+      this.nzMessageService.warning(this.translocoService.translate('Validation errors'));
     }
   }
 
-  private setFormlyFields(options?: {
-    data?: SsoForgotPasswordInput;
-    errors?: ValidationErrorMetadataInterface[];
-  }) {
-    this.formlyFields$.next(
-      this.authForgotPasswordFormService.getFormlyFields(options)
-    );
+  private setFormlyFields(options?: { data?: SsoForgotPasswordInput; errors?: ValidationErrorMetadataInterface[] }) {
+    this.formlyFields$.next(this.authForgotPasswordFormService.getFormlyFields(options));
   }
 }

@@ -31,14 +31,12 @@ describe('Sso with check notifications (e2e)', () => {
   });
 
   it('Create project', async () => {
-    const { data: createOneResult } = await admin
-      .getSsoApi()
-      .ssoProjectsControllerCreateOne({
-        public: false,
-        name: project.randomUser.uniqId,
-        clientId: project.randomUser.id,
-        clientSecret: project.randomUser.password,
-      });
+    const { data: createOneResult } = await admin.getSsoApi().ssoProjectsControllerCreateOne({
+      public: false,
+      name: project.randomUser.uniqId,
+      clientId: project.randomUser.id,
+      clientSecret: project.randomUser.password,
+    });
     expect(createOneResult).toHaveProperty('id');
   });
 
@@ -58,22 +56,13 @@ describe('Sso with check notifications (e2e)', () => {
   it('As admin get verify code from notifications and use it for verify as user', async () => {
     const { data: findManyResult } = await admin
       .getNotificationsApi()
-      .notificationsControllerFindMany(
-        undefined,
-        undefined,
-        user.randomUser.email,
-        undefined,
-        {
-          headers: {
-            'x-client-id': project.randomUser.id,
-          },
-        }
-      );
+      .notificationsControllerFindMany(undefined, undefined, user.randomUser.email, undefined, {
+        headers: {
+          'x-client-id': project.randomUser.id,
+        },
+      });
     expect(findManyResult.notifications).toHaveLength(1);
-    const code = findManyResult.notifications[0].html
-      .split('?code=')[1]
-      .split('&')[0]
-      .split('"')[0];
+    const code = findManyResult.notifications[0].html.split('?code=')[1].split('&')[0].split('"')[0];
 
     const { data: completeSignUpResult } = await user
       .getSsoApi()
@@ -84,15 +73,11 @@ describe('Sso with check notifications (e2e)', () => {
     expect(completeSignUpResult).toHaveProperty('user');
 
     // check tokens
-    const { data: profileResult } = await user
-      .getSsoApi()
-      .ssoControllerProfile({
-        headers: {
-          ...(completeSignUpResult.accessToken
-            ? { Authorization: `Bearer ${completeSignUpResult.accessToken}` }
-            : {}),
-        },
-      });
+    const { data: profileResult } = await user.getSsoApi().ssoControllerProfile({
+      headers: {
+        ...(completeSignUpResult.accessToken ? { Authorization: `Bearer ${completeSignUpResult.accessToken}` } : {}),
+      },
+    });
 
     expect(profileResult.email).toEqual(user.randomUser.email);
   });
@@ -110,22 +95,18 @@ describe('Sso with check notifications (e2e)', () => {
   });
 
   it('Change password', async () => {
-    const { data: changePasswordResult } = await user
-      .getSsoApi()
-      .ssoControllerUpdateProfile(
-        {
-          password: user.randomUser.newPassword,
-          confirmPassword: user.randomUser.newPassword,
-          oldPassword: user.randomUser.password,
+    const { data: changePasswordResult } = await user.getSsoApi().ssoControllerUpdateProfile(
+      {
+        password: user.randomUser.newPassword,
+        confirmPassword: user.randomUser.newPassword,
+        oldPassword: user.randomUser.password,
+      },
+      {
+        headers: {
+          ...(userTokens.accessToken ? { Authorization: `Bearer ${userTokens.accessToken}` } : {}),
         },
-        {
-          headers: {
-            ...(userTokens.accessToken
-              ? { Authorization: `Bearer ${userTokens.accessToken}` }
-              : {}),
-          },
-        }
-      );
+      },
+    );
     expect(changePasswordResult).toHaveProperty('id');
   });
 
@@ -142,12 +123,10 @@ describe('Sso with check notifications (e2e)', () => {
   });
 
   it('Should refresh tokens successfully', async () => {
-    const { data: refreshTokensResult } = await user
-      .getSsoApi()
-      .ssoControllerRefreshTokens({
-        fingerprint: user.randomUser.id,
-        refreshToken: userTokens.refreshToken,
-      });
+    const { data: refreshTokensResult } = await user.getSsoApi().ssoControllerRefreshTokens({
+      fingerprint: user.randomUser.id,
+      refreshToken: userTokens.refreshToken,
+    });
     expect(refreshTokensResult).toHaveProperty('accessToken');
     expect(refreshTokensResult).toHaveProperty('refreshToken');
     expect(refreshTokensResult).toHaveProperty('user');
@@ -159,11 +138,9 @@ describe('Sso with check notifications (e2e)', () => {
       { refreshToken: userTokens.refreshToken },
       {
         headers: {
-          ...(userTokens.accessToken
-            ? { Authorization: `Bearer ${userTokens.accessToken}` }
-            : {}),
+          ...(userTokens.accessToken ? { Authorization: `Bearer ${userTokens.accessToken}` } : {}),
         },
-      }
+      },
     );
     expect(signOutResult.message).toEqual('ok');
   });

@@ -1,12 +1,7 @@
 import { KeyvService } from '@nestjs-mod/keyv';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable } from '@nestjs/common';
-import {
-  PrismaClient,
-  SsoProject,
-  SsoRefreshSession,
-  SsoUser,
-} from '../generated/prisma-client';
+import { PrismaClient, SsoProject, SsoRefreshSession, SsoUser } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 
@@ -16,7 +11,7 @@ export class SsoCacheService {
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
-    private readonly keyvService: KeyvService
+    private readonly keyvService: KeyvService,
   ) {}
 
   async clearCacheByUserId({ userId }: { userId: string }) {
@@ -24,9 +19,7 @@ export class SsoCacheService {
   }
 
   async getCachedUser({ userId }: { userId: string }) {
-    const cached = await this.keyvService.get<SsoUser>(
-      this.getUserCacheKey({ userId })
-    );
+    const cached = await this.keyvService.get<SsoUser>(this.getUserCacheKey({ userId }));
     if (cached) {
       return cached as SsoUser;
     }
@@ -38,11 +31,7 @@ export class SsoCacheService {
     if (user) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...cachedUser } = user;
-      await this.keyvService.set(
-        this.getUserCacheKey({ userId }),
-        cachedUser,
-        this.ssoStaticEnvironments.cacheTTL
-      );
+      await this.keyvService.set(this.getUserCacheKey({ userId }), cachedUser, this.ssoStaticEnvironments.cacheTTL);
       return cachedUser;
     }
     return undefined;
@@ -59,9 +48,7 @@ export class SsoCacheService {
   }
 
   async getCachedProject(clientId: string) {
-    const cached = await this.keyvService.get<SsoProject>(
-      this.getProjectCacheKey(clientId)
-    );
+    const cached = await this.keyvService.get<SsoProject>(this.getProjectCacheKey(clientId));
     if (cached) {
       return cached as SsoProject;
     }
@@ -71,11 +58,7 @@ export class SsoCacheService {
       },
     });
     if (project) {
-      await this.keyvService.set(
-        this.getProjectCacheKey(clientId),
-        project,
-        this.ssoStaticEnvironments.cacheTTL
-      );
+      await this.keyvService.set(this.getProjectCacheKey(clientId), project, this.ssoStaticEnvironments.cacheTTL);
       return project;
     }
     return undefined;
@@ -91,9 +74,7 @@ export class SsoCacheService {
   }
 
   async getCachedRefreshSession(refreshToken: string) {
-    const cached = await this.keyvService.get<SsoRefreshSession>(
-      this.getRefreshSessionCacheKey(refreshToken)
-    );
+    const cached = await this.keyvService.get<SsoRefreshSession>(this.getRefreshSessionCacheKey(refreshToken));
     if (cached) {
       return cached as SsoRefreshSession;
     }
@@ -106,7 +87,7 @@ export class SsoCacheService {
       await this.keyvService.set(
         this.getRefreshSessionCacheKey(refreshToken),
         refreshSession,
-        this.ssoStaticEnvironments.cacheTTL
+        this.ssoStaticEnvironments.cacheTTL,
       );
       return refreshSession;
     }

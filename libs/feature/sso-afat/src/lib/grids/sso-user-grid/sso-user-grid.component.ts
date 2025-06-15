@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  ViewContainerRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FilesService } from '@nestjs-mod/files-afat';
@@ -23,27 +16,12 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import {
-  BehaviorSubject,
-  Observable,
-  debounceTime,
-  distinctUntilChanged,
-  merge,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge, tap } from 'rxjs';
 
-import {
-  TranslocoDirective,
-  TranslocoPipe,
-  TranslocoService,
-} from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import {
-  NgChanges,
-  NzTableSortOrderDetectorPipe,
-  getQueryMetaByParams,
-} from '@nestjs-mod/afat';
+import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { SsoInviteMembersFormComponent } from '../../forms/sso-invite-members-form/sso-invite-members-form.component';
 import { SsoUserFormComponent } from '../../forms/sso-user-form/sso-user-form.component';
@@ -110,39 +88,25 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
     // [SsoUserScalarFieldEnumInterface.birthdate]: marker(
     //   'sso-user.grid.columns.birthdate'
     // ),
-    [SsoUserScalarFieldEnumInterface.email]: marker(
-      'sso-user.grid.columns.email'
-    ),
+    [SsoUserScalarFieldEnumInterface.email]: marker('sso-user.grid.columns.email'),
     //   [SsoUserScalarFieldEnumInterface.emailVerifiedAt]: marker(
     //     'sso-user.grid.columns.email-verified-at'
     //   ),
-    [SsoUserScalarFieldEnumInterface.firstname]: marker(
-      'sso-user.grid.columns.firstname'
-    ),
-    [SsoUserScalarFieldEnumInterface.gender]: marker(
-      'sso-user.grid.columns.gender'
-    ),
+    [SsoUserScalarFieldEnumInterface.firstname]: marker('sso-user.grid.columns.firstname'),
+    [SsoUserScalarFieldEnumInterface.gender]: marker('sso-user.grid.columns.gender'),
     // [SsoUserScalarFieldEnumInterface.lastname]: marker(
     //   'sso-user.grid.columns.lastname'
     // ),
-    [SsoUserScalarFieldEnumInterface.phone]: marker(
-      'sso-user.grid.columns.phone'
-    ),
+    [SsoUserScalarFieldEnumInterface.phone]: marker('sso-user.grid.columns.phone'),
     // [SsoUserScalarFieldEnumInterface.phoneVerifiedAt]: marker(
     //   'sso-user.grid.columns.phone-verified-at'
     // ),
-    [SsoUserScalarFieldEnumInterface.picture]: marker(
-      'sso-user.grid.columns.picture'
-    ),
+    [SsoUserScalarFieldEnumInterface.picture]: marker('sso-user.grid.columns.picture'),
     //   [SsoUserScalarFieldEnumInterface.revokedAt]: marker(
     //     'sso-user.grid.columns.revoked-at'
     //   ),
-    [SsoUserScalarFieldEnumInterface.roles]: marker(
-      'sso-user.grid.columns.roles'
-    ),
-    [SsoUserScalarFieldEnumInterface.username]: marker(
-      'sso-user.grid.columns.username'
-    ),
+    [SsoUserScalarFieldEnumInterface.roles]: marker('sso-user.grid.columns.roles'),
+    [SsoUserScalarFieldEnumInterface.username]: marker('sso-user.grid.columns.username'),
   };
   SsoUserScalarFieldEnumInterface = SsoUserScalarFieldEnumInterface;
 
@@ -153,19 +117,14 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
     private readonly translocoService: TranslocoService,
-    private readonly filesService: FilesService
+    private readonly filesService: FilesService,
   ) {
     this.minioURL$.next(this.filesService.getMinioURL() as string);
   }
 
   showInviteMembersModal(): void {
-    const modal = this.nzModalService.create<
-      SsoInviteMembersFormComponent,
-      SsoInviteMembersFormComponent
-    >({
-      nzTitle: this.translocoService.translate(
-        'sso-user.invite-members-modal.title'
-      ),
+    const modal = this.nzModalService.create<SsoInviteMembersFormComponent, SsoInviteMembersFormComponent>({
+      nzTitle: this.translocoService.translate('sso-user.invite-members-modal.title'),
       nzContent: SsoInviteMembersFormComponent,
       nzViewContainerRef: this.viewContainerRef,
       nzData: {
@@ -187,7 +146,7 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
                   modal.close();
                   this.loadMany({ force: true });
                 }),
-                untilDestroyed(modal.componentInstance)
+                untilDestroyed(modal.componentInstance),
               )
               .subscribe();
 
@@ -210,15 +169,12 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     merge(
-      this.searchField.valueChanges.pipe(
-        debounceTime(700),
-        distinctUntilChanged()
-      ),
-      ...(this.forceLoadStream ? this.forceLoadStream : [])
+      this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
+      ...(this.forceLoadStream ? this.forceLoadStream : []),
     )
       .pipe(
         tap(() => this.loadMany({ force: true })),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
 
@@ -255,7 +211,7 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
         omit(['totalResults'], {
           ...this.meta$.value,
           ...this.filters,
-        })
+        }),
       )
     ) {
       return;
@@ -270,16 +226,13 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
           this.filters = filters;
           this.selectedIds$.next([]);
         }),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
   }
 
   showCreateOrUpdateModal(id?: string): void {
-    const modal = this.nzModalService.create<
-      SsoUserFormComponent,
-      SsoUserFormComponent
-    >({
+    const modal = this.nzModalService.create<SsoUserFormComponent, SsoUserFormComponent>({
       nzTitle: id
         ? this.translocoService.translate('sso-user.update-modal.title', {
             id,
@@ -299,9 +252,7 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
           },
         },
         {
-          label: id
-            ? this.translocoService.translate('Save')
-            : this.translocoService.translate('Create'),
+          label: id ? this.translocoService.translate('Save') : this.translocoService.translate('Create'),
           onClick: () => {
             modal.componentInstance?.afterUpdate
               .pipe(
@@ -309,7 +260,7 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
                   modal.close();
                   this.loadMany({ force: true });
                 }),
-                untilDestroyed(modal.componentInstance)
+                untilDestroyed(modal.componentInstance),
               )
               .subscribe();
 
@@ -319,7 +270,7 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
                   modal.close();
                   this.loadMany({ force: true });
                 }),
-                untilDestroyed(modal.componentInstance)
+                untilDestroyed(modal.componentInstance),
               )
               .subscribe();
 

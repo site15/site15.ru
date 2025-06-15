@@ -13,9 +13,8 @@ export async function replaceEnvs() {
           fullFilePath,
           content.replace(
             new RegExp('___SINGLE_SIGN_ON_CLIENT_MINIO_URL___', 'g'),
-            process.env.SINGLE_SIGN_ON_CLIENT_MINIO_URL ||
-              'http://localhost:9000'
-          )
+            process.env.SINGLE_SIGN_ON_CLIENT_MINIO_URL || 'http://localhost:9000',
+          ),
         );
       }
     }

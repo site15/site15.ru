@@ -9,11 +9,7 @@ export type TData = unknown | unknown[] | TObject | TObject[];
 export class SsoTimezoneService {
   private logger = new Logger(SsoTimezoneService.name);
 
-  convertObject(
-    data: TData,
-    timezone: number | null | undefined,
-    depth = 10
-  ): TData {
+  convertObject(data: TData, timezone: number | null | undefined, depth = 10): TData {
     if (depth === 0) {
       return data;
     }
@@ -22,9 +18,7 @@ export class SsoTimezoneService {
       return newData;
     }
     if (
-      (typeof data === 'string' ||
-        typeof data === 'number' ||
-        typeof data === 'function') &&
+      (typeof data === 'string' || typeof data === 'number' || typeof data === 'function') &&
       !this.isValidDate(data) &&
       !this.isValidStringDate(data)
     ) {
@@ -57,9 +51,7 @@ export class SsoTimezoneService {
       return newArray;
     }
     if (
-      (typeof data === 'string' ||
-        typeof data === 'number' ||
-        typeof data === 'function') &&
+      (typeof data === 'string' || typeof data === 'number' || typeof data === 'function') &&
       !this.isValidDate(data) &&
       !this.isValidStringDate(data)
     ) {
@@ -69,16 +61,11 @@ export class SsoTimezoneService {
       if (data) {
         if (this.isValidDate(data)) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          data = (data as any)['toISOString']
-            ? (data as Date).toISOString()
-            : data;
+          data = (data as any)['toISOString'] ? (data as Date).toISOString() : data;
         } else {
           const keys = Object.keys(data as object);
           for (const key of keys) {
-            (data as TObject)[key] = this.convertDatesInObjectToDateStrings(
-              (data as TObject)[key],
-              depth - 1
-            );
+            (data as TObject)[key] = this.convertDatesInObjectToDateStrings((data as TObject)[key], depth - 1);
           }
         }
       }
@@ -89,18 +76,10 @@ export class SsoTimezoneService {
     return data;
   }
 
-  private convertComplexObject(
-    data: TData,
-    timezone: number | null | undefined,
-    depth: number
-  ) {
+  private convertComplexObject(data: TData, timezone: number | null | undefined, depth: number) {
     const keys = Object.keys(data as object);
     for (const key of keys) {
-      (data as TObject)[key] = this.convertObject(
-        (data as TObject)[key],
-        timezone,
-        depth - 1
-      );
+      (data as TObject)[key] = this.convertObject((data as TObject)[key], timezone, depth - 1);
     }
   }
 
@@ -115,11 +94,7 @@ export class SsoTimezoneService {
     return data;
   }
 
-  private convertArray(
-    data: unknown[] | TObject[],
-    timezone: number | null | undefined,
-    depth: number
-  ) {
+  private convertArray(data: unknown[] | TObject[], timezone: number | null | undefined, depth: number) {
     const newArray: unknown[] = [];
     for (const item of data) {
       newArray.push(this.convertObject(item, timezone, depth - 1));

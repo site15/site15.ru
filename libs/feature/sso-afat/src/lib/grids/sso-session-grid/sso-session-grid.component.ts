@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  ViewContainerRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -21,27 +14,12 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTableModule, NzTableQueryParams } from 'ng-zorro-antd/table';
-import {
-  BehaviorSubject,
-  Observable,
-  debounceTime,
-  distinctUntilChanged,
-  merge,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge, tap } from 'rxjs';
 
-import {
-  TranslocoDirective,
-  TranslocoPipe,
-  TranslocoService,
-} from '@jsverse/transloco';
+import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import {
-  NgChanges,
-  NzTableSortOrderDetectorPipe,
-  getQueryMetaByParams,
-} from '@nestjs-mod/afat';
+import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { SsoRefreshSessionScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { SsoSessionFormComponent } from '../../forms/sso-session-form/sso-session-form.component';
@@ -93,30 +71,15 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
     SsoRefreshSessionScalarFieldEnumInterface.enabled,
   ];
   columns = {
-    [SsoRefreshSessionScalarFieldEnumInterface.id]: marker(
-      'sso-session.grid.columns.id'
-    ),
-    [SsoRefreshSessionScalarFieldEnumInterface.userAgent]: marker(
-      'sso-session.grid.columns.user-agent'
-    ),
-    [SsoRefreshSessionScalarFieldEnumInterface.fingerprint]: marker(
-      'sso-session.grid.columns.fingerprint'
-    ),
-    [SsoRefreshSessionScalarFieldEnumInterface.userIp]: marker(
-      'sso-session.grid.columns.user-ip'
-    ),
-    [SsoRefreshSessionScalarFieldEnumInterface.expiresAt]: marker(
-      'sso-session.grid.columns.expires-at'
-    ),
-    [SsoRefreshSessionScalarFieldEnumInterface.userData]: marker(
-      'sso-session.grid.columns.user-data'
-    ),
-    [SsoRefreshSessionScalarFieldEnumInterface.enabled]: marker(
-      'sso-session.grid.columns.enabled'
-    ),
+    [SsoRefreshSessionScalarFieldEnumInterface.id]: marker('sso-session.grid.columns.id'),
+    [SsoRefreshSessionScalarFieldEnumInterface.userAgent]: marker('sso-session.grid.columns.user-agent'),
+    [SsoRefreshSessionScalarFieldEnumInterface.fingerprint]: marker('sso-session.grid.columns.fingerprint'),
+    [SsoRefreshSessionScalarFieldEnumInterface.userIp]: marker('sso-session.grid.columns.user-ip'),
+    [SsoRefreshSessionScalarFieldEnumInterface.expiresAt]: marker('sso-session.grid.columns.expires-at'),
+    [SsoRefreshSessionScalarFieldEnumInterface.userData]: marker('sso-session.grid.columns.user-data'),
+    [SsoRefreshSessionScalarFieldEnumInterface.enabled]: marker('sso-session.grid.columns.enabled'),
   };
-  SsoSessionScalarFieldEnumInterface =
-    SsoRefreshSessionScalarFieldEnumInterface;
+  SsoSessionScalarFieldEnumInterface = SsoRefreshSessionScalarFieldEnumInterface;
 
   private filters?: Record<string, string>;
 
@@ -124,7 +87,7 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
     private readonly ssoSessionService: SsoSessionService,
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
-    private readonly translocoService: TranslocoService
+    private readonly translocoService: TranslocoService,
   ) {}
 
   ngOnChanges(changes: NgChanges<SsoSessionGridComponent>): void {
@@ -138,15 +101,12 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     merge(
-      this.searchField.valueChanges.pipe(
-        debounceTime(700),
-        distinctUntilChanged()
-      ),
-      ...(this.forceLoadStream ? this.forceLoadStream : [])
+      this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
+      ...(this.forceLoadStream ? this.forceLoadStream : []),
     )
       .pipe(
         tap(() => this.loadMany({ force: true })),
-        untilDestroyed(this)
+        untilDestroyed(this),
       )
       .subscribe();
 
@@ -183,7 +143,7 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
         omit(['totalResults'], {
           ...this.meta$.value,
           ...this.filters,
-        })
+        }),
       )
     ) {
       return;
@@ -201,17 +161,14 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
             this.filters = filters;
             this.selectedIds$.next([]);
           }),
-          untilDestroyed(this)
+          untilDestroyed(this),
         )
         .subscribe();
     }
   }
 
   showCreateOrUpdateModal(id?: string): void {
-    const modal = this.nzModalService.create<
-      SsoSessionFormComponent,
-      SsoSessionFormComponent
-    >({
+    const modal = this.nzModalService.create<SsoSessionFormComponent, SsoSessionFormComponent>({
       nzTitle: id
         ? this.translocoService.translate('sso-session.update-modal.title', {
             id,
@@ -231,9 +188,7 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
           },
         },
         {
-          label: id
-            ? this.translocoService.translate('Save')
-            : this.translocoService.translate('Create'),
+          label: id ? this.translocoService.translate('Save') : this.translocoService.translate('Create'),
           onClick: () => {
             modal.componentInstance?.afterUpdate
               .pipe(
@@ -241,7 +196,7 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
                   modal.close();
                   this.loadMany({ force: true });
                 }),
-                untilDestroyed(modal.componentInstance)
+                untilDestroyed(modal.componentInstance),
               )
               .subscribe();
 
@@ -251,7 +206,7 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
                   modal.close();
                   this.loadMany({ force: true });
                 }),
-                untilDestroyed(modal.componentInstance)
+                untilDestroyed(modal.componentInstance),
               )
               .subscribe();
 

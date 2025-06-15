@@ -4,21 +4,8 @@ import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { ValidationError } from '@nestjs-mod/validation';
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  ParseUUIDPipe,
-  Put,
-  Query,
-} from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiOkResponse,
-  ApiTags,
-  refs,
-} from '@nestjs/swagger';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Put, Query } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { omit } from 'lodash/fp';
 import { SkipTranslate } from 'nestjs-translates';
@@ -42,20 +29,16 @@ export class SsoEmailTemplatesController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
     private readonly prismaClient: PrismaClient,
-    private readonly prismaToolsService: PrismaToolsService
+    private readonly prismaToolsService: PrismaToolsService,
   ) {}
 
   @Get()
   @ApiOkResponse({ type: FindManySsoEmailTemplateResponse })
-  async findMany(
-    @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Query() args: FindManyArgs
-  ) {
-    const { take, skip, curPage, perPage } =
-      this.prismaToolsService.getFirstSkipFromCurPerPage({
-        curPage: args.curPage,
-        perPage: args.perPage,
-      });
+  async findMany(@CurrentSsoRequest() ssoRequest: SsoRequest, @Query() args: FindManyArgs) {
+    const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
+      curPage: args.curPage,
+      perPage: args.perPage,
+    });
 
     const searchText = args.searchText;
     const projectId = ssoRequest.ssoProject.id;
@@ -72,7 +55,7 @@ export class SsoEmailTemplatesController {
               }
             : {}),
         }),
-        {}
+        {},
       );
     const result = await this.prismaClient.$transaction(async (prisma) => {
       return {
@@ -82,9 +65,7 @@ export class SsoEmailTemplatesController {
             ...(searchText
               ? {
                   OR: [
-                    ...(isUUID(searchText)
-                      ? [{ id: { equals: searchText } }]
-                      : []),
+                    ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     {
                       html: { contains: searchText, mode: 'insensitive' },
                     },
@@ -129,9 +110,7 @@ export class SsoEmailTemplatesController {
             ...(searchText
               ? {
                   OR: [
-                    ...(isUUID(searchText)
-                      ? [{ id: { equals: searchText } }]
-                      : []),
+                    ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     {
                       html: { contains: searchText, mode: 'insensitive' },
                     },
@@ -184,11 +163,9 @@ export class SsoEmailTemplatesController {
   async updateOne(
     @CurrentSsoRequest() ssoRequest: SsoRequest,
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() args: UpdateSsoEmailTemplateDto
+    @Body() args: UpdateSsoEmailTemplateDto,
   ) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
-      ? undefined
-      : ssoRequest.ssoProject.id;
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
 
     const result = await this.prismaClient.ssoEmailTemplate.update({
       data: { ...omit(['operationName'], args), updatedAt: new Date() },
@@ -203,13 +180,8 @@ export class SsoEmailTemplatesController {
 
   @Get(':id')
   @ApiOkResponse({ type: SsoEmailTemplateDto })
-  async findOne(
-    @CurrentSsoRequest() ssoRequest: SsoRequest,
-    @Param('id', new ParseUUIDPipe()) id: string
-  ) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles)
-      ? undefined
-      : ssoRequest.ssoProject.id;
+  async findOne(@CurrentSsoRequest() ssoRequest: SsoRequest, @Param('id', new ParseUUIDPipe()) id: string) {
+    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
 
     return await this.prismaClient.ssoEmailTemplate.findFirstOrThrow({
       where: {

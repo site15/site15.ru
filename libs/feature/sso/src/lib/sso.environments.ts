@@ -1,9 +1,4 @@
-import {
-  ArrayOfStringTransformer,
-  BooleanTransformer,
-  EnvModel,
-  EnvModelProperty,
-} from '@nestjs-mod/common';
+import { ArrayOfStringTransformer, BooleanTransformer, EnvModel, EnvModelProperty } from '@nestjs-mod/common';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
 import ms from 'ms';
@@ -185,14 +180,12 @@ export class SsoStaticEnvironments {
 
   // oauth settings
   @EnvModelProperty({
-    description:
-      'Client ID for Google application (https://console.cloud.google.com/apis/credentials)',
+    description: 'Client ID for Google application (https://console.cloud.google.com/apis/credentials)',
   })
   googleOauthClientId?: string;
 
   @EnvModelProperty({
-    description:
-      'Client secret key for Google application (https://console.cloud.google.com/apis/credentials)',
+    description: 'Client secret key for Google application (https://console.cloud.google.com/apis/credentials)',
   })
   googleOauthClientSecretKey?: string;
 }

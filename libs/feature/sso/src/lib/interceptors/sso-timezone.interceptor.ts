@@ -1,10 +1,5 @@
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
-import {
-  CallHandler,
-  ExecutionContext,
-  Injectable,
-  NestInterceptor,
-} from '@nestjs/common';
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { isObservable, Observable } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { SsoCacheService } from '../services/sso-cache.service';
@@ -17,7 +12,7 @@ export class SsoTimezoneInterceptor implements NestInterceptor<TData, TData> {
   constructor(
     private readonly authTimezoneService: SsoTimezoneService,
     private readonly ssoCacheService: SsoCacheService,
-    private readonly asyncLocalStorage: SsoAsyncLocalStorageContext
+    private readonly asyncLocalStorage: SsoAsyncLocalStorageContext,
   ) {}
 
   intercept(context: ExecutionContext, next: CallHandler) {
@@ -30,7 +25,7 @@ export class SsoTimezoneInterceptor implements NestInterceptor<TData, TData> {
     const store = { authTimezone: req.ssoUser?.timezone || 0 };
     const wrapObservableForWorkWithAsyncLocalStorage = (
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      observable: Observable<any>
+      observable: Observable<any>,
     ) =>
       new Observable((observer) => {
         this.asyncLocalStorage.runWith(store, () => {
@@ -49,13 +44,10 @@ export class SsoTimezoneInterceptor implements NestInterceptor<TData, TData> {
         return wrapObservableForWorkWithAsyncLocalStorage(result).pipe(
           concatMap(async (data) => {
             const user = await this.ssoCacheService.getCachedUser({ userId });
-            const newData = this.authTimezoneService.convertObject(
-              data,
-              user?.timezone
-            );
+            const newData = this.authTimezoneService.convertObject(data, user?.timezone);
 
             return newData;
-          })
+          }),
         );
       }
       if (result instanceof Promise && typeof result?.then === 'function') {
@@ -66,27 +58,18 @@ export class SsoTimezoneInterceptor implements NestInterceptor<TData, TData> {
                 const user = await this.ssoCacheService.getCachedUser({
                   userId,
                 });
-                return this.authTimezoneService.convertObject(
-                  data,
-                  user?.timezone
-                );
-              })
+                return this.authTimezoneService.convertObject(data, user?.timezone);
+              }),
             );
           } else {
             const user = await this.ssoCacheService.getCachedUser({ userId });
             // need for correct map types with base method of NestInterceptor
-            return this.authTimezoneService.convertObject(
-              data,
-              user?.timezone
-            ) as Observable<TData>;
+            return this.authTimezoneService.convertObject(data, user?.timezone) as Observable<TData>;
           }
         });
       }
       // need for correct map types with base method of NestInterceptor
-      return this.authTimezoneService.convertObject(
-        result,
-        req.ssoUser?.timezone
-      ) as Observable<TData>;
+      return this.authTimezoneService.convertObject(result, req.ssoUser?.timezone) as Observable<TData>;
     };
 
     return run();

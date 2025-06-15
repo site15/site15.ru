@@ -19,12 +19,11 @@ export class SsoProjectService {
     private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoCacheService: SsoCacheService,
-    private readonly ssoTemplatesService: SsoTemplatesService
+    private readonly ssoTemplatesService: SsoTemplatesService,
   ) {}
 
   async createDefaultPublicProjects() {
-    for (const defaultPublicProject of this.ssoStaticEnvironments
-      .defaultPublicProjects || []) {
+    for (const defaultPublicProject of this.ssoStaticEnvironments.defaultPublicProjects || []) {
       try {
         const existsProject = await this.prismaClient.ssoProject.findFirst({
           where: {
@@ -32,9 +31,7 @@ export class SsoProjectService {
           },
         });
         if (existsProject) {
-          await this.ssoTemplatesService.createProjectDefaultEmailTemplates(
-            existsProject.id
-          );
+          await this.ssoTemplatesService.createProjectDefaultEmailTemplates(existsProject.id);
         }
         if (!existsProject) {
           const result = await this.prismaClient.ssoProject.create({
@@ -47,16 +44,10 @@ export class SsoProjectService {
             },
           });
 
-          await this.ssoTemplatesService.createProjectDefaultEmailTemplates(
-            result.id
-          );
+          await this.ssoTemplatesService.createProjectDefaultEmailTemplates(result.id);
 
-          await this.ssoCacheService.clearCacheProjectByClientId(
-            defaultPublicProject.clientId
-          );
-          await this.ssoCacheService.getCachedProject(
-            defaultPublicProject.clientId
-          );
+          await this.ssoCacheService.clearCacheProjectByClientId(defaultPublicProject.clientId);
+          await this.ssoCacheService.getCachedProject(defaultPublicProject.clientId);
         }
       } catch (err) {
         this.logger.error(err, (err as Error).stack);
@@ -69,25 +60,16 @@ export class SsoProjectService {
     req.ssoClientId = this.getClientIdFromRequest(req);
     req.ssoClientSecret = this.getClientSecretFromRequest(req);
 
-    if (
-      !req.ssoClientId &&
-      this.ssoStaticEnvironments.defaultProject?.clientId
-    ) {
+    if (!req.ssoClientId && this.ssoStaticEnvironments.defaultProject?.clientId) {
       req.ssoClientId = this.ssoStaticEnvironments.defaultProject?.clientId;
     }
 
-    if (
-      !req.ssoClientSecret &&
-      this.ssoStaticEnvironments.defaultProject?.clientSecret
-    ) {
-      req.ssoClientSecret =
-        this.ssoStaticEnvironments.defaultProject?.clientSecret;
+    if (!req.ssoClientSecret && this.ssoStaticEnvironments.defaultProject?.clientSecret) {
+      req.ssoClientSecret = this.ssoStaticEnvironments.defaultProject?.clientSecret;
     }
 
     if (req.ssoClientId) {
-      const project = await this.ssoCacheService.getCachedProject(
-        req.ssoClientId
-      );
+      const project = await this.ssoCacheService.getCachedProject(req.ssoClientId);
       if (project) {
         req.ssoProject = project;
       } else {
@@ -100,16 +82,14 @@ export class SsoProjectService {
   private getClientSecretFromRequest(req: SsoRequest) {
     return (
       req.ssoClientSecret ||
-      (this.ssoConfiguration.clientSecretHeaderName &&
-        req.headers?.[this.ssoConfiguration.clientSecretHeaderName])
+      (this.ssoConfiguration.clientSecretHeaderName && req.headers?.[this.ssoConfiguration.clientSecretHeaderName])
     );
   }
 
   private getClientIdFromRequest(req: SsoRequest) {
     return (
       req.ssoClientId ||
-      (this.ssoConfiguration.clientIdHeaderName &&
-        req.headers?.[this.ssoConfiguration.clientIdHeaderName])
+      (this.ssoConfiguration.clientIdHeaderName && req.headers?.[this.ssoConfiguration.clientIdHeaderName])
     );
   }
 
@@ -138,16 +118,10 @@ export class SsoProjectService {
         },
       });
 
-      await this.ssoTemplatesService.createProjectDefaultEmailTemplates(
-        result.id
-      );
-      await this.ssoCacheService.clearCacheProjectByClientId(
-        this.ssoStaticEnvironments.defaultProject?.clientId
-      );
+      await this.ssoTemplatesService.createProjectDefaultEmailTemplates(result.id);
+      await this.ssoCacheService.clearCacheProjectByClientId(this.ssoStaticEnvironments.defaultProject?.clientId);
 
-      const project = await this.ssoCacheService.getCachedProject(
-        this.ssoStaticEnvironments.defaultProject?.clientId
-      );
+      const project = await this.ssoCacheService.getCachedProject(this.ssoStaticEnvironments.defaultProject?.clientId);
 
       this.logger.log('Default project created!');
 

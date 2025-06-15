@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
-import {
-  SsoActiveLangService,
-  SsoActiveProjectService,
-  SsoService,
-  TokensService,
-} from '@nestjs-mod-sso/sso-afat';
+import { SsoActiveLangService, SsoActiveProjectService, SsoService, TokensService } from '@nestjs-mod-sso/sso-afat';
 import { FilesRestSdkAngularService } from '@nestjs-mod/files-afat';
 import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
 import { WebhookRestSdkAngularService } from '@nestjs-mod/webhook-afat';
@@ -23,7 +18,7 @@ export class AppInitializer {
     private readonly ssoActiveProjectService: SsoActiveProjectService,
     private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
     private readonly webhookRestSdkAngularService: WebhookRestSdkAngularService,
-    private readonly filesRestSdkAngularService: FilesRestSdkAngularService
+    private readonly filesRestSdkAngularService: FilesRestSdkAngularService,
   ) {}
 
   resolve() {
@@ -33,7 +28,7 @@ export class AppInitializer {
       catchError((err) => {
         console.error(err);
         return of(true);
-      })
+      }),
     );
   }
 
@@ -47,7 +42,7 @@ export class AppInitializer {
       this.ssoService.updateHeaders$.asObservable(),
       this.tokensService.getStream(),
       this.translocoService.langChanges$,
-      this.ssoActiveProjectService.activePublicProject$
+      this.ssoActiveProjectService.activePublicProject$,
     )
       .pipe(tap(() => this.updateHeaders()))
       .subscribe();

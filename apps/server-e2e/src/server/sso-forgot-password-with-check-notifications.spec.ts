@@ -32,14 +32,12 @@ describe('Sso forgot password with check notifications (e2e)', () => {
   });
 
   it('Create project', async () => {
-    const { data: createOneResult } = await admin
-      .getSsoApi()
-      .ssoProjectsControllerCreateOne({
-        public: false,
-        name: project.randomUser.uniqId,
-        clientId: project.randomUser.id,
-        clientSecret: project.randomUser.password,
-      });
+    const { data: createOneResult } = await admin.getSsoApi().ssoProjectsControllerCreateOne({
+      public: false,
+      name: project.randomUser.uniqId,
+      clientId: project.randomUser.id,
+      clientSecret: project.randomUser.password,
+    });
     expect(createOneResult).toHaveProperty('id');
   });
 
@@ -60,18 +58,11 @@ describe('Sso forgot password with check notifications (e2e)', () => {
   it('As admin get verify code from notifications and use it for verify as user', async () => {
     const { data: findManyResult } = await admin
       .getNotificationsApi()
-      .notificationsControllerFindMany(
-        undefined,
-        undefined,
-        user.randomUser.email,
-        undefined,
-        { headers: { 'x-client-id': project.randomUser.id } }
-      );
+      .notificationsControllerFindMany(undefined, undefined, user.randomUser.email, undefined, {
+        headers: { 'x-client-id': project.randomUser.id },
+      });
     expect(findManyResult.notifications).toHaveLength(1);
-    const code = findManyResult.notifications[0].html
-      .split('?code=')[1]
-      .split('&')[0]
-      .split('"')[0];
+    const code = findManyResult.notifications[0].html.split('?code=')[1].split('&')[0].split('"')[0];
 
     const { data: completeSignUpResult } = await user
       .getSsoApi()
@@ -82,15 +73,11 @@ describe('Sso forgot password with check notifications (e2e)', () => {
     expect(completeSignUpResult).toHaveProperty('user');
 
     // check tokens
-    const { data: profileResult } = await user
-      .getSsoApi()
-      .ssoControllerProfile({
-        headers: {
-          ...(completeSignUpResult.accessToken
-            ? { Authorization: `Bearer ${completeSignUpResult.accessToken}` }
-            : {}),
-        },
-      });
+    const { data: profileResult } = await user.getSsoApi().ssoControllerProfile({
+      headers: {
+        ...(completeSignUpResult.accessToken ? { Authorization: `Bearer ${completeSignUpResult.accessToken}` } : {}),
+      },
+    });
 
     expect(profileResult.email).toEqual(user.randomUser.email);
   });
@@ -109,60 +96,47 @@ describe('Sso forgot password with check notifications (e2e)', () => {
 
   it('Send link for restore forget password with change password logic', async () => {
     await setTimeout(30000);
-    const { data: forgotPasswordResult } = await user
-      .getSsoApi()
-      .ssoControllerForgotPassword(
-        { email: user.randomUser.email },
-        {
-          headers: {
-            'x-client-id': project.randomUser.id,
-          },
-        }
-      );
+    const { data: forgotPasswordResult } = await user.getSsoApi().ssoControllerForgotPassword(
+      { email: user.randomUser.email },
+      {
+        headers: {
+          'x-client-id': project.randomUser.id,
+        },
+      },
+    );
     expect(forgotPasswordResult).toMatchObject({ message: 'ok' });
   });
 
   it('As admin get complete forgot password code from notifications and use it for change password', async () => {
     const { data: findManyResult } = await admin
       .getNotificationsApi()
-      .notificationsControllerFindMany(
-        undefined,
-        undefined,
-        user.randomUser.email,
-        undefined,
-        { headers: { 'x-client-id': project.randomUser.id } }
-      );
-    expect(findManyResult.notifications).toHaveLength(2);
-    const code = findManyResult.notifications[0].html
-      .split('?code=')[1]
-      .split('&')[0]
-      .split('"')[0];
-
-    const { data: completeForgotPasswordResult } = await user
-      .getSsoApi()
-      .ssoControllerCompleteForgotPassword({
-        code,
-        password: user.randomUser.newPassword,
-        confirmPassword: user.randomUser.newPassword,
-        fingerprint: user.randomUser.id,
+      .notificationsControllerFindMany(undefined, undefined, user.randomUser.email, undefined, {
+        headers: { 'x-client-id': project.randomUser.id },
       });
+    expect(findManyResult.notifications).toHaveLength(2);
+    const code = findManyResult.notifications[0].html.split('?code=')[1].split('&')[0].split('"')[0];
+
+    const { data: completeForgotPasswordResult } = await user.getSsoApi().ssoControllerCompleteForgotPassword({
+      code,
+      password: user.randomUser.newPassword,
+      confirmPassword: user.randomUser.newPassword,
+      fingerprint: user.randomUser.id,
+    });
 
     expect(completeForgotPasswordResult).toHaveProperty('accessToken');
     expect(completeForgotPasswordResult).toHaveProperty('refreshToken');
     expect(completeForgotPasswordResult).toHaveProperty('user');
 
     // check tokens
-    const { data: profileResult } = await user
-      .getSsoApi()
-      .ssoControllerProfile({
-        headers: {
-          ...(completeForgotPasswordResult.accessToken
-            ? {
-                Authorization: `Bearer ${completeForgotPasswordResult.accessToken}`,
-              }
-            : {}),
-        },
-      });
+    const { data: profileResult } = await user.getSsoApi().ssoControllerProfile({
+      headers: {
+        ...(completeForgotPasswordResult.accessToken
+          ? {
+              Authorization: `Bearer ${completeForgotPasswordResult.accessToken}`,
+            }
+          : {}),
+      },
+    });
 
     expect(profileResult.email).toEqual(user.randomUser.email);
   });
@@ -174,7 +148,7 @@ describe('Sso forgot password with check notifications (e2e)', () => {
         password: user.randomUser.newPassword,
         fingerprint: user.randomUser.id,
       },
-      { headers: { 'x-client-id': project.randomUser.id } }
+      { headers: { 'x-client-id': project.randomUser.id } },
     );
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');
@@ -183,12 +157,10 @@ describe('Sso forgot password with check notifications (e2e)', () => {
   });
 
   it('Should refresh tokens successfully', async () => {
-    const { data: refreshTokensResult } = await user
-      .getSsoApi()
-      .ssoControllerRefreshTokens({
-        fingerprint: user.randomUser.id,
-        refreshToken: userTokens.refreshToken,
-      });
+    const { data: refreshTokensResult } = await user.getSsoApi().ssoControllerRefreshTokens({
+      fingerprint: user.randomUser.id,
+      refreshToken: userTokens.refreshToken,
+    });
     expect(refreshTokensResult).toHaveProperty('accessToken');
     expect(refreshTokensResult).toHaveProperty('refreshToken');
     expect(refreshTokensResult).toHaveProperty('user');
@@ -200,11 +172,9 @@ describe('Sso forgot password with check notifications (e2e)', () => {
       { refreshToken: userTokens.refreshToken },
       {
         headers: {
-          ...(userTokens.accessToken
-            ? { Authorization: `Bearer ${userTokens.accessToken}` }
-            : {}),
+          ...(userTokens.accessToken ? { Authorization: `Bearer ${userTokens.accessToken}` } : {}),
         },
-      }
+      },
     );
     expect(signOutResult.message).toEqual('ok');
   });
