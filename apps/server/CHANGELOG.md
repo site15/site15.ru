@@ -1,3 +1,9 @@
+## [1.17.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.17.0...server-v1.17.1) (2025-06-15)
+
+### Bug Fixes
+
+- format code ([6528c34](https://github.com/nestjs-mod/nestjs-mod-sso/commit/6528c34512871ad18043348b8922ebe574ba1f1e))
+
 # [1.17.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.16.0...server-v1.17.0) (2025-06-13)
 
 ### Features
