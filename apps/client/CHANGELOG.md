@@ -1,3 +1,9 @@
+## [1.14.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.14.0...client-v1.14.1) (2025-06-15)
+
+### Bug Fixes
+
+- format code ([6528c34](https://github.com/nestjs-mod/nestjs-mod-sso/commit/6528c34512871ad18043348b8922ebe574ba1f1e))
+
 # [1.14.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.13.0...client-v1.14.0) (2025-06-13)
 
 ### Features
