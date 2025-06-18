@@ -17,5 +17,6 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     ActiveProjectPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class TemplatesComponent {}

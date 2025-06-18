@@ -52,6 +52,7 @@ import { SsoUserService } from '../../services/sso-user.service';
   selector: 'sso-user-grid',
   templateUrl: './sso-user-grid.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SsoUserGridComponent implements OnInit, OnChanges {
   @Input()

@@ -21,10 +21,11 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
-import { BehaviorSubject, catchError, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, distinctUntilChanged, of, tap } from 'rxjs';
 import { SsoForgotPasswordFormService } from '../../services/auth-forgot-password-form.service';
 import { SsoService } from '../../services/auth.service';
 import { SsoForgotPasswordInput } from '../../services/auth.types';
+import { compare } from '@nestjs-mod/misc';
 
 @UntilDestroy()
 @Component({
@@ -49,6 +50,7 @@ import { SsoForgotPasswordInput } from '../../services/auth.types';
   selector: 'sso-forgot-password-form',
   templateUrl: './auth-forgot-password-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SsoForgotPasswordFormComponent implements OnInit {
   @Input()
@@ -60,6 +62,7 @@ export class SsoForgotPasswordFormComponent implements OnInit {
   form = new UntypedFormGroup({});
   formlyModel$ = new BehaviorSubject<object | null>(null);
   formlyFields$ = new BehaviorSubject<FormlyFieldConfig[] | null>(null);
+  errors?: ValidationErrorMetadataInterface[];
 
   constructor(
     @Optional()
@@ -81,6 +84,18 @@ export class SsoForgotPasswordFormComponent implements OnInit {
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
         }),
+      )
+      .subscribe();
+
+    this.form.valueChanges
+      .pipe(
+        distinctUntilChanged((prev, cur) => compare(prev, cur).different.length === 0),
+        tap((data) => {
+          if (this.errors?.length) {
+            this.setFormlyFields({ data, errors: [] });
+          }
+        }),
+        untilDestroyed(this),
       )
       .subscribe();
 
@@ -129,5 +144,6 @@ export class SsoForgotPasswordFormComponent implements OnInit {
 
   private setFormlyFields(options?: { data?: SsoForgotPasswordInput; errors?: ValidationErrorMetadataInterface[] }) {
     this.formlyFields$.next(this.authForgotPasswordFormService.getFormlyFields(options));
+    this.errors = options?.errors || [];
   }
 }

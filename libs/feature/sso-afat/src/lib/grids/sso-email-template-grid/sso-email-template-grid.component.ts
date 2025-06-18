@@ -50,6 +50,7 @@ import { SsoEmailTemplateService } from '../../services/sso-email-template.servi
   selector: 'sso-email-template-grid',
   templateUrl: './sso-email-template-grid.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SsoEmailTemplateGridComponent implements OnInit {
   @Input()

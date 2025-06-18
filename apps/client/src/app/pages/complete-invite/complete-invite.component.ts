@@ -15,6 +15,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
   templateUrl: './complete-invite.component.html',
   imports: [NzBreadCrumbModule, TranslocoDirective, SsoCompleteForgotPasswordFormComponent, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class CompleteInviteComponent {
   code?: string | null;

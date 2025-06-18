@@ -12,8 +12,9 @@ import {
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod/afat';
+import { compare } from '@nestjs-mod/misc';
+import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -22,12 +23,11 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
-import { BehaviorSubject, catchError, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, distinctUntilChanged, of, tap } from 'rxjs';
 import { SsoSignInFormService } from '../../services/auth-sign-in-form.service';
 import { SsoSignInMapperService } from '../../services/auth-sign-in-mapper.service';
 import { SsoService } from '../../services/auth.service';
-import { SsoLoginInput, SsoUserAndTokens, OAuthProvider } from '../../services/auth.types';
-import { SsoActiveProjectService } from '../../services/sso-active-project.service';
+import { OAuthProvider, SsoLoginInput, SsoUserAndTokens } from '../../services/auth.types';
 @UntilDestroy()
 @Component({
   imports: [
@@ -53,6 +53,7 @@ import { SsoActiveProjectService } from '../../services/sso-active-project.servi
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SsoSignInFormComponent implements OnInit {
   @Input()
@@ -65,6 +66,7 @@ export class SsoSignInFormComponent implements OnInit {
   formlyModel$ = new BehaviorSubject<object | null>(null);
   formlyFields$ = new BehaviorSubject<FormlyFieldConfig[] | null>(null);
   oAuthProviders$ = new BehaviorSubject<OAuthProvider[] | null>(null);
+  errors?: ValidationErrorMetadataInterface[];
 
   constructor(
     @Optional()
@@ -89,6 +91,18 @@ export class SsoSignInFormComponent implements OnInit {
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
         }),
+      )
+      .subscribe();
+
+    this.form.valueChanges
+      .pipe(
+        distinctUntilChanged((prev, cur) => compare(prev, cur).different.length === 0),
+        tap((data) => {
+          if (this.errors?.length) {
+            this.setFormlyFields({ data, errors: [] });
+          }
+        }),
+        untilDestroyed(this),
       )
       .subscribe();
 
@@ -143,5 +157,6 @@ export class SsoSignInFormComponent implements OnInit {
 
   private setFormlyFields(options?: { data?: SsoLoginInput; errors?: ValidationErrorMetadataInterface[] }) {
     this.formlyFields$.next(this.authSignInFormService.getFormlyFields(options));
+    this.errors = options?.errors || [];
   }
 }

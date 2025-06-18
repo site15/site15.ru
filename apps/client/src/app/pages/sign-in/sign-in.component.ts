@@ -11,6 +11,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
   templateUrl: './sign-in.component.html',
   imports: [NzBreadCrumbModule, TranslocoDirective, SsoSignInFormComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SignInComponent {
   constructor(

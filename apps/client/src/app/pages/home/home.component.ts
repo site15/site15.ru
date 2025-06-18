@@ -9,5 +9,6 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
   templateUrl: './home.component.html',
   imports: [NzBreadCrumbModule, NzTypographyModule, TranslocoDirective, NzCollapseModule, TranslocoPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class HomeComponent {}

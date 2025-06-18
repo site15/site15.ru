@@ -10,5 +10,6 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
   templateUrl: './projects.component.html',
   imports: [NzBreadCrumbModule, SsoProjectGridComponent, NzGridModule, NzLayoutModule, TranslocoDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class ProjectsComponent {}

@@ -50,6 +50,7 @@ import { SsoProjectService } from '../../services/sso-project.service';
   selector: 'sso-project-grid',
   templateUrl: './sso-project-grid.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SsoProjectGridComponent implements OnInit {
   @Input()

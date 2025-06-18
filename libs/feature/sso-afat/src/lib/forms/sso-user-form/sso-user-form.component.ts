@@ -11,9 +11,9 @@ import {
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod/afat';
 import { FilesService } from '@nestjs-mod/files-afat';
+import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -21,10 +21,11 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
-import { BehaviorSubject, catchError, map, mergeMap, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, distinctUntilChanged, map, mergeMap, of, tap, throwError } from 'rxjs';
 import { SsoUserFormService } from '../../services/sso-user-form.service';
 import { SsoUserMapperService, SsoUserModel } from '../../services/sso-user-mapper.service';
 import { SsoUserService } from '../../services/sso-user.service';
+import { compare } from '@nestjs-mod/misc';
 
 @UntilDestroy()
 @Component({
@@ -41,6 +42,7 @@ import { SsoUserService } from '../../services/sso-user.service';
   selector: 'sso-user-form',
   templateUrl: './sso-user-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SsoUserFormComponent implements OnInit {
   @Input()
@@ -61,6 +63,7 @@ export class SsoUserFormComponent implements OnInit {
   form = new UntypedFormGroup({});
   formlyModel$ = new BehaviorSubject<object | null>(null);
   formlyFields$ = new BehaviorSubject<FormlyFieldConfig[] | null>(null);
+  errors?: ValidationErrorMetadataInterface[];
 
   constructor(
     @Optional()
@@ -84,6 +87,18 @@ export class SsoUserFormComponent implements OnInit {
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
         }),
+      )
+      .subscribe();
+
+    this.form.valueChanges
+      .pipe(
+        distinctUntilChanged((prev, cur) => compare(prev, cur).different.length === 0),
+        tap((data) => {
+          if (this.errors?.length) {
+            this.setFormlyFields({ errors: [] });
+          }
+        }),
+        untilDestroyed(this),
       )
       .subscribe();
 
@@ -169,5 +184,6 @@ export class SsoUserFormComponent implements OnInit {
 
   private setFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
     this.formlyFields$.next(this.ssoUserFormService.getFormlyFields(options));
+    this.errors = options?.errors || [];
   }
 }

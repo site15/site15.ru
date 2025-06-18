@@ -15,6 +15,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
   templateUrl: './complete-forgot-password.component.html',
   imports: [NzBreadCrumbModule, TranslocoDirective, SsoCompleteForgotPasswordFormComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class CompleteForgotPasswordComponent {
   code?: string | null;

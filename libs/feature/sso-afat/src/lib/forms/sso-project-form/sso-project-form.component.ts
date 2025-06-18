@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod/afat';
+import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -20,10 +20,11 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
-import { BehaviorSubject, catchError, mergeMap, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, distinctUntilChanged, mergeMap, of, tap, throwError } from 'rxjs';
 import { SsoProjectFormService } from '../../services/sso-project-form.service';
 import { SsoProjectMapperService, SsoProjectModel } from '../../services/sso-project-mapper.service';
 import { SsoProjectService } from '../../services/sso-project.service';
+import { compare } from '@nestjs-mod/misc';
 
 @UntilDestroy()
 @Component({
@@ -40,6 +41,7 @@ import { SsoProjectService } from '../../services/sso-project.service';
   selector: 'sso-project-form',
   templateUrl: './sso-project-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SsoProjectFormComponent implements OnInit {
   @Input()
@@ -60,6 +62,7 @@ export class SsoProjectFormComponent implements OnInit {
   form = new UntypedFormGroup({});
   formlyModel$ = new BehaviorSubject<object | null>(null);
   formlyFields$ = new BehaviorSubject<FormlyFieldConfig[] | null>(null);
+  errors?: ValidationErrorMetadataInterface[];
 
   constructor(
     @Optional()
@@ -82,6 +85,18 @@ export class SsoProjectFormComponent implements OnInit {
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
         }),
+      )
+      .subscribe();
+
+    this.form.valueChanges
+      .pipe(
+        distinctUntilChanged((prev, cur) => compare(prev, cur).different.length === 0),
+        tap(() => {
+          if (this.errors?.length) {
+            this.setFormlyFields({ errors: [] });
+          }
+        }),
+        untilDestroyed(this),
       )
       .subscribe();
 
@@ -181,5 +196,6 @@ export class SsoProjectFormComponent implements OnInit {
 
   private setFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
     this.formlyFields$.next(this.ssoProjectFormService.getFormlyFields(options));
+    this.errors = options?.errors || [];
   }
 }

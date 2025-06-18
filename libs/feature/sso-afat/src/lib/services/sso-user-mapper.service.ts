@@ -8,11 +8,19 @@ export interface SsoUserModel
   extends Partial<
     Omit<
       SsoUserDtoInterface,
-      'emailVerifiedAt' | 'phoneVerifiedAt' | 'birthdate' | 'createdAt' | 'updatedAt' | 'appData' | 'roles'
+      | 'revokedAt'
+      | 'emailVerifiedAt'
+      | 'phoneVerifiedAt'
+      | 'birthdate'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'appData'
+      | 'roles'
     >
   > {
   roles: string[];
   appData?: string | null;
+  revokedAt?: Date | null;
   emailVerifiedAt?: Date | null;
   phoneVerifiedAt?: Date | null;
   birthdate?: Date | null;
@@ -27,6 +35,7 @@ export class SsoUserMapperService {
       ...item,
       roles: item?.roles ? item.roles.split(',') : [],
       appData: item?.appData ? JSON.stringify(item.appData) : '',
+      revokedAt: item?.revokedAt ? addHours(new Date(item.revokedAt), TIMEZONE_OFFSET) : null,
       emailVerifiedAt: item?.emailVerifiedAt ? addHours(new Date(item.emailVerifiedAt), TIMEZONE_OFFSET) : null,
       phoneVerifiedAt: item?.phoneVerifiedAt ? addHours(new Date(item.phoneVerifiedAt), TIMEZONE_OFFSET) : null,
       birthdate: item?.birthdate ? addHours(new Date(item.birthdate), TIMEZONE_OFFSET) : null,
@@ -38,6 +47,7 @@ export class SsoUserMapperService {
   toForm(model: SsoUserModel) {
     return {
       ...model,
+      revokedAt: model.revokedAt ? format(model.revokedAt, 'yyyy-MM-dd HH:mm:ss') : null,
       emailVerifiedAt: model.emailVerifiedAt ? format(model.emailVerifiedAt, 'yyyy-MM-dd HH:mm:ss') : null,
       phoneVerifiedAt: model.phoneVerifiedAt ? format(model.phoneVerifiedAt, 'yyyy-MM-dd HH:mm:ss') : null,
       birthdate: model.birthdate ? format(model.birthdate, 'yyyy-MM-dd HH:mm:ss') : null,

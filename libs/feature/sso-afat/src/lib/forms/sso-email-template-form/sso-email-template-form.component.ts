@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod/afat';
+import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -20,10 +20,11 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA } from 'ng-zorro-antd/modal';
-import { BehaviorSubject, catchError, mergeMap, of, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, distinctUntilChanged, mergeMap, of, tap, throwError } from 'rxjs';
 import { SsoEmailTemplateFormService } from '../../services/sso-email-template-form.service';
 import { SsoEmailTemplateMapperService, SsoEmailTemplateModel } from '../../services/sso-email-template-mapper.service';
 import { SsoEmailTemplateService } from '../../services/sso-email-template.service';
+import { compare } from '@nestjs-mod/misc';
 
 @UntilDestroy()
 @Component({
@@ -40,6 +41,7 @@ import { SsoEmailTemplateService } from '../../services/sso-email-template.servi
   selector: 'sso-email-template-form',
   templateUrl: './sso-email-template-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SsoEmailTemplateFormComponent implements OnInit {
   @Input()
@@ -60,6 +62,7 @@ export class SsoEmailTemplateFormComponent implements OnInit {
   form = new UntypedFormGroup({});
   formlyModel$ = new BehaviorSubject<object | null>(null);
   formlyFields$ = new BehaviorSubject<FormlyFieldConfig[] | null>(null);
+  errors?: ValidationErrorMetadataInterface[];
 
   constructor(
     @Optional()
@@ -82,6 +85,18 @@ export class SsoEmailTemplateFormComponent implements OnInit {
         tap(() => {
           this.formlyFields$.next(this.formlyFields$.value);
         }),
+      )
+      .subscribe();
+
+    this.form.valueChanges
+      .pipe(
+        distinctUntilChanged((prev, cur) => compare(prev, cur).different.length === 0),
+        tap((data) => {
+          if (this.errors?.length) {
+            this.setFormlyFields({ errors: [] });
+          }
+        }),
+        untilDestroyed(this),
       )
       .subscribe();
 
@@ -156,5 +171,6 @@ export class SsoEmailTemplateFormComponent implements OnInit {
 
   private setFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
     this.formlyFields$.next(this.ssoEmailTemplateFormService.getFormlyFields(options));
+    this.errors = options?.errors || [];
   }
 }

@@ -10,7 +10,6 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { Title } from '@angular/platform-browser';
-import { FilesService } from '@nestjs-mod/files-afat';
 import {
   CheckUserRolesPipe,
   SsoActiveLangService,
@@ -20,6 +19,7 @@ import {
   TokensService,
   UserPipe,
 } from '@nestjs-mod-sso/sso-afat';
+import { FilesService } from '@nestjs-mod/files-afat';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
@@ -28,6 +28,7 @@ import { APP_TITLE } from './app.constants';
 
 import { TIMEZONE_OFFSET } from '@nestjs-mod/misc';
 import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
+
 @UntilDestroy()
 @Component({
   imports: [
@@ -49,6 +50,7 @@ import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
   selector: 'app-root',
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class AppComponent implements OnInit {
   title!: string;
@@ -86,6 +88,9 @@ export class AppComponent implements OnInit {
   }
 
   getFullFilePath(value: string) {
+    if (typeof value !== 'string') {
+      return undefined;
+    }
     return (!value.toLowerCase().startsWith('http') ? this.filesService.getMinioURL() : '') + value;
   }
 

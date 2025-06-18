@@ -50,6 +50,7 @@ import { SsoSessionService } from '../../services/sso-session.service';
   selector: 'sso-session-grid',
   templateUrl: './sso-session-grid.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
 export class SsoSessionGridComponent implements OnInit, OnChanges {
   @Input({ required: true })
