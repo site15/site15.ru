@@ -1,3 +1,9 @@
+## [1.14.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.14.1...client-v1.14.2) (2025-06-18)
+
+### Bug Fixes
+
+- append reset server errors after update form values ([31da6ee](https://github.com/nestjs-mod/nestjs-mod-sso/commit/31da6ee1130f1f8eb735746881a7d07d6ee57f5d))
+
 ## [1.14.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.14.0...client-v1.14.1) (2025-06-15)
 
 ### Bug Fixes
