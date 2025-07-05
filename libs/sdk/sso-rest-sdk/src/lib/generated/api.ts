@@ -76,37 +76,49 @@ export interface CompleteSignUpArgs {
 /**
  * 
  * @export
- * @interface CreateSsoProjectDto
+ * @interface CreateSsoTenantDto
  */
-export interface CreateSsoProjectDto {
+export interface CreateSsoTenantDto {
     /**
      * 
      * @type {string}
-     * @memberof CreateSsoProjectDto
+     * @memberof CreateSsoTenantDto
+     */
+    'slug': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateSsoTenantDto
      */
     'name': string;
     /**
      * 
      * @type {object}
-     * @memberof CreateSsoProjectDto
+     * @memberof CreateSsoTenantDto
      */
     'nameLocale'?: object | null;
     /**
      * 
      * @type {string}
-     * @memberof CreateSsoProjectDto
+     * @memberof CreateSsoTenantDto
      */
     'clientId': string;
     /**
      * 
      * @type {string}
-     * @memberof CreateSsoProjectDto
+     * @memberof CreateSsoTenantDto
      */
     'clientSecret': string;
     /**
      * 
      * @type {boolean}
-     * @memberof CreateSsoProjectDto
+     * @memberof CreateSsoTenantDto
+     */
+    'enabled': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateSsoTenantDto
      */
     'public': boolean;
 }
@@ -279,38 +291,19 @@ export interface FindManySsoEmailTemplateResponse {
 /**
  * 
  * @export
- * @interface FindManySsoProjectResponse
+ * @interface FindManySsoPublicTenantResponse
  */
-export interface FindManySsoProjectResponse {
+export interface FindManySsoPublicTenantResponse {
     /**
      * 
-     * @type {Array<SsoProjectDto>}
-     * @memberof FindManySsoProjectResponse
+     * @type {Array<SsoPublicTenantDto>}
+     * @memberof FindManySsoPublicTenantResponse
      */
-    'ssoProjects': Array<SsoProjectDto>;
+    'ssoPublicTenants': Array<SsoPublicTenantDto>;
     /**
      * 
      * @type {FindManyResponseMeta}
-     * @memberof FindManySsoProjectResponse
-     */
-    'meta': FindManyResponseMeta;
-}
-/**
- * 
- * @export
- * @interface FindManySsoPublicProjectResponse
- */
-export interface FindManySsoPublicProjectResponse {
-    /**
-     * 
-     * @type {Array<SsoPublicProjectDto>}
-     * @memberof FindManySsoPublicProjectResponse
-     */
-    'ssoPublicProjects': Array<SsoPublicProjectDto>;
-    /**
-     * 
-     * @type {FindManyResponseMeta}
-     * @memberof FindManySsoPublicProjectResponse
+     * @memberof FindManySsoPublicTenantResponse
      */
     'meta': FindManyResponseMeta;
 }
@@ -357,6 +350,25 @@ export interface FindManySsoRoleResponse {
      * @memberof FindManySsoRoleResponse
      */
     'adminDefaultRoles': Array<string>;
+}
+/**
+ * 
+ * @export
+ * @interface FindManySsoTenantResponse
+ */
+export interface FindManySsoTenantResponse {
+    /**
+     * 
+     * @type {Array<SsoTenantDto>}
+     * @memberof FindManySsoTenantResponse
+     */
+    'ssoTenants': Array<SsoTenantDto>;
+    /**
+     * 
+     * @type {FindManyResponseMeta}
+     * @memberof FindManySsoTenantResponse
+     */
+    'meta': FindManyResponseMeta;
 }
 /**
  * 
@@ -902,6 +914,12 @@ export interface OAuthProvider {
     'name': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof OAuthProvider
+     */
+    'enabled': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof OAuthProvider
      */
@@ -1118,7 +1136,7 @@ export interface SsoEmailTemplate {
      * @type {string}
      * @memberof SsoEmailTemplate
      */
-    'projectId': string;
+    'tenantId': string;
     /**
      * 
      * @type {string}
@@ -1133,10 +1151,10 @@ export interface SsoEmailTemplate {
     'updatedAt': string;
     /**
      * 
-     * @type {SsoProject}
+     * @type {SsoTenant}
      * @memberof SsoEmailTemplate
      */
-    'SsoProject'?: SsoProject;
+    'SsoTenant'?: SsoTenant;
 }
 /**
  * 
@@ -1220,7 +1238,7 @@ export const SsoEmailTemplateScalarFieldEnum = {
     Html: 'html',
     HtmlLocale: 'htmlLocale',
     OperationName: 'operationName',
-    ProjectId: 'projectId',
+    TenantId: 'tenantId',
     CreatedAt: 'createdAt',
     UpdatedAt: 'updatedAt'
 } as const;
@@ -1234,12 +1252,6 @@ export type SsoEmailTemplateScalarFieldEnum = typeof SsoEmailTemplateScalarField
  * @interface SsoEntities
  */
 export interface SsoEntities {
-    /**
-     * 
-     * @type {SsoProjectScalarFieldEnum}
-     * @memberof SsoEntities
-     */
-    'SsoProject': SsoProjectScalarFieldEnum;
     /**
      * 
      * @type {SsoUserScalarFieldEnum}
@@ -1276,6 +1288,12 @@ export interface SsoEntities {
      * @memberof SsoEntities
      */
     'SsoOAuthToken': SsoOAuthTokenScalarFieldEnum;
+    /**
+     * 
+     * @type {SsoTenantScalarFieldEnum}
+     * @memberof SsoEntities
+     */
+    'SsoTenant': SsoTenantScalarFieldEnum;
     /**
      * 
      * @type {SsoRole}
@@ -1363,6 +1381,12 @@ export interface SsoOAuthProvider {
     'name': string;
     /**
      * 
+     * @type {boolean}
+     * @memberof SsoOAuthProvider
+     */
+    'enabled': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof SsoOAuthProvider
      */
@@ -1395,6 +1419,7 @@ export interface SsoOAuthProvider {
 export const SsoOAuthProviderScalarFieldEnum = {
     Id: 'id',
     Name: 'name',
+    Enabled: 'enabled',
     CreatedAt: 'createdAt',
     UpdatedAt: 'updatedAt'
 } as const;
@@ -1522,7 +1547,7 @@ export interface SsoOAuthToken {
      * @type {string}
      * @memberof SsoOAuthToken
      */
-    'projectId': string;
+    'tenantId': string;
     /**
      * 
      * @type {string}
@@ -1555,16 +1580,16 @@ export interface SsoOAuthToken {
     'updatedAt': string;
     /**
      * 
-     * @type {SsoProject}
-     * @memberof SsoOAuthToken
-     */
-    'SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider'?: SsoProject;
-    /**
-     * 
      * @type {SsoOAuthProvider}
      * @memberof SsoOAuthToken
      */
     'SsoOAuthProvider'?: SsoOAuthProvider;
+    /**
+     * 
+     * @type {SsoTenant}
+     * @memberof SsoOAuthToken
+     */
+    'SsoTenant'?: SsoTenant;
     /**
      * 
      * @type {SsoUser}
@@ -1588,7 +1613,7 @@ export const SsoOAuthTokenScalarFieldEnum = {
     Scope: 'scope',
     VerificationCode: 'verificationCode',
     UserId: 'userId',
-    ProjectId: 'projectId',
+    TenantId: 'tenantId',
     ProviderId: 'providerId',
     ProviderUserId: 'providerUserId',
     ProviderUserData: 'providerUserData',
@@ -1621,197 +1646,55 @@ export interface SsoOAuthVerificationArgs {
 /**
  * 
  * @export
- * @interface SsoProject
+ * @interface SsoPublicTenantDto
  */
-export interface SsoProject {
+export interface SsoPublicTenantDto {
     /**
      * 
      * @type {string}
-     * @memberof SsoProject
+     * @memberof SsoPublicTenantDto
      */
     'id': string;
     /**
      * 
      * @type {string}
-     * @memberof SsoProject
+     * @memberof SsoPublicTenantDto
+     */
+    'slug': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoPublicTenantDto
      */
     'name': string;
     /**
      * 
      * @type {object}
-     * @memberof SsoProject
+     * @memberof SsoPublicTenantDto
      */
     'nameLocale': object | null;
     /**
      * 
      * @type {string}
-     * @memberof SsoProject
+     * @memberof SsoPublicTenantDto
      */
     'clientId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoProject
-     */
-    'clientSecret': string;
     /**
      * 
      * @type {boolean}
-     * @memberof SsoProject
+     * @memberof SsoPublicTenantDto
      */
-    'public': boolean;
+    'enabled': boolean;
     /**
      * 
      * @type {string}
-     * @memberof SsoProject
+     * @memberof SsoPublicTenantDto
      */
     'createdAt': string;
     /**
      * 
      * @type {string}
-     * @memberof SsoProject
-     */
-    'updatedAt': string;
-    /**
-     * 
-     * @type {Array<SsoEmailTemplate>}
-     * @memberof SsoProject
-     */
-    'SsoEmailTemplate'?: Array<SsoEmailTemplate>;
-    /**
-     * 
-     * @type {Array<SsoOAuthToken>}
-     * @memberof SsoProject
-     */
-    'SsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProvider'?: Array<SsoOAuthToken>;
-    /**
-     * 
-     * @type {Array<SsoRefreshSession>}
-     * @memberof SsoProject
-     */
-    'SsoRefreshSession'?: Array<SsoRefreshSession>;
-    /**
-     * 
-     * @type {Array<SsoUser>}
-     * @memberof SsoProject
-     */
-    'SsoUser'?: Array<SsoUser>;
-}
-/**
- * 
- * @export
- * @interface SsoProjectDto
- */
-export interface SsoProjectDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoProjectDto
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoProjectDto
-     */
-    'name': string;
-    /**
-     * 
-     * @type {object}
-     * @memberof SsoProjectDto
-     */
-    'nameLocale': object | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoProjectDto
-     */
-    'clientId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoProjectDto
-     */
-    'clientSecret': string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof SsoProjectDto
-     */
-    'public': boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoProjectDto
-     */
-    'createdAt': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoProjectDto
-     */
-    'updatedAt': string;
-}
-/**
- * 
- * @export
- * @enum {string}
- */
-
-export const SsoProjectScalarFieldEnum = {
-    Id: 'id',
-    Name: 'name',
-    NameLocale: 'nameLocale',
-    ClientId: 'clientId',
-    ClientSecret: 'clientSecret',
-    Public: 'public',
-    CreatedAt: 'createdAt',
-    UpdatedAt: 'updatedAt'
-} as const;
-
-export type SsoProjectScalarFieldEnum = typeof SsoProjectScalarFieldEnum[keyof typeof SsoProjectScalarFieldEnum];
-
-
-/**
- * 
- * @export
- * @interface SsoPublicProjectDto
- */
-export interface SsoPublicProjectDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoPublicProjectDto
-     */
-    'id': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoPublicProjectDto
-     */
-    'name': string;
-    /**
-     * 
-     * @type {object}
-     * @memberof SsoPublicProjectDto
-     */
-    'nameLocale': object | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoPublicProjectDto
-     */
-    'clientId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoPublicProjectDto
-     */
-    'createdAt': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof SsoPublicProjectDto
+     * @memberof SsoPublicTenantDto
      */
     'updatedAt': string;
 }
@@ -1868,7 +1751,7 @@ export interface SsoRefreshSession {
      * @type {string}
      * @memberof SsoRefreshSession
      */
-    'projectId': string;
+    'tenantId': string;
     /**
      * 
      * @type {string}
@@ -1883,10 +1766,10 @@ export interface SsoRefreshSession {
     'updatedAt': string;
     /**
      * 
-     * @type {SsoProject}
+     * @type {SsoTenant}
      * @memberof SsoRefreshSession
      */
-    'SsoProject'?: SsoProject;
+    'SsoTenant'?: SsoTenant;
     /**
      * 
      * @type {SsoUser}
@@ -1965,7 +1848,7 @@ export const SsoRefreshSessionScalarFieldEnum = {
     UserData: 'userData',
     Enabled: 'enabled',
     UserId: 'userId',
-    ProjectId: 'projectId',
+    TenantId: 'tenantId',
     CreatedAt: 'createdAt',
     UpdatedAt: 'updatedAt'
 } as const;
@@ -1986,6 +1869,186 @@ export const SsoRole = {
 } as const;
 
 export type SsoRole = typeof SsoRole[keyof typeof SsoRole];
+
+
+/**
+ * 
+ * @export
+ * @interface SsoTenant
+ */
+export interface SsoTenant {
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenant
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenant
+     */
+    'slug': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenant
+     */
+    'name': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoTenant
+     */
+    'nameLocale': object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenant
+     */
+    'clientId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenant
+     */
+    'clientSecret': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SsoTenant
+     */
+    'enabled': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SsoTenant
+     */
+    'public': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenant
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenant
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {Array<SsoEmailTemplate>}
+     * @memberof SsoTenant
+     */
+    'SsoEmailTemplate'?: Array<SsoEmailTemplate>;
+    /**
+     * 
+     * @type {Array<SsoOAuthToken>}
+     * @memberof SsoTenant
+     */
+    'SsoOAuthToken'?: Array<SsoOAuthToken>;
+    /**
+     * 
+     * @type {Array<SsoRefreshSession>}
+     * @memberof SsoTenant
+     */
+    'SsoRefreshSession'?: Array<SsoRefreshSession>;
+    /**
+     * 
+     * @type {Array<SsoUser>}
+     * @memberof SsoTenant
+     */
+    'SsoUser'?: Array<SsoUser>;
+}
+/**
+ * 
+ * @export
+ * @interface SsoTenantDto
+ */
+export interface SsoTenantDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenantDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenantDto
+     */
+    'slug': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenantDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SsoTenantDto
+     */
+    'nameLocale': object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenantDto
+     */
+    'clientId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenantDto
+     */
+    'clientSecret': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SsoTenantDto
+     */
+    'enabled': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SsoTenantDto
+     */
+    'public': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenantDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SsoTenantDto
+     */
+    'updatedAt': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const SsoTenantScalarFieldEnum = {
+    Id: 'id',
+    Slug: 'slug',
+    Name: 'name',
+    NameLocale: 'nameLocale',
+    ClientId: 'clientId',
+    ClientSecret: 'clientSecret',
+    Enabled: 'enabled',
+    Public: 'public',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt'
+} as const;
+
+export type SsoTenantScalarFieldEnum = typeof SsoTenantScalarFieldEnum[keyof typeof SsoTenantScalarFieldEnum];
 
 
 /**
@@ -2095,7 +2158,7 @@ export interface SsoUser {
      * @type {string}
      * @memberof SsoUser
      */
-    'projectId': string;
+    'tenantId': string;
     /**
      * 
      * @type {string}
@@ -2122,10 +2185,10 @@ export interface SsoUser {
     'SsoRefreshSession'?: Array<SsoRefreshSession>;
     /**
      * 
-     * @type {SsoProject}
+     * @type {SsoTenant}
      * @memberof SsoUser
      */
-    'SsoProject'?: SsoProject;
+    'SsoTenant'?: SsoTenant;
 }
 /**
  * 
@@ -2266,7 +2329,7 @@ export const SsoUserScalarFieldEnum = {
     PhoneVerifiedAt: 'phoneVerifiedAt',
     Timezone: 'timezone',
     Lang: 'lang',
-    ProjectId: 'projectId',
+    TenantId: 'tenantId',
     CreatedAt: 'createdAt',
     UpdatedAt: 'updatedAt'
 } as const;
@@ -2587,43 +2650,6 @@ export interface UpdateSsoEmailTemplateDto {
 /**
  * 
  * @export
- * @interface UpdateSsoProjectDto
- */
-export interface UpdateSsoProjectDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateSsoProjectDto
-     */
-    'name'?: string;
-    /**
-     * 
-     * @type {object}
-     * @memberof UpdateSsoProjectDto
-     */
-    'nameLocale'?: object | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateSsoProjectDto
-     */
-    'clientId'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateSsoProjectDto
-     */
-    'clientSecret'?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UpdateSsoProjectDto
-     */
-    'public'?: boolean;
-}
-/**
- * 
- * @export
  * @interface UpdateSsoRefreshSessionDto
  */
 export interface UpdateSsoRefreshSessionDto {
@@ -2669,6 +2695,55 @@ export interface UpdateSsoRefreshSessionDto {
      * @memberof UpdateSsoRefreshSessionDto
      */
     'enabled'?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateSsoTenantDto
+ */
+export interface UpdateSsoTenantDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoTenantDto
+     */
+    'slug'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoTenantDto
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof UpdateSsoTenantDto
+     */
+    'nameLocale'?: object | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoTenantDto
+     */
+    'clientId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateSsoTenantDto
+     */
+    'clientSecret'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateSsoTenantDto
+     */
+    'enabled'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateSsoTenantDto
+     */
+    'public'?: boolean;
 }
 /**
  * 
@@ -4406,74 +4481,6 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
-         * @param {CreateSsoProjectDto} createSsoProjectDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoProjectsControllerCreateOne: async (createSsoProjectDto: CreateSsoProjectDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createSsoProjectDto' is not null or undefined
-            assertParamExists('ssoProjectsControllerCreateOne', 'createSsoProjectDto', createSsoProjectDto)
-            const localVarPath = `/api/sso/projects`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createSsoProjectDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoProjectsControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ssoProjectsControllerDeleteOne', 'id', id)
-            const localVarPath = `/api/sso/projects/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -4481,129 +4488,8 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoProjectsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sso/projects`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (curPage !== undefined) {
-                localVarQueryParameter['curPage'] = curPage;
-            }
-
-            if (perPage !== undefined) {
-                localVarQueryParameter['perPage'] = perPage;
-            }
-
-            if (searchText !== undefined) {
-                localVarQueryParameter['searchText'] = searchText;
-            }
-
-            if (sort !== undefined) {
-                localVarQueryParameter['sort'] = sort;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoProjectsControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ssoProjectsControllerFindOne', 'id', id)
-            const localVarPath = `/api/sso/projects/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateSsoProjectDto} updateSsoProjectDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoProjectsControllerUpdateOne: async (id: string, updateSsoProjectDto: UpdateSsoProjectDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('ssoProjectsControllerUpdateOne', 'id', id)
-            // verify required parameter 'updateSsoProjectDto' is not null or undefined
-            assertParamExists('ssoProjectsControllerUpdateOne', 'updateSsoProjectDto', updateSsoProjectDto)
-            const localVarPath = `/api/sso/projects/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateSsoProjectDto, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {number} [curPage] 
-         * @param {number} [perPage] 
-         * @param {string} [searchText] 
-         * @param {string} [sort] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoPublicProjectsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sso/public-projects`;
+        ssoPublicTenantsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sso/public-tenants`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -4801,15 +4687,204 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
         },
         /**
          * 
+         * @param {CreateSsoTenantDto} createSsoTenantDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoTenantsControllerCreateOne: async (createSsoTenantDto: CreateSsoTenantDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createSsoTenantDto' is not null or undefined
+            assertParamExists('ssoTenantsControllerCreateOne', 'createSsoTenantDto', createSsoTenantDto)
+            const localVarPath = `/api/sso/tenants`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createSsoTenantDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoTenantsControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ssoTenantsControllerDeleteOne', 'id', id)
+            const localVarPath = `/api/sso/tenants/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
          * @param {string} [sort] 
-         * @param {string} [projectId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoUsersControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        ssoTenantsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sso/tenants`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (curPage !== undefined) {
+                localVarQueryParameter['curPage'] = curPage;
+            }
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['perPage'] = perPage;
+            }
+
+            if (searchText !== undefined) {
+                localVarQueryParameter['searchText'] = searchText;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoTenantsControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ssoTenantsControllerFindOne', 'id', id)
+            const localVarPath = `/api/sso/tenants/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateSsoTenantDto} updateSsoTenantDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoTenantsControllerUpdateOne: async (id: string, updateSsoTenantDto: UpdateSsoTenantDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('ssoTenantsControllerUpdateOne', 'id', id)
+            // verify required parameter 'updateSsoTenantDto' is not null or undefined
+            assertParamExists('ssoTenantsControllerUpdateOne', 'updateSsoTenantDto', updateSsoTenantDto)
+            const localVarPath = `/api/sso/tenants/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateSsoTenantDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoUsersControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sso/users`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4838,8 +4913,8 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
                 localVarQueryParameter['sort'] = sort;
             }
 
-            if (projectId !== undefined) {
-                localVarQueryParameter['projectId'] = projectId;
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenantId'] = tenantId;
             }
 
 
@@ -5168,30 +5243,6 @@ export const SsoApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {CreateSsoProjectDto} createSsoProjectDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ssoProjectsControllerCreateOne(createSsoProjectDto: CreateSsoProjectDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProjectDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoProjectsControllerCreateOne(createSsoProjectDto, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoProjectsControllerCreateOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ssoProjectsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoProjectsControllerDeleteOne(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoProjectsControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -5199,50 +5250,10 @@ export const SsoApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ssoProjectsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoProjectResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoProjectsControllerFindMany(curPage, perPage, searchText, sort, options);
+        async ssoPublicTenantsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoPublicTenantResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoPublicTenantsControllerFindMany(curPage, perPage, searchText, sort, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoProjectsControllerFindMany']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ssoProjectsControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProjectDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoProjectsControllerFindOne(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoProjectsControllerFindOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateSsoProjectDto} updateSsoProjectDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ssoProjectsControllerUpdateOne(id: string, updateSsoProjectDto: UpdateSsoProjectDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoProjectDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoProjectsControllerUpdateOne(id, updateSsoProjectDto, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoProjectsControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {number} [curPage] 
-         * @param {number} [perPage] 
-         * @param {string} [searchText] 
-         * @param {string} [sort] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async ssoPublicProjectsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoPublicProjectResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoPublicProjectsControllerFindMany(curPage, perPage, searchText, sort, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoPublicProjectsControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoPublicTenantsControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -5299,16 +5310,80 @@ export const SsoApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {CreateSsoTenantDto} createSsoTenantDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoTenantsControllerCreateOne(createSsoTenantDto: CreateSsoTenantDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoTenantDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoTenantsControllerCreateOne(createSsoTenantDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoTenantsControllerCreateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoTenantsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoTenantsControllerDeleteOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoTenantsControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
          * @param {string} [sort] 
-         * @param {string} [projectId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoUserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoUsersControllerFindMany(curPage, perPage, searchText, sort, projectId, options);
+        async ssoTenantsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoTenantResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoTenantsControllerFindMany(curPage, perPage, searchText, sort, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoTenantsControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoTenantsControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoTenantDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoTenantsControllerFindOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoTenantsControllerFindOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateSsoTenantDto} updateSsoTenantDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoTenantsControllerUpdateOne(id: string, updateSsoTenantDto: UpdateSsoTenantDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SsoTenantDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoTenantsControllerUpdateOne(id, updateSsoTenantDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoTenantsControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoUserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoUsersControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoUsersControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5510,24 +5585,6 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
         },
         /**
          * 
-         * @param {CreateSsoProjectDto} createSsoProjectDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoProjectsControllerCreateOne(createSsoProjectDto: CreateSsoProjectDto, options?: RawAxiosRequestConfig): AxiosPromise<SsoProjectDto> {
-            return localVarFp.ssoProjectsControllerCreateOne(createSsoProjectDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoProjectsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
-            return localVarFp.ssoProjectsControllerDeleteOne(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
@@ -5535,39 +5592,8 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoProjectsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoProjectResponse> {
-            return localVarFp.ssoProjectsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoProjectsControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<SsoProjectDto> {
-            return localVarFp.ssoProjectsControllerFindOne(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {UpdateSsoProjectDto} updateSsoProjectDto 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoProjectsControllerUpdateOne(id: string, updateSsoProjectDto: UpdateSsoProjectDto, options?: RawAxiosRequestConfig): AxiosPromise<SsoProjectDto> {
-            return localVarFp.ssoProjectsControllerUpdateOne(id, updateSsoProjectDto, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {number} [curPage] 
-         * @param {number} [perPage] 
-         * @param {string} [searchText] 
-         * @param {string} [sort] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        ssoPublicProjectsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoPublicProjectResponse> {
-            return localVarFp.ssoPublicProjectsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
+        ssoPublicTenantsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoPublicTenantResponse> {
+            return localVarFp.ssoPublicTenantsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5611,16 +5637,65 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
         },
         /**
          * 
+         * @param {CreateSsoTenantDto} createSsoTenantDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoTenantsControllerCreateOne(createSsoTenantDto: CreateSsoTenantDto, options?: RawAxiosRequestConfig): AxiosPromise<SsoTenantDto> {
+            return localVarFp.ssoTenantsControllerCreateOne(createSsoTenantDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoTenantsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.ssoTenantsControllerDeleteOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {number} [curPage] 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
          * @param {string} [sort] 
-         * @param {string} [projectId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoUserResponse> {
-            return localVarFp.ssoUsersControllerFindMany(curPage, perPage, searchText, sort, projectId, options).then((request) => request(axios, basePath));
+        ssoTenantsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoTenantResponse> {
+            return localVarFp.ssoTenantsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoTenantsControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<SsoTenantDto> {
+            return localVarFp.ssoTenantsControllerFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateSsoTenantDto} updateSsoTenantDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoTenantsControllerUpdateOne(id: string, updateSsoTenantDto: UpdateSsoTenantDto, options?: RawAxiosRequestConfig): AxiosPromise<SsoTenantDto> {
+            return localVarFp.ssoTenantsControllerUpdateOne(id, updateSsoTenantDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoUserResponse> {
+            return localVarFp.ssoUsersControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5842,28 +5917,6 @@ export class SsoApi extends BaseAPI {
 
     /**
      * 
-     * @param {CreateSsoProjectDto} createSsoProjectDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SsoApi
-     */
-    public ssoProjectsControllerCreateOne(createSsoProjectDto: CreateSsoProjectDto, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoProjectsControllerCreateOne(createSsoProjectDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SsoApi
-     */
-    public ssoProjectsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoProjectsControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
      * @param {number} [curPage] 
      * @param {number} [perPage] 
      * @param {string} [searchText] 
@@ -5872,45 +5925,8 @@ export class SsoApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SsoApi
      */
-    public ssoProjectsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoProjectsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SsoApi
-     */
-    public ssoProjectsControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoProjectsControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {UpdateSsoProjectDto} updateSsoProjectDto 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SsoApi
-     */
-    public ssoProjectsControllerUpdateOne(id: string, updateSsoProjectDto: UpdateSsoProjectDto, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoProjectsControllerUpdateOne(id, updateSsoProjectDto, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {number} [curPage] 
-     * @param {number} [perPage] 
-     * @param {string} [searchText] 
-     * @param {string} [sort] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SsoApi
-     */
-    public ssoPublicProjectsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoPublicProjectsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
+    public ssoPublicTenantsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoPublicTenantsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -5963,17 +5979,76 @@ export class SsoApi extends BaseAPI {
 
     /**
      * 
-     * @param {number} [curPage] 
-     * @param {number} [perPage] 
-     * @param {string} [searchText] 
-     * @param {string} [sort] 
-     * @param {string} [projectId] 
+     * @param {CreateSsoTenantDto} createSsoTenantDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SsoApi
      */
-    public ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, projectId?: string, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoUsersControllerFindMany(curPage, perPage, searchText, sort, projectId, options).then((request) => request(this.axios, this.basePath));
+    public ssoTenantsControllerCreateOne(createSsoTenantDto: CreateSsoTenantDto, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoTenantsControllerCreateOne(createSsoTenantDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoTenantsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoTenantsControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoTenantsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoTenantsControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoTenantsControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoTenantsControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {UpdateSsoTenantDto} updateSsoTenantDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoTenantsControllerUpdateOne(id: string, updateSsoTenantDto: UpdateSsoTenantDto, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoTenantsControllerUpdateOne(id, updateSsoTenantDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {string} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SsoApi
+     */
+    public ssoUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoUsersControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

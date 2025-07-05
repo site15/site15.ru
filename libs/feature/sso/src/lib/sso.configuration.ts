@@ -14,13 +14,13 @@ export type SsoSendNotificationOptions = {
   subject: string;
   html: string;
   text?: string;
-  projectId: string;
+  tenantId: string;
   operationName: OperationName;
 };
 
 export type SsoTwoFactorCodeValidateOptions = {
   code: string;
-  projectId: string;
+  tenantId: string;
   operationName: OperationName;
 };
 

@@ -1,7 +1,7 @@
 <div class="table-operations" nz-row nzJustify="space-between">
   <div nz-col nzSpan="8">
-    @if (projectId) {
-      {{ 'Users for project #{{projectId}}' | transloco:{projectId} }}
+    @if (tenantId) {
+      {{ 'Users for tenant #{{tenantId}}' | transloco:{tenantId} }}
     } @else {
       <button nz-button nzType="primary" (click)="showInviteMembersModal()" transloco="Invite Members"></button>
     }

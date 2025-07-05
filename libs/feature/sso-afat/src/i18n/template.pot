@@ -6,8 +6,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-msgid "Users for project #{{projectId}}"
-msgstr "Users for project #{{projectId}}"
+msgid "Users for tenant #{{tenantId}}"
+msgstr "Users for tenant #{{tenantId}}"
 
 msgid "input search text"
 msgstr "input search text"
@@ -21,14 +21,14 @@ msgstr "Action"
 msgid "Edit"
 msgstr "Edit"
 
-msgid "Sessions for user #{{userId}}"
-msgstr "Sessions for user #{{userId}}"
-
 msgid "Create new"
 msgstr "Create new"
 
 msgid "Delete"
 msgstr "Delete"
+
+msgid "Sessions for user #{{userId}}"
+msgstr "Sessions for user #{{userId}}"
 
 msgid "Email templates"
 msgstr "Email templates"
@@ -108,6 +108,24 @@ msgstr "Roles"
 msgid "sso-user.form.fields.username"
 msgstr "Username"
 
+msgid "sso-tenant.form.fields.name-locale"
+msgstr "Name ({{locale}})"
+
+msgid "sso-tenant.form.fields.client-id"
+msgstr "Client id"
+
+msgid "sso-tenant.form.fields.client-secret"
+msgstr "Client secret"
+
+msgid "sso-tenant.form.fields.public"
+msgstr "Public"
+
+msgid "sso-tenant.form.fields.slug"
+msgstr "Subdomain"
+
+msgid "sso-tenant.form.fields.enabled"
+msgstr "Enabled"
+
 msgid "sso-session.form.fields.enabled"
 msgstr "Enabled"
 
@@ -125,18 +143,6 @@ msgstr "User data"
 
 msgid "sso-session.form.fields.user-ip"
 msgstr "IP address"
-
-msgid "sso-project.form.fields.name-locale"
-msgstr "Name ({{locale}})"
-
-msgid "sso-project.form.fields.client-id"
-msgstr "Client id"
-
-msgid "sso-project.form.fields.client-secret"
-msgstr "Client secret"
-
-msgid "sso-project.form.fields.public"
-msgstr "Public"
 
 msgid "sso-email-template.form.fields.operation-name"
 msgstr "Operation name"
@@ -348,6 +354,36 @@ msgstr "Roles"
 msgid "sso-user.grid.columns.username"
 msgstr "Username"
 
+msgid "sso-tenant.update-modal.title"
+msgstr "Edit tenant #{{ id }}"
+
+msgid "sso-tenant.create-modal.title"
+msgstr "Create tenant"
+
+msgid "sso-tenant.delete-modal.title"
+msgstr "Delete tenant #{{ id }}"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "sso-tenant.grid.columns.id"
+msgstr "ID"
+
+msgid "sso-tenant.grid.columns.name"
+msgstr "Name"
+
+msgid "sso-tenant.grid.columns.client-id"
+msgstr "Client ID"
+
+msgid "sso-tenant.grid.columns.client-secret"
+msgstr "Client secret"
+
+msgid "sso-tenant.grid.columns.public"
+msgstr "Public"
+
 msgid "sso-session.update-modal.title"
 msgstr "Eedit session #{{ id }}"
 
@@ -374,36 +410,6 @@ msgstr "User data"
 
 msgid "sso-session.grid.columns.enabled"
 msgstr "Enabled"
-
-msgid "sso-project.update-modal.title"
-msgstr "Edit project #{{ id }}"
-
-msgid "sso-project.create-modal.title"
-msgstr "Create project"
-
-msgid "sso-project.delete-modal.title"
-msgstr "Delete project #{{ id }}"
-
-msgid "Yes"
-msgstr "Yes"
-
-msgid "No"
-msgstr "No"
-
-msgid "sso-project.grid.columns.id"
-msgstr "ID"
-
-msgid "sso-project.grid.columns.name"
-msgstr "Name"
-
-msgid "sso-project.grid.columns.client-id"
-msgstr "Client ID"
-
-msgid "sso-project.grid.columns.client-secret"
-msgstr "Client secret"
-
-msgid "sso-project.grid.columns.public"
-msgstr "Public"
 
 msgid "sso-email-template.update-modal.title"
 msgstr "Edit email template #{{ id }}"
@@ -451,10 +457,10 @@ msgstr ""
 msgid "Your password has been successfully changed!"
 msgstr "Your password has been successfully changed!"
 
-msgid "Project users"
-msgstr "Project users"
+msgid "Tenant users"
+msgstr "Tenant users"
 
-msgid "sso-project.form.fields.name"
+msgid "sso-tenant.form.fields.name"
 msgstr "Name"
 
 msgid "sso-user.delete-modal.title"

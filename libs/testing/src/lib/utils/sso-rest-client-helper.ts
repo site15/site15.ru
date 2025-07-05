@@ -1,7 +1,7 @@
 import { FilesRestSdkService } from '@nestjs-mod/files';
 import { NotificationsRestSdkService } from '@nestjs-mod/notifications';
 import {
-  SsoProject,
+  SsoTenant,
   SsoRestSdkService,
   SsoRole,
   SsoUserDto,
@@ -22,8 +22,8 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
 
   randomUser: T extends 'strict' ? GenerateRandomUserResult : GenerateRandomUserResult | undefined;
 
-  private projectHelper?: SsoRestClientHelper<'strict'>;
-  private project?: SsoProject;
+  private tenantHelper?: SsoRestClientHelper<'strict'>;
+  private tenant?: SsoTenant;
 
   private ssoRestSdkService!: SsoRestSdkService;
   private webhookRestSdkService!: WebhookRestSdkService;
@@ -37,7 +37,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       activeLang?: string;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       headers?: any;
-      skipCreateProjectHelper?: boolean;
+      skipCreateTenantHelper?: boolean;
     },
   ) {
     this.randomUser = options?.randomUser as GenerateRandomUserResult;
@@ -64,10 +64,10 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       serverUrl: this.getServerUrl(),
     });
 
-    if (!this.options?.skipCreateProjectHelper) {
-      this.projectHelper = new SsoRestClientHelper({
+    if (!this.options?.skipCreateTenantHelper) {
+      this.tenantHelper = new SsoRestClientHelper({
         ...(this.options?.headers ? { headers: this.options.headers } : {}),
-        skipCreateProjectHelper: true,
+        skipCreateTenantHelper: true,
       });
     }
   }
@@ -168,8 +168,8 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       this.randomUser = await generateRandomUser(undefined, options);
     }
 
-    if (this.projectHelper) {
-      await this.projectHelper.generateRandomUser();
+    if (this.tenantHelper) {
+      await this.tenantHelper.generateRandomUser();
     }
 
     return this;
@@ -180,16 +180,18 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       this.randomUser = await generateRandomUser();
     }
 
-    if (this.projectHelper) {
-      if (!this.project) {
-        const { data: createOneResult } = await this.projectHelper.ssoRestSdkService
+    if (this.tenantHelper) {
+      if (!this.tenant) {
+        const { data: createOneResult } = await this.tenantHelper.ssoRestSdkService
           .getSsoApi()
-          .ssoProjectsControllerCreateOne(
+          .ssoTenantsControllerCreateOne(
             {
               public: false,
-              name: this.projectHelper.randomUser.uniqId,
-              clientId: this.projectHelper.randomUser.id,
-              clientSecret: this.projectHelper.randomUser.password,
+              name: this.tenantHelper.randomUser.uniqId,
+              clientId: this.tenantHelper.randomUser.id,
+              clientSecret: this.tenantHelper.randomUser.password,
+              enabled: true,
+              slug: this.tenantHelper.randomUser.domainWord,
             },
             {
               headers: {
@@ -197,7 +199,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
               },
             },
           );
-        this.project = createOneResult;
+        this.tenant = createOneResult;
       }
 
       const { data: signUpResult } = await this.ssoRestSdkService.getSsoApi().ssoControllerSignUp(
@@ -210,14 +212,14 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         },
         {
           headers: {
-            'x-client-id': this.project.clientId,
+            'x-client-id': this.tenant.clientId,
           },
         },
       );
 
       this.ssoTokensResponse = signUpResult;
 
-      const { data: findManyResult } = await this.projectHelper.ssoRestSdkService
+      const { data: findManyResult } = await this.tenantHelper.ssoRestSdkService
         .getSsoApi()
         .ssoUsersControllerFindMany(undefined, undefined, this.randomUser.email, undefined, undefined, {
           headers: {
@@ -225,7 +227,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
           },
         });
 
-      await this.projectHelper.ssoRestSdkService.getSsoApi().ssoUsersControllerUpdateOne(
+      await this.tenantHelper.ssoRestSdkService.getSsoApi().ssoUsersControllerUpdateOne(
         findManyResult.ssoUsers[0].id,
         {
           emailVerifiedAt: new Date().toISOString(),
@@ -255,7 +257,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
       id: options?.id || this.randomUser.id,
     };
 
-    if (this.projectHelper) {
+    if (this.tenantHelper) {
       const { data: loginResult } = await this.ssoRestSdkService.getSsoApi().ssoControllerSignIn({
         email: loginOptions.email,
         fingerprint: loginOptions.id,
@@ -280,7 +282,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
   }
 
   async logout() {
-    if (this.projectHelper) {
+    if (this.tenantHelper) {
       await this.ssoRestSdkService.getSsoApi().ssoControllerSignOut({
         refreshToken: this.getRefreshToken(),
       });
@@ -310,9 +312,9 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     const accessToken = this.getAccessToken();
     return {
       ...this.options?.headers,
-      ...(this.projectHelper?.randomUser?.id
+      ...(this.tenantHelper?.randomUser?.id
         ? {
-            'x-client-id': this.projectHelper.randomUser.id,
+            'x-client-id': this.tenantHelper.randomUser.id,
           }
         : {}),
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),

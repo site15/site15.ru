@@ -9,7 +9,7 @@
  */
 
 
-export type SsoRefreshSessionScalarFieldEnumInterface = 'id' | 'refreshToken' | 'userAgent' | 'fingerprint' | 'userIp' | 'expiresAt' | 'userData' | 'enabled' | 'userId' | 'projectId' | 'createdAt' | 'updatedAt';
+export type SsoRefreshSessionScalarFieldEnumInterface = 'id' | 'refreshToken' | 'userAgent' | 'fingerprint' | 'userIp' | 'expiresAt' | 'userData' | 'enabled' | 'userId' | 'tenantId' | 'createdAt' | 'updatedAt';
 
 export const SsoRefreshSessionScalarFieldEnumInterface = {
     id: 'id' as SsoRefreshSessionScalarFieldEnumInterface,
@@ -21,7 +21,7 @@ export const SsoRefreshSessionScalarFieldEnumInterface = {
     userData: 'userData' as SsoRefreshSessionScalarFieldEnumInterface,
     enabled: 'enabled' as SsoRefreshSessionScalarFieldEnumInterface,
     userId: 'userId' as SsoRefreshSessionScalarFieldEnumInterface,
-    projectId: 'projectId' as SsoRefreshSessionScalarFieldEnumInterface,
+    tenantId: 'tenantId' as SsoRefreshSessionScalarFieldEnumInterface,
     createdAt: 'createdAt' as SsoRefreshSessionScalarFieldEnumInterface,
     updatedAt: 'updatedAt' as SsoRefreshSessionScalarFieldEnumInterface
 };

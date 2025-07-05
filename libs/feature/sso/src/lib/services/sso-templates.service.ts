@@ -13,23 +13,23 @@ export class SsoTemplatesService {
     private readonly translatesStorage: TranslatesStorage,
   ) {}
 
-  async getEmailTemplate(options: { projectId: string; operationName: string }) {
+  async getEmailTemplate(options: { tenantId: string; operationName: string }) {
     return this.prismaClient.ssoEmailTemplate.findFirst({
       where: {
-        projectId: { equals: options.projectId },
+        tenantId: { equals: options.tenantId },
         operationName: { equals: options.operationName },
       },
     });
   }
 
-  // todo: need create project level handler for recreate or reset to default email templates
-  async createProjectDefaultEmailTemplates(projectId: string) {
+  // todo: need create tenant level handler for recreate or reset to default email templates
+  async createTenantDefaultEmailTemplates(tenantId: string) {
     const locales = this.translatesStorage.locales.filter((l) => l !== this.translatesStorage.defaultLocale);
     for (const template of DEFAULT_EMAIL_TEMPLATES) {
       await this.prismaClient.ssoEmailTemplate.upsert({
         create: {
           html: template.html,
-          projectId,
+          tenantId,
           subject: template.subject,
           text: template.text,
           operationName: template.operationName,
@@ -76,8 +76,8 @@ export class SsoTemplatesService {
           ),
         },
         where: {
-          projectId_operationName: {
-            projectId,
+          tenantId_operationName: {
+            tenantId,
             operationName: template.operationName,
           },
         },

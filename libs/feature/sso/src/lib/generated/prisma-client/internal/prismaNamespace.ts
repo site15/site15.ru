@@ -379,7 +379,6 @@ export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>;
 type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>;
 
 export const ModelName = {
-  SsoProject: 'SsoProject',
   SsoUser: 'SsoUser',
   migrations_sso: 'migrations_sso',
   SsoRefreshSession: 'SsoRefreshSession',
@@ -387,6 +386,7 @@ export const ModelName = {
   SsoOAuthProvider: 'SsoOAuthProvider',
   SsoOAuthProviderSettings: 'SsoOAuthProviderSettings',
   SsoOAuthToken: 'SsoOAuthToken',
+  SsoTenant: 'SsoTenant',
 } as const;
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -408,91 +408,17 @@ export type TypeMap<
   };
   meta: {
     modelProps:
-      | 'ssoProject'
       | 'ssoUser'
       | 'migrations_sso'
       | 'ssoRefreshSession'
       | 'ssoEmailTemplate'
       | 'ssoOAuthProvider'
       | 'ssoOAuthProviderSettings'
-      | 'ssoOAuthToken';
+      | 'ssoOAuthToken'
+      | 'ssoTenant';
     txIsolationLevel: TransactionIsolationLevel;
   };
   model: {
-    SsoProject: {
-      payload: Prisma.$SsoProjectPayload<ExtArgs>;
-      fields: Prisma.SsoProjectFieldRefs;
-      operations: {
-        findUnique: {
-          args: Prisma.SsoProjectFindUniqueArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload> | null;
-        };
-        findUniqueOrThrow: {
-          args: Prisma.SsoProjectFindUniqueOrThrowArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload>;
-        };
-        findFirst: {
-          args: Prisma.SsoProjectFindFirstArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload> | null;
-        };
-        findFirstOrThrow: {
-          args: Prisma.SsoProjectFindFirstOrThrowArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload>;
-        };
-        findMany: {
-          args: Prisma.SsoProjectFindManyArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload>[];
-        };
-        create: {
-          args: Prisma.SsoProjectCreateArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload>;
-        };
-        createMany: {
-          args: Prisma.SsoProjectCreateManyArgs<ExtArgs>;
-          result: BatchPayload;
-        };
-        createManyAndReturn: {
-          args: Prisma.SsoProjectCreateManyAndReturnArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload>[];
-        };
-        delete: {
-          args: Prisma.SsoProjectDeleteArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload>;
-        };
-        update: {
-          args: Prisma.SsoProjectUpdateArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload>;
-        };
-        deleteMany: {
-          args: Prisma.SsoProjectDeleteManyArgs<ExtArgs>;
-          result: BatchPayload;
-        };
-        updateMany: {
-          args: Prisma.SsoProjectUpdateManyArgs<ExtArgs>;
-          result: BatchPayload;
-        };
-        updateManyAndReturn: {
-          args: Prisma.SsoProjectUpdateManyAndReturnArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload>[];
-        };
-        upsert: {
-          args: Prisma.SsoProjectUpsertArgs<ExtArgs>;
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoProjectPayload>;
-        };
-        aggregate: {
-          args: Prisma.SsoProjectAggregateArgs<ExtArgs>;
-          result: runtime.Types.Utils.Optional<Prisma.AggregateSsoProject>;
-        };
-        groupBy: {
-          args: Prisma.SsoProjectGroupByArgs<ExtArgs>;
-          result: runtime.Types.Utils.Optional<Prisma.SsoProjectGroupByOutputType>[];
-        };
-        count: {
-          args: Prisma.SsoProjectCountArgs<ExtArgs>;
-          result: runtime.Types.Utils.Optional<Prisma.SsoProjectCountAggregateOutputType> | number;
-        };
-      };
-    };
     SsoUser: {
       payload: Prisma.$SsoUserPayload<ExtArgs>;
       fields: Prisma.SsoUserFieldRefs;
@@ -1011,6 +937,80 @@ export type TypeMap<
         };
       };
     };
+    SsoTenant: {
+      payload: Prisma.$SsoTenantPayload<ExtArgs>;
+      fields: Prisma.SsoTenantFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.SsoTenantFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.SsoTenantFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload>;
+        };
+        findFirst: {
+          args: Prisma.SsoTenantFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.SsoTenantFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload>;
+        };
+        findMany: {
+          args: Prisma.SsoTenantFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload>[];
+        };
+        create: {
+          args: Prisma.SsoTenantCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload>;
+        };
+        createMany: {
+          args: Prisma.SsoTenantCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.SsoTenantCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload>[];
+        };
+        delete: {
+          args: Prisma.SsoTenantDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload>;
+        };
+        update: {
+          args: Prisma.SsoTenantUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload>;
+        };
+        deleteMany: {
+          args: Prisma.SsoTenantDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.SsoTenantUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.SsoTenantUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload>[];
+        };
+        upsert: {
+          args: Prisma.SsoTenantUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SsoTenantPayload>;
+        };
+        aggregate: {
+          args: Prisma.SsoTenantAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSsoTenant>;
+        };
+        groupBy: {
+          args: Prisma.SsoTenantGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.SsoTenantGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.SsoTenantCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.SsoTenantCountAggregateOutputType> | number;
+        };
+      };
+    };
   };
 } & {
   other: {
@@ -1049,19 +1049,6 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel];
 
-export const SsoProjectScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  nameLocale: 'nameLocale',
-  clientId: 'clientId',
-  clientSecret: 'clientSecret',
-  public: 'public',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-} as const;
-
-export type SsoProjectScalarFieldEnum = (typeof SsoProjectScalarFieldEnum)[keyof typeof SsoProjectScalarFieldEnum];
-
 export const SsoUserScalarFieldEnum = {
   id: 'id',
   email: 'email',
@@ -1080,7 +1067,7 @@ export const SsoUserScalarFieldEnum = {
   phoneVerifiedAt: 'phoneVerifiedAt',
   timezone: 'timezone',
   lang: 'lang',
-  projectId: 'projectId',
+  tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 } as const;
@@ -1113,7 +1100,7 @@ export const SsoRefreshSessionScalarFieldEnum = {
   userData: 'userData',
   enabled: 'enabled',
   userId: 'userId',
-  projectId: 'projectId',
+  tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 } as const;
@@ -1130,7 +1117,7 @@ export const SsoEmailTemplateScalarFieldEnum = {
   html: 'html',
   htmlLocale: 'htmlLocale',
   operationName: 'operationName',
-  projectId: 'projectId',
+  tenantId: 'tenantId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 } as const;
@@ -1141,6 +1128,7 @@ export type SsoEmailTemplateScalarFieldEnum =
 export const SsoOAuthProviderScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  enabled: 'enabled',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
 } as const;
@@ -1170,7 +1158,7 @@ export const SsoOAuthTokenScalarFieldEnum = {
   scope: 'scope',
   verificationCode: 'verificationCode',
   userId: 'userId',
-  projectId: 'projectId',
+  tenantId: 'tenantId',
   providerId: 'providerId',
   providerUserId: 'providerUserId',
   providerUserData: 'providerUserData',
@@ -1180,6 +1168,21 @@ export const SsoOAuthTokenScalarFieldEnum = {
 
 export type SsoOAuthTokenScalarFieldEnum =
   (typeof SsoOAuthTokenScalarFieldEnum)[keyof typeof SsoOAuthTokenScalarFieldEnum];
+
+export const SsoTenantScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  name: 'name',
+  nameLocale: 'nameLocale',
+  clientId: 'clientId',
+  clientSecret: 'clientSecret',
+  enabled: 'enabled',
+  public: 'public',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type SsoTenantScalarFieldEnum = (typeof SsoTenantScalarFieldEnum)[keyof typeof SsoTenantScalarFieldEnum];
 
 export const SortOrder = {
   asc: 'asc',
@@ -1232,21 +1235,6 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>;
 
 /**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>;
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>;
-
-/**
- * Reference to a field of type 'Boolean'
- */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>;
@@ -1255,6 +1243,16 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>;
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>;
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>;
 
 /**
  * Reference to a field of type 'Float'
@@ -1275,6 +1273,11 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>;
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
 
 /**
  * Batch Payload for updateMany & deleteMany & createMany
@@ -1358,7 +1361,6 @@ export interface PrismaClientOptions {
   omit?: GlobalOmitConfig;
 }
 export type GlobalOmitConfig = {
-  ssoProject?: Prisma.SsoProjectOmit;
   ssoUser?: Prisma.SsoUserOmit;
   migrations_sso?: Prisma.migrations_ssoOmit;
   ssoRefreshSession?: Prisma.SsoRefreshSessionOmit;
@@ -1366,6 +1368,7 @@ export type GlobalOmitConfig = {
   ssoOAuthProvider?: Prisma.SsoOAuthProviderOmit;
   ssoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsOmit;
   ssoOAuthToken?: Prisma.SsoOAuthTokenOmit;
+  ssoTenant?: Prisma.SsoTenantOmit;
 };
 
 /* Types for Logging */

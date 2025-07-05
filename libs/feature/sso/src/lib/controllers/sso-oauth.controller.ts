@@ -40,7 +40,7 @@ export class SsoOAuthController {
   @Get('providers')
   async oauthProviders(@CurrentSsoRequest() ssoRequest: SsoRequest): Promise<OAuthProvider[]> {
     const domain = this.ssoStaticEnvironments.serverUrl;
-    const providers = await this.prismaClient.ssoOAuthProvider.findMany({});
+    const providers = await this.prismaClient.ssoOAuthProvider.findMany({ where: { enabled: true } });
     return providers.map((provider) => ({
       ...provider,
       url: `${domain}/api/sso/oauth/${provider.name}?redirect_uri=${encodeURIComponent(
@@ -67,8 +67,8 @@ export class SsoOAuthController {
 
       const user = await this.prismaClient.ssoUser.update({
         data: {
-          SsoProject: {
-            connect: { id: ssoRequest.ssoProject.id },
+          SsoTenant: {
+            connect: { id: ssoRequest.ssoTenant.id },
           },
         },
         where: { id: oAuthToken.userId },
@@ -78,7 +78,7 @@ export class SsoOAuthController {
         include: { SsoUser: true },
         data: {
           verificationCode: null,
-          projectId: user.projectId,
+          tenantId: user.tenantId,
         },
         where: { id: oAuthToken?.id },
       });
@@ -86,14 +86,14 @@ export class SsoOAuthController {
       await this.webhookService.sendEvent({
         eventName: SsoWebhookEvent['sso.sign-in'],
         eventBody: omit(['password'], oAuthToken.SsoUser),
-        eventHeaders: { projectId: user.projectId },
+        eventHeaders: { tenantId: user.tenantId },
       });
 
       if (oAuthToken.SsoUser.emailVerifiedAt === null) {
         this.logger.debug({
           signIn: {
             SsoOAuthVerification: ssoOAuthVerificationArgs,
-            projectId: user.projectId,
+            tenantId: user.tenantId,
           },
         });
         throw new SsoError(SsoErrorEnum.EmailNotVerified);
@@ -114,7 +114,7 @@ export class SsoOAuthController {
         userAgent,
         fingerprint: ssoOAuthVerificationArgs.fingerprint,
         roles: oAuthToken.SsoUser.roles,
-        projectId: user.projectId,
+        tenantId: user.tenantId,
       });
 
       response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);

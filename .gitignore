@@ -53,3 +53,6 @@ access.log
 
 apps/client-e2e/src/video
 .vercel
+
+
+error.log

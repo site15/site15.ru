@@ -7,9 +7,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SsoProjectInterface } from './sso-project.interface';
 import { SsoRefreshSessionInterface } from './sso-refresh-session.interface';
 import { SsoOAuthTokenInterface } from './sso-o-auth-token.interface';
+import { SsoTenantInterface } from './sso-tenant.interface';
 
 
 export interface SsoUserInterface { 
@@ -29,11 +29,11 @@ export interface SsoUserInterface {
     phoneVerifiedAt: string | null;
     timezone: number | null;
     lang: string | null;
-    projectId: string;
+    tenantId: string;
     createdAt: string;
     updatedAt: string;
     SsoOAuthToken?: Array<SsoOAuthTokenInterface>;
     SsoRefreshSession?: Array<SsoRefreshSessionInterface>;
-    SsoProject?: SsoProjectInterface;
+    SsoTenant?: SsoTenantInterface;
 }
 

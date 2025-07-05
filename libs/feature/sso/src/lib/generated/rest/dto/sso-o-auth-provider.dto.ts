@@ -10,6 +10,10 @@ export class SsoOAuthProviderDto {
   })
   name!: string;
   @ApiProperty({
+    type: 'boolean',
+  })
+  enabled!: boolean;
+  @ApiProperty({
     type: 'string',
     format: 'date-time',
   })

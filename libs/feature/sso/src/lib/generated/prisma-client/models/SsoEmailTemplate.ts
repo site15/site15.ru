@@ -28,7 +28,7 @@ export type SsoEmailTemplateMinAggregateOutputType = {
   text: string | null;
   html: string | null;
   operationName: string | null;
-  projectId: string | null;
+  tenantId: string | null;
   createdAt: Date | null;
   updatedAt: Date | null;
 };
@@ -39,7 +39,7 @@ export type SsoEmailTemplateMaxAggregateOutputType = {
   text: string | null;
   html: string | null;
   operationName: string | null;
-  projectId: string | null;
+  tenantId: string | null;
   createdAt: Date | null;
   updatedAt: Date | null;
 };
@@ -53,7 +53,7 @@ export type SsoEmailTemplateCountAggregateOutputType = {
   html: number;
   htmlLocale: number;
   operationName: number;
-  projectId: number;
+  tenantId: number;
   createdAt: number;
   updatedAt: number;
   _all: number;
@@ -65,7 +65,7 @@ export type SsoEmailTemplateMinAggregateInputType = {
   text?: true;
   html?: true;
   operationName?: true;
-  projectId?: true;
+  tenantId?: true;
   createdAt?: true;
   updatedAt?: true;
 };
@@ -76,7 +76,7 @@ export type SsoEmailTemplateMaxAggregateInputType = {
   text?: true;
   html?: true;
   operationName?: true;
-  projectId?: true;
+  tenantId?: true;
   createdAt?: true;
   updatedAt?: true;
 };
@@ -90,7 +90,7 @@ export type SsoEmailTemplateCountAggregateInputType = {
   html?: true;
   htmlLocale?: true;
   operationName?: true;
-  projectId?: true;
+  tenantId?: true;
   createdAt?: true;
   updatedAt?: true;
   _all?: true;
@@ -178,7 +178,7 @@ export type SsoEmailTemplateGroupByOutputType = {
   html: string;
   htmlLocale: runtime.JsonValue | null;
   operationName: string | null;
-  projectId: string;
+  tenantId: string;
   createdAt: Date;
   updatedAt: Date;
   _count: SsoEmailTemplateCountAggregateOutputType | null;
@@ -210,10 +210,10 @@ export type SsoEmailTemplateWhereInput = {
   html?: Prisma.StringFilter<'SsoEmailTemplate'> | string;
   htmlLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
   operationName?: Prisma.StringNullableFilter<'SsoEmailTemplate'> | string | null;
-  projectId?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
+  tenantId?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
   createdAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
-  SsoProject?: Prisma.XOR<Prisma.SsoProjectScalarRelationFilter, Prisma.SsoProjectWhereInput>;
+  SsoTenant?: Prisma.XOR<Prisma.SsoTenantScalarRelationFilter, Prisma.SsoTenantWhereInput>;
 };
 
 export type SsoEmailTemplateOrderByWithRelationInput = {
@@ -225,16 +225,16 @@ export type SsoEmailTemplateOrderByWithRelationInput = {
   html?: Prisma.SortOrder;
   htmlLocale?: Prisma.SortOrderInput | Prisma.SortOrder;
   operationName?: Prisma.SortOrderInput | Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
-  SsoProject?: Prisma.SsoProjectOrderByWithRelationInput;
+  SsoTenant?: Prisma.SsoTenantOrderByWithRelationInput;
 };
 
 export type SsoEmailTemplateWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string;
-    projectId_operationName?: Prisma.SsoEmailTemplateProjectIdOperationNameCompoundUniqueInput;
+    tenantId_operationName?: Prisma.SsoEmailTemplateTenantIdOperationNameCompoundUniqueInput;
     AND?: Prisma.SsoEmailTemplateWhereInput | Prisma.SsoEmailTemplateWhereInput[];
     OR?: Prisma.SsoEmailTemplateWhereInput[];
     NOT?: Prisma.SsoEmailTemplateWhereInput | Prisma.SsoEmailTemplateWhereInput[];
@@ -245,12 +245,12 @@ export type SsoEmailTemplateWhereUniqueInput = Prisma.AtLeast<
     html?: Prisma.StringFilter<'SsoEmailTemplate'> | string;
     htmlLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
     operationName?: Prisma.StringNullableFilter<'SsoEmailTemplate'> | string | null;
-    projectId?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
+    tenantId?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
     createdAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
-    SsoProject?: Prisma.XOR<Prisma.SsoProjectScalarRelationFilter, Prisma.SsoProjectWhereInput>;
+    SsoTenant?: Prisma.XOR<Prisma.SsoTenantScalarRelationFilter, Prisma.SsoTenantWhereInput>;
   },
-  'id' | 'projectId_operationName'
+  'id' | 'tenantId_operationName'
 >;
 
 export type SsoEmailTemplateOrderByWithAggregationInput = {
@@ -262,7 +262,7 @@ export type SsoEmailTemplateOrderByWithAggregationInput = {
   html?: Prisma.SortOrder;
   htmlLocale?: Prisma.SortOrderInput | Prisma.SortOrder;
   operationName?: Prisma.SortOrderInput | Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   _count?: Prisma.SsoEmailTemplateCountOrderByAggregateInput;
@@ -282,7 +282,7 @@ export type SsoEmailTemplateScalarWhereWithAggregatesInput = {
   html?: Prisma.StringWithAggregatesFilter<'SsoEmailTemplate'> | string;
   htmlLocale?: Prisma.JsonNullableWithAggregatesFilter<'SsoEmailTemplate'>;
   operationName?: Prisma.StringNullableWithAggregatesFilter<'SsoEmailTemplate'> | string | null;
-  projectId?: Prisma.UuidWithAggregatesFilter<'SsoEmailTemplate'> | string;
+  tenantId?: Prisma.UuidWithAggregatesFilter<'SsoEmailTemplate'> | string;
   createdAt?: Prisma.DateTimeWithAggregatesFilter<'SsoEmailTemplate'> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<'SsoEmailTemplate'> | Date | string;
 };
@@ -298,7 +298,7 @@ export type SsoEmailTemplateCreateInput = {
   operationName?: string | null;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  SsoProject: Prisma.SsoProjectCreateNestedOneWithoutSsoEmailTemplateInput;
+  SsoTenant: Prisma.SsoTenantCreateNestedOneWithoutSsoEmailTemplateInput;
 };
 
 export type SsoEmailTemplateUncheckedCreateInput = {
@@ -310,7 +310,7 @@ export type SsoEmailTemplateUncheckedCreateInput = {
   html: string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   operationName?: string | null;
-  projectId: string;
+  tenantId: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -326,7 +326,7 @@ export type SsoEmailTemplateUpdateInput = {
   operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  SsoProject?: Prisma.SsoProjectUpdateOneRequiredWithoutSsoEmailTemplateNestedInput;
+  SsoTenant?: Prisma.SsoTenantUpdateOneRequiredWithoutSsoEmailTemplateNestedInput;
 };
 
 export type SsoEmailTemplateUncheckedUpdateInput = {
@@ -338,7 +338,7 @@ export type SsoEmailTemplateUncheckedUpdateInput = {
   html?: Prisma.StringFieldUpdateOperationsInput | string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -352,7 +352,7 @@ export type SsoEmailTemplateCreateManyInput = {
   html: string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   operationName?: string | null;
-  projectId: string;
+  tenantId: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -379,23 +379,13 @@ export type SsoEmailTemplateUncheckedUpdateManyInput = {
   html?: Prisma.StringFieldUpdateOperationsInput | string;
   htmlLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   operationName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 
-export type SsoEmailTemplateListRelationFilter = {
-  every?: Prisma.SsoEmailTemplateWhereInput;
-  some?: Prisma.SsoEmailTemplateWhereInput;
-  none?: Prisma.SsoEmailTemplateWhereInput;
-};
-
-export type SsoEmailTemplateOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder;
-};
-
-export type SsoEmailTemplateProjectIdOperationNameCompoundUniqueInput = {
-  projectId: string;
+export type SsoEmailTemplateTenantIdOperationNameCompoundUniqueInput = {
+  tenantId: string;
   operationName: string;
 };
 
@@ -408,7 +398,7 @@ export type SsoEmailTemplateCountOrderByAggregateInput = {
   html?: Prisma.SortOrder;
   htmlLocale?: Prisma.SortOrder;
   operationName?: Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -419,7 +409,7 @@ export type SsoEmailTemplateMaxOrderByAggregateInput = {
   text?: Prisma.SortOrder;
   html?: Prisma.SortOrder;
   operationName?: Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -430,98 +420,108 @@ export type SsoEmailTemplateMinOrderByAggregateInput = {
   text?: Prisma.SortOrder;
   html?: Prisma.SortOrder;
   operationName?: Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
 
-export type SsoEmailTemplateCreateNestedManyWithoutSsoProjectInput = {
+export type SsoEmailTemplateListRelationFilter = {
+  every?: Prisma.SsoEmailTemplateWhereInput;
+  some?: Prisma.SsoEmailTemplateWhereInput;
+  none?: Prisma.SsoEmailTemplateWhereInput;
+};
+
+export type SsoEmailTemplateOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder;
+};
+
+export type SsoEmailTemplateCreateNestedManyWithoutSsoTenantInput = {
   create?:
     | Prisma.XOR<
-        Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput,
-        Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput
+        Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput,
+        Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput
       >
-    | Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput[]
-    | Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput[]
+    | Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput[];
   connectOrCreate?:
-    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput[];
-  createMany?: Prisma.SsoEmailTemplateCreateManySsoProjectInputEnvelope;
+    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoTenantInput[];
+  createMany?: Prisma.SsoEmailTemplateCreateManySsoTenantInputEnvelope;
   connect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
 };
 
-export type SsoEmailTemplateUncheckedCreateNestedManyWithoutSsoProjectInput = {
+export type SsoEmailTemplateUncheckedCreateNestedManyWithoutSsoTenantInput = {
   create?:
     | Prisma.XOR<
-        Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput,
-        Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput
+        Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput,
+        Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput
       >
-    | Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput[]
-    | Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput[]
+    | Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput[];
   connectOrCreate?:
-    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput[];
-  createMany?: Prisma.SsoEmailTemplateCreateManySsoProjectInputEnvelope;
+    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoTenantInput[];
+  createMany?: Prisma.SsoEmailTemplateCreateManySsoTenantInputEnvelope;
   connect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
 };
 
-export type SsoEmailTemplateUpdateManyWithoutSsoProjectNestedInput = {
+export type SsoEmailTemplateUpdateManyWithoutSsoTenantNestedInput = {
   create?:
     | Prisma.XOR<
-        Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput,
-        Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput
+        Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput,
+        Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput
       >
-    | Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput[]
-    | Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput[]
+    | Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput[];
   connectOrCreate?:
-    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoTenantInput[];
   upsert?:
-    | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoProjectInput[];
-  createMany?: Prisma.SsoEmailTemplateCreateManySsoProjectInputEnvelope;
+    | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoTenantInput[];
+  createMany?: Prisma.SsoEmailTemplateCreateManySsoTenantInputEnvelope;
   set?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   disconnect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   delete?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   connect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   update?:
-    | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoTenantInput[];
   updateMany?:
-    | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoTenantInput[];
   deleteMany?: Prisma.SsoEmailTemplateScalarWhereInput | Prisma.SsoEmailTemplateScalarWhereInput[];
 };
 
-export type SsoEmailTemplateUncheckedUpdateManyWithoutSsoProjectNestedInput = {
+export type SsoEmailTemplateUncheckedUpdateManyWithoutSsoTenantNestedInput = {
   create?:
     | Prisma.XOR<
-        Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput,
-        Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput
+        Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput,
+        Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput
       >
-    | Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput[]
-    | Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput[]
+    | Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput[];
   connectOrCreate?:
-    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateCreateOrConnectWithoutSsoTenantInput[];
   upsert?:
-    | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoProjectInput[];
-  createMany?: Prisma.SsoEmailTemplateCreateManySsoProjectInputEnvelope;
+    | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoTenantInput[];
+  createMany?: Prisma.SsoEmailTemplateCreateManySsoTenantInputEnvelope;
   set?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   disconnect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   delete?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   connect?: Prisma.SsoEmailTemplateWhereUniqueInput | Prisma.SsoEmailTemplateWhereUniqueInput[];
   update?:
-    | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoTenantInput[];
   updateMany?:
-    | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput
-    | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput[];
+    | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoTenantInput
+    | Prisma.SsoEmailTemplateUpdateManyWithWhereWithoutSsoTenantInput[];
   deleteMany?: Prisma.SsoEmailTemplateScalarWhereInput | Prisma.SsoEmailTemplateScalarWhereInput[];
 };
 
-export type SsoEmailTemplateCreateWithoutSsoProjectInput = {
+export type SsoEmailTemplateCreateWithoutSsoTenantInput = {
   id?: string;
   subject: string;
   subjectLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -534,7 +534,7 @@ export type SsoEmailTemplateCreateWithoutSsoProjectInput = {
   updatedAt?: Date | string;
 };
 
-export type SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput = {
+export type SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput = {
   id?: string;
   subject: string;
   subjectLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -547,44 +547,44 @@ export type SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput = {
   updatedAt?: Date | string;
 };
 
-export type SsoEmailTemplateCreateOrConnectWithoutSsoProjectInput = {
+export type SsoEmailTemplateCreateOrConnectWithoutSsoTenantInput = {
   where: Prisma.SsoEmailTemplateWhereUniqueInput;
   create: Prisma.XOR<
-    Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput,
-    Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput
+    Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput,
+    Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput
   >;
 };
 
-export type SsoEmailTemplateCreateManySsoProjectInputEnvelope = {
-  data: Prisma.SsoEmailTemplateCreateManySsoProjectInput | Prisma.SsoEmailTemplateCreateManySsoProjectInput[];
+export type SsoEmailTemplateCreateManySsoTenantInputEnvelope = {
+  data: Prisma.SsoEmailTemplateCreateManySsoTenantInput | Prisma.SsoEmailTemplateCreateManySsoTenantInput[];
   skipDuplicates?: boolean;
 };
 
-export type SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoProjectInput = {
+export type SsoEmailTemplateUpsertWithWhereUniqueWithoutSsoTenantInput = {
   where: Prisma.SsoEmailTemplateWhereUniqueInput;
   update: Prisma.XOR<
-    Prisma.SsoEmailTemplateUpdateWithoutSsoProjectInput,
-    Prisma.SsoEmailTemplateUncheckedUpdateWithoutSsoProjectInput
+    Prisma.SsoEmailTemplateUpdateWithoutSsoTenantInput,
+    Prisma.SsoEmailTemplateUncheckedUpdateWithoutSsoTenantInput
   >;
   create: Prisma.XOR<
-    Prisma.SsoEmailTemplateCreateWithoutSsoProjectInput,
-    Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoProjectInput
+    Prisma.SsoEmailTemplateCreateWithoutSsoTenantInput,
+    Prisma.SsoEmailTemplateUncheckedCreateWithoutSsoTenantInput
   >;
 };
 
-export type SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoProjectInput = {
+export type SsoEmailTemplateUpdateWithWhereUniqueWithoutSsoTenantInput = {
   where: Prisma.SsoEmailTemplateWhereUniqueInput;
   data: Prisma.XOR<
-    Prisma.SsoEmailTemplateUpdateWithoutSsoProjectInput,
-    Prisma.SsoEmailTemplateUncheckedUpdateWithoutSsoProjectInput
+    Prisma.SsoEmailTemplateUpdateWithoutSsoTenantInput,
+    Prisma.SsoEmailTemplateUncheckedUpdateWithoutSsoTenantInput
   >;
 };
 
-export type SsoEmailTemplateUpdateManyWithWhereWithoutSsoProjectInput = {
+export type SsoEmailTemplateUpdateManyWithWhereWithoutSsoTenantInput = {
   where: Prisma.SsoEmailTemplateScalarWhereInput;
   data: Prisma.XOR<
     Prisma.SsoEmailTemplateUpdateManyMutationInput,
-    Prisma.SsoEmailTemplateUncheckedUpdateManyWithoutSsoProjectInput
+    Prisma.SsoEmailTemplateUncheckedUpdateManyWithoutSsoTenantInput
   >;
 };
 
@@ -600,12 +600,12 @@ export type SsoEmailTemplateScalarWhereInput = {
   html?: Prisma.StringFilter<'SsoEmailTemplate'> | string;
   htmlLocale?: Prisma.JsonNullableFilter<'SsoEmailTemplate'>;
   operationName?: Prisma.StringNullableFilter<'SsoEmailTemplate'> | string | null;
-  projectId?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
+  tenantId?: Prisma.UuidFilter<'SsoEmailTemplate'> | string;
   createdAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'SsoEmailTemplate'> | Date | string;
 };
 
-export type SsoEmailTemplateCreateManySsoProjectInput = {
+export type SsoEmailTemplateCreateManySsoTenantInput = {
   id?: string;
   subject: string;
   subjectLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -618,7 +618,7 @@ export type SsoEmailTemplateCreateManySsoProjectInput = {
   updatedAt?: Date | string;
 };
 
-export type SsoEmailTemplateUpdateWithoutSsoProjectInput = {
+export type SsoEmailTemplateUpdateWithoutSsoTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   subject?: Prisma.StringFieldUpdateOperationsInput | string;
   subjectLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -631,7 +631,7 @@ export type SsoEmailTemplateUpdateWithoutSsoProjectInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 
-export type SsoEmailTemplateUncheckedUpdateWithoutSsoProjectInput = {
+export type SsoEmailTemplateUncheckedUpdateWithoutSsoTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   subject?: Prisma.StringFieldUpdateOperationsInput | string;
   subjectLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -644,7 +644,7 @@ export type SsoEmailTemplateUncheckedUpdateWithoutSsoProjectInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 
-export type SsoEmailTemplateUncheckedUpdateManyWithoutSsoProjectInput = {
+export type SsoEmailTemplateUncheckedUpdateManyWithoutSsoTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   subject?: Prisma.StringFieldUpdateOperationsInput | string;
   subjectLocale?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -669,10 +669,10 @@ export type SsoEmailTemplateSelect<
     html?: boolean;
     htmlLocale?: boolean;
     operationName?: boolean;
-    projectId?: boolean;
+    tenantId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
+    SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['ssoEmailTemplate']
 >;
@@ -689,10 +689,10 @@ export type SsoEmailTemplateSelectCreateManyAndReturn<
     html?: boolean;
     htmlLocale?: boolean;
     operationName?: boolean;
-    projectId?: boolean;
+    tenantId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
+    SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['ssoEmailTemplate']
 >;
@@ -709,10 +709,10 @@ export type SsoEmailTemplateSelectUpdateManyAndReturn<
     html?: boolean;
     htmlLocale?: boolean;
     operationName?: boolean;
-    projectId?: boolean;
+    tenantId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
+    SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['ssoEmailTemplate']
 >;
@@ -726,7 +726,7 @@ export type SsoEmailTemplateSelectScalar = {
   html?: boolean;
   htmlLocale?: boolean;
   operationName?: boolean;
-  projectId?: boolean;
+  tenantId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
 };
@@ -742,7 +742,7 @@ export type SsoEmailTemplateOmit<
   | 'html'
   | 'htmlLocale'
   | 'operationName'
-  | 'projectId'
+  | 'tenantId'
   | 'createdAt'
   | 'updatedAt',
   ExtArgs['result']['ssoEmailTemplate']
@@ -750,17 +750,17 @@ export type SsoEmailTemplateOmit<
 export type SsoEmailTemplateInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
+  SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
 };
 export type SsoEmailTemplateIncludeCreateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
+  SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
 };
 export type SsoEmailTemplateIncludeUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  SsoProject?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
+  SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
 };
 
 export type $SsoEmailTemplatePayload<
@@ -768,7 +768,7 @@ export type $SsoEmailTemplatePayload<
 > = {
   name: 'SsoEmailTemplate';
   objects: {
-    SsoProject: Prisma.$SsoProjectPayload<ExtArgs>;
+    SsoTenant: Prisma.$SsoTenantPayload<ExtArgs>;
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -783,7 +783,11 @@ export type $SsoEmailTemplatePayload<
       html: string;
       htmlLocale: runtime.JsonValue | null;
       operationName: string | null;
-      projectId: string;
+      /**
+       * @DtoCreateOptional
+       * @DtoUpdateOptional
+       */
+      tenantId: string;
       /**
        * @DtoCreateHidden
        * @DtoUpdateHidden
@@ -1279,11 +1283,10 @@ export interface Prisma__SsoEmailTemplateClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
-  SsoProject<T extends Prisma.SsoProjectDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.SsoProjectDefaultArgs<ExtArgs>>,
-  ): Prisma.Prisma__SsoProjectClient<
-    | runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions>
-    | Null,
+  SsoTenant<T extends Prisma.SsoTenantDefaultArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.SsoTenantDefaultArgs<ExtArgs>>,
+  ): Prisma.Prisma__SsoTenantClient<
+    runtime.Types.Result.GetResult<Prisma.$SsoTenantPayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions> | Null,
     Null,
     ExtArgs,
     GlobalOmitOptions
@@ -1327,7 +1330,7 @@ export interface SsoEmailTemplateFieldRefs {
   readonly html: Prisma.FieldRef<'SsoEmailTemplate', 'String'>;
   readonly htmlLocale: Prisma.FieldRef<'SsoEmailTemplate', 'Json'>;
   readonly operationName: Prisma.FieldRef<'SsoEmailTemplate', 'String'>;
-  readonly projectId: Prisma.FieldRef<'SsoEmailTemplate', 'String'>;
+  readonly tenantId: Prisma.FieldRef<'SsoEmailTemplate', 'String'>;
   readonly createdAt: Prisma.FieldRef<'SsoEmailTemplate', 'DateTime'>;
   readonly updatedAt: Prisma.FieldRef<'SsoEmailTemplate', 'DateTime'>;
 }

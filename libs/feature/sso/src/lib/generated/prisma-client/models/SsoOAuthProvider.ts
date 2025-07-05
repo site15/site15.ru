@@ -25,6 +25,7 @@ export type AggregateSsoOAuthProvider = {
 export type SsoOAuthProviderMinAggregateOutputType = {
   id: string | null;
   name: string | null;
+  enabled: boolean | null;
   createdAt: Date | null;
   updatedAt: Date | null;
 };
@@ -32,6 +33,7 @@ export type SsoOAuthProviderMinAggregateOutputType = {
 export type SsoOAuthProviderMaxAggregateOutputType = {
   id: string | null;
   name: string | null;
+  enabled: boolean | null;
   createdAt: Date | null;
   updatedAt: Date | null;
 };
@@ -39,6 +41,7 @@ export type SsoOAuthProviderMaxAggregateOutputType = {
 export type SsoOAuthProviderCountAggregateOutputType = {
   id: number;
   name: number;
+  enabled: number;
   createdAt: number;
   updatedAt: number;
   _all: number;
@@ -47,6 +50,7 @@ export type SsoOAuthProviderCountAggregateOutputType = {
 export type SsoOAuthProviderMinAggregateInputType = {
   id?: true;
   name?: true;
+  enabled?: true;
   createdAt?: true;
   updatedAt?: true;
 };
@@ -54,6 +58,7 @@ export type SsoOAuthProviderMinAggregateInputType = {
 export type SsoOAuthProviderMaxAggregateInputType = {
   id?: true;
   name?: true;
+  enabled?: true;
   createdAt?: true;
   updatedAt?: true;
 };
@@ -61,6 +66,7 @@ export type SsoOAuthProviderMaxAggregateInputType = {
 export type SsoOAuthProviderCountAggregateInputType = {
   id?: true;
   name?: true;
+  enabled?: true;
   createdAt?: true;
   updatedAt?: true;
   _all?: true;
@@ -142,6 +148,7 @@ export type SsoOAuthProviderGroupByArgs<
 export type SsoOAuthProviderGroupByOutputType = {
   id: string;
   name: string;
+  enabled: boolean;
   createdAt: Date;
   updatedAt: Date;
   _count: SsoOAuthProviderCountAggregateOutputType | null;
@@ -167,6 +174,7 @@ export type SsoOAuthProviderWhereInput = {
   NOT?: Prisma.SsoOAuthProviderWhereInput | Prisma.SsoOAuthProviderWhereInput[];
   id?: Prisma.UuidFilter<'SsoOAuthProvider'> | string;
   name?: Prisma.StringFilter<'SsoOAuthProvider'> | string;
+  enabled?: Prisma.BoolFilter<'SsoOAuthProvider'> | boolean;
   createdAt?: Prisma.DateTimeFilter<'SsoOAuthProvider'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'SsoOAuthProvider'> | Date | string;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsListRelationFilter;
@@ -176,6 +184,7 @@ export type SsoOAuthProviderWhereInput = {
 export type SsoOAuthProviderOrderByWithRelationInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
+  enabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsOrderByRelationAggregateInput;
@@ -189,6 +198,7 @@ export type SsoOAuthProviderWhereUniqueInput = Prisma.AtLeast<
     AND?: Prisma.SsoOAuthProviderWhereInput | Prisma.SsoOAuthProviderWhereInput[];
     OR?: Prisma.SsoOAuthProviderWhereInput[];
     NOT?: Prisma.SsoOAuthProviderWhereInput | Prisma.SsoOAuthProviderWhereInput[];
+    enabled?: Prisma.BoolFilter<'SsoOAuthProvider'> | boolean;
     createdAt?: Prisma.DateTimeFilter<'SsoOAuthProvider'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'SsoOAuthProvider'> | Date | string;
     SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsListRelationFilter;
@@ -200,6 +210,7 @@ export type SsoOAuthProviderWhereUniqueInput = Prisma.AtLeast<
 export type SsoOAuthProviderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
+  enabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   _count?: Prisma.SsoOAuthProviderCountOrderByAggregateInput;
@@ -213,6 +224,7 @@ export type SsoOAuthProviderScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput | Prisma.SsoOAuthProviderScalarWhereWithAggregatesInput[];
   id?: Prisma.UuidWithAggregatesFilter<'SsoOAuthProvider'> | string;
   name?: Prisma.StringWithAggregatesFilter<'SsoOAuthProvider'> | string;
+  enabled?: Prisma.BoolWithAggregatesFilter<'SsoOAuthProvider'> | boolean;
   createdAt?: Prisma.DateTimeWithAggregatesFilter<'SsoOAuthProvider'> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<'SsoOAuthProvider'> | Date | string;
 };
@@ -220,6 +232,7 @@ export type SsoOAuthProviderScalarWhereWithAggregatesInput = {
 export type SsoOAuthProviderCreateInput = {
   id?: string;
   name: string;
+  enabled: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsCreateNestedManyWithoutSsoOAuthProviderInput;
@@ -229,6 +242,7 @@ export type SsoOAuthProviderCreateInput = {
 export type SsoOAuthProviderUncheckedCreateInput = {
   id?: string;
   name: string;
+  enabled: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsUncheckedCreateNestedManyWithoutSsoOAuthProviderInput;
@@ -238,6 +252,7 @@ export type SsoOAuthProviderUncheckedCreateInput = {
 export type SsoOAuthProviderUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
+  enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsUpdateManyWithoutSsoOAuthProviderNestedInput;
@@ -247,6 +262,7 @@ export type SsoOAuthProviderUpdateInput = {
 export type SsoOAuthProviderUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
+  enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsUncheckedUpdateManyWithoutSsoOAuthProviderNestedInput;
@@ -256,6 +272,7 @@ export type SsoOAuthProviderUncheckedUpdateInput = {
 export type SsoOAuthProviderCreateManyInput = {
   id?: string;
   name: string;
+  enabled: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -263,6 +280,7 @@ export type SsoOAuthProviderCreateManyInput = {
 export type SsoOAuthProviderUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
+  enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -270,6 +288,7 @@ export type SsoOAuthProviderUpdateManyMutationInput = {
 export type SsoOAuthProviderUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
+  enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -277,6 +296,7 @@ export type SsoOAuthProviderUncheckedUpdateManyInput = {
 export type SsoOAuthProviderCountOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
+  enabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -284,6 +304,7 @@ export type SsoOAuthProviderCountOrderByAggregateInput = {
 export type SsoOAuthProviderMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
+  enabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -291,6 +312,7 @@ export type SsoOAuthProviderMaxOrderByAggregateInput = {
 export type SsoOAuthProviderMinOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   name?: Prisma.SortOrder;
+  enabled?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -355,6 +377,7 @@ export type SsoOAuthProviderUpdateOneRequiredWithoutSsoOAuthTokenNestedInput = {
 export type SsoOAuthProviderCreateWithoutSsoOAuthProviderSettingsInput = {
   id?: string;
   name: string;
+  enabled: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   SsoOAuthToken?: Prisma.SsoOAuthTokenCreateNestedManyWithoutSsoOAuthProviderInput;
@@ -363,6 +386,7 @@ export type SsoOAuthProviderCreateWithoutSsoOAuthProviderSettingsInput = {
 export type SsoOAuthProviderUncheckedCreateWithoutSsoOAuthProviderSettingsInput = {
   id?: string;
   name: string;
+  enabled: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   SsoOAuthToken?: Prisma.SsoOAuthTokenUncheckedCreateNestedManyWithoutSsoOAuthProviderInput;
@@ -399,6 +423,7 @@ export type SsoOAuthProviderUpdateToOneWithWhereWithoutSsoOAuthProviderSettingsI
 export type SsoOAuthProviderUpdateWithoutSsoOAuthProviderSettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
+  enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   SsoOAuthToken?: Prisma.SsoOAuthTokenUpdateManyWithoutSsoOAuthProviderNestedInput;
@@ -407,6 +432,7 @@ export type SsoOAuthProviderUpdateWithoutSsoOAuthProviderSettingsInput = {
 export type SsoOAuthProviderUncheckedUpdateWithoutSsoOAuthProviderSettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
+  enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   SsoOAuthToken?: Prisma.SsoOAuthTokenUncheckedUpdateManyWithoutSsoOAuthProviderNestedInput;
@@ -415,6 +441,7 @@ export type SsoOAuthProviderUncheckedUpdateWithoutSsoOAuthProviderSettingsInput 
 export type SsoOAuthProviderCreateWithoutSsoOAuthTokenInput = {
   id?: string;
   name: string;
+  enabled: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsCreateNestedManyWithoutSsoOAuthProviderInput;
@@ -423,6 +450,7 @@ export type SsoOAuthProviderCreateWithoutSsoOAuthTokenInput = {
 export type SsoOAuthProviderUncheckedCreateWithoutSsoOAuthTokenInput = {
   id?: string;
   name: string;
+  enabled: boolean;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsUncheckedCreateNestedManyWithoutSsoOAuthProviderInput;
@@ -459,6 +487,7 @@ export type SsoOAuthProviderUpdateToOneWithWhereWithoutSsoOAuthTokenInput = {
 export type SsoOAuthProviderUpdateWithoutSsoOAuthTokenInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
+  enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsUpdateManyWithoutSsoOAuthProviderNestedInput;
@@ -467,6 +496,7 @@ export type SsoOAuthProviderUpdateWithoutSsoOAuthTokenInput = {
 export type SsoOAuthProviderUncheckedUpdateWithoutSsoOAuthTokenInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   name?: Prisma.StringFieldUpdateOperationsInput | string;
+  enabled?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   SsoOAuthProviderSettings?: Prisma.SsoOAuthProviderSettingsUncheckedUpdateManyWithoutSsoOAuthProviderNestedInput;
@@ -524,6 +554,7 @@ export type SsoOAuthProviderSelect<
   {
     id?: boolean;
     name?: boolean;
+    enabled?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     SsoOAuthProviderSettings?: boolean | Prisma.SsoOAuthProvider$SsoOAuthProviderSettingsArgs<ExtArgs>;
@@ -539,6 +570,7 @@ export type SsoOAuthProviderSelectCreateManyAndReturn<
   {
     id?: boolean;
     name?: boolean;
+    enabled?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
   },
@@ -551,6 +583,7 @@ export type SsoOAuthProviderSelectUpdateManyAndReturn<
   {
     id?: boolean;
     name?: boolean;
+    enabled?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
   },
@@ -560,13 +593,17 @@ export type SsoOAuthProviderSelectUpdateManyAndReturn<
 export type SsoOAuthProviderSelectScalar = {
   id?: boolean;
   name?: boolean;
+  enabled?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
 };
 
 export type SsoOAuthProviderOmit<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-> = runtime.Types.Extensions.GetOmit<'id' | 'name' | 'createdAt' | 'updatedAt', ExtArgs['result']['ssoOAuthProvider']>;
+> = runtime.Types.Extensions.GetOmit<
+  'id' | 'name' | 'enabled' | 'createdAt' | 'updatedAt',
+  ExtArgs['result']['ssoOAuthProvider']
+>;
 export type SsoOAuthProviderInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
@@ -596,6 +633,7 @@ export type $SsoOAuthProviderPayload<
        */
       id: string;
       name: string;
+      enabled: boolean;
       /**
        * @DtoCreateHidden
        * @DtoUpdateHidden
@@ -1135,6 +1173,7 @@ export interface Prisma__SsoOAuthProviderClient<
 export interface SsoOAuthProviderFieldRefs {
   readonly id: Prisma.FieldRef<'SsoOAuthProvider', 'String'>;
   readonly name: Prisma.FieldRef<'SsoOAuthProvider', 'String'>;
+  readonly enabled: Prisma.FieldRef<'SsoOAuthProvider', 'Boolean'>;
   readonly createdAt: Prisma.FieldRef<'SsoOAuthProvider', 'DateTime'>;
   readonly updatedAt: Prisma.FieldRef<'SsoOAuthProvider', 'DateTime'>;
 }

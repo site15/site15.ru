@@ -9,7 +9,7 @@
  */
 
 
-export type SsoOAuthTokenScalarFieldEnumInterface = 'id' | 'grantedAt' | 'accessToken' | 'refreshToken' | 'expiresAt' | 'tokenType' | 'scope' | 'verificationCode' | 'userId' | 'projectId' | 'providerId' | 'providerUserId' | 'providerUserData' | 'createdAt' | 'updatedAt';
+export type SsoOAuthTokenScalarFieldEnumInterface = 'id' | 'grantedAt' | 'accessToken' | 'refreshToken' | 'expiresAt' | 'tokenType' | 'scope' | 'verificationCode' | 'userId' | 'tenantId' | 'providerId' | 'providerUserId' | 'providerUserData' | 'createdAt' | 'updatedAt';
 
 export const SsoOAuthTokenScalarFieldEnumInterface = {
     id: 'id' as SsoOAuthTokenScalarFieldEnumInterface,
@@ -21,7 +21,7 @@ export const SsoOAuthTokenScalarFieldEnumInterface = {
     scope: 'scope' as SsoOAuthTokenScalarFieldEnumInterface,
     verificationCode: 'verificationCode' as SsoOAuthTokenScalarFieldEnumInterface,
     userId: 'userId' as SsoOAuthTokenScalarFieldEnumInterface,
-    projectId: 'projectId' as SsoOAuthTokenScalarFieldEnumInterface,
+    tenantId: 'tenantId' as SsoOAuthTokenScalarFieldEnumInterface,
     providerId: 'providerId' as SsoOAuthTokenScalarFieldEnumInterface,
     providerUserId: 'providerUserId' as SsoOAuthTokenScalarFieldEnumInterface,
     providerUserData: 'providerUserData' as SsoOAuthTokenScalarFieldEnumInterface,

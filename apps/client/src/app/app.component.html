@@ -12,7 +12,7 @@
         <li nz-menu-item routerLink="/users" transloco="Users"></li>
       }
       @if ([SsoRoleInterface.admin] | checkUserRoles | async) {
-        <li nz-menu-item routerLink="/projects" transloco="Projects"></li>
+        <li nz-menu-item routerLink="/tenants" transloco="Tenants"></li>
       }
       @if ([SsoRoleInterface.user, SsoRoleInterface.manager, SsoRoleInterface.admin] | checkUserRoles | async) {
         <ng-template #iconRef>
@@ -51,26 +51,26 @@
           </li>
         </ul>
       </li>
-      @if (publicProjects$ | async; as publicProjects) {
+      @if (publicTenants$ | async; as publicTenants) {
         @if (([SsoRoleInterface.admin] | checkUserRoles | async) || ([] | checkUserRoles | async)) {
           <li
             nz-submenu
-            [nzTitle]="(activePublicProject$ | async)?.name || ('Select active project' | transloco)"
+            [nzTitle]="(activePublicTenant$ | async)?.name || ('Select active tenant' | transloco)"
             [style]="{ float: 'right' }"
           >
             <ul>
               <li
-                *ngFor="let publicProject of publicProjects$ | async"
+                *ngFor="let publicTenant of publicTenants$ | async"
                 nz-menu-item
-                (click)="setActivePublicProject(publicProject)"
+                (click)="setActivePublicTenant(publicTenant)"
               >
-                {{ publicProject.name }}
+                {{ publicTenant.name }}
               </li>
             </ul>
           </li>
         } @else {
           <a nzDisabled="true" nz-menu-item [style]="{ float: 'right' }">{{
-            (activePublicProject$ | async)?.name || ('Select active project' | transloco)
+            (activePublicTenant$ | async)?.name || ('Select active tenant' | transloco)
           }}</a>
         }
       }

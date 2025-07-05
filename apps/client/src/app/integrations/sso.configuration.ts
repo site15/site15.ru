@@ -11,7 +11,7 @@ import {
   OAuthProvider,
   OAuthVerificationInput,
   SSO_CONFIGURATION_TOKEN,
-  SsoActiveProjectService,
+  SsoActiveTenantService,
   SsoCompleteForgotPasswordInput,
   SsoCompleteSignUpInput,
   SsoConfiguration,
@@ -32,7 +32,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     private readonly filesService: FilesService,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
-    private readonly ssoActiveProjectService: SsoActiveProjectService,
+    private readonly ssoActiveTenantService: SsoActiveTenantService,
     private readonly fingerprintService: FingerprintService,
     private readonly nzMessageService: NzMessageService,
   ) {}
@@ -40,17 +40,17 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   getAuthorizationHeaders(): Record<string, string> {
     const lang = this.translocoService.getActiveLang();
     const accessToken = this.tokensService.getAccessToken();
-    const activeProjectAuthorizationHeaders = this.ssoActiveProjectService.getAuthorizationHeaders();
+    const activeTenantAuthorizationHeaders = this.ssoActiveTenantService.getAuthorizationHeaders();
     if (!accessToken) {
       return {
         'Accept-language': lang,
-        ...activeProjectAuthorizationHeaders,
+        ...activeTenantAuthorizationHeaders,
       };
     }
     return {
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
       'Accept-language': lang,
-      ...activeProjectAuthorizationHeaders,
+      ...activeTenantAuthorizationHeaders,
     };
   }
 
@@ -327,7 +327,7 @@ export function provideSsoConfiguration(): Provider {
       FilesService,
       TranslocoService,
       TokensService,
-      SsoActiveProjectService,
+      SsoActiveTenantService,
       FingerprintService,
       NzMessageService,
     ],

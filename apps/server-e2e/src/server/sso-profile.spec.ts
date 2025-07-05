@@ -3,7 +3,7 @@ import { SsoRestClientHelper } from '@nestjs-mod-sso/testing';
 
 describe('Sso profile (e2e)', () => {
   let user: SsoRestClientHelper<'strict'>;
-  let project: SsoRestClientHelper<'strict'>;
+  let tenant: SsoRestClientHelper<'strict'>;
 
   let userTokens: TokensResponse;
 
@@ -15,20 +15,22 @@ describe('Sso profile (e2e)', () => {
         'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
-    project = await new SsoRestClientHelper({
+    tenant = await new SsoRestClientHelper({
       headers: {
         'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
   });
 
-  it('Create project', async () => {
-    const { data: createOneResult } = await user.getSsoApi().ssoProjectsControllerCreateOne(
+  it('Create tenant', async () => {
+    const { data: createOneResult } = await user.getSsoApi().ssoTenantsControllerCreateOne(
       {
         public: false,
-        name: project.randomUser.uniqId,
-        clientId: project.randomUser.id,
-        clientSecret: project.randomUser.password,
+        name: tenant.randomUser.uniqId,
+        clientId: tenant.randomUser.id,
+        clientSecret: tenant.randomUser.password,
+        enabled: true,
+        slug: tenant.randomUser.domainWord,
       },
       {
         headers: {
@@ -50,7 +52,7 @@ describe('Sso profile (e2e)', () => {
       },
       {
         headers: {
-          'x-client-id': project.randomUser.id,
+          'x-client-id': tenant.randomUser.id,
         },
       },
     );
@@ -60,9 +62,9 @@ describe('Sso profile (e2e)', () => {
   });
 
   it('As admin set current date to emailVerifiedAt column', async () => {
-    const { data: findManyProjectsResult } = await user
+    const { data: findManyTenantsResult } = await user
       .getSsoApi()
-      .ssoProjectsControllerFindMany(undefined, undefined, project.randomUser.id, undefined, {
+      .ssoTenantsControllerFindMany(undefined, undefined, tenant.randomUser.id, undefined, {
         headers: {
           'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
         },
@@ -75,7 +77,7 @@ describe('Sso profile (e2e)', () => {
         undefined,
         user.randomUser.email,
         undefined,
-        findManyProjectsResult.ssoProjects[0].id,
+        findManyTenantsResult.ssoTenants[0].id,
         {
           headers: {
             'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
@@ -109,7 +111,7 @@ describe('Sso profile (e2e)', () => {
       },
       {
         headers: {
-          'x-client-id': project.randomUser.id,
+          'x-client-id': tenant.randomUser.id,
         },
       },
     );
@@ -123,7 +125,7 @@ describe('Sso profile (e2e)', () => {
     const { data: profileResult } = await user.getSsoApi().ssoControllerProfile({
       headers: {
         ...(userTokens.accessToken ? { Authorization: `Bearer ${userTokens.accessToken}` } : {}),
-        'x-client-id': project.randomUser.id,
+        'x-client-id': tenant.randomUser.id,
       },
     });
     const { data: updatedProfileResult } = await user.getSsoApi().ssoControllerUpdateProfile(
@@ -137,7 +139,7 @@ describe('Sso profile (e2e)', () => {
       {
         headers: {
           ...(userTokens.accessToken ? { Authorization: `Bearer ${userTokens.accessToken}` } : {}),
-          'x-client-id': project.randomUser.id,
+          'x-client-id': tenant.randomUser.id,
         },
       },
     );

@@ -10,8 +10,8 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { TranslatesModule } from 'nestjs-translates';
 import { SsoEmailTemplatesController } from './controllers/sso-email-templates.controller';
 import { SsoOAuthController } from './controllers/sso-oauth.controller';
-import { SsoProjectsController } from './controllers/sso-projects.controller';
-import { SsoPublicProjectsController } from './controllers/sso-public-projects.controller';
+import { SsoTenantsController } from './controllers/sso-tenants.controller';
+import { SsoPublicTenantsController } from './controllers/sso-public-tenants.controller';
 import { SsoRolesController } from './controllers/sso-roles.controller';
 import { SsoRefreshSessionsController } from './controllers/sso-sessions.controller';
 import { SsoUsersController } from './controllers/sso-users.controller';
@@ -23,7 +23,7 @@ import { SsoCacheService } from './services/sso-cache.service';
 import { SsoCookieService } from './services/sso-cookie.service';
 import { SsoEventsService } from './services/sso-events.service';
 import { SsoPasswordService } from './services/sso-password.service';
-import { SsoProjectService } from './services/sso-project.service';
+import { SsoTenantService } from './services/sso-tenant.service';
 import { SsoTemplatesService } from './services/sso-templates.service';
 import { SsoTimezoneService } from './services/sso-timezone.service';
 import { SsoTokensService } from './services/sso-tokens.service';
@@ -91,10 +91,10 @@ export const { SsoModule } = createNestModule({
     [
       SsoController,
       SsoUsersController,
-      SsoProjectsController,
+      SsoTenantsController,
       SsoRefreshSessionsController,
       SsoRolesController,
-      SsoPublicProjectsController,
+      SsoPublicTenantsController,
       SsoEmailTemplatesController,
       SsoOAuthController,
       SsoGoogleOAuthController,
@@ -123,7 +123,7 @@ export const { SsoModule } = createNestModule({
     SsoPasswordService,
     SsoCacheService,
     SsoTokensService,
-    SsoProjectService,
+    SsoTenantService,
     SsoTemplatesService,
     JwtService,
     SsoAsyncLocalStorageContext,

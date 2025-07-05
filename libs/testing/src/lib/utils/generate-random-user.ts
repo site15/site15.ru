@@ -19,8 +19,9 @@ export interface GenerateRandomUserResult {
   dateOfBirth: Date;
   country: string;
   company: string;
-  prefix?: string;
-  site?: string;
+  prefix: string;
+  site: string;
+  domainWord: string;
 }
 
 export async function generateRandomUser(
@@ -63,6 +64,8 @@ export async function generateRandomUser(
       length: 5,
     })}`;
   const createdAt = new Date();
+  const domainWord = faker.internet.domainWord();
+  const site = `https://${domainWord}.${faker.internet.domainSuffix}`;
   return {
     ...options,
     id: faker.string.uuid(),
@@ -83,6 +86,7 @@ export async function generateRandomUser(
     country: 'USA',
     company: faker.company.name(),
     prefix,
-    site: `https://${faker.internet.domainName()}`,
+    site,
+    domainWord,
   };
 }

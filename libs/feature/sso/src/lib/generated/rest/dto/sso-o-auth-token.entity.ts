@@ -1,7 +1,7 @@
 import { Prisma } from '../../prisma-client';
 import { ApiProperty } from '@nestjs/swagger';
-import { SsoProject } from './sso-project.entity';
 import { SsoOAuthProvider } from './sso-o-auth-provider.entity';
+import { SsoTenant } from './sso-tenant.entity';
 import { SsoUser } from './sso-user.entity';
 
 export class SsoOAuthToken {
@@ -42,7 +42,7 @@ export class SsoOAuthToken {
   @ApiProperty({
     type: 'string',
   })
-  projectId!: string;
+  tenantId!: string;
   @ApiProperty({
     type: 'string',
   })
@@ -67,15 +67,15 @@ export class SsoOAuthToken {
   })
   updatedAt!: Date;
   @ApiProperty({
-    type: () => SsoProject,
-    required: false,
-  })
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: SsoProject;
-  @ApiProperty({
     type: () => SsoOAuthProvider,
     required: false,
   })
   SsoOAuthProvider?: SsoOAuthProvider;
+  @ApiProperty({
+    type: () => SsoTenant,
+    required: false,
+  })
+  SsoTenant?: SsoTenant;
   @ApiProperty({
     type: () => SsoUser,
     required: false,

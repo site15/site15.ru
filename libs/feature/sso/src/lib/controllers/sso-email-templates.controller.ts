@@ -41,7 +41,7 @@ export class SsoEmailTemplatesController {
     });
 
     const searchText = args.searchText;
-    const projectId = ssoRequest.ssoProject.id;
+    const tenantId = ssoRequest.ssoTenant.id;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')
@@ -61,7 +61,7 @@ export class SsoEmailTemplatesController {
       return {
         ssoEmailTemplates: await prisma.ssoEmailTemplate.findMany({
           where: {
-            ...(projectId ? { projectId: { equals: projectId } } : {}),
+            ...(tenantId ? { tenantId: { equals: tenantId } } : {}),
             ...(searchText
               ? {
                   OR: [
@@ -106,7 +106,7 @@ export class SsoEmailTemplatesController {
         }),
         totalResults: await prisma.ssoEmailTemplate.count({
           where: {
-            ...(projectId ? { projectId: { equals: projectId } } : {}),
+            ...(tenantId ? { tenantId: { equals: tenantId } } : {}),
             ...(searchText
               ? {
                   OR: [
@@ -165,12 +165,12 @@ export class SsoEmailTemplatesController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoEmailTemplateDto,
   ) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
+    const tenantId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoTenant.id;
 
     const result = await this.prismaClient.ssoEmailTemplate.update({
       data: { ...omit(['operationName'], args), updatedAt: new Date() },
       where: {
-        ...(projectId ? { projectId: { equals: projectId } } : {}),
+        ...(tenantId ? { tenantId: { equals: tenantId } } : {}),
         id,
       },
     });
@@ -181,11 +181,11 @@ export class SsoEmailTemplatesController {
   @Get(':id')
   @ApiOkResponse({ type: SsoEmailTemplateDto })
   async findOne(@CurrentSsoRequest() ssoRequest: SsoRequest, @Param('id', new ParseUUIDPipe()) id: string) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
+    const tenantId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoTenant.id;
 
     return await this.prismaClient.ssoEmailTemplate.findFirstOrThrow({
       where: {
-        ...(projectId ? { projectId: { equals: projectId } } : {}),
+        ...(tenantId ? { tenantId: { equals: tenantId } } : {}),
         id,
       },
     });

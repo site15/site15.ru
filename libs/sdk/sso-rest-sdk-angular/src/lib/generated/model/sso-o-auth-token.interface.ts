@@ -8,8 +8,8 @@
  * Do not edit the class manually.
  */
 import { SsoUserInterface } from './sso-user.interface';
-import { SsoProjectInterface } from './sso-project.interface';
 import { SsoOAuthProviderInterface } from './sso-o-auth-provider.interface';
+import { SsoTenantInterface } from './sso-tenant.interface';
 
 
 export interface SsoOAuthTokenInterface { 
@@ -20,14 +20,14 @@ export interface SsoOAuthTokenInterface {
     scope: string | null;
     verificationCode: string | null;
     userId: string;
-    projectId: string;
+    tenantId: string;
     providerId: string;
     providerUserId: string;
     providerUserData: object | null;
     createdAt: string;
     updatedAt: string;
-    SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: SsoProjectInterface;
     SsoOAuthProvider?: SsoOAuthProviderInterface;
+    SsoTenant?: SsoTenantInterface;
     SsoUser?: SsoUserInterface;
 }
 

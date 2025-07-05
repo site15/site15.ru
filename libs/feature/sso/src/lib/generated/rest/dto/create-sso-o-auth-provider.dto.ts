@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateSsoOAuthProviderDto {
   @ApiProperty({
@@ -8,4 +8,10 @@ export class CreateSsoOAuthProviderDto {
   @IsNotEmpty()
   @IsString()
   name!: string;
+  @ApiProperty({
+    type: 'boolean',
+  })
+  @IsNotEmpty()
+  @IsBoolean()
+  enabled!: boolean;
 }

@@ -13,8 +13,8 @@ import { Title } from '@angular/platform-browser';
 import {
   CheckUserRolesPipe,
   SsoActiveLangService,
-  SsoActiveProjectService,
-  SsoProjectModel,
+  SsoActiveTenantService,
+  SsoTenantModel,
   SsoService,
   TokensService,
   UserPipe,
@@ -59,8 +59,8 @@ export class AppComponent implements OnInit {
   availableLangs$ = new BehaviorSubject<LangDefinition[]>([]);
   SsoRoleInterface = SsoRoleInterface;
 
-  publicProjects$?: Observable<SsoProjectModel[] | undefined>;
-  activePublicProject$?: Observable<SsoProjectModel | undefined>;
+  publicTenants$?: Observable<SsoTenantModel[] | undefined>;
+  activePublicTenant$?: Observable<SsoTenantModel | undefined>;
 
   constructor(
     private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
@@ -69,7 +69,7 @@ export class AppComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
     private readonly ssoActiveLangService: SsoActiveLangService,
-    private readonly ssoActiveProjectService: SsoActiveProjectService,
+    private readonly ssoActiveTenantService: SsoActiveTenantService,
     private readonly titleService: Title,
     private readonly filesService: FilesService,
   ) {
@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadAvailablePublicProjects();
+    this.loadAvailablePublicTenants();
 
     this.loadAvailableLangs();
     this.subscribeToChangeProfile();
@@ -94,15 +94,15 @@ export class AppComponent implements OnInit {
     return (!value.toLowerCase().startsWith('http') ? this.filesService.getMinioURL() : '') + value;
   }
 
-  setActivePublicProject(activePublicProject?: SsoProjectModel) {
-    this.ssoActiveProjectService.setActivePublicProject(activePublicProject);
+  setActivePublicTenant(activePublicTenant?: SsoTenantModel) {
+    this.ssoActiveTenantService.setActivePublicTenant(activePublicTenant);
   }
 
-  private loadAvailablePublicProjects() {
-    this.publicProjects$ = this.ssoActiveProjectService.publicProjects$.asObservable();
-    this.activePublicProject$ = this.ssoActiveProjectService.activePublicProject$.asObservable();
+  private loadAvailablePublicTenants() {
+    this.publicTenants$ = this.ssoActiveTenantService.publicTenants$.asObservable();
+    this.activePublicTenant$ = this.ssoActiveTenantService.activePublicTenant$.asObservable();
 
-    this.ssoActiveProjectService.loadAvailablePublicProjects();
+    this.ssoActiveTenantService.loadAvailablePublicTenants();
   }
 
   private subscribeToChangeProfile() {
@@ -143,7 +143,7 @@ export class AppComponent implements OnInit {
       .pipe(
         tap((lang) => {
           this.lang$.next(lang);
-          this.ssoActiveProjectService.loadAvailablePublicProjects();
+          this.ssoActiveTenantService.loadAvailablePublicTenants();
         }),
         untilDestroyed(this),
       )

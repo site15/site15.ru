@@ -5,7 +5,7 @@
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "outputs": ["{workspaceRoot}/coverage/{e2eTenantRoot}"],
       "options": {
         "jestConfig": "apps/server-e2e/jest.config.ts",
         "passWithNoTests": true

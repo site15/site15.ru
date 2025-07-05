@@ -4,10 +4,10 @@ import { IsNotEmpty, IsOptional } from 'class-validator';
 import ms from 'ms';
 import { SsoRole } from './types/sso-role';
 import {
-  SsoProjectType,
-  StringToProjectsTransformer,
-  StringToProjectTransformer,
-} from './utils/string-to-project.transformer';
+  SsoTenantType,
+  StringToTenantsTransformer,
+  StringToTenantTransformer,
+} from './utils/string-to-tenant.transformer';
 
 @EnvModel()
 export class SsoStaticEnvironments {
@@ -154,20 +154,20 @@ export class SsoStaticEnvironments {
   })
   cacheTTL?: number;
 
-  // projects
+  // tenants
   @EnvModelProperty({
     description:
-      'Default public projects (example: "name1:ru=название1:tt=исем1,clientId1,clientSecret1;name2:ru=название2:tt=исем2,clientId2,clientSecret2")',
-    transform: new StringToProjectsTransformer(),
+      'Default public tenants (example: "name1:ru=название1:tt=исем1,clientId1,clientSecret1;name2:ru=название2:tt=исем2,clientId2,clientSecret2")',
+    transform: new StringToTenantsTransformer(),
   })
-  defaultPublicProjects?: SsoProjectType[];
+  defaultPublicTenants?: SsoTenantType[];
 
   @EnvModelProperty({
     description:
-      'Default projects (example: "name3:ru=название3,clientId3,clientSecret3;name4:ru=название4,clientId4,clientSecret4")',
-    transform: new StringToProjectTransformer(),
+      'Default tenants (example: "name3:ru=название3,clientId3,clientSecret3;name4:ru=название4,clientId4,clientSecret4")',
+    transform: new StringToTenantTransformer(),
   })
-  defaultProject?: SsoProjectType;
+  defaultTenant?: SsoTenantType;
 
   // verification settings
   @EnvModelProperty({

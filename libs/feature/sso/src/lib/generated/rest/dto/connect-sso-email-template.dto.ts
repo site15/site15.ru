@@ -2,13 +2,13 @@ import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class SsoEmailTemplateProjectIdOperationNameUniqueInputDto {
+export class SsoEmailTemplateTenantIdOperationNameUniqueInputDto {
   @ApiProperty({
     type: 'string',
   })
   @IsNotEmpty()
   @IsString()
-  projectId!: string;
+  tenantId!: string;
   @ApiProperty({
     type: 'string',
   })
@@ -17,7 +17,7 @@ export class SsoEmailTemplateProjectIdOperationNameUniqueInputDto {
   operationName!: string;
 }
 
-@ApiExtraModels(SsoEmailTemplateProjectIdOperationNameUniqueInputDto)
+@ApiExtraModels(SsoEmailTemplateTenantIdOperationNameUniqueInputDto)
 export class ConnectSsoEmailTemplateDto {
   @ApiProperty({
     type: 'string',
@@ -27,11 +27,11 @@ export class ConnectSsoEmailTemplateDto {
   @IsString()
   id?: string;
   @ApiProperty({
-    type: SsoEmailTemplateProjectIdOperationNameUniqueInputDto,
+    type: SsoEmailTemplateTenantIdOperationNameUniqueInputDto,
     required: false,
   })
   @IsOptional()
   @ValidateNested()
-  @Type(() => SsoEmailTemplateProjectIdOperationNameUniqueInputDto)
-  projectId_operationName?: SsoEmailTemplateProjectIdOperationNameUniqueInputDto;
+  @Type(() => SsoEmailTemplateTenantIdOperationNameUniqueInputDto)
+  tenantId_operationName?: SsoEmailTemplateTenantIdOperationNameUniqueInputDto;
 }

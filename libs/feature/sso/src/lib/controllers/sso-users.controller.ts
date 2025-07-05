@@ -54,7 +54,7 @@ export class SsoUsersController {
       perPage: args.perPage,
     });
     const searchText = args.searchText;
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? args.projectId : ssoRequest.ssoProject.id;
+    const tenantId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? args.tenantId : ssoRequest.ssoTenant.id;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')
@@ -75,7 +75,7 @@ export class SsoUsersController {
       return {
         ssoUsers: await prisma.ssoUser.findMany({
           where: {
-            ...(projectId ? { projectId: { equals: projectId } } : {}),
+            ...(tenantId ? { tenantId: { equals: tenantId } } : {}),
             ...(searchText
               ? isUUID(searchText)
                 ? {
@@ -106,7 +106,7 @@ export class SsoUsersController {
         }),
         totalResults: await prisma.ssoUser.count({
           where: {
-            ...(projectId ? { projectId: { equals: projectId } } : {}),
+            ...(tenantId ? { tenantId: { equals: tenantId } } : {}),
             ...(searchText
               ? isUUID(searchText)
                 ? {
@@ -152,7 +152,7 @@ export class SsoUsersController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() args: UpdateSsoUserDto,
   ) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
+    const tenantId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoTenant.id;
     const result = await this.prismaClient.ssoUser.update({
       data: {
         ...args,
@@ -165,7 +165,7 @@ export class SsoUsersController {
       },
       where: {
         id,
-        ...(projectId ? { projectId: { equals: projectId } } : {}),
+        ...(tenantId ? { tenantId: { equals: tenantId } } : {}),
       },
     });
 
@@ -187,14 +187,14 @@ export class SsoUsersController {
       };
       const user = await this.ssoService.signUp({
         signUpArgs,
-        projectId: ssoRequest.ssoProject.id,
+        tenantId: ssoRequest.ssoTenant.id,
         operationName: OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
       });
 
       await this.webhookService.sendEvent({
         eventName: SsoWebhookEvent['sso.sign-up'],
         eventBody: omit(['password'], user),
-        eventHeaders: { projectId: ssoRequest.ssoProject.id },
+        eventHeaders: { tenantId: ssoRequest.ssoTenant.id },
       });
 
       if (user.emailVerifiedAt !== null) {
@@ -210,11 +210,11 @@ export class SsoUsersController {
   @Get(':id')
   @ApiOkResponse({ type: SsoUserDto })
   async findOne(@CurrentSsoRequest() ssoRequest: SsoRequest, @Param('id', new ParseUUIDPipe()) id: string) {
-    const projectId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoProject.id;
+    const tenantId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? undefined : ssoRequest.ssoTenant.id;
     return await this.prismaClient.ssoUser.findFirstOrThrow({
       where: {
         id,
-        ...(projectId ? { projectId } : {}),
+        ...(tenantId ? { tenantId } : {}),
       },
     });
   }

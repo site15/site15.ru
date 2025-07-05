@@ -12,6 +12,7 @@
 export interface OAuthProviderInterface { 
     id: string;
     name: string;
+    enabled: boolean;
     createdAt: string;
     updatedAt: string;
     url: string;

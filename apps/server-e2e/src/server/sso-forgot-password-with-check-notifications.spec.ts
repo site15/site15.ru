@@ -5,21 +5,21 @@ import { setTimeout } from 'node:timers/promises';
 describe('Sso forgot password with check notifications (e2e)', () => {
   let user: SsoRestClientHelper<'strict'>;
   let admin: SsoRestClientHelper<'strict'>;
-  let project: SsoRestClientHelper<'strict'>;
+  let tenant: SsoRestClientHelper<'strict'>;
 
   let userTokens: TokensResponse;
 
   jest.setTimeout(5 * 60 * 1000);
 
   beforeAll(async () => {
-    project = await new SsoRestClientHelper({
+    tenant = await new SsoRestClientHelper({
       headers: {
         'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
     user = await new SsoRestClientHelper({
       headers: {
-        'x-client-id': project.randomUser.id,
+        'x-client-id': tenant.randomUser.id,
         'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
@@ -31,12 +31,14 @@ describe('Sso forgot password with check notifications (e2e)', () => {
     });
   });
 
-  it('Create project', async () => {
-    const { data: createOneResult } = await admin.getSsoApi().ssoProjectsControllerCreateOne({
+  it('Create tenant', async () => {
+    const { data: createOneResult } = await admin.getSsoApi().ssoTenantsControllerCreateOne({
       public: false,
-      name: project.randomUser.uniqId,
-      clientId: project.randomUser.id,
-      clientSecret: project.randomUser.password,
+      name: tenant.randomUser.uniqId,
+      clientId: tenant.randomUser.id,
+      clientSecret: tenant.randomUser.password,
+      enabled: true,
+      slug: tenant.randomUser.domainWord,
     });
     expect(createOneResult).toHaveProperty('id');
   });
@@ -59,7 +61,7 @@ describe('Sso forgot password with check notifications (e2e)', () => {
     const { data: findManyResult } = await admin
       .getNotificationsApi()
       .notificationsControllerFindMany(undefined, undefined, user.randomUser.email, undefined, {
-        headers: { 'x-client-id': project.randomUser.id },
+        headers: { 'x-client-id': tenant.randomUser.id },
       });
     expect(findManyResult.notifications).toHaveLength(1);
     const code = findManyResult.notifications[0].html.split('?code=')[1].split('&')[0].split('"')[0];
@@ -100,7 +102,7 @@ describe('Sso forgot password with check notifications (e2e)', () => {
       { email: user.randomUser.email },
       {
         headers: {
-          'x-client-id': project.randomUser.id,
+          'x-client-id': tenant.randomUser.id,
         },
       },
     );
@@ -111,7 +113,7 @@ describe('Sso forgot password with check notifications (e2e)', () => {
     const { data: findManyResult } = await admin
       .getNotificationsApi()
       .notificationsControllerFindMany(undefined, undefined, user.randomUser.email, undefined, {
-        headers: { 'x-client-id': project.randomUser.id },
+        headers: { 'x-client-id': tenant.randomUser.id },
       });
     expect(findManyResult.notifications).toHaveLength(2);
     const code = findManyResult.notifications[0].html.split('?code=')[1].split('&')[0].split('"')[0];
@@ -148,7 +150,7 @@ describe('Sso forgot password with check notifications (e2e)', () => {
         password: user.randomUser.newPassword,
         fingerprint: user.randomUser.id,
       },
-      { headers: { 'x-client-id': project.randomUser.id } },
+      { headers: { 'x-client-id': tenant.randomUser.id } },
     );
     expect(signInResult).toHaveProperty('accessToken');
     expect(signInResult).toHaveProperty('refreshToken');

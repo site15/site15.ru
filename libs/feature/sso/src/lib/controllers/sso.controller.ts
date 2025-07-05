@@ -59,20 +59,20 @@ export class SsoController {
   ): Promise<void> {
     const user = await this.ssoService.signIn({
       signInArgs,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     await this.webhookService.sendEvent({
       eventName: SsoWebhookEvent['sso.sign-in'],
       eventBody: omit(['password'], user),
-      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+      eventHeaders: { tenantId: ssoRequest.ssoTenant.id },
     });
 
     if (user.emailVerifiedAt === null) {
       this.logger.debug({
         signIn: {
           signInArgs,
-          projectId: ssoRequest.ssoProject.id,
+          tenantId: ssoRequest.ssoTenant.id,
         },
       });
       throw new SsoError(SsoErrorEnum.EmailNotVerified);
@@ -91,7 +91,7 @@ export class SsoController {
       userAgent,
       fingerprint: signInArgs.fingerprint,
       roles: user.roles,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
@@ -118,21 +118,21 @@ export class SsoController {
   ): Promise<void> {
     const user = await this.ssoService.signUp({
       signUpArgs,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
       operationName: OperationName.VERIFY_EMAIL,
     });
 
     await this.webhookService.sendEvent({
       eventName: SsoWebhookEvent['sso.sign-up'],
       eventBody: omit(['password'], user),
-      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+      eventHeaders: { tenantId: ssoRequest.ssoTenant.id },
     });
 
     if (user.emailVerifiedAt === null) {
       this.logger.debug({
         signUp: {
           signUpArgs,
-          projectId: ssoRequest.ssoProject.id,
+          tenantId: ssoRequest.ssoTenant.id,
         },
       });
       throw new SsoError(SsoErrorEnum.EmailNotVerified);
@@ -151,7 +151,7 @@ export class SsoController {
       userAgent,
       fingerprint: signUpArgs.fingerprint,
       roles: user.roles,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
@@ -177,7 +177,7 @@ export class SsoController {
   ): Promise<void> {
     const user = await this.ssoService.completeSignUp({
       code: completeSignUpArgs.code,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     if (!user) {
@@ -187,7 +187,7 @@ export class SsoController {
     await this.webhookService.sendEvent({
       eventName: SsoWebhookEvent['sso.complete-sign-up'],
       eventBody: omit(['password'], user),
-      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+      eventHeaders: { tenantId: ssoRequest.ssoTenant.id },
     });
 
     await this.ssoEventsService.send({
@@ -203,7 +203,7 @@ export class SsoController {
       userAgent,
       fingerprint: completeSignUpArgs.fingerprint,
       roles: user.roles,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
@@ -235,13 +235,13 @@ export class SsoController {
 
     const cookieWithJwtToken = await this.ssoCookieService.getCookieForSignOut({
       refreshToken,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     await this.webhookService.sendEvent({
       eventName: SsoWebhookEvent['sso.sign-out'],
       eventBody: omit(['password'], ssoRequest.ssoUser || {}),
-      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+      eventHeaders: { tenantId: ssoRequest.ssoTenant.id },
     });
 
     await this.ssoEventsService.send({
@@ -267,13 +267,13 @@ export class SsoController {
     await this.ssoService.forgotPassword({
       forgotPasswordArgs,
       ssoRequest,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     await this.webhookService.sendEvent({
       eventName: SsoWebhookEvent['sso.forgot-password'],
       eventBody: omit(['password'], ssoRequest.ssoUser || {}),
-      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+      eventHeaders: { tenantId: ssoRequest.ssoTenant.id },
     });
 
     return { message: 'ok' };
@@ -292,7 +292,7 @@ export class SsoController {
   ): Promise<void> {
     const user = await this.ssoService.completeForgotPassword({
       completeForgotPasswordArgs,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     if (!user) {
@@ -302,7 +302,7 @@ export class SsoController {
     await this.webhookService.sendEvent({
       eventName: SsoWebhookEvent['sso.complete-forgot-password'],
       eventBody: omit(['password'], ssoRequest.ssoUser || {}),
-      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+      eventHeaders: { tenantId: ssoRequest.ssoTenant.id },
     });
 
     const cookieWithJwtToken = await this.ssoCookieService.getCookieWithJwtToken({
@@ -311,7 +311,7 @@ export class SsoController {
       userAgent,
       fingerprint: completeForgotPasswordArgs.fingerprint,
       roles: user.roles,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
@@ -346,7 +346,7 @@ export class SsoController {
       userIp,
       userAgent,
       fingerprint: refreshTokensArgs.fingerprint,
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     response.setHeader('Set-Cookie', cookieWithJwtToken.cookie);
@@ -395,7 +395,7 @@ export class SsoController {
         ...profile,
         id: ssoRequest.ssoUser.id,
       },
-      projectId: ssoRequest.ssoProject.id,
+      tenantId: ssoRequest.ssoTenant.id,
     });
 
     await this.ssoCacheService.clearCacheByUserId({
@@ -405,7 +405,7 @@ export class SsoController {
     await this.webhookService.sendEvent({
       eventName: SsoWebhookEvent['sso.update-profile'],
       eventBody: omit(['password'], user),
-      eventHeaders: { projectId: ssoRequest.ssoProject.id },
+      eventHeaders: { tenantId: ssoRequest.ssoTenant.id },
     });
 
     return user;

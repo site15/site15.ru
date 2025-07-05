@@ -13,8 +13,8 @@ msgstr "Вы вошли в систему как {{email}}"
 msgid "Source code"
 msgstr "Исходный код"
 
-msgid "Select active project"
-msgstr "Выберите активный проект"
+msgid "Select active tenant"
+msgstr "Выберите активный тенат"
 
 msgid "Home"
 msgstr "Домашняя страница"
@@ -28,8 +28,8 @@ msgstr "Шаблоны"
 msgid "Users"
 msgstr "Пользователи"
 
-msgid "Projects"
-msgstr "Проекты"
+msgid "Tenants"
+msgstr "Тенаты"
 
 msgid "Profile"
 msgstr "Профиль"

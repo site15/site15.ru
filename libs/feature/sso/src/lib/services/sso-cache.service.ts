@@ -1,7 +1,7 @@
 import { KeyvService } from '@nestjs-mod/keyv';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, SsoProject, SsoRefreshSession, SsoUser } from '../generated/prisma-client';
+import { PrismaClient, SsoTenant, SsoRefreshSession, SsoUser } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 
@@ -43,29 +43,29 @@ export class SsoCacheService {
 
   //
 
-  async clearCacheProjectByClientId(clientId: string) {
-    await this.keyvService.delete(this.getProjectCacheKey(clientId));
+  async clearCacheTenantByClientId(clientId: string) {
+    await this.keyvService.delete(this.getTenantCacheKey(clientId));
   }
 
-  async getCachedProject(clientId: string) {
-    const cached = await this.keyvService.get<SsoProject>(this.getProjectCacheKey(clientId));
+  async getCachedTenant(clientId: string) {
+    const cached = await this.keyvService.get<SsoTenant>(this.getTenantCacheKey(clientId));
     if (cached) {
-      return cached as SsoProject;
+      return cached as SsoTenant;
     }
-    const project = await this.prismaClient.ssoProject.findFirst({
+    const tenant = await this.prismaClient.ssoTenant.findFirst({
       where: {
         clientId,
       },
     });
-    if (project) {
-      await this.keyvService.set(this.getProjectCacheKey(clientId), project, this.ssoStaticEnvironments.cacheTTL);
-      return project;
+    if (tenant) {
+      await this.keyvService.set(this.getTenantCacheKey(clientId), tenant, this.ssoStaticEnvironments.cacheTTL);
+      return tenant;
     }
     return undefined;
   }
 
-  private getProjectCacheKey(clientId: string): string {
-    return `ssoProject.${clientId}`;
+  private getTenantCacheKey(clientId: string): string {
+    return `ssoTenant.${clientId}`;
   }
   //
 

@@ -1,7 +1,8 @@
-import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
+import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { Injectable, Logger } from '@nestjs/common';
+import { PrismaClient } from '../generated/prisma-client';
 import { CreateSsoUserDto } from '../generated/rest/dto/create-sso-user.dto';
 import { SsoUser } from '../generated/rest/dto/sso-user.entity';
 import { SSO_FEATURE } from '../sso.constants';
@@ -9,9 +10,7 @@ import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { SsoCacheService } from './sso-cache.service';
 import { SsoPasswordService } from './sso-password.service';
-import { SsoProjectService } from './sso-project.service';
-import { SsoConfiguration } from '../sso.configuration';
-import { PrismaClient } from '../generated/prisma-client';
+import { SsoTenantService } from './sso-tenant.service';
 
 @Injectable()
 export class SsoUsersService {
@@ -23,7 +22,7 @@ export class SsoUsersService {
     private readonly ssoPasswordService: SsoPasswordService,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoCacheService: SsoCacheService,
-    private readonly ssoProjectService: SsoProjectService,
+    private readonly ssoTenantService: SsoTenantService,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
   ) {}
 
@@ -51,6 +50,7 @@ export class SsoUsersService {
         });
 
         this.logger.debug(`Admin with email: ${signupUserResult.email} successfully created!`);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         if (!(err instanceof SsoError && err.code === SsoErrorEnum.EmailIsExists)) {
           this.logger.error(err, err.stack);
@@ -59,11 +59,11 @@ export class SsoUsersService {
     }
   }
 
-  async getByEmail({ email, projectId }: { email: string; projectId: string }) {
+  async getByEmail({ email, tenantId }: { email: string; tenantId: string }) {
     try {
       return await this.prismaClient.ssoUser.findUniqueOrThrow({
-        include: { SsoProject: true },
-        where: { email_projectId: { email, projectId } },
+        include: { SsoTenant: true },
+        where: { tenantId_email: { email, tenantId } },
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -73,7 +73,7 @@ export class SsoUsersService {
       this.logger.debug({
         getByEmail: {
           email,
-          projectId,
+          tenantId,
         },
       });
       this.logger.error(err, err.stack);
@@ -81,18 +81,18 @@ export class SsoUsersService {
     }
   }
 
-  async getById({ id, projectId }: { id: string; projectId: string }) {
+  async getById({ id, tenantId }: { id: string; tenantId: string }) {
     try {
       return await this.prismaClient.ssoUser.findUniqueOrThrow({
-        include: { SsoProject: true },
-        where: { id, projectId },
+        include: { SsoTenant: true },
+        where: { id, tenantId },
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       this.logger.debug({
         getById: {
           id,
-          projectId,
+          tenantId,
         },
       });
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
@@ -112,7 +112,7 @@ export class SsoUsersService {
       })) || [];
     try {
       return await this.prismaClient.ssoUser.findUniqueOrThrow({
-        include: { SsoProject: true },
+        include: { SsoTenant: true },
         where: {
           id,
           ...(OR.length ? { OR } : {}),
@@ -143,7 +143,7 @@ export class SsoUsersService {
       })) || [];
     try {
       const user = await this.prismaClient.ssoUser.findFirstOrThrow({
-        include: { SsoProject: true },
+        include: { SsoTenant: true },
         where: { email, ...(OR.length ? { OR } : {}) },
       });
       if (
@@ -169,11 +169,11 @@ export class SsoUsersService {
     }
   }
 
-  async getByEmailAndPassword({ email, password, projectId }: { email: string; password: string; projectId: string }) {
+  async getByEmailAndPassword({ email, password, tenantId }: { email: string; password: string; tenantId: string }) {
     try {
       const user = await this.prismaClient.ssoUser.findUniqueOrThrow({
-        include: { SsoProject: true },
-        where: { email_projectId: { email, projectId } },
+        include: { SsoTenant: true },
+        where: { tenantId_email: { email, tenantId } },
       });
       if (
         !(await this.ssoPasswordService.comparePasswordWithHash({
@@ -190,25 +190,25 @@ export class SsoUsersService {
         this.logger.debug({
           getByEmailAndPassword: {
             email,
-            projectId,
+            tenantId,
           },
         });
         return this.getAdminByEmailAndPassword({ email, password });
       }
       this.logger.debug({
-        getByEmailAndPassword: { email, password, projectId },
+        getByEmailAndPassword: { email, password, tenantId },
       });
       this.logger.error(err, err.stack);
       throw err;
     }
   }
 
-  async create({ user, projectId, roles }: { user: CreateSsoUserDto; projectId?: string; roles?: string[] }) {
+  async create({ user, tenantId, roles }: { user: CreateSsoUserDto; tenantId?: string; roles?: string[] }) {
     if (roles?.length && !searchIn(roles, this.ssoStaticEnvironments.userAvailableRoles)) {
       this.logger.debug({
         create: {
           user,
-          projectId,
+          tenantId,
           roles,
         },
         userAvailableRoles: this.ssoStaticEnvironments.userAvailableRoles,
@@ -221,7 +221,7 @@ export class SsoUsersService {
 
     try {
       const result = await this.prismaClient.ssoUser.create({
-        include: { SsoProject: true },
+        include: { SsoTenant: true },
         data: {
           ...user,
           ...(user.email
@@ -231,11 +231,11 @@ export class SsoUsersService {
             : {}),
           username: user.username,
           password: hashedPassword,
-          SsoProject: {
-            connect: projectId
-              ? { id: projectId }
+          SsoTenant: {
+            connect: tenantId
+              ? { id: tenantId }
               : {
-                  clientId: (await this.ssoProjectService.getOrCreateDefaultProject())?.clientId,
+                  clientId: (await this.ssoTenantService.getOrCreateDefaultTenant())?.clientId,
                 },
           },
           roles: roles ? roles.join(',') : null,
@@ -256,10 +256,13 @@ export class SsoUsersService {
       if (this.prismaToolsService.isErrorOfUniqueField<{ username: string }>(err, 'username', true)) {
         throw new SsoError(SsoErrorEnum.UserIsExists);
       }
+      if (this.prismaToolsService.isErrorOfUniqueFields(err, ['"tenantId"', 'email'], true)) {
+        throw new SsoError(SsoErrorEnum.UserIsExists);
+      }
       this.logger.debug({
         create: {
           user,
-          projectId,
+          tenantId,
         },
       });
       this.logger.error(err, err.stack);
@@ -267,7 +270,7 @@ export class SsoUsersService {
     }
   }
 
-  async changePassword({ id, password, projectId }: { id: string; password: string; projectId: string }) {
+  async changePassword({ id, password, tenantId }: { id: string; password: string; tenantId: string }) {
     const hashedPassword = await this.ssoPasswordService.createPasswordHash(password);
 
     await this.prismaClient.ssoUser.update({
@@ -275,28 +278,28 @@ export class SsoUsersService {
         password: hashedPassword,
         updatedAt: new Date(),
       },
-      where: { id, projectId },
+      where: { id, tenantId },
     });
 
     await this.ssoCacheService.clearCacheByUserId({ userId: id });
 
-    return await this.getById({ id, projectId });
+    return await this.getById({ id, tenantId });
   }
 
   async update({
     user,
-    projectId,
+    tenantId,
   }: {
     user: Pick<SsoUser, 'birthdate' | 'firstname' | 'lastname' | 'id' | 'picture' | 'gender' | 'lang' | 'timezone'> & {
       password: string | null;
       oldPassword: string | null;
     };
-    projectId: string;
+    tenantId: string;
   }) {
     const { password, oldPassword, lang, timezone, ...profile } = user;
     if (password) {
       const currentUser = await this.prismaClient.ssoUser.findFirst({
-        include: { SsoProject: true },
+        include: { SsoTenant: true },
         where: { id: user.id },
       });
 
@@ -321,10 +324,10 @@ export class SsoUsersService {
       }
     }
     const updatedUser = await this.prismaClient.ssoUser.update({
-      include: { SsoProject: true },
+      include: { SsoTenant: true },
       data: {
         ...profile,
-        projectId,
+        tenantId,
         ...(user.password
           ? {
               password: await this.ssoPasswordService.createPasswordHash(user.password),
@@ -347,6 +350,6 @@ export class SsoUsersService {
 
     await this.ssoCacheService.clearCacheByUserId({ userId: updatedUser.id });
 
-    return this.getById({ id: updatedUser.id, projectId });
+    return this.getById({ id: updatedUser.id, tenantId });
   }
 }

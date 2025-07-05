@@ -5,7 +5,7 @@ import { Reflector } from '@nestjs/core';
 import { ACCEPT_LANGUAGE, TranslatesStorage } from 'nestjs-translates';
 import { SsoUser } from './generated/rest/dto/sso-user.entity';
 import { SsoCacheService } from './services/sso-cache.service';
-import { SsoProjectService } from './services/sso-project.service';
+import { SsoTenantService } from './services/sso-tenant.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoConfiguration } from './sso.configuration';
 import { X_SKIP_THROTTLE } from './sso.constants';
@@ -29,7 +29,7 @@ export class SsoGuard implements CanActivate {
     private readonly reflector: Reflector,
     private readonly ssoCacheService: SsoCacheService,
     private readonly ssoTokensService: SsoTokensService,
-    private readonly ssoProjectService: SsoProjectService,
+    private readonly ssoTenantService: SsoTenantService,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoConfiguration: SsoConfiguration,
     private readonly translatesStorage: TranslatesStorage,
@@ -54,11 +54,11 @@ export class SsoGuard implements CanActivate {
         return true;
       }
 
-      // detect project
+      // detect tenant
       if (checkHaveSsoClientSecret && !req.ssoClientSecret) {
         throw new SsoError(SsoErrorEnum.Forbidden);
       }
-      req.ssoProject = await this.ssoProjectService.getProjectByRequest(req);
+      req.ssoTenant = await this.ssoTenantService.getTenantByRequest(req);
 
       // process jwt token
       req.ssoAccessTokenData = await this.ssoTokensService.verifyAndDecodeAccessToken(
@@ -202,7 +202,7 @@ export class SsoGuard implements CanActivate {
   }) {
     const message = `${context.getClass().name}.${context.getHandler().name}${
       error ? `: ${String(error)}` : result ? `: ${result}` : ''
-    }, projectId: ${JSON.stringify(req.ssoProject?.id)}, clientId: ${JSON.stringify(
+    }, tenantId: ${JSON.stringify(req.ssoTenant?.id)}, clientId: ${JSON.stringify(
       req.ssoClientId,
     )}, accessTokenData: ${JSON.stringify(
       req.ssoAccessTokenData,

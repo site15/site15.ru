@@ -32,7 +32,7 @@ export type SsoOAuthTokenMinAggregateOutputType = {
   scope: string | null;
   verificationCode: string | null;
   userId: string | null;
-  projectId: string | null;
+  tenantId: string | null;
   providerId: string | null;
   providerUserId: string | null;
   createdAt: Date | null;
@@ -49,7 +49,7 @@ export type SsoOAuthTokenMaxAggregateOutputType = {
   scope: string | null;
   verificationCode: string | null;
   userId: string | null;
-  projectId: string | null;
+  tenantId: string | null;
   providerId: string | null;
   providerUserId: string | null;
   createdAt: Date | null;
@@ -66,7 +66,7 @@ export type SsoOAuthTokenCountAggregateOutputType = {
   scope: number;
   verificationCode: number;
   userId: number;
-  projectId: number;
+  tenantId: number;
   providerId: number;
   providerUserId: number;
   providerUserData: number;
@@ -85,7 +85,7 @@ export type SsoOAuthTokenMinAggregateInputType = {
   scope?: true;
   verificationCode?: true;
   userId?: true;
-  projectId?: true;
+  tenantId?: true;
   providerId?: true;
   providerUserId?: true;
   createdAt?: true;
@@ -102,7 +102,7 @@ export type SsoOAuthTokenMaxAggregateInputType = {
   scope?: true;
   verificationCode?: true;
   userId?: true;
-  projectId?: true;
+  tenantId?: true;
   providerId?: true;
   providerUserId?: true;
   createdAt?: true;
@@ -119,7 +119,7 @@ export type SsoOAuthTokenCountAggregateInputType = {
   scope?: true;
   verificationCode?: true;
   userId?: true;
-  projectId?: true;
+  tenantId?: true;
   providerId?: true;
   providerUserId?: true;
   providerUserData?: true;
@@ -211,7 +211,7 @@ export type SsoOAuthTokenGroupByOutputType = {
   scope: string | null;
   verificationCode: string | null;
   userId: string;
-  projectId: string;
+  tenantId: string;
   providerId: string;
   providerUserId: string;
   providerUserData: runtime.JsonValue | null;
@@ -247,17 +247,14 @@ export type SsoOAuthTokenWhereInput = {
   scope?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
   verificationCode?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
   userId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
-  projectId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
+  tenantId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
   providerId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
   providerUserId?: Prisma.StringFilter<'SsoOAuthToken'> | string;
   providerUserData?: Prisma.JsonNullableFilter<'SsoOAuthToken'>;
   createdAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: Prisma.XOR<
-    Prisma.SsoProjectScalarRelationFilter,
-    Prisma.SsoProjectWhereInput
-  >;
   SsoOAuthProvider?: Prisma.XOR<Prisma.SsoOAuthProviderScalarRelationFilter, Prisma.SsoOAuthProviderWhereInput>;
+  SsoTenant?: Prisma.XOR<Prisma.SsoTenantScalarRelationFilter, Prisma.SsoTenantWhereInput>;
   SsoUser?: Prisma.XOR<Prisma.SsoUserScalarRelationFilter, Prisma.SsoUserWhereInput>;
 };
 
@@ -271,21 +268,21 @@ export type SsoOAuthTokenOrderByWithRelationInput = {
   scope?: Prisma.SortOrderInput | Prisma.SortOrder;
   verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder;
   userId?: Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   providerId?: Prisma.SortOrder;
   providerUserId?: Prisma.SortOrder;
   providerUserData?: Prisma.SortOrderInput | Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: Prisma.SsoProjectOrderByWithRelationInput;
   SsoOAuthProvider?: Prisma.SsoOAuthProviderOrderByWithRelationInput;
+  SsoTenant?: Prisma.SsoTenantOrderByWithRelationInput;
   SsoUser?: Prisma.SsoUserOrderByWithRelationInput;
 };
 
 export type SsoOAuthTokenWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string;
-    providerId_projectId_userId_accessToken?: Prisma.SsoOAuthTokenProviderIdProjectIdUserIdAccessTokenCompoundUniqueInput;
+    tenantId_providerId_userId_accessToken?: Prisma.SsoOAuthTokenTenantIdProviderIdUserIdAccessTokenCompoundUniqueInput;
     AND?: Prisma.SsoOAuthTokenWhereInput | Prisma.SsoOAuthTokenWhereInput[];
     OR?: Prisma.SsoOAuthTokenWhereInput[];
     NOT?: Prisma.SsoOAuthTokenWhereInput | Prisma.SsoOAuthTokenWhereInput[];
@@ -297,20 +294,17 @@ export type SsoOAuthTokenWhereUniqueInput = Prisma.AtLeast<
     scope?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
     verificationCode?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
     userId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
-    projectId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
+    tenantId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
     providerId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
     providerUserId?: Prisma.StringFilter<'SsoOAuthToken'> | string;
     providerUserData?: Prisma.JsonNullableFilter<'SsoOAuthToken'>;
     createdAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
-    SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: Prisma.XOR<
-      Prisma.SsoProjectScalarRelationFilter,
-      Prisma.SsoProjectWhereInput
-    >;
     SsoOAuthProvider?: Prisma.XOR<Prisma.SsoOAuthProviderScalarRelationFilter, Prisma.SsoOAuthProviderWhereInput>;
+    SsoTenant?: Prisma.XOR<Prisma.SsoTenantScalarRelationFilter, Prisma.SsoTenantWhereInput>;
     SsoUser?: Prisma.XOR<Prisma.SsoUserScalarRelationFilter, Prisma.SsoUserWhereInput>;
   },
-  'id' | 'providerId_projectId_userId_accessToken'
+  'id' | 'tenantId_providerId_userId_accessToken'
 >;
 
 export type SsoOAuthTokenOrderByWithAggregationInput = {
@@ -323,7 +317,7 @@ export type SsoOAuthTokenOrderByWithAggregationInput = {
   scope?: Prisma.SortOrderInput | Prisma.SortOrder;
   verificationCode?: Prisma.SortOrderInput | Prisma.SortOrder;
   userId?: Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   providerId?: Prisma.SortOrder;
   providerUserId?: Prisma.SortOrder;
   providerUserData?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -347,7 +341,7 @@ export type SsoOAuthTokenScalarWhereWithAggregatesInput = {
   scope?: Prisma.StringNullableWithAggregatesFilter<'SsoOAuthToken'> | string | null;
   verificationCode?: Prisma.StringNullableWithAggregatesFilter<'SsoOAuthToken'> | string | null;
   userId?: Prisma.UuidWithAggregatesFilter<'SsoOAuthToken'> | string;
-  projectId?: Prisma.UuidWithAggregatesFilter<'SsoOAuthToken'> | string;
+  tenantId?: Prisma.UuidWithAggregatesFilter<'SsoOAuthToken'> | string;
   providerId?: Prisma.UuidWithAggregatesFilter<'SsoOAuthToken'> | string;
   providerUserId?: Prisma.StringWithAggregatesFilter<'SsoOAuthToken'> | string;
   providerUserData?: Prisma.JsonNullableWithAggregatesFilter<'SsoOAuthToken'>;
@@ -368,8 +362,8 @@ export type SsoOAuthTokenCreateInput = {
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider: Prisma.SsoProjectCreateNestedOneWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput;
   SsoOAuthProvider: Prisma.SsoOAuthProviderCreateNestedOneWithoutSsoOAuthTokenInput;
+  SsoTenant: Prisma.SsoTenantCreateNestedOneWithoutSsoOAuthTokenInput;
   SsoUser: Prisma.SsoUserCreateNestedOneWithoutSsoOAuthTokenInput;
 };
 
@@ -383,7 +377,7 @@ export type SsoOAuthTokenUncheckedCreateInput = {
   scope?: string | null;
   verificationCode?: string | null;
   userId: string;
-  projectId: string;
+  tenantId: string;
   providerId: string;
   providerUserId: string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -404,8 +398,8 @@ export type SsoOAuthTokenUpdateInput = {
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: Prisma.SsoProjectUpdateOneRequiredWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderNestedInput;
   SsoOAuthProvider?: Prisma.SsoOAuthProviderUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
+  SsoTenant?: Prisma.SsoTenantUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
   SsoUser?: Prisma.SsoUserUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
 };
 
@@ -419,7 +413,7 @@ export type SsoOAuthTokenUncheckedUpdateInput = {
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -437,7 +431,7 @@ export type SsoOAuthTokenCreateManyInput = {
   scope?: string | null;
   verificationCode?: string | null;
   userId: string;
-  projectId: string;
+  tenantId: string;
   providerId: string;
   providerUserId: string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -470,7 +464,7 @@ export type SsoOAuthTokenUncheckedUpdateManyInput = {
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -488,9 +482,9 @@ export type SsoOAuthTokenOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder;
 };
 
-export type SsoOAuthTokenProviderIdProjectIdUserIdAccessTokenCompoundUniqueInput = {
+export type SsoOAuthTokenTenantIdProviderIdUserIdAccessTokenCompoundUniqueInput = {
+  tenantId: string;
   providerId: string;
-  projectId: string;
   userId: string;
   accessToken: string;
 };
@@ -505,7 +499,7 @@ export type SsoOAuthTokenCountOrderByAggregateInput = {
   scope?: Prisma.SortOrder;
   verificationCode?: Prisma.SortOrder;
   userId?: Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   providerId?: Prisma.SortOrder;
   providerUserId?: Prisma.SortOrder;
   providerUserData?: Prisma.SortOrder;
@@ -523,7 +517,7 @@ export type SsoOAuthTokenMaxOrderByAggregateInput = {
   scope?: Prisma.SortOrder;
   verificationCode?: Prisma.SortOrder;
   userId?: Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   providerId?: Prisma.SortOrder;
   providerUserId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
@@ -540,100 +534,12 @@ export type SsoOAuthTokenMinOrderByAggregateInput = {
   scope?: Prisma.SortOrder;
   verificationCode?: Prisma.SortOrder;
   userId?: Prisma.SortOrder;
-  projectId?: Prisma.SortOrder;
+  tenantId?: Prisma.SortOrder;
   providerId?: Prisma.SortOrder;
   providerUserId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
-
-export type SsoOAuthTokenCreateNestedManyWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  create?:
-    | Prisma.XOR<
-        Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-        Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-      >
-    | Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[]
-    | Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-  connectOrCreate?:
-    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-  createMany?: Prisma.SsoOAuthTokenCreateManySsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInputEnvelope;
-  connect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-};
-
-export type SsoOAuthTokenUncheckedCreateNestedManyWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput =
-  {
-    create?:
-      | Prisma.XOR<
-          Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-          Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-        >
-      | Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[]
-      | Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-    connectOrCreate?:
-      | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-      | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-    createMany?: Prisma.SsoOAuthTokenCreateManySsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInputEnvelope;
-    connect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-  };
-
-export type SsoOAuthTokenUpdateManyWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderNestedInput = {
-  create?:
-    | Prisma.XOR<
-        Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-        Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-      >
-    | Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[]
-    | Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-  connectOrCreate?:
-    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-  upsert?:
-    | Prisma.SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    | Prisma.SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-  createMany?: Prisma.SsoOAuthTokenCreateManySsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInputEnvelope;
-  set?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-  disconnect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-  delete?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-  connect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-  update?:
-    | Prisma.SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    | Prisma.SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-  updateMany?:
-    | Prisma.SsoOAuthTokenUpdateManyWithWhereWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    | Prisma.SsoOAuthTokenUpdateManyWithWhereWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-  deleteMany?: Prisma.SsoOAuthTokenScalarWhereInput | Prisma.SsoOAuthTokenScalarWhereInput[];
-};
-
-export type SsoOAuthTokenUncheckedUpdateManyWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderNestedInput =
-  {
-    create?:
-      | Prisma.XOR<
-          Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-          Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-        >
-      | Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[]
-      | Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-    connectOrCreate?:
-      | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-      | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-    upsert?:
-      | Prisma.SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-      | Prisma.SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-    createMany?: Prisma.SsoOAuthTokenCreateManySsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInputEnvelope;
-    set?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-    disconnect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-    delete?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-    connect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
-    update?:
-      | Prisma.SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-      | Prisma.SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-    updateMany?:
-      | Prisma.SsoOAuthTokenUpdateManyWithWhereWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-      | Prisma.SsoOAuthTokenUpdateManyWithWhereWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-    deleteMany?: Prisma.SsoOAuthTokenScalarWhereInput | Prisma.SsoOAuthTokenScalarWhereInput[];
-  };
 
 export type SsoOAuthTokenCreateNestedManyWithoutSsoUserInput = {
   create?:
@@ -795,102 +701,90 @@ export type SsoOAuthTokenUncheckedUpdateManyWithoutSsoOAuthProviderNestedInput =
   deleteMany?: Prisma.SsoOAuthTokenScalarWhereInput | Prisma.SsoOAuthTokenScalarWhereInput[];
 };
 
-export type SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  id?: string;
-  grantedAt?: Date | string;
-  accessToken: string;
-  refreshToken?: string | null;
-  expiresAt?: Date | string | null;
-  tokenType?: string | null;
-  scope?: string | null;
-  verificationCode?: string | null;
-  providerUserId: string;
-  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
-  SsoOAuthProvider: Prisma.SsoOAuthProviderCreateNestedOneWithoutSsoOAuthTokenInput;
-  SsoUser: Prisma.SsoUserCreateNestedOneWithoutSsoOAuthTokenInput;
+export type SsoOAuthTokenCreateNestedManyWithoutSsoTenantInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput,
+        Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput
+      >
+    | Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput[]
+    | Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput[];
+  connectOrCreate?:
+    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoTenantInput[];
+  createMany?: Prisma.SsoOAuthTokenCreateManySsoTenantInputEnvelope;
+  connect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
 };
 
-export type SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  id?: string;
-  grantedAt?: Date | string;
-  accessToken: string;
-  refreshToken?: string | null;
-  expiresAt?: Date | string | null;
-  tokenType?: string | null;
-  scope?: string | null;
-  verificationCode?: string | null;
-  userId: string;
-  providerId: string;
-  providerUserId: string;
-  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
+export type SsoOAuthTokenUncheckedCreateNestedManyWithoutSsoTenantInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput,
+        Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput
+      >
+    | Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput[]
+    | Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput[];
+  connectOrCreate?:
+    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoTenantInput[];
+  createMany?: Prisma.SsoOAuthTokenCreateManySsoTenantInputEnvelope;
+  connect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
 };
 
-export type SsoOAuthTokenCreateOrConnectWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  where: Prisma.SsoOAuthTokenWhereUniqueInput;
-  create: Prisma.XOR<
-    Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-    Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-  >;
+export type SsoOAuthTokenUpdateManyWithoutSsoTenantNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput,
+        Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput
+      >
+    | Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput[]
+    | Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput[];
+  connectOrCreate?:
+    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoTenantInput[];
+  upsert?:
+    | Prisma.SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoTenantInput[];
+  createMany?: Prisma.SsoOAuthTokenCreateManySsoTenantInputEnvelope;
+  set?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
+  disconnect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
+  delete?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
+  connect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
+  update?:
+    | Prisma.SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoTenantInput[];
+  updateMany?:
+    | Prisma.SsoOAuthTokenUpdateManyWithWhereWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenUpdateManyWithWhereWithoutSsoTenantInput[];
+  deleteMany?: Prisma.SsoOAuthTokenScalarWhereInput | Prisma.SsoOAuthTokenScalarWhereInput[];
 };
 
-export type SsoOAuthTokenCreateManySsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInputEnvelope = {
-  data:
-    | Prisma.SsoOAuthTokenCreateManySsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-    | Prisma.SsoOAuthTokenCreateManySsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput[];
-  skipDuplicates?: boolean;
-};
-
-export type SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  where: Prisma.SsoOAuthTokenWhereUniqueInput;
-  update: Prisma.XOR<
-    Prisma.SsoOAuthTokenUpdateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-    Prisma.SsoOAuthTokenUncheckedUpdateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-  >;
-  create: Prisma.XOR<
-    Prisma.SsoOAuthTokenCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-    Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-  >;
-};
-
-export type SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  where: Prisma.SsoOAuthTokenWhereUniqueInput;
-  data: Prisma.XOR<
-    Prisma.SsoOAuthTokenUpdateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput,
-    Prisma.SsoOAuthTokenUncheckedUpdateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-  >;
-};
-
-export type SsoOAuthTokenUpdateManyWithWhereWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  where: Prisma.SsoOAuthTokenScalarWhereInput;
-  data: Prisma.XOR<
-    Prisma.SsoOAuthTokenUpdateManyMutationInput,
-    Prisma.SsoOAuthTokenUncheckedUpdateManyWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput
-  >;
-};
-
-export type SsoOAuthTokenScalarWhereInput = {
-  AND?: Prisma.SsoOAuthTokenScalarWhereInput | Prisma.SsoOAuthTokenScalarWhereInput[];
-  OR?: Prisma.SsoOAuthTokenScalarWhereInput[];
-  NOT?: Prisma.SsoOAuthTokenScalarWhereInput | Prisma.SsoOAuthTokenScalarWhereInput[];
-  id?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
-  grantedAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
-  accessToken?: Prisma.StringFilter<'SsoOAuthToken'> | string;
-  refreshToken?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
-  expiresAt?: Prisma.DateTimeNullableFilter<'SsoOAuthToken'> | Date | string | null;
-  tokenType?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
-  scope?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
-  verificationCode?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
-  userId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
-  projectId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
-  providerId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
-  providerUserId?: Prisma.StringFilter<'SsoOAuthToken'> | string;
-  providerUserData?: Prisma.JsonNullableFilter<'SsoOAuthToken'>;
-  createdAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
-  updatedAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
+export type SsoOAuthTokenUncheckedUpdateManyWithoutSsoTenantNestedInput = {
+  create?:
+    | Prisma.XOR<
+        Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput,
+        Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput
+      >
+    | Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput[]
+    | Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput[];
+  connectOrCreate?:
+    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenCreateOrConnectWithoutSsoTenantInput[];
+  upsert?:
+    | Prisma.SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoTenantInput[];
+  createMany?: Prisma.SsoOAuthTokenCreateManySsoTenantInputEnvelope;
+  set?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
+  disconnect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
+  delete?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
+  connect?: Prisma.SsoOAuthTokenWhereUniqueInput | Prisma.SsoOAuthTokenWhereUniqueInput[];
+  update?:
+    | Prisma.SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoTenantInput[];
+  updateMany?:
+    | Prisma.SsoOAuthTokenUpdateManyWithWhereWithoutSsoTenantInput
+    | Prisma.SsoOAuthTokenUpdateManyWithWhereWithoutSsoTenantInput[];
+  deleteMany?: Prisma.SsoOAuthTokenScalarWhereInput | Prisma.SsoOAuthTokenScalarWhereInput[];
 };
 
 export type SsoOAuthTokenCreateWithoutSsoUserInput = {
@@ -906,8 +800,8 @@ export type SsoOAuthTokenCreateWithoutSsoUserInput = {
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider: Prisma.SsoProjectCreateNestedOneWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput;
   SsoOAuthProvider: Prisma.SsoOAuthProviderCreateNestedOneWithoutSsoOAuthTokenInput;
+  SsoTenant: Prisma.SsoTenantCreateNestedOneWithoutSsoOAuthTokenInput;
 };
 
 export type SsoOAuthTokenUncheckedCreateWithoutSsoUserInput = {
@@ -919,7 +813,7 @@ export type SsoOAuthTokenUncheckedCreateWithoutSsoUserInput = {
   tokenType?: string | null;
   scope?: string | null;
   verificationCode?: string | null;
-  projectId: string;
+  tenantId: string;
   providerId: string;
   providerUserId: string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -968,6 +862,27 @@ export type SsoOAuthTokenUpdateManyWithWhereWithoutSsoUserInput = {
   >;
 };
 
+export type SsoOAuthTokenScalarWhereInput = {
+  AND?: Prisma.SsoOAuthTokenScalarWhereInput | Prisma.SsoOAuthTokenScalarWhereInput[];
+  OR?: Prisma.SsoOAuthTokenScalarWhereInput[];
+  NOT?: Prisma.SsoOAuthTokenScalarWhereInput | Prisma.SsoOAuthTokenScalarWhereInput[];
+  id?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
+  grantedAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
+  accessToken?: Prisma.StringFilter<'SsoOAuthToken'> | string;
+  refreshToken?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
+  expiresAt?: Prisma.DateTimeNullableFilter<'SsoOAuthToken'> | Date | string | null;
+  tokenType?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
+  scope?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
+  verificationCode?: Prisma.StringNullableFilter<'SsoOAuthToken'> | string | null;
+  userId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
+  tenantId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
+  providerId?: Prisma.UuidFilter<'SsoOAuthToken'> | string;
+  providerUserId?: Prisma.StringFilter<'SsoOAuthToken'> | string;
+  providerUserData?: Prisma.JsonNullableFilter<'SsoOAuthToken'>;
+  createdAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
+  updatedAt?: Prisma.DateTimeFilter<'SsoOAuthToken'> | Date | string;
+};
+
 export type SsoOAuthTokenCreateWithoutSsoOAuthProviderInput = {
   id?: string;
   grantedAt?: Date | string;
@@ -981,7 +896,7 @@ export type SsoOAuthTokenCreateWithoutSsoOAuthProviderInput = {
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider: Prisma.SsoProjectCreateNestedOneWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderInput;
+  SsoTenant: Prisma.SsoTenantCreateNestedOneWithoutSsoOAuthTokenInput;
   SsoUser: Prisma.SsoUserCreateNestedOneWithoutSsoOAuthTokenInput;
 };
 
@@ -995,7 +910,7 @@ export type SsoOAuthTokenUncheckedCreateWithoutSsoOAuthProviderInput = {
   scope?: string | null;
   verificationCode?: string | null;
   userId: string;
-  projectId: string;
+  tenantId: string;
   providerUserId: string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Date | string;
@@ -1043,7 +958,24 @@ export type SsoOAuthTokenUpdateManyWithWhereWithoutSsoOAuthProviderInput = {
   >;
 };
 
-export type SsoOAuthTokenCreateManySsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
+export type SsoOAuthTokenCreateWithoutSsoTenantInput = {
+  id?: string;
+  grantedAt?: Date | string;
+  accessToken: string;
+  refreshToken?: string | null;
+  expiresAt?: Date | string | null;
+  tokenType?: string | null;
+  scope?: string | null;
+  verificationCode?: string | null;
+  providerUserId: string;
+  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  SsoOAuthProvider: Prisma.SsoOAuthProviderCreateNestedOneWithoutSsoOAuthTokenInput;
+  SsoUser: Prisma.SsoUserCreateNestedOneWithoutSsoOAuthTokenInput;
+};
+
+export type SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput = {
   id?: string;
   grantedAt?: Date | string;
   accessToken: string;
@@ -1060,55 +992,45 @@ export type SsoOAuthTokenCreateManySsoOAuthProvider_SsoOAuthToken_projectIdToSso
   updatedAt?: Date | string;
 };
 
-export type SsoOAuthTokenUpdateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string;
-  grantedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  accessToken?: Prisma.StringFieldUpdateOperationsInput | string;
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  tokenType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
-  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  SsoOAuthProvider?: Prisma.SsoOAuthProviderUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
-  SsoUser?: Prisma.SsoUserUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
+export type SsoOAuthTokenCreateOrConnectWithoutSsoTenantInput = {
+  where: Prisma.SsoOAuthTokenWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput,
+    Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput
+  >;
 };
 
-export type SsoOAuthTokenUncheckedUpdateWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string;
-  grantedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  accessToken?: Prisma.StringFieldUpdateOperationsInput | string;
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  tokenType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  userId?: Prisma.StringFieldUpdateOperationsInput | string;
-  providerId?: Prisma.StringFieldUpdateOperationsInput | string;
-  providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
-  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+export type SsoOAuthTokenCreateManySsoTenantInputEnvelope = {
+  data: Prisma.SsoOAuthTokenCreateManySsoTenantInput | Prisma.SsoOAuthTokenCreateManySsoTenantInput[];
+  skipDuplicates?: boolean;
 };
 
-export type SsoOAuthTokenUncheckedUpdateManyWithoutSsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProviderInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string;
-  grantedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  accessToken?: Prisma.StringFieldUpdateOperationsInput | string;
-  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  tokenType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  userId?: Prisma.StringFieldUpdateOperationsInput | string;
-  providerId?: Prisma.StringFieldUpdateOperationsInput | string;
-  providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
-  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+export type SsoOAuthTokenUpsertWithWhereUniqueWithoutSsoTenantInput = {
+  where: Prisma.SsoOAuthTokenWhereUniqueInput;
+  update: Prisma.XOR<
+    Prisma.SsoOAuthTokenUpdateWithoutSsoTenantInput,
+    Prisma.SsoOAuthTokenUncheckedUpdateWithoutSsoTenantInput
+  >;
+  create: Prisma.XOR<
+    Prisma.SsoOAuthTokenCreateWithoutSsoTenantInput,
+    Prisma.SsoOAuthTokenUncheckedCreateWithoutSsoTenantInput
+  >;
+};
+
+export type SsoOAuthTokenUpdateWithWhereUniqueWithoutSsoTenantInput = {
+  where: Prisma.SsoOAuthTokenWhereUniqueInput;
+  data: Prisma.XOR<
+    Prisma.SsoOAuthTokenUpdateWithoutSsoTenantInput,
+    Prisma.SsoOAuthTokenUncheckedUpdateWithoutSsoTenantInput
+  >;
+};
+
+export type SsoOAuthTokenUpdateManyWithWhereWithoutSsoTenantInput = {
+  where: Prisma.SsoOAuthTokenScalarWhereInput;
+  data: Prisma.XOR<
+    Prisma.SsoOAuthTokenUpdateManyMutationInput,
+    Prisma.SsoOAuthTokenUncheckedUpdateManyWithoutSsoTenantInput
+  >;
 };
 
 export type SsoOAuthTokenCreateManySsoUserInput = {
@@ -1120,7 +1042,7 @@ export type SsoOAuthTokenCreateManySsoUserInput = {
   tokenType?: string | null;
   scope?: string | null;
   verificationCode?: string | null;
-  projectId: string;
+  tenantId: string;
   providerId: string;
   providerUserId: string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -1141,8 +1063,8 @@ export type SsoOAuthTokenUpdateWithoutSsoUserInput = {
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: Prisma.SsoProjectUpdateOneRequiredWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderNestedInput;
   SsoOAuthProvider?: Prisma.SsoOAuthProviderUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
+  SsoTenant?: Prisma.SsoTenantUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
 };
 
 export type SsoOAuthTokenUncheckedUpdateWithoutSsoUserInput = {
@@ -1154,7 +1076,7 @@ export type SsoOAuthTokenUncheckedUpdateWithoutSsoUserInput = {
   tokenType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -1171,7 +1093,7 @@ export type SsoOAuthTokenUncheckedUpdateManyWithoutSsoUserInput = {
   tokenType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
@@ -1189,7 +1111,7 @@ export type SsoOAuthTokenCreateManySsoOAuthProviderInput = {
   scope?: string | null;
   verificationCode?: string | null;
   userId: string;
-  projectId: string;
+  tenantId: string;
   providerUserId: string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Date | string;
@@ -1209,7 +1131,7 @@ export type SsoOAuthTokenUpdateWithoutSsoOAuthProviderInput = {
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: Prisma.SsoProjectUpdateOneRequiredWithoutSsoOAuthToken_SsoOAuthToken_projectIdToSsoOAuthProviderNestedInput;
+  SsoTenant?: Prisma.SsoTenantUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
   SsoUser?: Prisma.SsoUserUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
 };
 
@@ -1223,7 +1145,7 @@ export type SsoOAuthTokenUncheckedUpdateWithoutSsoOAuthProviderInput = {
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1240,7 +1162,75 @@ export type SsoOAuthTokenUncheckedUpdateManyWithoutSsoOAuthProviderInput = {
   scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   userId?: Prisma.StringFieldUpdateOperationsInput | string;
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
+  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+
+export type SsoOAuthTokenCreateManySsoTenantInput = {
+  id?: string;
+  grantedAt?: Date | string;
+  accessToken: string;
+  refreshToken?: string | null;
+  expiresAt?: Date | string | null;
+  tokenType?: string | null;
+  scope?: string | null;
+  verificationCode?: string | null;
+  userId: string;
+  providerId: string;
+  providerUserId: string;
+  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+};
+
+export type SsoOAuthTokenUpdateWithoutSsoTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  grantedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  accessToken?: Prisma.StringFieldUpdateOperationsInput | string;
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  tokenType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
+  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  SsoOAuthProvider?: Prisma.SsoOAuthProviderUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
+  SsoUser?: Prisma.SsoUserUpdateOneRequiredWithoutSsoOAuthTokenNestedInput;
+};
+
+export type SsoOAuthTokenUncheckedUpdateWithoutSsoTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  grantedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  accessToken?: Prisma.StringFieldUpdateOperationsInput | string;
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  tokenType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  userId?: Prisma.StringFieldUpdateOperationsInput | string;
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string;
+  providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
+  providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+
+export type SsoOAuthTokenUncheckedUpdateManyWithoutSsoTenantInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  grantedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  accessToken?: Prisma.StringFieldUpdateOperationsInput | string;
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+  tokenType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  verificationCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  userId?: Prisma.StringFieldUpdateOperationsInput | string;
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserId?: Prisma.StringFieldUpdateOperationsInput | string;
   providerUserData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -1260,14 +1250,14 @@ export type SsoOAuthTokenSelect<
     scope?: boolean;
     verificationCode?: boolean;
     userId?: boolean;
-    projectId?: boolean;
+    tenantId?: boolean;
     providerId?: boolean;
     providerUserId?: boolean;
     providerUserData?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
     SsoOAuthProvider?: boolean | Prisma.SsoOAuthProviderDefaultArgs<ExtArgs>;
+    SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
     SsoUser?: boolean | Prisma.SsoUserDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['ssoOAuthToken']
@@ -1286,14 +1276,14 @@ export type SsoOAuthTokenSelectCreateManyAndReturn<
     scope?: boolean;
     verificationCode?: boolean;
     userId?: boolean;
-    projectId?: boolean;
+    tenantId?: boolean;
     providerId?: boolean;
     providerUserId?: boolean;
     providerUserData?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
     SsoOAuthProvider?: boolean | Prisma.SsoOAuthProviderDefaultArgs<ExtArgs>;
+    SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
     SsoUser?: boolean | Prisma.SsoUserDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['ssoOAuthToken']
@@ -1312,14 +1302,14 @@ export type SsoOAuthTokenSelectUpdateManyAndReturn<
     scope?: boolean;
     verificationCode?: boolean;
     userId?: boolean;
-    projectId?: boolean;
+    tenantId?: boolean;
     providerId?: boolean;
     providerUserId?: boolean;
     providerUserData?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
     SsoOAuthProvider?: boolean | Prisma.SsoOAuthProviderDefaultArgs<ExtArgs>;
+    SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
     SsoUser?: boolean | Prisma.SsoUserDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['ssoOAuthToken']
@@ -1335,7 +1325,7 @@ export type SsoOAuthTokenSelectScalar = {
   scope?: boolean;
   verificationCode?: boolean;
   userId?: boolean;
-  projectId?: boolean;
+  tenantId?: boolean;
   providerId?: boolean;
   providerUserId?: boolean;
   providerUserData?: boolean;
@@ -1355,7 +1345,7 @@ export type SsoOAuthTokenOmit<
   | 'scope'
   | 'verificationCode'
   | 'userId'
-  | 'projectId'
+  | 'tenantId'
   | 'providerId'
   | 'providerUserId'
   | 'providerUserData'
@@ -1366,22 +1356,22 @@ export type SsoOAuthTokenOmit<
 export type SsoOAuthTokenInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
   SsoOAuthProvider?: boolean | Prisma.SsoOAuthProviderDefaultArgs<ExtArgs>;
+  SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
   SsoUser?: boolean | Prisma.SsoUserDefaultArgs<ExtArgs>;
 };
 export type SsoOAuthTokenIncludeCreateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
   SsoOAuthProvider?: boolean | Prisma.SsoOAuthProviderDefaultArgs<ExtArgs>;
+  SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
   SsoUser?: boolean | Prisma.SsoUserDefaultArgs<ExtArgs>;
 };
 export type SsoOAuthTokenIncludeUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider?: boolean | Prisma.SsoProjectDefaultArgs<ExtArgs>;
   SsoOAuthProvider?: boolean | Prisma.SsoOAuthProviderDefaultArgs<ExtArgs>;
+  SsoTenant?: boolean | Prisma.SsoTenantDefaultArgs<ExtArgs>;
   SsoUser?: boolean | Prisma.SsoUserDefaultArgs<ExtArgs>;
 };
 
@@ -1390,8 +1380,8 @@ export type $SsoOAuthTokenPayload<
 > = {
   name: 'SsoOAuthToken';
   objects: {
-    SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider: Prisma.$SsoProjectPayload<ExtArgs>;
     SsoOAuthProvider: Prisma.$SsoOAuthProviderPayload<ExtArgs>;
+    SsoTenant: Prisma.$SsoTenantPayload<ExtArgs>;
     SsoUser: Prisma.$SsoUserPayload<ExtArgs>;
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
@@ -1414,7 +1404,10 @@ export type $SsoOAuthTokenPayload<
       scope: string | null;
       verificationCode: string | null;
       userId: string;
-      projectId: string;
+      tenantId: string;
+      /**
+       * @DtoUpdateHidden
+       */
       providerId: string;
       providerUserId: string;
       providerUserData: runtime.JsonValue | null;
@@ -1903,15 +1896,6 @@ export interface Prisma__SsoOAuthTokenClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
-  SsoOAuthProvider_SsoOAuthToken_projectIdToSsoOAuthProvider<T extends Prisma.SsoProjectDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.SsoProjectDefaultArgs<ExtArgs>>,
-  ): Prisma.Prisma__SsoProjectClient<
-    | runtime.Types.Result.GetResult<Prisma.$SsoProjectPayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions>
-    | Null,
-    Null,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
   SsoOAuthProvider<T extends Prisma.SsoOAuthProviderDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.SsoOAuthProviderDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__SsoOAuthProviderClient<
@@ -1922,6 +1906,14 @@ export interface Prisma__SsoOAuthTokenClient<
         GlobalOmitOptions
       >
     | Null,
+    Null,
+    ExtArgs,
+    GlobalOmitOptions
+  >;
+  SsoTenant<T extends Prisma.SsoTenantDefaultArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.SsoTenantDefaultArgs<ExtArgs>>,
+  ): Prisma.Prisma__SsoTenantClient<
+    runtime.Types.Result.GetResult<Prisma.$SsoTenantPayload<ExtArgs>, T, 'findUniqueOrThrow', GlobalOmitOptions> | Null,
     Null,
     ExtArgs,
     GlobalOmitOptions
@@ -1974,7 +1966,7 @@ export interface SsoOAuthTokenFieldRefs {
   readonly scope: Prisma.FieldRef<'SsoOAuthToken', 'String'>;
   readonly verificationCode: Prisma.FieldRef<'SsoOAuthToken', 'String'>;
   readonly userId: Prisma.FieldRef<'SsoOAuthToken', 'String'>;
-  readonly projectId: Prisma.FieldRef<'SsoOAuthToken', 'String'>;
+  readonly tenantId: Prisma.FieldRef<'SsoOAuthToken', 'String'>;
   readonly providerId: Prisma.FieldRef<'SsoOAuthToken', 'String'>;
   readonly providerUserId: Prisma.FieldRef<'SsoOAuthToken', 'String'>;
   readonly providerUserData: Prisma.FieldRef<'SsoOAuthToken', 'Json'>;

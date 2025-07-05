@@ -40,7 +40,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
       req.skipEmptySsoUser = true;
     }
 
-    req.externalTenantId = req.ssoProject?.id;
+    req.externalTenantId = req.ssoTenant?.id;
 
     if (req?.ssoUser?.id) {
       req.externalUserId = req.ssoUser?.id;
@@ -55,7 +55,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
         // todo: create in sso module options for local events and use event with name sign-up for run this logic
         req.webhookUser = await this.webhookUsersService.createUserIfNotExists({
           externalUserId: req?.ssoUser?.id,
-          externalTenantId: req?.ssoProject?.id,
+          externalTenantId: req?.ssoTenant?.id,
           userRole: webhookUserRole,
         });
         req.webhookUser.userRole = webhookUserRole;
@@ -70,7 +70,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
   async sendNotification(options: SsoSendNotificationOptions) {
     return await this.notificationsService.sendNotification({
-      externalTenantId: options.projectId,
+      externalTenantId: options.tenantId,
       html: options.html,
       operationName: options.operationName,
       recipients: options.recipientUsers.map((recipientUser) => ({
@@ -103,7 +103,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
   async twoFactorCodeGenerate(options: SsoTwoFactorCodeGenerateOptions) {
     const generatedCode = await this.twoFactorService.generateCode({
-      externalTenantId: options.user.projectId,
+      externalTenantId: options.user.tenantId,
       externalUserId: options.user.id,
       externalUsername: options.user.username || undefined,
       operationName: options.operationName,
@@ -114,7 +114,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
   async twoFactorCodeValidate(options: SsoTwoFactorCodeValidateOptions) {
     const validatedCode = await this.twoFactorService.validateCode({
-      externalTenantId: options.projectId,
+      externalTenantId: options.tenantId,
       operationName: options.operationName,
       code: options.code,
     });

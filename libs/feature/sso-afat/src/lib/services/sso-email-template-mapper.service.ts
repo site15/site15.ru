@@ -8,7 +8,7 @@ export interface SsoEmailTemplateModel
   extends Partial<
     Omit<
       SsoEmailTemplateDtoInterface,
-      'subjectLocale' | 'textLocale' | 'htmlLocale' | 'projectId' | 'createdAt' | 'updatedAt'
+      'subjectLocale' | 'textLocale' | 'htmlLocale' | 'tenantId' | 'createdAt' | 'updatedAt'
     >
   > {
   createdAt?: Date | null;

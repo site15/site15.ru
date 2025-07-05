@@ -56,7 +56,7 @@ import { SsoUserService } from '../../services/sso-user.service';
 })
 export class SsoUserGridComponent implements OnInit, OnChanges {
   @Input()
-  projectId?: string;
+  tenantId?: string;
   @Input()
   forceLoadStream?: Observable<unknown>[];
 
@@ -161,7 +161,7 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: NgChanges<SsoUserGridComponent>): void {
     // need for ignore dbl load
-    if (!changes.projectId?.firstChange) {
+    if (!changes.tenantId?.firstChange) {
       this.loadMany({ force: true });
     } else {
       this.loadMany();
@@ -201,8 +201,8 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
       filters['search'] = this.searchField.value;
     }
 
-    if (!filters['projectId'] && this.projectId) {
-      filters['projectId'] = this.projectId;
+    if (!filters['tenantId'] && this.tenantId) {
+      filters['tenantId'] = this.tenantId;
     }
 
     if (

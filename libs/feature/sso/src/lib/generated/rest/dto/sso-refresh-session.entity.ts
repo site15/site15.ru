@@ -1,6 +1,6 @@
 import { Prisma } from '../../prisma-client';
 import { ApiProperty } from '@nestjs/swagger';
-import { SsoProject } from './sso-project.entity';
+import { SsoTenant } from './sso-tenant.entity';
 import { SsoUser } from './sso-user.entity';
 
 export class SsoRefreshSession {
@@ -40,7 +40,7 @@ export class SsoRefreshSession {
   @ApiProperty({
     type: 'string',
   })
-  projectId!: string;
+  tenantId!: string;
   @ApiProperty({
     type: 'string',
     format: 'date-time',
@@ -52,10 +52,10 @@ export class SsoRefreshSession {
   })
   updatedAt!: Date;
   @ApiProperty({
-    type: () => SsoProject,
+    type: () => SsoTenant,
     required: false,
   })
-  SsoProject?: SsoProject;
+  SsoTenant?: SsoTenant;
   @ApiProperty({
     type: () => SsoUser,
     required: false,

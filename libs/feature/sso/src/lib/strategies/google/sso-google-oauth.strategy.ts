@@ -42,10 +42,14 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
     | null
   > {
     try {
-      return await this.prismaClient.ssoOAuthProvider.findFirstOrThrow({
+      const result = await this.prismaClient.ssoOAuthProvider.findFirstOrThrow({
         where: { name: this.oauthProviderName },
         include: { SsoOAuthProviderSettings: true },
       });
+      if (!result.enabled) {
+        return null;
+      }
+      return result;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
@@ -56,6 +60,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
           return await this.prismaClient.ssoOAuthProvider.create({
             include: { SsoOAuthProviderSettings: true },
             data: {
+              enabled: true,
               name: this.oauthProviderName,
               SsoOAuthProviderSettings: {
                 create: [
@@ -135,9 +140,9 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
     profile: Profile;
     providerId: string;
   }) {
-    const projectId = (req as unknown as SsoRequest).ssoProject?.id;
+    const tenantId = (req as unknown as SsoRequest).ssoTenant?.id;
     const verificationCode = randomUUID();
-    this.logger.debug(JSON.stringify({ projectId, profile, verificationCode }));
+    this.logger.debug(JSON.stringify({ tenantId, profile, verificationCode }));
     if (!profile.id) {
       return undefined;
     }
@@ -195,7 +200,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
 
         try {
           const user = await this.prismaClient.ssoUser.findFirstOrThrow({
-            where: { email, projectId },
+            where: { email, tenantId },
           });
           await this.prismaClient.ssoOAuthToken.create({
             data: {
@@ -203,7 +208,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
               refreshToken,
               providerUserId: String(profile.id),
               providerId,
-              projectId,
+              tenantId,
               userId: user.id,
               verificationCode,
             },
@@ -214,7 +219,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
           this.logger.error(err, err.stack);
           if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
             const user = await this.ssoService.autoSignUp({
-              projectId,
+              tenantId,
               email,
               password,
               username,
@@ -228,7 +233,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
                 refreshToken,
                 providerUserId: String(profile.id),
                 providerId,
-                projectId,
+                tenantId,
                 userId: user.id,
                 verificationCode,
               },

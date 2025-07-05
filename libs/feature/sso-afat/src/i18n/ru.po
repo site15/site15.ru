@@ -7,8 +7,8 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-msgid "Users for project #{{projectId}}"
-msgstr "Пользователи проекта #{{projectId}}"
+msgid "Users for tenant #{{tenantId}}"
+msgstr "Пользователи тенанта #{{tenantId}}"
 
 msgid "input search text"
 msgstr "введите текст поиска"
@@ -22,14 +22,14 @@ msgstr "Действия"
 msgid "Edit"
 msgstr "Изменить"
 
-msgid "Sessions for user #{{userId}}"
-msgstr "Сеансы пользователя #{{userId}}"
-
 msgid "Create new"
 msgstr "Создать"
 
 msgid "Delete"
 msgstr "Удалить"
+
+msgid "Sessions for user #{{userId}}"
+msgstr "Сеансы пользователя #{{userId}}"
 
 msgid "Email templates"
 msgstr "Шаблоны писем"
@@ -109,6 +109,24 @@ msgstr "Роли"
 msgid "sso-user.form.fields.username"
 msgstr "Имя пользователя"
 
+msgid "sso-tenant.form.fields.name-locale"
+msgstr "Название ({{locale}})"
+
+msgid "sso-tenant.form.fields.client-id"
+msgstr "Идентификатор клиента"
+
+msgid "sso-tenant.form.fields.client-secret"
+msgstr "Секретный ключ клиента"
+
+msgid "sso-tenant.form.fields.public"
+msgstr "Публичный"
+
+msgid "sso-tenant.form.fields.slug"
+msgstr "Поддомен"
+
+msgid "sso-tenant.form.fields.enabled"
+msgstr "Активен"
+
 msgid "sso-session.form.fields.enabled"
 msgstr "Активен"
 
@@ -126,18 +144,6 @@ msgstr "Пользовательские данные"
 
 msgid "sso-session.form.fields.user-ip"
 msgstr "ИП-адрес"
-
-msgid "sso-project.form.fields.name-locale"
-msgstr "Название ({{locale}})"
-
-msgid "sso-project.form.fields.client-id"
-msgstr "Идентификатор клиента"
-
-msgid "sso-project.form.fields.client-secret"
-msgstr "Секретный ключ клиента"
-
-msgid "sso-project.form.fields.public"
-msgstr "Публичный"
 
 msgid "sso-email-template.form.fields.operation-name"
 msgstr "Название"
@@ -349,6 +355,36 @@ msgstr "Роли"
 msgid "sso-user.grid.columns.username"
 msgstr "Имя пользователя"
 
+msgid "sso-tenant.update-modal.title"
+msgstr "Изменить тенант #{{ id }}"
+
+msgid "sso-tenant.create-modal.title"
+msgstr "Создать тенант"
+
+msgid "sso-tenant.delete-modal.title"
+msgstr "Удалить тенант #{{ id }}"
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "No"
+msgstr "Нет"
+
+msgid "sso-tenant.grid.columns.id"
+msgstr "ИД."
+
+msgid "sso-tenant.grid.columns.name"
+msgstr "Название"
+
+msgid "sso-tenant.grid.columns.client-id"
+msgstr "Идентификатор клиента"
+
+msgid "sso-tenant.grid.columns.client-secret"
+msgstr "Секретный ключ клиента"
+
+msgid "sso-tenant.grid.columns.public"
+msgstr "Публичный"
+
 msgid "sso-session.update-modal.title"
 msgstr "Изменить сеанс #{{ id }}"
 
@@ -375,36 +411,6 @@ msgstr "Пользовательские данные"
 
 msgid "sso-session.grid.columns.enabled"
 msgstr "Активен"
-
-msgid "sso-project.update-modal.title"
-msgstr "Изменить проект #{{ id }}"
-
-msgid "sso-project.create-modal.title"
-msgstr "Создать проект"
-
-msgid "sso-project.delete-modal.title"
-msgstr "Удалить проект #{{ id }}"
-
-msgid "Yes"
-msgstr "Да"
-
-msgid "No"
-msgstr "Нет"
-
-msgid "sso-project.grid.columns.id"
-msgstr "ИД."
-
-msgid "sso-project.grid.columns.name"
-msgstr "Название"
-
-msgid "sso-project.grid.columns.client-id"
-msgstr "Идентификатор клиента"
-
-msgid "sso-project.grid.columns.client-secret"
-msgstr "Секретный ключ клиента"
-
-msgid "sso-project.grid.columns.public"
-msgstr "Публичный"
 
 msgid "sso-email-template.update-modal.title"
 msgstr "Изменить шаблон письма #{{ id }}"
@@ -453,10 +459,10 @@ msgstr ""
 msgid "Your password has been successfully changed!"
 msgstr "Ваш пароль успешно изменен!"
 
-msgid "Project users"
-msgstr "Пользователи проекта"
+msgid "Tenant users"
+msgstr "Пользователи тенанта"
 
-msgid "sso-project.form.fields.name"
+msgid "sso-tenant.form.fields.name"
 msgstr "Название"
 
 msgid "sso-user.delete-modal.title"

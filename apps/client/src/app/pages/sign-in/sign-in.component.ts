@@ -20,7 +20,7 @@ export class SignInComponent {
   ) {}
   onAfterSignIn() {
     if (searchIn(SsoRoleInterface.admin, this.ssoService.profile$.value?.roles)) {
-      this.router.navigate(['/projects']);
+      this.router.navigate(['/tenants']);
     } else {
       this.router.navigate(['/home']);
     }

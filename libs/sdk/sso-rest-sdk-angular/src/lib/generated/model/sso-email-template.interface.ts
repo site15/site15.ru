@@ -7,7 +7,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SsoProjectInterface } from './sso-project.interface';
+import { SsoTenantInterface } from './sso-tenant.interface';
 
 
 export interface SsoEmailTemplateInterface { 
@@ -19,9 +19,9 @@ export interface SsoEmailTemplateInterface {
     html: string;
     htmlLocale: object | null;
     operationName: string | null;
-    projectId: string;
+    tenantId: string;
     createdAt: string;
     updatedAt: string;
-    SsoProject?: SsoProjectInterface;
+    SsoTenant?: SsoTenantInterface;
 }
 

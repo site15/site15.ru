@@ -26,5 +26,5 @@ export class FindManySsoUserArgs {
   @ApiPropertyOptional({ type: String })
   @IsOptional()
   @IsUUID()
-  projectId?: string;
+  tenantId?: string;
 }

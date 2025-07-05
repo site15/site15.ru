@@ -2,19 +2,19 @@ import { ApiExtraModels, ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class SsoOAuthTokenProviderIdProjectIdUserIdAccessTokenUniqueInputDto {
+export class SsoOAuthTokenTenantIdProviderIdUserIdAccessTokenUniqueInputDto {
+  @ApiProperty({
+    type: 'string',
+  })
+  @IsNotEmpty()
+  @IsString()
+  tenantId!: string;
   @ApiProperty({
     type: 'string',
   })
   @IsNotEmpty()
   @IsString()
   providerId!: string;
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  projectId!: string;
   @ApiProperty({
     type: 'string',
   })
@@ -29,7 +29,7 @@ export class SsoOAuthTokenProviderIdProjectIdUserIdAccessTokenUniqueInputDto {
   accessToken!: string;
 }
 
-@ApiExtraModels(SsoOAuthTokenProviderIdProjectIdUserIdAccessTokenUniqueInputDto)
+@ApiExtraModels(SsoOAuthTokenTenantIdProviderIdUserIdAccessTokenUniqueInputDto)
 export class ConnectSsoOAuthTokenDto {
   @ApiProperty({
     type: 'string',
@@ -39,11 +39,11 @@ export class ConnectSsoOAuthTokenDto {
   @IsString()
   id?: string;
   @ApiProperty({
-    type: SsoOAuthTokenProviderIdProjectIdUserIdAccessTokenUniqueInputDto,
+    type: SsoOAuthTokenTenantIdProviderIdUserIdAccessTokenUniqueInputDto,
     required: false,
   })
   @IsOptional()
   @ValidateNested()
-  @Type(() => SsoOAuthTokenProviderIdProjectIdUserIdAccessTokenUniqueInputDto)
-  providerId_projectId_userId_accessToken?: SsoOAuthTokenProviderIdProjectIdUserIdAccessTokenUniqueInputDto;
+  @Type(() => SsoOAuthTokenTenantIdProviderIdUserIdAccessTokenUniqueInputDto)
+  tenantId_providerId_userId_accessToken?: SsoOAuthTokenTenantIdProviderIdUserIdAccessTokenUniqueInputDto;
 }

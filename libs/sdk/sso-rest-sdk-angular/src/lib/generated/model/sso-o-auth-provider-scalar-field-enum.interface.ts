@@ -9,11 +9,12 @@
  */
 
 
-export type SsoOAuthProviderScalarFieldEnumInterface = 'id' | 'name' | 'createdAt' | 'updatedAt';
+export type SsoOAuthProviderScalarFieldEnumInterface = 'id' | 'name' | 'enabled' | 'createdAt' | 'updatedAt';
 
 export const SsoOAuthProviderScalarFieldEnumInterface = {
     id: 'id' as SsoOAuthProviderScalarFieldEnumInterface,
     name: 'name' as SsoOAuthProviderScalarFieldEnumInterface,
+    enabled: 'enabled' as SsoOAuthProviderScalarFieldEnumInterface,
     createdAt: 'createdAt' as SsoOAuthProviderScalarFieldEnumInterface,
     updatedAt: 'updatedAt' as SsoOAuthProviderScalarFieldEnumInterface
 };

@@ -23,8 +23,8 @@ export * as $Enums from './enums';
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more SsoProjects
- * const ssoProjects = await prisma.ssoProject.findMany()
+ * // Fetch zero or more SsoUsers
+ * const ssoUsers = await prisma.ssoUser.findMany()
  * ```
  *
  * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
@@ -37,11 +37,6 @@ export type PrismaClient<
 > = $Class.PrismaClient<ClientOptions, Log, ExtArgs>;
 export { Prisma };
 
-/**
- * Model SsoProject
- *
- */
-export type SsoProject = Prisma.SsoProjectModel;
 /**
  * Model SsoUser
  *
@@ -77,3 +72,8 @@ export type SsoOAuthProviderSettings = Prisma.SsoOAuthProviderSettingsModel;
  *
  */
 export type SsoOAuthToken = Prisma.SsoOAuthTokenModel;
+/**
+ * Model SsoTenant
+ *
+ */
+export type SsoTenant = Prisma.SsoTenantModel;

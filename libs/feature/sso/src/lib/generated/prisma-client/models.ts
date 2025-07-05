@@ -6,7 +6,6 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/SsoProject';
 export type * from './models/SsoUser';
 export type * from './models/migrations_sso';
 export type * from './models/SsoRefreshSession';
@@ -14,4 +13,5 @@ export type * from './models/SsoEmailTemplate';
 export type * from './models/SsoOAuthProvider';
 export type * from './models/SsoOAuthProviderSettings';
 export type * from './models/SsoOAuthToken';
+export type * from './models/SsoTenant';
 export type * from './commonInputTypes';

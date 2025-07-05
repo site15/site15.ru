@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 
 export class UpdateSsoOAuthProviderDto {
   @ApiProperty({
@@ -9,4 +9,11 @@ export class UpdateSsoOAuthProviderDto {
   @IsOptional()
   @IsString()
   name?: string;
+  @ApiProperty({
+    type: 'boolean',
+    required: false,
+  })
+  @IsOptional()
+  @IsBoolean()
+  enabled?: boolean;
 }

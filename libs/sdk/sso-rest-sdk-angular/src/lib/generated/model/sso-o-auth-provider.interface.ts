@@ -14,6 +14,7 @@ import { SsoOAuthProviderSettingsInterface } from './sso-o-auth-provider-setting
 export interface SsoOAuthProviderInterface { 
     id: string;
     name: string;
+    enabled: boolean;
     createdAt: string;
     updatedAt: string;
     SsoOAuthProviderSettings?: Array<SsoOAuthProviderSettingsInterface>;

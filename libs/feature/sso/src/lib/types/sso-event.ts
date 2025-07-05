@@ -29,7 +29,7 @@ export interface SsoEventContext {
   };
   serviceId: string;
   userId: string;
-  projectId: string;
+  tenantId: string;
   userIp: string;
   userAgent: string;
 }

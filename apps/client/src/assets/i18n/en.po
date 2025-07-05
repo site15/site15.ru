@@ -12,8 +12,8 @@ msgstr "You are logged in as {{email}}"
 msgid "Source code"
 msgstr "Source code"
 
-msgid "Select active project"
-msgstr "Select active project"
+msgid "Select active tenant"
+msgstr "Select active tenant"
 
 msgid "Home"
 msgstr "Home"
@@ -27,8 +27,8 @@ msgstr "Templates"
 msgid "Users"
 msgstr "Users"
 
-msgid "Projects"
-msgstr "Projects"
+msgid "Tenants"
+msgstr "Tenants"
 
 msgid "Profile"
 msgstr "Profile"

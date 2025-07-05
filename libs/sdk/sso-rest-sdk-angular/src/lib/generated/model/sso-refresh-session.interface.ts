@@ -8,7 +8,7 @@
  * Do not edit the class manually.
  */
 import { SsoUserInterface } from './sso-user.interface';
-import { SsoProjectInterface } from './sso-project.interface';
+import { SsoTenantInterface } from './sso-tenant.interface';
 
 
 export interface SsoRefreshSessionInterface { 
@@ -19,10 +19,10 @@ export interface SsoRefreshSessionInterface {
     userData: object | null;
     enabled: boolean;
     userId: string;
-    projectId: string;
+    tenantId: string;
     createdAt: string;
     updatedAt: string;
-    SsoProject?: SsoProjectInterface;
+    SsoTenant?: SsoTenantInterface;
     SsoUser?: SsoUserInterface;
 }
 

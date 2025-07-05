@@ -19,7 +19,7 @@ import { CompleteSignUpComponent } from './pages/complete-sign-up/complete-sign-
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { ProjectsComponent } from './pages/projects/projects.component';
+import { TenantsComponent } from './pages/tenants/tenants.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { TemplatesComponent } from './pages/templates/templates.component';
@@ -92,9 +92,9 @@ export const appRoutes: Route[] = [
     },
   },
   {
-    path: 'projects',
-    component: ProjectsComponent,
-    title: marker('Projects'),
+    path: 'tenants',
+    component: TenantsComponent,
+    title: marker('Tenants'),
     canActivate: [SsoGuardService],
     data: {
       [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
@@ -189,7 +189,7 @@ export const appRoutes: Route[] = [
           if (!redirectUri) {
             if (options.ssoService && options.router) {
               if (searchIn(SsoRoleInterface.admin, options.ssoService.profile$.value?.roles)) {
-                options.router.navigate(['/projects']);
+                options.router.navigate(['/tenants']);
               } else {
                 options.router.navigate(['/home']);
               }
@@ -228,7 +228,7 @@ export const appRoutes: Route[] = [
           if (!redirectUri) {
             if (options.ssoService && options.router) {
               if (searchIn(SsoRoleInterface.admin, options.ssoService.profile$.value?.roles)) {
-                options.router.navigate(['/projects']);
+                options.router.navigate(['/tenants']);
               } else {
                 options.router.navigate(['/home']);
               }

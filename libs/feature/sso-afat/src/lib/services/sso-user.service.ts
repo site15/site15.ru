@@ -34,7 +34,7 @@ export class SsoUserService {
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
           : undefined,
-        filters['projectId'],
+        filters['tenantId'],
       )
       .pipe(
         map(({ meta, ssoUsers }) => ({

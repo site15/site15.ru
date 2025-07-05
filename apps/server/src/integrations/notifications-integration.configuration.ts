@@ -24,7 +24,7 @@ export function notificationsModuleForRootAsyncOptions(): Parameters<typeof Noti
       checkAccessValidator: async (ctx: ExecutionContext) => {
         const req = getRequestFromExecutionContext(ctx) as SsoRequest & NotificationsRequest;
         req.notificationIsAdmin = searchIn(SsoRole.admin, req.ssoUser?.roles);
-        req.externalTenantId = req.ssoProject?.id;
+        req.externalTenantId = req.ssoTenant?.id;
       },
     },
   };

@@ -17,14 +17,14 @@ export class SsoCookieService {
     userAgent,
     fingerprint,
     roles,
-    projectId,
+    tenantId,
   }: {
     userId: string;
     userIp: string;
     userAgent: string;
     fingerprint: string;
     roles: string | null;
-    projectId: string;
+    tenantId: string;
   }) {
     const tokens = await this.ssoTokensService.getAccessAndRefreshTokensByUserId(
       {
@@ -34,7 +34,7 @@ export class SsoCookieService {
         userId,
         userIp,
       },
-      projectId,
+      tenantId,
     );
     return {
       accessToken: tokens.accessToken,
@@ -81,13 +81,13 @@ export class SsoCookieService {
       .join('; ')}`;
   }
 
-  async getCookieForSignOut({ refreshToken, projectId }: { refreshToken: string; projectId: string }): Promise<{
+  async getCookieForSignOut({ refreshToken, tenantId }: { refreshToken: string; tenantId: string }): Promise<{
     refreshSession: SsoRefreshSession | null;
     cookie: string;
   }> {
     const refreshSession = await this.ssoTokensService.disableRefreshSessionByRefreshToken({
       refreshToken,
-      projectId,
+      tenantId,
     });
     return {
       refreshSession,

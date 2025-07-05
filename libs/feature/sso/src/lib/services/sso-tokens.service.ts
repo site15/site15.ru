@@ -30,13 +30,13 @@ export class SsoTokensService {
     userIp,
     userAgent,
     fingerprint,
-    projectId,
+    tenantId,
   }: {
     refreshToken: string;
     userIp: string;
     userAgent: string;
     fingerprint: string;
-    projectId: string;
+    tenantId: string;
   }) {
     const expiresAt = addMilliseconds(new Date(), ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn));
     let currentRefreshSession: SsoRefreshSession & { SsoUser: SsoUser };
@@ -51,18 +51,18 @@ export class SsoTokensService {
       //     .find((r) =>
       //       this.ssoStaticEnvironments.adminDefaultRoles?.includes(r)
       //     ) &&
-      //   currentRefreshSession.projectId !== projectId
+      //   currentRefreshSession.tenantId !== tenantId
       // ) {
       //   throw new SsoError(SsoErrorEnum.RefreshTokenNotProvided);
       // }
-      projectId = currentRefreshSession.projectId;
+      tenantId = currentRefreshSession.tenantId;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (this.prismaToolsService.isErrorOfRecordNotFound(err)) {
         this.logger.debug({
           fingerprint,
           refreshToken,
-          projectId,
+          tenantId,
           enabled: true,
         });
         throw new SsoError(SsoErrorEnum.RefreshTokenNotProvided);
@@ -97,7 +97,7 @@ export class SsoTokensService {
         userAgent,
         fingerprint,
         expiresAt,
-        projectId,
+        tenantId,
         enabled: true,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         userData: currentRefreshSession.userData as any,
@@ -109,7 +109,7 @@ export class SsoTokensService {
 
     const accessTokenData: SsoAccessTokenData = {
       userId: session.userId,
-      projectId: session.projectId,
+      tenantId: session.tenantId,
       refreshToken,
       ...(currentRefreshSession.SsoUser.roles ? { roles: currentRefreshSession.SsoUser.roles } : {}),
     };
@@ -167,7 +167,7 @@ export class SsoTokensService {
       fingerprint: string;
       roles: string | null;
     },
-    projectId: string,
+    tenantId: string,
   ) {
     const expiresAt = addMilliseconds(new Date(), ms(this.ssoStaticEnvironments.jwtRefreshTokenExpiresIn));
     try {
@@ -176,14 +176,17 @@ export class SsoTokensService {
         where: {
           userId,
           fingerprint,
-          projectId,
+          tenantId,
         },
       });
 
       for (const session of sessions) {
         await this.prismaClient.ssoRefreshSession.update({
           data: { enabled: false },
-          where: { id: session.id, projectId },
+          where: {
+            id: session.id,
+            tenantId,
+          },
         });
 
         await this.ssoCacheService.clearCacheByRefreshSession(session.refreshToken);
@@ -202,7 +205,7 @@ export class SsoTokensService {
         userAgent,
         fingerprint,
         expiresAt,
-        projectId,
+        tenantId,
         enabled: true,
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         userData: { roles } as any,
@@ -210,7 +213,7 @@ export class SsoTokensService {
     });
     const accessTokenData: SsoAccessTokenData = {
       userId,
-      projectId,
+      tenantId,
       refreshToken,
       ...(roles ? { roles } : {}),
     };
@@ -223,7 +226,7 @@ export class SsoTokensService {
     };
   }
 
-  async disableRefreshSessionByRefreshToken({ refreshToken, projectId }: { refreshToken: string; projectId: string }) {
+  async disableRefreshSessionByRefreshToken({ refreshToken, tenantId }: { refreshToken: string; tenantId: string }) {
     try {
       const refreshSession = await this.prismaClient.ssoRefreshSession.findFirstOrThrow({
         where: {
@@ -240,7 +243,7 @@ export class SsoTokensService {
 
       return refreshSession;
     } catch (err) {
-      this.logger.debug({ refreshToken, projectId });
+      this.logger.debug({ refreshToken, tenantId });
       throw new SsoError(SsoErrorEnum.RefreshTokenNotProvided);
     }
   }

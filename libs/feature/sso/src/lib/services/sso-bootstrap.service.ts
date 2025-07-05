@@ -1,6 +1,6 @@
 import { isInfrastructureMode } from '@nestjs-mod/common';
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { SsoProjectService } from './sso-project.service';
+import { SsoTenantService } from './sso-tenant.service';
 import { SsoUsersService } from './sso-users.service';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class SsoServiceBootstrap implements OnModuleInit {
   private readonly logger = new Logger(SsoServiceBootstrap.name);
 
   constructor(
-    private readonly ssoProjectService: SsoProjectService,
+    private readonly ssoTenantService: SsoTenantService,
     private readonly ssoUsersService: SsoUsersService,
   ) {}
 
@@ -19,9 +19,9 @@ export class SsoServiceBootstrap implements OnModuleInit {
       return;
     }
 
-    await this.ssoProjectService.getOrCreateDefaultProject();
+    await this.ssoTenantService.getOrCreateDefaultTenant();
 
-    await this.ssoProjectService.createDefaultPublicProjects();
+    await this.ssoTenantService.createDefaultPublicTenants();
 
     await this.ssoUsersService.createAdmin();
   }

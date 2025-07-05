@@ -9,7 +9,7 @@
  */
 
 
-export type SsoEmailTemplateScalarFieldEnumInterface = 'id' | 'subject' | 'subjectLocale' | 'text' | 'textLocale' | 'html' | 'htmlLocale' | 'operationName' | 'projectId' | 'createdAt' | 'updatedAt';
+export type SsoEmailTemplateScalarFieldEnumInterface = 'id' | 'subject' | 'subjectLocale' | 'text' | 'textLocale' | 'html' | 'htmlLocale' | 'operationName' | 'tenantId' | 'createdAt' | 'updatedAt';
 
 export const SsoEmailTemplateScalarFieldEnumInterface = {
     id: 'id' as SsoEmailTemplateScalarFieldEnumInterface,
@@ -20,7 +20,7 @@ export const SsoEmailTemplateScalarFieldEnumInterface = {
     html: 'html' as SsoEmailTemplateScalarFieldEnumInterface,
     htmlLocale: 'htmlLocale' as SsoEmailTemplateScalarFieldEnumInterface,
     operationName: 'operationName' as SsoEmailTemplateScalarFieldEnumInterface,
-    projectId: 'projectId' as SsoEmailTemplateScalarFieldEnumInterface,
+    tenantId: 'tenantId' as SsoEmailTemplateScalarFieldEnumInterface,
     createdAt: 'createdAt' as SsoEmailTemplateScalarFieldEnumInterface,
     updatedAt: 'updatedAt' as SsoEmailTemplateScalarFieldEnumInterface
 };
