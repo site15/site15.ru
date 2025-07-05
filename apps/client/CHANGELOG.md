@@ -1,3 +1,9 @@
+# [1.15.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.14.2...client-v1.15.0) (2025-07-05)
+
+### Features
+
+- rename project to tenant ([f3cb312](https://github.com/nestjs-mod/nestjs-mod-sso/commit/f3cb312e2d0394eaea832fda9d44122cab8de034))
+
 ## [1.14.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/client-v1.14.1...client-v1.14.2) (2025-06-18)
 
 ### Bug Fixes
