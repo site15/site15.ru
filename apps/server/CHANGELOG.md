@@ -1,3 +1,9 @@
+## [1.18.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.18.1...server-v1.18.2) (2025-07-05)
+
+### Bug Fixes
+
+- update deps ([ec127d5](https://github.com/nestjs-mod/nestjs-mod-sso/commit/ec127d5d33008b001b4bdaecee755f6440b75f20))
+
 ## [1.18.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.18.0...server-v1.18.1) (2025-07-05)
 
 ### Bug Fixes
