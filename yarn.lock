@@ -3247,10 +3247,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/files@1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/files/-/files-1.2.2.tgz#cba1ec2bf194bf43cffaff1f2789b87c4e0cb0af"
-  integrity sha512-unwUGpAYv5HUbr0XYGokybqQ/wgxYYYsN2mhMymLMGl7v6Zk89NCJKE7l4fQTwxUnvw8dd9AHzUX9sKmuJ0iCA==
+"@nestjs-mod/files@1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/files/-/files-1.2.3.tgz#d28f44f81233c1390eb4d99531ee208eac9f8a0b"
+  integrity sha512-S65aak2+UDMUXjAJkWB9EW4G7MT+0sjP304boZyeM0Tgtrcv8jUG7Lud52J7kIJokFR5fSI1T72Deuuzw11cHQ==
 
 "@nestjs-mod/keyv@1.2.1":
   version "1.2.1"
@@ -3276,10 +3276,10 @@
     lodash.reduce "4.6.0"
     tslib "^2.3.0"
 
-"@nestjs-mod/notifications@1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/notifications/-/notifications-1.2.2.tgz#33acf824195c708ce3f08da077a98efc7683e2ae"
-  integrity sha512-YkHAYmm9nWgUeU1broR8DhNCi0iM/LO8w8WLkVS7w2uPntM0KS3sY04hDUNjE8D9Rs8lRl/KxSCH3PJhTtSP1A==
+"@nestjs-mod/notifications@1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/notifications/-/notifications-1.2.3.tgz#9f3c137607bb05fd63471f508a113fa457facb54"
+  integrity sha512-Nfe94mFzqdkioFJJHKZKhzpC/mAwhsECTqBMk2zRIs6MOVWRaAEZAHFOlaN2mTOu/7h7kzzFt68zrTynP1c5iw==
 
 "@nestjs-mod/pg-flyway@^1.3.0":
   version "1.3.0"
@@ -3372,10 +3372,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/two-factor@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/two-factor/-/two-factor-1.1.2.tgz#d47c0390debfd7b32816b55996e62ef064e750a6"
-  integrity sha512-+Sie5XSrDolvNPN34f/T1jzuH0VMpuPtGgh7wYtqTZKI8E0CudJtSJq8KChfICPg2TXfnYYL2UGnQ4u5TFOdCA==
+"@nestjs-mod/two-factor@1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/two-factor/-/two-factor-1.1.3.tgz#f53de0824608699f331e1596c283b93fee02efb6"
+  integrity sha512-yS/j9lSwgovFGUN+RHoiZ73t/0cLgSQ3d8HLAmTln9RTC6bbvrzUc1MkwGWc7kyXH9bMuq+QhkdlFqFyR60mTg==
 
 "@nestjs-mod/validation@1.2.1":
   version "1.2.1"
@@ -14834,10 +14834,10 @@ pg-create-db@^1.1.6:
     pg-promise "10.12.0"
     tslib "^2.3.0"
 
-pg-flyway@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/pg-flyway/-/pg-flyway-1.3.0.tgz#abeda0482da70c2ec140fec2c703afad63d7fbdc"
-  integrity sha512-FExlSwCaZm7Y85CMQAYf/i/7EE1e8gjW3+p3Ln64uExMbcc1gcIzOgUVmFM6fl1YWAU0TvgJRiXuiIBcKhTInw==
+pg-flyway@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/pg-flyway/-/pg-flyway-1.3.1.tgz#11fcbb3dc8b776cb2c7d3ae2c87505f3b703822f"
+  integrity sha512-u6CR2v6M+T9jLsLyzBBeyaQtzXvc2PwP0B7jdHca0SQ47C3u9xRoY8XHXjJszk7EADV8bCjDk2dRz2lux8dc4A==
   dependencies:
     commander "13.0.0"
     connection-string "4.3.5"
