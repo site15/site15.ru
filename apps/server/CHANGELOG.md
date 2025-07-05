@@ -1,3 +1,9 @@
+# [1.18.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.17.2...server-v1.18.0) (2025-07-05)
+
+### Features
+
+- rename project to tenant ([f3cb312](https://github.com/nestjs-mod/nestjs-mod-sso/commit/f3cb312e2d0394eaea832fda9d44122cab8de034))
+
 ## [1.17.2](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.17.1...server-v1.17.2) (2025-06-18)
 
 ### Bug Fixes
