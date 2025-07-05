@@ -1,3 +1,9 @@
+## [1.18.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.18.0...server-v1.18.1) (2025-07-05)
+
+### Bug Fixes
+
+- полный передеплой ([acfe5ca](https://github.com/nestjs-mod/nestjs-mod-sso/commit/acfe5ca22c525bd43ed63096620cbd0dccbdf95c))
+
 # [1.18.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/server-v1.17.2...server-v1.18.0) (2025-07-05)
 
 ### Features
