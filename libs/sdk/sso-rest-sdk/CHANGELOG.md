@@ -1,3 +1,9 @@
+# [1.8.0](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.7.1...rest-sdk-v1.8.0) (2025-07-05)
+
+### Features
+
+- rename project to tenant ([f3cb312](https://github.com/nestjs-mod/nestjs-mod-sso/commit/f3cb312e2d0394eaea832fda9d44122cab8de034))
+
 ## [1.7.1](https://github.com/nestjs-mod/nestjs-mod-sso/compare/rest-sdk-v1.7.0...rest-sdk-v1.7.1) (2025-06-15)
 
 ### Bug Fixes
