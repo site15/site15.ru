@@ -1,3 +1,9 @@
+## [1.0.14](https://github.com/site15/site15.ru/compare/server-v1.0.13...server-v1.0.14) (2025-07-06)
+
+### Bug Fixes
+
+- add "private": true to all libs ([74b5430](https://github.com/site15/site15.ru/commit/74b5430a0798632627afac4fc0bbc309c5c9617b))
+
 ## [1.0.13](https://github.com/site15/site15.ru/compare/server-v1.0.12...server-v1.0.13) (2025-07-06)
 
 ### Bug Fixes
