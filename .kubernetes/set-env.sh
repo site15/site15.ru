@@ -3,12 +3,7 @@ set -e
 
 export REPOSITORY=site15/site15.ru
 export REGISTRY=ghcr.io
-export BASE_SITE_15_IMAGE_NAME="${REPOSITORY}-base-server"
-export BUILDER_IMAGE_NAME="${REPOSITORY}-builder"
-export MIGRATIONS_IMAGE_NAME="${REPOSITORY}-migrations"
 export SITE_15_IMAGE_NAME="${REPOSITORY}-server"
-export NGINX_IMAGE_NAME="${REPOSITORY}-nginx"
-export E2E_TESTS_IMAGE_NAME="${REPOSITORY}-e2e-tests"
 export COMPOSE_INTERACTIVE_NO_CLI=1
 export NX_DAEMON=false
 export NX_PARALLEL=1
@@ -28,70 +23,88 @@ fi
 
 # node
 if [ -z "${NAMESPACE}" ]; then
-    export NAMESPACE=sso
+    echo "Error: NAMESPACE not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 
 # common
 if [ -z "${SITE_15_DOMAIN}" ]; then
-    export SITE_15_DOMAIN=example.com
+    echo "Error: SITE_15_DOMAIN not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 
 # server
 if [ -z "${SITE_15_PORT}" ]; then
-    export SITE_15_PORT=9191
+    echo "Error: SITE_15_PORT not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 
 # server: webhook database
 if [ -z "${SITE_15_WEBHOOK_DATABASE_PASSWORD}" ]; then
-    export SITE_15_WEBHOOK_DATABASE_PASSWORD=webhook_password
+    echo "Error: SITE_15_WEBHOOK_DATABASE_PASSWORD not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_WEBHOOK_DATABASE_USERNAME}" ]; then
-    export SITE_15_WEBHOOK_DATABASE_USERNAME=${NAMESPACE}_webhook
+    echo "Error: SITE_15_WEBHOOK_DATABASE_USERNAME not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_WEBHOOK_DATABASE_NAME}" ]; then
-    export SITE_15_WEBHOOK_DATABASE_NAME=${NAMESPACE}_webhook
+    echo "Error: SITE_15_WEBHOOK_DATABASE_NAME not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 
 # server: sso database
 if [ -z "${SITE_15_SSO_DATABASE_PASSWORD}" ]; then
-    export SITE_15_SSO_DATABASE_PASSWORD=sso_password
+    echo "Error: SITE_15_SSO_DATABASE_PASSWORD not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_SSO_DATABASE_USERNAME}" ]; then
-    export SITE_15_SSO_DATABASE_USERNAME=${NAMESPACE}_sso
+    echo "Error: SITE_15_SSO_DATABASE_USERNAME not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_SSO_DATABASE_NAME}" ]; then
-    export SITE_15_SSO_DATABASE_NAME=${NAMESPACE}_sso
+    echo "Error: SITE_15_SSO_DATABASE_NAME not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 
 # server: notifications database
 if [ -z "${SITE_15_NOTIFICATIONS_DATABASE_PASSWORD}" ]; then
-    export SITE_15_NOTIFICATIONS_DATABASE_PASSWORD=notifications_password
+    echo "Error: SITE_15_NOTIFICATIONS_DATABASE_PASSWORD not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_NOTIFICATIONS_DATABASE_USERNAME}" ]; then
-    export SITE_15_NOTIFICATIONS_DATABASE_USERNAME=${NAMESPACE}_notifications
+    echo "Error: SITE_15_NOTIFICATIONS_DATABASE_USERNAME not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_NOTIFICATIONS_DATABASE_NAME}" ]; then
-    export SITE_15_NOTIFICATIONS_DATABASE_NAME=${NAMESPACE}_notifications
+    echo "Error: SITE_15_NOTIFICATIONS_DATABASE_NAME not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 
 # server: two factor database
 if [ -z "${SITE_15_TWO_FACTOR_DATABASE_PASSWORD}" ]; then
-    export SITE_15_TWO_FACTOR_DATABASE_PASSWORD=two_factor_password
+    echo "Error: SITE_15_TWO_FACTOR_DATABASE_PASSWORD not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_TWO_FACTOR_DATABASE_USERNAME}" ]; then
-    export SITE_15_TWO_FACTOR_DATABASE_USERNAME=${NAMESPACE}_two_factor
+    echo "Error: SITE_15_TWO_FACTOR_DATABASE_USERNAME not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_TWO_FACTOR_DATABASE_NAME}" ]; then
-    export SITE_15_TWO_FACTOR_DATABASE_NAME=${NAMESPACE}_two_factor
+    echo "Error: SITE_15_TWO_FACTOR_DATABASE_NAME not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 
 # database
 if [ -z "${SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME}" ]; then
-    export SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME=postgres
+    echo "Error: SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD}" ]; then
-    export SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD=postgres_password
+    echo "Error: SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
 if [ -z "${SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE}" ]; then
-    export SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE=postgres
+    echo "Error: SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE not!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
 fi
