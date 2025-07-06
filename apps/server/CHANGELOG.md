@@ -1,3 +1,9 @@
+## [1.0.13](https://github.com/site15/site15.ru/compare/server-v1.0.12...server-v1.0.13) (2025-07-06)
+
+### Bug Fixes
+
+- add "npm": true ([fddcd1f](https://github.com/site15/site15.ru/commit/fddcd1f396f70c8923ef9b648a0f6bcca5f850d1))
+
 ## [1.0.12](https://github.com/site15/site15.ru/compare/server-v1.0.11...server-v1.0.12) (2025-07-06)
 
 ### Bug Fixes
