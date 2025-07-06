@@ -156,6 +156,7 @@ jobs:
           echo "$ENV" > "./.env"
           set -a && . ./.env && set +a
           rm -rf ./.kubernetes/generated
+          nvm use v23
           . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
           docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility down || echo 'docker-compose-infra not started'
           docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility up -d
@@ -174,6 +175,7 @@ jobs:
           set -a && . ./.env && set +a
           echo 'Start'
           rm -rf ./.kubernetes/generated
+          nvm use v23
           . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
           echo 'Check k8s'
           sudo microk8s status --wait-ready | echo 'Skip error'
