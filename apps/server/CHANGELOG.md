@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/site15/site15.ru/compare/server-v1.0.10...server-v1.0.11) (2025-07-06)
+
+### Bug Fixes
+
+- add github envs example ([6384103](https://github.com/site15/site15.ru/commit/6384103875a0f463b7d1ad7bdca80cd7063c701b))
+- change playwright config ([8bf568e](https://github.com/site15/site15.ru/commit/8bf568e587526261e619ea66603e293f967c73b7))
+
 ## [1.0.10](https://github.com/site15/site15.ru/compare/server-v1.0.9...server-v1.0.10) (2025-07-06)
 
 ### Bug Fixes
