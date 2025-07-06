@@ -125,35 +125,17 @@ jobs:
           # a pull request then we can checkout the head.
           fetch-depth: 2
 
-      # WE DO NOT LAUNCH IT BECAUSE THE SERVER IS THE SAME AS IN THE REPOSITORY https://github.com/nestjs-mod/nestjs-mod-fullstack
-      # FROM WHICH THIS COMMAND WAS ALREADY LAUNCHED
-      #- name: Deploy infrastructure
-      #  if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[skip infrastructure]') }}
-      #  env:
-      #    SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE: ${{ secrets.ROOT_POSTGRES_DATABASE }}
-      #    SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD: ${{ secrets.ROOT_POSTGRES_PASSWORD }}
-      #    SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME: ${{ secrets.ROOT_POSTGRES_USER }}
-      #    SITE_15_WEBHOOK_DATABASE_NAME: ${{ secrets.SITE_15_WEBHOOK_DATABASE_NAME }}
-      #    SITE_15_WEBHOOK_DATABASE_PASSWORD: ${{ secrets.SITE_15_WEBHOOK_DATABASE_PASSWORD }}
-      #    SITE_15_WEBHOOK_DATABASE_USERNAME: ${{ secrets.SITE_15_WEBHOOK_DATABASE_USERNAME }}
-      #    SITE_15_NOTIFICATIONS_DATABASE_NAME: ${{ secrets.SITE_15_NOTIFICATIONS_DATABASE_NAME }}
-      #    SITE_15_NOTIFICATIONS_DATABASE_PASSWORD: ${{ secrets.SITE_15_NOTIFICATIONS_DATABASE_PASSWORD }}
-      #    SITE_15_NOTIFICATIONS_DATABASE_USERNAME: ${{ secrets.SITE_15_NOTIFICATIONS_DATABASE_USERNAME }}
-      #    SITE_15_TWO_FACTOR_DATABASE_DATABASE_NAME: ${{ secrets.SITE_15_TWO_FACTOR_DATABASE_NAME }}
-      #    SITE_15_TWO_FACTOR_DATABASE_DATABASE_PASSWORD: ${{ secrets.SITE_15_TWO_FACTOR_DATABASE_PASSWORD }}
-      #    SITE_15_TWO_FACTOR_DATABASE_DATABASE_USERNAME: ${{ secrets.SITE_15_TWO_FACTOR_DATABASE_USERNAME }}
-      #    SITE_15_SSO_DATABASE_NAME: ${{ secrets.SITE_15_SSO_DATABASE_NAME }}
-      #    SITE_15_SSO_DATABASE_PASSWORD: ${{ secrets.SITE_15_SSO_DATABASE_PASSWORD }}
-      #    SITE_15_SSO_DATABASE_USERNAME: ${{ secrets.SITE_15_SSO_DATABASE_USERNAME }}
-      #    SITE_15_SSO_ADMIN_PASSWORD: ${{ secrets.SITE_15_SSO_ADMIN_PASSWORD }}
-      #    SITE_15_MINIO_MINIO_ROOT_USER: ${{ secrets.SITE_15_MINIO_MINIO_ROOT_USER }}
-      #    SITE_15_MINIO_MINIO_ROOT_PASSWORD: ${{ secrets.SITE_15_MINIO_MINIO_ROOT_PASSWORD }}
-      #    SITE_15_REDIS_REDIS_PASSWORD: ${{ secrets.SITE_15_REDIS_REDIS_PASSWORD }}
-      #  run: |
-      #    rm -rf ./.kubernetes/generated
-      #    . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
-      #    docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility down || echo 'docker-compose-infra not started'
-      #    docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility up -d
+      - name: Deploy infrastructure
+        if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[skip infrastructure]') }}
+        env:
+          ENV: ${{ secrets.ENV }}
+        run: |
+          echo "$ENV" > "./.env"
+          . ./.env
+          rm -rf ./.kubernetes/generated
+          . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
+          docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility down || echo 'docker-compose-infra not started'
+          docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility up -d
 
       - name: Deploy applications
         # if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[skip applications]') }}
@@ -164,30 +146,10 @@ jobs:
           DOCKER_SERVER: ${{ env.REGISTRY }}
           DOCKER_USERNAME: ${{ github.actor }}
           DOCKER_PASSWORD: ${{ secrets.SITE_15_ACCESS_TOKEN_DOCKER }}
-          SITE_15_DOMAIN: ${{ secrets.SITE_15_DOMAIN }}
-          SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE: ${{ secrets.ROOT_POSTGRES_DATABASE }}
-          SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD: ${{ secrets.ROOT_POSTGRES_PASSWORD }}
-          SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME: ${{ secrets.ROOT_POSTGRES_USER }}
-          SITE_15_WEBHOOK_DATABASE_NAME: ${{ secrets.SITE_15_WEBHOOK_DATABASE_NAME }}
-          SITE_15_WEBHOOK_DATABASE_PASSWORD: ${{ secrets.SITE_15_WEBHOOK_DATABASE_PASSWORD }}
-          SITE_15_WEBHOOK_DATABASE_USERNAME: ${{ secrets.SITE_15_WEBHOOK_DATABASE_USERNAME }}
-          SITE_15_NOTIFICATIONS_DATABASE_NAME: ${{ secrets.SITE_15_NOTIFICATIONS_DATABASE_NAME }}
-          SITE_15_NOTIFICATIONS_DATABASE_PASSWORD: ${{ secrets.SITE_15_NOTIFICATIONS_DATABASE_PASSWORD }}
-          SITE_15_NOTIFICATIONS_DATABASE_USERNAME: ${{ secrets.SITE_15_NOTIFICATIONS_DATABASE_USERNAME }}
-          SITE_15_TWO_FACTOR_DATABASE_DATABASE_NAME: ${{ secrets.SITE_15_TWO_FACTOR_DATABASE_NAME }}
-          SITE_15_TWO_FACTOR_DATABASE_DATABASE_PASSWORD: ${{ secrets.SITE_15_TWO_FACTOR_DATABASE_PASSWORD }}
-          SITE_15_TWO_FACTOR_DATABASE_DATABASE_USERNAME: ${{ secrets.SITE_15_TWO_FACTOR_DATABASE_USERNAME }}
-          SITE_15_SSO_DATABASE_NAME: ${{ secrets.SITE_15_SSO_DATABASE_NAME }}
-          SITE_15_SSO_DATABASE_PASSWORD: ${{ secrets.SITE_15_SSO_DATABASE_PASSWORD }}
-          SITE_15_SSO_DATABASE_USERNAME: ${{ secrets.SITE_15_SSO_DATABASE_USERNAME }}
-          SITE_15_SSO_ADMIN_PASSWORD: ${{ secrets.SITE_15_SSO_ADMIN_PASSWORD }}
-          SITE_15_MINIO_MINIO_ROOT_USER: ${{ secrets.SITE_15_MINIO_MINIO_ROOT_USER }}
-          SITE_15_MINIO_MINIO_ROOT_PASSWORD: ${{ secrets.SITE_15_MINIO_MINIO_ROOT_PASSWORD }}
-          SITE_15_REDIS_REDIS_PASSWORD: ${{ secrets.SITE_15_REDIS_REDIS_PASSWORD }}
-          SITE_15_SSO_GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.SITE_15_SSO_GOOGLE_OAUTH_CLIENT_ID }}
-          SITE_15_SSO_GOOGLE_OAUTH_CLIENT_SECRET_KEY: ${{ secrets.SITE_15_SSO_GOOGLE_OAUTH_CLIENT_SECRET_KEY }}
-          SITE_15_SSO_ADMIN_SECRET: ${{ secrets.SITE_15_SSO_ADMIN_SECRET }}
+          ENV: ${{ secrets.ENV }}
         run: |
+          echo "$ENV" > "./.env"
+          . ./.env
           echo 'Start'
           rm -rf ./.kubernetes/generated
           . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
@@ -221,11 +183,10 @@ jobs:
       - name: Run E2E-tests
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
         env:
-          SITE_15_SSO_ADMIN_SECRET: ${{ secrets.SITE_15_SSO_ADMIN_SECRET }}
-          E2E_CLIENT_URL: 'https://${{ secrets.SITE_15_DOMAIN }}'
-          E2E_SERVER_URL: 'https://${{ secrets.SITE_15_DOMAIN }}'
-          SITE_15_MINIO_URL: 'https://files.${{ secrets.SITE_15_DOMAIN }}'
+          ENV: ${{ secrets.ENV }}
         run: |
+          echo "$ENV" > "./.env"
+          . ./.env
           npm run test:e2e
       - uses: actions/upload-artifact@v4
         with:
