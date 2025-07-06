@@ -1,3 +1,9 @@
+## [1.0.9](https://github.com/site15/site15.ru/compare/server-v1.0.8...server-v1.0.9) (2025-07-06)
+
+### Bug Fixes
+
+- start infra [deploy infrastructure] ([a53b8b4](https://github.com/site15/site15.ru/commit/a53b8b4b4c20c50879025945314555595f9adc94))
+
 ## [1.0.8](https://github.com/site15/site15.ru/compare/server-v1.0.7...server-v1.0.8) (2025-07-06)
 
 ### Bug Fixes
