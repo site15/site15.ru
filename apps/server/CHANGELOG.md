@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/site15/site15.ru/compare/server-v1.0.1...server-v1.0.2) (2025-07-06)
+
+### Bug Fixes
+
+- add nvm install ([f9b5d6b](https://github.com/site15/site15.ru/commit/f9b5d6b1065a89eab8e2baf9f491df08d6d78c1f))
+
 ## [1.0.1](https://github.com/site15/site15.ru/compare/server-v1.0.0...server-v1.0.1) (2025-07-06)
 
 ### Bug Fixes
