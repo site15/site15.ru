@@ -1,6 +1,6 @@
 {
   "changelog": true,
-  "npm": true,
+  "npm": false,
   "github": true,
   "repositoryUrl": "https://github.com/site15/site15.ru",
   "branches": [
