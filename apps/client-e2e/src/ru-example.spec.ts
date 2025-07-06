@@ -32,7 +32,7 @@ test.describe('basic usage (ru)', () => {
 
     await setTimeout(4000);
 
-    expect(await page.locator('.logo').innerText()).toContain('Single Sign-On');
+    expect(await page.locator('.logo').innerText()).toContain('Site15');
   });
 
   test('should change language to RU', async () => {

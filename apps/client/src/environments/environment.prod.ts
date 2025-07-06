@@ -1,2 +1,2 @@
 export const serverUrl = '';
-export const minioURL = '___SINGLE_SIGN_ON_CLIENT_MINIO_URL___';
+export const minioURL = '___SITE_15_CLIENT_MINIO_URL___';

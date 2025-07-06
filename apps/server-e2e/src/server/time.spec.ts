@@ -1,4 +1,4 @@
-import { SsoRestClientHelper } from '@nestjs-mod-sso/testing';
+import { SsoRestClientHelper } from '@site15/testing';
 import { isDateString } from 'class-validator';
 import { get } from 'env-var';
 import { lastValueFrom, take, toArray } from 'rxjs';
@@ -9,7 +9,7 @@ describe('Get server time from rest api and ws', () => {
   const correctStringDateLength = '0000-00-00T00:00:00.000Z'.length;
   const restClientHelper = new SsoRestClientHelper({
     headers: {
-      'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+      'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
     },
     serverUrl: process.env.IS_DOCKER_COMPOSE ? get('E2E_SERVER_URL').asString() : undefined,
   });

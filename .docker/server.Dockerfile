@@ -36,8 +36,8 @@ WORKDIR /app
 EXPOSE 8080
 ENV NODE_ENV=production
 ENV TZ=UTC
-ENV SINGLE_SIGN_ON_PORT=8080
-ENV SINGLE_SIGN_ON_CLIENT_MINIO_URL=http://localhost:9000
+ENV SITE_15_PORT=8080
+ENV SITE_15_CLIENT_MINIO_URL=http://localhost:9000
 # Copy utility for "To work as a PID 1"
 COPY --from=base /usr/bin/dumb-init /usr/bin/dumb-init
 COPY --from=prod-deps /app/node_modules /app/node_modules

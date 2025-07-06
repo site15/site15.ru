@@ -1,5 +1,5 @@
 import { SsoError, SsoErrorEnum, TokensResponse, ValidationError, ValidationErrorEnum } from '@nestjs-mod/sso-rest-sdk';
-import { getErrorData, SsoRestClientHelper } from '@nestjs-mod-sso/testing';
+import { getErrorData, SsoRestClientHelper } from '@site15/testing';
 import { randomUUID } from 'node:crypto';
 
 describe('Sso (e2e)', () => {
@@ -13,12 +13,12 @@ describe('Sso (e2e)', () => {
   beforeAll(async () => {
     user = await new SsoRestClientHelper({
       headers: {
-        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
     tenant = await new SsoRestClientHelper({
       headers: {
-        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
   });
@@ -58,7 +58,7 @@ describe('Sso (e2e)', () => {
       },
       {
         headers: {
-          'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+          'x-admin-secret': process.env.SITE_15_SSO_ADMIN_SECRET,
         },
       },
     );
@@ -203,7 +203,7 @@ describe('Sso (e2e)', () => {
       .getSsoApi()
       .ssoTenantsControllerFindMany(undefined, undefined, tenant.randomUser.id, undefined, {
         headers: {
-          'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+          'x-admin-secret': process.env.SITE_15_SSO_ADMIN_SECRET,
         },
       });
 
@@ -217,7 +217,7 @@ describe('Sso (e2e)', () => {
         findManyTenantsResult.ssoTenants[0].id,
         {
           headers: {
-            'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+            'x-admin-secret': process.env.SITE_15_SSO_ADMIN_SECRET,
           },
         },
       );
@@ -231,7 +231,7 @@ describe('Sso (e2e)', () => {
       },
       {
         headers: {
-          'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+          'x-admin-secret': process.env.SITE_15_SSO_ADMIN_SECRET,
         },
       },
     );

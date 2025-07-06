@@ -26,51 +26,46 @@ if (!supabaseAnonKey) {
   throw new Error('SUPABASE_ANON_KEY not set');
 }
 
-if (!parsedEnvs.SINGLE_SIGN_ON_MINIO_ACCESS_KEY) {
-  throw new Error('SINGLE_SIGN_ON_MINIO_ACCESS_KEY not set');
+if (!parsedEnvs.SITE_15_MINIO_ACCESS_KEY) {
+  throw new Error('SITE_15_MINIO_ACCESS_KEY not set');
 }
 
-if (!parsedEnvs.SINGLE_SIGN_ON_MINIO_SECRET_KEY) {
-  throw new Error('SINGLE_SIGN_ON_MINIO_SECRET_KEY not set');
+if (!parsedEnvs.SITE_15_MINIO_SECRET_KEY) {
+  throw new Error('SITE_15_MINIO_SECRET_KEY not set');
 }
 
 // need for apply migrations to supabase
-parsedEnvs.SINGLE_SIGN_ON_ROOT_DATABASE_URL = postgresUrl;
-parsedEnvs.SINGLE_SIGN_ON_SSO_DATABASE_URL = postgresUrl;
-parsedEnvs.SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL = postgresUrl;
-parsedEnvs.SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL = postgresUrl;
-parsedEnvs.SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL = postgresUrl;
+parsedEnvs.SITE_15_ROOT_DATABASE_URL = postgresUrl;
+parsedEnvs.SITE_15_SSO_DATABASE_URL = postgresUrl;
+parsedEnvs.SITE_15_WEBHOOK_DATABASE_URL = postgresUrl;
+parsedEnvs.SITE_15_NOTIFICATIONS_DATABASE_URL = postgresUrl;
+parsedEnvs.SITE_15_TWO_FACTOR_DATABASE_URL = postgresUrl;
 
-parsedEnvs.SINGLE_SIGN_ON_KEYV_URL = postgresUrl.replace('?schema=public', '');
+parsedEnvs.SITE_15_KEYV_URL = postgresUrl.replace('?schema=public', '');
 
-parsedEnvs.SINGLE_SIGN_ON_CLIENT_MINIO_URL = `https://${supabaseName}.supabase.co/storage/v1/s3`;
-parsedEnvs.SINGLE_SIGN_ON_MINIO_URL = `https://${supabaseName}.supabase.co/storage/v1/s3`;
-parsedEnvs.SINGLE_SIGN_ON_MINIO_SERVER_HOST = `${supabaseName}.supabase.co`;
-parsedEnvs.SINGLE_SIGN_ON_SUPABASE_URL = `https://${supabaseName}.supabase.co`;
+parsedEnvs.SITE_15_CLIENT_MINIO_URL = `https://${supabaseName}.supabase.co/storage/v1/s3`;
+parsedEnvs.SITE_15_MINIO_URL = `https://${supabaseName}.supabase.co/storage/v1/s3`;
+parsedEnvs.SITE_15_MINIO_SERVER_HOST = `${supabaseName}.supabase.co`;
+parsedEnvs.SITE_15_SUPABASE_URL = `https://${supabaseName}.supabase.co`;
 
-parsedEnvs.SINGLE_SIGN_ON_SUPABASE_KEY = supabaseAnonKey;
-parsedEnvs.SINGLE_SIGN_ON_DISABLE_SERVE_STATIC = 'true';
-parsedEnvs.SINGLE_SIGN_ON_PORT = '3000';
+parsedEnvs.SITE_15_SUPABASE_KEY = supabaseAnonKey;
+parsedEnvs.SITE_15_DISABLE_SERVE_STATIC = 'true';
+parsedEnvs.SITE_15_PORT = '3000';
 
 // check real process envs
-parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_EMAIL = process.env.SINGLE_SIGN_ON_SSO_ADMIN_EMAIL || 'nestjs-mod-sso@site15.ru';
-parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_PASSWORD =
-  process.env.SINGLE_SIGN_ON_SSO_ADMIN_PASSWORD || 'SbxcbII7RUvCOe9TDXnKhfRrLJW5cGDA';
-parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_USERNAME = process.env.SINGLE_SIGN_ON_SSO_ADMIN_USERNAME || 'admin';
-parsedEnvs.SINGLE_SIGN_ON_SSO_SERVER_URL = process.env.SINGLE_SIGN_ON_SSO_SERVER_URL || 'http://localhost:3000';
-parsedEnvs.SINGLE_SIGN_ON_SSO_CLIENT_URL = process.env.SINGLE_SIGN_ON_SSO_CLIENT_URL || 'http://localhost:4200';
-parsedEnvs.SINGLE_SIGN_ON_SSO_ADMIN_SECRET =
-  process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET || 'VfKSfPPljhHBXCEohnitursmgDxfAyiD';
+parsedEnvs.SITE_15_SSO_ADMIN_EMAIL = process.env.SITE_15_SSO_ADMIN_EMAIL || 'admin@site15.ru';
+parsedEnvs.SITE_15_SSO_ADMIN_PASSWORD = process.env.SITE_15_SSO_ADMIN_PASSWORD || 'SbxcbII7RUvCOe9TDXnKhfRrLJW5cGDA';
+parsedEnvs.SITE_15_SSO_ADMIN_USERNAME = process.env.SITE_15_SSO_ADMIN_USERNAME || 'admin';
+parsedEnvs.SITE_15_SSO_SERVER_URL = process.env.SITE_15_SSO_SERVER_URL || 'http://localhost:3000';
+parsedEnvs.SITE_15_SSO_CLIENT_URL = process.env.SITE_15_SSO_CLIENT_URL || 'http://localhost:4200';
+parsedEnvs.SITE_15_SSO_ADMIN_SECRET = process.env.SITE_15_SSO_ADMIN_SECRET || 'VfKSfPPljhHBXCEohnitursmgDxfAyiD';
 
 parsedEnvs.E2E_CLIENT_URL = parsedEnvs.E2E_CLIENT_URL || 'http://localhost:4200';
 parsedEnvs.E2E_SERVER_URL = parsedEnvs.E2E_SERVER_URL || 'http://localhost:3000';
 
-parsedEnvs.SINGLE_SIGN_ON_SSO_DEFAULT_PUBLIC_PROJECTS =
-  process.env.SINGLE_SIGN_ON_SSO_DEFAULT_PUBLIC_PROJECTS ||
-  'Beijing:ru=Пекин,Jq6GQ6Rzz6x8HNOD4x2Hc2eM0cfiCVUzGfsi,X6nk0OZXQJboSEfugnH35e9oSeg5RFlV0DQprtYyYDQjNli9mA;Moscow:ru=Москва,OceX08HGZ89PTkPpg9KDk5ErY1uMfDcfFKkw,VJztpDIwvqG6IkTVEIDEw1Ed2Wu5oHu6zfBe7CCJFrCtyWO2Yv;New York:ru=Нью-Йорк,4OGD25Rmn3W3MP0kMd7c90rGP1WwK8u4wL1w,qm8nc9MgKyvd6Hgl3jY5BjgDFSBqNvxcu6o52kDjIC168OsM1R;';
-
-parsedEnvs.SINGLE_SIGN_ON_SSO_DEFAULT_PROJECT =
-  process.env.SINGLE_SIGN_ON_SSO_DEFAULT_PROJECT ||
+parsedEnvs.SITE_15_SSO_DEFAULT_PUBLIC_PROJECTS = process.env.SITE_15_SSO_DEFAULT_PUBLIC_PROJECTS || '';
+parsedEnvs.SITE_15_SSO_DEFAULT_PROJECT =
+  process.env.SITE_15_SSO_DEFAULT_PROJECT ||
   'default:ru=по умолчанию,KzMRNEZTetzatIgQPVSDYfeGyaZrbLzkcxNc,qaHkVpAtUVIpDdLXMlAOzsBfMRJblWoHpXguYQRBuSEBpGKbWt';
 
 writeFileSync(

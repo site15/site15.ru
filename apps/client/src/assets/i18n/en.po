@@ -99,8 +99,8 @@ msgstr "Сomplete forgot password"
 msgid "Complete OAuth sign up"
 msgstr "Complete OAuth sign up"
 
-msgid "Single Sign-On"
-msgstr "Single Sign-On"
+msgid "Site15"
+msgstr "Site15"
 
 msgid "en"
 msgstr "EN"

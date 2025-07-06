@@ -6,7 +6,7 @@
       "node_args": "-r dotenv/config"
     },
     {
-      "name": "single-sign-on",
+      "name": "site15",
       "script": "./node_modules/.bin/nx serve server --skip-nx-cache=true",
       "node_args": "-r dotenv/config"
     }

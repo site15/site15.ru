@@ -1,15 +1,15 @@
 # Do not modify this file, it is generated using the DockerCompose module included with NestJS-mod.
 version: "3"
 services:
-  single-sign-on-postgre-sql:
+  site-15-postgre-sql:
     image: "bitnami/postgresql:15.5.0"
-    container_name: "single-sign-on-postgre-sql"
+    container_name: "site-15-postgre-sql"
     volumes:
-      - "single-sign-on-postgre-sql-volume:/bitnami/postgresql"
+      - "site-15-postgre-sql-volume:/bitnami/postgresql"
     ports:
       - "5432:5432"
     networks:
-      - "single-sign-on-network"
+      - "site-15-network"
     healthcheck:
       test:
         - "CMD-SHELL"
@@ -23,15 +23,15 @@ services:
       POSTGRESQL_USERNAME: ""
       POSTGRESQL_PASSWORD: ""
       POSTGRESQL_DATABASE: ""
-  single-sign-on-redis:
+  site-15-redis:
     image: "bitnami/redis:7.4.1"
-    container_name: "single-sign-on-redis"
+    container_name: "site-15-redis"
     volumes:
-      - "single-sign-on-redis-volume:/bitnami/redis/data"
+      - "site-15-redis-volume:/bitnami/redis/data"
     ports:
       - "6379:6379"
     networks:
-      - "single-sign-on-network"
+      - "site-15-network"
     environment:
       REDIS_DATABASE: ""
       REDIS_PASSWORD: ""
@@ -47,16 +47,16 @@ services:
       retries: 5
     tty: true
     restart: "always"
-  single-sign-on-minio:
+  site-15-minio:
     image: "bitnami/minio:2024.11.7"
-    container_name: "single-sign-on-minio"
+    container_name: "site-15-minio"
     volumes:
-      - "single-sign-on-minio-volume:/bitnami/minio/data"
+      - "site-15-minio-volume:/bitnami/minio/data"
     ports:
       - "9000:9000"
       - "9001:9001"
     networks:
-      - "single-sign-on-network"
+      - "site-15-network"
     environment:
       MINIO_ROOT_USER: ""
       MINIO_ROOT_PASSWORD: ""
@@ -71,14 +71,14 @@ services:
       retries: 5
     tty: true
     restart: "always"
-  single-sign-on-maildev:
+  site-15-maildev:
     image: "maildev/maildev:2.2.1"
-    container_name: "single-sign-on-maildev"
+    container_name: "site-15-maildev"
     ports:
       - "1025:1025"
       - "1080:1080"
     networks:
-      - "single-sign-on-network"
+      - "site-15-network"
     environment:
       MAILDEV_SMTP_PORT: ""
       MAILDEV_WEB_PORT: ""
@@ -90,12 +90,12 @@ services:
     tty: true
     restart: "always"
 networks:
-  single-sign-on-network:
+  site-15-network:
     driver: "bridge"
 volumes:
-  single-sign-on-postgre-sql-volume:
-    name: "single-sign-on-postgre-sql-volume"
-  single-sign-on-redis-volume:
-    name: "single-sign-on-redis-volume"
-  single-sign-on-minio-volume:
-    name: "single-sign-on-minio-volume"
+  site-15-postgre-sql-volume:
+    name: "site-15-postgre-sql-volume"
+  site-15-redis-volume:
+    name: "site-15-redis-volume"
+  site-15-minio-volume:
+    name: "site-15-minio-volume"

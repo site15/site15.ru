@@ -1,5 +1,5 @@
 import { SsoRole } from '@nestjs-mod/sso-rest-sdk';
-import { SsoRestClientHelper } from '@nestjs-mod-sso/testing';
+import { SsoRestClientHelper } from '@site15/testing';
 import { AxiosError } from 'axios';
 
 describe('Store lang in db', () => {
@@ -7,13 +7,13 @@ describe('Store lang in db', () => {
 
   const user1 = new SsoRestClientHelper({
     headers: {
-      'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+      'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
     },
   });
   const admin = new SsoRestClientHelper({
     headers: {
-      'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
-      'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+      'x-admin-secret': process.env.SITE_15_SSO_ADMIN_SECRET,
+      'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
     },
   });
 

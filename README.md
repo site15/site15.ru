@@ -8,7 +8,7 @@
 
 https://sso.nestjs-mod.com - live demo on Kubernetes
 
-https://nestjs-mod-sso.vercel.app - live demo on Vercel
+https://site15.vercel.app - live demo on Vercel
 
 ## Dev/Watch mode
 
@@ -17,10 +17,11 @@ Infrastructure is running using docker-compose, applications are launched in wat
 ### Init
 
 ```sh
-git clone git@github.com:nestjs-mod/nestjs-mod-sso.git
-cd nestjs-mod-sso
+git clone git@github.com:site15/site15.ru.git
+cd site15.ru
 npm i
 cp ./example.env ./.env
+npm run manual:prepare
 ```
 
 ### Start
@@ -52,10 +53,11 @@ Infrastructure is running using docker-compose, built applications are launched 
 ### Init
 
 ```sh
-git clone git@github.com:nestjs-mod/nestjs-mod-sso.git
-cd nestjs-mod-sso
+git clone git@github.com:site15/site15.ru.git
+cd site15.ru
 npm i
 cp ./example.env ./.env
+npm run manual:prepare
 ```
 
 ### Start
@@ -87,10 +89,11 @@ Infrastructure and applications built into Docker images are run using docker-co
 ### Init
 
 ```sh
-git clone git@github.com:nestjs-mod/nestjs-mod-sso.git
-cd nestjs-mod-sso
+git clone git@github.com:site15/site15.ru.git
+cd site15.ru
 npm i
 cp ./example.env ./.env
+npm run manual:prepare
 ```
 
 ### Start
@@ -122,8 +125,8 @@ Infrastructure is running on [Supabase](https://supabase.com/), applications are
 ### Init
 
 ```sh
-git clone git@github.com:nestjs-mod/nestjs-mod-sso.git
-cd nestjs-mod-sso
+git clone git@github.com:site15/site15.ru.git
+cd site15.ru
 npm i
 cp ./example-supabase.env ./.env
 ```
@@ -143,9 +146,9 @@ cp ./example-supabase.env ./.env
    # https://supabase.com/dashboard/project/XXX/settings/api - API Settings - Project API Keys - anon public
    SUPABASE_ANON_KEY=empty_value
    # https://supabase.com/dashboard/project/gustcjgbrmmipkizqzso/settings/storage - S3 Access Keys - New access key - Access key ID
-   SINGLE_SIGN_ON_MINIO_ACCESS_KEY=empty_value
+   SITE_15_MINIO_ACCESS_KEY=empty_value
    # https://supabase.com/dashboard/project/gustcjgbrmmipkizqzso/settings/storage - S3 Access Keys - New access key - Secret access key
-   SINGLE_SIGN_ON_MINIO_SECRET_KEY=empty_value
+   SITE_15_MINIO_SECRET_KEY=empty_value
    ```
 
 5. Create and fill all need new env keys
@@ -179,7 +182,7 @@ npm run pm2-supabase-full:dev:stop
 ## Links
 
 - https://sso.nestjs-mod.com - live demo on Kubernetes
-- https://nestjs-mod-sso.vercel.app - live demo on Vercel
+- https://site15.vercel.app - live demo on Vercel
 - https://github.com/nestjs-mod/nestjs-mod - A collection of utilities for unifying NestJS applications and modules
 - https://github.com/nestjs-mod/nestjs-mod-contrib - Contrib repository for the NestJS-mod
 - https://github.com/nestjs-mod/nestjs-mod-example - Example application built with [@nestjs-mod/schematics](https://github.com/nestjs-mod/nestjs-mod/tree/master/libs/schematics)

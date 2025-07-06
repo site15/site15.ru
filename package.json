@@ -1,6 +1,6 @@
 {
-  "name": "@nestjs-mod-sso/source",
-  "description": "Single Sign-On on NestJS and Angular with webhooks and social authorization",
+  "name": "@site15/source",
+  "description": "Site15 on NestJS and Angular with webhooks and social authorization",
   "version": "0.0.36",
   "license": "MIT",
   "scripts": {

@@ -1,4 +1,4 @@
-import { CheckSsoRole, SSO_FEATURE, SsoGuard, SsoModule, SsoRole } from '@nestjs-mod-sso/sso';
+import { CheckSsoRole, SSO_FEATURE, SsoGuard, SsoModule, SsoRole } from '@site15/sso';
 import { WEBHOOK_FEATURE, WebhookModule } from '@nestjs-mod/webhook';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { TranslatesModule } from 'nestjs-translates';

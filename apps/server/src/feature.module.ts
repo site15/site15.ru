@@ -1,5 +1,5 @@
 import KeyvRedis from '@keyv/redis';
-import { SsoModule } from '@nestjs-mod-sso/sso';
+import { SsoModule } from '@site15/sso';
 import { createNestModule, isInfrastructureMode } from '@nestjs-mod/common';
 import { FilesModule } from '@nestjs-mod/files';
 import { KeyvModule } from '@nestjs-mod/keyv';

@@ -22,7 +22,7 @@ import {
   SsoUser,
   SsoUserAndTokens,
   TokensService,
-} from '@nestjs-mod-sso/sso-afat';
+} from '@site15/sso-afat';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { catchError, map, mergeMap, Observable, of } from 'rxjs';
 

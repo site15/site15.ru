@@ -18,7 +18,7 @@ import {
   SsoService,
   TokensService,
   UserPipe,
-} from '@nestjs-mod-sso/sso-afat';
+} from '@site15/sso-afat';
 import { FilesService } from '@nestjs-mod/files-afat';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzMenuModule } from 'ng-zorro-antd/menu';

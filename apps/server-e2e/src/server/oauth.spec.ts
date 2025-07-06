@@ -1,4 +1,4 @@
-import { SsoRestClientHelper } from '@nestjs-mod-sso/testing';
+import { SsoRestClientHelper } from '@site15/testing';
 describe('OAuth (e2e)', () => {
   jest.setTimeout(60000);
 
@@ -7,7 +7,7 @@ describe('OAuth (e2e)', () => {
   beforeAll(async () => {
     user = await new SsoRestClientHelper({
       headers: {
-        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
   });

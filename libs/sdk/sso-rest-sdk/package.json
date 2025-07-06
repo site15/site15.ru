@@ -1,51 +1,51 @@
 {
-    "name": "@nestjs-mod/sso-rest-sdk",
-    "description": "NodeJS client for Single Sign-On on NestJS and Angular with webhooks and social authorization",
-    "keywords": [
-        "single-sign-n",
-        "sso",
-        "client",
-        "nestjs"
-    ],
-    "version": "1.8.1",
-    "dependencies": {
-        "tslib": "^2.3.0"
+  "name": "@nestjs-mod/sso-rest-sdk",
+  "description": "NodeJS client for Site15 on NestJS and Angular with webhooks and social authorization",
+  "keywords": [
+    "single-sign-n",
+    "sso",
+    "client",
+    "nestjs"
+  ],
+  "version": "1.8.1",
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "peerDependencies": {
+    "axios": "*",
+    "rxjs": "*",
+    "ws": "*"
+  },
+  "peerDependenciesMeta": {
+    "axios": {
+      "optional": true
     },
-    "peerDependencies": {
-        "axios": "*",
-        "rxjs": "*",
-        "ws": "*"
+    "rxjs": {
+      "optional": true
     },
-    "peerDependenciesMeta": {
-        "axios": {
-            "optional": true
-        },
-        "rxjs": {
-            "optional": true
-        },
-        "ws": {
-            "optional": true
-        }
-    },
-    "type": "commonjs",
-    "main": "./src/index.js",
-    "typings": "./src/index.d.ts",
-    "i18n": [
-        {
-            "scope": "rest-sdk",
-            "path": "src/i18n",
-            "strategy": "join"
-        }
-    ],
-    "maintainers": [
-        {
-            "name": "EndyKaufman",
-            "email": "admin@site15.ru"
-        }
-    ],
-    "license": "MIT",
-    "author": "EndyKaufman <admin@site15.ru>",
-    "publishConfig": {
-        "access": "public"
+    "ws": {
+      "optional": true
     }
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "i18n": [
+    {
+      "scope": "rest-sdk",
+      "path": "src/i18n",
+      "strategy": "join"
+    }
+  ],
+  "maintainers": [
+    {
+      "name": "EndyKaufman",
+      "email": "admin@site15.ru"
+    }
+  ],
+  "license": "MIT",
+  "author": "EndyKaufman <admin@site15.ru>",
+  "publishConfig": {
+    "access": "public"
+  }
 }

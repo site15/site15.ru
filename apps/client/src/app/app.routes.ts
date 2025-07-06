@@ -11,7 +11,7 @@ import {
   SsoCompleteGuardService,
   SsoGuardData,
   SsoGuardService,
-} from '@nestjs-mod-sso/sso-afat';
+} from '@site15/sso-afat';
 import { searchIn } from '@nestjs-mod/misc';
 import { CompleteForgotPasswordComponent } from './pages/complete-forgot-password/complete-forgot-password.component';
 import { CompleteInviteComponent } from './pages/complete-invite/complete-invite.component';

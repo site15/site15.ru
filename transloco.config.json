@@ -1,51 +1,48 @@
 {
-    "serverRootTranslationsPath": "./apps/server/src/assets/i18n/",
-    "langs": [
-        "en",
-        "ru"
-    ],
-    "serverScopedLibs": [
-        "libs/feature/sso",
-        "libs/feature/sso-afat",
-        "libs/testing",
-        "libs/sdk/sso-rest-sdk",
-        "libs/sdk/sso-rest-sdk-angular",
-        "packages/runtime-tools",
-        "packages/bridge/bridge-react-webpack-plugin",
-        "libs/testing",
-        "libs/sdk/sso-rest-sdk-angular",
-        "libs/sdk/sso-rest-sdk",
-        "libs/feature/sso-afat",
-        "libs/feature/sso"
-    ],
-    "rootTranslationsPath": "./apps/client/src/assets/i18n/",
-    "scopedLibs": [
-        "libs/feature/sso",
-        "libs/feature/sso-afat",
-        "libs/testing",
-        "libs/sdk/sso-rest-sdk",
-        "libs/sdk/sso-rest-sdk-angular",
-        "packages/runtime-tools",
-        "packages/bridge/bridge-react-webpack-plugin",
-        "libs/testing",
-        "libs/sdk/sso-rest-sdk-angular",
-        "libs/sdk/sso-rest-sdk",
-        "libs/feature/sso-afat",
-        "libs/feature/sso"
-    ],
-    "clientRootTranslationsPath": "./apps/client/src/assets/i18n/",
-    "clientScopedLibs": [
-        "libs/feature/sso",
-        "libs/feature/sso-afat",
-        "libs/testing",
-        "libs/sdk/sso-rest-sdk",
-        "libs/sdk/sso-rest-sdk-angular",
-        "packages/runtime-tools",
-        "packages/bridge/bridge-react-webpack-plugin",
-        "libs/testing",
-        "libs/sdk/sso-rest-sdk-angular",
-        "libs/sdk/sso-rest-sdk",
-        "libs/feature/sso-afat",
-        "libs/feature/sso"
-    ]
+  "serverRootTranslationsPath": "./apps/server/src/assets/i18n/",
+  "langs": ["en", "ru"],
+  "serverScopedLibs": [
+    "libs/feature/sso",
+    "libs/feature/sso-afat",
+    "libs/testing",
+    "libs/sdk/sso-rest-sdk",
+    "libs/sdk/sso-rest-sdk-angular",
+    "packages/runtime-tools",
+    "packages/bridge/bridge-react-webpack-plugin",
+    "libs/testing",
+    "libs/sdk/sso-rest-sdk-angular",
+    "libs/sdk/sso-rest-sdk",
+    "libs/feature/sso-afat",
+    "libs/feature/sso"
+  ],
+  "rootTranslationsPath": "./apps/client/src/assets/i18n/",
+  "scopedLibs": [
+    "libs/feature/sso",
+    "libs/feature/sso-afat",
+    "libs/testing",
+    "libs/sdk/sso-rest-sdk",
+    "libs/sdk/sso-rest-sdk-angular",
+    "packages/runtime-tools",
+    "packages/bridge/bridge-react-webpack-plugin",
+    "libs/testing",
+    "libs/sdk/sso-rest-sdk-angular",
+    "libs/sdk/sso-rest-sdk",
+    "libs/feature/sso-afat",
+    "libs/feature/sso"
+  ],
+  "clientRootTranslationsPath": "./apps/client/src/assets/i18n/",
+  "clientScopedLibs": [
+    "libs/feature/sso",
+    "libs/feature/sso-afat",
+    "libs/testing",
+    "libs/sdk/sso-rest-sdk",
+    "libs/sdk/sso-rest-sdk-angular",
+    "packages/runtime-tools",
+    "packages/bridge/bridge-react-webpack-plugin",
+    "libs/testing",
+    "libs/sdk/sso-rest-sdk-angular",
+    "libs/sdk/sso-rest-sdk",
+    "libs/feature/sso-afat",
+    "libs/feature/sso"
+  ]
 }

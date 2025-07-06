@@ -195,7 +195,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
             },
             {
               headers: {
-                'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
+                'x-admin-secret': process.env['SITE_15_SSO_ADMIN_SECRET'],
               },
             },
           );
@@ -223,7 +223,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         .getSsoApi()
         .ssoUsersControllerFindMany(undefined, undefined, this.randomUser.email, undefined, undefined, {
           headers: {
-            'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
+            'x-admin-secret': process.env['SITE_15_SSO_ADMIN_SECRET'],
           },
         });
 
@@ -234,7 +234,7 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
         },
         {
           headers: {
-            'x-admin-secret': process.env['SINGLE_SIGN_ON_SSO_ADMIN_SECRET'],
+            'x-admin-secret': process.env['SITE_15_SSO_ADMIN_SECRET'],
           },
         },
       );

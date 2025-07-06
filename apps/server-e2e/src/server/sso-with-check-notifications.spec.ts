@@ -1,5 +1,5 @@
 import { TokensResponse } from '@nestjs-mod/sso-rest-sdk';
-import { SsoRestClientHelper } from '@nestjs-mod-sso/testing';
+import { SsoRestClientHelper } from '@site15/testing';
 
 describe('Sso with check notifications (e2e)', () => {
   let user: SsoRestClientHelper<'strict'>;
@@ -13,19 +13,19 @@ describe('Sso with check notifications (e2e)', () => {
   beforeAll(async () => {
     tenant = await new SsoRestClientHelper({
       headers: {
-        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
     user = await new SsoRestClientHelper({
       headers: {
         'x-client-id': tenant.randomUser.id,
-        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
     admin = new SsoRestClientHelper({
       headers: {
-        'x-admin-secret': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
-        'x-skip-throttle': process.env.SINGLE_SIGN_ON_SSO_ADMIN_SECRET,
+        'x-admin-secret': process.env.SITE_15_SSO_ADMIN_SECRET,
+        'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
       },
     });
   });

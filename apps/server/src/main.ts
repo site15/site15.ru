@@ -5,7 +5,7 @@ process.env.TZ = 'UTC';
 };
 import { FILES_EXTRA_MODELS } from '@nestjs-mod/files';
 import { NOTIFICATIONS_EXTRA_MODELS } from '@nestjs-mod/notifications';
-import { SSO_EXTRA_MODELS } from '@nestjs-mod-sso/sso';
+import { SSO_EXTRA_MODELS } from '@site15/sso';
 import { VALIDATION_EXTRA_MODELS } from '@nestjs-mod/validation';
 import { WEBHOOK_EXTRA_MODELS } from '@nestjs-mod/webhook';
 import {
@@ -38,8 +38,8 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
    */
 
   (async function bootstrap() {
-    // copy nestjs-mod environments to nestjs environments, without prefix "SINGLE_SIGN_ON_"
-    const dm = 'SINGLE_SIGN_ON_';
+    // copy nestjs-mod environments to nestjs environments, without prefix "SITE_15_"
+    const dm = 'SITE_15_';
     for (const key of Object.keys(process.env)) {
       const arr = key.split(dm);
       if (arr.length > 0 && !arr[0]) {
@@ -99,8 +99,8 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
    */
   bootstrapNestApplication({
     project: {
-      name: 'single-sign-on',
-      description: 'Single Sign-On on NestJS and Angular with webhooks and social authorization',
+      name: 'site15',
+      description: 'Site15 on NestJS and Angular with webhooks and social authorization',
     },
     modules: {
       system: [

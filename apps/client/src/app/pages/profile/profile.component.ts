@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { SsoProfileFormComponent } from '@nestjs-mod-sso/sso-afat';
+import { SsoProfileFormComponent } from '@site15/sso-afat';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 

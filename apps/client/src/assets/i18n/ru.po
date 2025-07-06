@@ -100,8 +100,8 @@ msgstr "Завершить восстановление пароля"
 msgid "Complete OAuth sign up"
 msgstr "Завершить регистрацию через OAuth"
 
-msgid "Single Sign-On"
-msgstr "Единый вход"
+msgid "Site15"
+msgstr "Сайт15"
 
 msgid "en"
 msgstr "EN"

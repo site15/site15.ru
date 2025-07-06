@@ -1,5 +1,5 @@
 import { NOTIFICATIONS_FEATURE, NotificationsModule, NotificationsRequest } from '@nestjs-mod/notifications';
-import { CheckSsoRole, SsoGuard, SsoModule, SsoRequest, SsoRole } from '@nestjs-mod-sso/sso';
+import { CheckSsoRole, SsoGuard, SsoModule, SsoRequest, SsoRole } from '@site15/sso';
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import { searchIn } from '@nestjs-mod/misc';
 import { ExecutionContext } from '@nestjs/common';

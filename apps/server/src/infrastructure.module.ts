@@ -1,4 +1,4 @@
-import { SSO_FEATURE, SSO_FOLDER, SsoPrismaSdk } from '@nestjs-mod-sso/sso';
+import { SSO_FEATURE, SSO_FOLDER, SsoPrismaSdk } from '@site15/sso';
 import { InfrastructureMarkdownReportGenerator, PROJECT_JSON_FILE } from '@nestjs-mod/common';
 import {
   DOCKER_COMPOSE_FILE,

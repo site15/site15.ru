@@ -9,7 +9,7 @@ import {
   SsoTwoFactorCodeGenerateOptions,
   SsoTwoFactorCodeValidateOptions,
   SsoUser,
-} from '@nestjs-mod-sso/sso';
+} from '@site15/sso';
 import { getRequestFromExecutionContext } from '@nestjs-mod/common';
 import { FilesRequest, FilesRole } from '@nestjs-mod/files';
 import { searchIn } from '@nestjs-mod/misc';

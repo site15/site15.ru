@@ -32,7 +32,7 @@ test.describe('Work with profile as "User" role', () => {
     });
     await page.evaluate(
       (minioURL) => localStorage.setItem('minioURL', minioURL),
-      get('SINGLE_SIGN_ON_MINIO_URL').required().asString(),
+      get('SITE_15_MINIO_URL').required().asString(),
     );
   });
 

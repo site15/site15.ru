@@ -1,13 +1,13 @@
 version: '3'
 networks:
-  nestjs-mod-sso-network:
+  site15-network:
     driver: 'bridge'
 services:
-  nestjs-mod-sso-postgre-sql:
+  site15-postgre-sql:
     image: 'bitnami/postgresql:15.5.0'
-    container_name: 'nestjs-mod-sso-postgre-sql'
+    container_name: 'site15-postgre-sql'
     networks:
-      - 'nestjs-mod-sso-network'
+      - 'site15-network'
     ports:
       - '5432:5432'
     healthcheck:
@@ -20,12 +20,12 @@ services:
     tty: true
     restart: 'always'
     environment:
-      POSTGRESQL_USERNAME: '%SINGLE_SIGN_ON_POSTGRE_SQL_POSTGRESQL_USERNAME%'
-      POSTGRESQL_PASSWORD: '%SINGLE_SIGN_ON_POSTGRE_SQL_POSTGRESQL_PASSWORD%'
-      POSTGRESQL_DATABASE: '%SINGLE_SIGN_ON_POSTGRE_SQL_POSTGRESQL_DATABASE%'
+      POSTGRESQL_USERNAME: '%SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME%'
+      POSTGRESQL_PASSWORD: '%SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD%'
+      POSTGRESQL_DATABASE: '%SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE%'
     volumes:
-      - 'nestjs-mod-sso-postgre-sql-volume:/bitnami/postgresql'
+      - 'site15-postgre-sql-volume:/bitnami/postgresql'
 volumes:
-  nestjs-mod-sso-postgre-sql-volume:
+  site15-postgre-sql-volume:
     external: true
-    name: 'nestjs-mod-sso-postgre-sql-volume'
+    name: 'site15-postgre-sql-volume'

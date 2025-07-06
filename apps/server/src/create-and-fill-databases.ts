@@ -8,10 +8,10 @@ const debugDbToolsIsEnable = Boolean(process.env['DEBUG_DB_TOOLS']);
 const logger = new Logger('DbTools');
 
 const appEnvKeys = [
-  'SINGLE_SIGN_ON_WEBHOOK_DATABASE_URL',
-  'SINGLE_SIGN_ON_NOTIFICATIONS_DATABASE_URL',
-  'SINGLE_SIGN_ON_SSO_DATABASE_URL',
-  'SINGLE_SIGN_ON_TWO_FACTOR_DATABASE_URL',
+  'SITE_15_WEBHOOK_DATABASE_URL',
+  'SITE_15_NOTIFICATIONS_DATABASE_URL',
+  'SITE_15_SSO_DATABASE_URL',
+  'SITE_15_TWO_FACTOR_DATABASE_URL',
 ];
 const appKeys = ['webhook', 'notifications', 'sso', 'two-factor'];
 const appHistoryTables = [
@@ -20,8 +20,8 @@ const appHistoryTables = [
   '__migrations_sso',
   '__migrations_two_factor',
 ];
-const rootEnvKey = 'SINGLE_SIGN_ON_ROOT_DATABASE_URL';
-const mainEnvKey = 'SINGLE_SIGN_ON_POSTGRES_URL';
+const rootEnvKey = 'SITE_15_ROOT_DATABASE_URL';
+const mainEnvKey = 'SITE_15_POSTGRES_URL';
 const alterMainEnvKey = 'DATABASE_URL';
 const alterMainEnvKey2 = 'POSTGRES_URL';
 

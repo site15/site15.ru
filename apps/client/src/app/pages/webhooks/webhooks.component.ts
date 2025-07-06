@@ -1,7 +1,7 @@
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { ActiveTenantPipe } from '@nestjs-mod-sso/sso-afat';
+import { ActiveTenantPipe } from '@site15/sso-afat';
 import { WebhookGridComponent, WebhookLogGridComponent } from '@nestjs-mod/webhook-afat';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzGridModule } from 'ng-zorro-antd/grid';

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoDirective } from '@jsverse/transloco';
-import { ActiveTenantPipe, SsoEmailTemplateGridComponent } from '@nestjs-mod-sso/sso-afat';
+import { ActiveTenantPipe, SsoEmailTemplateGridComponent } from '@site15/sso-afat';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';

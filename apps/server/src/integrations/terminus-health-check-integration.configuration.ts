@@ -1,7 +1,7 @@
 import { TWO_FACTOR_FEATURE, TwoFactorPrismaSdk } from '@nestjs-mod/two-factor';
 
 import { NOTIFICATIONS_FEATURE, NotificationsPrismaSdk } from '@nestjs-mod/notifications';
-import { SSO_FEATURE, SsoPrismaSdk } from '@nestjs-mod-sso/sso';
+import { SSO_FEATURE, SsoPrismaSdk } from '@site15/sso';
 import { WEBHOOK_FEATURE, WebhookPrismaSdk } from '@nestjs-mod/webhook';
 import { InjectPrismaClient, PrismaModule } from '@nestjs-mod/prisma';
 import {

@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { UseSsoInterceptorsAndGuards } from '@nestjs-mod-sso/sso';
+import { UseSsoInterceptorsAndGuards } from '@site15/sso';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { SubscribeMessage, WebSocketGateway, WsResponse } from '@nestjs/websockets';
 import { interval, map, Observable } from 'rxjs';

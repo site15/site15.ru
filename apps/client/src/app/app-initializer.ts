@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
-import { SsoActiveLangService, SsoActiveTenantService, SsoService, TokensService } from '@nestjs-mod-sso/sso-afat';
+import { SsoActiveLangService, SsoActiveTenantService, SsoService, TokensService } from '@site15/sso-afat';
 import { FilesRestSdkAngularService } from '@nestjs-mod/files-afat';
 import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
 import { WebhookRestSdkAngularService } from '@nestjs-mod/webhook-afat';
