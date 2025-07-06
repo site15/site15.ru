@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-mod/sso-rest-sdk",
-  "description": "NodeJS client for Site15 on NestJS and Angular with webhooks and social authorization",
+  "description": "NodeJS client for personal website of Khamitov Ilshat (EndyKaufman)",
   "keywords": [
     "single-sign-n",
     "sso",

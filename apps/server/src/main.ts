@@ -100,7 +100,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
   bootstrapNestApplication({
     project: {
       name: 'site15',
-      description: 'Site15 on NestJS and Angular with webhooks and social authorization',
+      description: 'Personal website of Khamitov Ilshat (EndyKaufman)',
     },
     modules: {
       system: [
