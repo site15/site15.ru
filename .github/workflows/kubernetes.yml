@@ -132,6 +132,10 @@ jobs:
         run: |
           echo "$ENV" > "./.env"
           . ./.env
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
+          nvm install v23
+          nvm use v23
           rm -rf ./.kubernetes/generated
           . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
           docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility down || echo 'docker-compose-infra not started'
@@ -150,6 +154,10 @@ jobs:
         run: |
           echo "$ENV" > "./.env"
           . ./.env
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
+          nvm install v23
+          nvm use v23
           echo 'Start'
           rm -rf ./.kubernetes/generated
           . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
@@ -187,6 +195,10 @@ jobs:
         run: |
           echo "$ENV" > "./.env"
           . ./.env
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
+          nvm install v23
+          nvm use v23
           npm run test:e2e
       - uses: actions/upload-artifact@v4
         with:
