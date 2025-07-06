@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/site15/site15.ru/compare/server-v1.0.5...server-v1.0.6) (2025-07-06)
+
+### Bug Fixes
+
+- change action for yarn install ([54e2fab](https://github.com/site15/site15.ru/commit/54e2fab784b387e48ad1dec6383a655b3a659d54))
+- remove external optional from docker volumes ([eb53c56](https://github.com/site15/site15.ru/commit/eb53c569adaf3cfebee079b399c2e7f263a56eed))
+
 ## [1.0.5](https://github.com/site15/site15.ru/compare/server-v1.0.4...server-v1.0.5) (2025-07-06)
 
 ### Bug Fixes
