@@ -1,6 +1,7 @@
 {
   "name": "@site15/sso-afat",
   "version": "0.0.1",
+  "private": true,
   "peerDependencies": {
     "@nestjs-mod/afat": "1.2.2",
     "@nestjs-mod/files-afat": "1.1.3",
