@@ -1,3 +1,9 @@
+## [1.0.12](https://github.com/site15/site15.ru/compare/server-v1.0.11...server-v1.0.12) (2025-07-06)
+
+### Bug Fixes
+
+- update changePassword logic ([d88d0e2](https://github.com/site15/site15.ru/commit/d88d0e22efebd400f038a04ca9b42a6a87e28df2))
+
 ## [1.0.11](https://github.com/site15/site15.ru/compare/server-v1.0.10...server-v1.0.11) (2025-07-06)
 
 ### Bug Fixes
