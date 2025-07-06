@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/site15/site15.ru/compare/server-v1.0.3...server-v1.0.4) (2025-07-06)
+
+### Bug Fixes
+
+- add set -a && . ./.env && set +a ([acbe50e](https://github.com/site15/site15.ru/commit/acbe50e80a080f95cd8a8f45b5d1704656054b63))
+
 ## [1.0.3](https://github.com/site15/site15.ru/compare/server-v1.0.2...server-v1.0.3) (2025-07-06)
 
 ### Bug Fixes
