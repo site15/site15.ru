@@ -273,10 +273,15 @@ export class SsoUsersService {
   async changePassword({ id, password, tenantId }: { id: string; password: string; tenantId: string }) {
     const hashedPassword = await this.ssoPasswordService.createPasswordHash(password);
 
+    const user = await this.prismaClient.ssoUser.findFirst({
+      select: { emailVerifiedAt: true },
+      where: { id, tenantId },
+    });
+
     await this.prismaClient.ssoUser.update({
       data: {
         password: hashedPassword,
-        updatedAt: new Date(),
+        ...(!user?.emailVerifiedAt ? { updatedAt: new Date() } : {}),
       },
       where: { id, tenantId },
     });
