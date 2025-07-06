@@ -21,10 +21,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
-        
-      - name: Setup Yarn
+
+      - uses: actions/setup-node@v4
         if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
-        uses: threeal/setup-yarn-action@v2.0.0
+        with:
+          node-version: '23'
+          cache: 'yarn'
+
+      - run: yarn install --frozen-lockfile # optional, --immutable
+        if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
 
       - run: npm run nx -- run-many --target=semantic-release -p server client rest-sdk rest-sdk-angular --parallel=1 --excludeTaskDependencies=true --verbose
         if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
@@ -136,13 +141,12 @@ jobs:
           # a pull request then we can checkout the head.
           fetch-depth: 2
 
-      - name: Install NVM
-        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
-        run: |
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
-          nvm install v23
-          nvm use v23
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '23'
+          cache: 'yarn'
+
+      - run: yarn install --frozen-lockfile # optional, --immutable
 
       - name: Deploy infrastructure
         if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[deploy infrastructure]') }}
@@ -196,17 +200,14 @@ jobs:
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
         uses: actions/checkout@v4
 
-      - name: Install NVM
+      - uses: actions/setup-node@v4
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
-        run: |
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
-          nvm install v23
-          nvm use v23
+        with:
+          node-version: '23'
+          cache: 'yarn'
 
-      - name: Setup Yarn
+      - run: yarn install --frozen-lockfile # optional, --immutable
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
-        uses: threeal/setup-yarn-action@v2.0.0
 
       - name: Install deps
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
