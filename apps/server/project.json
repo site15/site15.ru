@@ -107,7 +107,7 @@
       "executor": "@theunderscorer/nx-semantic-release:semantic-release",
       "options": {
         "changelog": true,
-        "npm": false,
+        "npm": true,
         "github": true,
         "tagFormat": "server-v${VERSION}",
         "branches": [
