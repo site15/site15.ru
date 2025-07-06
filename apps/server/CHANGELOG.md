@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/site15/site15.ru/compare/server-v1.0.0...server-v1.0.1) (2025-07-06)
+
+### Bug Fixes
+
+- add support use envs from github env ([281ad78](https://github.com/site15/site15.ru/commit/281ad7840a793de7b66f592c706eba527b730112))
+
 # 1.0.0 (2025-07-06)
 
 ### Bug Fixes
