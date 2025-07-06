@@ -141,12 +141,13 @@ jobs:
           # a pull request then we can checkout the head.
           fetch-depth: 2
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '23'
-          cache: 'yarn'
-
-      - run: yarn install --frozen-lockfile # optional, --immutable
+      - name: Install NVM
+        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
+          nvm install v23
+          nvm use v23
 
       - name: Deploy infrastructure
         if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[deploy infrastructure]') }}
