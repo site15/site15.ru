@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/site15/site15.ru/compare/server-v1.0.2...server-v1.0.3) (2025-07-06)
+
+### Bug Fixes
+
+- add source env ([24d4cf1](https://github.com/site15/site15.ru/commit/24d4cf1eb5c54015c2c83f9c45412a439fcaf3c0))
+
 ## [1.0.2](https://github.com/site15/site15.ru/compare/server-v1.0.1...server-v1.0.2) (2025-07-06)
 
 ### Bug Fixes
