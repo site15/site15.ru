@@ -142,7 +142,6 @@ jobs:
           fetch-depth: 2
 
       - name: Install NVM
-        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
         run: |
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
           export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
@@ -162,7 +161,6 @@ jobs:
           docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility up -d
 
       - name: Deploy applications
-        # if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[deploy applications]') }}
         env:
           ROOT_VERSION: ${{ needs.release.outputs.root_version }}
           SERVER_VERSION: ${{ needs.release.outputs.server_version }}
