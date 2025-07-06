@@ -149,7 +149,7 @@ jobs:
           nvm use v23
 
       - name: Deploy infrastructure
-        if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[deploy infrastructure]') }}
+        # if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[deploy infrastructure]') }}
         env:
           ENV: ${{ secrets.ENV }}
         run: |
@@ -158,7 +158,6 @@ jobs:
           rm -rf ./.kubernetes/generated
           export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use && nvm use v23
           . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
-          docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility down || echo 'docker-compose-infra not started'
           docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility up -d
 
       - name: Deploy applications
