@@ -21,23 +21,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
-      - run: yarn install
+        
+      - name: Setup Yarn
         if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
+        uses: threeal/setup-yarn-action@v2.0.0
+
       - run: npm run nx -- run-many --target=semantic-release -p server client rest-sdk rest-sdk-angular --parallel=1 --excludeTaskDependencies=true --verbose
         if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
         env:
           GITHUB_TOKEN: ${{ secrets.SITE_15_ACCESS_TOKEN_DOCKER }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Set root_version
         id: root_version
         run: |
           git fetch
           echo "root_version="$(npm pkg get version --workspaces=false | tr -d \") >> "$GITHUB_OUTPUT"
+
       - name: Set server_version
         id: server_version
         run: |
           git fetch
           echo "server_version="$(cd ./apps/server && npm pkg get version --workspaces=false | tr -d \") >> "$GITHUB_OUTPUT"
+
       - name: Set client_version
         id: client_version
         run: |
@@ -55,11 +61,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Check exists docker image
         id: check-exists
         run: |
           export TOKEN=$(curl -u ${{ github.actor }}:${{ secrets.SITE_15_ACCESS_TOKEN_DOCKER }} https://${{ env.REGISTRY }}/token\?scope\="repository:${{ env.SITE_15_IMAGE_NAME}}:pull" | jq -r .token)
           curl --head --fail -H "Authorization: Bearer $TOKEN" https://${{ env.REGISTRY }}/v2/${{ env.SITE_15_IMAGE_NAME}}/manifests/${{ needs.release.outputs.server_version }}
+
       - name: Store result of check exists docker image
         id: store-check-exists
         if: ${{ !contains(needs.check-exists.outputs.result, 'HTTP/2 404') }}
@@ -80,6 +88,7 @@ jobs:
       - name: Checkout repository
         if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[skip server cache]') }}
         uses: actions/checkout@v4
+
       - name: Log in to the Container registry
         if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[skip server cache]') }}
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
@@ -87,6 +96,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.SITE_15_ACCESS_TOKEN_DOCKER }}
+
       - name: Build and push Docker image
         if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[skip server cache]') }}
         id: push
@@ -99,6 +109,7 @@ jobs:
           tags: ${{ env.REGISTRY}}/${{ env.SITE_15_IMAGE_NAME}}:${{ needs.release.outputs.server_version }},${{ env.REGISTRY}}/${{ env.SITE_15_IMAGE_NAME}}:latest
           cache-from: type=registry,ref=${{ env.REGISTRY}}/${{ env.SITE_15_IMAGE_NAME}}:${{ needs.release.outputs.server_version }}
           cache-to: type=inline
+
       - name: Generate artifact attestation
         continue-on-error: true
         if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[skip server cache]') }}
@@ -125,6 +136,14 @@ jobs:
           # a pull request then we can checkout the head.
           fetch-depth: 2
 
+      - name: Install NVM
+        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
+          nvm install v23
+          nvm use v23
+
       - name: Deploy infrastructure
         if: ${{ needs.check-server-image.outputs.result != 'success' || contains(github.event.head_commit.message, '[skip cache]') || contains(github.event.head_commit.message, '[deploy infrastructure]') }}
         env:
@@ -132,10 +151,6 @@ jobs:
         run: |
           echo "$ENV" > "./.env"
           set -a && . ./.env && set +a
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
-          nvm install v23
-          nvm use v23
           rm -rf ./.kubernetes/generated
           . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
           docker compose -f ./.kubernetes/generated/docker-compose-infra.yml --compatibility down || echo 'docker-compose-infra not started'
@@ -154,10 +169,6 @@ jobs:
         run: |
           echo "$ENV" > "./.env"
           set -a && . ./.env && set +a
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
-          nvm install v23
-          nvm use v23
           echo 'Start'
           rm -rf ./.kubernetes/generated
           . .kubernetes/set-env.sh && npx -y rucken copy-paste --find=templates --replace=generated --replace-plural=generated --path=./.kubernetes/templates --replace-envs=true
@@ -184,10 +195,24 @@ jobs:
       - name: Checkout repository
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
         uses: actions/checkout@v4
+
+      - name: Install NVM
+        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
+          nvm install v23
+          nvm use v23
+
+      - name: Setup Yarn
+        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
+        uses: threeal/setup-yarn-action@v2.0.0
+
       - name: Install deps
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
         run: |
-          yarn install && yarn playwright install chromium --with-deps && echo '' > .env
+          yarn playwright install chromium --with-deps && echo '' > .env
+
       - name: Run E2E-tests
         if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
         env:
@@ -195,11 +220,8 @@ jobs:
         run: |
           echo "$ENV" > "./.env"
           set -a && . ./.env && set +a
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-          export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
-          nvm install v23
-          nvm use v23
           npm run test:e2e
+
       - uses: actions/upload-artifact@v4
         with:
           name: e2e-tests-videos

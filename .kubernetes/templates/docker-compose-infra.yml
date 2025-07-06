@@ -27,5 +27,4 @@ services:
       - 'site15-postgre-sql-volume:/bitnami/postgresql'
 volumes:
   site15-postgre-sql-volume:
-    external: true
     name: 'site15-postgre-sql-volume'
