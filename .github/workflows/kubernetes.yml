@@ -131,7 +131,7 @@ jobs:
           ENV: ${{ secrets.ENV }}
         run: |
           echo "$ENV" > "./.env"
-          source ./.env
+          export $(grep -v '^#:' ./.env | xargs)
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
           export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
           nvm install v23
@@ -153,7 +153,7 @@ jobs:
           ENV: ${{ secrets.ENV }}
         run: |
           echo "$ENV" > "./.env"
-          source ./.env
+          export $(grep -v '^#:' ./.env | xargs)
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
           export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
           nvm install v23
@@ -194,7 +194,7 @@ jobs:
           ENV: ${{ secrets.ENV }}
         run: |
           echo "$ENV" > "./.env"
-          source ./.env
+          export $(grep -v '^#:' ./.env | xargs)
           curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
           export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" --no-use
           nvm install v23
