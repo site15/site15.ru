@@ -1,3 +1,9 @@
+## [1.0.7](https://github.com/site15/site15.ru/compare/server-v1.0.6...server-v1.0.7) (2025-07-06)
+
+### Bug Fixes
+
+- change action for yarn install ([94f7e5d](https://github.com/site15/site15.ru/commit/94f7e5db59fd6a7a0d1dc77868908b3df672702c))
+
 ## [1.0.6](https://github.com/site15/site15.ru/compare/server-v1.0.5...server-v1.0.6) (2025-07-06)
 
 ### Bug Fixes
