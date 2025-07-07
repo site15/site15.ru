@@ -1,3 +1,9 @@
+## [1.0.3](https://github.com/site15/site15.ru/compare/client-v1.0.2...client-v1.0.3) (2025-07-07)
+
+### Bug Fixes
+
+- add support skip email verification in client e2e tests ([271ffaf](https://github.com/site15/site15.ru/commit/271ffaf06e2b9a3ce0f40842331b91e99ac88611))
+
 ## [1.0.2](https://github.com/site15/site15.ru/compare/client-v1.0.1...client-v1.0.2) (2025-07-06)
 
 ### Bug Fixes
