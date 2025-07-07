@@ -14,6 +14,7 @@ test.describe('Work with profile as "User" role', () => {
     password: faker.internet.password({ length: 8 }),
     site: `http://${faker.internet.domainName()}`,
   };
+
   let page: Page;
 
   test.beforeAll(async ({ browser }) => {
@@ -33,6 +34,10 @@ test.describe('Work with profile as "User" role', () => {
     await page.evaluate(
       (minioURL) => localStorage.setItem('minioURL', minioURL),
       get('SITE_15_MINIO_URL').required().asString(),
+    );
+    await page.evaluate(
+      (code) => localStorage.setItem('x-skip-email-verification', code),
+      get('SITE_15_SSO_ADMIN_SECRET').required().asString(),
     );
   });
 

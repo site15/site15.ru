@@ -8,7 +8,7 @@ import { SsoCacheService } from './services/sso-cache.service';
 import { SsoTenantService } from './services/sso-tenant.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoConfiguration } from './sso.configuration';
-import { X_SKIP_THROTTLE } from './sso.constants';
+import { X_SKIP_EMAIL_VERIFICATION, X_SKIP_THROTTLE } from './sso.constants';
 import {
   AllowEmptySsoUser,
   CheckHaveSsoClientSecret,
@@ -46,8 +46,12 @@ export class SsoGuard implements CanActivate {
         req.skipEmptySsoUser = true;
       }
 
-      if (req.headers[X_SKIP_THROTTLE] && req.headers[X_SKIP_THROTTLE] === this.ssoStaticEnvironments.adminSecret) {
+      if (req.headers?.[X_SKIP_THROTTLE] === this.ssoStaticEnvironments.adminSecret) {
         req.skipThrottle = true;
+      }
+
+      if (req.headers?.[X_SKIP_EMAIL_VERIFICATION] === this.ssoStaticEnvironments.adminSecret) {
+        req.skipEmailVerification = true;
       }
 
       if (skipSsoGuard) {
@@ -208,7 +212,7 @@ export class SsoGuard implements CanActivate {
       req.ssoAccessTokenData,
     )}, userId: ${JSON.stringify(req.ssoUser?.id)}, userRoles: ${JSON.stringify(
       req.ssoUser?.roles,
-    )}, skipGuard: ${JSON.stringify(skipSsoGuard)}, checkRole: ${JSON.stringify(
+    )}, skipGuard: ${JSON.stringify(skipSsoGuard)}, skipThrottle: ${JSON.stringify(req.skipThrottle)}, skipEmailVerification: ${JSON.stringify(req.skipEmailVerification)}, checkRole: ${JSON.stringify(
       checkSsoRole,
     )}, language: ${JSON.stringify(req.headers[ACCEPT_LANGUAGE])}`;
     if (error) {

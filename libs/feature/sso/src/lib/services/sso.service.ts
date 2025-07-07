@@ -78,10 +78,12 @@ export class SsoService {
     signUpArgs,
     tenantId,
     operationName,
+    xSkipEmailVerification,
   }: {
     signUpArgs: SignUpArgs;
     tenantId: string;
     operationName: OperationName;
+    xSkipEmailVerification?: boolean;
   }) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { fingerprint, confirmPassword, ...data } = signUpArgs;
@@ -89,13 +91,17 @@ export class SsoService {
       user: {
         ...data,
         emailVerifiedAt:
-          this.ssoConfiguration.twoFactorCodeGenerate && this.ssoConfiguration.sendNotification ? null : new Date(),
+          !xSkipEmailVerification &&
+          this.ssoConfiguration.twoFactorCodeGenerate &&
+          this.ssoConfiguration.sendNotification
+            ? null
+            : new Date(),
       },
       tenantId,
       roles: this.ssoStaticEnvironments.userDefaultRoles,
     });
 
-    if (this.ssoConfiguration.twoFactorCodeGenerate) {
+    if (!xSkipEmailVerification && this.ssoConfiguration.twoFactorCodeGenerate) {
       const sendNotificationOptions: SsoSendNotificationOptions =
         operationName === OperationName.VERIFY_EMAIL
           ? await this.getCompleteSignUpOptions({ tenantId, user, signUpArgs })

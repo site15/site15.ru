@@ -18,6 +18,7 @@ import { SsoEventsService } from '../services/sso-events.service';
 import { SsoService } from '../services/sso.service';
 import { OperationName } from '../sso.configuration';
 import { AllowEmptySsoUser, CurrentSsoRequest, SkipValidateRefreshSession } from '../sso.decorators';
+import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
 import { CompleteForgotPasswordArgs, ForgotPasswordArgs } from '../types/forgot-password.dto';
 import { RefreshTokensResponse } from '../types/refresh-tokens.dto';
@@ -44,6 +45,7 @@ export class SsoController {
     private readonly webhookService: WebhookService,
     private readonly ssoCacheService: SsoCacheService,
     private readonly translatesStorage: TranslatesStorage,
+    private readonly ssoStaticEnvironments: SsoStaticEnvironments,
   ) {}
 
   @AllowEmptySsoUser()
@@ -120,6 +122,7 @@ export class SsoController {
       signUpArgs,
       tenantId: ssoRequest.ssoTenant.id,
       operationName: OperationName.VERIFY_EMAIL,
+      xSkipEmailVerification: ssoRequest.skipEmailVerification,
     });
 
     await this.webhookService.sendEvent({

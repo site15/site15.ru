@@ -227,17 +227,8 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
           },
         });
 
-      await this.tenantHelper.ssoRestSdkService.getSsoApi().ssoUsersControllerUpdateOne(
-        findManyResult.ssoUsers[0].id,
-        {
-          emailVerifiedAt: new Date().toISOString(),
-        },
-        {
-          headers: {
-            'x-admin-secret': process.env['SITE_15_SSO_ADMIN_SECRET'],
-          },
-        },
-      );
+      const userId = findManyResult.ssoUsers[0].id;
+      await this.verifyUser(userId);
     }
 
     this.setAuthorizationHeadersFromAuthorizationTokens();
@@ -245,6 +236,24 @@ export class SsoRestClientHelper<T extends 'strict' | 'no_strict' = 'strict'> {
     await this.loadProfile();
 
     return this;
+  }
+
+  private async verifyUser(userId: string) {
+    if (!this.tenantHelper) {
+      throw new Error('this.tenantHelper not set');
+    }
+
+    await this.tenantHelper.ssoRestSdkService.getSsoApi().ssoUsersControllerUpdateOne(
+      userId,
+      {
+        emailVerifiedAt: new Date().toISOString(),
+      },
+      {
+        headers: {
+          'x-admin-secret': process.env['SITE_15_SSO_ADMIN_SECRET'],
+        },
+      },
+    );
   }
 
   async login(options?: Partial<Pick<GenerateRandomUserResult, 'id' | 'email' | 'password'>>) {

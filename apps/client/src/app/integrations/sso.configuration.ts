@@ -204,6 +204,16 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     if (!password) {
       throw new Error('password not set');
     }
+    const xSkipEmailVerification = localStorage.getItem('x-skip-email-verification');
+    const xSkipThrottle = localStorage.getItem('x-skip-throttle');
+
+    if (xSkipEmailVerification || xSkipThrottle) {
+      this.ssoRestSdkAngularService.updateHeaders({
+        ...(xSkipEmailVerification ? { ['x-skip-email-verification']: xSkipEmailVerification } : {}),
+        ...(xSkipThrottle ? { ['x-skip-throttle']: xSkipThrottle } : {}),
+      });
+    }
+
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
         this.ssoRestSdkAngularService
