@@ -185,7 +185,7 @@ export class SsoUsersController {
         password: randomUUID(),
         email,
       };
-      const user = await this.ssoService.signUp({
+      const { user } = await this.ssoService.signUp({
         signUpArgs,
         tenantId: ssoRequest.ssoTenant.id,
         operationName: OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,

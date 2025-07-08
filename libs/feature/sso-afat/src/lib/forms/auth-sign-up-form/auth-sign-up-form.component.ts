@@ -13,7 +13,12 @@ import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/for
 import { RouterModule } from '@angular/router';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
 import { ValidationService } from '@nestjs-mod/afat';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { compare, getHttpErrorResponseData } from '@nestjs-mod/misc';
+import {
+  SsoErrorEnumInterface,
+  SsoErrorInterface,
+  ValidationErrorMetadataInterface,
+} from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -26,7 +31,6 @@ import { SsoSignUpFormService } from '../../services/auth-sign-up-form.service';
 import { SsoSignUpMapperService } from '../../services/auth-sign-up-mapper.service';
 import { SsoService } from '../../services/auth.service';
 import { SsoSignupInput, SsoUserAndTokens } from '../../services/auth.types';
-import { compare } from '@nestjs-mod/misc';
 
 @UntilDestroy()
 @Component({
@@ -127,8 +131,18 @@ export class SsoSignUpFormComponent implements OnInit {
           ),
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           catchError((err: any) => {
-            console.error(err);
-            this.nzMessageService.error(this.translocoService.translate(err.error?.message || err.message));
+            const httpErrorResponseData = getHttpErrorResponseData<SsoErrorInterface>(err);
+            if (httpErrorResponseData?.code === SsoErrorEnumInterface.SSO_012) {
+              this.nzMessageService.info(
+                this.translocoService.translate(
+                  'Email confirmation email sent, link will be valid for {{timeoutMinutes}} minutes',
+                  httpErrorResponseData.metadata,
+                ),
+              );
+            } else {
+              console.error(err);
+              this.nzMessageService.error(this.translocoService.translate(err.error?.message || err.message));
+            }
             return of(null);
           }),
           untilDestroyed(this),

@@ -76,7 +76,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
     SwaggerModule.setup('swagger', app, document);
 
     if (isInfrastructureMode()) {
-      writeFileSync(join(rootFolder, 'app-swagger.json'), JSON.stringify(document));
+      writeFileSync(join(rootFolder, 'swagger.json'), JSON.stringify(document));
     } else {
       await replaceEnvs();
       await createAndFillDatabases();
@@ -139,7 +139,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
                 options.app.useWebSocketAdapter(new WsAdapter(options.app));
 
                 if (isInfrastructureMode()) {
-                  writeFileSync(join(rootFolder, 'app-swagger.json'), JSON.stringify(document));
+                  writeFileSync(join(rootFolder, 'swagger.json'), JSON.stringify(document));
                 } else {
                   await replaceEnvs();
                   await createAndFillDatabases();

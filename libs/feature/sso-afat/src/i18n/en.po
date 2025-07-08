@@ -438,6 +438,13 @@ msgstr "ID not set"
 msgid "sso-invite-members.form.fields.emails"
 msgstr "Emails (separated by commas)"
 
+msgid ""
+"Email confirmation email sent, link will be valid for {{timeoutMinutes}} "
+"minutes"
+msgstr ""
+"Email confirmation email sent, link will be valid for {{timeoutMinutes}} "
+"minutes"
+
 msgid "Validation errors"
 msgstr "Validation errors"
 

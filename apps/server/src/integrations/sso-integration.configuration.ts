@@ -109,7 +109,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
       operationName: options.operationName,
       type: options.user.phoneVerifiedAt ? 'phone' : 'email',
     });
-    return generatedCode.code;
+    return { ...options, code: generatedCode.twoFactorCode.code, timeout: generatedCode.twoFactorTimeout };
   }
 
   async twoFactorCodeValidate(options: SsoTwoFactorCodeValidateOptions) {

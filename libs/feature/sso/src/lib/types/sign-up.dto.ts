@@ -28,6 +28,11 @@ export class SignUpArgs {
   @ApiPropertyOptional({ type: String })
   @IsOptional()
   redirectUri?: string;
+
+  @ApiPropertyOptional({ type: Object })
+  @IsOptional()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  appData?: any;
 }
 
 export class CompleteSignUpArgs {

@@ -439,6 +439,13 @@ msgstr "ИД. не установлен"
 msgid "sso-invite-members.form.fields.emails"
 msgstr "Адреса электронной почты (через запятую)"
 
+msgid ""
+"Email confirmation email sent, link will be valid for {{timeoutMinutes}} "
+"minutes"
+msgstr ""
+"Письмо для подтверждения почты отправлено, ссылка будет действительна в "
+"течении {{timeoutMinutes}} мин."
+
 msgid "Validation errors"
 msgstr "Ошибка при проверке данных"
 

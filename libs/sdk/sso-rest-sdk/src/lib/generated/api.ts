@@ -514,10 +514,10 @@ export interface NotificationsError {
     'code': NotificationsErrorEnum;
     /**
      * 
-     * @type {Array<NotificationsErrorMetadata>}
+     * @type {object}
      * @memberof NotificationsError
      */
-    'metadata'?: Array<NotificationsErrorMetadata>;
+    'metadata'?: object;
 }
 
 
@@ -537,50 +537,6 @@ export const NotificationsErrorEnum = {
 export type NotificationsErrorEnum = typeof NotificationsErrorEnum[keyof typeof NotificationsErrorEnum];
 
 
-/**
- * 
- * @export
- * @interface NotificationsErrorMetadata
- */
-export interface NotificationsErrorMetadata {
-    /**
-     * 
-     * @type {string}
-     * @memberof NotificationsErrorMetadata
-     */
-    'property': string;
-    /**
-     * 
-     * @type {Array<NotificationsErrorMetadataConstraint>}
-     * @memberof NotificationsErrorMetadata
-     */
-    'constraints': Array<NotificationsErrorMetadataConstraint>;
-    /**
-     * 
-     * @type {Array<NotificationsErrorMetadata>}
-     * @memberof NotificationsErrorMetadata
-     */
-    'children'?: Array<NotificationsErrorMetadata>;
-}
-/**
- * 
- * @export
- * @interface NotificationsErrorMetadataConstraint
- */
-export interface NotificationsErrorMetadataConstraint {
-    /**
-     * 
-     * @type {string}
-     * @memberof NotificationsErrorMetadataConstraint
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NotificationsErrorMetadataConstraint
-     */
-    'description': string;
-}
 /**
  * 
  * @export
@@ -1049,6 +1005,12 @@ export interface SignUpArgs {
      * @memberof SignUpArgs
      */
     'redirectUri'?: string;
+    /**
+     * 
+     * @type {object}
+     * @memberof SignUpArgs
+     */
+    'appData'?: object;
 }
 /**
  * 

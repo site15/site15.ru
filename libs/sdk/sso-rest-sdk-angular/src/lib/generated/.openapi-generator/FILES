@@ -35,8 +35,6 @@ model/models.ts
 model/notifications-controller-find-many400-response.interface.ts
 model/notifications-entities.interface.ts
 model/notifications-error-enum.interface.ts
-model/notifications-error-metadata-constraint.interface.ts
-model/notifications-error-metadata.interface.ts
 model/notifications-error.interface.ts
 model/notifications-event-dto.interface.ts
 model/notifications-event-scalar-field-enum.interface.ts

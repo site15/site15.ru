@@ -9,12 +9,14 @@ describe('Validation (ru)', () => {
     activeLang: 'ru',
     headers: {
       'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
+      'x-skip-email-verification': process.env.SITE_15_SSO_ADMIN_SECRET,
     },
   });
   const admin = new SsoRestClientHelper({
     headers: {
       'x-admin-secret': process.env.SITE_15_SSO_ADMIN_SECRET,
       'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
+      'x-skip-email-verification': process.env.SITE_15_SSO_ADMIN_SECRET,
     },
   });
 

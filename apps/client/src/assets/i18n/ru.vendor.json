@@ -347,6 +347,7 @@
     "Success": "Успешно",
     "id not set": "ИД. не установлен",
     "sso-invite-members.form.fields.emails": "Адреса электронной почты (через запятую)",
+    "Email confirmation email sent, link will be valid for {{timeoutMinutes}} minutes": "Письмо для подтверждения почты отправлено, ссылка будет действительна в течении {{timeoutMinutes}} мин.",
     "Validation errors": "Ошибка при проверке данных",
     "Profile data updated successfully!": "Данные профиля успешно обновлены!",
     "Update": "Изменить",

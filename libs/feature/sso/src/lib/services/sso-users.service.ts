@@ -301,7 +301,7 @@ export class SsoUsersService {
     };
     tenantId: string;
   }) {
-    const { password, oldPassword, lang, timezone, ...profile } = user;
+    const { password, oldPassword, lang, timezone, birthdate, firstname, gender, lastname, picture } = user;
     if (password) {
       const currentUser = await this.prismaClient.ssoUser.findFirst({
         include: { SsoTenant: true },
@@ -331,7 +331,11 @@ export class SsoUsersService {
     const updatedUser = await this.prismaClient.ssoUser.update({
       include: { SsoTenant: true },
       data: {
-        ...profile,
+        birthdate,
+        firstname,
+        gender,
+        lastname,
+        picture,
         tenantId,
         ...(user.password
           ? {

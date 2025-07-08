@@ -8,7 +8,7 @@ import { SsoCacheService } from './services/sso-cache.service';
 import { SsoTenantService } from './services/sso-tenant.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoConfiguration } from './sso.configuration';
-import { X_SKIP_EMAIL_VERIFICATION, X_SKIP_THROTTLE } from './sso.constants';
+import { X_ALLOW_CHANGE_TWO_FACTOR_TIMEOUT, X_SKIP_EMAIL_VERIFICATION, X_SKIP_THROTTLE } from './sso.constants';
 import {
   AllowEmptySsoUser,
   CheckHaveSsoClientSecret,
@@ -52,6 +52,10 @@ export class SsoGuard implements CanActivate {
 
       if (req.headers?.[X_SKIP_EMAIL_VERIFICATION] === this.ssoStaticEnvironments.adminSecret) {
         req.skipEmailVerification = true;
+      }
+
+      if (req.headers?.[X_ALLOW_CHANGE_TWO_FACTOR_TIMEOUT] === this.ssoStaticEnvironments.adminSecret) {
+        req.allowChangeTwoFactorTimeout = true;
       }
 
       if (skipSsoGuard) {

@@ -1,5 +1,5 @@
 import KeyvRedis from '@keyv/redis';
-import { SsoModule } from '@site15/sso';
+import { APP_DATA_TWO_FACTOR_TIMEOUT, SsoModule, SsoUsersService } from '@site15/sso';
 import { createNestModule, isInfrastructureMode } from '@nestjs-mod/common';
 import { FilesModule } from '@nestjs-mod/files';
 import { KeyvModule } from '@nestjs-mod/keyv';
@@ -8,7 +8,7 @@ import { NotificationsModule } from '@nestjs-mod/notifications';
 import { NestjsPinoLoggerModule } from '@nestjs-mod/pino';
 import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
 import { TerminusHealthCheckModule } from '@nestjs-mod/terminus';
-import { TwoFactorModule } from '@nestjs-mod/two-factor';
+import { TWO_FACTOR_FEATURE, TwoFactorModule } from '@nestjs-mod/two-factor';
 import { ValidationModule } from '@nestjs-mod/validation';
 import { WebhookModule } from '@nestjs-mod/webhook';
 import { createClient } from 'redis';
@@ -40,7 +40,27 @@ export const FEATURE_MODULE_IMPORTS = [
   }),
   ValidationModule.forRoot({ staticEnvironments: { usePipes: false } }),
   FilesModule.forRootAsync(filesModuleForRootAsyncOptions()),
-  TwoFactorModule.forRoot(),
+  TwoFactorModule.forRootAsync({
+    imports: [SsoModule.forFeature({ featureModuleName: TWO_FACTOR_FEATURE })],
+    inject: [SsoUsersService],
+    configurationFactory: (ssoUsersService: SsoUsersService) => ({
+      getTimeoutValue: async (options) => {
+        if (options) {
+          const ssoUser = await ssoUsersService.getById({
+            id: options.twoFactorUser.externalUserId,
+            tenantId: options.twoFactorUser.externalTenantId,
+          });
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const appData = (ssoUser.appData as any) || {};
+          const appDataTwoFactorTimeout = +appData[APP_DATA_TWO_FACTOR_TIMEOUT];
+          if (appDataTwoFactorTimeout && !isNaN(appDataTwoFactorTimeout)) {
+            return appDataTwoFactorTimeout;
+          }
+        }
+        return 15 * 60 * 1000;
+      },
+    }),
+  }),
   NotificationsModule.forRootAsync(notificationsModuleForRootAsyncOptions()),
   WebhookModule.forRootAsync(webhookModuleForRootAsyncOptions()),
   SsoModule.forRootAsync(ssoModuleForRootAsyncOptions()),

@@ -10,6 +10,7 @@ describe('Get server time from rest api and ws (timezone)', () => {
   const restClientHelper = new SsoRestClientHelper({
     headers: {
       'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
+      'x-skip-email-verification': process.env.SITE_15_SSO_ADMIN_SECRET,
     },
     serverUrl: process.env.IS_DOCKER_COMPOSE ? get('E2E_SERVER_URL').asString() : undefined,
   });

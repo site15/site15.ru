@@ -20,8 +20,6 @@ export * from './notifications-controller-find-many400-response.interface';
 export * from './notifications-entities.interface';
 export * from './notifications-error-enum.interface';
 export * from './notifications-error.interface';
-export * from './notifications-error-metadata-constraint.interface';
-export * from './notifications-error-metadata.interface';
 export * from './notifications-event-dto.interface';
 export * from './notifications-event.interface';
 export * from './notifications-event-scalar-field-enum.interface';

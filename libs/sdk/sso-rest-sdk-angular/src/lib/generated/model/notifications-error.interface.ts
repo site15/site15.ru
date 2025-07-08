@@ -7,7 +7,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { NotificationsErrorMetadataInterface } from './notifications-error-metadata.interface';
 import { NotificationsErrorEnumInterface } from './notifications-error-enum.interface';
 
 
@@ -17,7 +16,7 @@ export interface NotificationsErrorInterface {
      */
     message: string;
     code: NotificationsErrorEnumInterface;
-    metadata?: Array<NotificationsErrorMetadataInterface>;
+    metadata?: object;
 }
 export namespace NotificationsErrorInterface {
 }

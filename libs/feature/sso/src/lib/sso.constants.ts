@@ -5,6 +5,9 @@ export const SSO_FEATURE = 'sso';
 export const SSO_MODULE = 'SsoModule';
 export const SSO_FOLDER = 'libs/feature/sso';
 
+export const APP_DATA_TWO_FACTOR_TIMEOUT = 'twoFactorTimeout';
+
+export const X_ALLOW_CHANGE_TWO_FACTOR_TIMEOUT = 'x-allow-change-two-factor-timeout';
 export const X_SKIP_THROTTLE = 'x-skip-throttle';
 export const X_SKIP_EMAIL_VERIFICATION = 'x-skip-email-verification';
 

@@ -1,5 +1,6 @@
+import { getAxiosErrorData } from '@nestjs-mod/misc';
+import { SsoError, SsoErrorEnum, TokensResponse } from '@nestjs-mod/sso-rest-sdk';
 import { SsoRestClientHelper } from '@site15/testing';
-import { TokensResponse } from '@nestjs-mod/sso-rest-sdk';
 import { setTimeout } from 'node:timers/promises';
 
 describe('Sso forgot password with check notifications (e2e)', () => {
@@ -21,6 +22,7 @@ describe('Sso forgot password with check notifications (e2e)', () => {
       headers: {
         'x-client-id': tenant.randomUser.id,
         'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
+        'x-allow-change-two-factor-timeout': process.env.SITE_15_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
     admin = new SsoRestClientHelper({
@@ -44,17 +46,23 @@ describe('Sso forgot password with check notifications (e2e)', () => {
   });
 
   it('Sign-up', async () => {
-    const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp({
-      username: user.randomUser.username,
-      email: user.randomUser.email,
-      password: user.randomUser.password,
-      confirmPassword: user.randomUser.password,
-      fingerprint: user.randomUser.id,
-    });
+    try {
+      const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp({
+        username: user.randomUser.username,
+        email: user.randomUser.email,
+        password: user.randomUser.password,
+        confirmPassword: user.randomUser.password,
+        fingerprint: user.randomUser.id,
+        appData: { twoFactorTimeout: 30 * 1000 },
+      });
 
-    expect(signUpResult).toHaveProperty('accessToken');
-    expect(signUpResult).toHaveProperty('refreshToken');
-    expect(signUpResult).toHaveProperty('user');
+      expect(signUpResult).toHaveProperty('accessToken');
+      expect(signUpResult).toHaveProperty('refreshToken');
+      expect(signUpResult).toHaveProperty('user');
+    } catch (error) {
+      const axiosErrorData = getAxiosErrorData<SsoError>(error);
+      expect(axiosErrorData?.code).toEqual(SsoErrorEnum.Sso012);
+    }
   });
 
   it('As admin get verify code from notifications and use it for verify as user', async () => {

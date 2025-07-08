@@ -85,11 +85,14 @@ export class SsoService {
     operationName: OperationName;
     xSkipEmailVerification?: boolean;
   }) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { fingerprint, confirmPassword, ...data } = signUpArgs;
+    const { email, password, appData, username } = signUpArgs;
+
     let user = await this.ssoUsersService.create({
       user: {
-        ...data,
+        email,
+        password,
+        appData,
+        username,
         emailVerifiedAt:
           !xSkipEmailVerification &&
           this.ssoConfiguration.twoFactorCodeGenerate &&
@@ -102,7 +105,7 @@ export class SsoService {
     });
 
     if (!xSkipEmailVerification && this.ssoConfiguration.twoFactorCodeGenerate) {
-      const sendNotificationOptions: SsoSendNotificationOptions =
+      const options =
         operationName === OperationName.VERIFY_EMAIL
           ? await this.getCompleteSignUpOptions({ tenantId, user, signUpArgs })
           : await this.getCompleteRegistrationUsingTheInvitationLinkOptions({
@@ -111,8 +114,8 @@ export class SsoService {
               signUpArgs,
             });
 
-      if (this.ssoConfiguration.sendNotification) {
-        const result = await this.ssoConfiguration.sendNotification(sendNotificationOptions);
+      if (this.ssoConfiguration.sendNotification && options?.sendNotificationOptions) {
+        const result = await this.ssoConfiguration.sendNotification(options?.sendNotificationOptions);
         if (!result || this.ssoStaticEnvironments.disableEmailVerification) {
           user = await this.prismaClient.ssoUser.update({
             include: { SsoTenant: true },
@@ -125,12 +128,14 @@ export class SsoService {
         }
       } else {
         this.logger.debug({
-          sendNotification: sendNotificationOptions,
+          code: options?.code,
+          timeout: options?.timeout,
+          sendNotification: options?.sendNotificationOptions,
         });
       }
+      return { user, code: options?.code, timeout: options?.timeout };
     }
-
-    return user;
+    return { user, code: '', timeout: 0 };
   }
 
   private async getCompleteSignUpOptions({
@@ -149,28 +154,41 @@ export class SsoService {
       OperationName.VERIFY_EMAIL,
       tenantId,
     );
+    if (this.ssoConfiguration.twoFactorCodeGenerate) {
+      const { code, timeout } = await this.ssoConfiguration.twoFactorCodeGenerate({
+        user,
+        operationName: OperationName.VERIFY_EMAIL,
+      });
 
-    const code = this.ssoConfiguration.twoFactorCodeGenerate
-      ? await this.ssoConfiguration.twoFactorCodeGenerate({
-          user,
-          operationName: OperationName.VERIFY_EMAIL,
-        })
-      : 'undefined';
-
-    const link = signUpArgs.redirectUri
-      ? `${this.ssoStaticEnvironments.clientUrl}/complete-sign-up?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${tenant?.clientId}`
-      : `${this.ssoStaticEnvironments.clientUrl}/complete-sign-up?code=${code}&client_id=${tenant?.clientId}`;
-    const sendNotificationOptions: SsoSendNotificationOptions = {
-      recipientUsers: [user],
-      subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
-      text: this.translatesAsyncLocalStorageContext.get().translate(text),
-      html: this.translatesAsyncLocalStorageContext.get().translate(html, {
-        link,
-      }),
-      operationName,
-      tenantId,
-    };
-    return sendNotificationOptions;
+      const link = signUpArgs.redirectUri
+        ? `${this.ssoStaticEnvironments.clientUrl}/complete-sign-up?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${tenant?.clientId}`
+        : `${this.ssoStaticEnvironments.clientUrl}/complete-sign-up?code=${code}&client_id=${tenant?.clientId}`;
+      const sendNotificationOptions: SsoSendNotificationOptions = {
+        recipientUsers: [user],
+        subject: this.translatesAsyncLocalStorageContext.get().translate(subject, {
+          link,
+          timeoutSeconds: Math.floor(timeout / 1000),
+          timeoutMinutes: Math.floor(timeout / 1000 / 60),
+          timeoutHours: Math.floor(timeout / 1000 / 60 / 60),
+        }),
+        text: this.translatesAsyncLocalStorageContext.get().translate(text, {
+          link,
+          timeoutSeconds: Math.floor(timeout / 1000),
+          timeoutMinutes: Math.floor(timeout / 1000 / 60),
+          timeoutHours: Math.floor(timeout / 1000 / 60 / 60),
+        }),
+        html: this.translatesAsyncLocalStorageContext.get().translate(html, {
+          link,
+          timeoutSeconds: Math.floor(timeout / 1000),
+          timeoutMinutes: Math.floor(timeout / 1000 / 60),
+          timeoutHours: Math.floor(timeout / 1000 / 60 / 60),
+        }),
+        operationName,
+        tenantId,
+      };
+      return { sendNotificationOptions, code, timeout };
+    }
+    return undefined;
   }
 
   private async getCompleteRegistrationUsingTheInvitationLinkOptions({
@@ -189,28 +207,41 @@ export class SsoService {
       OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
       tenantId,
     );
+    if (this.ssoConfiguration.twoFactorCodeGenerate) {
+      const { code, timeout } = await this.ssoConfiguration.twoFactorCodeGenerate({
+        user,
+        operationName: OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
+      });
 
-    const code = this.ssoConfiguration.twoFactorCodeGenerate
-      ? await this.ssoConfiguration.twoFactorCodeGenerate({
-          user,
-          operationName: OperationName.COMPLETE_REGISTRATION_USING_THE_INVITATION_LINK,
-        })
-      : 'undefined';
-
-    const link = signUpArgs.redirectUri
-      ? `${this.ssoStaticEnvironments.clientUrl}/complete-invite?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${tenant?.clientId}`
-      : `${this.ssoStaticEnvironments.clientUrl}/complete-invite?code=${code}&client_id=${tenant?.clientId}`;
-    const sendNotificationOptions: SsoSendNotificationOptions = {
-      recipientUsers: [user],
-      subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
-      text: this.translatesAsyncLocalStorageContext.get().translate(text),
-      html: this.translatesAsyncLocalStorageContext.get().translate(html, {
-        link,
-      }),
-      operationName,
-      tenantId,
-    };
-    return sendNotificationOptions;
+      const link = signUpArgs.redirectUri
+        ? `${this.ssoStaticEnvironments.clientUrl}/complete-invite?code=${code}&redirect_uri=${signUpArgs.redirectUri}&client_id=${tenant?.clientId}`
+        : `${this.ssoStaticEnvironments.clientUrl}/complete-invite?code=${code}&client_id=${tenant?.clientId}`;
+      const sendNotificationOptions: SsoSendNotificationOptions = {
+        recipientUsers: [user],
+        subject: this.translatesAsyncLocalStorageContext.get().translate(subject, {
+          link,
+          timeoutSeconds: Math.floor(timeout / 1000),
+          timeoutMinutes: Math.floor(timeout / 1000 / 60),
+          timeoutHours: Math.floor(timeout / 1000 / 60 / 60),
+        }),
+        text: this.translatesAsyncLocalStorageContext.get().translate(text, {
+          link,
+          timeoutSeconds: Math.floor(timeout / 1000),
+          timeoutMinutes: Math.floor(timeout / 1000 / 60),
+          timeoutHours: Math.floor(timeout / 1000 / 60 / 60),
+        }),
+        html: this.translatesAsyncLocalStorageContext.get().translate(html, {
+          link,
+          timeoutSeconds: Math.floor(timeout / 1000),
+          timeoutMinutes: Math.floor(timeout / 1000 / 60),
+          timeoutHours: Math.floor(timeout / 1000 / 60 / 60),
+        }),
+        operationName,
+        tenantId,
+      };
+      return { sendNotificationOptions, code, timeout };
+    }
+    return undefined;
   }
 
   private async getSendNotificationOptions(operationName: OperationName, tenantId: string) {
@@ -289,7 +320,7 @@ export class SsoService {
         tenantId,
       );
 
-      const code = await this.ssoConfiguration.twoFactorCodeGenerate({
+      const { code, timeout } = await this.ssoConfiguration.twoFactorCodeGenerate({
         ...ssoRequest,
         user,
         operationName: OperationName.COMPLETE_FORGOT_PASSWORD,
@@ -302,12 +333,23 @@ export class SsoService {
         await this.ssoConfiguration.sendNotification({
           tenantId,
           recipientUsers: [user],
-          subject: this.translatesAsyncLocalStorageContext.get().translate(subject),
+          subject: this.translatesAsyncLocalStorageContext.get().translate(subject, {
+            link,
+            timeoutSeconds: Math.floor(timeout / 1000),
+            timeoutMinutes: Math.floor(timeout / 1000 / 60),
+            timeoutHours: Math.floor(timeout / 1000 / 60 / 60),
+          }),
           text: this.translatesAsyncLocalStorageContext.get().translate(text, {
             link,
+            timeoutSeconds: Math.floor(timeout / 1000),
+            timeoutMinutes: Math.floor(timeout / 1000 / 60),
+            timeoutHours: Math.floor(timeout / 1000 / 60 / 60),
           }),
           html: this.translatesAsyncLocalStorageContext.get().translate(html, {
             link,
+            timeoutSeconds: Math.floor(timeout / 1000),
+            timeoutMinutes: Math.floor(timeout / 1000 / 60),
+            timeoutHours: Math.floor(timeout / 1000 / 60 / 60),
           }),
           operationName,
         });

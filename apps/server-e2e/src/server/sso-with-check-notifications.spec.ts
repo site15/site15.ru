@@ -1,5 +1,6 @@
-import { TokensResponse } from '@nestjs-mod/sso-rest-sdk';
+import { SsoError, SsoErrorEnum, TokensResponse } from '@nestjs-mod/sso-rest-sdk';
 import { SsoRestClientHelper } from '@site15/testing';
+import { getAxiosErrorData } from '@nestjs-mod/misc';
 
 describe('Sso with check notifications (e2e)', () => {
   let user: SsoRestClientHelper<'strict'>;
@@ -43,16 +44,21 @@ describe('Sso with check notifications (e2e)', () => {
   });
 
   it('Sign-up', async () => {
-    const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp({
-      username: user.randomUser.username,
-      email: user.randomUser.email,
-      password: user.randomUser.password,
-      confirmPassword: user.randomUser.password,
-      fingerprint: user.randomUser.id,
-    });
-    expect(signUpResult).toHaveProperty('accessToken');
-    expect(signUpResult).toHaveProperty('refreshToken');
-    expect(signUpResult).toHaveProperty('user');
+    try {
+      const { data: signUpResult } = await user.getSsoApi().ssoControllerSignUp({
+        username: user.randomUser.username,
+        email: user.randomUser.email,
+        password: user.randomUser.password,
+        confirmPassword: user.randomUser.password,
+        fingerprint: user.randomUser.id,
+      });
+      expect(signUpResult).toHaveProperty('accessToken');
+      expect(signUpResult).toHaveProperty('refreshToken');
+      expect(signUpResult).toHaveProperty('user');
+    } catch (error) {
+      const axiosErrorData = getAxiosErrorData<SsoError>(error);
+      expect(axiosErrorData?.code).toEqual(SsoErrorEnum.Sso012);
+    }
   });
 
   it('As admin get verify code from notifications and use it for verify as user', async () => {

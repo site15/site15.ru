@@ -29,6 +29,7 @@ import { SsoRequest } from '../types/sso-request';
 import { SsoWebhookEvent } from '../types/sso-webhooks';
 import { TokensResponse } from '../types/tokens.dto';
 import { UpdateProfileArgs } from '../types/update-profile.dto';
+import { APP_DATA_TWO_FACTOR_TIMEOUT } from '../sso.constants';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
@@ -118,7 +119,11 @@ export class SsoController {
     @IpAddress() userIp: string,
     @UserAgent() userAgent: string,
   ): Promise<void> {
-    const user = await this.ssoService.signUp({
+    if (!ssoRequest.allowChangeTwoFactorTimeout && signUpArgs.appData?.[APP_DATA_TWO_FACTOR_TIMEOUT]) {
+      delete signUpArgs.appData[APP_DATA_TWO_FACTOR_TIMEOUT];
+    }
+
+    const { user, timeout } = await this.ssoService.signUp({
       signUpArgs,
       tenantId: ssoRequest.ssoTenant.id,
       operationName: OperationName.VERIFY_EMAIL,
@@ -138,7 +143,12 @@ export class SsoController {
           tenantId: ssoRequest.ssoTenant.id,
         },
       });
-      throw new SsoError(SsoErrorEnum.EmailNotVerified);
+
+      throw new SsoError(SsoErrorEnum.EmailNotVerified, {
+        timeoutSeconds: Math.floor((timeout || 0) / 1000),
+        timeoutMinutes: Math.floor((timeout || 0) / 1000 / 60),
+        timeoutHours: Math.floor((timeout || 0) / 1000 / 60 / 60),
+      });
     } else {
       await this.ssoEventsService.send({
         SignUp: { signUpArgs: signUpArgs },

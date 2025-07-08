@@ -17,5 +17,6 @@ export type SsoRequest = {
   skipEmptySsoUser?: boolean;
   skipThrottle?: boolean;
   skipEmailVerification?: boolean;
+  allowChangeTwoFactorTimeout?: boolean;
   headers: Record<string, string>;
 };

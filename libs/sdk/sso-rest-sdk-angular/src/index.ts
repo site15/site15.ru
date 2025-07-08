@@ -35,8 +35,6 @@ export * from './lib/generated/model/models';
 export * from './lib/generated/model/notifications-controller-find-many400-response.interface';
 export * from './lib/generated/model/notifications-entities.interface';
 export * from './lib/generated/model/notifications-error-enum.interface';
-export * from './lib/generated/model/notifications-error-metadata-constraint.interface';
-export * from './lib/generated/model/notifications-error-metadata.interface';
 export * from './lib/generated/model/notifications-error.interface';
 export * from './lib/generated/model/notifications-event-dto.interface';
 export * from './lib/generated/model/notifications-event-scalar-field-enum.interface';

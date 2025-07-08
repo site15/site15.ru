@@ -16,5 +16,6 @@ export interface SignUpArgsInterface {
     confirmPassword?: string;
     fingerprint: string;
     redirectUri?: string;
+    appData?: object;
 }
 

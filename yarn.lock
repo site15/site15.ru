@@ -3247,10 +3247,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/files@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/files/-/files-1.2.3.tgz#d28f44f81233c1390eb4d99531ee208eac9f8a0b"
-  integrity sha512-S65aak2+UDMUXjAJkWB9EW4G7MT+0sjP304boZyeM0Tgtrcv8jUG7Lud52J7kIJokFR5fSI1T72Deuuzw11cHQ==
+"@nestjs-mod/files@1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/files/-/files-1.2.5.tgz#21039907e7186ac664ad6513e4e3d79bff3145b3"
+  integrity sha512-Fv8l0TPZeJlg5niigW94tlaUiAk+SK3QS1gCryyBBCSABa/sGY3O4eEN28La9MacHHWhmOqFwB0y7iydJ4BeKQ==
 
 "@nestjs-mod/keyv@1.2.1":
   version "1.2.1"
@@ -3266,20 +3266,21 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/misc@1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/misc/-/misc-1.4.2.tgz#65cc9eef5aafea58ee747f6d31219826e6208bf9"
-  integrity sha512-PVSY5fwwfSMRSO0AkWpRwvE0gXreM+c4smotYkLtRxmD5oYLV6Sme4qR0QpqgAX+1K1eTnLvkZzrSyGScpJeew==
+"@nestjs-mod/misc@1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/misc/-/misc-1.4.3.tgz#88feafc29fd67553bffcf30fd8796c19313545f4"
+  integrity sha512-OWcqbNekcAVE1qe4tuSLrcTYBtmTXCobhBSjYv4xjqfLXk9g5M99WK+P9nUXZM0Vcj6/LrtRoWcnCIxvnLTVdQ==
   dependencies:
     lodash.isequal "4.5.0"
     lodash.map "4.6.0"
     lodash.reduce "4.6.0"
+    rxjs "^7.8.0"
     tslib "^2.3.0"
 
-"@nestjs-mod/notifications@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/notifications/-/notifications-1.2.3.tgz#9f3c137607bb05fd63471f508a113fa457facb54"
-  integrity sha512-Nfe94mFzqdkioFJJHKZKhzpC/mAwhsECTqBMk2zRIs6MOVWRaAEZAHFOlaN2mTOu/7h7kzzFt68zrTynP1c5iw==
+"@nestjs-mod/notifications@1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/notifications/-/notifications-1.2.5.tgz#8505f2a10c7fc8f4a2b328f654521ffe60bb2836"
+  integrity sha512-EEWUgDf5zIDycItU4g+Jt6qSpAAcXgLsPnI7QVGtXCKSyK6G1qEnyrYxdXivtrGZ52BLJN2YNmr98Gv118bWRg==
 
 "@nestjs-mod/pg-flyway@^1.3.0":
   version "1.3.0"
@@ -3304,10 +3305,10 @@
     pm2 ">=5.3.0"
     tslib "^2.3.0"
 
-"@nestjs-mod/prisma-tools@1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma-tools/-/prisma-tools-1.1.2.tgz#6d001c42ff1854685e912dcf7d36d035fc61aa13"
-  integrity sha512-sfJ7it9ZdxSQpq9LfH/Ee5DSlN31kHnoqe9UgB9YZtxXkR1AZO3q5Xp3hBfLcywiNNmSfU2E772pIj2xSQsUNw==
+"@nestjs-mod/prisma-tools@1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/prisma-tools/-/prisma-tools-1.1.4.tgz#2064ad6f186060f39117c65c80243179f6954e9d"
+  integrity sha512-LmJAOnmkkhMyac62IL9uZhmhsIIUvCZSDpxVEFFbbCwUp8HlMWAalpEdhXdaVTEJafSczMzI8RtO+TTLcJaN7A==
   dependencies:
     "@nestjs-mod/swagger" "1.2.0"
     tslib "^2.3.0"
@@ -3372,10 +3373,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/two-factor@1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/two-factor/-/two-factor-1.1.3.tgz#f53de0824608699f331e1596c283b93fee02efb6"
-  integrity sha512-yS/j9lSwgovFGUN+RHoiZ73t/0cLgSQ3d8HLAmTln9RTC6bbvrzUc1MkwGWc7kyXH9bMuq+QhkdlFqFyR60mTg==
+"@nestjs-mod/two-factor@1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/two-factor/-/two-factor-1.1.7.tgz#4d37da95d32f18f77baf96c1fa845e1d80322037"
+  integrity sha512-gN3e94qFYttJl3VT5CAh/FNBaA/l+0qt7wCRXeC/3rIc6k/pL/hmsBQixbiso63PUuNPmnwqOD3D5g9m4W5JYw==
 
 "@nestjs-mod/validation@1.2.1":
   version "1.2.1"
@@ -3391,10 +3392,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/webhook@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook/-/webhook-1.2.3.tgz#b4900506a851a5f77edb904972b0c67af13dcaad"
-  integrity sha512-wDCjfmWhgSWVEtqUxXZugaDmJkCyEyI6KAP859mPvdjxQoILljR6D1439CncfTinFiiSPDm8pWxlxhgsGrgBpQ==
+"@nestjs-mod/webhook@1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook/-/webhook-1.2.5.tgz#ddaf2a8f1887e691276b07d1eece9e6318269e6e"
+  integrity sha512-dYE1KZ8FSuCWd2gtWcjfnz/C+PnXNGx6Gh8C6IuS5U+gYZY+ajyVqmdhIn4FxmvGKRamlHNLoCXmB/ZSUhjz/w==
 
 "@nestjs/axios@3.1.3", "@nestjs/axios@^3.1.3":
   version "3.1.3"

@@ -1,6 +1,7 @@
 import { ConfigModel, ConfigModelProperty } from '@nestjs-mod/common';
 import { ExecutionContext, Type } from '@nestjs/common';
 import { SsoUser } from './generated/rest/dto/sso-user.entity';
+import { SsoError, SsoErrorEnum } from './sso.errors';
 
 export enum OperationName {
   VERIFY_EMAIL = 'VERIFY_EMAIL',
@@ -27,6 +28,14 @@ export type SsoTwoFactorCodeValidateOptions = {
 export type SsoTwoFactorCodeGenerateOptions = {
   user: SsoUser;
   operationName: OperationName;
+};
+
+export type SsoTwoFactorCodeGenerateResponse = {
+  user: SsoUser;
+  operationName: OperationName;
+  code: string;
+  // seconds
+  timeout: number;
 };
 
 export type SsoTwoFactorCodeValidateResponse = {
@@ -61,13 +70,23 @@ export class SsoConfiguration {
   // two factor
   @ConfigModelProperty({
     description: 'Function for generating two-factor authentication code',
-    default: (options: SsoTwoFactorCodeGenerateOptions) => Buffer.from(options.user.id).toString('hex'),
+    default: (options: SsoTwoFactorCodeGenerateOptions) => ({
+      ...options,
+      code: Buffer.from(options.user.id).toString('hex'),
+      ttl: 0,
+    }),
   })
-  twoFactorCodeGenerate?: (options: SsoTwoFactorCodeGenerateOptions) => Promise<string>;
+  twoFactorCodeGenerate?: (options: SsoTwoFactorCodeGenerateOptions) => Promise<SsoTwoFactorCodeGenerateResponse>;
 
   @ConfigModelProperty({
     description: 'Two-factor authentication code verification function',
-    default: (options: SsoTwoFactorCodeValidateOptions) => Buffer.from(options.code, 'hex').toString(),
+    default: (options: SsoTwoFactorCodeValidateOptions) => {
+      try {
+        return Buffer.from(options.code, 'hex').toString();
+      } catch (error) {
+        throw new SsoError(SsoErrorEnum.VerificationCodeNotFound);
+      }
+    },
   })
   twoFactorCodeValidate?: (options: SsoTwoFactorCodeValidateOptions) => Promise<SsoTwoFactorCodeValidateResponse>;
 
