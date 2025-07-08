@@ -1,3 +1,9 @@
+# [1.1.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.0.1...rest-sdk-v1.1.0) (2025-07-08)
+
+### Features
+
+- add support x-skip-email-verification and x-allow-change-two-factor-timeout ([d268c6e](https://github.com/site15/site15.ru/commit/d268c6e97218fc13ec915027d4202cf4c62f9a85))
+
 ## [1.0.1](https://github.com/site15/site15.ru/compare/rest-sdk-v1.0.0...rest-sdk-v1.0.1) (2025-07-06)
 
 ### Bug Fixes
