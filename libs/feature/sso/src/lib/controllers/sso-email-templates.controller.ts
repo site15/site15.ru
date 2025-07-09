@@ -18,6 +18,7 @@ import { SsoError } from '../sso.errors';
 import { FindManySsoEmailTemplateResponse } from '../types/find-many-sso-email-template-response';
 import { SsoRequest } from '../types/sso-request';
 import { SsoRole } from '../types/sso-role';
+import { FindManySsoEmailTemplateArgs } from '../types/find-many-sso-email-template-args';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
@@ -34,14 +35,14 @@ export class SsoEmailTemplatesController {
 
   @Get()
   @ApiOkResponse({ type: FindManySsoEmailTemplateResponse })
-  async findMany(@CurrentSsoRequest() ssoRequest: SsoRequest, @Query() args: FindManyArgs) {
+  async findMany(@CurrentSsoRequest() ssoRequest: SsoRequest, @Query() args: FindManySsoEmailTemplateArgs) {
     const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
       curPage: args.curPage,
       perPage: args.perPage,
     });
 
     const searchText = args.searchText;
-    const tenantId = ssoRequest.ssoTenant.id;
+    const tenantId = searchIn(SsoRole.admin, ssoRequest.ssoUser?.roles) ? args.tenantId : ssoRequest.ssoTenant.id;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')

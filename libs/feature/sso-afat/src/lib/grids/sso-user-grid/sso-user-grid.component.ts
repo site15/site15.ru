@@ -27,6 +27,8 @@ import { SsoInviteMembersFormComponent } from '../../forms/sso-invite-members-fo
 import { SsoUserFormComponent } from '../../forms/sso-user-form/sso-user-form.component';
 import { SsoUserModel } from '../../services/sso-user-mapper.service';
 import { SsoUserService } from '../../services/sso-user.service';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { SsoTenantService } from '../../services/sso-tenant.service';
 
 @UntilDestroy()
 @Component({
@@ -48,6 +50,7 @@ import { SsoUserService } from '../../services/sso-user.service';
     TranslocoDirective,
     TranslocoPipe,
     TranslocoDatePipe,
+    NzSelectModule,
   ],
   selector: 'sso-user-grid',
   templateUrl: './sso-user-grid.component.html',
@@ -59,6 +62,10 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
   tenantId?: string;
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  tenantSearchField = new FormControl('');
+  tenantSearchLoading$ = new BehaviorSubject(false);
+  tenantSearchResult$ = new BehaviorSubject<{ label: string; value: string }[]>([{ label: 'ss', value: 'ss' }]);
 
   minioURL$ = new BehaviorSubject<string>('');
   items$ = new BehaviorSubject<SsoUserModel[]>([]);
@@ -114,6 +121,7 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
   private filters?: Record<string, string>;
 
   constructor(
+    private readonly ssoTenantService: SsoTenantService,
     private readonly ssoUserService: SsoUserService,
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
@@ -121,6 +129,10 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
     private readonly filesService: FilesService,
   ) {
     this.minioURL$.next(this.filesService.getMinioURL() as string);
+  }
+
+  onTenantSearch(searchText: string) {
+    this.loadManyTenants(searchText);
   }
 
   showInviteMembersModal(): void {
@@ -179,7 +191,32 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
       )
       .subscribe();
 
+    merge(
+      this.tenantSearchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
+      ...(this.forceLoadStream ? this.forceLoadStream : []),
+    )
+      .pipe(
+        tap(() => this.loadMany({ force: true })),
+        untilDestroyed(this),
+      )
+      .subscribe();
+
     this.loadMany();
+    this.loadManyTenants();
+  }
+
+  private loadManyTenants(searchText = '') {
+    this.ssoTenantService
+      .findMany({ filters: { search: searchText }, meta: { perPage: 10, curPage: 1, sort: { createdAt: 'desc' } } })
+      .pipe(
+        tap((result) => {
+          this.tenantSearchResult$.next(
+            result.ssoTenants.map((t) => ({ label: `${t.name} - ${t.slug}`, value: t.id! })),
+          );
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 
   loadMany(args?: {
@@ -203,6 +240,9 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
 
     if (!filters['tenantId'] && this.tenantId) {
       filters['tenantId'] = this.tenantId;
+    }
+    if (this.tenantSearchField.value) {
+      filters['tenantId'] = this.tenantSearchField.value;
     }
 
     if (

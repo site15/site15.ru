@@ -75,6 +75,7 @@ export * from './lib/services/sso.service';
 export * from './lib/strategies/google/sso-google-oauth.controller';
 export * from './lib/strategies/google/sso-google-oauth.strategy';
 export * from './lib/types/find-many-auth-user-response';
+export * from './lib/types/find-many-sso-email-template-args';
 export * from './lib/types/find-many-sso-email-template-response';
 export * from './lib/types/find-many-sso-public-tenant-response';
 export * from './lib/types/find-many-sso-refresh-session-args';

@@ -70,6 +70,12 @@ export class SsoTenantsController {
                     {
                       clientId: { contains: searchText, mode: 'insensitive' },
                     },
+                    {
+                      slug: { contains: searchText, mode: 'insensitive' },
+                    },
+                    {
+                      name: { contains: searchText, mode: 'insensitive' },
+                    },
                   ],
                 }
               : {}),
@@ -86,6 +92,12 @@ export class SsoTenantsController {
                     ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     {
                       clientId: { contains: searchText, mode: 'insensitive' },
+                    },
+                    {
+                      slug: { contains: searchText, mode: 'insensitive' },
+                    },
+                    {
+                      name: { contains: searchText, mode: 'insensitive' },
                     },
                   ],
                 }

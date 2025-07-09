@@ -4176,10 +4176,11 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
          * @param {number} [perPage] 
          * @param {string} [searchText] 
          * @param {string} [sort] 
+         * @param {string} [tenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoEmailTemplatesControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        ssoEmailTemplatesControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sso/email-templates`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4206,6 +4207,10 @@ export const SsoApiAxiosParamCreator = function (configuration?: Configuration) 
 
             if (sort !== undefined) {
                 localVarQueryParameter['sort'] = sort;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenantId'] = tenantId;
             }
 
 
@@ -5120,11 +5125,12 @@ export const SsoApiFp = function(configuration?: Configuration) {
          * @param {number} [perPage] 
          * @param {string} [searchText] 
          * @param {string} [sort] 
+         * @param {string} [tenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoEmailTemplateResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoEmailTemplatesControllerFindMany(curPage, perPage, searchText, sort, options);
+        async ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManySsoEmailTemplateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.ssoEmailTemplatesControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['SsoApi.ssoEmailTemplatesControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5483,11 +5489,12 @@ export const SsoApiFactory = function (configuration?: Configuration, basePath?:
          * @param {number} [perPage] 
          * @param {string} [searchText] 
          * @param {string} [sort] 
+         * @param {string} [tenantId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoEmailTemplateResponse> {
-            return localVarFp.ssoEmailTemplatesControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(axios, basePath));
+        ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManySsoEmailTemplateResponse> {
+            return localVarFp.ssoEmailTemplatesControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5801,12 +5808,13 @@ export class SsoApi extends BaseAPI {
      * @param {number} [perPage] 
      * @param {string} [searchText] 
      * @param {string} [sort] 
+     * @param {string} [tenantId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SsoApi
      */
-    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, options?: RawAxiosRequestConfig) {
-        return SsoApiFp(this.configuration).ssoEmailTemplatesControllerFindMany(curPage, perPage, searchText, sort, options).then((request) => request(this.axios, this.basePath));
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
+        return SsoApiFp(this.configuration).ssoEmailTemplatesControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

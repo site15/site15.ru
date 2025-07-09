@@ -30,6 +30,7 @@ export class SsoEmailTemplateService {
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
           : undefined,
+        filters['tenantId'],
       )
       .pipe(
         map(({ meta, ssoEmailTemplates }) => ({

@@ -794,13 +794,14 @@ export class SsoSsoRestService {
      * @param perPage 
      * @param searchText 
      * @param sort 
+     * @param tenantId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManySsoEmailTemplateResponseInterface>;
-    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManySsoEmailTemplateResponseInterface>>;
-    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManySsoEmailTemplateResponseInterface>>;
-    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManySsoEmailTemplateResponseInterface>;
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManySsoEmailTemplateResponseInterface>>;
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManySsoEmailTemplateResponseInterface>>;
+    public ssoEmailTemplatesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -818,6 +819,10 @@ export class SsoSsoRestService {
         if (sort !== undefined && sort !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>sort, 'sort');
+        }
+        if (tenantId !== undefined && tenantId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>tenantId, 'tenantId');
         }
 
         let localVarHeaders = this.defaultHeaders;

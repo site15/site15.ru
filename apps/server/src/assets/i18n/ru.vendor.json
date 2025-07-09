@@ -205,6 +205,8 @@
   },
   "sso-afat": {
     "Users for tenant #{{tenantId}}": "Пользователи тенанта #{{tenantId}}",
+    "select tenant": "выберите тенант",
+    "Loading...": "Загрузка...",
     "input search text": "введите текст поиска",
     "Invite Members": "Пригласить пользователей",
     "Action": "Действия",

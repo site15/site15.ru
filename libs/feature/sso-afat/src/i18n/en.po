@@ -9,6 +9,12 @@ msgstr ""
 msgid "Users for tenant #{{tenantId}}"
 msgstr "Users for tenant #{{tenantId}}"
 
+msgid "select tenant"
+msgstr "select tenant"
+
+msgid "Loading..."
+msgstr "Loading..."
+
 msgid "input search text"
 msgstr "input search text"
 

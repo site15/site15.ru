@@ -10,6 +10,12 @@ msgstr ""
 msgid "Users for tenant #{{tenantId}}"
 msgstr "Пользователи тенанта #{{tenantId}}"
 
+msgid "select tenant"
+msgstr "выберите тенант"
+
+msgid "Loading..."
+msgstr "Загрузка..."
+
 msgid "input search text"
 msgstr "введите текст поиска"
 

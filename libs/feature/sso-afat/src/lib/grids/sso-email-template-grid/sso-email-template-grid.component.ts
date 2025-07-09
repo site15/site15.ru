@@ -22,9 +22,11 @@ import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { SsoEmailTemplateFormComponent } from '../../forms/sso-email-template-form/sso-email-template-form.component';
 import { SsoEmailTemplateModel } from '../../services/sso-email-template-mapper.service';
 import { SsoEmailTemplateService } from '../../services/sso-email-template.service';
+import { SsoTenantService } from '../../services/sso-tenant.service';
 
 @UntilDestroy()
 @Component({
@@ -46,6 +48,8 @@ import { SsoEmailTemplateService } from '../../services/sso-email-template.servi
     TranslocoDirective,
     TranslocoPipe,
     TranslocoDatePipe,
+    TranslocoDatePipe,
+    NzSelectModule,
   ],
   selector: 'sso-email-template-grid',
   templateUrl: './sso-email-template-grid.component.html',
@@ -54,7 +58,13 @@ import { SsoEmailTemplateService } from '../../services/sso-email-template.servi
 })
 export class SsoEmailTemplateGridComponent implements OnInit {
   @Input()
+  tenantId?: string;
+  @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  tenantSearchField = new FormControl('');
+  tenantSearchLoading$ = new BehaviorSubject(false);
+  tenantSearchResult$ = new BehaviorSubject<{ label: string; value: string }[]>([{ label: 'ss', value: 'ss' }]);
 
   items$ = new BehaviorSubject<SsoEmailTemplateModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
@@ -77,11 +87,16 @@ export class SsoEmailTemplateGridComponent implements OnInit {
   private filters?: Record<string, string>;
 
   constructor(
+    private readonly ssoTenantService: SsoTenantService,
     private readonly ssoEmailTemplateService: SsoEmailTemplateService,
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
     private readonly translocoService: TranslocoService,
   ) {}
+
+  onTenantSearch(searchText: string) {
+    this.loadManyTenants(searchText);
+  }
 
   ngOnInit(): void {
     merge(
@@ -94,7 +109,32 @@ export class SsoEmailTemplateGridComponent implements OnInit {
       )
       .subscribe();
 
+    merge(
+      this.tenantSearchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
+      ...(this.forceLoadStream ? this.forceLoadStream : []),
+    )
+      .pipe(
+        tap(() => this.loadMany({ force: true })),
+        untilDestroyed(this),
+      )
+      .subscribe();
+
     this.loadMany();
+    this.loadManyTenants();
+  }
+
+  private loadManyTenants(searchText = '') {
+    this.ssoTenantService
+      .findMany({ filters: { search: searchText }, meta: { perPage: 10, curPage: 1, sort: { createdAt: 'desc' } } })
+      .pipe(
+        tap((result) => {
+          this.tenantSearchResult$.next(
+            result.ssoTenants.map((t) => ({ label: `${t.name} - ${t.slug}`, value: t.id! })),
+          );
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 
   loadMany(args?: {
@@ -114,6 +154,13 @@ export class SsoEmailTemplateGridComponent implements OnInit {
 
     if (!filters['search'] && this.searchField.value) {
       filters['search'] = this.searchField.value;
+    }
+
+    if (!filters['tenantId'] && this.tenantId) {
+      filters['tenantId'] = this.tenantId;
+    }
+    if (this.tenantSearchField.value) {
+      filters['tenantId'] = this.tenantSearchField.value;
     }
 
     if (
