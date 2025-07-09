@@ -1,3 +1,9 @@
+# [1.2.0](https://github.com/site15/site15.ru/compare/client-v1.1.0...client-v1.2.0) (2025-07-09)
+
+### Features
+
+- add filter for switch tenant in users and email templates grids ([287b4e1](https://github.com/site15/site15.ru/commit/287b4e1556984d962bec48400e88a4d692f8854c))
+
 # [1.1.0](https://github.com/site15/site15.ru/compare/client-v1.0.3...client-v1.1.0) (2025-07-08)
 
 ### Features
