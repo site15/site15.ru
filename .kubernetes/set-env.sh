@@ -118,10 +118,6 @@ if [ -z "${SITE_15_SSO_ADMIN_USERNAME}" ]; then
     echo "Error: SITE_15_SSO_ADMIN_USERNAME not set!" >&2 # Redirect error message to stderr
     exit 1 # Exit with an error code
 fi
-if [ -z "${SITE_15_SSO_DEFAULT_PUBLIC_TENANTS}" ]; then
-    echo "Error: SITE_15_SSO_DEFAULT_PUBLIC_TENANTS not set!" >&2 # Redirect error message to stderr
-    exit 1 # Exit with an error code
-fi
 if [ -z "${SITE_15_SSO_DEFAULT_TENANT}" ]; then
     echo "Error: SITE_15_SSO_DEFAULT_TENANT not set!" >&2 # Redirect error message to stderr
     exit 1 # Exit with an error code
