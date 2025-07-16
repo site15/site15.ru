@@ -41,12 +41,6 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     const lang = this.translocoService.getActiveLang();
     const accessToken = this.tokensService.getAccessToken();
     const activeTenantAuthorizationHeaders = this.ssoActiveTenantService.getAuthorizationHeaders();
-    if (!accessToken) {
-      return {
-        'Accept-language': lang,
-        ...activeTenantAuthorizationHeaders,
-      };
-    }
     return {
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
       'Accept-language': lang,
@@ -209,6 +203,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
     if (xSkipEmailVerification || xSkipThrottle) {
       this.ssoRestSdkAngularService.updateHeaders({
+        ...this.getAuthorizationHeaders(),
         ...(xSkipEmailVerification ? { ['x-skip-email-verification']: xSkipEmailVerification } : {}),
         ...(xSkipThrottle ? { ['x-skip-throttle']: xSkipThrottle } : {}),
       });

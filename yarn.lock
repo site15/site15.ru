@@ -3247,10 +3247,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/files@1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/files/-/files-1.2.5.tgz#21039907e7186ac664ad6513e4e3d79bff3145b3"
-  integrity sha512-Fv8l0TPZeJlg5niigW94tlaUiAk+SK3QS1gCryyBBCSABa/sGY3O4eEN28La9MacHHWhmOqFwB0y7iydJ4BeKQ==
+"@nestjs-mod/files@1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/files/-/files-1.3.1.tgz#f586f0d3c9ae592beadf8be14361a48c4c22f9ac"
+  integrity sha512-hUjBc6arf6KR1xDo1jtWTPbV0/LcNgplHbEVjA9CVrTJx5aiBg1f0qOHmNJy1ag2C2XSWEsEi9HNFVm5WhCVMA==
 
 "@nestjs-mod/keyv@1.2.1":
   version "1.2.1"
@@ -3277,10 +3277,10 @@
     rxjs "^7.8.0"
     tslib "^2.3.0"
 
-"@nestjs-mod/notifications@1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/notifications/-/notifications-1.2.5.tgz#8505f2a10c7fc8f4a2b328f654521ffe60bb2836"
-  integrity sha512-EEWUgDf5zIDycItU4g+Jt6qSpAAcXgLsPnI7QVGtXCKSyK6G1qEnyrYxdXivtrGZ52BLJN2YNmr98Gv118bWRg==
+"@nestjs-mod/notifications@1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/notifications/-/notifications-1.3.1.tgz#a62119c013a86fb64b2d431a454f8be45300562a"
+  integrity sha512-ScmZJh/DxgGj6jGjW7gih0PMiTq/w4ANandQz4azL1F4qOquYG0C15/6919p/HrDFtevqCY1MyIYcxf24/S/MQ==
 
 "@nestjs-mod/pg-flyway@^1.3.0":
   version "1.3.0"
@@ -3385,17 +3385,17 @@
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/webhook-afat@1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook-afat/-/webhook-afat-1.1.3.tgz#9236558c82d8cf8e15f037b9f33339ecf28e85aa"
-  integrity sha512-uqASIx81iPEbGXVakynF46DZsqI3UquDhxsKg5lBMvfIyx4xZ5ugSCfEFE+Fl9u2+es1vls4GtUCJ+tF4oV0HQ==
+"@nestjs-mod/webhook-afat@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook-afat/-/webhook-afat-1.2.1.tgz#af2fbce49a49a2798d1a19e86728dda0b0e5f142"
+  integrity sha512-IZVNITfjvTQUhcvo4TyurQZZBILVT2UeTAKUGCpzqhjnZDmO5m9pUBHhqut4h3EcZKrV9C3IFOhVHKyBqB2WdQ==
   dependencies:
     tslib "^2.3.0"
 
-"@nestjs-mod/webhook@1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook/-/webhook-1.2.5.tgz#ddaf2a8f1887e691276b07d1eece9e6318269e6e"
-  integrity sha512-dYE1KZ8FSuCWd2gtWcjfnz/C+PnXNGx6Gh8C6IuS5U+gYZY+ajyVqmdhIn4FxmvGKRamlHNLoCXmB/ZSUhjz/w==
+"@nestjs-mod/webhook@1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@nestjs-mod/webhook/-/webhook-1.3.1.tgz#c8595266c2f593181f42206602d01938734e7b55"
+  integrity sha512-w0SXedbUVW+tYJdoa38cu/hg7QTmEePWO1HkxQoTTluOd/hdsaSRLPl+nnw0KFLoM++ylKRlFJtTh8YfG+5l7g==
 
 "@nestjs/axios@3.1.3", "@nestjs/axios@^3.1.3":
   version "3.1.3"

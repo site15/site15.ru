@@ -2,7 +2,14 @@
   <nz-breadcrumb-item transloco="Webhooks"></nz-breadcrumb-item>
 </nz-breadcrumb>
 <nz-row class="inner-content">
-  <webhook-grid [forceLoadStream]="[true | activeTenant]" nz-col [nzSpan]="24" #webhookGrid> </webhook-grid>
+  <webhook-grid
+    [loadManyTenantsHandler]="loadManyTenantsHandler"
+    [forceLoadStream]="[true | activeTenant]"
+    nz-col
+    [nzSpan]="24"
+    #webhookGrid
+  >
+  </webhook-grid>
   <webhook-log-grid
     *ngIf="(webhookGrid.selectedIds$ | async)?.[0] as webhookId"
     nz-col
