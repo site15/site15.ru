@@ -1,3 +1,9 @@
+# [1.3.0](https://github.com/site15/site15.ru/compare/rest-sdk-angular-v1.2.0...rest-sdk-angular-v1.3.0) (2025-07-16)
+
+### Features
+
+- update libs ([011baa4](https://github.com/site15/site15.ru/commit/011baa4d5aa763b7092f66deaa6a67a2593ea0a0))
+
 # [1.2.0](https://github.com/site15/site15.ru/compare/rest-sdk-angular-v1.1.0...rest-sdk-angular-v1.2.0) (2025-07-09)
 
 ### Features
