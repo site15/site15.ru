@@ -11,8 +11,7 @@ import {
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ValidationService } from '@nestjs-mod/afat';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { ValidationService, ValidationErrorMetadataInterface } from '@nestjs-mod/afat';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';

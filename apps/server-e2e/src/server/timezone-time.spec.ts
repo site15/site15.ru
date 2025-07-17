@@ -1,4 +1,4 @@
-import { SsoRestClientHelper } from '@site15/testing';
+import { Site15RestClientHelper } from '@site15/testing';
 import { isDateString } from 'class-validator';
 import { get } from 'env-var';
 import { lastValueFrom, take, timeout, toArray } from 'rxjs';
@@ -7,7 +7,7 @@ describe('Get server time from rest api and ws (timezone)', () => {
   jest.setTimeout(60000);
 
   const correctStringDateLength = '0000-00-00T00:00:00.000Z'.length;
-  const restClientHelper = new SsoRestClientHelper({
+  const restClientHelper = new Site15RestClientHelper({
     headers: {
       'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
       'x-skip-email-verification': process.env.SITE_15_SSO_ADMIN_SECRET,

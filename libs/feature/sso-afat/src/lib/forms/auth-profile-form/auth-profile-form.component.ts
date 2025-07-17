@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, Optional } f
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
-import { ValidationService } from '@nestjs-mod/afat';
+import { ValidationErrorMetadataInterface, ValidationService } from '@nestjs-mod/afat';
+import { compare } from '@nestjs-mod/misc';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -17,7 +17,6 @@ import { SsoProfileFormService } from '../../services/auth-profile-form.service'
 import { SsoProfileMapperService } from '../../services/auth-profile-mapper.service';
 import { SsoService } from '../../services/auth.service';
 import { SsoUpdateProfileInput } from '../../services/auth.types';
-import { compare } from '@nestjs-mod/misc';
 
 @UntilDestroy()
 @Component({

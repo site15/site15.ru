@@ -12,8 +12,8 @@ import {
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ValidationService } from '@nestjs-mod/afat';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { ValidationErrorMetadataInterface, ValidationService } from '@nestjs-mod/afat';
+import { compare } from '@nestjs-mod/misc';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -25,7 +25,6 @@ import { BehaviorSubject, catchError, distinctUntilChanged, of, tap } from 'rxjs
 import { SsoCompleteForgotPasswordFormService } from '../../services/auth-complete-forgot-password-form.service';
 import { SsoService } from '../../services/auth.service';
 import { SsoCompleteForgotPasswordInput, SsoUserAndTokens } from '../../services/auth.types';
-import { compare } from '@nestjs-mod/misc';
 
 @UntilDestroy()
 @Component({

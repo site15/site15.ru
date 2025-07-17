@@ -13,7 +13,7 @@ import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/for
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ValidationService } from '@nestjs-mod/afat';
 import { FilesService } from '@nestjs-mod/files-afat';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { ValidationErrorMetadataInterface } from '@site15/rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';

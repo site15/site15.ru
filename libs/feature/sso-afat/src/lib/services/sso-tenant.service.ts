@@ -2,27 +2,27 @@ import { Injectable } from '@angular/core';
 import { RequestMeta } from '@nestjs-mod/misc';
 import {
   CreateSsoTenantDtoInterface,
-  SsoRestSdkAngularService,
+  Site15RestSdkAngularService,
   UpdateSsoTenantDtoInterface,
-} from '@nestjs-mod/sso-rest-sdk-angular';
+} from '@site15/rest-sdk-angular';
 import { map } from 'rxjs';
 import { SsoTenantMapperService } from './sso-tenant-mapper.service';
 @Injectable({ providedIn: 'root' })
 export class SsoTenantService {
   constructor(
-    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
+    private readonly site15RestSdkAngularService: Site15RestSdkAngularService,
     private readonly ssoTenantMapperService: SsoTenantMapperService,
   ) {}
 
   findOne(id: string) {
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoTenantsControllerFindOne(id)
       .pipe(map((p) => this.ssoTenantMapperService.toModel(p)));
   }
 
   findManyPublic({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoPublicTenantsControllerFindMany(
         meta?.curPage,
@@ -43,7 +43,7 @@ export class SsoTenantService {
   }
 
   findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoTenantsControllerFindMany(
         meta?.curPage,
@@ -64,18 +64,18 @@ export class SsoTenantService {
   }
 
   updateOne(id: string, data: UpdateSsoTenantDtoInterface) {
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoTenantsControllerUpdateOne(id, data)
       .pipe(map((p) => this.ssoTenantMapperService.toModel(p)));
   }
 
   deleteOne(id: string) {
-    return this.ssoRestSdkAngularService.getSsoApi().ssoTenantsControllerDeleteOne(id);
+    return this.site15RestSdkAngularService.getSsoApi().ssoTenantsControllerDeleteOne(id);
   }
 
   createOne(data: CreateSsoTenantDtoInterface) {
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoTenantsControllerCreateOne(data)
       .pipe(map((p) => this.ssoTenantMapperService.toModel(p)));

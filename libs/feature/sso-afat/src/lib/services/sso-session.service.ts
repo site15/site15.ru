@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { RequestMeta } from '@nestjs-mod/misc';
-import { SsoRestSdkAngularService, UpdateSsoRefreshSessionDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { Site15RestSdkAngularService, UpdateSsoRefreshSessionDtoInterface } from '@site15/rest-sdk-angular';
 import { map } from 'rxjs';
 import { SsoSessionMapperService } from './sso-session-mapper.service';
 
 @Injectable({ providedIn: 'root' })
 export class SsoSessionService {
   constructor(
-    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
+    private readonly site15RestSdkAngularService: Site15RestSdkAngularService,
     private readonly ssoSessionMapperService: SsoSessionMapperService,
   ) {}
 
   findOne(id: string) {
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoRefreshSessionsControllerFindOne(id)
       .pipe(map((s) => this.ssoSessionMapperService.toModel(s)));
   }
 
   findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoRefreshSessionsControllerFindMany(
         filters['userId'],
@@ -41,7 +41,7 @@ export class SsoSessionService {
   }
 
   updateOne(id: string, data: UpdateSsoRefreshSessionDtoInterface) {
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoRefreshSessionsControllerUpdateOne(id, data)
       .pipe(map((s) => this.ssoSessionMapperService.toModel(s)));

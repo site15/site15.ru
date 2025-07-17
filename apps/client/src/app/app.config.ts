@@ -18,7 +18,7 @@ import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 import { COMMON_FORMLY_FIELDS } from '@nestjs-mod/afat';
 import { FILES_FORMLY_FIELDS, FilesRestSdkAngularModule, MINIO_URL } from '@nestjs-mod/files-afat';
-import { SsoRestSdkAngularModule } from '@nestjs-mod/sso-rest-sdk-angular';
+import { Site15RestSdkAngularModule } from '@site15/rest-sdk-angular';
 import { WebhookRestSdkAngularModule } from '@nestjs-mod/webhook-afat';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
@@ -43,7 +43,7 @@ export const ssoAppConfig = ({ minioURL }: { minioURL: string }): ApplicationCon
       provideNzI18n(en_US),
       importProvidersFrom(
         BrowserAnimationsModule,
-        SsoRestSdkAngularModule.forRoot({
+        Site15RestSdkAngularModule.forRoot({
           basePath: serverUrl,
         }),
         FilesRestSdkAngularModule.forRoot({

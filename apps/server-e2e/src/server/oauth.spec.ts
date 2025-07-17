@@ -1,11 +1,11 @@
-import { SsoRestClientHelper } from '@site15/testing';
+import { Site15RestClientHelper } from '@site15/testing';
 describe('OAuth (e2e)', () => {
   jest.setTimeout(60000);
 
-  let user: SsoRestClientHelper<'strict'>;
+  let user: Site15RestClientHelper<'strict'>;
 
   beforeAll(async () => {
-    user = await new SsoRestClientHelper({
+    user = await new Site15RestClientHelper({
       headers: {
         'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
       },

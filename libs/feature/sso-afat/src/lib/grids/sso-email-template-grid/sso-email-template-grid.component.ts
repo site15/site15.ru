@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SsoEmailTemplateScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoEmailTemplateScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';

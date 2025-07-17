@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LangDefinition, TranslocoService } from '@jsverse/transloco';
 import { TIMEZONE_OFFSET } from '@nestjs-mod/misc';
-import { SsoTenantDtoInterface, SsoPublicTenantDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoTenantDtoInterface, SsoPublicTenantDtoInterface } from '@site15/rest-sdk-angular';
 import { addHours } from 'date-fns';
 
 export interface SsoTenantModel extends Partial<Omit<SsoTenantDtoInterface, 'createdAt' | 'updatedAt' | 'nameLocale'>> {

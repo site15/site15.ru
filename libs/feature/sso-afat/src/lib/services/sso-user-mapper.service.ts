@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TIMEZONE_OFFSET, safeParseJson } from '@nestjs-mod/misc';
-import { SsoUserDtoInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoUserDtoInterface } from '@site15/rest-sdk-angular';
 
 import { addHours, format } from 'date-fns';
 

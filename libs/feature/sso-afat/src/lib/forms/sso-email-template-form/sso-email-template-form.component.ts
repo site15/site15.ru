@@ -11,8 +11,8 @@ import {
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ValidationService } from '@nestjs-mod/afat';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { ValidationErrorMetadataInterface, ValidationService } from '@nestjs-mod/afat';
+import { compare } from '@nestjs-mod/misc';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -24,7 +24,6 @@ import { BehaviorSubject, catchError, distinctUntilChanged, mergeMap, of, tap, t
 import { SsoEmailTemplateFormService } from '../../services/sso-email-template-form.service';
 import { SsoEmailTemplateMapperService, SsoEmailTemplateModel } from '../../services/sso-email-template-mapper.service';
 import { SsoEmailTemplateService } from '../../services/sso-email-template.service';
-import { compare } from '@nestjs-mod/misc';
 
 @UntilDestroy()
 @Component({

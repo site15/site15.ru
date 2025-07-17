@@ -12,15 +12,11 @@ import {
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoDirective, TranslocoService } from '@jsverse/transloco';
-import { ValidationService } from '@nestjs-mod/afat';
+import { ValidationErrorMetadataInterface, ValidationService } from '@nestjs-mod/afat';
 import { compare, getHttpErrorResponseData } from '@nestjs-mod/misc';
-import {
-  SsoErrorEnumInterface,
-  SsoErrorInterface,
-  ValidationErrorMetadataInterface,
-} from '@nestjs-mod/sso-rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
+import { SsoErrorEnumInterface, SsoErrorInterface } from '@site15/rest-sdk-angular';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';

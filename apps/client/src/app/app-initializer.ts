@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import { SsoActiveLangService, SsoActiveTenantService, SsoService, TokensService } from '@site15/sso-afat';
 import { FilesRestSdkAngularService } from '@nestjs-mod/files-afat';
-import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
+import { Site15RestSdkAngularService } from '@site15/rest-sdk-angular';
 import { WebhookRestSdkAngularService } from '@nestjs-mod/webhook-afat';
 import { catchError, merge, mergeMap, of, Subscription, tap } from 'rxjs';
 
@@ -16,7 +16,7 @@ export class AppInitializer {
     private readonly tokensService: TokensService,
     private readonly ssoActiveLangService: SsoActiveLangService,
     private readonly ssoActiveTenantService: SsoActiveTenantService,
-    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
+    private readonly site15RestSdkAngularService: Site15RestSdkAngularService,
     private readonly webhookRestSdkAngularService: WebhookRestSdkAngularService,
     private readonly filesRestSdkAngularService: FilesRestSdkAngularService,
   ) {}
@@ -51,7 +51,7 @@ export class AppInitializer {
   private updateHeaders() {
     const authorizationHeaders = this.ssoService.getAuthorizationHeaders();
     if (authorizationHeaders) {
-      this.ssoRestSdkAngularService.updateHeaders(authorizationHeaders);
+      this.site15RestSdkAngularService.updateHeaders(authorizationHeaders);
       this.webhookRestSdkAngularService.updateHeaders(authorizationHeaders);
       this.filesRestSdkAngularService.updateHeaders(authorizationHeaders);
     }

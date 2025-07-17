@@ -1,18 +1,18 @@
-import { SsoRole } from '@nestjs-mod/sso-rest-sdk';
-import { SsoRestClientHelper } from '@site15/testing';
+import { SsoRole } from '@site15/rest-sdk';
+import { Site15RestClientHelper } from '@site15/testing';
 import { AxiosError } from 'axios';
 
 describe('Validation (ru)', () => {
   jest.setTimeout(60000);
 
-  const user1 = new SsoRestClientHelper({
+  const user1 = new Site15RestClientHelper({
     activeLang: 'ru',
     headers: {
       'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
       'x-skip-email-verification': process.env.SITE_15_SSO_ADMIN_SECRET,
     },
   });
-  const admin = new SsoRestClientHelper({
+  const admin = new Site15RestClientHelper({
     headers: {
       'x-admin-secret': process.env.SITE_15_SSO_ADMIN_SECRET,
       'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,

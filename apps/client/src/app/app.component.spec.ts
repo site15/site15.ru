@@ -5,7 +5,7 @@ import { provideTransloco } from '@jsverse/transloco';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 import { provideTranslocoMessageformat } from '@jsverse/transloco-messageformat';
 import { FilesRestSdkAngularModule, MINIO_URL } from '@nestjs-mod/files-afat';
-import { SsoRestSdkAngularModule } from '@nestjs-mod/sso-rest-sdk-angular';
+import { Site15RestSdkAngularModule } from '@site15/rest-sdk-angular';
 import { WebhookRestSdkAngularModule } from '@nestjs-mod/webhook-afat';
 import { minioURL, serverUrl } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -60,7 +60,7 @@ describe('AppComponent', () => {
         AppComponent,
         RouterModule.forRoot([]),
         HttpClientModule,
-        SsoRestSdkAngularModule.forRoot({
+        Site15RestSdkAngularModule.forRoot({
           basePath: serverUrl,
         }),
         FilesRestSdkAngularModule.forRoot({

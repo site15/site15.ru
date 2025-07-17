@@ -4,5 +4,5 @@
 /.nx/cache
 /.nx/workspace-data
 .angular
-/libs/sdk/sso-rest-sdk/src/lib/generated
-/libs/sdk/sso-rest-sdk-angular/src/lib/generated
+/libs/sdk/rest-sdk/src/lib/generated
+/libs/sdk/rest-sdk-angular/src/lib/generated

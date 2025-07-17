@@ -5,7 +5,7 @@ api.module.ts
 api/api.ts
 api/files-rest.service.ts
 api/notifications-rest.service.ts
-api/sso-rest.service.ts
+api/rest.service.ts
 api/terminus-health-check-rest.service.ts
 api/time-rest.service.ts
 api/webhook-rest.service.ts

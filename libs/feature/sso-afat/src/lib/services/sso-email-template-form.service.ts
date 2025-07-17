@@ -4,7 +4,7 @@ import {
   SsoEmailTemplateScalarFieldEnumInterface,
   UpdateSsoEmailTemplateDtoInterface,
   ValidationErrorMetadataInterface,
-} from '@nestjs-mod/sso-rest-sdk-angular';
+} from '@site15/rest-sdk-angular';
 import { ValidationService } from '@nestjs-mod/afat';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FormlyFieldConfig } from '@ngx-formly/core';

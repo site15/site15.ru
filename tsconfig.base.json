@@ -25,8 +25,8 @@
     "noImplicitAny": false,
     "useDefineForClassFields": false,
     "paths": {
-      "@nestjs-mod/sso-rest-sdk": ["libs/sdk/sso-rest-sdk/src/index.ts"],
-      "@nestjs-mod/sso-rest-sdk-angular": ["libs/sdk/sso-rest-sdk-angular/src/index.ts"],
+      "@site15/rest-sdk": ["libs/sdk/rest-sdk/src/index.ts"],
+      "@site15/rest-sdk-angular": ["libs/sdk/rest-sdk-angular/src/index.ts"],
       "@site15/sso": ["libs/feature/sso/src/index.ts"],
       "@site15/sso-afat": ["libs/feature/sso-afat/src/index.ts"],
       "@site15/testing": ["libs/testing/src/index.ts"]

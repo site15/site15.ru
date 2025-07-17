@@ -1,11 +1,7 @@
 import { Provider } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import { FilesService } from '@nestjs-mod/files-afat';
-import {
-  SsoRestSdkAngularService,
-  SsoUserDtoInterface,
-  TokensResponseInterface,
-} from '@nestjs-mod/sso-rest-sdk-angular';
+import { Site15RestSdkAngularService, SsoUserDtoInterface, TokensResponseInterface } from '@site15/rest-sdk-angular';
 import {
   FingerprintService,
   OAuthProvider,
@@ -28,7 +24,7 @@ import { catchError, map, mergeMap, Observable, of } from 'rxjs';
 
 export class SsoIntegrationConfiguration implements SsoConfiguration {
   constructor(
-    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
+    private readonly site15RestSdkAngularService: Site15RestSdkAngularService,
     private readonly filesService: FilesService,
     private readonly translocoService: TranslocoService,
     private readonly tokensService: TokensService,
@@ -49,13 +45,13 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   }
 
   oAuthProviders(): Observable<OAuthProvider[]> {
-    return this.ssoRestSdkAngularService.getSsoApi().ssoOAuthControllerOauthProviders();
+    return this.site15RestSdkAngularService.getSsoApi().ssoOAuthControllerOauthProviders();
   }
 
   oAuthVerification({ verificationCode, clientId }: OAuthVerificationInput): Observable<SsoUserAndTokens> {
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.ssoRestSdkAngularService
+        this.site15RestSdkAngularService
           .getSsoApi()
           .ssoOAuthControllerOauthVerification({
             fingerprint,
@@ -73,7 +69,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
   logout(): Observable<void | null> {
     const refreshToken = this.tokensService.getRefreshToken();
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoControllerSignOut(
         refreshToken
@@ -90,7 +86,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
   }
 
   getProfile(): Observable<SsoUser | undefined> {
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoControllerProfile()
       .pipe(
@@ -136,7 +132,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
         return of(undefined);
       }),
       mergeMap((picture) => {
-        return this.ssoRestSdkAngularService.getSsoApi().ssoControllerUpdateProfile({
+        return this.site15RestSdkAngularService.getSsoApi().ssoControllerUpdateProfile({
           birthdate: data.birthdate,
           firstname: data.givenName,
           gender: data.gender,
@@ -148,7 +144,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
           timezone: data.timezone,
         });
       }),
-      mergeMap(() => this.ssoRestSdkAngularService.getSsoApi().ssoControllerProfile()),
+      mergeMap(() => this.site15RestSdkAngularService.getSsoApi().ssoControllerProfile()),
       mergeMap((newData) => {
         if (
           oldData?.picture &&
@@ -167,7 +163,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     const refreshToken = this.tokensService.getRefreshToken();
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.ssoRestSdkAngularService
+        this.site15RestSdkAngularService
           .getSsoApi()
           .ssoControllerRefreshTokens({
             ...(refreshToken
@@ -202,7 +198,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     const xSkipThrottle = localStorage.getItem('x-skip-throttle');
 
     if (xSkipEmailVerification || xSkipThrottle) {
-      this.ssoRestSdkAngularService.updateHeaders({
+      this.site15RestSdkAngularService.updateHeaders({
         ...this.getAuthorizationHeaders(),
         ...(xSkipEmailVerification ? { ['x-skip-email-verification']: xSkipEmailVerification } : {}),
         ...(xSkipThrottle ? { ['x-skip-throttle']: xSkipThrottle } : {}),
@@ -211,7 +207,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
 
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.ssoRestSdkAngularService
+        this.site15RestSdkAngularService
           .getSsoApi()
           .ssoControllerSignUp({
             email,
@@ -237,7 +233,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     }
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.ssoRestSdkAngularService
+        this.site15RestSdkAngularService
           .getSsoApi()
           .ssoControllerSignIn({
             email,
@@ -261,7 +257,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     }
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.ssoRestSdkAngularService
+        this.site15RestSdkAngularService
           .getSsoApi()
           .ssoControllerCompleteSignUp({
             code,
@@ -290,7 +286,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     }
     return this.fingerprintService.getFingerprint().pipe(
       mergeMap((fingerprint) =>
-        this.ssoRestSdkAngularService
+        this.site15RestSdkAngularService
           .getSsoApi()
           .ssoControllerCompleteForgotPassword({
             password,
@@ -313,7 +309,7 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
     if (!email) {
       throw new Error('email not set');
     }
-    return this.ssoRestSdkAngularService
+    return this.site15RestSdkAngularService
       .getSsoApi()
       .ssoControllerForgotPassword({
         email,
@@ -328,7 +324,7 @@ export function provideSsoConfiguration(): Provider {
     provide: SSO_CONFIGURATION_TOKEN,
     useClass: SsoIntegrationConfiguration,
     deps: [
-      SsoRestSdkAngularService,
+      Site15RestSdkAngularService,
       FilesService,
       TranslocoService,
       TokensService,

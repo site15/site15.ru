@@ -21,7 +21,7 @@ import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
-import { SsoRefreshSessionScalarFieldEnumInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRefreshSessionScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import { SsoSessionFormComponent } from '../../forms/sso-session-form/sso-session-form.component';
 import { SsoSessionModel } from '../../services/sso-session-mapper.service';
 import { SsoSessionService } from '../../services/sso-session.service';

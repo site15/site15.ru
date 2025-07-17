@@ -1,22 +1,22 @@
-import { TokensResponse } from '@nestjs-mod/sso-rest-sdk';
-import { SsoRestClientHelper } from '@site15/testing';
+import { TokensResponse } from '@site15/rest-sdk';
+import { Site15RestClientHelper } from '@site15/testing';
 
 describe('Sso profile (e2e)', () => {
-  let user: SsoRestClientHelper<'strict'>;
-  let tenant: SsoRestClientHelper<'strict'>;
+  let user: Site15RestClientHelper<'strict'>;
+  let tenant: Site15RestClientHelper<'strict'>;
 
   let userTokens: TokensResponse;
 
   jest.setTimeout(5 * 60 * 1000);
 
   beforeAll(async () => {
-    user = await new SsoRestClientHelper({
+    user = await new Site15RestClientHelper({
       headers: {
         'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
         'x-skip-email-verification': process.env.SITE_15_SSO_ADMIN_SECRET,
       },
     }).generateRandomUser();
-    tenant = await new SsoRestClientHelper({
+    tenant = await new Site15RestClientHelper({
       headers: {
         'x-skip-throttle': process.env.SITE_15_SSO_ADMIN_SECRET,
         'x-skip-email-verification': process.env.SITE_15_SSO_ADMIN_SECRET,

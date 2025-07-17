@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { LangDefinition, TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { SsoRoleInterface } from '@nestjs-mod/sso-rest-sdk-angular';
+import { SsoRoleInterface } from '@site15/rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { addHours } from 'date-fns';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -27,7 +27,7 @@ import { BehaviorSubject, map, merge, mergeMap, Observable, switchMap, tap } fro
 import { APP_TITLE } from './app.constants';
 
 import { TIMEZONE_OFFSET } from '@nestjs-mod/misc';
-import { SsoRestSdkAngularService } from '@nestjs-mod/sso-rest-sdk-angular';
+import { Site15RestSdkAngularService } from '@site15/rest-sdk-angular';
 
 @UntilDestroy()
 @Component({
@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
   activePublicTenant$?: Observable<SsoTenantModel | undefined>;
 
   constructor(
-    private readonly ssoRestSdkAngularService: SsoRestSdkAngularService,
+    private readonly site15RestSdkAngularService: Site15RestSdkAngularService,
     private readonly ssoService: SsoService,
     private readonly router: Router,
     private readonly translocoService: TranslocoService,
@@ -152,12 +152,12 @@ export class AppComponent implements OnInit {
 
   private fillServerTime() {
     return merge(
-      this.ssoRestSdkAngularService.getTimeApi().timeControllerTime(),
+      this.site15RestSdkAngularService.getTimeApi().timeControllerTime(),
       this.tokensService
         .getStream()
         .pipe(
           switchMap((token) =>
-            this.ssoRestSdkAngularService.webSocket<string>({
+            this.site15RestSdkAngularService.webSocket<string>({
               path: token?.access_token ? `/ws/time?token=${token?.access_token}` : '/ws/time',
               eventName: 'ChangeTimeStream',
             }),

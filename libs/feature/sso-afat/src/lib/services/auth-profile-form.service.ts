@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
-import { ValidationErrorMetadataInterface } from '@nestjs-mod/sso-rest-sdk-angular';
-import { ValidationService } from '@nestjs-mod/afat';
+import { marker } from '@jsverse/transloco-keys-manager/marker';
+import { ValidationErrorMetadataInterface, ValidationService } from '@nestjs-mod/afat';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { of } from 'rxjs';
 import { SsoUpdateProfileInput } from './auth.types';
-import { marker } from '@jsverse/transloco-keys-manager/marker';
 
 @UntilDestroy()
 @Injectable({ providedIn: 'root' })
