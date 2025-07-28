@@ -5,10 +5,11 @@ import { JwtService } from '@nestjs/jwt';
 import { addMilliseconds } from 'date-fns';
 import ms from 'ms';
 import { randomUUID } from 'node:crypto';
-import { PrismaClient, SsoRefreshSession, SsoUser } from '../generated/prisma-client';
+import { SsoRefreshSession, SsoUser } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { SsoAccessTokenData } from '../types/sso-request';
 import { SsoCacheService } from './sso-cache.service';
 
@@ -20,7 +21,7 @@ export class SsoTokensService {
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly jwtService: JwtService,
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoCacheService: SsoCacheService,
   ) {}

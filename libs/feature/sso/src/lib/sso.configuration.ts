@@ -1,5 +1,5 @@
 import { ConfigModel, ConfigModelProperty } from '@nestjs-mod/common';
-import { ExecutionContext, Type } from '@nestjs/common';
+import { ExecutionContext } from '@nestjs/common';
 import { SsoUser } from './generated/rest/dto/sso-user.entity';
 import { SsoError, SsoErrorEnum } from './sso.errors';
 
@@ -101,12 +101,4 @@ export class SsoConfiguration {
     description: 'External function for validate permissions',
   })
   checkAccessValidator?: (authUser?: SsoUser | null, ctx?: ExecutionContext) => Promise<void>;
-}
-
-@ConfigModel()
-export class SsoStaticConfiguration {
-  @ConfigModelProperty({
-    description: 'Function for additional mutation of controllers',
-  })
-  mutateController?: (ctrl: Type) => Type;
 }

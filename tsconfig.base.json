@@ -29,7 +29,8 @@
       "@site15/rest-sdk-angular": ["libs/sdk/rest-sdk-angular/src/index.ts"],
       "@site15/sso": ["libs/feature/sso/src/index.ts"],
       "@site15/sso-afat": ["libs/feature/sso-afat/src/index.ts"],
-      "@site15/testing": ["libs/testing/src/index.ts"]
+      "@site15/testing": ["libs/testing/src/index.ts"],
+      "@site15/metrics": ["libs/feature/metrics/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

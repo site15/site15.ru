@@ -7,10 +7,11 @@ import { render } from 'mustache';
 import { randomUUID } from 'node:crypto';
 import passport from 'passport';
 import { GoogleCallbackParameters, Profile, Strategy, VerifyCallback } from 'passport-google-oauth20';
-import { PrismaClient, SsoOAuthProvider, SsoOAuthProviderSettings } from '../../generated/prisma-client';
+import { SsoOAuthProvider, SsoOAuthProviderSettings } from '../../generated/prisma-client';
 import { SsoService } from '../../services/sso.service';
 import { SSO_FEATURE } from '../../sso.constants';
 import { SsoStaticEnvironments } from '../../sso.environments';
+import { SsoPrismaSdk } from '../../sso.prisma-sdk';
 import { SsoRequest } from '../../types/sso-request';
 
 // https://console.cloud.google.com/apis/credentials
@@ -29,7 +30,7 @@ export class SsoGoogleOAuthStrategy implements OnModuleInit {
 
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoService: SsoService,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,

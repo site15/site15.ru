@@ -1,4 +1,3 @@
-import { SSO_FEATURE, SSO_FOLDER, SsoPrismaSdk } from '@site15/sso';
 import { InfrastructureMarkdownReportGenerator, PROJECT_JSON_FILE } from '@nestjs-mod/common';
 import {
   DOCKER_COMPOSE_FILE,
@@ -8,13 +7,12 @@ import {
   DockerComposePostgreSQL,
   DockerComposeRedis,
 } from '@nestjs-mod/docker-compose';
-import { NOTIFICATIONS_FEATURE, NOTIFICATIONS_FOLDER } from '@nestjs-mod/notifications';
 import { PgFlyway } from '@nestjs-mod/pg-flyway';
 import { ECOSYSTEM_CONFIG_FILE, Pm2 } from '@nestjs-mod/pm2';
 import { PRISMA_SCHEMA_FILE, PrismaModule } from '@nestjs-mod/prisma';
-import { TWO_FACTOR_FEATURE, TWO_FACTOR_FOLDER } from '@nestjs-mod/two-factor';
-import { WEBHOOK_FEATURE, WEBHOOK_FOLDER } from '@nestjs-mod/webhook';
 import { PrismaPg } from '@prisma/adapter-pg';
+import { METRICS_FEATURE, METRICS_FOLDER, MetricsPrismaSdk } from '@site15/metrics';
+import { SSO_FEATURE, SSO_FOLDER, SsoPrismaSdk } from '@site15/sso';
 import { join } from 'path';
 import { appFolder, rootFolder } from './environments/environment';
 export const INFRASTRUCTURE_MODULE_IMPORTS = [
@@ -83,6 +81,25 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
       previewFeatures: ['queryCompiler', 'driverAdapters'],
       moduleFormat: 'cjs',
       output: join(rootFolder, SSO_FOLDER, 'src', 'lib', 'generated', 'prisma-client'),
+    },
+  }),
+  PrismaModule.forRoot({
+    contextName: METRICS_FEATURE,
+    staticConfiguration: {
+      featureName: METRICS_FEATURE,
+      schemaFile: join(rootFolder, METRICS_FOLDER, 'src', 'prisma', PRISMA_SCHEMA_FILE),
+      nxProjectJsonFile: join(rootFolder, METRICS_FOLDER, PROJECT_JSON_FILE),
+
+      provider: 'prisma-client',
+      prismaClientFactory: async (options) => {
+        const { url, ...otherOoptions } = options;
+        const adapter = new PrismaPg({ connectionString: url });
+        return new MetricsPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
+      },
+      addMigrationScripts: false,
+      previewFeatures: ['queryCompiler', 'driverAdapters'],
+      moduleFormat: 'cjs',
+      output: join(rootFolder, METRICS_FOLDER, 'src', 'lib', 'generated', 'prisma-client'),
     },
   }),
 ];

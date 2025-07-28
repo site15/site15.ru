@@ -1,15 +1,16 @@
 import { KeyvService } from '@nestjs-mod/keyv';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, SsoTenant, SsoRefreshSession, SsoUser } from '../generated/prisma-client';
+import { SsoRefreshSession, SsoTenant, SsoUser } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 
 @Injectable()
 export class SsoCacheService {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly keyvService: KeyvService,
   ) {}

@@ -18,6 +18,7 @@ import { notificationsModuleForRootAsyncOptions } from './integrations/notificat
 import { ssoModuleForRootAsyncOptions } from './integrations/sso-integration.configuration';
 import { terminusHealthCheckModuleForRootAsyncOptions } from './integrations/terminus-health-check-integration.configuration';
 import { webhookModuleForRootAsyncOptions } from './integrations/webhook-integration.configuration';
+import { MetricsModule } from '@site15/metrics';
 
 export const FEATURE_MODULE_IMPORTS = [
   NestjsPinoLoggerModule.forRoot(),
@@ -63,6 +64,7 @@ export const FEATURE_MODULE_IMPORTS = [
   }),
   NotificationsModule.forRootAsync(notificationsModuleForRootAsyncOptions()),
   WebhookModule.forRootAsync(webhookModuleForRootAsyncOptions()),
+  MetricsModule.forRoot(),
   SsoModule.forRootAsync(ssoModuleForRootAsyncOptions()),
   AppModule.forRoot(),
 ];

@@ -1,17 +1,17 @@
-import { WebhookService } from '@nestjs-mod/webhook';
 import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { StatusResponse } from '@nestjs-mod/swagger';
 import { ValidationError } from '@nestjs-mod/validation';
+import { WebhookService } from '@nestjs-mod/webhook';
 import { Body, Controller, Get, Logger, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { randomUUID } from 'crypto';
 import { omit } from 'lodash/fp';
+import { Prisma } from '../generated/prisma-client';
 import { SsoUserDto } from '../generated/rest/dto/sso-user.dto';
 import { UpdateSsoUserDto } from '../generated/rest/dto/update-sso-user.dto';
-import { Prisma, PrismaClient } from '../generated/prisma-client';
 import { SsoCacheService } from '../services/sso-cache.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SsoPasswordService } from '../services/sso-password.service';
@@ -20,6 +20,7 @@ import { OperationName } from '../sso.configuration';
 import { SSO_FEATURE } from '../sso.constants';
 import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { FindManySsoUserArgs } from '../types/find-many-sso-user-args';
 import { FindManySsoUserResponse } from '../types/find-many-sso-user-response';
 import { SendInvitationLinksArgs } from '../types/send-invitation-links.dto';
@@ -37,7 +38,7 @@ export class SsoUsersController {
 
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoPasswordService: SsoPasswordService,
     private readonly ssoCacheService: SsoCacheService,

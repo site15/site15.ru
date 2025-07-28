@@ -5,9 +5,10 @@ import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
-import { Prisma, PrismaClient } from '../generated/prisma-client';
+import { Prisma } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { AllowEmptySsoUser } from '../sso.decorators';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { FindManySsoPublicTenantResponse } from '../types/find-many-sso-public-tenant-response';
 
 @ApiTags('Sso')
@@ -16,7 +17,7 @@ import { FindManySsoPublicTenantResponse } from '../types/find-many-sso-public-t
 export class SsoPublicTenantsController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
   ) {}
 

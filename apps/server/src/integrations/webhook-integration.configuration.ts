@@ -1,6 +1,6 @@
-import { CheckSsoRole, SSO_FEATURE, SsoGuard, SsoModule, SsoRole } from '@site15/sso';
-import { WEBHOOK_FEATURE, WebhookModule } from '@nestjs-mod/webhook';
 import { PrismaModule } from '@nestjs-mod/prisma';
+import { WEBHOOK_FEATURE, WebhookModule } from '@nestjs-mod/webhook';
+import { SSO_FEATURE, SsoModule } from '@site15/sso';
 import { TranslatesModule } from 'nestjs-translates';
 
 export function webhookModuleForRootAsyncOptions(): Parameters<typeof WebhookModule.forRootAsync>[0] {
@@ -15,13 +15,6 @@ export function webhookModuleForRootAsyncOptions(): Parameters<typeof WebhookMod
       }),
       TranslatesModule,
     ],
-    staticConfiguration: {
-      guards: [SsoGuard],
-      mutateController: (ctrl) => {
-        CheckSsoRole([SsoRole.user, SsoRole.admin, SsoRole.manager])(ctrl);
-        return ctrl;
-      },
-    },
     configuration: {
       syncMode: false,
     },

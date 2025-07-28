@@ -6,16 +6,17 @@ import { ValidationError } from '@nestjs-mod/validation';
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
-import { CurrentLocale, SkipTranslate, TranslatesService } from 'nestjs-translates';
+import { InjectTranslateFunction, SkipTranslate, TranslateFunction, TranslatesService } from 'nestjs-translates';
+import { Prisma } from '../generated/prisma-client';
 import { CreateSsoTenantDto } from '../generated/rest/dto/create-sso-tenant.dto';
 import { SsoTenantDto } from '../generated/rest/dto/sso-tenant.dto';
 import { UpdateSsoTenantDto } from '../generated/rest/dto/update-sso-tenant.dto';
-import { Prisma, PrismaClient } from '../generated/prisma-client';
 import { SsoCacheService } from '../services/sso-cache.service';
 import { SsoTemplatesService } from '../services/sso-templates.service';
 import { SSO_FEATURE } from '../sso.constants';
 import { CheckSsoRole } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { FindManySsoTenantResponse } from '../types/find-many-sso-tenant-response';
 import { SsoRole } from '../types/sso-role';
 
@@ -29,7 +30,7 @@ import { SsoRole } from '../types/sso-role';
 export class SsoTenantsController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly translatesService: TranslatesService,
     private readonly ssoCacheService: SsoCacheService,
@@ -150,17 +151,13 @@ export class SsoTenantsController {
 
   @Delete(':id')
   @ApiOkResponse({ type: StatusResponse })
-  async deleteOne(
-    @Param('id', new ParseUUIDPipe()) id: string,
-    // todo: change to InjectTranslateFunction, after write all posts
-    @CurrentLocale() locale: string,
-  ) {
+  async deleteOne(@Param('id', new ParseUUIDPipe()) id: string, @InjectTranslateFunction() getText: TranslateFunction) {
     await this.prismaClient.ssoTenant.delete({
       where: {
         id,
       },
     });
-    return { message: this.translatesService.translate('ok', locale) };
+    return { message: getText('ok') };
   }
 
   @Get(':id')

@@ -1,19 +1,19 @@
-import { WebhookService } from '@nestjs-mod/webhook';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
+import { WebhookService } from '@nestjs-mod/webhook';
 import { Body, Controller, Get, HttpCode, HttpStatus, Logger, Post, Res } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { omit } from 'lodash/fp';
 import { IpAddress } from '../decorators/ip-address.decorator';
 import { UserAgent } from '../decorators/user-agent.decorator';
-import { PrismaClient } from '../generated/prisma-client';
 import { SsoCookieService } from '../services/sso-cookie.service';
 import { SsoEventsService } from '../services/sso-events.service';
 import { SSO_FEATURE } from '../sso.constants';
 import { AllowEmptySsoUser, CurrentSsoRequest } from '../sso.decorators';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { OAuthProvider } from '../types/sso-oauth-provider.dto';
 import { SsoOAuthVerificationArgs } from '../types/sso-oauth-verification.dto';
 import { SsoRequest } from '../types/sso-request';
@@ -28,7 +28,7 @@ export class SsoOAuthController {
 
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly ssoCookieService: SsoCookieService,
     private readonly ssoEventsService: SsoEventsService,
     private readonly webhookService: WebhookService,

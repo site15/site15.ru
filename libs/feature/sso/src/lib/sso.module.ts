@@ -3,17 +3,16 @@ import { KeyvModule } from '@nestjs-mod/keyv';
 import { PrismaModule } from '@nestjs-mod/prisma';
 import { PrismaToolsModule } from '@nestjs-mod/prisma-tools';
 import { WebhookModule } from '@nestjs-mod/webhook';
-import { UseGuards } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { TranslatesModule } from 'nestjs-translates';
 import { SsoEmailTemplatesController } from './controllers/sso-email-templates.controller';
 import { SsoOAuthController } from './controllers/sso-oauth.controller';
-import { SsoTenantsController } from './controllers/sso-tenants.controller';
 import { SsoPublicTenantsController } from './controllers/sso-public-tenants.controller';
 import { SsoRolesController } from './controllers/sso-roles.controller';
 import { SsoRefreshSessionsController } from './controllers/sso-sessions.controller';
+import { SsoTenantsController } from './controllers/sso-tenants.controller';
 import { SsoUsersController } from './controllers/sso-users.controller';
 import { SsoController } from './controllers/sso.controller';
 import { SsoTimezoneInterceptor } from './interceptors/sso-timezone.interceptor';
@@ -23,13 +22,13 @@ import { SsoCacheService } from './services/sso-cache.service';
 import { SsoCookieService } from './services/sso-cookie.service';
 import { SsoEventsService } from './services/sso-events.service';
 import { SsoPasswordService } from './services/sso-password.service';
-import { SsoTenantService } from './services/sso-tenant.service';
 import { SsoTemplatesService } from './services/sso-templates.service';
+import { SsoTenantService } from './services/sso-tenant.service';
 import { SsoTimezoneService } from './services/sso-timezone.service';
 import { SsoTokensService } from './services/sso-tokens.service';
 import { SsoUsersService } from './services/sso-users.service';
 import { SsoService } from './services/sso.service';
-import { SsoConfiguration, SsoStaticConfiguration } from './sso.configuration';
+import { SsoConfiguration } from './sso.configuration';
 import { SSO_FEATURE, SSO_MODULE } from './sso.constants';
 import { SsoStaticEnvironments } from './sso.environments';
 import { SsoExceptionsFilter } from './sso.filter';
@@ -44,7 +43,6 @@ export const { SsoModule } = createNestModule({
   moduleName: SSO_MODULE,
   moduleCategory: NestModuleCategory.feature,
   staticEnvironmentsModel: SsoStaticEnvironments,
-  staticConfigurationModel: SsoStaticConfiguration,
   configurationModel: SsoConfiguration,
   imports: [
     KeyvModule.forFeature({ featureModuleName: SSO_FEATURE }),
@@ -87,23 +85,17 @@ export const { SsoModule } = createNestModule({
     }),
     TranslatesModule,
   ],
-  controllers: (asyncModuleOptions) =>
-    [
-      SsoController,
-      SsoUsersController,
-      SsoTenantsController,
-      SsoRefreshSessionsController,
-      SsoRolesController,
-      SsoPublicTenantsController,
-      SsoEmailTemplatesController,
-      SsoOAuthController,
-      SsoGoogleOAuthController,
-    ].map((ctrl) => {
-      if (asyncModuleOptions.staticEnvironments?.useGuards) {
-        UseGuards(SsoGuard)(ctrl);
-      }
-      return ctrl;
-    }),
+  controllers: [
+    SsoController,
+    SsoUsersController,
+    SsoTenantsController,
+    SsoRefreshSessionsController,
+    SsoRolesController,
+    SsoPublicTenantsController,
+    SsoEmailTemplatesController,
+    SsoOAuthController,
+    SsoGoogleOAuthController,
+  ],
   providers: (asyncModuleOptions) => [
     SsoServiceBootstrap,
     SsoGoogleOAuthStrategy,
@@ -113,6 +105,7 @@ export const { SsoModule } = createNestModule({
     ...(asyncModuleOptions.staticEnvironments.useInterceptors
       ? [{ provide: APP_INTERCEPTOR, useClass: SsoTimezoneInterceptor }]
       : []),
+    ...(asyncModuleOptions.staticEnvironments.useGuards ? [{ provide: APP_GUARD, useClass: SsoGuard }] : []),
     ...(asyncModuleOptions.staticEnvironments.usePipes ? [{ provide: APP_PIPE, useClass: SsoTimezonePipe }] : []),
   ],
   sharedProviders: [

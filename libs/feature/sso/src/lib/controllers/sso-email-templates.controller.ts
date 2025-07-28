@@ -1,5 +1,3 @@
-import { FindManyArgs } from '@nestjs-mod/swagger';
-
 import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
@@ -9,16 +7,17 @@ import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swa
 import { isUUID } from 'class-validator';
 import { omit } from 'lodash/fp';
 import { SkipTranslate } from 'nestjs-translates';
+import { Prisma } from '../generated/prisma-client';
 import { SsoEmailTemplateDto } from '../generated/rest/dto/sso-email-template.dto';
 import { UpdateSsoEmailTemplateDto } from '../generated/rest/dto/update-sso-email-template.dto';
-import { Prisma, PrismaClient } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
 import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
+import { FindManySsoEmailTemplateArgs } from '../types/find-many-sso-email-template-args';
 import { FindManySsoEmailTemplateResponse } from '../types/find-many-sso-email-template-response';
 import { SsoRequest } from '../types/sso-request';
 import { SsoRole } from '../types/sso-role';
-import { FindManySsoEmailTemplateArgs } from '../types/find-many-sso-email-template-args';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
@@ -29,7 +28,7 @@ import { FindManySsoEmailTemplateArgs } from '../types/find-many-sso-email-templ
 export class SsoEmailTemplatesController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
   ) {}
 

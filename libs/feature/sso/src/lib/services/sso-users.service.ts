@@ -2,12 +2,12 @@ import { searchIn } from '@nestjs-mod/misc';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaClient } from '../generated/prisma-client';
 import { CreateSsoUserDto } from '../generated/rest/dto/create-sso-user.dto';
 import { SsoUser } from '../generated/rest/dto/sso-user.entity';
 import { SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { SsoCacheService } from './sso-cache.service';
 import { SsoPasswordService } from './sso-password.service';
 import { SsoTenantService } from './sso-tenant.service';
@@ -18,7 +18,7 @@ export class SsoUsersService {
 
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly ssoPasswordService: SsoPasswordService,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoCacheService: SsoCacheService,

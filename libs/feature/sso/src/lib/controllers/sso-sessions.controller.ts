@@ -5,13 +5,14 @@ import { ValidationError } from '@nestjs-mod/validation';
 import { Body, Controller, Get, Param, ParseUUIDPipe, Put, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
+import { Prisma } from '../generated/prisma-client';
 import { SsoRefreshSessionDto } from '../generated/rest/dto/sso-refresh-session.dto';
 import { UpdateSsoRefreshSessionDto } from '../generated/rest/dto/update-sso-refresh-session.dto';
-import { Prisma, PrismaClient } from '../generated/prisma-client';
 import { SsoCacheService } from '../services/sso-cache.service';
 import { SSO_FEATURE } from '../sso.constants';
 import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { FindManySsoRefreshSessionArgs } from '../types/find-many-sso-refresh-session-args';
 import { FindManySsoRefreshSessionResponse } from '../types/find-many-sso-refresh-session-response';
 import { SsoRequest } from '../types/sso-request';
@@ -25,7 +26,7 @@ import { SsoRole } from '../types/sso-role';
 export class SsoRefreshSessionsController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
     private readonly ssoCacheService: SsoCacheService,
   ) {}

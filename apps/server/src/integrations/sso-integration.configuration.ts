@@ -40,7 +40,9 @@ export class SsoIntegrationConfiguration implements SsoConfiguration {
       req.skipEmptySsoUser = true;
     }
 
-    req.externalTenantId = req.ssoTenant?.id;
+    if (req.ssoTenant?.id) {
+      req.externalTenantId = req.ssoTenant?.id;
+    }
 
     if (req?.ssoUser?.id) {
       req.externalUserId = req.ssoUser?.id;

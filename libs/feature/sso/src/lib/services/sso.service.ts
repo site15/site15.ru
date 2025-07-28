@@ -3,10 +3,11 @@ import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import ms from 'ms';
 import { TranslatesAsyncLocalStorageContext } from 'nestjs-translates';
-import { PrismaClient, SsoUser } from '../generated/prisma-client';
+import { SsoUser } from '../generated/prisma-client';
 import { OperationName, SsoConfiguration, SsoSendNotificationOptions } from '../sso.configuration';
 import { DEFAULT_EMAIL_TEMPLATE_BY_NAMES, SSO_FEATURE } from '../sso.constants';
 import { SsoStaticEnvironments } from '../sso.environments';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { CompleteForgotPasswordArgs, ForgotPasswordArgs } from '../types/forgot-password.dto';
 import { SignInArgs } from '../types/sign-in.dto';
 import { SignUpArgs } from '../types/sign-up.dto';
@@ -23,7 +24,7 @@ export class SsoService {
 
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoUsersService: SsoUsersService,

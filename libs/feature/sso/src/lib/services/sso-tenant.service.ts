@@ -6,8 +6,8 @@ import { SsoRequest } from '../types/sso-request';
 import { SsoCacheService } from './sso-cache.service';
 
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
-import { PrismaClient } from '../generated/prisma-client';
 import { SSO_FEATURE } from '../sso.constants';
+import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { SsoTemplatesService } from './sso-templates.service';
 @Injectable()
 export class SsoTenantService {
@@ -15,7 +15,7 @@ export class SsoTenantService {
 
   constructor(
     @InjectPrismaClient(SSO_FEATURE)
-    private readonly prismaClient: PrismaClient,
+    private readonly prismaClient: SsoPrismaSdk.PrismaClient,
     private readonly ssoConfiguration: SsoConfiguration,
     private readonly ssoStaticEnvironments: SsoStaticEnvironments,
     private readonly ssoCacheService: SsoCacheService,

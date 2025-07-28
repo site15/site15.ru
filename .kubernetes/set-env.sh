@@ -67,6 +67,20 @@ if [ -z "${SITE_15_SSO_DATABASE_NAME}" ]; then
     exit 1 # Exit with an error code
 fi
 
+# server: metrics database
+if [ -z "${SITE_15_METRICS_DATABASE_PASSWORD}" ]; then
+    echo "Error: SITE_15_METRICS_DATABASE_PASSWORD not set!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
+fi
+if [ -z "${SITE_15_METRICS_DATABASE_USERNAME}" ]; then
+    echo "Error: SITE_15_METRICS_DATABASE_USERNAME not set!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
+fi
+if [ -z "${SITE_15_METRICS_DATABASE_NAME}" ]; then
+    echo "Error: SITE_15_METRICS_DATABASE_NAME not set!" >&2 # Redirect error message to stderr
+    exit 1 # Exit with an error code
+fi
+
 # server: notifications database
 if [ -z "${SITE_15_NOTIFICATIONS_DATABASE_PASSWORD}" ]; then
     echo "Error: SITE_15_NOTIFICATIONS_DATABASE_PASSWORD not set!" >&2 # Redirect error message to stderr

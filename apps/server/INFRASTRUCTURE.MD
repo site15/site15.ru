@@ -14,10 +14,10 @@ Utilities for setting global application parameters, such as project name, descr
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`applicationPackageJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/apps/server/package.json```|
-|`packageJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/package.json```|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/apps/server/project.json```|
-|`envFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/.env```|
+|`applicationPackageJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/apps/server/package.json```|
+|`packageJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/package.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/apps/server/project.json```|
+|`envFile`|**optional**|```/home/endy/Projects/site15/site15.ru/.env```|
 
 ### DefaultNestApplicationInitializer
 Default NestJS application initializer.
@@ -176,13 +176,6 @@ Notifications module with an error filter, guard, controller, database migration
 |`mailDefaultSenderName`|`obj['mailDefaultSenderName']`, `process.env['SITE_15_NOTIFICATIONS_MAIL_DEFAULT_SENDER_NAME']`|**optional**|```Bot```|
 |`mailDefaultSenderEmail`|`obj['mailDefaultSenderEmail']`, `process.env['SITE_15_NOTIFICATIONS_MAIL_DEFAULT_SENDER_EMAIL']`|**optional**|```bot@site15.maildev```|
 
-#### Static configuration
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`guards`|**optional**|-|
-|`mutateController`|**optional**|```mutateController```|
-
 ### WebhookModule
 Webhook module with an error filter, guard, controller, database migrations and rest-sdk for work with module from other nodejs appliaction
 
@@ -202,13 +195,6 @@ Webhook module with an error filter, guard, controller, database migrations and 
 |`skipGuardErrors`|`obj['skipGuardErrors']`, `process.env['SITE_15_WEBHOOK_SKIP_GUARD_ERRORS']`|**optional**|```false```|
 |`cacheTTL`|`obj['cacheTTL']`, `process.env['SITE_15_WEBHOOK_CACHE_TTL']`|**optional**|```15000```|
 
-#### Static configuration
-
-| Key    | Constraints | Value |
-| ------ | ----------- | ----- |
-|`guards`|**optional**|-|
-|`mutateController`|**optional**|```mutateController```|
-
 #### Modules that use feature configuration
 ##### Feature module name: files
 
@@ -221,14 +207,31 @@ Webhook module with an error filter, guard, controller, database migrations and 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-07-17T07:46:38.040Z","updatedAt":"2025-07-17T07:46:38.040Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-07-17T07:46:38.040Z","updatedAt":"2025-07-17T07:46:38.040Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-07-17T07:46:38.040Z","updatedAt":"2025-07-17T07:46:38.040Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-07-17T07:46:38.040Z","updatedAt":"2025-07-17T07:46:38.040Z"}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-07-28T08:09:10.246Z","updatedAt":"2025-07-28T08:09:10.246Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-07-28T08:09:10.246Z","updatedAt":"2025-07-28T08:09:10.246Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-07-28T08:09:10.246Z","updatedAt":"2025-07-28T08:09:10.246Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-07-28T08:09:10.246Z","updatedAt":"2025-07-28T08:09:10.246Z"}}``` ]|
 
 #### Modules that use feature configuration
 ##### Feature module name: sso
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-17T07:46:38.563Z","createdAt":"2025-07-17T07:46:38.563Z","email":"user@example.com","emailVerifiedAt":"2025-07-17T07:46:38.563Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-17T07:46:38.563Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-17T07:46:38.563Z","roles":"user","updatedAt":"2025-07-17T07:46:38.563Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-17T07:46:38.563Z","createdAt":"2025-07-17T07:46:38.563Z","email":"user@example.com","emailVerifiedAt":"2025-07-17T07:46:38.563Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-17T07:46:38.563Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-17T07:46:38.563Z","roles":"user","updatedAt":"2025-07-17T07:46:38.563Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-17T07:46:38.563Z","createdAt":"2025-07-17T07:46:38.563Z","email":"user@example.com","emailVerifiedAt":"2025-07-17T07:46:38.563Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-17T07:46:38.563Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-17T07:46:38.563Z","roles":"user","updatedAt":"2025-07-17T07:46:38.563Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-17T07:46:38.563Z","createdAt":"2025-07-17T07:46:38.563Z","email":"user@example.com","emailVerifiedAt":"2025-07-17T07:46:38.563Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-17T07:46:38.563Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-17T07:46:38.563Z","roles":"user","updatedAt":"2025-07-17T07:46:38.563Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-17T07:46:38.563Z","createdAt":"2025-07-17T07:46:38.563Z","email":"user@example.com","emailVerifiedAt":"2025-07-17T07:46:38.563Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-17T07:46:38.563Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-17T07:46:38.563Z","roles":"user","updatedAt":"2025-07-17T07:46:38.563Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-17T07:46:38.563Z","createdAt":"2025-07-17T07:46:38.563Z","email":"user@example.com","emailVerifiedAt":"2025-07-17T07:46:38.563Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-17T07:46:38.563Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-17T07:46:38.563Z","roles":"user","updatedAt":"2025-07-17T07:46:38.563Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-17T07:46:38.563Z","createdAt":"2025-07-17T07:46:38.563Z","email":"user@example.com","emailVerifiedAt":"2025-07-17T07:46:38.563Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-17T07:46:38.563Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-17T07:46:38.563Z","roles":"user","updatedAt":"2025-07-17T07:46:38.563Z","username":"nickname","lang":"en","timezone":0}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-28T08:09:10.820Z","createdAt":"2025-07-28T08:09:10.820Z","email":"user@example.com","emailVerifiedAt":"2025-07-28T08:09:10.820Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-28T08:09:10.820Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-28T08:09:10.820Z","roles":"user","updatedAt":"2025-07-28T08:09:10.820Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-28T08:09:10.820Z","createdAt":"2025-07-28T08:09:10.820Z","email":"user@example.com","emailVerifiedAt":"2025-07-28T08:09:10.820Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-28T08:09:10.820Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-28T08:09:10.820Z","roles":"user","updatedAt":"2025-07-28T08:09:10.820Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-28T08:09:10.820Z","createdAt":"2025-07-28T08:09:10.820Z","email":"user@example.com","emailVerifiedAt":"2025-07-28T08:09:10.820Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-28T08:09:10.820Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-28T08:09:10.820Z","roles":"user","updatedAt":"2025-07-28T08:09:10.820Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-28T08:09:10.820Z","createdAt":"2025-07-28T08:09:10.820Z","email":"user@example.com","emailVerifiedAt":"2025-07-28T08:09:10.820Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-28T08:09:10.820Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-28T08:09:10.820Z","roles":"user","updatedAt":"2025-07-28T08:09:10.820Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-28T08:09:10.820Z","createdAt":"2025-07-28T08:09:10.820Z","email":"user@example.com","emailVerifiedAt":"2025-07-28T08:09:10.820Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-28T08:09:10.820Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-28T08:09:10.820Z","roles":"user","updatedAt":"2025-07-28T08:09:10.820Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-28T08:09:10.820Z","createdAt":"2025-07-28T08:09:10.820Z","email":"user@example.com","emailVerifiedAt":"2025-07-28T08:09:10.820Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-28T08:09:10.820Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-28T08:09:10.820Z","roles":"user","updatedAt":"2025-07-28T08:09:10.820Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-07-28T08:09:10.820Z","createdAt":"2025-07-28T08:09:10.820Z","email":"user@example.com","emailVerifiedAt":"2025-07-28T08:09:10.820Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-07-28T08:09:10.820Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-07-28T08:09:10.820Z","roles":"user","updatedAt":"2025-07-28T08:09:10.820Z","username":"nickname","lang":"en","timezone":0}}``` ]|
+
+### MetricsModule
+#### Shared providers
+`MetricsUsersService`, `MetricsToolsService`, `MetricsCacheService`
+
+#### Shared imports
+`KeyvModule`, `PrismaModule`, `PrismaToolsModule`, `TranslatesModule`
+
+#### Static environments
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`useGuards`|`obj['useGuards']`, `process.env['SITE_15_METRICS_USE_GUARDS']`|**optional**|```true```|
+|`useFilters`|`obj['useFilters']`, `process.env['SITE_15_METRICS_USE_FILTERS']`|**optional**|```true```|
+|`autoCreateUser`|`obj['autoCreateUser']`, `process.env['SITE_15_METRICS_AUTO_CREATE_USER']`|**optional**|```true```|
+|`skipGuardErrors`|`obj['skipGuardErrors']`, `process.env['SITE_15_METRICS_SKIP_GUARD_ERRORS']`|**optional**|```false```|
+|`cacheTTL`|`obj['cacheTTL']`, `process.env['SITE_15_METRICS_CACHE_TTL']`|**optional**|```15000```|
 
 ### SsoModule
 #### Shared providers
@@ -303,7 +306,7 @@ Production process manager for Node.JS applications with a built-in load balance
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/runner/work/site15.ru/site15.ru/ecosystem.config.json```|
+|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/endy/Projects/site15/site15.ru/ecosystem.config.json```|
 |`applicationScriptFile`|**isNotEmpty** (applicationScriptFile should not be empty)|```dist/apps/server/main.js```|
 
 ### DockerCompose
@@ -316,7 +319,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/runner/work/site15.ru/site15.ru/apps/server/docker-compose.yml```|
+|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/endy/Projects/site15/site15.ru/apps/server/docker-compose.yml```|
 
 #### Modules that use feature configuration
 ##### Feature module name: SITE_15_POSTGRE_SQL
@@ -367,8 +370,8 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -415,13 +418,13 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
+|`output`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
 |`provider`|**optional**|```prisma-client```|
 |`moduleFormat`|**optional**|```cjs```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 #### Environments(two-factor)
@@ -438,6 +441,104 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 |`provider`|**optional**|```prisma-client```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
+#### Environments(metrics)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SITE_15_METRICS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://metrics:metrics_password@localhost:5432/metrics?schema=public```|
+
+#### Static configuration(metrics)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```metrics```|
+|`provider`|**optional**|```prisma-client```|
+|`moduleFormat`|**optional**|```cjs```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+### PrismaModule
+Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
+
+#### Shared providers
+`PrismaClientFactoryService`, `PrismaClient`
+
+#### Environments(webhook)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SITE_15_WEBHOOK_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://webhook:webhook_password@localhost:5432/webhook?schema=public```|
+
+#### Static configuration(webhook)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```webhook```|
+|`provider`|**optional**|```prisma-client```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(notifications)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SITE_15_NOTIFICATIONS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://notifications:notifications_password@localhost:5432/notifications```|
+
+#### Static configuration(notifications)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```notifications```|
+|`provider`|**optional**|```prisma-client```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(sso)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SITE_15_SSO_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://sso:sso_password@localhost:5432/sso?schema=public```|
+
+#### Static configuration(sso)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```sso```|
+|`schemaFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
+|`addMigrationScripts`|**optional**|```false```|
+|`output`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
+|`provider`|**optional**|```prisma-client```|
+|`moduleFormat`|**optional**|```cjs```|
+|`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(two-factor)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SITE_15_TWO_FACTOR_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://two_factor:two_factor_password@localhost:5432/two-factor```|
+
+#### Static configuration(two-factor)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```two-factor```|
+|`provider`|**optional**|```prisma-client```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
+#### Environments(metrics)
+
+| Key    | Sources | Constraints | Value |
+| ------ | ------- | ----------- | ----- |
+|`databaseUrl`|`obj['databaseUrl']`, `process.env['SITE_15_METRICS_DATABASE_URL']`|**isNotEmpty** (databaseUrl should not be empty)|```postgres://metrics:metrics_password@localhost:5432/metrics?schema=public```|
+
+#### Static configuration(metrics)
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`featureName`|**optional**|```metrics```|
+|`provider`|**optional**|```prisma-client```|
+|`moduleFormat`|**optional**|```cjs```|
+|`prismaClientFactory`|**optional**|```prismaClientFactory```|
+
 ### InfrastructureMarkdownReportGenerator
 Infrastructure markdown report generator.
 
@@ -448,7 +549,7 @@ Infrastructure markdown report generator.
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`markdownFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/apps/server/INFRASTRUCTURE.MD```|
+|`markdownFile`|**optional**|```/home/endy/Projects/site15/site15.ru/apps/server/INFRASTRUCTURE.MD```|
 |`skipEmptySettings`|**optional**|```true```|
 |`style`|**optional**|```pretty```|
 
@@ -472,7 +573,7 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
 
 #### Modules that use feature environments
 ##### Feature module name: sso

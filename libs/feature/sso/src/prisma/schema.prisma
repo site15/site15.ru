@@ -114,7 +114,6 @@ model SsoRefreshSession {
   SsoTenant    SsoTenant @relation(fields: [tenantId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_REFRESH_SESSIONS__TENANT_ID")
   SsoUser      SsoUser   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_SSO_REFRESH_SESSIONS__USER_ID")
 
-  @@unique([tenantId, userId, fingerprint], map: "UQ_SSO_REFRESH_SESSIONS")
   @@index([tenantId], map: "IDX_SSO_REFRESH_SESSIONS__TENANT_ID")
   @@index([tenantId, userId], map: "IDX_SSO_REFRESH_SESSIONS__USER_ID")
 }

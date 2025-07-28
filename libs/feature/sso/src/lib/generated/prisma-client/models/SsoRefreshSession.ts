@@ -253,7 +253,6 @@ export type SsoRefreshSessionOrderByWithRelationInput = {
 export type SsoRefreshSessionWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string;
-    tenantId_userId_fingerprint?: Prisma.SsoRefreshSessionTenantIdUserIdFingerprintCompoundUniqueInput;
     AND?: Prisma.SsoRefreshSessionWhereInput | Prisma.SsoRefreshSessionWhereInput[];
     OR?: Prisma.SsoRefreshSessionWhereInput[];
     NOT?: Prisma.SsoRefreshSessionWhereInput | Prisma.SsoRefreshSessionWhereInput[];
@@ -271,7 +270,7 @@ export type SsoRefreshSessionWhereUniqueInput = Prisma.AtLeast<
     SsoTenant?: Prisma.XOR<Prisma.SsoTenantScalarRelationFilter, Prisma.SsoTenantWhereInput>;
     SsoUser?: Prisma.XOR<Prisma.SsoUserScalarRelationFilter, Prisma.SsoUserWhereInput>;
   },
-  'id' | 'tenantId_userId_fingerprint'
+  'id'
 >;
 
 export type SsoRefreshSessionOrderByWithAggregationInput = {
@@ -425,12 +424,6 @@ export type SsoRefreshSessionListRelationFilter = {
 
 export type SsoRefreshSessionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder;
-};
-
-export type SsoRefreshSessionTenantIdUserIdFingerprintCompoundUniqueInput = {
-  tenantId: string;
-  userId: string;
-  fingerprint: string;
 };
 
 export type SsoRefreshSessionCountOrderByAggregateInput = {

@@ -37,6 +37,7 @@ if (!parsedEnvs.SITE_15_MINIO_SECRET_KEY) {
 // need for apply migrations to supabase
 parsedEnvs.SITE_15_ROOT_DATABASE_URL = postgresUrl;
 parsedEnvs.SITE_15_SSO_DATABASE_URL = postgresUrl;
+parsedEnvs.SITE_15_METRICS_DATABASE_URL = postgresUrl;
 parsedEnvs.SITE_15_WEBHOOK_DATABASE_URL = postgresUrl;
 parsedEnvs.SITE_15_NOTIFICATIONS_DATABASE_URL = postgresUrl;
 parsedEnvs.SITE_15_TWO_FACTOR_DATABASE_URL = postgresUrl;
