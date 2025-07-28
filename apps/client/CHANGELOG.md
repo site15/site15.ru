@@ -1,3 +1,9 @@
+# [1.4.0](https://github.com/site15/site15.ru/compare/client-v1.3.1...client-v1.4.0) (2025-07-28)
+
+### Features
+
+- add new metrics lib, and start fill it ([2196388](https://github.com/site15/site15.ru/commit/2196388b9e783921f365500fc81c68835389e598))
+
 ## [1.3.1](https://github.com/site15/site15.ru/compare/client-v1.3.0...client-v1.3.1) (2025-07-17)
 
 ### Bug Fixes
