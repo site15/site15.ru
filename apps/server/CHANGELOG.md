@@ -1,3 +1,9 @@
+## [1.4.1](https://github.com/site15/site15.ru/compare/server-v1.4.0...server-v1.4.1) (2025-07-29)
+
+### Bug Fixes
+
+- remove MetricsToolsService ([1d375cd](https://github.com/site15/site15.ru/commit/1d375cd0e4813239908fb69c93c0405f483b172f))
+
 # [1.4.0](https://github.com/site15/site15.ru/compare/server-v1.3.1...server-v1.4.0) (2025-07-28)
 
 ### Features
