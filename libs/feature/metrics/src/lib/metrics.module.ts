@@ -13,7 +13,6 @@ import { MetricsExceptionsFilter } from './metrics.filter';
 import { MetricsGuard } from './metrics.guard';
 import { MetricsPrismaSdk } from './metrics.prisma-sdk';
 import { MetricsCacheService } from './services/metrics-cache.service';
-import { MetricsToolsService } from './services/metrics-tools.service';
 import { MetricsUsersService } from './services/metrics-users.service';
 
 export const { MetricsModule } = createNestModule({
@@ -67,7 +66,7 @@ export const { MetricsModule } = createNestModule({
       ? [{ provide: APP_FILTER, useClass: MetricsExceptionsFilter }]
       : []),
   ],
-  sharedProviders: [MetricsUsersService, MetricsToolsService, MetricsCacheService],
+  sharedProviders: [MetricsUsersService, MetricsCacheService],
   wrapForRootAsync: (asyncModuleOptions) => {
     if (!asyncModuleOptions) {
       asyncModuleOptions = {};

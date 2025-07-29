@@ -39,7 +39,6 @@ export * from './lib/generated/rest/dto/update-metrics-github-user.dto';
 export * from './lib/generated/rest/dto/update-metrics-user.dto';
 export * from './lib/generated/rest/dto/update-migrations-metrics.dto';
 export * from './lib/services/metrics-cache.service';
-export * from './lib/services/metrics-tools.service';
 export * from './lib/services/metrics-users.service';
 export * from './lib/types/FindManyMetricsArgs';
 export * from './lib/types/FindManyMetricsGithubRepositoryResponse';

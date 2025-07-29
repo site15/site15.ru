@@ -15,7 +15,6 @@ import { METRICS_FEATURE } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
 import { MetricsPrismaSdk } from '../metrics.prisma-sdk';
-import { MetricsToolsService } from '../services/metrics-tools.service';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
 import { FindManyMetricsGithubRepositoryResponse } from '../types/FindManyMetricsGithubRepositoryResponse';
 
@@ -30,7 +29,6 @@ export class MetricsGithubRepositoryController {
     @InjectPrismaClient(METRICS_FEATURE)
     private readonly prismaClient: MetricsPrismaSdk.PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
-    private readonly metricsToolsService: MetricsToolsService,
   ) {}
 
   @Get()
@@ -72,10 +70,13 @@ export class MetricsGithubRepositoryController {
                   ],
                 }
               : {}),
-            ...this.metricsToolsService.externalTenantIdQuery(
-              metricsUser,
-              metricsUser.userRole === MetricsRole.Admin ? args.tenantId : externalTenantId,
-            ),
+
+            ...(metricsUser.userRole === MetricsRole.Admin
+              ? { externalTenantId: args.tenantId }
+              : {
+                  externalTenantId:
+                    metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+                }),
           },
           take,
           skip,
@@ -91,10 +92,12 @@ export class MetricsGithubRepositoryController {
                   ],
                 }
               : {}),
-            ...this.metricsToolsService.externalTenantIdQuery(
-              metricsUser,
-              metricsUser.userRole === MetricsRole.Admin ? args.tenantId : externalTenantId,
-            ),
+            ...(metricsUser.userRole === MetricsRole.Admin
+              ? { externalTenantId: args.tenantId }
+              : {
+                  externalTenantId:
+                    metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+                }),
           },
         }),
       };
@@ -121,7 +124,11 @@ export class MetricsGithubRepositoryController {
         ...args,
         MetricsUser_MetricsGithubRepository_createdByToMetricsUser: { connect: { id: metricsUser.id } },
         MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
-        ...this.metricsToolsService.externalTenantIdQuery(metricsUser, externalTenantId),
+        ...(metricsUser.userRole === MetricsRole.Admin
+          ? { externalTenantId }
+          : {
+              externalTenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+            }),
       },
     });
   }
@@ -142,10 +149,11 @@ export class MetricsGithubRepositoryController {
       },
       where: {
         id,
-        ...this.metricsToolsService.externalTenantIdQuery(
-          metricsUser,
-          metricsUser.userRole === MetricsRole.Admin ? undefined : externalTenantId,
-        ),
+        ...(metricsUser.userRole === MetricsRole.Admin
+          ? {}
+          : {
+              externalTenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+            }),
       },
     });
   }
@@ -161,10 +169,11 @@ export class MetricsGithubRepositoryController {
     await this.prismaClient.metricsGithubRepository.delete({
       where: {
         id,
-        ...this.metricsToolsService.externalTenantIdQuery(
-          metricsUser,
-          metricsUser.userRole === MetricsRole.Admin ? undefined : externalTenantId,
-        ),
+        ...(metricsUser.userRole === MetricsRole.Admin
+          ? {}
+          : {
+              externalTenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+            }),
       },
     });
     return { message: getText('ok') };
@@ -180,10 +189,12 @@ export class MetricsGithubRepositoryController {
     return await this.prismaClient.metricsGithubRepository.findFirstOrThrow({
       where: {
         id,
-        ...this.metricsToolsService.externalTenantIdQuery(
-          metricsUser,
-          metricsUser.userRole === MetricsRole.Admin ? undefined : externalTenantId,
-        ),
+
+        ...(metricsUser.userRole === MetricsRole.Admin
+          ? {}
+          : {
+              externalTenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+            }),
       },
     });
   }
