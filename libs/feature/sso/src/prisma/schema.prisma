@@ -14,7 +14,7 @@ datasource db {
   url               = env("SITE_15_SSO_DATABASE_URL")
 }
 generator prismaClassGenerator {
-  provider                        = "prisma-generator-nestjs-dto"
+  provider                        = "npm run generator"
   output                          = "../lib/generated/rest/dto"
   annotateAllDtoProperties        = "true"
   classValidation                 = "true"

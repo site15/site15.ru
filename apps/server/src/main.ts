@@ -3,11 +3,6 @@ process.env.TZ = 'UTC';
 (BigInt.prototype as any).toJSON = function () {
   return this.toString();
 };
-import { FILES_EXTRA_MODELS } from '@nestjs-mod/files';
-import { NOTIFICATIONS_EXTRA_MODELS } from '@nestjs-mod/notifications';
-import { SSO_EXTRA_MODELS } from '@site15/sso';
-import { VALIDATION_EXTRA_MODELS } from '@nestjs-mod/validation';
-import { WEBHOOK_EXTRA_MODELS } from '@nestjs-mod/webhook';
 import {
   bootstrapNestApplication,
   DefaultNestApplicationInitializer,
@@ -17,9 +12,15 @@ import {
   PROJECT_JSON_FILE,
   ProjectUtils,
 } from '@nestjs-mod/common';
+import { FILES_EXTRA_MODELS } from '@nestjs-mod/files';
+import { NOTIFICATIONS_EXTRA_MODELS } from '@nestjs-mod/notifications';
+import { VALIDATION_EXTRA_MODELS } from '@nestjs-mod/validation';
+import { WEBHOOK_EXTRA_MODELS } from '@nestjs-mod/webhook';
 import { NestFactory } from '@nestjs/core';
 import { WsAdapter } from '@nestjs/platform-ws';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { METRICS_EXTRA_MODELS } from '@site15/metrics';
+import { SSO_EXTRA_MODELS } from '@site15/sso';
 import cookieParser from 'cookie-parser';
 import { writeFileSync } from 'fs';
 import { Logger } from 'nestjs-pino';
@@ -71,6 +72,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
         ...SSO_EXTRA_MODELS,
         ...VALIDATION_EXTRA_MODELS,
         ...WEBHOOK_EXTRA_MODELS,
+        ...METRICS_EXTRA_MODELS,
       ],
     });
     SwaggerModule.setup('swagger', app, document);
@@ -132,6 +134,7 @@ if (!isInfrastructureMode() && process.env.APP_TYPE === 'nestjs') {
                     ...SSO_EXTRA_MODELS,
                     ...VALIDATION_EXTRA_MODELS,
                     ...WEBHOOK_EXTRA_MODELS,
+                    ...METRICS_EXTRA_MODELS,
                   ],
                 });
                 SwaggerModule.setup('swagger', options.app, document);

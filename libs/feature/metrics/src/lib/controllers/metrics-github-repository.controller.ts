@@ -7,14 +7,13 @@ import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query }
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
-import { MetricsRole, MetricsUser, Prisma } from '../generated/prisma-client';
+import { MetricsRole, MetricsUser, Prisma, PrismaClient } from '../generated/prisma-client';
 import { CreateMetricsGithubRepositoryDto } from '../generated/rest/dto/create-metrics-github-repository.dto';
 import { MetricsGithubRepositoryDto } from '../generated/rest/dto/metrics-github-repository.dto';
 import { UpdateMetricsGithubRepositoryDto } from '../generated/rest/dto/update-metrics-github-repository.dto';
 import { METRICS_FEATURE } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
-import { MetricsPrismaSdk } from '../metrics.prisma-sdk';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
 import { FindManyMetricsGithubRepositoryResponse } from '../types/FindManyMetricsGithubRepositoryResponse';
 
@@ -27,7 +26,7 @@ import { FindManyMetricsGithubRepositoryResponse } from '../types/FindManyMetric
 export class MetricsGithubRepositoryController {
   constructor(
     @InjectPrismaClient(METRICS_FEATURE)
-    private readonly prismaClient: MetricsPrismaSdk.PrismaClient,
+    private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
   ) {}
 
