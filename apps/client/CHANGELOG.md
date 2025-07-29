@@ -1,3 +1,9 @@
+# [1.5.0](https://github.com/site15/site15.ru/compare/client-v1.4.0...client-v1.5.0) (2025-07-29)
+
+### Features
+
+- copy source code prisma-generator-nestjs-dto to current repository for future features ([53c4ba6](https://github.com/site15/site15.ru/commit/53c4ba6806c8b3ebf1e65c60d38ad49e501a918d))
+
 # [1.4.0](https://github.com/site15/site15.ru/compare/client-v1.3.1...client-v1.4.0) (2025-07-28)
 
 ### Features
