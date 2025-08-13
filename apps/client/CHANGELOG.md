@@ -1,3 +1,9 @@
+## [1.5.1](https://github.com/site15/site15.ru/compare/client-v1.5.0...client-v1.5.1) (2025-08-13)
+
+### Bug Fixes
+
+- update deps ([ef58ce1](https://github.com/site15/site15.ru/commit/ef58ce10b9a485e3f255f9690b6708fa5fc7d11e))
+
 # [1.5.0](https://github.com/site15/site15.ru/compare/client-v1.4.0...client-v1.5.0) (2025-07-29)
 
 ### Features
