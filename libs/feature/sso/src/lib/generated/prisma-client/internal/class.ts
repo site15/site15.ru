@@ -69,12 +69,14 @@ config.runtimeDataModel = JSON.parse(
 );
 config.engineWasm = undefined;
 config.compilerWasm = {
-  getRuntime: async () => await import('@prisma/client/runtime/query_compiler_bg.postgresql.mjs'),
+  getRuntime: async () => await import('node_modules/@prisma/client/runtime/query_compiler_bg.postgresql.mjs'),
 
   getQueryCompilerWasmModule: async () => {
     const { readFile } = await import('node:fs/promises');
 
-    const wasmModulePath = require.resolve('@prisma/client/runtime/query_compiler_bg.postgresql.wasm');
+    const wasmModulePath = (await import('node:path')).resolve(
+      'node_modules/@prisma/client/runtime/query_compiler_bg.postgresql.wasm',
+    );
     const wasmModuleBytes = await readFile(wasmModulePath);
 
     return new globalThis.WebAssembly.Module(wasmModuleBytes);
