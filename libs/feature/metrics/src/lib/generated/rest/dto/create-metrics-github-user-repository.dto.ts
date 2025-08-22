@@ -8,10 +8,4 @@ export class CreateMetricsGithubUserRepositoryDto {
   @IsNotEmpty()
   @IsString()
   role!: string;
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  tenantId!: string;
 }

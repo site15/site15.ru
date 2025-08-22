@@ -9,6 +9,7 @@
       @if ([SsoRoleInterface.manager, SsoRoleInterface.admin] | checkUserRoles | async) {
         <li nz-menu-item routerLink="/webhooks" transloco="Webhooks"></li>
         <li nz-menu-item routerLink="/templates" transloco="Templates"></li>
+        <li nz-menu-item routerLink="/metrics" transloco="Metrics"></li>
         <li nz-menu-item routerLink="/users" transloco="Users"></li>
       }
       @if ([SsoRoleInterface.admin] | checkUserRoles | async) {

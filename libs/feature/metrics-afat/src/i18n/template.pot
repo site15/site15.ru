@@ -1,0 +1,534 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"mime-version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgid "input search text"
+msgstr "input search text"
+
+msgid "Create new"
+msgstr "Create new"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Create"
+msgstr "Create"
+
+msgid "metrics-github-repository.form.fields.name"
+msgstr "metrics-github-repository.form.fields.name"
+
+msgid "metrics-github-repository.form.fields.owner"
+msgstr "metrics-github-repository.form.fields.owner"
+
+msgid "metrics-github-repository.form.fields.private"
+msgstr "metrics-github-repository.form.fields.private"
+
+msgid "metrics-github-repository.form.fields.fork"
+msgstr "metrics-github-repository.form.fields.fork"
+
+msgid "metrics-github-repository.update-modal.title"
+msgstr "metrics-github-repository.update-modal.title"
+
+msgid "metrics-github-repository.create-modal.title"
+msgstr "metrics-github-repository.create-modal.title"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "metrics-github-repository.delete-modal.title"
+msgstr "metrics-github-repository.delete-modal.title"
+
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "metrics-github-repository.grid.columns.id"
+msgstr "metrics-github-repository.grid.columns.id"
+
+msgid "metrics-github-repository.grid.columns.name"
+msgstr "metrics-github-repository.grid.columns.name"
+
+msgid "metrics-github-repository.grid.columns.owner"
+msgstr "metrics-github-repository.grid.columns.owner"
+
+msgid "metrics-github-repository.grid.columns.fork"
+msgstr "metrics-github-repository.grid.columns.fork"
+
+msgid "metrics-github-repository.grid.columns.private"
+msgstr "metrics-github-repository.grid.columns.private"
+
+msgid "Success"
+msgstr "Success"
+
+msgid "id not set"
+msgstr "ID not set"
+
+msgid "Users for tenant #{{tenantId}}"
+msgstr "Users for tenant #{{tenantId}}"
+
+msgid "select tenant"
+msgstr "select tenant"
+
+msgid "Loading..."
+msgstr "Loading..."
+
+msgid "Invite Members"
+msgstr "Invite Members"
+
+msgid "Sessions for user #{{userId}}"
+msgstr "Sessions for user #{{userId}}"
+
+msgid "Email templates"
+msgstr "Email templates"
+
+msgid "Send invitation links"
+msgstr "Send invitation links"
+
+msgid "Sign-up"
+msgstr "Sign up"
+
+msgid "Forgot password?"
+msgstr "Forgot password?"
+
+msgid "Sign-in"
+msgstr "Sign in"
+
+msgid "or"
+msgstr "or"
+
+msgid "Sign in with Google"
+msgstr "Sign in with Google"
+
+msgid "Reset password"
+msgstr "Reset password"
+
+msgid "Change password"
+msgstr "Change password"
+
+msgid "metrics-user.form.fields.app-data"
+msgstr "Additional data"
+
+msgid "metrics-user.form.fields.birthdate"
+msgstr "Birth date"
+
+msgid "metrics-user.form.fields.email"
+msgstr "Email"
+
+msgid "metrics-user.form.fields.email-verified-at"
+msgstr "Email verified at"
+
+msgid "metrics-user.form.fields.firstname"
+msgstr "First name"
+
+msgid "metrics-user.form.fields.gender"
+msgstr "Gender"
+
+msgid "Male"
+msgstr "Male"
+
+msgid "Female"
+msgstr "Female"
+
+msgid "metrics-user.form.fields.lastname"
+msgstr "Last name"
+
+msgid "metrics-user.form.fields.phone"
+msgstr "Phone"
+
+msgid "metrics-user.form.fields.phone-verified-at"
+msgstr "Phone verified at"
+
+msgid "metrics-user.form.fields.picture"
+msgstr "Picture"
+
+msgid "metrics-user.form.fields.revoked-at"
+msgstr "Revoked at"
+
+msgid "metrics-user.form.fields.roles"
+msgstr "Roles"
+
+msgid "metrics-user.form.fields.username"
+msgstr "Username"
+
+msgid "metrics-tenant.form.fields.name-locale"
+msgstr "Name ({{locale}})"
+
+msgid "metrics-tenant.form.fields.client-id"
+msgstr "Client id"
+
+msgid "metrics-tenant.form.fields.client-secret"
+msgstr "Client secret"
+
+msgid "metrics-tenant.form.fields.public"
+msgstr "Public"
+
+msgid "metrics-tenant.form.fields.slug"
+msgstr "Subdomain"
+
+msgid "metrics-tenant.form.fields.enabled"
+msgstr "Enabled"
+
+msgid "metrics-session.form.fields.enabled"
+msgstr "Enabled"
+
+msgid "metrics-session.form.fields.expires-at"
+msgstr "Expires at"
+
+msgid "metrics-session.form.fields.fingerprint"
+msgstr "Fingerprint"
+
+msgid "metrics-session.form.fields.user-agent"
+msgstr "User agent"
+
+msgid "metrics-session.form.fields.user-data"
+msgstr "User data"
+
+msgid "metrics-session.form.fields.user-ip"
+msgstr "IP address"
+
+msgid "metrics-email-template.form.fields.operation-name"
+msgstr "Operation name"
+
+msgid "metrics-email-template.form.fields.subject-locale"
+msgstr "Subject ({{locale}})"
+
+msgid "metrics-email-template.form.fields.html-locale"
+msgstr "In html format ({{locale}})"
+
+msgid "metrics-email-template.form.fields.text-locale"
+msgstr "In text format ({{locale}})"
+
+msgid "metrics.sign-up-form.fields.email"
+msgstr "Email"
+
+msgid "metrics.sign-up-form.fields.password"
+msgstr "Password"
+
+msgid "metrics.sign-up-form.fields.confirm-password"
+msgstr "Confirm password"
+
+msgid "metrics.sign-in-form.fields.email"
+msgstr "Email"
+
+msgid "metrics.sign-in-form.fields.password"
+msgstr "Password"
+
+msgid "metrics.profile-form.fields.picture"
+msgstr "Picture"
+
+msgid "metrics.profile-form.fields.old-password"
+msgstr "Old password"
+
+msgid "metrics.profile-form.fields.new-password"
+msgstr "New password"
+
+msgid "metrics.profile-form.fields.confirm-new-password"
+msgstr "Confirm new password"
+
+msgid "metrics.sign-in-form.fields.timezone"
+msgstr "Timezone"
+
+msgid "UTC−12:00: Date Line (west)"
+msgstr "UTC−12:00: Date Line (west)"
+
+msgid "UTC−11:00: Niue, Samoa"
+msgstr "UTC−11:00: Niue, Samoa"
+
+msgid "UTC−10:00: Hawaii-Aleutian Islands"
+msgstr "UTC−10:00: Hawaii-Aleutian Islands"
+
+msgid "UTC−09:30: Marquesas Islands"
+msgstr "UTC−09:30: Marquesas Islands"
+
+msgid "UTC−09:00: Alaska"
+msgstr "UTC−09:00: Alaska"
+
+msgid "UTC−08:00: Pacific Time (US & Canada)"
+msgstr "UTC−08:00: Pacific Time (US & Canada)"
+
+msgid "UTC−07:00: Mountain Time (US & Canada)"
+msgstr "UTC−07:00: Mountain Time (US & Canada)"
+
+msgid "UTC−06:00: Central Time (US & Canada), Mexico"
+msgstr "UTC−06:00: Central Time (US & Canada), Mexico"
+
+msgid "UTC−05:00: Eastern Time (US & Canada), Bogota, Lima"
+msgstr "UTC−05:00: Eastern Time (US & Canada), Bogota, Lima"
+
+msgid "UTC−04:00: Atlantic Time (Canada), Caracas, La Paz"
+msgstr "UTC−04:00: Atlantic Time (Canada), Caracas, La Paz"
+
+msgid "UTC−03:30: Newfoundland"
+msgstr "UTC−03:30: Newfoundland"
+
+msgid "UTC−03:00: Brazil, Buenos Aires, Georgetown"
+msgstr "UTC−03:00: Brazil, Buenos Aires, Georgetown"
+
+msgid "UTC−02:00: Mid-Atlantic Time"
+msgstr "UTC−02:00: Mid-Atlantic Time"
+
+msgid "UTC−01:00: Azores, Cape Verde Islands"
+msgstr "UTC−01:00: Azores, Cape Verde Islands"
+
+msgid "UTC±00:00: Greenwich Mean Time (GMT), London, Lisbon"
+msgstr "UTC±00:00: Greenwich Mean Time (GMT), London, Lisbon"
+
+msgid "UTC+01:00: Central European Time, West African Time"
+msgstr "UTC+01:00: Central European Time, West African Time"
+
+msgid "UTC+02:00: Eastern European Time, Central African Time"
+msgstr "UTC+02:00: Eastern European Time, Central African Time"
+
+msgid "UTC+03:00: Moscow Time, East African Time"
+msgstr "UTC+03:00: Moscow Time, East African Time"
+
+msgid "UTC+03:30: Tehran"
+msgstr "UTC+03:30: Tehran"
+
+msgid "UTC+04:00: Baku, Yerevan, Samara"
+msgstr "UTC+04:00: Baku, Yerevan, Samara"
+
+msgid "UTC+04:30: Afghanistan"
+msgstr "UTC+04:30: Afghanistan"
+
+msgid "UTC+05:00: Ekaterinburg, Islamabad, Karachi, Tashkent"
+msgstr "UTC+05:00: Ekaterinburg, Islamabad, Karachi, Tashkent"
+
+msgid "UTC+05:30: Mumbai, Kolkata, Madras, New Delhi"
+msgstr "UTC+05:30: Mumbai, Kolkata, Madras, New Delhi"
+
+msgid "UTC+05:45: Nepal"
+msgstr "UTC+05:45: Nepal"
+
+msgid "UTC+06:00: Almaty, Dhaka, Novosibirsk"
+msgstr "UTC+06:00: Almaty, Dhaka, Novosibirsk"
+
+msgid "UTC+06:30: Cocos Islands, Myanmar"
+msgstr "UTC+06:30: Cocos Islands, Myanmar"
+
+msgid "UTC+07:00: Bangkok, Hanoi, Jakarta"
+msgstr "UTC+07:00: Bangkok, Hanoi, Jakarta"
+
+msgid "UTC+08:00: Beijing, Perth, Singapore, Hong Kong"
+msgstr "UTC+08:00: Beijing, Perth, Singapore, Hong Kong"
+
+msgid "UTC+08:45: Center and west Australia"
+msgstr "UTC+08:45: Center and west Australia"
+
+msgid "UTC+09:00: Tokyo, Seoul, Yakutsk"
+msgstr "UTC+09:00: Tokyo, Seoul, Yakutsk"
+
+msgid "UTC+09:30: Northern Territory, Eucla Adelaide"
+msgstr "UTC+09:30: Northern Territory, Eucla Adelaide"
+
+msgid "UTC+10:00: Eastern Australia, Guam, Vladivostok"
+msgstr "UTC+10:00: Eastern Australia, Guam, Vladivostok"
+
+msgid "UTC+10:30: Lord Howe Island"
+msgstr "UTC+10:30: Lord Howe Island"
+
+msgid "UTC+11:00: Magadan, Solomon Islands, New Caledonia"
+msgstr "UTC+11:00: Magadan, Solomon Islands, New Caledonia"
+
+msgid "UTC+11:30: Norfolk Island"
+msgstr "UTC+11:30: Norfolk Island"
+
+msgid "UTC+12:00: Fiji, Kamchatka, Marshall Islands"
+msgstr "UTC+12:00: Fiji, Kamchatka, Marshall Islands"
+
+msgid "UTC+12:45: Chatham Islands"
+msgstr "UTC+12:45: Chatham Islands"
+
+msgid "UTC+13:00: Samoa, Tonga"
+msgstr "UTC+13:00: Samoa, Tonga"
+
+msgid "UTC+14:00: Date Line (east)"
+msgstr "UTC+14:00: Date Line (east)"
+
+msgid "metrics.forgot-password-form.fields.email"
+msgstr "Email"
+
+msgid "Successful login using external single sign-on system"
+msgstr "Successful login using external single sign-on system"
+
+msgid "Email address successfully verified"
+msgstr "Email address successfully verified"
+
+msgid "metrics.complete-forgot-password-form.fields.password"
+msgstr "Password"
+
+msgid "metrics.complete-forgot-password-form.fields.confirm-password"
+msgstr "Confirm password"
+
+msgid "metrics-user.invite-members-modal.title"
+msgstr "Sending invitations"
+
+msgid "metrics-user.update-modal.title"
+msgstr "Edit user #{{ id }}"
+
+msgid "metrics-user.create-modal.title"
+msgstr "Create user"
+
+msgid "metrics-user.grid.columns.id"
+msgstr "ID"
+
+msgid "metrics-user.grid.columns.email"
+msgstr "Email"
+
+msgid "metrics-user.grid.columns.firstname"
+msgstr "First name"
+
+msgid "metrics-user.grid.columns.gender"
+msgstr "Gender"
+
+msgid "metrics-user.grid.columns.phone"
+msgstr "Phone"
+
+msgid "metrics-user.grid.columns.picture"
+msgstr "Picture"
+
+msgid "metrics-user.grid.columns.roles"
+msgstr "Roles"
+
+msgid "metrics-user.grid.columns.username"
+msgstr "Username"
+
+msgid "metrics-tenant.update-modal.title"
+msgstr "Edit tenant #{{ id }}"
+
+msgid "metrics-tenant.create-modal.title"
+msgstr "Create tenant"
+
+msgid "metrics-tenant.delete-modal.title"
+msgstr "Delete tenant #{{ id }}"
+
+msgid "metrics-tenant.grid.columns.id"
+msgstr "ID"
+
+msgid "metrics-tenant.grid.columns.name"
+msgstr "Name"
+
+msgid "metrics-tenant.grid.columns.client-id"
+msgstr "Client ID"
+
+msgid "metrics-tenant.grid.columns.client-secret"
+msgstr "Client secret"
+
+msgid "metrics-tenant.grid.columns.public"
+msgstr "Public"
+
+msgid "metrics-session.update-modal.title"
+msgstr "Eedit session #{{ id }}"
+
+msgid "metrics-session.create-modal.title"
+msgstr "Create session"
+
+msgid "metrics-session.grid.columns.id"
+msgstr "ID"
+
+msgid "metrics-session.grid.columns.user-agent"
+msgstr "User agent"
+
+msgid "metrics-session.grid.columns.fingerprint"
+msgstr "Fingerprint"
+
+msgid "metrics-session.grid.columns.user-ip"
+msgstr "IP address"
+
+msgid "metrics-session.grid.columns.expires-at"
+msgstr "Expires at"
+
+msgid "metrics-session.grid.columns.user-data"
+msgstr "User data"
+
+msgid "metrics-session.grid.columns.enabled"
+msgstr "Enabled"
+
+msgid "metrics-email-template.update-modal.title"
+msgstr "Edit email template #{{ id }}"
+
+msgid "metrics-email-template.create-modal.title"
+msgstr "Create email template"
+
+msgid "metrics-email-template.grid.columns.id"
+msgstr "ID"
+
+msgid "metrics-email-template.grid.columns.operation-name"
+msgstr "Event"
+
+msgid "metrics-email-template.grid.columns.subject"
+msgstr "Subject"
+
+msgid "metrics-email-template.grid.columns.text"
+msgstr "Text"
+
+msgid "metrics-invite-members.form.fields.emails"
+msgstr "Emails (separated by commas)"
+
+msgid ""
+"Email confirmation email sent, link will be valid for {{timeoutMinutes}} "
+"minutes"
+msgstr ""
+"Email confirmation email sent, link will be valid for {{timeoutMinutes}} "
+"minutes"
+
+msgid "Validation errors"
+msgstr "Validation errors"
+
+msgid "Profile data updated successfully!"
+msgstr "Profile data updated successfully!"
+
+msgid "Update"
+msgstr "Update"
+
+msgid ""
+"To complete the password change process, click the link in the email. If "
+"you haven't received the email, check your spam folder or try again."
+msgstr ""
+"To complete the password change process, click the link in the email. If "
+"you haven't received the email, check your spam folder or try again."
+
+msgid "Your password has been successfully changed!"
+msgstr "Your password has been successfully changed!"
+
+msgid "Tenant users"
+msgstr "Tenant users"
+
+msgid "metrics-tenant.form.fields.name"
+msgstr "Name"
+
+msgid "metrics-user.delete-modal.title"
+msgstr "Delete user #{{ id }}"
+
+msgid "metrics-user.grid.columns.app-data"
+msgstr "Additional data"
+
+msgid "metrics-user.grid.columns.birthdate"
+msgstr "Birth date"
+
+msgid "metrics-user.grid.columns.email-verified-at"
+msgstr "Email verified at"
+
+msgid "metrics-user.grid.columns.lastname"
+msgstr "Last name"
+
+msgid "metrics-user.grid.columns.phone-verified-at"
+msgstr "Phone verified at"
+
+msgid "metrics-user.grid.columns.revoked-at"
+msgstr "Revoked at"

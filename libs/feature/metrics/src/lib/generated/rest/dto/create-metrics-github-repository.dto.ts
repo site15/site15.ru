@@ -26,10 +26,4 @@ export class CreateMetricsGithubRepositoryDto {
   @IsNotEmpty()
   @IsBoolean()
   fork!: boolean;
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  tenantId!: string;
 }

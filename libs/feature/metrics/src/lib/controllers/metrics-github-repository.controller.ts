@@ -66,36 +66,38 @@ export class MetricsGithubRepositoryController {
                   OR: [
                     ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     { tenantId: { equals: searchText, mode: 'insensitive' } },
+                    { name: { equals: searchText, mode: 'insensitive' } },
+                    { owner: { equals: searchText, mode: 'insensitive' } },
                   ],
                 }
               : {}),
 
             ...(metricsUser.userRole === MetricsRole.Admin
-              ? { externalTenantId: args.tenantId }
+              ? { tenantId: args.tenantId }
               : {
-                  externalTenantId:
-                    metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+                  tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
                 }),
           },
           take,
           skip,
           orderBy,
         }),
-        totalResults: await prisma.metricsGithubMetric.count({
+        totalResults: await prisma.metricsGithubRepository.count({
           where: {
             ...(searchText
               ? {
                   OR: [
                     ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     { tenantId: { equals: searchText, mode: 'insensitive' } },
+                    { name: { equals: searchText, mode: 'insensitive' } },
+                    { owner: { equals: searchText, mode: 'insensitive' } },
                   ],
                 }
               : {}),
             ...(metricsUser.userRole === MetricsRole.Admin
-              ? { externalTenantId: args.tenantId }
+              ? { tenantId: args.tenantId }
               : {
-                  externalTenantId:
-                    metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+                  tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
                 }),
           },
         }),
@@ -124,9 +126,9 @@ export class MetricsGithubRepositoryController {
         MetricsUser_MetricsGithubRepository_createdByToMetricsUser: { connect: { id: metricsUser.id } },
         MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         ...(metricsUser.userRole === MetricsRole.Admin
-          ? { externalTenantId }
+          ? { tenantId: externalTenantId }
           : {
-              externalTenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+              tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
             }),
       },
     });
@@ -151,7 +153,7 @@ export class MetricsGithubRepositoryController {
         ...(metricsUser.userRole === MetricsRole.Admin
           ? {}
           : {
-              externalTenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+              tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
             }),
       },
     });
@@ -171,7 +173,7 @@ export class MetricsGithubRepositoryController {
         ...(metricsUser.userRole === MetricsRole.Admin
           ? {}
           : {
-              externalTenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+              tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
             }),
       },
     });
@@ -192,7 +194,7 @@ export class MetricsGithubRepositoryController {
         ...(metricsUser.userRole === MetricsRole.Admin
           ? {}
           : {
-              externalTenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+              tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
             }),
       },
     });

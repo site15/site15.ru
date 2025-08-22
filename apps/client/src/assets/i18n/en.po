@@ -24,6 +24,9 @@ msgstr "Webhooks"
 msgid "Templates"
 msgstr "Templates"
 
+msgid "Metrics"
+msgstr "Metrics"
+
 msgid "Users"
 msgstr "Users"
 
@@ -41,6 +44,12 @@ msgstr "Sign-up"
 
 msgid "Sign-in"
 msgstr "Sign-in"
+
+msgid "Github"
+msgstr "Github"
+
+msgid "Github repositories"
+msgstr "Github repositories"
 
 msgid ""
 "Dev/Watch mode: the infrastructure is running using docker-compose, "

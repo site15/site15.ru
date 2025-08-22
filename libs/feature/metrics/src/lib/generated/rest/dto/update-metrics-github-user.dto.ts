@@ -25,11 +25,4 @@ export class UpdateMetricsGithubUserDto {
   @IsOptional()
   @IsString()
   email?: string | null;
-  @ApiProperty({
-    type: 'string',
-    required: false,
-  })
-  @IsOptional()
-  @IsString()
-  tenantId?: string;
 }

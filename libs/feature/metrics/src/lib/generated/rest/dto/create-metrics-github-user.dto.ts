@@ -24,10 +24,4 @@ export class CreateMetricsGithubUserDto {
   @IsOptional()
   @IsString()
   email?: string | null;
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  tenantId!: string;
 }

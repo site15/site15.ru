@@ -1,7 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, finalize } from 'rxjs';
-import { Site15RestClientConfiguration, SsoSite15RestService, TimeSite15RestService } from './generated';
+import {
+  MetricsSite15RestService,
+  Site15RestClientConfiguration,
+  SsoSite15RestService,
+  TimeSite15RestService,
+} from './generated';
 
 @Injectable({ providedIn: 'root' })
 export class Site15RestSdkAngularService {
@@ -9,9 +14,11 @@ export class Site15RestSdkAngularService {
     private readonly site15RestClientConfiguration: Site15RestClientConfiguration,
     private readonly timeSite15RestService: TimeSite15RestService,
     private readonly ssoSite15RestService: SsoSite15RestService,
+    private readonly metricsSite15RestService: MetricsSite15RestService,
   ) {
     timeSite15RestService.configuration.withCredentials = true;
     ssoSite15RestService.configuration.withCredentials = true;
+    metricsSite15RestService.configuration.withCredentials = true;
   }
 
   getTimeApi() {
@@ -28,9 +35,17 @@ export class Site15RestSdkAngularService {
     return this.ssoSite15RestService;
   }
 
+  getMetricsApi() {
+    if (!this.metricsSite15RestService) {
+      throw new Error('MetricsApi not set');
+    }
+    return this.metricsSite15RestService;
+  }
+
   updateHeaders(headers: Record<string, string>) {
     this.timeSite15RestService.defaultHeaders = new HttpHeaders(headers);
     this.ssoSite15RestService.defaultHeaders = new HttpHeaders(headers);
+    this.metricsSite15RestService.defaultHeaders = new HttpHeaders(headers);
   }
 
   webSocket<T>({

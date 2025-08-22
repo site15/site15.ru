@@ -30,11 +30,4 @@ export class UpdateMetricsGithubRepositoryDto {
   @IsOptional()
   @IsBoolean()
   fork?: boolean;
-  @ApiProperty({
-    type: 'string',
-    required: false,
-  })
-  @IsOptional()
-  @IsString()
-  tenantId?: string;
 }

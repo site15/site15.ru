@@ -103,12 +103,6 @@ export interface CreateMetricsGithubRepositoryDto {
      * @memberof CreateMetricsGithubRepositoryDto
      */
     'fork': boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateMetricsGithubRepositoryDto
-     */
-    'tenantId': string;
 }
 /**
  * 
@@ -3216,12 +3210,6 @@ export interface UpdateMetricsGithubRepositoryDto {
      * @memberof UpdateMetricsGithubRepositoryDto
      */
     'fork'?: boolean;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateMetricsGithubRepositoryDto
-     */
-    'tenantId'?: string;
 }
 /**
  * 

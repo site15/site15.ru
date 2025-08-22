@@ -14,6 +14,5 @@ export interface CreateMetricsGithubRepositoryDtoInterface {
     owner: string;
     'private': boolean;
     fork: boolean;
-    tenantId: string;
 }
 

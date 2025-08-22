@@ -25,6 +25,8 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { TemplatesComponent } from './pages/templates/templates.component';
 import { UsersComponent } from './pages/users/users.component';
 import { WebhooksComponent } from './pages/webhooks/webhooks.component';
+import { MetricsComponent } from './pages/metrics/metrics.component';
+import { metricsRoutes } from './pages/metrics/metrics.routes';
 
 export const appRoutes: Route[] = [
   {
@@ -72,6 +74,25 @@ export const appRoutes: Route[] = [
         },
       }),
     },
+  },
+  {
+    path: 'metrics',
+    title: marker('Metrics'),
+    component: MetricsComponent,
+    canActivate: [SsoGuardService],
+    data: {
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
+        roles: [SsoRoleInterface.manager, SsoRoleInterface.admin],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/metrics']);
+            return false;
+          }
+          return true;
+        },
+      }),
+    },
+    children: metricsRoutes,
   },
   {
     path: 'users',

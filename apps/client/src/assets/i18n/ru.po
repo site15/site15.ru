@@ -25,6 +25,9 @@ msgstr "Вебхуки"
 msgid "Templates"
 msgstr "Шаблоны"
 
+msgid "Metrics"
+msgstr ""
+
 msgid "Users"
 msgstr "Пользователи"
 
@@ -42,6 +45,12 @@ msgstr "Зарегистрироваться"
 
 msgid "Sign-in"
 msgstr "Войти"
+
+msgid "Github"
+msgstr ""
+
+msgid "Github repositories"
+msgstr ""
 
 msgid ""
 "Dev/Watch mode: the infrastructure is running using docker-compose, "

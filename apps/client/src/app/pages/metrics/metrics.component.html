@@ -1,0 +1,17 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item transloco="Metrics"></nz-breadcrumb-item>
+</nz-breadcrumb>
+<nz-layout class="inner-layout">
+  <nz-sider nzWidth="200px" nzTheme="light">
+    <ul nz-menu nzMode="inline" class="sider-menu">
+      <li nz-submenu nzOpen [nzTitle]="'Github' | transloco" nzIcon="github">
+        <ul>
+          <li nz-menu-item routerLink="github-repositories">{{ 'Github repositories' | transloco }}</li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <div class="inner-content">
+    <router-outlet></router-outlet>
+  </div>
+</nz-layout>

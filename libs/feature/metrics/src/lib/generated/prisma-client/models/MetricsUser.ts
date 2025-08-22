@@ -1636,11 +1636,30 @@ export type $MetricsUserPayload<
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
+      /**
+       * @DtoCreateHidden
+       */
       id: string;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       tenantId: string;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       externalUserId: string;
       userRole: $Enums.MetricsRole;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       createdAt: Date;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       updatedAt: Date;
     },
     ExtArgs['result']['metricsUser']

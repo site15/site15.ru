@@ -35,15 +35,26 @@ generator prismaClassGenerator {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubMetric {
+  /// @DtoCreateHidden
   id                                                     String                  @id(map: "PK_METRICS_GITHUB_METRIC") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   repositoryId                                           String                  @db.Uuid
   metricName                                             String                  @db.VarChar(255)
   metricValue                                            Float
   recordedAt                                             DateTime                @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdBy                                              String                  @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedBy                                              String                  @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                              DateTime                @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                              DateTime                @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                               String                  @db.Uuid
   MetricsUser_MetricsGithubMetric_createdByToMetricsUser MetricsUser             @relation("MetricsGithubMetric_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_METRIC__CREATED_BY")
   MetricsGithubRepository                                MetricsGithubRepository @relation(fields: [repositoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_METRIC__REPOSITORY_ID")
@@ -56,15 +67,26 @@ model MetricsGithubMetric {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubRepository {
+  /// @DtoCreateHidden
   id                                                         String                        @id(map: "PK_METRICS_GITHUB_REPOSITORY") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name                                                       String                        @db.VarChar(255)
   owner                                                      String                        @db.VarChar(255)
   private                                                    Boolean
   fork                                                       Boolean
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdBy                                                  String                        @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedBy                                                  String                        @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                                  DateTime                      @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                                  DateTime                      @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                                   String                        @db.Uuid
   MetricsGithubMetric                                        MetricsGithubMetric[]
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser MetricsUser                   @relation("MetricsGithubRepository_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY__CREATED_BY")
@@ -77,14 +99,25 @@ model MetricsGithubRepository {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubUser {
+  /// @DtoCreateHidden
   id                                                   String                        @id(map: "PK_METRICS_GITHUB_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   login                                                String                        @db.VarChar(255)
   name                                                 String?                       @db.VarChar(255)
   email                                                String?                       @db.VarChar(255)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdBy                                            String                        @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedBy                                            String                        @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                            DateTime                      @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                            DateTime                      @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                             String                        @db.Uuid
   MetricsUser_MetricsGithubUser_createdByToMetricsUser MetricsUser                   @relation("MetricsGithubUser_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER__CREATED_BY")
   MetricsUser_MetricsGithubUser_updatedByToMetricsUser MetricsUser                   @relation("MetricsGithubUser_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER__UPDATED_BY")
@@ -96,14 +129,25 @@ model MetricsGithubUser {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubUserRepository {
+  /// @DtoCreateHidden
   id                                                             String                  @id(map: "PK_METRICS_GITHUB_USER_REPOSITORY") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   userId                                                         String                  @db.Uuid
   repositoryId                                                   String                  @db.Uuid
   role                                                           String                  @db.VarChar(50)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdBy                                                      String                  @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedBy                                                      String                  @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                                      DateTime                @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                                      DateTime                @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                                       String                  @db.Uuid
   MetricsUser_MetricsGithubUserRepository_createdByToMetricsUser MetricsUser             @relation("MetricsGithubUserRepository_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER_REPOSITORY__CREATED_BY")
   MetricsGithubRepository                                        MetricsGithubRepository @relation(fields: [repositoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER_REPOSITORY__REPOSITORY_ID")
@@ -115,11 +159,20 @@ model MetricsGithubUserRepository {
 }
 
 model MetricsUser {
+  /// @DtoCreateHidden
   id                                                                             String                        @id(map: "PK_METRICS_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                                                       String                        @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   externalUserId                                                                 String                        @db.Uuid
   userRole                                                                       MetricsRole
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                                                      DateTime                      @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                                                      DateTime                      @default(now()) @db.Timestamp(6)
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser                 MetricsGithubMetric[]         @relation("MetricsGithubMetric_createdByToMetricsUser")
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser                 MetricsGithubMetric[]         @relation("MetricsGithubMetric_updatedByToMetricsUser")
