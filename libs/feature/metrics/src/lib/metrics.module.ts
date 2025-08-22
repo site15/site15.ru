@@ -6,7 +6,11 @@ import { UseGuards } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { TranslatesModule } from 'nestjs-translates';
+import { MetricsGithubMetricController } from './controllers/metrics-github-metric.controller';
 import { MetricsGithubRepositoryController } from './controllers/metrics-github-repository.controller';
+import { MetricsGithubUserController } from './controllers/metrics-github-user.controller';
+import { MetricsGithubUserRepositoryController } from './controllers/metrics-github-user-repository.controller';
+import { MetricsUserController } from './controllers/metrics-user.controller';
 import { METRICS_FEATURE, METRICS_MODULE } from './metrics.constants';
 import { MetricsStaticEnvironments } from './metrics.environments';
 import { MetricsExceptionsFilter } from './metrics.filter';
@@ -54,7 +58,13 @@ export const { MetricsModule } = createNestModule({
     TranslatesModule,
   ],
   controllers: (asyncModuleOptions) =>
-    [MetricsGithubRepositoryController].map((ctrl) => {
+    [
+      MetricsGithubMetricController,
+      MetricsGithubRepositoryController,
+      MetricsGithubUserController,
+      MetricsGithubUserRepositoryController,
+      MetricsUserController,
+    ].map((ctrl) => {
       if (asyncModuleOptions.staticEnvironments?.useGuards) {
         UseGuards(MetricsGuard)(ctrl);
       }

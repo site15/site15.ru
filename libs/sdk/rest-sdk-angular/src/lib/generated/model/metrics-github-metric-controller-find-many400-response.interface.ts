@@ -11,7 +11,7 @@ import { ValidationErrorMetadataInterface } from './validation-error-metadata.in
 import { ValidationErrorEnumInterface } from './validation-error-enum.interface';
 
 
-export interface MetricsGithubRepositoryControllerFindMany400ResponseInterface { 
+export interface MetricsGithubMetricControllerFindMany400ResponseInterface { 
     /**
      * Validation error (VALIDATION-000)
      */
@@ -19,7 +19,7 @@ export interface MetricsGithubRepositoryControllerFindMany400ResponseInterface {
     code: ValidationErrorEnumInterface;
     metadata?: Array<ValidationErrorMetadataInterface>;
 }
-export namespace MetricsGithubRepositoryControllerFindMany400ResponseInterface {
+export namespace MetricsGithubMetricControllerFindMany400ResponseInterface {
 }
 
 

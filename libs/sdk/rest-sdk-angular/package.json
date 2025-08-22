@@ -1,44 +1,44 @@
 {
-    "name": "@site15/rest-sdk-angular",
-    "description": "Browser client for personal website of Khamitov Ilshat (EndyKaufman)",
-    "keywords": [
-        "single-sign-n",
-        "sso",
-        "client",
-        "angular"
-    ],
-    "version": "1.4.1",
-    "peerDependencies": {
-        "@angular/common": "*",
-        "@angular/core": "*",
-        "rxjs": "*"
+  "name": "@site15/rest-sdk-angular",
+  "description": "Browser client for personal website of Khamitov Ilshat (EndyKaufman)",
+  "keywords": [
+    "single-sign-n",
+    "sso",
+    "client",
+    "angular"
+  ],
+  "version": "1.4.1",
+  "peerDependencies": {
+    "@angular/common": "*",
+    "@angular/core": "*",
+    "rxjs": "*"
+  },
+  "peerDependenciesMeta": {
+    "@angular/common": {
+      "optional": true
     },
-    "peerDependenciesMeta": {
-        "@angular/common": {
-            "optional": true
-        },
-        "@angular/core": {
-            "optional": true
-        },
-        "rxjs": {
-            "optional": true
-        }
+    "@angular/core": {
+      "optional": true
     },
-    "sideEffects": false,
-    "i18n": [
-        {
-            "scope": "rest-sdk-angular",
-            "path": "src/i18n",
-            "strategy": "join"
-        }
-    ],
-    "maintainers": [
-        {
-            "name": "EndyKaufman",
-            "email": "admin@site15.ru"
-        }
-    ],
-    "license": "MIT",
-    "author": "EndyKaufman <admin@site15.ru>",
-    "private": true
+    "rxjs": {
+      "optional": true
+    }
+  },
+  "sideEffects": false,
+  "i18n": [
+    {
+      "scope": "rest-sdk-angular",
+      "path": "src/i18n",
+      "strategy": "join"
+    }
+  ],
+  "maintainers": [
+    {
+      "name": "EndyKaufman",
+      "email": "admin@site15.ru"
+    }
+  ],
+  "license": "MIT",
+  "author": "EndyKaufman <admin@site15.ru>",
+  "private": true
 }

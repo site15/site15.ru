@@ -89,7 +89,7 @@
     "update:nestjs-mod-versions": "npx -y npm-check-updates @nestjs-mod/* nestjs-mod rucken pg-flyway pg-create-db class-validator-multi-lang nestjs-translates -u",
     "rucken": "rucken",
     "translates": "./node_modules/.bin/rucken prepare --locales=en,ru --update-package-version=false --update-dependencies-version=false",
-    "wait-on": "./node_modules/.bin/wait-on --timeout=240000 --interval=1000 --window",
+    "wait-on": "./node_modules/.bin/wait-on --timeout=120000 --interval=1000 --window",
     "prepare": "npx -y husky",
     "generator": "./node_modules/.bin/nx build generator && node dist/libs/generator/src/lib/cli.js"
   },
