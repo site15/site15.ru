@@ -35,4 +35,14 @@ export class MetricsGithubRepositoryDto {
     type: 'string',
   })
   tenantId!: string;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  description!: string | null;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  url!: string | null;
 }

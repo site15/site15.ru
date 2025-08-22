@@ -30,4 +30,20 @@ export class UpdateMetricsGithubRepositoryDto {
   @IsOptional()
   @IsBoolean()
   fork?: boolean;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  description?: string | null;
+  @ApiProperty({
+    type: 'string',
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsString()
+  url?: string | null;
 }

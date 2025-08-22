@@ -122,7 +122,10 @@ export class MetricsGithubMetricController {
   ) {
     return await this.prismaClient.metricsGithubMetric.create({
       data: {
-        ...args,
+        metricName: args.metricName,
+        metricValue: args.metricValue,
+        recordedAt: args.recordedAt,
+        MetricsGithubRepository: { connect: { id: args.repositoryId } },
         createdBy: metricsUser.id,
         updatedBy: metricsUser.id,
         ...(metricsUser.userRole === MetricsRole.Admin
@@ -130,7 +133,7 @@ export class MetricsGithubMetricController {
           : {
               tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
             }),
-      },
+      } as any,
     });
   }
 

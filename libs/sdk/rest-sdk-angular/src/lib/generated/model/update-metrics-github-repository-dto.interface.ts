@@ -14,5 +14,7 @@ export interface UpdateMetricsGithubRepositoryDtoInterface {
     owner?: string;
     'private'?: boolean;
     fork?: boolean;
+    description?: string | null;
+    url?: string | null;
 }
 

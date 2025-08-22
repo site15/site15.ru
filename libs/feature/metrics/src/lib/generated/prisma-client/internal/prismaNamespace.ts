@@ -385,6 +385,11 @@ export const ModelName = {
   MetricsGithubUserRepository: 'MetricsGithubUserRepository',
   MetricsUser: 'MetricsUser',
   migrations_metrics: 'migrations_metrics',
+  MetricsGithubRepositoryStatistics: 'MetricsGithubRepositoryStatistics',
+  MetricsGithubTeam: 'MetricsGithubTeam',
+  MetricsGithubTeamRepository: 'MetricsGithubTeamRepository',
+  MetricsGithubTeamUser: 'MetricsGithubTeamUser',
+  MetricsGithubUserStatistics: 'MetricsGithubUserStatistics',
 } as const;
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -411,7 +416,12 @@ export type TypeMap<
       | 'metricsGithubUser'
       | 'metricsGithubUserRepository'
       | 'metricsUser'
-      | 'migrations_metrics';
+      | 'migrations_metrics'
+      | 'metricsGithubRepositoryStatistics'
+      | 'metricsGithubTeam'
+      | 'metricsGithubTeamRepository'
+      | 'metricsGithubTeamUser'
+      | 'metricsGithubUserStatistics';
     txIsolationLevel: TransactionIsolationLevel;
   };
   model: {
@@ -859,6 +869,378 @@ export type TypeMap<
         };
       };
     };
+    MetricsGithubRepositoryStatistics: {
+      payload: Prisma.$MetricsGithubRepositoryStatisticsPayload<ExtArgs>;
+      fields: Prisma.MetricsGithubRepositoryStatisticsFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.MetricsGithubRepositoryStatisticsFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.MetricsGithubRepositoryStatisticsFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload>;
+        };
+        findFirst: {
+          args: Prisma.MetricsGithubRepositoryStatisticsFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.MetricsGithubRepositoryStatisticsFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload>;
+        };
+        findMany: {
+          args: Prisma.MetricsGithubRepositoryStatisticsFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload>[];
+        };
+        create: {
+          args: Prisma.MetricsGithubRepositoryStatisticsCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload>;
+        };
+        createMany: {
+          args: Prisma.MetricsGithubRepositoryStatisticsCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.MetricsGithubRepositoryStatisticsCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload>[];
+        };
+        delete: {
+          args: Prisma.MetricsGithubRepositoryStatisticsDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload>;
+        };
+        update: {
+          args: Prisma.MetricsGithubRepositoryStatisticsUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload>;
+        };
+        deleteMany: {
+          args: Prisma.MetricsGithubRepositoryStatisticsDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.MetricsGithubRepositoryStatisticsUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.MetricsGithubRepositoryStatisticsUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload>[];
+        };
+        upsert: {
+          args: Prisma.MetricsGithubRepositoryStatisticsUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubRepositoryStatisticsPayload>;
+        };
+        aggregate: {
+          args: Prisma.MetricsGithubRepositoryStatisticsAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMetricsGithubRepositoryStatistics>;
+        };
+        groupBy: {
+          args: Prisma.MetricsGithubRepositoryStatisticsGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsGithubRepositoryStatisticsGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.MetricsGithubRepositoryStatisticsCountArgs<ExtArgs>;
+          result:
+            | runtime.Types.Utils.Optional<Prisma.MetricsGithubRepositoryStatisticsCountAggregateOutputType>
+            | number;
+        };
+      };
+    };
+    MetricsGithubTeam: {
+      payload: Prisma.$MetricsGithubTeamPayload<ExtArgs>;
+      fields: Prisma.MetricsGithubTeamFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.MetricsGithubTeamFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.MetricsGithubTeamFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload>;
+        };
+        findFirst: {
+          args: Prisma.MetricsGithubTeamFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.MetricsGithubTeamFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload>;
+        };
+        findMany: {
+          args: Prisma.MetricsGithubTeamFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload>[];
+        };
+        create: {
+          args: Prisma.MetricsGithubTeamCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload>;
+        };
+        createMany: {
+          args: Prisma.MetricsGithubTeamCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.MetricsGithubTeamCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload>[];
+        };
+        delete: {
+          args: Prisma.MetricsGithubTeamDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload>;
+        };
+        update: {
+          args: Prisma.MetricsGithubTeamUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload>;
+        };
+        deleteMany: {
+          args: Prisma.MetricsGithubTeamDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.MetricsGithubTeamUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.MetricsGithubTeamUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload>[];
+        };
+        upsert: {
+          args: Prisma.MetricsGithubTeamUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamPayload>;
+        };
+        aggregate: {
+          args: Prisma.MetricsGithubTeamAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMetricsGithubTeam>;
+        };
+        groupBy: {
+          args: Prisma.MetricsGithubTeamGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsGithubTeamGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.MetricsGithubTeamCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsGithubTeamCountAggregateOutputType> | number;
+        };
+      };
+    };
+    MetricsGithubTeamRepository: {
+      payload: Prisma.$MetricsGithubTeamRepositoryPayload<ExtArgs>;
+      fields: Prisma.MetricsGithubTeamRepositoryFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.MetricsGithubTeamRepositoryFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.MetricsGithubTeamRepositoryFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload>;
+        };
+        findFirst: {
+          args: Prisma.MetricsGithubTeamRepositoryFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.MetricsGithubTeamRepositoryFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload>;
+        };
+        findMany: {
+          args: Prisma.MetricsGithubTeamRepositoryFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload>[];
+        };
+        create: {
+          args: Prisma.MetricsGithubTeamRepositoryCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload>;
+        };
+        createMany: {
+          args: Prisma.MetricsGithubTeamRepositoryCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.MetricsGithubTeamRepositoryCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload>[];
+        };
+        delete: {
+          args: Prisma.MetricsGithubTeamRepositoryDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload>;
+        };
+        update: {
+          args: Prisma.MetricsGithubTeamRepositoryUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload>;
+        };
+        deleteMany: {
+          args: Prisma.MetricsGithubTeamRepositoryDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.MetricsGithubTeamRepositoryUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.MetricsGithubTeamRepositoryUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload>[];
+        };
+        upsert: {
+          args: Prisma.MetricsGithubTeamRepositoryUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamRepositoryPayload>;
+        };
+        aggregate: {
+          args: Prisma.MetricsGithubTeamRepositoryAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMetricsGithubTeamRepository>;
+        };
+        groupBy: {
+          args: Prisma.MetricsGithubTeamRepositoryGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsGithubTeamRepositoryGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.MetricsGithubTeamRepositoryCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsGithubTeamRepositoryCountAggregateOutputType> | number;
+        };
+      };
+    };
+    MetricsGithubTeamUser: {
+      payload: Prisma.$MetricsGithubTeamUserPayload<ExtArgs>;
+      fields: Prisma.MetricsGithubTeamUserFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.MetricsGithubTeamUserFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.MetricsGithubTeamUserFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload>;
+        };
+        findFirst: {
+          args: Prisma.MetricsGithubTeamUserFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.MetricsGithubTeamUserFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload>;
+        };
+        findMany: {
+          args: Prisma.MetricsGithubTeamUserFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload>[];
+        };
+        create: {
+          args: Prisma.MetricsGithubTeamUserCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload>;
+        };
+        createMany: {
+          args: Prisma.MetricsGithubTeamUserCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.MetricsGithubTeamUserCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload>[];
+        };
+        delete: {
+          args: Prisma.MetricsGithubTeamUserDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload>;
+        };
+        update: {
+          args: Prisma.MetricsGithubTeamUserUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload>;
+        };
+        deleteMany: {
+          args: Prisma.MetricsGithubTeamUserDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.MetricsGithubTeamUserUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.MetricsGithubTeamUserUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload>[];
+        };
+        upsert: {
+          args: Prisma.MetricsGithubTeamUserUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubTeamUserPayload>;
+        };
+        aggregate: {
+          args: Prisma.MetricsGithubTeamUserAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMetricsGithubTeamUser>;
+        };
+        groupBy: {
+          args: Prisma.MetricsGithubTeamUserGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsGithubTeamUserGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.MetricsGithubTeamUserCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsGithubTeamUserCountAggregateOutputType> | number;
+        };
+      };
+    };
+    MetricsGithubUserStatistics: {
+      payload: Prisma.$MetricsGithubUserStatisticsPayload<ExtArgs>;
+      fields: Prisma.MetricsGithubUserStatisticsFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.MetricsGithubUserStatisticsFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.MetricsGithubUserStatisticsFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload>;
+        };
+        findFirst: {
+          args: Prisma.MetricsGithubUserStatisticsFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.MetricsGithubUserStatisticsFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload>;
+        };
+        findMany: {
+          args: Prisma.MetricsGithubUserStatisticsFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload>[];
+        };
+        create: {
+          args: Prisma.MetricsGithubUserStatisticsCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload>;
+        };
+        createMany: {
+          args: Prisma.MetricsGithubUserStatisticsCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.MetricsGithubUserStatisticsCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload>[];
+        };
+        delete: {
+          args: Prisma.MetricsGithubUserStatisticsDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload>;
+        };
+        update: {
+          args: Prisma.MetricsGithubUserStatisticsUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload>;
+        };
+        deleteMany: {
+          args: Prisma.MetricsGithubUserStatisticsDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.MetricsGithubUserStatisticsUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.MetricsGithubUserStatisticsUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload>[];
+        };
+        upsert: {
+          args: Prisma.MetricsGithubUserStatisticsUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsGithubUserStatisticsPayload>;
+        };
+        aggregate: {
+          args: Prisma.MetricsGithubUserStatisticsAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMetricsGithubUserStatistics>;
+        };
+        groupBy: {
+          args: Prisma.MetricsGithubUserStatisticsGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsGithubUserStatisticsGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.MetricsGithubUserStatisticsCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsGithubUserStatisticsCountAggregateOutputType> | number;
+        };
+      };
+    };
   };
 } & {
   other: {
@@ -924,6 +1306,8 @@ export const MetricsGithubRepositoryScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   tenantId: 'tenantId',
+  description: 'description',
+  url: 'url',
 } as const;
 
 export type MetricsGithubRepositoryScalarFieldEnum =
@@ -939,6 +1323,12 @@ export const MetricsGithubUserScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   tenantId: 'tenantId',
+  description: 'description',
+  avatarUrl: 'avatarUrl',
+  websiteUrl: 'websiteUrl',
+  location: 'location',
+  telegramUrl: 'telegramUrl',
+  twitterUrl: 'twitterUrl',
 } as const;
 
 export type MetricsGithubUserScalarFieldEnum =
@@ -985,6 +1375,86 @@ export const Migrations_metricsScalarFieldEnum = {
 
 export type Migrations_metricsScalarFieldEnum =
   (typeof Migrations_metricsScalarFieldEnum)[keyof typeof Migrations_metricsScalarFieldEnum];
+
+export const MetricsGithubRepositoryStatisticsScalarFieldEnum = {
+  id: 'id',
+  repositoryId: 'repositoryId',
+  periodType: 'periodType',
+  starsCount: 'starsCount',
+  forksCount: 'forksCount',
+  contributorsCount: 'contributorsCount',
+  commitsCount: 'commitsCount',
+  lastCommitDate: 'lastCommitDate',
+  recordedAt: 'recordedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId',
+} as const;
+
+export type MetricsGithubRepositoryStatisticsScalarFieldEnum =
+  (typeof MetricsGithubRepositoryStatisticsScalarFieldEnum)[keyof typeof MetricsGithubRepositoryStatisticsScalarFieldEnum];
+
+export const MetricsGithubTeamScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId',
+} as const;
+
+export type MetricsGithubTeamScalarFieldEnum =
+  (typeof MetricsGithubTeamScalarFieldEnum)[keyof typeof MetricsGithubTeamScalarFieldEnum];
+
+export const MetricsGithubTeamRepositoryScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  repositoryId: 'repositoryId',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId',
+} as const;
+
+export type MetricsGithubTeamRepositoryScalarFieldEnum =
+  (typeof MetricsGithubTeamRepositoryScalarFieldEnum)[keyof typeof MetricsGithubTeamRepositoryScalarFieldEnum];
+
+export const MetricsGithubTeamUserScalarFieldEnum = {
+  id: 'id',
+  teamId: 'teamId',
+  userId: 'userId',
+  role: 'role',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId',
+} as const;
+
+export type MetricsGithubTeamUserScalarFieldEnum =
+  (typeof MetricsGithubTeamUserScalarFieldEnum)[keyof typeof MetricsGithubTeamUserScalarFieldEnum];
+
+export const MetricsGithubUserStatisticsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  periodType: 'periodType',
+  followersCount: 'followersCount',
+  followingCount: 'followingCount',
+  recordedAt: 'recordedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  tenantId: 'tenantId',
+} as const;
+
+export type MetricsGithubUserStatisticsScalarFieldEnum =
+  (typeof MetricsGithubUserStatisticsScalarFieldEnum)[keyof typeof MetricsGithubUserStatisticsScalarFieldEnum];
 
 export const SortOrder = {
   asc: 'asc',
@@ -1154,6 +1624,11 @@ export type GlobalOmitConfig = {
   metricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryOmit;
   metricsUser?: Prisma.MetricsUserOmit;
   migrations_metrics?: Prisma.migrations_metricsOmit;
+  metricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsOmit;
+  metricsGithubTeam?: Prisma.MetricsGithubTeamOmit;
+  metricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryOmit;
+  metricsGithubTeamUser?: Prisma.MetricsGithubTeamUserOmit;
+  metricsGithubUserStatistics?: Prisma.MetricsGithubUserStatisticsOmit;
 };
 
 /* Types for Logging */

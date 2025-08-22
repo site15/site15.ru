@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { MetricsGithubMetric } from './metrics-github-metric.entity';
 import { MetricsUser } from './metrics-user.entity';
+import { MetricsGithubRepositoryStatistics } from './metrics-github-repository-statistics.entity';
+import { MetricsGithubTeamRepository } from './metrics-github-team-repository.entity';
 import { MetricsGithubUserRepository } from './metrics-github-user-repository.entity';
 
 export class MetricsGithubRepository {
@@ -47,6 +49,16 @@ export class MetricsGithubRepository {
   })
   tenantId!: string;
   @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  description!: string | null;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  url!: string | null;
+  @ApiProperty({
     type: () => MetricsGithubMetric,
     isArray: true,
     required: false,
@@ -62,6 +74,18 @@ export class MetricsGithubRepository {
     required: false,
   })
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: MetricsUser;
+  @ApiProperty({
+    type: () => MetricsGithubRepositoryStatistics,
+    isArray: true,
+    required: false,
+  })
+  MetricsGithubRepositoryStatistics?: MetricsGithubRepositoryStatistics[];
+  @ApiProperty({
+    type: () => MetricsGithubTeamRepository,
+    isArray: true,
+    required: false,
+  })
+  MetricsGithubTeamRepository?: MetricsGithubTeamRepository[];
   @ApiProperty({
     type: () => MetricsGithubUserRepository,
     isArray: true,

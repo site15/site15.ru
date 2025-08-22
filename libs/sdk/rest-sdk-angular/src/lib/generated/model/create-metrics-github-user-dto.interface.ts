@@ -13,5 +13,11 @@ export interface CreateMetricsGithubUserDtoInterface {
     login: string;
     name?: string | null;
     email?: string | null;
+    description?: string | null;
+    avatarUrl?: string | null;
+    websiteUrl?: string | null;
+    location?: string | null;
+    telegramUrl?: string | null;
+    twitterUrl?: string | null;
 }
 

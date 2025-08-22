@@ -55,10 +55,9 @@
             @for (key of keys; track $index) {
               @if (
                 data[key] &&
-                [
-                  MetricsUserScalarFieldEnumInterface.createdAt,
-                  MetricsUserScalarFieldEnumInterface.updatedAt,
-                ].includes(key)
+                [MetricsUserScalarFieldEnumInterface.createdAt, MetricsUserScalarFieldEnumInterface.updatedAt].includes(
+                  key
+                )
               ) {
                 <td>
                   {{ +data[key] | translocoDate: { dateStyle: 'medium', timeStyle: 'medium' } }}

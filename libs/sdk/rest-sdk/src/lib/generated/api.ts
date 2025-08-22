@@ -107,6 +107,123 @@ export interface CreateFullMetricsGithubMetricDto {
 /**
  * 
  * @export
+ * @interface CreateFullMetricsGithubRepositoryStatisticsDto
+ */
+export interface CreateFullMetricsGithubRepositoryStatisticsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
+     */
+    'periodType': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
+     */
+    'starsCount'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
+     */
+    'forksCount'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
+     */
+    'contributorsCount'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
+     */
+    'commitsCount'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
+     */
+    'lastCommitDate'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
+     */
+    'recordedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
+     */
+    'repositoryId': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateFullMetricsGithubTeamRepositoryDto
+ */
+export interface CreateFullMetricsGithubTeamRepositoryDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubTeamRepositoryDto
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubTeamRepositoryDto
+     */
+    'teamId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubTeamRepositoryDto
+     */
+    'repositoryId': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateFullMetricsGithubTeamUserDto
+ */
+export interface CreateFullMetricsGithubTeamUserDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubTeamUserDto
+     */
+    'role'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubTeamUserDto
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubTeamUserDto
+     */
+    'teamId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubTeamUserDto
+     */
+    'userId': string;
+}
+/**
+ * 
+ * @export
  * @interface CreateFullMetricsGithubUserRepositoryDto
  */
 export interface CreateFullMetricsGithubUserRepositoryDto {
@@ -128,6 +245,49 @@ export interface CreateFullMetricsGithubUserRepositoryDto {
      * @memberof CreateFullMetricsGithubUserRepositoryDto
      */
     'repositoryId': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateFullMetricsGithubUserStatisticsDto
+ */
+export interface CreateFullMetricsGithubUserStatisticsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubUserStatisticsDto
+     */
+    'periodType': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateFullMetricsGithubUserStatisticsDto
+     */
+    'followersCount'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateFullMetricsGithubUserStatisticsDto
+     */
+    'followingCount'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubUserStatisticsDto
+     */
+    'recordedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubUserStatisticsDto
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubUserStatisticsDto
+     */
+    'userId': string;
 }
 /**
  * 
@@ -180,6 +340,43 @@ export interface CreateMetricsGithubRepositoryDto {
      * @memberof CreateMetricsGithubRepositoryDto
      */
     'fork': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubRepositoryDto
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubRepositoryDto
+     */
+    'url'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface CreateMetricsGithubTeamDto
+ */
+export interface CreateMetricsGithubTeamDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubTeamDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubTeamDto
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubTeamDto
+     */
+    'tenantId': string;
 }
 /**
  * 
@@ -205,6 +402,42 @@ export interface CreateMetricsGithubUserDto {
      * @memberof CreateMetricsGithubUserDto
      */
     'email'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubUserDto
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubUserDto
+     */
+    'avatarUrl'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubUserDto
+     */
+    'websiteUrl'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubUserDto
+     */
+    'location'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubUserDto
+     */
+    'telegramUrl'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsGithubUserDto
+     */
+    'twitterUrl'?: string | null;
 }
 /**
  * 
@@ -399,6 +632,82 @@ export interface FindManyMetricsGithubRepositoryResponse {
 /**
  * 
  * @export
+ * @interface FindManyMetricsGithubRepositoryStatisticsResponse
+ */
+export interface FindManyMetricsGithubRepositoryStatisticsResponse {
+    /**
+     * 
+     * @type {Array<MetricsGithubRepositoryStatisticsDto>}
+     * @memberof FindManyMetricsGithubRepositoryStatisticsResponse
+     */
+    'metricsGithubRepositoryStatistics': Array<MetricsGithubRepositoryStatisticsDto>;
+    /**
+     * 
+     * @type {FindManyResponseMeta}
+     * @memberof FindManyMetricsGithubRepositoryStatisticsResponse
+     */
+    'meta': FindManyResponseMeta;
+}
+/**
+ * 
+ * @export
+ * @interface FindManyMetricsGithubTeamRepositoryResponse
+ */
+export interface FindManyMetricsGithubTeamRepositoryResponse {
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamRepositoryDto>}
+     * @memberof FindManyMetricsGithubTeamRepositoryResponse
+     */
+    'metricsGithubTeamRepositories': Array<MetricsGithubTeamRepositoryDto>;
+    /**
+     * 
+     * @type {FindManyResponseMeta}
+     * @memberof FindManyMetricsGithubTeamRepositoryResponse
+     */
+    'meta': FindManyResponseMeta;
+}
+/**
+ * 
+ * @export
+ * @interface FindManyMetricsGithubTeamResponse
+ */
+export interface FindManyMetricsGithubTeamResponse {
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamDto>}
+     * @memberof FindManyMetricsGithubTeamResponse
+     */
+    'metricsGithubTeams': Array<MetricsGithubTeamDto>;
+    /**
+     * 
+     * @type {FindManyResponseMeta}
+     * @memberof FindManyMetricsGithubTeamResponse
+     */
+    'meta': FindManyResponseMeta;
+}
+/**
+ * 
+ * @export
+ * @interface FindManyMetricsGithubTeamUserResponse
+ */
+export interface FindManyMetricsGithubTeamUserResponse {
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamUserDto>}
+     * @memberof FindManyMetricsGithubTeamUserResponse
+     */
+    'metricsGithubTeamUsers': Array<MetricsGithubTeamUserDto>;
+    /**
+     * 
+     * @type {FindManyResponseMeta}
+     * @memberof FindManyMetricsGithubTeamUserResponse
+     */
+    'meta': FindManyResponseMeta;
+}
+/**
+ * 
+ * @export
  * @interface FindManyMetricsGithubUserRepositoryResponse
  */
 export interface FindManyMetricsGithubUserRepositoryResponse {
@@ -431,6 +740,25 @@ export interface FindManyMetricsGithubUserResponse {
      * 
      * @type {FindManyResponseMeta}
      * @memberof FindManyMetricsGithubUserResponse
+     */
+    'meta': FindManyResponseMeta;
+}
+/**
+ * 
+ * @export
+ * @interface FindManyMetricsGithubUserStatisticsResponse
+ */
+export interface FindManyMetricsGithubUserStatisticsResponse {
+    /**
+     * 
+     * @type {Array<MetricsGithubUserStatisticsDto>}
+     * @memberof FindManyMetricsGithubUserStatisticsResponse
+     */
+    'metricsGithubUserStatistics': Array<MetricsGithubUserStatisticsDto>;
+    /**
+     * 
+     * @type {FindManyResponseMeta}
+     * @memberof FindManyMetricsGithubUserStatisticsResponse
      */
     'meta': FindManyResponseMeta;
 }
@@ -710,6 +1038,36 @@ export interface MetricsEntities {
      * @memberof MetricsEntities
      */
     'MetricsUser': MetricsUserScalarFieldEnum;
+    /**
+     * 
+     * @type {MetricsGithubRepositoryStatisticsScalarFieldEnum}
+     * @memberof MetricsEntities
+     */
+    'MetricsGithubRepositoryStatistics': MetricsGithubRepositoryStatisticsScalarFieldEnum;
+    /**
+     * 
+     * @type {MetricsGithubTeamScalarFieldEnum}
+     * @memberof MetricsEntities
+     */
+    'MetricsGithubTeam': MetricsGithubTeamScalarFieldEnum;
+    /**
+     * 
+     * @type {MetricsGithubTeamRepositoryScalarFieldEnum}
+     * @memberof MetricsEntities
+     */
+    'MetricsGithubTeamRepository': MetricsGithubTeamRepositoryScalarFieldEnum;
+    /**
+     * 
+     * @type {MetricsGithubTeamUserScalarFieldEnum}
+     * @memberof MetricsEntities
+     */
+    'MetricsGithubTeamUser': MetricsGithubTeamUserScalarFieldEnum;
+    /**
+     * 
+     * @type {MetricsGithubUserStatisticsScalarFieldEnum}
+     * @memberof MetricsEntities
+     */
+    'MetricsGithubUserStatistics': MetricsGithubUserStatisticsScalarFieldEnum;
 }
 
 
@@ -1008,6 +1366,18 @@ export interface MetricsGithubRepository {
     'tenantId': string;
     /**
      * 
+     * @type {string}
+     * @memberof MetricsGithubRepository
+     */
+    'description': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepository
+     */
+    'url': string | null;
+    /**
+     * 
      * @type {Array<MetricsGithubMetric>}
      * @memberof MetricsGithubRepository
      */
@@ -1024,6 +1394,18 @@ export interface MetricsGithubRepository {
      * @memberof MetricsGithubRepository
      */
     'MetricsUser_MetricsGithubRepository_updatedByToMetricsUser'?: MetricsUser;
+    /**
+     * 
+     * @type {Array<MetricsGithubRepositoryStatistics>}
+     * @memberof MetricsGithubRepository
+     */
+    'MetricsGithubRepositoryStatistics'?: Array<MetricsGithubRepositoryStatistics>;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamRepository>}
+     * @memberof MetricsGithubRepository
+     */
+    'MetricsGithubTeamRepository'?: Array<MetricsGithubTeamRepository>;
     /**
      * 
      * @type {Array<MetricsGithubUserRepository>}
@@ -1085,6 +1467,18 @@ export interface MetricsGithubRepositoryDto {
      * @memberof MetricsGithubRepositoryDto
      */
     'tenantId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryDto
+     */
+    'description': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryDto
+     */
+    'url': string | null;
 }
 /**
  * 
@@ -1102,10 +1496,635 @@ export const MetricsGithubRepositoryScalarFieldEnum = {
     UpdatedBy: 'updatedBy',
     CreatedAt: 'createdAt',
     UpdatedAt: 'updatedAt',
-    TenantId: 'tenantId'
+    TenantId: 'tenantId',
+    Description: 'description',
+    Url: 'url'
 } as const;
 
 export type MetricsGithubRepositoryScalarFieldEnum = typeof MetricsGithubRepositoryScalarFieldEnum[keyof typeof MetricsGithubRepositoryScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @interface MetricsGithubRepositoryStatistics
+ */
+export interface MetricsGithubRepositoryStatistics {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'repositoryId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'periodType': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'starsCount': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'forksCount': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'contributorsCount': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'commitsCount': number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'lastCommitDate': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'recordedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'createdBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'updatedBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'MetricsUser_MetricsGithubRepositoryStatistics_createdByToMetricsUser'?: MetricsUser;
+    /**
+     * 
+     * @type {MetricsGithubRepository}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'MetricsGithubRepository'?: MetricsGithubRepository;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubRepositoryStatistics
+     */
+    'MetricsUser_MetricsGithubRepositoryStatistics_updatedByToMetricsUser'?: MetricsUser;
+}
+/**
+ * 
+ * @export
+ * @interface MetricsGithubRepositoryStatisticsDto
+ */
+export interface MetricsGithubRepositoryStatisticsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'periodType': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'starsCount': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'forksCount': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'contributorsCount': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'commitsCount': number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'lastCommitDate': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'recordedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubRepositoryStatisticsDto
+     */
+    'tenantId': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const MetricsGithubRepositoryStatisticsScalarFieldEnum = {
+    Id: 'id',
+    RepositoryId: 'repositoryId',
+    PeriodType: 'periodType',
+    StarsCount: 'starsCount',
+    ForksCount: 'forksCount',
+    ContributorsCount: 'contributorsCount',
+    CommitsCount: 'commitsCount',
+    LastCommitDate: 'lastCommitDate',
+    RecordedAt: 'recordedAt',
+    CreatedBy: 'createdBy',
+    UpdatedBy: 'updatedBy',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt',
+    TenantId: 'tenantId'
+} as const;
+
+export type MetricsGithubRepositoryStatisticsScalarFieldEnum = typeof MetricsGithubRepositoryStatisticsScalarFieldEnum[keyof typeof MetricsGithubRepositoryStatisticsScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @interface MetricsGithubTeam
+ */
+export interface MetricsGithubTeam {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeam
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeam
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeam
+     */
+    'description': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeam
+     */
+    'createdBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeam
+     */
+    'updatedBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeam
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeam
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeam
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubTeam
+     */
+    'MetricsUser_MetricsGithubTeam_createdByToMetricsUser'?: MetricsUser;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubTeam
+     */
+    'MetricsUser_MetricsGithubTeam_updatedByToMetricsUser'?: MetricsUser;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamRepository>}
+     * @memberof MetricsGithubTeam
+     */
+    'MetricsGithubTeamRepository'?: Array<MetricsGithubTeamRepository>;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamUser>}
+     * @memberof MetricsGithubTeam
+     */
+    'MetricsGithubTeamUser'?: Array<MetricsGithubTeamUser>;
+}
+/**
+ * 
+ * @export
+ * @interface MetricsGithubTeamDto
+ */
+export interface MetricsGithubTeamDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamDto
+     */
+    'description': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamDto
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamDto
+     */
+    'tenantId': string;
+}
+/**
+ * 
+ * @export
+ * @interface MetricsGithubTeamRepository
+ */
+export interface MetricsGithubTeamRepository {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'teamId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'repositoryId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'createdBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'updatedBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'MetricsUser_MetricsGithubTeamRepository_createdByToMetricsUser'?: MetricsUser;
+    /**
+     * 
+     * @type {MetricsGithubRepository}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'MetricsGithubRepository'?: MetricsGithubRepository;
+    /**
+     * 
+     * @type {MetricsGithubTeam}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'MetricsGithubTeam'?: MetricsGithubTeam;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubTeamRepository
+     */
+    'MetricsUser_MetricsGithubTeamRepository_updatedByToMetricsUser'?: MetricsUser;
+}
+/**
+ * 
+ * @export
+ * @interface MetricsGithubTeamRepositoryDto
+ */
+export interface MetricsGithubTeamRepositoryDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepositoryDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepositoryDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepositoryDto
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamRepositoryDto
+     */
+    'tenantId': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const MetricsGithubTeamRepositoryScalarFieldEnum = {
+    Id: 'id',
+    TeamId: 'teamId',
+    RepositoryId: 'repositoryId',
+    CreatedBy: 'createdBy',
+    UpdatedBy: 'updatedBy',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt',
+    TenantId: 'tenantId'
+} as const;
+
+export type MetricsGithubTeamRepositoryScalarFieldEnum = typeof MetricsGithubTeamRepositoryScalarFieldEnum[keyof typeof MetricsGithubTeamRepositoryScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const MetricsGithubTeamScalarFieldEnum = {
+    Id: 'id',
+    Name: 'name',
+    Description: 'description',
+    CreatedBy: 'createdBy',
+    UpdatedBy: 'updatedBy',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt',
+    TenantId: 'tenantId'
+} as const;
+
+export type MetricsGithubTeamScalarFieldEnum = typeof MetricsGithubTeamScalarFieldEnum[keyof typeof MetricsGithubTeamScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @interface MetricsGithubTeamUser
+ */
+export interface MetricsGithubTeamUser {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUser
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUser
+     */
+    'teamId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUser
+     */
+    'userId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUser
+     */
+    'role': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUser
+     */
+    'createdBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUser
+     */
+    'updatedBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUser
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUser
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUser
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubTeamUser
+     */
+    'MetricsUser_MetricsGithubTeamUser_createdByToMetricsUser'?: MetricsUser;
+    /**
+     * 
+     * @type {MetricsGithubTeam}
+     * @memberof MetricsGithubTeamUser
+     */
+    'MetricsGithubTeam'?: MetricsGithubTeam;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubTeamUser
+     */
+    'MetricsUser_MetricsGithubTeamUser_updatedByToMetricsUser'?: MetricsUser;
+    /**
+     * 
+     * @type {MetricsGithubUser}
+     * @memberof MetricsGithubTeamUser
+     */
+    'MetricsGithubUser'?: MetricsGithubUser;
+}
+/**
+ * 
+ * @export
+ * @interface MetricsGithubTeamUserDto
+ */
+export interface MetricsGithubTeamUserDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUserDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUserDto
+     */
+    'role': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUserDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUserDto
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubTeamUserDto
+     */
+    'tenantId': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const MetricsGithubTeamUserScalarFieldEnum = {
+    Id: 'id',
+    TeamId: 'teamId',
+    UserId: 'userId',
+    Role: 'role',
+    CreatedBy: 'createdBy',
+    UpdatedBy: 'updatedBy',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt',
+    TenantId: 'tenantId'
+} as const;
+
+export type MetricsGithubTeamUserScalarFieldEnum = typeof MetricsGithubTeamUserScalarFieldEnum[keyof typeof MetricsGithubTeamUserScalarFieldEnum];
 
 
 /**
@@ -1170,6 +2189,48 @@ export interface MetricsGithubUser {
     'tenantId': string;
     /**
      * 
+     * @type {string}
+     * @memberof MetricsGithubUser
+     */
+    'description': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUser
+     */
+    'avatarUrl': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUser
+     */
+    'websiteUrl': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUser
+     */
+    'location': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUser
+     */
+    'telegramUrl': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUser
+     */
+    'twitterUrl': string | null;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamUser>}
+     * @memberof MetricsGithubUser
+     */
+    'MetricsGithubTeamUser'?: Array<MetricsGithubTeamUser>;
+    /**
+     * 
      * @type {MetricsUser}
      * @memberof MetricsGithubUser
      */
@@ -1186,6 +2247,12 @@ export interface MetricsGithubUser {
      * @memberof MetricsGithubUser
      */
     'MetricsGithubUserRepository'?: Array<MetricsGithubUserRepository>;
+    /**
+     * 
+     * @type {Array<MetricsGithubUserStatistics>}
+     * @memberof MetricsGithubUser
+     */
+    'MetricsGithubUserStatistics'?: Array<MetricsGithubUserStatistics>;
 }
 /**
  * 
@@ -1235,6 +2302,42 @@ export interface MetricsGithubUserDto {
      * @memberof MetricsGithubUserDto
      */
     'tenantId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserDto
+     */
+    'description': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserDto
+     */
+    'avatarUrl': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserDto
+     */
+    'websiteUrl': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserDto
+     */
+    'location': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserDto
+     */
+    'telegramUrl': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserDto
+     */
+    'twitterUrl': string | null;
 }
 /**
  * 
@@ -1394,10 +2497,185 @@ export const MetricsGithubUserScalarFieldEnum = {
     UpdatedBy: 'updatedBy',
     CreatedAt: 'createdAt',
     UpdatedAt: 'updatedAt',
-    TenantId: 'tenantId'
+    TenantId: 'tenantId',
+    Description: 'description',
+    AvatarUrl: 'avatarUrl',
+    WebsiteUrl: 'websiteUrl',
+    Location: 'location',
+    TelegramUrl: 'telegramUrl',
+    TwitterUrl: 'twitterUrl'
 } as const;
 
 export type MetricsGithubUserScalarFieldEnum = typeof MetricsGithubUserScalarFieldEnum[keyof typeof MetricsGithubUserScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @interface MetricsGithubUserStatistics
+ */
+export interface MetricsGithubUserStatistics {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'userId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'periodType': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'followersCount': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'followingCount': number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'recordedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'createdBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'updatedBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'MetricsUser_MetricsGithubUserStatistics_createdByToMetricsUser'?: MetricsUser;
+    /**
+     * 
+     * @type {MetricsUser}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'MetricsUser_MetricsGithubUserStatistics_updatedByToMetricsUser'?: MetricsUser;
+    /**
+     * 
+     * @type {MetricsGithubUser}
+     * @memberof MetricsGithubUserStatistics
+     */
+    'MetricsGithubUser'?: MetricsGithubUser;
+}
+/**
+ * 
+ * @export
+ * @interface MetricsGithubUserStatisticsDto
+ */
+export interface MetricsGithubUserStatisticsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatisticsDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatisticsDto
+     */
+    'periodType': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubUserStatisticsDto
+     */
+    'followersCount': number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof MetricsGithubUserStatisticsDto
+     */
+    'followingCount': number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatisticsDto
+     */
+    'recordedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatisticsDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatisticsDto
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsGithubUserStatisticsDto
+     */
+    'tenantId': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const MetricsGithubUserStatisticsScalarFieldEnum = {
+    Id: 'id',
+    UserId: 'userId',
+    PeriodType: 'periodType',
+    FollowersCount: 'followersCount',
+    FollowingCount: 'followingCount',
+    RecordedAt: 'recordedAt',
+    CreatedBy: 'createdBy',
+    UpdatedBy: 'updatedBy',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt',
+    TenantId: 'tenantId'
+} as const;
+
+export type MetricsGithubUserStatisticsScalarFieldEnum = typeof MetricsGithubUserStatisticsScalarFieldEnum[keyof typeof MetricsGithubUserStatisticsScalarFieldEnum];
 
 
 /**
@@ -1482,6 +2760,54 @@ export interface MetricsUser {
     'MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser'?: Array<MetricsGithubRepository>;
     /**
      * 
+     * @type {Array<MetricsGithubRepositoryStatistics>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubRepositoryStatistics_MetricsGithubRepositoryStatistics_createdByToMetricsUser'?: Array<MetricsGithubRepositoryStatistics>;
+    /**
+     * 
+     * @type {Array<MetricsGithubRepositoryStatistics>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubRepositoryStatistics_MetricsGithubRepositoryStatistics_updatedByToMetricsUser'?: Array<MetricsGithubRepositoryStatistics>;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeam>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubTeam_MetricsGithubTeam_createdByToMetricsUser'?: Array<MetricsGithubTeam>;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeam>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubTeam_MetricsGithubTeam_updatedByToMetricsUser'?: Array<MetricsGithubTeam>;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamRepository>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubTeamRepository_MetricsGithubTeamRepository_createdByToMetricsUser'?: Array<MetricsGithubTeamRepository>;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamRepository>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubTeamRepository_MetricsGithubTeamRepository_updatedByToMetricsUser'?: Array<MetricsGithubTeamRepository>;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamUser>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubTeamUser_MetricsGithubTeamUser_createdByToMetricsUser'?: Array<MetricsGithubTeamUser>;
+    /**
+     * 
+     * @type {Array<MetricsGithubTeamUser>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubTeamUser_MetricsGithubTeamUser_updatedByToMetricsUser'?: Array<MetricsGithubTeamUser>;
+    /**
+     * 
      * @type {Array<MetricsGithubUser>}
      * @memberof MetricsUser
      */
@@ -1504,6 +2830,18 @@ export interface MetricsUser {
      * @memberof MetricsUser
      */
     'MetricsGithubUserRepository_MetricsGithubUserRepository_updatedByToMetricsUser'?: Array<MetricsGithubUserRepository>;
+    /**
+     * 
+     * @type {Array<MetricsGithubUserStatistics>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubUserStatistics_MetricsGithubUserStatistics_createdByToMetricsUser'?: Array<MetricsGithubUserStatistics>;
+    /**
+     * 
+     * @type {Array<MetricsGithubUserStatistics>}
+     * @memberof MetricsUser
+     */
+    'MetricsGithubUserStatistics_MetricsGithubUserStatistics_updatedByToMetricsUser'?: Array<MetricsGithubUserStatistics>;
 }
 
 
@@ -3593,6 +4931,130 @@ export interface UpdateMetricsGithubRepositoryDto {
      * @memberof UpdateMetricsGithubRepositoryDto
      */
     'fork'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubRepositoryDto
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubRepositoryDto
+     */
+    'url'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateMetricsGithubRepositoryStatisticsDto
+ */
+export interface UpdateMetricsGithubRepositoryStatisticsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubRepositoryStatisticsDto
+     */
+    'periodType'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateMetricsGithubRepositoryStatisticsDto
+     */
+    'starsCount'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateMetricsGithubRepositoryStatisticsDto
+     */
+    'forksCount'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateMetricsGithubRepositoryStatisticsDto
+     */
+    'contributorsCount'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateMetricsGithubRepositoryStatisticsDto
+     */
+    'commitsCount'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubRepositoryStatisticsDto
+     */
+    'lastCommitDate'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubRepositoryStatisticsDto
+     */
+    'recordedAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubRepositoryStatisticsDto
+     */
+    'tenantId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateMetricsGithubTeamDto
+ */
+export interface UpdateMetricsGithubTeamDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubTeamDto
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubTeamDto
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubTeamDto
+     */
+    'tenantId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateMetricsGithubTeamRepositoryDto
+ */
+export interface UpdateMetricsGithubTeamRepositoryDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubTeamRepositoryDto
+     */
+    'tenantId'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateMetricsGithubTeamUserDto
+ */
+export interface UpdateMetricsGithubTeamUserDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubTeamUserDto
+     */
+    'role'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubTeamUserDto
+     */
+    'tenantId'?: string;
 }
 /**
  * 
@@ -3618,6 +5080,42 @@ export interface UpdateMetricsGithubUserDto {
      * @memberof UpdateMetricsGithubUserDto
      */
     'email'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubUserDto
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubUserDto
+     */
+    'avatarUrl'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubUserDto
+     */
+    'websiteUrl'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubUserDto
+     */
+    'location'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubUserDto
+     */
+    'telegramUrl'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubUserDto
+     */
+    'twitterUrl'?: string | null;
 }
 /**
  * 
@@ -3631,6 +5129,43 @@ export interface UpdateMetricsGithubUserRepositoryDto {
      * @memberof UpdateMetricsGithubUserRepositoryDto
      */
     'role'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateMetricsGithubUserStatisticsDto
+ */
+export interface UpdateMetricsGithubUserStatisticsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubUserStatisticsDto
+     */
+    'periodType'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateMetricsGithubUserStatisticsDto
+     */
+    'followersCount'?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateMetricsGithubUserStatisticsDto
+     */
+    'followingCount'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubUserStatisticsDto
+     */
+    'recordedAt'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsGithubUserStatisticsDto
+     */
+    'tenantId'?: string;
 }
 /**
  * 
@@ -5216,6 +6751,782 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @param {CreateFullMetricsGithubRepositoryStatisticsDto} createFullMetricsGithubRepositoryStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerCreateOne: async (createFullMetricsGithubRepositoryStatisticsDto: CreateFullMetricsGithubRepositoryStatisticsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createFullMetricsGithubRepositoryStatisticsDto' is not null or undefined
+            assertParamExists('metricsGithubRepositoryStatisticsControllerCreateOne', 'createFullMetricsGithubRepositoryStatisticsDto', createFullMetricsGithubRepositoryStatisticsDto)
+            const localVarPath = `/api/metrics/github/repository/statistics`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createFullMetricsGithubRepositoryStatisticsDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubRepositoryStatisticsControllerDeleteOne', 'id', id)
+            const localVarPath = `/api/metrics/github/repository/statistics/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/metrics/github/repository/statistics`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (curPage !== undefined) {
+                localVarQueryParameter['curPage'] = curPage;
+            }
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['perPage'] = perPage;
+            }
+
+            if (searchText !== undefined) {
+                localVarQueryParameter['searchText'] = searchText;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubRepositoryStatisticsControllerFindOne', 'id', id)
+            const localVarPath = `/api/metrics/github/repository/statistics/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubRepositoryStatisticsDto} updateMetricsGithubRepositoryStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerUpdateOne: async (id: string, updateMetricsGithubRepositoryStatisticsDto: UpdateMetricsGithubRepositoryStatisticsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubRepositoryStatisticsControllerUpdateOne', 'id', id)
+            // verify required parameter 'updateMetricsGithubRepositoryStatisticsDto' is not null or undefined
+            assertParamExists('metricsGithubRepositoryStatisticsControllerUpdateOne', 'updateMetricsGithubRepositoryStatisticsDto', updateMetricsGithubRepositoryStatisticsDto)
+            const localVarPath = `/api/metrics/github/repository/statistics/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateMetricsGithubRepositoryStatisticsDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {CreateMetricsGithubTeamDto} createMetricsGithubTeamDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerCreateOne: async (createMetricsGithubTeamDto: CreateMetricsGithubTeamDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createMetricsGithubTeamDto' is not null or undefined
+            assertParamExists('metricsGithubTeamControllerCreateOne', 'createMetricsGithubTeamDto', createMetricsGithubTeamDto)
+            const localVarPath = `/api/metrics/github/team`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createMetricsGithubTeamDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubTeamControllerDeleteOne', 'id', id)
+            const localVarPath = `/api/metrics/github/team/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/metrics/github/team`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (curPage !== undefined) {
+                localVarQueryParameter['curPage'] = curPage;
+            }
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['perPage'] = perPage;
+            }
+
+            if (searchText !== undefined) {
+                localVarQueryParameter['searchText'] = searchText;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubTeamControllerFindOne', 'id', id)
+            const localVarPath = `/api/metrics/github/team/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubTeamDto} updateMetricsGithubTeamDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerUpdateOne: async (id: string, updateMetricsGithubTeamDto: UpdateMetricsGithubTeamDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubTeamControllerUpdateOne', 'id', id)
+            // verify required parameter 'updateMetricsGithubTeamDto' is not null or undefined
+            assertParamExists('metricsGithubTeamControllerUpdateOne', 'updateMetricsGithubTeamDto', updateMetricsGithubTeamDto)
+            const localVarPath = `/api/metrics/github/team/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateMetricsGithubTeamDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {CreateFullMetricsGithubTeamRepositoryDto} createFullMetricsGithubTeamRepositoryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerCreateOne: async (createFullMetricsGithubTeamRepositoryDto: CreateFullMetricsGithubTeamRepositoryDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createFullMetricsGithubTeamRepositoryDto' is not null or undefined
+            assertParamExists('metricsGithubTeamRepositoryControllerCreateOne', 'createFullMetricsGithubTeamRepositoryDto', createFullMetricsGithubTeamRepositoryDto)
+            const localVarPath = `/api/metrics/github/team/repository`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createFullMetricsGithubTeamRepositoryDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubTeamRepositoryControllerDeleteOne', 'id', id)
+            const localVarPath = `/api/metrics/github/team/repository/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/metrics/github/team/repository`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (curPage !== undefined) {
+                localVarQueryParameter['curPage'] = curPage;
+            }
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['perPage'] = perPage;
+            }
+
+            if (searchText !== undefined) {
+                localVarQueryParameter['searchText'] = searchText;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubTeamRepositoryControllerFindOne', 'id', id)
+            const localVarPath = `/api/metrics/github/team/repository/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubTeamRepositoryDto} updateMetricsGithubTeamRepositoryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerUpdateOne: async (id: string, updateMetricsGithubTeamRepositoryDto: UpdateMetricsGithubTeamRepositoryDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubTeamRepositoryControllerUpdateOne', 'id', id)
+            // verify required parameter 'updateMetricsGithubTeamRepositoryDto' is not null or undefined
+            assertParamExists('metricsGithubTeamRepositoryControllerUpdateOne', 'updateMetricsGithubTeamRepositoryDto', updateMetricsGithubTeamRepositoryDto)
+            const localVarPath = `/api/metrics/github/team/repository/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateMetricsGithubTeamRepositoryDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {CreateFullMetricsGithubTeamUserDto} createFullMetricsGithubTeamUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerCreateOne: async (createFullMetricsGithubTeamUserDto: CreateFullMetricsGithubTeamUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createFullMetricsGithubTeamUserDto' is not null or undefined
+            assertParamExists('metricsGithubTeamUserControllerCreateOne', 'createFullMetricsGithubTeamUserDto', createFullMetricsGithubTeamUserDto)
+            const localVarPath = `/api/metrics/github/team/user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createFullMetricsGithubTeamUserDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubTeamUserControllerDeleteOne', 'id', id)
+            const localVarPath = `/api/metrics/github/team/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/metrics/github/team/user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (curPage !== undefined) {
+                localVarQueryParameter['curPage'] = curPage;
+            }
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['perPage'] = perPage;
+            }
+
+            if (searchText !== undefined) {
+                localVarQueryParameter['searchText'] = searchText;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubTeamUserControllerFindOne', 'id', id)
+            const localVarPath = `/api/metrics/github/team/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubTeamUserDto} updateMetricsGithubTeamUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerUpdateOne: async (id: string, updateMetricsGithubTeamUserDto: UpdateMetricsGithubTeamUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubTeamUserControllerUpdateOne', 'id', id)
+            // verify required parameter 'updateMetricsGithubTeamUserDto' is not null or undefined
+            assertParamExists('metricsGithubTeamUserControllerUpdateOne', 'updateMetricsGithubTeamUserDto', updateMetricsGithubTeamUserDto)
+            const localVarPath = `/api/metrics/github/team/user/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateMetricsGithubTeamUserDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {CreateMetricsGithubUserDto} createMetricsGithubUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5604,6 +7915,200 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @param {CreateFullMetricsGithubUserStatisticsDto} createFullMetricsGithubUserStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerCreateOne: async (createFullMetricsGithubUserStatisticsDto: CreateFullMetricsGithubUserStatisticsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createFullMetricsGithubUserStatisticsDto' is not null or undefined
+            assertParamExists('metricsGithubUserStatisticsControllerCreateOne', 'createFullMetricsGithubUserStatisticsDto', createFullMetricsGithubUserStatisticsDto)
+            const localVarPath = `/api/metrics/github/user/statistics`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createFullMetricsGithubUserStatisticsDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubUserStatisticsControllerDeleteOne', 'id', id)
+            const localVarPath = `/api/metrics/github/user/statistics/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/metrics/github/user/statistics`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (curPage !== undefined) {
+                localVarQueryParameter['curPage'] = curPage;
+            }
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['perPage'] = perPage;
+            }
+
+            if (searchText !== undefined) {
+                localVarQueryParameter['searchText'] = searchText;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubUserStatisticsControllerFindOne', 'id', id)
+            const localVarPath = `/api/metrics/github/user/statistics/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubUserStatisticsDto} updateMetricsGithubUserStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerUpdateOne: async (id: string, updateMetricsGithubUserStatisticsDto: UpdateMetricsGithubUserStatisticsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsGithubUserStatisticsControllerUpdateOne', 'id', id)
+            // verify required parameter 'updateMetricsGithubUserStatisticsDto' is not null or undefined
+            assertParamExists('metricsGithubUserStatisticsControllerUpdateOne', 'updateMetricsGithubUserStatisticsDto', updateMetricsGithubUserStatisticsDto)
+            const localVarPath = `/api/metrics/github/user/statistics/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateMetricsGithubUserStatisticsDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {CreateFullMetricsUserDto} createFullMetricsUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5938,6 +8443,266 @@ export const MetricsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {CreateFullMetricsGithubRepositoryStatisticsDto} createFullMetricsGithubRepositoryStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubRepositoryStatisticsControllerCreateOne(createFullMetricsGithubRepositoryStatisticsDto: CreateFullMetricsGithubRepositoryStatisticsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubRepositoryStatisticsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubRepositoryStatisticsControllerCreateOne(createFullMetricsGithubRepositoryStatisticsDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubRepositoryStatisticsControllerCreateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubRepositoryStatisticsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubRepositoryStatisticsControllerDeleteOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubRepositoryStatisticsControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubRepositoryStatisticsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubRepositoryStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubRepositoryStatisticsControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubRepositoryStatisticsControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubRepositoryStatisticsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubRepositoryStatisticsControllerFindOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubRepositoryStatisticsControllerFindOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubRepositoryStatisticsDto} updateMetricsGithubRepositoryStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubRepositoryStatisticsControllerUpdateOne(id: string, updateMetricsGithubRepositoryStatisticsDto: UpdateMetricsGithubRepositoryStatisticsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubRepositoryStatisticsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubRepositoryStatisticsControllerUpdateOne(id, updateMetricsGithubRepositoryStatisticsDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubRepositoryStatisticsControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {CreateMetricsGithubTeamDto} createMetricsGithubTeamDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDto: CreateMetricsGithubTeamDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamControllerCreateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamControllerDeleteOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubTeamResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamControllerFindOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamControllerFindOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubTeamDto} updateMetricsGithubTeamDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamControllerUpdateOne(id: string, updateMetricsGithubTeamDto: UpdateMetricsGithubTeamDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamControllerUpdateOne(id, updateMetricsGithubTeamDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {CreateFullMetricsGithubTeamRepositoryDto} createFullMetricsGithubTeamRepositoryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDto: CreateFullMetricsGithubTeamRepositoryDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamRepositoryDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamRepositoryControllerCreateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamRepositoryControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamRepositoryControllerDeleteOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamRepositoryControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubTeamRepositoryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamRepositoryControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamRepositoryControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamRepositoryDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamRepositoryControllerFindOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamRepositoryControllerFindOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubTeamRepositoryDto} updateMetricsGithubTeamRepositoryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDto: UpdateMetricsGithubTeamRepositoryDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamRepositoryDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamRepositoryControllerUpdateOne(id, updateMetricsGithubTeamRepositoryDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamRepositoryControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {CreateFullMetricsGithubTeamUserDto} createFullMetricsGithubTeamUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDto: CreateFullMetricsGithubTeamUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamUserDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamUserControllerCreateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamUserControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamUserControllerDeleteOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamUserControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubTeamUserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamUserControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamUserControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamUserDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamUserControllerFindOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamUserControllerFindOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubTeamUserDto} updateMetricsGithubTeamUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubTeamUserControllerUpdateOne(id: string, updateMetricsGithubTeamUserDto: UpdateMetricsGithubTeamUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamUserDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamUserControllerUpdateOne(id, updateMetricsGithubTeamUserDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamUserControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {CreateMetricsGithubUserDto} createMetricsGithubUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6064,6 +8829,71 @@ export const MetricsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserRepositoryControllerUpdateOne(id, updateMetricsGithubUserRepositoryDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserRepositoryControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {CreateFullMetricsGithubUserStatisticsDto} createFullMetricsGithubUserStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubUserStatisticsControllerCreateOne(createFullMetricsGithubUserStatisticsDto: CreateFullMetricsGithubUserStatisticsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubUserStatisticsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserStatisticsControllerCreateOne(createFullMetricsGithubUserStatisticsDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserStatisticsControllerCreateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubUserStatisticsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserStatisticsControllerDeleteOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserStatisticsControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubUserStatisticsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserStatisticsControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubUserStatisticsControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubUserStatisticsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserStatisticsControllerFindOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserStatisticsControllerFindOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubUserStatisticsDto} updateMetricsGithubUserStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsGithubUserStatisticsControllerUpdateOne(id: string, updateMetricsGithubUserStatisticsDto: UpdateMetricsGithubUserStatisticsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubUserStatisticsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserStatisticsControllerUpdateOne(id, updateMetricsGithubUserStatisticsDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserStatisticsControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -6243,6 +9073,206 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @param {CreateFullMetricsGithubRepositoryStatisticsDto} createFullMetricsGithubRepositoryStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerCreateOne(createFullMetricsGithubRepositoryStatisticsDto: CreateFullMetricsGithubRepositoryStatisticsDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubRepositoryStatisticsDto> {
+            return localVarFp.metricsGithubRepositoryStatisticsControllerCreateOne(createFullMetricsGithubRepositoryStatisticsDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.metricsGithubRepositoryStatisticsControllerDeleteOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubRepositoryStatisticsResponse> {
+            return localVarFp.metricsGithubRepositoryStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubRepositoryStatisticsDto> {
+            return localVarFp.metricsGithubRepositoryStatisticsControllerFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubRepositoryStatisticsDto} updateMetricsGithubRepositoryStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubRepositoryStatisticsControllerUpdateOne(id: string, updateMetricsGithubRepositoryStatisticsDto: UpdateMetricsGithubRepositoryStatisticsDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubRepositoryStatisticsDto> {
+            return localVarFp.metricsGithubRepositoryStatisticsControllerUpdateOne(id, updateMetricsGithubRepositoryStatisticsDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreateMetricsGithubTeamDto} createMetricsGithubTeamDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDto: CreateMetricsGithubTeamDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamDto> {
+            return localVarFp.metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.metricsGithubTeamControllerDeleteOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubTeamResponse> {
+            return localVarFp.metricsGithubTeamControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamDto> {
+            return localVarFp.metricsGithubTeamControllerFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubTeamDto} updateMetricsGithubTeamDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamControllerUpdateOne(id: string, updateMetricsGithubTeamDto: UpdateMetricsGithubTeamDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamDto> {
+            return localVarFp.metricsGithubTeamControllerUpdateOne(id, updateMetricsGithubTeamDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreateFullMetricsGithubTeamRepositoryDto} createFullMetricsGithubTeamRepositoryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDto: CreateFullMetricsGithubTeamRepositoryDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamRepositoryDto> {
+            return localVarFp.metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.metricsGithubTeamRepositoryControllerDeleteOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubTeamRepositoryResponse> {
+            return localVarFp.metricsGithubTeamRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamRepositoryDto> {
+            return localVarFp.metricsGithubTeamRepositoryControllerFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubTeamRepositoryDto} updateMetricsGithubTeamRepositoryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDto: UpdateMetricsGithubTeamRepositoryDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamRepositoryDto> {
+            return localVarFp.metricsGithubTeamRepositoryControllerUpdateOne(id, updateMetricsGithubTeamRepositoryDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreateFullMetricsGithubTeamUserDto} createFullMetricsGithubTeamUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDto: CreateFullMetricsGithubTeamUserDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamUserDto> {
+            return localVarFp.metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.metricsGithubTeamUserControllerDeleteOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubTeamUserResponse> {
+            return localVarFp.metricsGithubTeamUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamUserDto> {
+            return localVarFp.metricsGithubTeamUserControllerFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubTeamUserDto} updateMetricsGithubTeamUserDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubTeamUserControllerUpdateOne(id: string, updateMetricsGithubTeamUserDto: UpdateMetricsGithubTeamUserDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamUserDto> {
+            return localVarFp.metricsGithubTeamUserControllerUpdateOne(id, updateMetricsGithubTeamUserDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {CreateMetricsGithubUserDto} createMetricsGithubUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6340,6 +9370,56 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          */
         metricsGithubUserRepositoryControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDto: UpdateMetricsGithubUserRepositoryDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubUserRepositoryDto> {
             return localVarFp.metricsGithubUserRepositoryControllerUpdateOne(id, updateMetricsGithubUserRepositoryDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreateFullMetricsGithubUserStatisticsDto} createFullMetricsGithubUserStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerCreateOne(createFullMetricsGithubUserStatisticsDto: CreateFullMetricsGithubUserStatisticsDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubUserStatisticsDto> {
+            return localVarFp.metricsGithubUserStatisticsControllerCreateOne(createFullMetricsGithubUserStatisticsDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.metricsGithubUserStatisticsControllerDeleteOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubUserStatisticsResponse> {
+            return localVarFp.metricsGithubUserStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubUserStatisticsDto> {
+            return localVarFp.metricsGithubUserStatisticsControllerFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsGithubUserStatisticsDto} updateMetricsGithubUserStatisticsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsGithubUserStatisticsControllerUpdateOne(id: string, updateMetricsGithubUserStatisticsDto: UpdateMetricsGithubUserStatisticsDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubUserStatisticsDto> {
+            return localVarFp.metricsGithubUserStatisticsControllerUpdateOne(id, updateMetricsGithubUserStatisticsDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6523,6 +9603,246 @@ export class MetricsApi extends BaseAPI {
 
     /**
      * 
+     * @param {CreateFullMetricsGithubRepositoryStatisticsDto} createFullMetricsGithubRepositoryStatisticsDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubRepositoryStatisticsControllerCreateOne(createFullMetricsGithubRepositoryStatisticsDto: CreateFullMetricsGithubRepositoryStatisticsDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubRepositoryStatisticsControllerCreateOne(createFullMetricsGithubRepositoryStatisticsDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubRepositoryStatisticsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubRepositoryStatisticsControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {string} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubRepositoryStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubRepositoryStatisticsControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubRepositoryStatisticsControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {UpdateMetricsGithubRepositoryStatisticsDto} updateMetricsGithubRepositoryStatisticsDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubRepositoryStatisticsControllerUpdateOne(id: string, updateMetricsGithubRepositoryStatisticsDto: UpdateMetricsGithubRepositoryStatisticsDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubRepositoryStatisticsControllerUpdateOne(id, updateMetricsGithubRepositoryStatisticsDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreateMetricsGithubTeamDto} createMetricsGithubTeamDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDto: CreateMetricsGithubTeamDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {string} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {UpdateMetricsGithubTeamDto} updateMetricsGithubTeamDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamControllerUpdateOne(id: string, updateMetricsGithubTeamDto: UpdateMetricsGithubTeamDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamControllerUpdateOne(id, updateMetricsGithubTeamDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreateFullMetricsGithubTeamRepositoryDto} createFullMetricsGithubTeamRepositoryDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDto: CreateFullMetricsGithubTeamRepositoryDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamRepositoryControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamRepositoryControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {string} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamRepositoryControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamRepositoryControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {UpdateMetricsGithubTeamRepositoryDto} updateMetricsGithubTeamRepositoryDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDto: UpdateMetricsGithubTeamRepositoryDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamRepositoryControllerUpdateOne(id, updateMetricsGithubTeamRepositoryDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreateFullMetricsGithubTeamUserDto} createFullMetricsGithubTeamUserDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDto: CreateFullMetricsGithubTeamUserDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamUserControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamUserControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {string} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamUserControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamUserControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {UpdateMetricsGithubTeamUserDto} updateMetricsGithubTeamUserDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubTeamUserControllerUpdateOne(id: string, updateMetricsGithubTeamUserDto: UpdateMetricsGithubTeamUserDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamUserControllerUpdateOne(id, updateMetricsGithubTeamUserDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {CreateMetricsGithubUserDto} createMetricsGithubUserDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -6639,6 +9959,66 @@ export class MetricsApi extends BaseAPI {
      */
     public metricsGithubUserRepositoryControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDto: UpdateMetricsGithubUserRepositoryDto, options?: RawAxiosRequestConfig) {
         return MetricsApiFp(this.configuration).metricsGithubUserRepositoryControllerUpdateOne(id, updateMetricsGithubUserRepositoryDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreateFullMetricsGithubUserStatisticsDto} createFullMetricsGithubUserStatisticsDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubUserStatisticsControllerCreateOne(createFullMetricsGithubUserStatisticsDto: CreateFullMetricsGithubUserStatisticsDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubUserStatisticsControllerCreateOne(createFullMetricsGithubUserStatisticsDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubUserStatisticsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubUserStatisticsControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {string} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubUserStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubUserStatisticsControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubUserStatisticsControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {UpdateMetricsGithubUserStatisticsDto} updateMetricsGithubUserStatisticsDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsGithubUserStatisticsControllerUpdateOne(id: string, updateMetricsGithubUserStatisticsDto: UpdateMetricsGithubUserStatisticsDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubUserStatisticsControllerUpdateOne(id, updateMetricsGithubUserStatisticsDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

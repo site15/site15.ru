@@ -68,29 +68,33 @@ model MetricsGithubMetric {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubRepository {
   /// @DtoCreateHidden
-  id                                                         String                        @id(map: "PK_METRICS_GITHUB_REPOSITORY") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  name                                                       String                        @db.VarChar(255)
-  owner                                                      String                        @db.VarChar(255)
+  id                                                         String                              @id(map: "PK_METRICS_GITHUB_REPOSITORY") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name                                                       String                              @db.VarChar(255)
+  owner                                                      String                              @db.VarChar(255)
   private                                                    Boolean
   fork                                                       Boolean
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  createdBy                                                  String                        @db.Uuid
+  createdBy                                                  String                              @db.Uuid
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  updatedBy                                                  String                        @db.Uuid
+  updatedBy                                                  String                              @db.Uuid
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  createdAt                                                  DateTime                      @default(now()) @db.Timestamp(6)
+  createdAt                                                  DateTime                            @default(now()) @db.Timestamp(6)
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  updatedAt                                                  DateTime                      @default(now()) @db.Timestamp(6)
+  updatedAt                                                  DateTime                            @default(now()) @db.Timestamp(6)
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  tenantId                                                   String                        @db.Uuid
+  tenantId                                                   String                              @db.Uuid
+  description                                                String?
+  url                                                        String?                             @db.VarChar(500)
   MetricsGithubMetric                                        MetricsGithubMetric[]
-  MetricsUser_MetricsGithubRepository_createdByToMetricsUser MetricsUser                   @relation("MetricsGithubRepository_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY__CREATED_BY")
-  MetricsUser_MetricsGithubRepository_updatedByToMetricsUser MetricsUser                   @relation("MetricsGithubRepository_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY__UPDATED_BY")
+  MetricsUser_MetricsGithubRepository_createdByToMetricsUser MetricsUser                         @relation("MetricsGithubRepository_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY__CREATED_BY")
+  MetricsUser_MetricsGithubRepository_updatedByToMetricsUser MetricsUser                         @relation("MetricsGithubRepository_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY__UPDATED_BY")
+  MetricsGithubRepositoryStatistics                          MetricsGithubRepositoryStatistics[]
+  MetricsGithubTeamRepository                                MetricsGithubTeamRepository[]
   MetricsGithubUserRepository                                MetricsGithubUserRepository[]
 
   @@unique([tenantId, name, owner], map: "UQ_METRICS_GITHUB_REPOSITORY__NAME_OWNER")
@@ -119,9 +123,17 @@ model MetricsGithubUser {
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
   tenantId                                             String                        @db.Uuid
+  description                                          String?
+  avatarUrl                                            String?                       @db.VarChar(500)
+  websiteUrl                                           String?                       @db.VarChar(500)
+  location                                             String?                       @db.VarChar(255)
+  telegramUrl                                          String?                       @db.VarChar(500)
+  twitterUrl                                           String?                       @db.VarChar(500)
+  MetricsGithubTeamUser                                MetricsGithubTeamUser[]
   MetricsUser_MetricsGithubUser_createdByToMetricsUser MetricsUser                   @relation("MetricsGithubUser_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER__CREATED_BY")
   MetricsUser_MetricsGithubUser_updatedByToMetricsUser MetricsUser                   @relation("MetricsGithubUser_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER__UPDATED_BY")
   MetricsGithubUserRepository                          MetricsGithubUserRepository[]
+  MetricsGithubUserStatistics                          MetricsGithubUserStatistics[]
 
   @@unique([tenantId, login], map: "UQ_METRICS_GITHUB_USER__LOGIN")
   @@index([tenantId], map: "IDX_METRICS_GITHUB_USER__TENANT_ID")
@@ -160,28 +172,38 @@ model MetricsGithubUserRepository {
 
 model MetricsUser {
   /// @DtoCreateHidden
-  id                                                                             String                        @id(map: "PK_METRICS_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  id                                                                                         String                              @id(map: "PK_METRICS_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  tenantId                                                                       String                        @db.Uuid
+  tenantId                                                                                   String                              @db.Uuid
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  externalUserId                                                                 String                        @db.Uuid
-  userRole                                                                       MetricsRole
+  externalUserId                                                                             String                              @db.Uuid
+  userRole                                                                                   MetricsRole
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  createdAt                                                                      DateTime                      @default(now()) @db.Timestamp(6)
+  createdAt                                                                                  DateTime                            @default(now()) @db.Timestamp(6)
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
-  updatedAt                                                                      DateTime                      @default(now()) @db.Timestamp(6)
-  MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser                 MetricsGithubMetric[]         @relation("MetricsGithubMetric_createdByToMetricsUser")
-  MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser                 MetricsGithubMetric[]         @relation("MetricsGithubMetric_updatedByToMetricsUser")
-  MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser         MetricsGithubRepository[]     @relation("MetricsGithubRepository_createdByToMetricsUser")
-  MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser         MetricsGithubRepository[]     @relation("MetricsGithubRepository_updatedByToMetricsUser")
-  MetricsGithubUser_MetricsGithubUser_createdByToMetricsUser                     MetricsGithubUser[]           @relation("MetricsGithubUser_createdByToMetricsUser")
-  MetricsGithubUser_MetricsGithubUser_updatedByToMetricsUser                     MetricsGithubUser[]           @relation("MetricsGithubUser_updatedByToMetricsUser")
-  MetricsGithubUserRepository_MetricsGithubUserRepository_createdByToMetricsUser MetricsGithubUserRepository[] @relation("MetricsGithubUserRepository_createdByToMetricsUser")
-  MetricsGithubUserRepository_MetricsGithubUserRepository_updatedByToMetricsUser MetricsGithubUserRepository[] @relation("MetricsGithubUserRepository_updatedByToMetricsUser")
+  updatedAt                                                                                  DateTime                            @default(now()) @db.Timestamp(6)
+  MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser                             MetricsGithubMetric[]               @relation("MetricsGithubMetric_createdByToMetricsUser")
+  MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser                             MetricsGithubMetric[]               @relation("MetricsGithubMetric_updatedByToMetricsUser")
+  MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser                     MetricsGithubRepository[]           @relation("MetricsGithubRepository_createdByToMetricsUser")
+  MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser                     MetricsGithubRepository[]           @relation("MetricsGithubRepository_updatedByToMetricsUser")
+  MetricsGithubRepositoryStatistics_MetricsGithubRepositoryStatistics_createdByToMetricsUser MetricsGithubRepositoryStatistics[] @relation("MetricsGithubRepositoryStatistics_createdByToMetricsUser")
+  MetricsGithubRepositoryStatistics_MetricsGithubRepositoryStatistics_updatedByToMetricsUser MetricsGithubRepositoryStatistics[] @relation("MetricsGithubRepositoryStatistics_updatedByToMetricsUser")
+  MetricsGithubTeam_MetricsGithubTeam_createdByToMetricsUser                                 MetricsGithubTeam[]                 @relation("MetricsGithubTeam_createdByToMetricsUser")
+  MetricsGithubTeam_MetricsGithubTeam_updatedByToMetricsUser                                 MetricsGithubTeam[]                 @relation("MetricsGithubTeam_updatedByToMetricsUser")
+  MetricsGithubTeamRepository_MetricsGithubTeamRepository_createdByToMetricsUser             MetricsGithubTeamRepository[]       @relation("MetricsGithubTeamRepository_createdByToMetricsUser")
+  MetricsGithubTeamRepository_MetricsGithubTeamRepository_updatedByToMetricsUser             MetricsGithubTeamRepository[]       @relation("MetricsGithubTeamRepository_updatedByToMetricsUser")
+  MetricsGithubTeamUser_MetricsGithubTeamUser_createdByToMetricsUser                         MetricsGithubTeamUser[]             @relation("MetricsGithubTeamUser_createdByToMetricsUser")
+  MetricsGithubTeamUser_MetricsGithubTeamUser_updatedByToMetricsUser                         MetricsGithubTeamUser[]             @relation("MetricsGithubTeamUser_updatedByToMetricsUser")
+  MetricsGithubUser_MetricsGithubUser_createdByToMetricsUser                                 MetricsGithubUser[]                 @relation("MetricsGithubUser_createdByToMetricsUser")
+  MetricsGithubUser_MetricsGithubUser_updatedByToMetricsUser                                 MetricsGithubUser[]                 @relation("MetricsGithubUser_updatedByToMetricsUser")
+  MetricsGithubUserRepository_MetricsGithubUserRepository_createdByToMetricsUser             MetricsGithubUserRepository[]       @relation("MetricsGithubUserRepository_createdByToMetricsUser")
+  MetricsGithubUserRepository_MetricsGithubUserRepository_updatedByToMetricsUser             MetricsGithubUserRepository[]       @relation("MetricsGithubUserRepository_updatedByToMetricsUser")
+  MetricsGithubUserStatistics_MetricsGithubUserStatistics_createdByToMetricsUser             MetricsGithubUserStatistics[]       @relation("MetricsGithubUserStatistics_createdByToMetricsUser")
+  MetricsGithubUserStatistics_MetricsGithubUserStatistics_updatedByToMetricsUser             MetricsGithubUserStatistics[]       @relation("MetricsGithubUserStatistics_updatedByToMetricsUser")
 
   @@unique([tenantId, externalUserId], map: "UQ_METRICS_USER")
   @@index([tenantId], map: "IDX_METRICS_USER__TENANT_ID")
@@ -202,6 +224,111 @@ model migrations_metrics {
 
   @@index([success], map: "__migrations_metrics_s_idx")
   @@map("__migrations_metrics")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model MetricsGithubRepositoryStatistics {
+  id                                                                   String                  @id(map: "PK_METRICS_GITHUB_REPOSITORY_STATISTICS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  repositoryId                                                         String                  @db.Uuid
+  periodType                                                           String                  @db.VarChar(50)
+  starsCount                                                           Int?                    @default(0)
+  forksCount                                                           Int?                    @default(0)
+  contributorsCount                                                    Int?                    @default(0)
+  commitsCount                                                         Int?                    @default(0)
+  lastCommitDate                                                       DateTime?               @db.Timestamp(6)
+  recordedAt                                                           DateTime                @db.Timestamp(6)
+  createdBy                                                            String                  @db.Uuid
+  updatedBy                                                            String                  @db.Uuid
+  createdAt                                                            DateTime                @default(now()) @db.Timestamp(6)
+  updatedAt                                                            DateTime                @default(now()) @db.Timestamp(6)
+  tenantId                                                             String                  @db.Uuid
+  MetricsUser_MetricsGithubRepositoryStatistics_createdByToMetricsUser MetricsUser             @relation("MetricsGithubRepositoryStatistics_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY_STATISTICS__CREATED_BY")
+  MetricsGithubRepository                                              MetricsGithubRepository @relation(fields: [repositoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY_STATISTICS__REPOSITORY_ID")
+  MetricsUser_MetricsGithubRepositoryStatistics_updatedByToMetricsUser MetricsUser             @relation("MetricsGithubRepositoryStatistics_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY_STATISTICS__UPDATED_BY")
+
+  @@unique([tenantId, repositoryId, periodType, recordedAt], map: "UQ_METRICS_GITHUB_REPOSITORY_STATISTICS__REPOSITORY_PERIOD_RECO")
+  @@index([tenantId, repositoryId], map: "IDX_METRICS_GITHUB_REPOSITORY_STATISTICS__REPOSITORY_ID")
+  @@index([tenantId], map: "IDX_METRICS_GITHUB_REPOSITORY_STATISTICS__TENANT_ID")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model MetricsGithubTeam {
+  id                                                   String                        @id(map: "PK_METRICS_GITHUB_TEAM") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name                                                 String                        @db.VarChar(255)
+  description                                          String?
+  createdBy                                            String                        @db.Uuid
+  updatedBy                                            String                        @db.Uuid
+  createdAt                                            DateTime                      @default(now()) @db.Timestamp(6)
+  updatedAt                                            DateTime                      @default(now()) @db.Timestamp(6)
+  tenantId                                             String                        @db.Uuid
+  MetricsUser_MetricsGithubTeam_createdByToMetricsUser MetricsUser                   @relation("MetricsGithubTeam_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM__CREATED_BY")
+  MetricsUser_MetricsGithubTeam_updatedByToMetricsUser MetricsUser                   @relation("MetricsGithubTeam_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM__UPDATED_BY")
+  MetricsGithubTeamRepository                          MetricsGithubTeamRepository[]
+  MetricsGithubTeamUser                                MetricsGithubTeamUser[]
+
+  @@unique([tenantId, name], map: "UQ_METRICS_GITHUB_TEAM__NAME")
+  @@index([tenantId], map: "IDX_METRICS_GITHUB_TEAM__TENANT_ID")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model MetricsGithubTeamRepository {
+  id                                                             String                  @id(map: "PK_METRICS_GITHUB_TEAM_REPOSITORY") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  teamId                                                         String                  @db.Uuid
+  repositoryId                                                   String                  @db.Uuid
+  createdBy                                                      String                  @db.Uuid
+  updatedBy                                                      String                  @db.Uuid
+  createdAt                                                      DateTime                @default(now()) @db.Timestamp(6)
+  updatedAt                                                      DateTime                @default(now()) @db.Timestamp(6)
+  tenantId                                                       String                  @db.Uuid
+  MetricsUser_MetricsGithubTeamRepository_createdByToMetricsUser MetricsUser             @relation("MetricsGithubTeamRepository_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_REPOSITORY__CREATED_BY")
+  MetricsGithubRepository                                        MetricsGithubRepository @relation(fields: [repositoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_REPOSITORY__REPOSITORY_ID")
+  MetricsGithubTeam                                              MetricsGithubTeam       @relation(fields: [teamId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_REPOSITORY__TEAM_ID")
+  MetricsUser_MetricsGithubTeamRepository_updatedByToMetricsUser MetricsUser             @relation("MetricsGithubTeamRepository_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_REPOSITORY__UPDATED_BY")
+
+  @@unique([tenantId, teamId, repositoryId], map: "UQ_METRICS_GITHUB_TEAM_REPOSITORY__TEAM_REPOSITORY")
+  @@index([tenantId], map: "IDX_METRICS_GITHUB_TEAM_REPOSITORY__TENANT_ID")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model MetricsGithubTeamUser {
+  id                                                       String            @id(map: "PK_METRICS_GITHUB_TEAM_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  teamId                                                   String            @db.Uuid
+  userId                                                   String            @db.Uuid
+  role                                                     String?           @db.VarChar(100)
+  createdBy                                                String            @db.Uuid
+  updatedBy                                                String            @db.Uuid
+  createdAt                                                DateTime          @default(now()) @db.Timestamp(6)
+  updatedAt                                                DateTime          @default(now()) @db.Timestamp(6)
+  tenantId                                                 String            @db.Uuid
+  MetricsUser_MetricsGithubTeamUser_createdByToMetricsUser MetricsUser       @relation("MetricsGithubTeamUser_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_USER__CREATED_BY")
+  MetricsGithubTeam                                        MetricsGithubTeam @relation(fields: [teamId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_USER__TEAM_ID")
+  MetricsUser_MetricsGithubTeamUser_updatedByToMetricsUser MetricsUser       @relation("MetricsGithubTeamUser_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_USER__UPDATED_BY")
+  MetricsGithubUser                                        MetricsGithubUser @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_USER__USER_ID")
+
+  @@unique([tenantId, teamId, userId], map: "UQ_METRICS_GITHUB_TEAM_USER__TEAM_USER")
+  @@index([tenantId], map: "IDX_METRICS_GITHUB_TEAM_USER__TENANT_ID")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model MetricsGithubUserStatistics {
+  id                                                             String            @id(map: "PK_METRICS_GITHUB_USER_STATISTICS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  userId                                                         String            @db.Uuid
+  periodType                                                     String            @db.VarChar(50)
+  followersCount                                                 Int?              @default(0)
+  followingCount                                                 Int?              @default(0)
+  recordedAt                                                     DateTime          @db.Timestamp(6)
+  createdBy                                                      String            @db.Uuid
+  updatedBy                                                      String            @db.Uuid
+  createdAt                                                      DateTime          @default(now()) @db.Timestamp(6)
+  updatedAt                                                      DateTime          @default(now()) @db.Timestamp(6)
+  tenantId                                                       String            @db.Uuid
+  MetricsUser_MetricsGithubUserStatistics_createdByToMetricsUser MetricsUser       @relation("MetricsGithubUserStatistics_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER_STATISTICS__CREATED_BY")
+  MetricsUser_MetricsGithubUserStatistics_updatedByToMetricsUser MetricsUser       @relation("MetricsGithubUserStatistics_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER_STATISTICS__UPDATED_BY")
+  MetricsGithubUser                                              MetricsGithubUser @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER_STATISTICS__USER_ID")
+
+  @@unique([tenantId, userId, periodType, recordedAt], map: "UQ_METRICS_GITHUB_USER_STATISTICS__USER_PERIOD_RECORDED")
+  @@index([tenantId], map: "IDX_METRICS_GITHUB_USER_STATISTICS__TENANT_ID")
+  @@index([tenantId, userId], map: "IDX_METRICS_GITHUB_USER_STATISTICS__USER_ID")
 }
 
 enum MetricsRole {

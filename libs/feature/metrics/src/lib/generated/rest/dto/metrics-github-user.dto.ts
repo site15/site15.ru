@@ -33,4 +33,34 @@ export class MetricsGithubUserDto {
     type: 'string',
   })
   tenantId!: string;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  description!: string | null;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  avatarUrl!: string | null;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  websiteUrl!: string | null;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  location!: string | null;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  telegramUrl!: string | null;
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+  })
+  twitterUrl!: string | null;
 }

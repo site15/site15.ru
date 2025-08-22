@@ -18,5 +18,7 @@ export interface MetricsGithubRepositoryDtoInterface {
     createdAt: string;
     updatedAt: string;
     tenantId: string;
+    description: string | null;
+    url: string | null;
 }
 

@@ -7,8 +7,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { MetricsGithubTeamUserInterface } from './metrics-github-team-user.interface';
 import { MetricsGithubUserRepositoryInterface } from './metrics-github-user-repository.interface';
 import { MetricsUserInterface } from './metrics-user.interface';
+import { MetricsGithubUserStatisticsInterface } from './metrics-github-user-statistics.interface';
 
 
 export interface MetricsGithubUserInterface { 
@@ -21,8 +23,16 @@ export interface MetricsGithubUserInterface {
     createdAt: string;
     updatedAt: string;
     tenantId: string;
+    description: string | null;
+    avatarUrl: string | null;
+    websiteUrl: string | null;
+    location: string | null;
+    telegramUrl: string | null;
+    twitterUrl: string | null;
+    MetricsGithubTeamUser?: Array<MetricsGithubTeamUserInterface>;
     MetricsUser_MetricsGithubUser_createdByToMetricsUser?: MetricsUserInterface;
     MetricsUser_MetricsGithubUser_updatedByToMetricsUser?: MetricsUserInterface;
     MetricsGithubUserRepository?: Array<MetricsGithubUserRepositoryInterface>;
+    MetricsGithubUserStatistics?: Array<MetricsGithubUserStatisticsInterface>;
 }
 

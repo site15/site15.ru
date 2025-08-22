@@ -8,10 +8,15 @@
  * Do not edit the class manually.
  */
 import { MetricsGithubRepositoryInterface } from './metrics-github-repository.interface';
+import { MetricsGithubRepositoryStatisticsInterface } from './metrics-github-repository-statistics.interface';
 import { MetricsRoleInterface } from './metrics-role.interface';
+import { MetricsGithubTeamUserInterface } from './metrics-github-team-user.interface';
 import { MetricsGithubUserRepositoryInterface } from './metrics-github-user-repository.interface';
+import { MetricsGithubTeamInterface } from './metrics-github-team.interface';
 import { MetricsGithubUserInterface } from './metrics-github-user.interface';
 import { MetricsGithubMetricInterface } from './metrics-github-metric.interface';
+import { MetricsGithubTeamRepositoryInterface } from './metrics-github-team-repository.interface';
+import { MetricsGithubUserStatisticsInterface } from './metrics-github-user-statistics.interface';
 
 
 export interface MetricsUserInterface { 
@@ -25,10 +30,20 @@ export interface MetricsUserInterface {
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Array<MetricsGithubMetricInterface>;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Array<MetricsGithubRepositoryInterface>;
     MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Array<MetricsGithubRepositoryInterface>;
+    MetricsGithubRepositoryStatistics_MetricsGithubRepositoryStatistics_createdByToMetricsUser?: Array<MetricsGithubRepositoryStatisticsInterface>;
+    MetricsGithubRepositoryStatistics_MetricsGithubRepositoryStatistics_updatedByToMetricsUser?: Array<MetricsGithubRepositoryStatisticsInterface>;
+    MetricsGithubTeam_MetricsGithubTeam_createdByToMetricsUser?: Array<MetricsGithubTeamInterface>;
+    MetricsGithubTeam_MetricsGithubTeam_updatedByToMetricsUser?: Array<MetricsGithubTeamInterface>;
+    MetricsGithubTeamRepository_MetricsGithubTeamRepository_createdByToMetricsUser?: Array<MetricsGithubTeamRepositoryInterface>;
+    MetricsGithubTeamRepository_MetricsGithubTeamRepository_updatedByToMetricsUser?: Array<MetricsGithubTeamRepositoryInterface>;
+    MetricsGithubTeamUser_MetricsGithubTeamUser_createdByToMetricsUser?: Array<MetricsGithubTeamUserInterface>;
+    MetricsGithubTeamUser_MetricsGithubTeamUser_updatedByToMetricsUser?: Array<MetricsGithubTeamUserInterface>;
     MetricsGithubUser_MetricsGithubUser_createdByToMetricsUser?: Array<MetricsGithubUserInterface>;
     MetricsGithubUser_MetricsGithubUser_updatedByToMetricsUser?: Array<MetricsGithubUserInterface>;
     MetricsGithubUserRepository_MetricsGithubUserRepository_createdByToMetricsUser?: Array<MetricsGithubUserRepositoryInterface>;
     MetricsGithubUserRepository_MetricsGithubUserRepository_updatedByToMetricsUser?: Array<MetricsGithubUserRepositoryInterface>;
+    MetricsGithubUserStatistics_MetricsGithubUserStatistics_createdByToMetricsUser?: Array<MetricsGithubUserStatisticsInterface>;
+    MetricsGithubUserStatistics_MetricsGithubUserStatistics_updatedByToMetricsUser?: Array<MetricsGithubUserStatisticsInterface>;
 }
 export namespace MetricsUserInterface {
 }

@@ -17,5 +17,11 @@ export interface MetricsGithubUserDtoInterface {
     createdAt: string;
     updatedAt: string;
     tenantId: string;
+    description: string | null;
+    avatarUrl: string | null;
+    websiteUrl: string | null;
+    location: string | null;
+    telegramUrl: string | null;
+    twitterUrl: string | null;
 }
 

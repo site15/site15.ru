@@ -49,7 +49,7 @@ export class MetricsGithubRepositoryController {
       .reduce(
         (all, [key, value]) => ({
           ...all,
-          ...(key in Prisma.MetricsGithubMetricScalarFieldEnum
+          ...(key in Prisma.MetricsGithubRepositoryScalarFieldEnum
             ? {
                 [key]: value === 'desc' ? 'desc' : 'asc',
               }

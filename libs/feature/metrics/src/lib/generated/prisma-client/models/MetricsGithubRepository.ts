@@ -34,6 +34,8 @@ export type MetricsGithubRepositoryMinAggregateOutputType = {
   createdAt: Date | null;
   updatedAt: Date | null;
   tenantId: string | null;
+  description: string | null;
+  url: string | null;
 };
 
 export type MetricsGithubRepositoryMaxAggregateOutputType = {
@@ -47,6 +49,8 @@ export type MetricsGithubRepositoryMaxAggregateOutputType = {
   createdAt: Date | null;
   updatedAt: Date | null;
   tenantId: string | null;
+  description: string | null;
+  url: string | null;
 };
 
 export type MetricsGithubRepositoryCountAggregateOutputType = {
@@ -60,6 +64,8 @@ export type MetricsGithubRepositoryCountAggregateOutputType = {
   createdAt: number;
   updatedAt: number;
   tenantId: number;
+  description: number;
+  url: number;
   _all: number;
 };
 
@@ -74,6 +80,8 @@ export type MetricsGithubRepositoryMinAggregateInputType = {
   createdAt?: true;
   updatedAt?: true;
   tenantId?: true;
+  description?: true;
+  url?: true;
 };
 
 export type MetricsGithubRepositoryMaxAggregateInputType = {
@@ -87,6 +95,8 @@ export type MetricsGithubRepositoryMaxAggregateInputType = {
   createdAt?: true;
   updatedAt?: true;
   tenantId?: true;
+  description?: true;
+  url?: true;
 };
 
 export type MetricsGithubRepositoryCountAggregateInputType = {
@@ -100,6 +110,8 @@ export type MetricsGithubRepositoryCountAggregateInputType = {
   createdAt?: true;
   updatedAt?: true;
   tenantId?: true;
+  description?: true;
+  url?: true;
   _all?: true;
 };
 
@@ -191,6 +203,8 @@ export type MetricsGithubRepositoryGroupByOutputType = {
   createdAt: Date;
   updatedAt: Date;
   tenantId: string;
+  description: string | null;
+  url: string | null;
   _count: MetricsGithubRepositoryCountAggregateOutputType | null;
   _min: MetricsGithubRepositoryMinAggregateOutputType | null;
   _max: MetricsGithubRepositoryMaxAggregateOutputType | null;
@@ -222,6 +236,8 @@ export type MetricsGithubRepositoryWhereInput = {
   createdAt?: Prisma.DateTimeFilter<'MetricsGithubRepository'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'MetricsGithubRepository'> | Date | string;
   tenantId?: Prisma.UuidFilter<'MetricsGithubRepository'> | string;
+  description?: Prisma.StringNullableFilter<'MetricsGithubRepository'> | string | null;
+  url?: Prisma.StringNullableFilter<'MetricsGithubRepository'> | string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricListRelationFilter;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: Prisma.XOR<
     Prisma.MetricsUserScalarRelationFilter,
@@ -231,6 +247,8 @@ export type MetricsGithubRepositoryWhereInput = {
     Prisma.MetricsUserScalarRelationFilter,
     Prisma.MetricsUserWhereInput
   >;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsListRelationFilter;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryListRelationFilter;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryListRelationFilter;
 };
 
@@ -245,9 +263,13 @@ export type MetricsGithubRepositoryOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   tenantId?: Prisma.SortOrder;
+  description?: Prisma.SortOrderInput | Prisma.SortOrder;
+  url?: Prisma.SortOrderInput | Prisma.SortOrder;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricOrderByRelationAggregateInput;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsUserOrderByWithRelationInput;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsUserOrderByWithRelationInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsOrderByRelationAggregateInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryOrderByRelationAggregateInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryOrderByRelationAggregateInput;
 };
 
@@ -267,6 +289,8 @@ export type MetricsGithubRepositoryWhereUniqueInput = Prisma.AtLeast<
     createdAt?: Prisma.DateTimeFilter<'MetricsGithubRepository'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'MetricsGithubRepository'> | Date | string;
     tenantId?: Prisma.UuidFilter<'MetricsGithubRepository'> | string;
+    description?: Prisma.StringNullableFilter<'MetricsGithubRepository'> | string | null;
+    url?: Prisma.StringNullableFilter<'MetricsGithubRepository'> | string | null;
     MetricsGithubMetric?: Prisma.MetricsGithubMetricListRelationFilter;
     MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: Prisma.XOR<
       Prisma.MetricsUserScalarRelationFilter,
@@ -276,6 +300,8 @@ export type MetricsGithubRepositoryWhereUniqueInput = Prisma.AtLeast<
       Prisma.MetricsUserScalarRelationFilter,
       Prisma.MetricsUserWhereInput
     >;
+    MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsListRelationFilter;
+    MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryListRelationFilter;
     MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryListRelationFilter;
   },
   'id' | 'tenantId_name_owner'
@@ -292,6 +318,8 @@ export type MetricsGithubRepositoryOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   tenantId?: Prisma.SortOrder;
+  description?: Prisma.SortOrderInput | Prisma.SortOrder;
+  url?: Prisma.SortOrderInput | Prisma.SortOrder;
   _count?: Prisma.MetricsGithubRepositoryCountOrderByAggregateInput;
   _max?: Prisma.MetricsGithubRepositoryMaxOrderByAggregateInput;
   _min?: Prisma.MetricsGithubRepositoryMinOrderByAggregateInput;
@@ -315,6 +343,8 @@ export type MetricsGithubRepositoryScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<'MetricsGithubRepository'> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<'MetricsGithubRepository'> | Date | string;
   tenantId?: Prisma.UuidWithAggregatesFilter<'MetricsGithubRepository'> | string;
+  description?: Prisma.StringNullableWithAggregatesFilter<'MetricsGithubRepository'> | string | null;
+  url?: Prisma.StringNullableWithAggregatesFilter<'MetricsGithubRepository'> | string | null;
 };
 
 export type MetricsGithubRepositoryCreateInput = {
@@ -326,9 +356,13 @@ export type MetricsGithubRepositoryCreateInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserInput;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
 };
 
@@ -343,7 +377,11 @@ export type MetricsGithubRepositoryUncheckedCreateInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
 };
 
@@ -356,9 +394,13 @@ export type MetricsGithubRepositoryUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserNestedInput;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
 };
 
@@ -373,7 +415,11 @@ export type MetricsGithubRepositoryUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
 };
 
@@ -388,6 +434,8 @@ export type MetricsGithubRepositoryCreateManyInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
 };
 
 export type MetricsGithubRepositoryUpdateManyMutationInput = {
@@ -399,6 +447,8 @@ export type MetricsGithubRepositoryUpdateManyMutationInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
 
 export type MetricsGithubRepositoryUncheckedUpdateManyInput = {
@@ -412,6 +462,8 @@ export type MetricsGithubRepositoryUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
 };
 
 export type MetricsGithubRepositoryScalarRelationFilter = {
@@ -436,6 +488,8 @@ export type MetricsGithubRepositoryCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   tenantId?: Prisma.SortOrder;
+  description?: Prisma.SortOrder;
+  url?: Prisma.SortOrder;
 };
 
 export type MetricsGithubRepositoryMaxOrderByAggregateInput = {
@@ -449,6 +503,8 @@ export type MetricsGithubRepositoryMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   tenantId?: Prisma.SortOrder;
+  description?: Prisma.SortOrder;
+  url?: Prisma.SortOrder;
 };
 
 export type MetricsGithubRepositoryMinOrderByAggregateInput = {
@@ -462,6 +518,8 @@ export type MetricsGithubRepositoryMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   tenantId?: Prisma.SortOrder;
+  description?: Prisma.SortOrder;
+  url?: Prisma.SortOrder;
 };
 
 export type MetricsGithubRepositoryListRelationFilter = {
@@ -502,6 +560,10 @@ export type MetricsGithubRepositoryUpdateOneRequiredWithoutMetricsGithubMetricNe
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean;
+};
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null;
 };
 
 export type MetricsGithubRepositoryCreateNestedOneWithoutMetricsGithubUserRepositoryInput = {
@@ -710,6 +772,58 @@ export type MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_Metrics
     deleteMany?: Prisma.MetricsGithubRepositoryScalarWhereInput | Prisma.MetricsGithubRepositoryScalarWhereInput[];
   };
 
+export type MetricsGithubRepositoryCreateNestedOneWithoutMetricsGithubRepositoryStatisticsInput = {
+  create?: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryCreateWithoutMetricsGithubRepositoryStatisticsInput,
+    Prisma.MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubRepositoryStatisticsInput
+  >;
+  connectOrCreate?: Prisma.MetricsGithubRepositoryCreateOrConnectWithoutMetricsGithubRepositoryStatisticsInput;
+  connect?: Prisma.MetricsGithubRepositoryWhereUniqueInput;
+};
+
+export type MetricsGithubRepositoryUpdateOneRequiredWithoutMetricsGithubRepositoryStatisticsNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryCreateWithoutMetricsGithubRepositoryStatisticsInput,
+    Prisma.MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubRepositoryStatisticsInput
+  >;
+  connectOrCreate?: Prisma.MetricsGithubRepositoryCreateOrConnectWithoutMetricsGithubRepositoryStatisticsInput;
+  upsert?: Prisma.MetricsGithubRepositoryUpsertWithoutMetricsGithubRepositoryStatisticsInput;
+  connect?: Prisma.MetricsGithubRepositoryWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.MetricsGithubRepositoryUpdateToOneWithWhereWithoutMetricsGithubRepositoryStatisticsInput,
+      Prisma.MetricsGithubRepositoryUpdateWithoutMetricsGithubRepositoryStatisticsInput
+    >,
+    Prisma.MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubRepositoryStatisticsInput
+  >;
+};
+
+export type MetricsGithubRepositoryCreateNestedOneWithoutMetricsGithubTeamRepositoryInput = {
+  create?: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryCreateWithoutMetricsGithubTeamRepositoryInput,
+    Prisma.MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubTeamRepositoryInput
+  >;
+  connectOrCreate?: Prisma.MetricsGithubRepositoryCreateOrConnectWithoutMetricsGithubTeamRepositoryInput;
+  connect?: Prisma.MetricsGithubRepositoryWhereUniqueInput;
+};
+
+export type MetricsGithubRepositoryUpdateOneRequiredWithoutMetricsGithubTeamRepositoryNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryCreateWithoutMetricsGithubTeamRepositoryInput,
+    Prisma.MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubTeamRepositoryInput
+  >;
+  connectOrCreate?: Prisma.MetricsGithubRepositoryCreateOrConnectWithoutMetricsGithubTeamRepositoryInput;
+  upsert?: Prisma.MetricsGithubRepositoryUpsertWithoutMetricsGithubTeamRepositoryInput;
+  connect?: Prisma.MetricsGithubRepositoryWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.MetricsGithubRepositoryUpdateToOneWithWhereWithoutMetricsGithubTeamRepositoryInput,
+      Prisma.MetricsGithubRepositoryUpdateWithoutMetricsGithubTeamRepositoryInput
+    >,
+    Prisma.MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubTeamRepositoryInput
+  >;
+};
+
 export type MetricsGithubRepositoryCreateWithoutMetricsGithubMetricInput = {
   id?: string;
   name: string;
@@ -719,8 +833,12 @@ export type MetricsGithubRepositoryCreateWithoutMetricsGithubMetricInput = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserInput;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
 };
 
@@ -735,6 +853,10 @@ export type MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubMetricInpu
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
 };
 
@@ -775,8 +897,12 @@ export type MetricsGithubRepositoryUpdateWithoutMetricsGithubMetricInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserNestedInput;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
 };
 
@@ -791,6 +917,10 @@ export type MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubMetricInpu
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
 };
 
@@ -803,9 +933,13 @@ export type MetricsGithubRepositoryCreateWithoutMetricsGithubUserRepositoryInput
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserInput;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
 };
 
 export type MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubUserRepositoryInput = {
@@ -819,7 +953,11 @@ export type MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubUserReposi
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
 };
 
 export type MetricsGithubRepositoryCreateOrConnectWithoutMetricsGithubUserRepositoryInput = {
@@ -859,9 +997,13 @@ export type MetricsGithubRepositoryUpdateWithoutMetricsGithubUserRepositoryInput
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserNestedInput;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
 };
 
 export type MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubUserRepositoryInput = {
@@ -875,7 +1017,11 @@ export type MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubUserReposi
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
 };
 
 export type MetricsGithubRepositoryCreateWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput = {
@@ -887,8 +1033,12 @@ export type MetricsGithubRepositoryCreateWithoutMetricsUser_MetricsGithubReposit
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
 };
 
@@ -903,7 +1053,11 @@ export type MetricsGithubRepositoryUncheckedCreateWithoutMetricsUser_MetricsGith
     createdAt?: Date | string;
     updatedAt?: Date | string;
     tenantId: string;
+    description?: string | null;
+    url?: string | null;
     MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+    MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+    MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
     MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
   };
 
@@ -932,8 +1086,12 @@ export type MetricsGithubRepositoryCreateWithoutMetricsUser_MetricsGithubReposit
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
 };
 
@@ -948,7 +1106,11 @@ export type MetricsGithubRepositoryUncheckedCreateWithoutMetricsUser_MetricsGith
     createdAt?: Date | string;
     updatedAt?: Date | string;
     tenantId: string;
+    description?: string | null;
+    url?: string | null;
     MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+    MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+    MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
     MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
   };
 
@@ -1013,6 +1175,8 @@ export type MetricsGithubRepositoryScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<'MetricsGithubRepository'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'MetricsGithubRepository'> | Date | string;
   tenantId?: Prisma.UuidFilter<'MetricsGithubRepository'> | string;
+  description?: Prisma.StringNullableFilter<'MetricsGithubRepository'> | string | null;
+  url?: Prisma.StringNullableFilter<'MetricsGithubRepository'> | string | null;
 };
 
 export type MetricsGithubRepositoryUpsertWithWhereUniqueWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserInput =
@@ -1046,6 +1210,206 @@ export type MetricsGithubRepositoryUpdateManyWithWhereWithoutMetricsUser_Metrics
     >;
   };
 
+export type MetricsGithubRepositoryCreateWithoutMetricsGithubRepositoryStatisticsInput = {
+  id?: string;
+  name: string;
+  owner: string;
+  private: boolean;
+  fork: boolean;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  tenantId: string;
+  description?: string | null;
+  url?: string | null;
+  MetricsGithubMetric?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsUser_MetricsGithubRepository_createdByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserInput;
+  MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
+};
+
+export type MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubRepositoryStatisticsInput = {
+  id?: string;
+  name: string;
+  owner: string;
+  private: boolean;
+  fork: boolean;
+  createdBy: string;
+  updatedBy: string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  tenantId: string;
+  description?: string | null;
+  url?: string | null;
+  MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+};
+
+export type MetricsGithubRepositoryCreateOrConnectWithoutMetricsGithubRepositoryStatisticsInput = {
+  where: Prisma.MetricsGithubRepositoryWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryCreateWithoutMetricsGithubRepositoryStatisticsInput,
+    Prisma.MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubRepositoryStatisticsInput
+  >;
+};
+
+export type MetricsGithubRepositoryUpsertWithoutMetricsGithubRepositoryStatisticsInput = {
+  update: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryUpdateWithoutMetricsGithubRepositoryStatisticsInput,
+    Prisma.MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubRepositoryStatisticsInput
+  >;
+  create: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryCreateWithoutMetricsGithubRepositoryStatisticsInput,
+    Prisma.MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubRepositoryStatisticsInput
+  >;
+  where?: Prisma.MetricsGithubRepositoryWhereInput;
+};
+
+export type MetricsGithubRepositoryUpdateToOneWithWhereWithoutMetricsGithubRepositoryStatisticsInput = {
+  where?: Prisma.MetricsGithubRepositoryWhereInput;
+  data: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryUpdateWithoutMetricsGithubRepositoryStatisticsInput,
+    Prisma.MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubRepositoryStatisticsInput
+  >;
+};
+
+export type MetricsGithubRepositoryUpdateWithoutMetricsGithubRepositoryStatisticsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.StringFieldUpdateOperationsInput | string;
+  owner?: Prisma.StringFieldUpdateOperationsInput | string;
+  private?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  fork?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  MetricsGithubMetric?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserNestedInput;
+  MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+};
+
+export type MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubRepositoryStatisticsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.StringFieldUpdateOperationsInput | string;
+  owner?: Prisma.StringFieldUpdateOperationsInput | string;
+  private?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  fork?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string;
+  updatedBy?: Prisma.StringFieldUpdateOperationsInput | string;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+};
+
+export type MetricsGithubRepositoryCreateWithoutMetricsGithubTeamRepositoryInput = {
+  id?: string;
+  name: string;
+  owner: string;
+  private: boolean;
+  fork: boolean;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  tenantId: string;
+  description?: string | null;
+  url?: string | null;
+  MetricsGithubMetric?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsUser_MetricsGithubRepository_createdByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserInput;
+  MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: Prisma.MetricsUserCreateNestedOneWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryCreateNestedManyWithoutMetricsGithubRepositoryInput;
+};
+
+export type MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubTeamRepositoryInput = {
+  id?: string;
+  name: string;
+  owner: string;
+  private: boolean;
+  fork: boolean;
+  createdBy: string;
+  updatedBy: string;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+  tenantId: string;
+  description?: string | null;
+  url?: string | null;
+  MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+  MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedCreateNestedManyWithoutMetricsGithubRepositoryInput;
+};
+
+export type MetricsGithubRepositoryCreateOrConnectWithoutMetricsGithubTeamRepositoryInput = {
+  where: Prisma.MetricsGithubRepositoryWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryCreateWithoutMetricsGithubTeamRepositoryInput,
+    Prisma.MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubTeamRepositoryInput
+  >;
+};
+
+export type MetricsGithubRepositoryUpsertWithoutMetricsGithubTeamRepositoryInput = {
+  update: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryUpdateWithoutMetricsGithubTeamRepositoryInput,
+    Prisma.MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubTeamRepositoryInput
+  >;
+  create: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryCreateWithoutMetricsGithubTeamRepositoryInput,
+    Prisma.MetricsGithubRepositoryUncheckedCreateWithoutMetricsGithubTeamRepositoryInput
+  >;
+  where?: Prisma.MetricsGithubRepositoryWhereInput;
+};
+
+export type MetricsGithubRepositoryUpdateToOneWithWhereWithoutMetricsGithubTeamRepositoryInput = {
+  where?: Prisma.MetricsGithubRepositoryWhereInput;
+  data: Prisma.XOR<
+    Prisma.MetricsGithubRepositoryUpdateWithoutMetricsGithubTeamRepositoryInput,
+    Prisma.MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubTeamRepositoryInput
+  >;
+};
+
+export type MetricsGithubRepositoryUpdateWithoutMetricsGithubTeamRepositoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.StringFieldUpdateOperationsInput | string;
+  owner?: Prisma.StringFieldUpdateOperationsInput | string;
+  private?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  fork?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  MetricsGithubMetric?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserNestedInput;
+  MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+};
+
+export type MetricsGithubRepositoryUncheckedUpdateWithoutMetricsGithubTeamRepositoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.StringFieldUpdateOperationsInput | string;
+  owner?: Prisma.StringFieldUpdateOperationsInput | string;
+  private?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  fork?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+  createdBy?: Prisma.StringFieldUpdateOperationsInput | string;
+  updatedBy?: Prisma.StringFieldUpdateOperationsInput | string;
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+};
+
 export type MetricsGithubRepositoryCreateManyMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput = {
   id?: string;
   name: string;
@@ -1056,6 +1420,8 @@ export type MetricsGithubRepositoryCreateManyMetricsUser_MetricsGithubRepository
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
 };
 
 export type MetricsGithubRepositoryCreateManyMetricsUser_MetricsGithubRepository_updatedByToMetricsUserInput = {
@@ -1068,6 +1434,8 @@ export type MetricsGithubRepositoryCreateManyMetricsUser_MetricsGithubRepository
   createdAt?: Date | string;
   updatedAt?: Date | string;
   tenantId: string;
+  description?: string | null;
+  url?: string | null;
 };
 
 export type MetricsGithubRepositoryUpdateWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput = {
@@ -1079,8 +1447,12 @@ export type MetricsGithubRepositoryUpdateWithoutMetricsUser_MetricsGithubReposit
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
 };
 
@@ -1095,7 +1467,11 @@ export type MetricsGithubRepositoryUncheckedUpdateWithoutMetricsUser_MetricsGith
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+    MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+    MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
     MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   };
 
@@ -1110,6 +1486,8 @@ export type MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_Metrics
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   };
 
 export type MetricsGithubRepositoryUpdateWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserInput = {
@@ -1121,8 +1499,12 @@ export type MetricsGithubRepositoryUpdateWithoutMetricsUser_MetricsGithubReposit
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   MetricsGithubMetric?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsUserUpdateOneRequiredWithoutMetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUserNestedInput;
+  MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+  MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUpdateManyWithoutMetricsGithubRepositoryNestedInput;
 };
 
@@ -1137,7 +1519,11 @@ export type MetricsGithubRepositoryUncheckedUpdateWithoutMetricsUser_MetricsGith
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     MetricsGithubMetric?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+    MetricsGithubRepositoryStatistics?: Prisma.MetricsGithubRepositoryStatisticsUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
+    MetricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
     MetricsGithubUserRepository?: Prisma.MetricsGithubUserRepositoryUncheckedUpdateManyWithoutMetricsGithubRepositoryNestedInput;
   };
 
@@ -1152,6 +1538,8 @@ export type MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_Metrics
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     tenantId?: Prisma.StringFieldUpdateOperationsInput | string;
+    description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   };
 
 /**
@@ -1160,6 +1548,8 @@ export type MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_Metrics
 
 export type MetricsGithubRepositoryCountOutputType = {
   MetricsGithubMetric: number;
+  MetricsGithubRepositoryStatistics: number;
+  MetricsGithubTeamRepository: number;
   MetricsGithubUserRepository: number;
 };
 
@@ -1167,6 +1557,10 @@ export type MetricsGithubRepositoryCountOutputTypeSelect<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   MetricsGithubMetric?: boolean | MetricsGithubRepositoryCountOutputTypeCountMetricsGithubMetricArgs;
+  MetricsGithubRepositoryStatistics?:
+    | boolean
+    | MetricsGithubRepositoryCountOutputTypeCountMetricsGithubRepositoryStatisticsArgs;
+  MetricsGithubTeamRepository?: boolean | MetricsGithubRepositoryCountOutputTypeCountMetricsGithubTeamRepositoryArgs;
   MetricsGithubUserRepository?: boolean | MetricsGithubRepositoryCountOutputTypeCountMetricsGithubUserRepositoryArgs;
 };
 
@@ -1194,6 +1588,24 @@ export type MetricsGithubRepositoryCountOutputTypeCountMetricsGithubMetricArgs<
 /**
  * MetricsGithubRepositoryCountOutputType without action
  */
+export type MetricsGithubRepositoryCountOutputTypeCountMetricsGithubRepositoryStatisticsArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.MetricsGithubRepositoryStatisticsWhereInput;
+};
+
+/**
+ * MetricsGithubRepositoryCountOutputType without action
+ */
+export type MetricsGithubRepositoryCountOutputTypeCountMetricsGithubTeamRepositoryArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.MetricsGithubTeamRepositoryWhereInput;
+};
+
+/**
+ * MetricsGithubRepositoryCountOutputType without action
+ */
 export type MetricsGithubRepositoryCountOutputTypeCountMetricsGithubUserRepositoryArgs<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
@@ -1214,9 +1626,15 @@ export type MetricsGithubRepositorySelect<
     createdAt?: boolean;
     updatedAt?: boolean;
     tenantId?: boolean;
+    description?: boolean;
+    url?: boolean;
     MetricsGithubMetric?: boolean | Prisma.MetricsGithubRepository$MetricsGithubMetricArgs<ExtArgs>;
     MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: boolean | Prisma.MetricsUserDefaultArgs<ExtArgs>;
     MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: boolean | Prisma.MetricsUserDefaultArgs<ExtArgs>;
+    MetricsGithubRepositoryStatistics?:
+      | boolean
+      | Prisma.MetricsGithubRepository$MetricsGithubRepositoryStatisticsArgs<ExtArgs>;
+    MetricsGithubTeamRepository?: boolean | Prisma.MetricsGithubRepository$MetricsGithubTeamRepositoryArgs<ExtArgs>;
     MetricsGithubUserRepository?: boolean | Prisma.MetricsGithubRepository$MetricsGithubUserRepositoryArgs<ExtArgs>;
     _count?: boolean | Prisma.MetricsGithubRepositoryCountOutputTypeDefaultArgs<ExtArgs>;
   },
@@ -1237,6 +1655,8 @@ export type MetricsGithubRepositorySelectCreateManyAndReturn<
     createdAt?: boolean;
     updatedAt?: boolean;
     tenantId?: boolean;
+    description?: boolean;
+    url?: boolean;
     MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: boolean | Prisma.MetricsUserDefaultArgs<ExtArgs>;
     MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: boolean | Prisma.MetricsUserDefaultArgs<ExtArgs>;
   },
@@ -1257,6 +1677,8 @@ export type MetricsGithubRepositorySelectUpdateManyAndReturn<
     createdAt?: boolean;
     updatedAt?: boolean;
     tenantId?: boolean;
+    description?: boolean;
+    url?: boolean;
     MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: boolean | Prisma.MetricsUserDefaultArgs<ExtArgs>;
     MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: boolean | Prisma.MetricsUserDefaultArgs<ExtArgs>;
   },
@@ -1274,12 +1696,25 @@ export type MetricsGithubRepositorySelectScalar = {
   createdAt?: boolean;
   updatedAt?: boolean;
   tenantId?: boolean;
+  description?: boolean;
+  url?: boolean;
 };
 
 export type MetricsGithubRepositoryOmit<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
-  'id' | 'name' | 'owner' | 'private' | 'fork' | 'createdBy' | 'updatedBy' | 'createdAt' | 'updatedAt' | 'tenantId',
+  | 'id'
+  | 'name'
+  | 'owner'
+  | 'private'
+  | 'fork'
+  | 'createdBy'
+  | 'updatedBy'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'tenantId'
+  | 'description'
+  | 'url',
   ExtArgs['result']['metricsGithubRepository']
 >;
 export type MetricsGithubRepositoryInclude<
@@ -1288,6 +1723,10 @@ export type MetricsGithubRepositoryInclude<
   MetricsGithubMetric?: boolean | Prisma.MetricsGithubRepository$MetricsGithubMetricArgs<ExtArgs>;
   MetricsUser_MetricsGithubRepository_createdByToMetricsUser?: boolean | Prisma.MetricsUserDefaultArgs<ExtArgs>;
   MetricsUser_MetricsGithubRepository_updatedByToMetricsUser?: boolean | Prisma.MetricsUserDefaultArgs<ExtArgs>;
+  MetricsGithubRepositoryStatistics?:
+    | boolean
+    | Prisma.MetricsGithubRepository$MetricsGithubRepositoryStatisticsArgs<ExtArgs>;
+  MetricsGithubTeamRepository?: boolean | Prisma.MetricsGithubRepository$MetricsGithubTeamRepositoryArgs<ExtArgs>;
   MetricsGithubUserRepository?: boolean | Prisma.MetricsGithubRepository$MetricsGithubUserRepositoryArgs<ExtArgs>;
   _count?: boolean | Prisma.MetricsGithubRepositoryCountOutputTypeDefaultArgs<ExtArgs>;
 };
@@ -1312,6 +1751,8 @@ export type $MetricsGithubRepositoryPayload<
     MetricsGithubMetric: Prisma.$MetricsGithubMetricPayload<ExtArgs>[];
     MetricsUser_MetricsGithubRepository_createdByToMetricsUser: Prisma.$MetricsUserPayload<ExtArgs>;
     MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: Prisma.$MetricsUserPayload<ExtArgs>;
+    MetricsGithubRepositoryStatistics: Prisma.$MetricsGithubRepositoryStatisticsPayload<ExtArgs>[];
+    MetricsGithubTeamRepository: Prisma.$MetricsGithubTeamRepositoryPayload<ExtArgs>[];
     MetricsGithubUserRepository: Prisma.$MetricsGithubUserRepositoryPayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
@@ -1349,6 +1790,8 @@ export type $MetricsGithubRepositoryPayload<
        * @DtoUpdateHidden
        */
       tenantId: string;
+      description: string | null;
+      url: string | null;
     },
     ExtArgs['result']['metricsGithubRepository']
   >;
@@ -1881,6 +2324,30 @@ export interface Prisma__MetricsGithubRepositoryClient<
     ExtArgs,
     GlobalOmitOptions
   >;
+  MetricsGithubRepositoryStatistics<
+    T extends Prisma.MetricsGithubRepository$MetricsGithubRepositoryStatisticsArgs<ExtArgs> = {},
+  >(
+    args?: Prisma.Subset<T, Prisma.MetricsGithubRepository$MetricsGithubRepositoryStatisticsArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$MetricsGithubRepositoryStatisticsPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
+  MetricsGithubTeamRepository<T extends Prisma.MetricsGithubRepository$MetricsGithubTeamRepositoryArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.MetricsGithubRepository$MetricsGithubTeamRepositoryArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$MetricsGithubTeamRepositoryPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
   MetricsGithubUserRepository<T extends Prisma.MetricsGithubRepository$MetricsGithubUserRepositoryArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.MetricsGithubRepository$MetricsGithubUserRepositoryArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
@@ -1933,6 +2400,8 @@ export interface MetricsGithubRepositoryFieldRefs {
   readonly createdAt: Prisma.FieldRef<'MetricsGithubRepository', 'DateTime'>;
   readonly updatedAt: Prisma.FieldRef<'MetricsGithubRepository', 'DateTime'>;
   readonly tenantId: Prisma.FieldRef<'MetricsGithubRepository', 'String'>;
+  readonly description: Prisma.FieldRef<'MetricsGithubRepository', 'String'>;
+  readonly url: Prisma.FieldRef<'MetricsGithubRepository', 'String'>;
 }
 
 // Custom InputTypes
@@ -2391,6 +2860,64 @@ export type MetricsGithubRepository$MetricsGithubMetricArgs<
   take?: number;
   skip?: number;
   distinct?: Prisma.MetricsGithubMetricScalarFieldEnum | Prisma.MetricsGithubMetricScalarFieldEnum[];
+};
+
+/**
+ * MetricsGithubRepository.MetricsGithubRepositoryStatistics
+ */
+export type MetricsGithubRepository$MetricsGithubRepositoryStatisticsArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the MetricsGithubRepositoryStatistics
+   */
+  select?: Prisma.MetricsGithubRepositoryStatisticsSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the MetricsGithubRepositoryStatistics
+   */
+  omit?: Prisma.MetricsGithubRepositoryStatisticsOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MetricsGithubRepositoryStatisticsInclude<ExtArgs> | null;
+  where?: Prisma.MetricsGithubRepositoryStatisticsWhereInput;
+  orderBy?:
+    | Prisma.MetricsGithubRepositoryStatisticsOrderByWithRelationInput
+    | Prisma.MetricsGithubRepositoryStatisticsOrderByWithRelationInput[];
+  cursor?: Prisma.MetricsGithubRepositoryStatisticsWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?:
+    | Prisma.MetricsGithubRepositoryStatisticsScalarFieldEnum
+    | Prisma.MetricsGithubRepositoryStatisticsScalarFieldEnum[];
+};
+
+/**
+ * MetricsGithubRepository.MetricsGithubTeamRepository
+ */
+export type MetricsGithubRepository$MetricsGithubTeamRepositoryArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the MetricsGithubTeamRepository
+   */
+  select?: Prisma.MetricsGithubTeamRepositorySelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the MetricsGithubTeamRepository
+   */
+  omit?: Prisma.MetricsGithubTeamRepositoryOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MetricsGithubTeamRepositoryInclude<ExtArgs> | null;
+  where?: Prisma.MetricsGithubTeamRepositoryWhereInput;
+  orderBy?:
+    | Prisma.MetricsGithubTeamRepositoryOrderByWithRelationInput
+    | Prisma.MetricsGithubTeamRepositoryOrderByWithRelationInput[];
+  cursor?: Prisma.MetricsGithubTeamRepositoryWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?: Prisma.MetricsGithubTeamRepositoryScalarFieldEnum | Prisma.MetricsGithubTeamRepositoryScalarFieldEnum[];
 };
 
 /**

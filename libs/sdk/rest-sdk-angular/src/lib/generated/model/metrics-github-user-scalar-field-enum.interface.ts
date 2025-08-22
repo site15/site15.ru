@@ -9,7 +9,7 @@
  */
 
 
-export type MetricsGithubUserScalarFieldEnumInterface = 'id' | 'login' | 'name' | 'email' | 'createdBy' | 'updatedBy' | 'createdAt' | 'updatedAt' | 'tenantId';
+export type MetricsGithubUserScalarFieldEnumInterface = 'id' | 'login' | 'name' | 'email' | 'createdBy' | 'updatedBy' | 'createdAt' | 'updatedAt' | 'tenantId' | 'description' | 'avatarUrl' | 'websiteUrl' | 'location' | 'telegramUrl' | 'twitterUrl';
 
 export const MetricsGithubUserScalarFieldEnumInterface = {
     id: 'id' as MetricsGithubUserScalarFieldEnumInterface,
@@ -20,6 +20,12 @@ export const MetricsGithubUserScalarFieldEnumInterface = {
     updatedBy: 'updatedBy' as MetricsGithubUserScalarFieldEnumInterface,
     createdAt: 'createdAt' as MetricsGithubUserScalarFieldEnumInterface,
     updatedAt: 'updatedAt' as MetricsGithubUserScalarFieldEnumInterface,
-    tenantId: 'tenantId' as MetricsGithubUserScalarFieldEnumInterface
+    tenantId: 'tenantId' as MetricsGithubUserScalarFieldEnumInterface,
+    description: 'description' as MetricsGithubUserScalarFieldEnumInterface,
+    avatarUrl: 'avatarUrl' as MetricsGithubUserScalarFieldEnumInterface,
+    websiteUrl: 'websiteUrl' as MetricsGithubUserScalarFieldEnumInterface,
+    location: 'location' as MetricsGithubUserScalarFieldEnumInterface,
+    telegramUrl: 'telegramUrl' as MetricsGithubUserScalarFieldEnumInterface,
+    twitterUrl: 'twitterUrl' as MetricsGithubUserScalarFieldEnumInterface
 };
 

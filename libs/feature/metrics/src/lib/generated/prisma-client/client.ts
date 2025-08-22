@@ -67,6 +67,31 @@ export type MetricsUser = Prisma.MetricsUserModel;
  *
  */
 export type migrations_metrics = Prisma.migrations_metricsModel;
+/**
+ * Model MetricsGithubRepositoryStatistics
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type MetricsGithubRepositoryStatistics = Prisma.MetricsGithubRepositoryStatisticsModel;
+/**
+ * Model MetricsGithubTeam
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type MetricsGithubTeam = Prisma.MetricsGithubTeamModel;
+/**
+ * Model MetricsGithubTeamRepository
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type MetricsGithubTeamRepository = Prisma.MetricsGithubTeamRepositoryModel;
+/**
+ * Model MetricsGithubTeamUser
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type MetricsGithubTeamUser = Prisma.MetricsGithubTeamUserModel;
+/**
+ * Model MetricsGithubUserStatistics
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ */
+export type MetricsGithubUserStatistics = Prisma.MetricsGithubUserStatisticsModel;
 
 export type MetricsRole = $Enums.MetricsRole;
 export const MetricsRole = $Enums.MetricsRole;

@@ -8,8 +8,13 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { TranslatesModule } from 'nestjs-translates';
 import { MetricsGithubMetricController } from './controllers/metrics-github-metric.controller';
 import { MetricsGithubRepositoryController } from './controllers/metrics-github-repository.controller';
+import { MetricsGithubRepositoryStatisticsController } from './controllers/metrics-github-repository-statistics.controller';
+import { MetricsGithubTeamController } from './controllers/metrics-github-team.controller';
+import { MetricsGithubTeamRepositoryController } from './controllers/metrics-github-team-repository.controller';
+import { MetricsGithubTeamUserController } from './controllers/metrics-github-team-user.controller';
 import { MetricsGithubUserController } from './controllers/metrics-github-user.controller';
 import { MetricsGithubUserRepositoryController } from './controllers/metrics-github-user-repository.controller';
+import { MetricsGithubUserStatisticsController } from './controllers/metrics-github-user-statistics.controller';
 import { MetricsUserController } from './controllers/metrics-user.controller';
 import { METRICS_FEATURE, METRICS_MODULE } from './metrics.constants';
 import { MetricsStaticEnvironments } from './metrics.environments';
@@ -61,8 +66,13 @@ export const { MetricsModule } = createNestModule({
     [
       MetricsGithubMetricController,
       MetricsGithubRepositoryController,
+      MetricsGithubRepositoryStatisticsController,
+      MetricsGithubTeamController,
+      MetricsGithubTeamRepositoryController,
+      MetricsGithubTeamUserController,
       MetricsGithubUserController,
       MetricsGithubUserRepositoryController,
+      MetricsGithubUserStatisticsController,
       MetricsUserController,
     ].map((ctrl) => {
       if (asyncModuleOptions.staticEnvironments?.useGuards) {

@@ -9,7 +9,7 @@
  */
 
 
-export type MetricsGithubRepositoryScalarFieldEnumInterface = 'id' | 'name' | 'owner' | 'private' | 'fork' | 'createdBy' | 'updatedBy' | 'createdAt' | 'updatedAt' | 'tenantId';
+export type MetricsGithubRepositoryScalarFieldEnumInterface = 'id' | 'name' | 'owner' | 'private' | 'fork' | 'createdBy' | 'updatedBy' | 'createdAt' | 'updatedAt' | 'tenantId' | 'description' | 'url';
 
 export const MetricsGithubRepositoryScalarFieldEnumInterface = {
     id: 'id' as MetricsGithubRepositoryScalarFieldEnumInterface,
@@ -21,6 +21,8 @@ export const MetricsGithubRepositoryScalarFieldEnumInterface = {
     updatedBy: 'updatedBy' as MetricsGithubRepositoryScalarFieldEnumInterface,
     createdAt: 'createdAt' as MetricsGithubRepositoryScalarFieldEnumInterface,
     updatedAt: 'updatedAt' as MetricsGithubRepositoryScalarFieldEnumInterface,
-    tenantId: 'tenantId' as MetricsGithubRepositoryScalarFieldEnumInterface
+    tenantId: 'tenantId' as MetricsGithubRepositoryScalarFieldEnumInterface,
+    description: 'description' as MetricsGithubRepositoryScalarFieldEnumInterface,
+    url: 'url' as MetricsGithubRepositoryScalarFieldEnumInterface
 };
 
