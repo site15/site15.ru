@@ -16,6 +16,9 @@ git_push.sh
 index.ts
 model/complete-forgot-password-args.interface.ts
 model/complete-sign-up-args.interface.ts
+model/create-full-metrics-github-metric-dto.interface.ts
+model/create-full-metrics-github-user-repository-dto.interface.ts
+model/create-full-metrics-user-dto.interface.ts
 model/create-metrics-github-repository-dto.interface.ts
 model/create-metrics-github-user-dto.interface.ts
 model/create-sso-tenant-dto.interface.ts

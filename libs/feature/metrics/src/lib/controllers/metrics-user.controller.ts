@@ -15,6 +15,7 @@ import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } 
 import { MetricsError } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
 import { FindManyMetricsUserResponse } from '../types/FindManyMetricsUserResponse';
+import { CreateFullMetricsUserDto } from '../types/CreateFullMetricsUserDto';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
@@ -115,7 +116,7 @@ export class MetricsUserController {
   async createOne(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
-    @Body() args: CreateMetricsUserDto & { externalUserId: string },
+    @Body() args: CreateFullMetricsUserDto,
   ) {
     return await this.prismaClient.metricsUser.create({
       data: {

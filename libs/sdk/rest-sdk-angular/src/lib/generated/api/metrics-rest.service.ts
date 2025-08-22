@@ -17,6 +17,12 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
+import { CreateFullMetricsGithubMetricDtoInterface } from '../model/create-full-metrics-github-metric-dto.interface';
+// @ts-ignore
+import { CreateFullMetricsGithubUserRepositoryDtoInterface } from '../model/create-full-metrics-github-user-repository-dto.interface';
+// @ts-ignore
+import { CreateFullMetricsUserDtoInterface } from '../model/create-full-metrics-user-dto.interface';
+// @ts-ignore
 import { CreateMetricsGithubRepositoryDtoInterface } from '../model/create-metrics-github-repository-dto.interface';
 // @ts-ignore
 import { CreateMetricsGithubUserDtoInterface } from '../model/create-metrics-github-user-dto.interface';
@@ -127,13 +133,17 @@ export class MetricsSite15RestService {
     }
 
     /**
+     * @param createFullMetricsGithubMetricDtoInterface 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubMetricControllerCreateOne(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubMetricDtoInterface>;
-    public metricsGithubMetricControllerCreateOne(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubMetricDtoInterface>>;
-    public metricsGithubMetricControllerCreateOne(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubMetricDtoInterface>>;
-    public metricsGithubMetricControllerCreateOne(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubMetricDtoInterface>;
+    public metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubMetricDtoInterface>>;
+    public metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubMetricDtoInterface>>;
+    public metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createFullMetricsGithubMetricDtoInterface === null || createFullMetricsGithubMetricDtoInterface === undefined) {
+            throw new Error('Required parameter createFullMetricsGithubMetricDtoInterface was null or undefined when calling metricsGithubMetricControllerCreateOne.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -160,6 +170,15 @@ export class MetricsSite15RestService {
         }
 
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -175,6 +194,7 @@ export class MetricsSite15RestService {
         return this.httpClient.request<MetricsGithubMetricDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                body: createFullMetricsGithubMetricDtoInterface,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -1202,13 +1222,17 @@ export class MetricsSite15RestService {
     }
 
     /**
+     * @param createFullMetricsGithubUserRepositoryDtoInterface 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserRepositoryControllerCreateOne(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserRepositoryDtoInterface>;
-    public metricsGithubUserRepositoryControllerCreateOne(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserRepositoryDtoInterface>>;
-    public metricsGithubUserRepositoryControllerCreateOne(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserRepositoryDtoInterface>>;
-    public metricsGithubUserRepositoryControllerCreateOne(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserRepositoryDtoInterface>;
+    public metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserRepositoryDtoInterface>>;
+    public metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserRepositoryDtoInterface>>;
+    public metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createFullMetricsGithubUserRepositoryDtoInterface === null || createFullMetricsGithubUserRepositoryDtoInterface === undefined) {
+            throw new Error('Required parameter createFullMetricsGithubUserRepositoryDtoInterface was null or undefined when calling metricsGithubUserRepositoryControllerCreateOne.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -1235,6 +1259,15 @@ export class MetricsSite15RestService {
         }
 
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -1250,6 +1283,7 @@ export class MetricsSite15RestService {
         return this.httpClient.request<MetricsGithubUserRepositoryDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                body: createFullMetricsGithubUserRepositoryDtoInterface,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -1551,13 +1585,17 @@ export class MetricsSite15RestService {
     }
 
     /**
+     * @param createFullMetricsUserDtoInterface 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsUserControllerCreateOne(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsUserDtoInterface>;
-    public metricsUserControllerCreateOne(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsUserDtoInterface>>;
-    public metricsUserControllerCreateOne(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsUserDtoInterface>>;
-    public metricsUserControllerCreateOne(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsUserControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsUserDtoInterface>;
+    public metricsUserControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsUserDtoInterface>>;
+    public metricsUserControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsUserDtoInterface>>;
+    public metricsUserControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createFullMetricsUserDtoInterface === null || createFullMetricsUserDtoInterface === undefined) {
+            throw new Error('Required parameter createFullMetricsUserDtoInterface was null or undefined when calling metricsUserControllerCreateOne.');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -1584,6 +1622,15 @@ export class MetricsSite15RestService {
         }
 
 
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
         let responseType_: 'text' | 'json' | 'blob' = 'json';
         if (localVarHttpHeaderAcceptSelected) {
             if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
@@ -1599,6 +1646,7 @@ export class MetricsSite15RestService {
         return this.httpClient.request<MetricsUserDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                body: createFullMetricsUserDtoInterface,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

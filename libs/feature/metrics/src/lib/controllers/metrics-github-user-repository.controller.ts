@@ -15,6 +15,7 @@ import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } 
 import { MetricsError } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
 import { FindManyMetricsGithubUserRepositoryResponse } from '../types/FindManyMetricsGithubUserRepositoryResponse';
+import { CreateFullMetricsGithubUserRepositoryDto } from '../types/CreateFullMetricsGithubUserRepositoryDto';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
@@ -119,7 +120,7 @@ export class MetricsGithubUserRepositoryController {
   async createOne(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
-    @Body() args: CreateMetricsGithubUserRepositoryDto & { userId: string; repositoryId: string },
+    @Body() args: CreateFullMetricsGithubUserRepositoryDto,
   ) {
     return await this.prismaClient.metricsGithubUserRepository.create({
       data: {

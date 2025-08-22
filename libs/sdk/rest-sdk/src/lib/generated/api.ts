@@ -76,6 +76,83 @@ export interface CompleteSignUpArgs {
 /**
  * 
  * @export
+ * @interface CreateFullMetricsGithubMetricDto
+ */
+export interface CreateFullMetricsGithubMetricDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubMetricDto
+     */
+    'metricName': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateFullMetricsGithubMetricDto
+     */
+    'metricValue': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubMetricDto
+     */
+    'recordedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubMetricDto
+     */
+    'repositoryId': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateFullMetricsGithubUserRepositoryDto
+ */
+export interface CreateFullMetricsGithubUserRepositoryDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubUserRepositoryDto
+     */
+    'role': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubUserRepositoryDto
+     */
+    'userId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsGithubUserRepositoryDto
+     */
+    'repositoryId': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateFullMetricsUserDto
+ */
+export interface CreateFullMetricsUserDto {
+    /**
+     * 
+     * @type {MetricsRole}
+     * @memberof CreateFullMetricsUserDto
+     */
+    'userRole': MetricsRole;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateFullMetricsUserDto
+     */
+    'externalUserId': string;
+}
+
+
+/**
+ * 
+ * @export
  * @interface CreateMetricsGithubRepositoryDto
  */
 export interface CreateMetricsGithubRepositoryDto {
@@ -4751,10 +4828,13 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
+         * @param {CreateFullMetricsGithubMetricDto} createFullMetricsGithubMetricDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubMetricControllerCreateOne: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubMetricControllerCreateOne: async (createFullMetricsGithubMetricDto: CreateFullMetricsGithubMetricDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createFullMetricsGithubMetricDto' is not null or undefined
+            assertParamExists('metricsGithubMetricControllerCreateOne', 'createFullMetricsGithubMetricDto', createFullMetricsGithubMetricDto)
             const localVarPath = `/api/metrics/github/metric`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -4769,9 +4849,12 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createFullMetricsGithubMetricDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5327,10 +5410,13 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @param {CreateFullMetricsGithubUserRepositoryDto} createFullMetricsGithubUserRepositoryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubUserRepositoryControllerCreateOne: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubUserRepositoryControllerCreateOne: async (createFullMetricsGithubUserRepositoryDto: CreateFullMetricsGithubUserRepositoryDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createFullMetricsGithubUserRepositoryDto' is not null or undefined
+            assertParamExists('metricsGithubUserRepositoryControllerCreateOne', 'createFullMetricsGithubUserRepositoryDto', createFullMetricsGithubUserRepositoryDto)
             const localVarPath = `/api/metrics/github/user-repository`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5345,9 +5431,12 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createFullMetricsGithubUserRepositoryDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5515,10 +5604,13 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @param {CreateFullMetricsUserDto} createFullMetricsUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsUserControllerCreateOne: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsUserControllerCreateOne: async (createFullMetricsUserDto: CreateFullMetricsUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createFullMetricsUserDto' is not null or undefined
+            assertParamExists('metricsUserControllerCreateOne', 'createFullMetricsUserDto', createFullMetricsUserDto)
             const localVarPath = `/api/metrics/user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -5533,9 +5625,12 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createFullMetricsUserDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -5713,11 +5808,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {CreateFullMetricsGithubMetricDto} createFullMetricsGithubMetricDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubMetricControllerCreateOne(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubMetricDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubMetricControllerCreateOne(options);
+        async metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDto: CreateFullMetricsGithubMetricDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubMetricDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubMetricControllerCreateOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5907,11 +6003,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {CreateFullMetricsGithubUserRepositoryDto} createFullMetricsGithubUserRepositoryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubUserRepositoryControllerCreateOne(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubUserRepositoryDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserRepositoryControllerCreateOne(options);
+        async metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDto: CreateFullMetricsGithubUserRepositoryDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubUserRepositoryDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserRepositoryControllerCreateOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -5971,11 +6068,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {CreateFullMetricsUserDto} createFullMetricsUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsUserControllerCreateOne(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsUserDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsUserControllerCreateOne(options);
+        async metricsUserControllerCreateOne(createFullMetricsUserDto: CreateFullMetricsUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsUserDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsUserControllerCreateOne(createFullMetricsUserDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsUserControllerCreateOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -6045,11 +6143,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
+         * @param {CreateFullMetricsGithubMetricDto} createFullMetricsGithubMetricDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubMetricControllerCreateOne(options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubMetricDto> {
-            return localVarFp.metricsGithubMetricControllerCreateOne(options).then((request) => request(axios, basePath));
+        metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDto: CreateFullMetricsGithubMetricDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubMetricDto> {
+            return localVarFp.metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6194,11 +6293,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @param {CreateFullMetricsGithubUserRepositoryDto} createFullMetricsGithubUserRepositoryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubUserRepositoryControllerCreateOne(options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubUserRepositoryDto> {
-            return localVarFp.metricsGithubUserRepositoryControllerCreateOne(options).then((request) => request(axios, basePath));
+        metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDto: CreateFullMetricsGithubUserRepositoryDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubUserRepositoryDto> {
+            return localVarFp.metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6243,11 +6343,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @param {CreateFullMetricsUserDto} createFullMetricsUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsUserControllerCreateOne(options?: RawAxiosRequestConfig): AxiosPromise<MetricsUserDto> {
-            return localVarFp.metricsUserControllerCreateOne(options).then((request) => request(axios, basePath));
+        metricsUserControllerCreateOne(createFullMetricsUserDto: CreateFullMetricsUserDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsUserDto> {
+            return localVarFp.metricsUserControllerCreateOne(createFullMetricsUserDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -6302,12 +6403,13 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
 export class MetricsApi extends BaseAPI {
     /**
      * 
+     * @param {CreateFullMetricsGithubMetricDto} createFullMetricsGithubMetricDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubMetricControllerCreateOne(options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubMetricControllerCreateOne(options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDto: CreateFullMetricsGithubMetricDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6481,12 +6583,13 @@ export class MetricsApi extends BaseAPI {
 
     /**
      * 
+     * @param {CreateFullMetricsGithubUserRepositoryDto} createFullMetricsGithubUserRepositoryDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubUserRepositoryControllerCreateOne(options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubUserRepositoryControllerCreateOne(options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDto: CreateFullMetricsGithubUserRepositoryDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -6540,12 +6643,13 @@ export class MetricsApi extends BaseAPI {
 
     /**
      * 
+     * @param {CreateFullMetricsUserDto} createFullMetricsUserDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsUserControllerCreateOne(options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsUserControllerCreateOne(options).then((request) => request(this.axios, this.basePath));
+    public metricsUserControllerCreateOne(createFullMetricsUserDto: CreateFullMetricsUserDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsUserControllerCreateOne(createFullMetricsUserDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
