@@ -1,3 +1,12 @@
+# [1.6.0](https://github.com/site15/site15.ru/compare/client-v1.5.1...client-v1.6.0) (2025-08-22)
+
+### Features
+
+- add metrics CRUD controllers and regenerate SDK with 2-minute health checks ([1bc2402](https://github.com/site15/site15.ru/commit/1bc2402b29a5b49ce6afb2fc813dfcd71db7ab15))
+- **metrics-afat:** standardize frontend components and services ([74c8bf4](https://github.com/site15/site15.ru/commit/74c8bf41e3296e8975a5c2b7e16d1aec8ad48af4))
+- **metrics:** add Github users menu and route ([5b94a8b](https://github.com/site15/site15.ru/commit/5b94a8b5482a15b7642eb804fdf17618b0ba3e14))
+- **metrics:** add metrics module with github repositories overview ([cbb7bb6](https://github.com/site15/site15.ru/commit/cbb7bb63d91e828d1c9178d37b839a9ba71872bb))
+
 ## [1.5.1](https://github.com/site15/site15.ru/compare/client-v1.5.0...client-v1.5.1) (2025-08-13)
 
 ### Bug Fixes
