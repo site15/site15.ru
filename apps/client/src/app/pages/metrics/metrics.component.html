@@ -8,6 +8,20 @@
         <ul>
           <li nz-menu-item routerLink="github-repositories">{{ 'Github repositories' | transloco }}</li>
           <li nz-menu-item routerLink="github-users">{{ 'Github users' | transloco }}</li>
+          <li nz-menu-item routerLink="github-metrics">{{ 'Github metrics' | transloco }}</li>
+          <li nz-menu-item routerLink="github-user-repositories">{{ 'Github user repositories' | transloco }}</li>
+          <li nz-menu-item routerLink="github-repository-statistics">
+            {{ 'Github repository statistics' | transloco }}
+          </li>
+          <li nz-menu-item routerLink="github-teams">{{ 'Github teams' | transloco }}</li>
+          <li nz-menu-item routerLink="github-team-repositories">{{ 'Github team repositories' | transloco }}</li>
+          <li nz-menu-item routerLink="github-team-users">{{ 'Github team users' | transloco }}</li>
+          <li nz-menu-item routerLink="github-user-statistics">{{ 'Github user statistics' | transloco }}</li>
+        </ul>
+      </li>
+      <li nz-submenu [nzTitle]="'General' | transloco" nzIcon="user">
+        <ul>
+          <li nz-menu-item routerLink="users">{{ 'Users' | transloco }}</li>
         </ul>
       </li>
     </ul>

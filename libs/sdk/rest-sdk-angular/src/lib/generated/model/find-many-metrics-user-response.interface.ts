@@ -7,12 +7,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { MetricsUserInterface } from './metrics-user.interface';
 import { FindManyResponseMetaInterface } from './find-many-response-meta.interface';
+import { MetricsUserDtoInterface } from './metrics-user-dto.interface';
 
 
 export interface FindManyMetricsUserResponseInterface { 
-    metricsUsers: Array<MetricsUserInterface>;
+    metricsUsers: Array<MetricsUserDtoInterface>;
     meta: FindManyResponseMetaInterface;
 }
 

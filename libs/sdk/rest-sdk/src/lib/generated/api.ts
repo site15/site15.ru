@@ -770,10 +770,10 @@ export interface FindManyMetricsGithubUserStatisticsResponse {
 export interface FindManyMetricsUserResponse {
     /**
      * 
-     * @type {Array<MetricsUser>}
+     * @type {Array<MetricsUserDto>}
      * @memberof FindManyMetricsUserResponse
      */
-    'metricsUsers': Array<MetricsUser>;
+    'metricsUsers': Array<MetricsUserDto>;
     /**
      * 
      * @type {FindManyResponseMeta}

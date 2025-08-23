@@ -12,7 +12,8 @@
       "*.d.ts",
       "fake",
       "*test-setup.ts*",
-      "*prisma-client*"
+      "*prisma-client*",
+      "*.ts.new"
     ]
   }
 }
