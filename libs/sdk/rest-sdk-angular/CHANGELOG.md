@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/site15/site15.ru/compare/rest-sdk-angular-v1.5.0...rest-sdk-angular-v1.6.0) (2025-08-24)
+
+### Features
+
+- **metrics:** add new Github metrics and related routes ([fc67a78](https://github.com/site15/site15.ru/commit/fc67a7855dedb6b217e9eacaa819d7b4ae090ab5))
+- **metrics:** Remove includes from all controller find methods and regenerate SDK ([d764565](https://github.com/site15/site15.ru/commit/d76456589151889eef77f6042cedefb6a99a4bde))
+
 # [1.5.0](https://github.com/site15/site15.ru/compare/rest-sdk-angular-v1.4.1...rest-sdk-angular-v1.5.0) (2025-08-22)
 
 ### Features
