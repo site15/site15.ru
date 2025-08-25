@@ -28,6 +28,8 @@ BEGIN
 EXCEPTION
     WHEN duplicate_object THEN
         NULL;
+    WHEN invalid_table_definition THEN
+        NULL;
 END
 $$;
 
@@ -87,6 +89,8 @@ BEGIN
         ADD CONSTRAINT "PK_METRICS_GITHUB_REPOSITORY_STATISTICS" PRIMARY KEY(id);
 EXCEPTION
     WHEN duplicate_object THEN
+        NULL;
+    WHEN invalid_table_definition THEN
         NULL;
 END
 $$;
@@ -161,6 +165,8 @@ BEGIN
 EXCEPTION
     WHEN duplicate_object THEN
         NULL;
+    WHEN invalid_table_definition THEN
+        NULL;
 END
 $$;
 
@@ -204,6 +210,8 @@ BEGIN
         ADD CONSTRAINT "PK_METRICS_GITHUB_TEAM_REPOSITORY" PRIMARY KEY(id);
 EXCEPTION
     WHEN duplicate_object THEN
+        NULL;
+    WHEN invalid_table_definition THEN
         NULL;
 END
 $$;
@@ -259,6 +267,8 @@ BEGIN
         ADD CONSTRAINT "PK_METRICS_GITHUB_TEAM_USER" PRIMARY KEY(id);
 EXCEPTION
     WHEN duplicate_object THEN
+        NULL;
+    WHEN invalid_table_definition THEN
         NULL;
 END
 $$;

@@ -12,13 +12,15 @@ const appEnvKeys = [
   'SITE_15_NOTIFICATIONS_DATABASE_URL',
   'SITE_15_SSO_DATABASE_URL',
   'SITE_15_TWO_FACTOR_DATABASE_URL',
+  'SITE_15_METRICS_DATABASE_URL',
 ];
-const appKeys = ['webhook', 'notifications', 'sso', 'two-factor'];
+const appKeys = ['webhook', 'notifications', 'sso', 'two-factor', 'metrics'];
 const appHistoryTables = [
   '__migrations_webhook',
   '__migrations_notifications',
   '__migrations_sso',
   '__migrations_two_factor',
+  '__migrations_metrics',
 ];
 const rootEnvKey = 'SITE_15_ROOT_DATABASE_URL';
 const mainEnvKey = 'SITE_15_POSTGRES_URL';
