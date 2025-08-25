@@ -1,3 +1,9 @@
+# [1.8.0](https://github.com/site15/site15.ru/compare/server-v1.7.0...server-v1.8.0) (2025-08-25)
+
+### Features
+
+- **metrics:** add initial schema and tables for metrics feature ([eaa7602](https://github.com/site15/site15.ru/commit/eaa76028e98070afe48c9fb874f56ba9ab49d044))
+
 # [1.7.0](https://github.com/site15/site15.ru/compare/server-v1.6.0...server-v1.7.0) (2025-08-24)
 
 ### Features
