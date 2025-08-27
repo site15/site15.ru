@@ -10,7 +10,7 @@ import { MetricsRole, MetricsUser, Prisma, PrismaClient } from '../generated/pri
 import { CreateMetricsUserDto } from '../generated/rest/dto/create-metrics-user.dto';
 import { MetricsUserDto } from '../generated/rest/dto/metrics-user.dto';
 import { UpdateMetricsUserDto } from '../generated/rest/dto/update-metrics-user.dto';
-import { METRICS_FEATURE } from '../metrics.constants';
+import { METRICS_API_TAG, METRICS_FEATURE, METRICS_USER_CONTROLLER_PATH } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
@@ -20,9 +20,9 @@ import { CreateFullMetricsUserDto } from '../types/CreateFullMetricsUserDto';
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
 })
-@ApiTags('Metrics')
+@ApiTags(METRICS_API_TAG)
 @CheckMetricsRole([MetricsRole.Admin])
-@Controller('/metrics/user')
+@Controller(METRICS_USER_CONTROLLER_PATH)
 export class MetricsUserController {
   constructor(
     @InjectPrismaClient(METRICS_FEATURE)

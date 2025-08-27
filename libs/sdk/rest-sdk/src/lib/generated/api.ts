@@ -6758,7 +6758,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubRepositoryStatisticsControllerCreateOne: async (createFullMetricsGithubRepositoryStatisticsDto: CreateFullMetricsGithubRepositoryStatisticsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createFullMetricsGithubRepositoryStatisticsDto' is not null or undefined
             assertParamExists('metricsGithubRepositoryStatisticsControllerCreateOne', 'createFullMetricsGithubRepositoryStatisticsDto', createFullMetricsGithubRepositoryStatisticsDto)
-            const localVarPath = `/api/metrics/github/repository/statistics`;
+            const localVarPath = `/api/metrics/github/repository-statistics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6793,7 +6793,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubRepositoryStatisticsControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('metricsGithubRepositoryStatisticsControllerDeleteOne', 'id', id)
-            const localVarPath = `/api/metrics/github/repository/statistics/{id}`
+            const localVarPath = `/api/metrics/github/repository-statistics/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6828,7 +6828,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         metricsGithubRepositoryStatisticsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/metrics/github/repository/statistics`;
+            const localVarPath = `/api/metrics/github/repository-statistics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -6880,7 +6880,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubRepositoryStatisticsControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('metricsGithubRepositoryStatisticsControllerFindOne', 'id', id)
-            const localVarPath = `/api/metrics/github/repository/statistics/{id}`
+            const localVarPath = `/api/metrics/github/repository-statistics/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6916,7 +6916,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('metricsGithubRepositoryStatisticsControllerUpdateOne', 'id', id)
             // verify required parameter 'updateMetricsGithubRepositoryStatisticsDto' is not null or undefined
             assertParamExists('metricsGithubRepositoryStatisticsControllerUpdateOne', 'updateMetricsGithubRepositoryStatisticsDto', updateMetricsGithubRepositoryStatisticsDto)
-            const localVarPath = `/api/metrics/github/repository/statistics/{id}`
+            const localVarPath = `/api/metrics/github/repository-statistics/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7146,7 +7146,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubTeamRepositoryControllerCreateOne: async (createFullMetricsGithubTeamRepositoryDto: CreateFullMetricsGithubTeamRepositoryDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createFullMetricsGithubTeamRepositoryDto' is not null or undefined
             assertParamExists('metricsGithubTeamRepositoryControllerCreateOne', 'createFullMetricsGithubTeamRepositoryDto', createFullMetricsGithubTeamRepositoryDto)
-            const localVarPath = `/api/metrics/github/team/repository`;
+            const localVarPath = `/api/metrics/github/team-repository`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7181,7 +7181,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubTeamRepositoryControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('metricsGithubTeamRepositoryControllerDeleteOne', 'id', id)
-            const localVarPath = `/api/metrics/github/team/repository/{id}`
+            const localVarPath = `/api/metrics/github/team-repository/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7216,7 +7216,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         metricsGithubTeamRepositoryControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/metrics/github/team/repository`;
+            const localVarPath = `/api/metrics/github/team-repository`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7268,7 +7268,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubTeamRepositoryControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('metricsGithubTeamRepositoryControllerFindOne', 'id', id)
-            const localVarPath = `/api/metrics/github/team/repository/{id}`
+            const localVarPath = `/api/metrics/github/team-repository/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7304,7 +7304,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('metricsGithubTeamRepositoryControllerUpdateOne', 'id', id)
             // verify required parameter 'updateMetricsGithubTeamRepositoryDto' is not null or undefined
             assertParamExists('metricsGithubTeamRepositoryControllerUpdateOne', 'updateMetricsGithubTeamRepositoryDto', updateMetricsGithubTeamRepositoryDto)
-            const localVarPath = `/api/metrics/github/team/repository/{id}`
+            const localVarPath = `/api/metrics/github/team-repository/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7340,7 +7340,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubTeamUserControllerCreateOne: async (createFullMetricsGithubTeamUserDto: CreateFullMetricsGithubTeamUserDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createFullMetricsGithubTeamUserDto' is not null or undefined
             assertParamExists('metricsGithubTeamUserControllerCreateOne', 'createFullMetricsGithubTeamUserDto', createFullMetricsGithubTeamUserDto)
-            const localVarPath = `/api/metrics/github/team/user`;
+            const localVarPath = `/api/metrics/github/team-user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7375,7 +7375,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubTeamUserControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('metricsGithubTeamUserControllerDeleteOne', 'id', id)
-            const localVarPath = `/api/metrics/github/team/user/{id}`
+            const localVarPath = `/api/metrics/github/team-user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7410,7 +7410,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         metricsGithubTeamUserControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/metrics/github/team/user`;
+            const localVarPath = `/api/metrics/github/team-user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7462,7 +7462,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubTeamUserControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('metricsGithubTeamUserControllerFindOne', 'id', id)
-            const localVarPath = `/api/metrics/github/team/user/{id}`
+            const localVarPath = `/api/metrics/github/team-user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7498,7 +7498,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('metricsGithubTeamUserControllerUpdateOne', 'id', id)
             // verify required parameter 'updateMetricsGithubTeamUserDto' is not null or undefined
             assertParamExists('metricsGithubTeamUserControllerUpdateOne', 'updateMetricsGithubTeamUserDto', updateMetricsGithubTeamUserDto)
-            const localVarPath = `/api/metrics/github/team/user/{id}`
+            const localVarPath = `/api/metrics/github/team-user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7922,7 +7922,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubUserStatisticsControllerCreateOne: async (createFullMetricsGithubUserStatisticsDto: CreateFullMetricsGithubUserStatisticsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createFullMetricsGithubUserStatisticsDto' is not null or undefined
             assertParamExists('metricsGithubUserStatisticsControllerCreateOne', 'createFullMetricsGithubUserStatisticsDto', createFullMetricsGithubUserStatisticsDto)
-            const localVarPath = `/api/metrics/github/user/statistics`;
+            const localVarPath = `/api/metrics/github/user-statistics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -7957,7 +7957,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubUserStatisticsControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('metricsGithubUserStatisticsControllerDeleteOne', 'id', id)
-            const localVarPath = `/api/metrics/github/user/statistics/{id}`
+            const localVarPath = `/api/metrics/github/user-statistics/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7992,7 +7992,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         metricsGithubUserStatisticsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/metrics/github/user/statistics`;
+            const localVarPath = `/api/metrics/github/user-statistics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -8044,7 +8044,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         metricsGithubUserStatisticsControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('metricsGithubUserStatisticsControllerFindOne', 'id', id)
-            const localVarPath = `/api/metrics/github/user/statistics/{id}`
+            const localVarPath = `/api/metrics/github/user-statistics/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -8080,7 +8080,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('metricsGithubUserStatisticsControllerUpdateOne', 'id', id)
             // verify required parameter 'updateMetricsGithubUserStatisticsDto' is not null or undefined
             assertParamExists('metricsGithubUserStatisticsControllerUpdateOne', 'updateMetricsGithubUserStatisticsDto', updateMetricsGithubUserStatisticsDto)
-            const localVarPath = `/api/metrics/github/user/statistics/{id}`
+            const localVarPath = `/api/metrics/github/user-statistics/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

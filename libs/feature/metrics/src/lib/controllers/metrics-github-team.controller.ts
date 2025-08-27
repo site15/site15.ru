@@ -11,7 +11,7 @@ import { MetricsRole, MetricsUser, Prisma, PrismaClient } from '../generated/pri
 import { CreateMetricsGithubTeamDto } from '../generated/rest/dto/create-metrics-github-team.dto';
 import { MetricsGithubTeamDto } from '../generated/rest/dto/metrics-github-team.dto';
 import { UpdateMetricsGithubTeamDto } from '../generated/rest/dto/update-metrics-github-team.dto';
-import { METRICS_FEATURE } from '../metrics.constants';
+import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_TEAM_CONTROLLER_PATH } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
@@ -20,9 +20,9 @@ import { FindManyMetricsGithubTeamResponse } from '../types/FindManyMetricsGithu
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
 })
-@ApiTags('Metrics')
+@ApiTags(METRICS_API_TAG)
 @CheckMetricsRole([MetricsRole.User, MetricsRole.Admin])
-@Controller('/metrics/github/team')
+@Controller(METRICS_GITHUB_TEAM_CONTROLLER_PATH)
 export class MetricsGithubTeamController {
   constructor(
     @InjectPrismaClient(METRICS_FEATURE)

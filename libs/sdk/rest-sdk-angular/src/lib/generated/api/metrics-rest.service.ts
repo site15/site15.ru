@@ -956,7 +956,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository/statistics`;
+        let localVarPath = `/api/metrics/github/repository-statistics`;
         return this.httpClient.request<MetricsGithubRepositoryStatisticsDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1020,7 +1020,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository/statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/repository-statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1106,7 +1106,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository/statistics`;
+        let localVarPath = `/api/metrics/github/repository-statistics`;
         return this.httpClient.request<FindManyMetricsGithubRepositoryStatisticsResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1170,7 +1170,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository/statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/repository-statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubRepositoryStatisticsDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1246,7 +1246,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository/statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/repository-statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubRepositoryStatisticsDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1682,7 +1682,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/repository`;
+        let localVarPath = `/api/metrics/github/team-repository`;
         return this.httpClient.request<MetricsGithubTeamRepositoryDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1746,7 +1746,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1832,7 +1832,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/repository`;
+        let localVarPath = `/api/metrics/github/team-repository`;
         return this.httpClient.request<FindManyMetricsGithubTeamRepositoryResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1896,7 +1896,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubTeamRepositoryDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1972,7 +1972,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubTeamRepositoryDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2045,7 +2045,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/user`;
+        let localVarPath = `/api/metrics/github/team-user`;
         return this.httpClient.request<MetricsGithubTeamUserDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2109,7 +2109,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2195,7 +2195,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/user`;
+        let localVarPath = `/api/metrics/github/team-user`;
         return this.httpClient.request<FindManyMetricsGithubTeamUserResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2259,7 +2259,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubTeamUserDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2335,7 +2335,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team/user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubTeamUserDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -3134,7 +3134,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user/statistics`;
+        let localVarPath = `/api/metrics/github/user-statistics`;
         return this.httpClient.request<MetricsGithubUserStatisticsDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -3198,7 +3198,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user/statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/user-statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -3284,7 +3284,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user/statistics`;
+        let localVarPath = `/api/metrics/github/user-statistics`;
         return this.httpClient.request<FindManyMetricsGithubUserStatisticsResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -3348,7 +3348,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user/statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/user-statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubUserStatisticsDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -3424,7 +3424,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user/statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/user-statistics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubUserStatisticsDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

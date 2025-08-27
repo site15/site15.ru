@@ -8,10 +8,11 @@ import { AllowEmptySsoUser } from '../../sso.decorators';
 import { SsoError } from '../../sso.errors';
 import { SsoGoogleOAuthStrategy } from './sso-google-oauth.strategy';
 import { SsoStaticEnvironments } from '../../sso.environments';
+import { SSO_API_TAG, SSO_GOOGLE_OAUTH_CONTROLLER_PATH } from '../../sso.constants';
 
-@ApiTags('Sso')
+@ApiTags(SSO_API_TAG)
 @AllowEmptySsoUser()
-@Controller('/sso/oauth/google')
+@Controller(SSO_GOOGLE_OAUTH_CONTROLLER_PATH)
 export class SsoGoogleOAuthController {
   logger = new Logger(SsoGoogleOAuthController.name);
   constructor(private readonly ssoStaticEnvironments: SsoStaticEnvironments) {}

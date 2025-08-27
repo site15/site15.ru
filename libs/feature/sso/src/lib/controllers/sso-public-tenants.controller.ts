@@ -6,14 +6,14 @@ import { Controller, Get, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { Prisma } from '../generated/prisma-client';
-import { SSO_FEATURE } from '../sso.constants';
+import { SSO_API_TAG, SSO_FEATURE, SSO_PUBLIC_TENANTS_CONTROLLER_PATH } from '../sso.constants';
 import { AllowEmptySsoUser } from '../sso.decorators';
 import { SsoPrismaSdk } from '../sso.prisma-sdk';
 import { FindManySsoPublicTenantResponse } from '../types/find-many-sso-public-tenant-response';
 
-@ApiTags('Sso')
+@ApiTags(SSO_API_TAG)
 @AllowEmptySsoUser()
-@Controller('/sso/public-tenants')
+@Controller(SSO_PUBLIC_TENANTS_CONTROLLER_PATH)
 export class SsoPublicTenantsController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)

@@ -10,7 +10,7 @@ import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 import { MetricsRole, MetricsUser, Prisma, PrismaClient } from '../generated/prisma-client';
 import { MetricsGithubTeamRepositoryDto } from '../generated/rest/dto/metrics-github-team-repository.dto';
 import { UpdateMetricsGithubTeamRepositoryDto } from '../generated/rest/dto/update-metrics-github-team-repository.dto';
-import { METRICS_FEATURE } from '../metrics.constants';
+import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_TEAM_REPOSITORY_CONTROLLER_PATH } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
@@ -20,9 +20,9 @@ import { FindManyMetricsGithubTeamRepositoryResponse } from '../types/FindManyMe
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
 })
-@ApiTags('Metrics')
+@ApiTags(METRICS_API_TAG)
 @CheckMetricsRole([MetricsRole.User, MetricsRole.Admin])
-@Controller('/metrics/github/team/repository')
+@Controller(METRICS_GITHUB_TEAM_REPOSITORY_CONTROLLER_PATH)
 export class MetricsGithubTeamRepositoryController {
   constructor(
     @InjectPrismaClient(METRICS_FEATURE)

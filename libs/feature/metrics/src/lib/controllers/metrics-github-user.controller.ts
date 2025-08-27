@@ -10,7 +10,7 @@ import { MetricsRole, MetricsUser, Prisma, PrismaClient } from '../generated/pri
 import { CreateMetricsGithubUserDto } from '../generated/rest/dto/create-metrics-github-user.dto';
 import { MetricsGithubUserDto } from '../generated/rest/dto/metrics-github-user.dto';
 import { UpdateMetricsGithubUserDto } from '../generated/rest/dto/update-metrics-github-user.dto';
-import { METRICS_FEATURE } from '../metrics.constants';
+import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_USER_CONTROLLER_PATH } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
@@ -19,9 +19,9 @@ import { FindManyMetricsGithubUserResponse } from '../types/FindManyMetricsGithu
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
 })
-@ApiTags('Metrics')
+@ApiTags(METRICS_API_TAG)
 @CheckMetricsRole([MetricsRole.User, MetricsRole.Admin])
-@Controller('/metrics/github/user')
+@Controller(METRICS_GITHUB_USER_CONTROLLER_PATH)
 export class MetricsGithubUserController {
   constructor(
     @InjectPrismaClient(METRICS_FEATURE)

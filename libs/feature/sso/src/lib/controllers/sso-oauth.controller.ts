@@ -9,7 +9,7 @@ import { IpAddress } from '../decorators/ip-address.decorator';
 import { UserAgent } from '../decorators/user-agent.decorator';
 import { SsoCookieService } from '../services/sso-cookie.service';
 import { SsoEventsService } from '../services/sso-events.service';
-import { SSO_FEATURE } from '../sso.constants';
+import { SSO_API_TAG, SSO_FEATURE, SSO_OAUTH_CONTROLLER_PATH } from '../sso.constants';
 import { AllowEmptySsoUser, CurrentSsoRequest } from '../sso.decorators';
 import { SsoStaticEnvironments } from '../sso.environments';
 import { SsoError, SsoErrorEnum } from '../sso.errors';
@@ -20,9 +20,9 @@ import { SsoRequest } from '../types/sso-request';
 import { SsoWebhookEvent } from '../types/sso-webhooks';
 import { TokensResponse } from '../types/tokens.dto';
 
-@ApiTags('Sso')
+@ApiTags(SSO_API_TAG)
 @AllowEmptySsoUser()
-@Controller('/sso/oauth')
+@Controller(SSO_OAUTH_CONTROLLER_PATH)
 export class SsoOAuthController {
   private readonly logger = new Logger(SsoOAuthController.name);
 

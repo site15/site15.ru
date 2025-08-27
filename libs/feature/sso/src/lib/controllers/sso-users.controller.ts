@@ -27,12 +27,13 @@ import { SendInvitationLinksArgs } from '../types/send-invitation-links.dto';
 import { SsoRequest } from '../types/sso-request';
 import { SsoRole } from '../types/sso-role';
 import { SsoWebhookEvent } from '../types/sso-webhooks';
+import { SSO_API_TAG, SSO_USERS_CONTROLLER_PATH } from '../sso.constants';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
-@ApiTags('Sso')
-@Controller('/sso/users')
+@ApiTags(SSO_API_TAG)
+@Controller(SSO_USERS_CONTROLLER_PATH)
 export class SsoUsersController {
   private readonly logger = new Logger(SsoUsersController.name);
 

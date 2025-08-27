@@ -29,13 +29,13 @@ import { SsoRequest } from '../types/sso-request';
 import { SsoWebhookEvent } from '../types/sso-webhooks';
 import { TokensResponse } from '../types/tokens.dto';
 import { UpdateProfileArgs } from '../types/update-profile.dto';
-import { APP_DATA_TWO_FACTOR_TIMEOUT } from '../sso.constants';
+import { APP_DATA_TWO_FACTOR_TIMEOUT, SSO_API_TAG, SSO_CONTROLLER_PATH } from '../sso.constants';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
-@ApiTags('Sso')
-@Controller('/sso')
+@ApiTags(SSO_API_TAG)
+@Controller(SSO_CONTROLLER_PATH)
 export class SsoController {
   private logger = new Logger(SsoController.name);
 

@@ -9,7 +9,7 @@ import { Prisma } from '../generated/prisma-client';
 import { SsoRefreshSessionDto } from '../generated/rest/dto/sso-refresh-session.dto';
 import { UpdateSsoRefreshSessionDto } from '../generated/rest/dto/update-sso-refresh-session.dto';
 import { SsoCacheService } from '../services/sso-cache.service';
-import { SSO_FEATURE } from '../sso.constants';
+import { SSO_API_TAG, SSO_FEATURE, SSO_SESSIONS_CONTROLLER_PATH } from '../sso.constants';
 import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { SsoPrismaSdk } from '../sso.prisma-sdk';
@@ -21,8 +21,8 @@ import { SsoRole } from '../types/sso-role';
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
-@ApiTags('Sso')
-@Controller('/sso/sessions')
+@ApiTags(SSO_API_TAG)
+@Controller(SSO_SESSIONS_CONTROLLER_PATH)
 export class SsoRefreshSessionsController {
   constructor(
     @InjectPrismaClient(SSO_FEATURE)

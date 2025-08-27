@@ -13,7 +13,7 @@ import { SsoTenantDto } from '../generated/rest/dto/sso-tenant.dto';
 import { UpdateSsoTenantDto } from '../generated/rest/dto/update-sso-tenant.dto';
 import { SsoCacheService } from '../services/sso-cache.service';
 import { SsoTemplatesService } from '../services/sso-templates.service';
-import { SSO_FEATURE } from '../sso.constants';
+import { SSO_API_TAG, SSO_FEATURE, SSO_TENANTS_CONTROLLER_PATH } from '../sso.constants';
 import { CheckSsoRole } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { SsoPrismaSdk } from '../sso.prisma-sdk';
@@ -23,9 +23,9 @@ import { SsoRole } from '../types/sso-role';
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
-@ApiTags('Sso')
+@ApiTags(SSO_API_TAG)
 @CheckSsoRole([SsoRole.admin])
-@Controller('/sso/tenants')
+@Controller(SSO_TENANTS_CONTROLLER_PATH)
 @SkipTranslate()
 export class SsoTenantsController {
   constructor(

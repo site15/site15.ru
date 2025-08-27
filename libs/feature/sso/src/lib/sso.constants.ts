@@ -5,6 +5,20 @@ export const SSO_FEATURE = 'sso';
 export const SSO_MODULE = 'SsoModule';
 export const SSO_FOLDER = 'libs/feature/sso';
 
+// API Tags
+export const SSO_API_TAG = 'Sso';
+
+// Controller paths
+export const SSO_CONTROLLER_PATH = '/sso';
+export const SSO_EMAIL_TEMPLATES_CONTROLLER_PATH = '/sso/email-templates';
+export const SSO_OAUTH_CONTROLLER_PATH = '/sso/oauth';
+export const SSO_PUBLIC_TENANTS_CONTROLLER_PATH = '/sso/public-tenants';
+export const SSO_ROLES_CONTROLLER_PATH = '/sso/roles';
+export const SSO_SESSIONS_CONTROLLER_PATH = '/sso/sessions';
+export const SSO_TENANTS_CONTROLLER_PATH = '/sso/tenants';
+export const SSO_USERS_CONTROLLER_PATH = '/sso/users';
+export const SSO_GOOGLE_OAUTH_CONTROLLER_PATH = '/sso/oauth/google';
+
 export const APP_DATA_TWO_FACTOR_TIMEOUT = 'twoFactorTimeout';
 
 export const X_ALLOW_CHANGE_TWO_FACTOR_TIMEOUT = 'x-allow-change-two-factor-timeout';

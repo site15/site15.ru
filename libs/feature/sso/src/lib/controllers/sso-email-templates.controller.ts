@@ -10,7 +10,7 @@ import { SkipTranslate } from 'nestjs-translates';
 import { Prisma } from '../generated/prisma-client';
 import { SsoEmailTemplateDto } from '../generated/rest/dto/sso-email-template.dto';
 import { UpdateSsoEmailTemplateDto } from '../generated/rest/dto/update-sso-email-template.dto';
-import { SSO_FEATURE } from '../sso.constants';
+import { SSO_API_TAG, SSO_EMAIL_TEMPLATES_CONTROLLER_PATH, SSO_FEATURE } from '../sso.constants';
 import { CurrentSsoRequest } from '../sso.decorators';
 import { SsoError } from '../sso.errors';
 import { SsoPrismaSdk } from '../sso.prisma-sdk';
@@ -22,8 +22,8 @@ import { SsoRole } from '../types/sso-role';
 @ApiBadRequestResponse({
   schema: { allOf: refs(SsoError, ValidationError) },
 })
-@ApiTags('Sso')
-@Controller('/sso/email-templates')
+@ApiTags(SSO_API_TAG)
+@Controller(SSO_EMAIL_TEMPLATES_CONTROLLER_PATH)
 @SkipTranslate()
 export class SsoEmailTemplatesController {
   constructor(
