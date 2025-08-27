@@ -21,18 +21,6 @@ export class MetricsGithubUserStatisticsFormService {
     return this.validationService.appendServerErrorsAsValidatorsToFields(
       [
         {
-          key: MetricsGithubUserStatisticsScalarFieldEnumInterface.userId,
-          type: 'input',
-          validation: {
-            show: true,
-          },
-          props: {
-            label: this.translocoService.translate(`metrics-github-user-statistics.form.fields.userId`),
-            placeholder: 'userId',
-            required: true,
-          },
-        },
-        {
           key: MetricsGithubUserStatisticsScalarFieldEnumInterface.periodType,
           type: 'input',
           validation: {
@@ -72,7 +60,7 @@ export class MetricsGithubUserStatisticsFormService {
         },
         {
           key: MetricsGithubUserStatisticsScalarFieldEnumInterface.recordedAt,
-          type: 'datepicker',
+          type: 'date-input',
           validation: {
             show: true,
           },

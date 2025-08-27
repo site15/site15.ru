@@ -47,7 +47,7 @@ export class MetricsGithubMetricFormService {
         },
         {
           key: MetricsGithubMetricScalarFieldEnumInterface.recordedAt,
-          type: 'input',
+          type: 'date-input',
           validation: {
             show: true,
           },
@@ -55,7 +55,6 @@ export class MetricsGithubMetricFormService {
             label: this.translocoService.translate(`metrics-github-metric.form.fields.recorded-at`),
             placeholder: 'recordedAt',
             required: true,
-            type: 'datetime-local',
           },
         },
       ],

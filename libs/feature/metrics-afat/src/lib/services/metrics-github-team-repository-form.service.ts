@@ -20,30 +20,7 @@ export class MetricsGithubTeamRepositoryFormService {
   getFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
     return this.validationService.appendServerErrorsAsValidatorsToFields(
       [
-        {
-          key: MetricsGithubTeamRepositoryScalarFieldEnumInterface.teamId,
-          type: 'input',
-          validation: {
-            show: true,
-          },
-          props: {
-            label: this.translocoService.translate(`metrics-github-team-repository.form.fields.teamId`),
-            placeholder: 'teamId',
-            required: true,
-          },
-        },
-        {
-          key: MetricsGithubTeamRepositoryScalarFieldEnumInterface.repositoryId,
-          type: 'input',
-          validation: {
-            show: true,
-          },
-          props: {
-            label: this.translocoService.translate(`metrics-github-team-repository.form.fields.repositoryId`),
-            placeholder: 'repositoryId',
-            required: true,
-          },
-        },
+        // No fields to include as the DTO doesn't contain form fields
       ],
       options?.errors || [],
     );

@@ -48,7 +48,6 @@ import { MetricsGithubTeamFormComponent } from '../../forms/metrics-github-team-
     NzTableSortOrderDetectorPipe,
     TranslocoDirective,
     TranslocoPipe,
-    TranslocoDatePipe,
     NzFormModule,
   ],
   selector: 'metrics-github-team-grid',

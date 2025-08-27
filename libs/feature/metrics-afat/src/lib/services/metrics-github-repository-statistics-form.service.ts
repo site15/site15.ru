@@ -21,18 +21,6 @@ export class MetricsGithubRepositoryStatisticsFormService {
     return this.validationService.appendServerErrorsAsValidatorsToFields(
       [
         {
-          key: MetricsGithubRepositoryStatisticsScalarFieldEnumInterface.repositoryId,
-          type: 'input',
-          validation: {
-            show: true,
-          },
-          props: {
-            label: this.translocoService.translate(`metrics-github-repository-statistics.form.fields.repositoryId`),
-            placeholder: 'repositoryId',
-            required: true,
-          },
-        },
-        {
           key: MetricsGithubRepositoryStatisticsScalarFieldEnumInterface.periodType,
           type: 'input',
           validation: {
@@ -100,7 +88,7 @@ export class MetricsGithubRepositoryStatisticsFormService {
         },
         {
           key: MetricsGithubRepositoryStatisticsScalarFieldEnumInterface.lastCommitDate,
-          type: 'datepicker',
+          type: 'date-input',
           validation: {
             show: true,
           },
@@ -112,7 +100,7 @@ export class MetricsGithubRepositoryStatisticsFormService {
         },
         {
           key: MetricsGithubRepositoryStatisticsScalarFieldEnumInterface.recordedAt,
-          type: 'datepicker',
+          type: 'date-input',
           validation: {
             show: true,
           },

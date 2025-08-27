@@ -21,30 +21,6 @@ export class MetricsGithubTeamUserFormService {
     return this.validationService.appendServerErrorsAsValidatorsToFields(
       [
         {
-          key: MetricsGithubTeamUserScalarFieldEnumInterface.teamId,
-          type: 'input',
-          validation: {
-            show: true,
-          },
-          props: {
-            label: this.translocoService.translate(`metrics-github-team-user.form.fields.teamId`),
-            placeholder: 'teamId',
-            required: true,
-          },
-        },
-        {
-          key: MetricsGithubTeamUserScalarFieldEnumInterface.userId,
-          type: 'input',
-          validation: {
-            show: true,
-          },
-          props: {
-            label: this.translocoService.translate(`metrics-github-team-user.form.fields.userId`),
-            placeholder: 'userId',
-            required: true,
-          },
-        },
-        {
           key: MetricsGithubTeamUserScalarFieldEnumInterface.role,
           type: 'input',
           validation: {
