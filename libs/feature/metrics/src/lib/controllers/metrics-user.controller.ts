@@ -120,7 +120,8 @@ export class MetricsUserController {
   ) {
     return await this.prismaClient.metricsUser.create({
       data: {
-        ...args,
+        externalUserId: metricsUser.externalUserId,
+        userRole: args.userRole,
         ...(metricsUser.userRole === MetricsRole.Admin
           ? { tenantId: externalTenantId }
           : {
@@ -140,7 +141,7 @@ export class MetricsUserController {
   ) {
     return await this.prismaClient.metricsUser.update({
       data: {
-        ...args,
+        ...(args.userRole !== undefined ? { userRole: args.userRole } : {}),
         updatedAt: new Date(),
       },
       where: {

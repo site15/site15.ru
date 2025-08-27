@@ -124,9 +124,11 @@ export class MetricsGithubUserRepositoryController {
   ) {
     return await this.prismaClient.metricsGithubUserRepository.create({
       data: {
-        ...args,
-        createdBy: metricsUser.id,
-        updatedBy: metricsUser.id,
+        role: args.role,
+        MetricsGithubUser: { connect: { id: args.userId } },
+        MetricsGithubRepository: { connect: { id: args.repositoryId } },
+        MetricsUser_MetricsGithubUserRepository_createdByToMetricsUser: { connect: { id: metricsUser.id } },
+        MetricsUser_MetricsGithubUserRepository_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         ...(metricsUser.userRole === MetricsRole.Admin
           ? { tenantId: externalTenantId }
           : {
@@ -146,8 +148,8 @@ export class MetricsGithubUserRepositoryController {
   ) {
     return await this.prismaClient.metricsGithubUserRepository.update({
       data: {
-        ...args,
-        updatedBy: metricsUser.id,
+        ...(args.role !== undefined ? { role: args.role } : {}),
+        MetricsUser_MetricsGithubUserRepository_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         updatedAt: new Date(),
       },
       where: {

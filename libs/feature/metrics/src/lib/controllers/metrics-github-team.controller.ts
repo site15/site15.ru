@@ -122,7 +122,8 @@ export class MetricsGithubTeamController {
   ) {
     return await this.prismaClient.metricsGithubTeam.create({
       data: {
-        ...args,
+        name: args.name,
+        ...(args.description !== undefined ? { description: args.description } : {}),
         MetricsUser_MetricsGithubTeam_createdByToMetricsUser: { connect: { id: metricsUser.id } },
         MetricsUser_MetricsGithubTeam_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         ...(metricsUser.userRole === MetricsRole.Admin
@@ -144,7 +145,8 @@ export class MetricsGithubTeamController {
   ) {
     return await this.prismaClient.metricsGithubTeam.update({
       data: {
-        ...args,
+        ...(args.name !== undefined ? { name: args.name } : {}),
+        ...(args.description !== undefined ? { description: args.description } : {}),
         MetricsUser_MetricsGithubTeam_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         updatedAt: new Date(),
       },

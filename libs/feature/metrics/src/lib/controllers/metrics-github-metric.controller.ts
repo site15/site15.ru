@@ -1,21 +1,20 @@
-import { StatusResponse } from '@nestjs-mod/swagger';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
+import { StatusResponse } from '@nestjs-mod/swagger';
 import { ValidationError } from '@nestjs-mod/validation';
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 import { MetricsRole, MetricsUser, Prisma, PrismaClient } from '../generated/prisma-client';
-import { CreateMetricsGithubMetricDto } from '../generated/rest/dto/create-metrics-github-metric.dto';
 import { MetricsGithubMetricDto } from '../generated/rest/dto/metrics-github-metric.dto';
 import { UpdateMetricsGithubMetricDto } from '../generated/rest/dto/update-metrics-github-metric.dto';
 import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_METRIC_CONTROLLER_PATH } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
+import { CreateFullMetricsGithubMetricDto } from '../types/CreateFullMetricsGithubMetricDto';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
 import { FindManyMetricsGithubMetricResponse } from '../types/FindManyMetricsGithubMetricResponse';
-import { CreateFullMetricsGithubMetricDto } from '../types/CreateFullMetricsGithubMetricDto';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
@@ -126,8 +125,8 @@ export class MetricsGithubMetricController {
         metricValue: args.metricValue,
         recordedAt: args.recordedAt,
         MetricsGithubRepository: { connect: { id: args.repositoryId } },
-        createdBy: metricsUser.id,
-        updatedBy: metricsUser.id,
+        MetricsUser_MetricsGithubMetric_createdByToMetricsUser: { connect: { id: metricsUser.id } },
+        MetricsUser_MetricsGithubMetric_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         ...(metricsUser.userRole === MetricsRole.Admin
           ? { tenantId: externalTenantId }
           : {
@@ -147,8 +146,10 @@ export class MetricsGithubMetricController {
   ) {
     return await this.prismaClient.metricsGithubMetric.update({
       data: {
-        ...args,
-        updatedBy: metricsUser.id,
+        ...(args.metricName !== undefined ? { metricName: args.metricName } : {}),
+        ...(args.metricValue !== undefined ? { metricValue: args.metricValue } : {}),
+        ...(args.recordedAt !== undefined ? { recordedAt: args.recordedAt } : {}),
+        MetricsUser_MetricsGithubMetric_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         updatedAt: new Date(),
       },
       where: {

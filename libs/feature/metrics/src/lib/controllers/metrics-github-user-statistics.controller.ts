@@ -123,8 +123,8 @@ export class MetricsGithubUserStatisticsController {
     return await this.prismaClient.metricsGithubUserStatistics.create({
       data: {
         periodType: args.periodType,
-        followersCount: args.followersCount,
-        followingCount: args.followingCount,
+        ...(args.followersCount !== undefined ? { followersCount: args.followersCount } : {}),
+        ...(args.followingCount !== undefined ? { followingCount: args.followingCount } : {}),
         recordedAt: args.recordedAt,
         MetricsGithubUser: { connect: { id: args.userId } },
         MetricsUser_MetricsGithubUserStatistics_createdByToMetricsUser: { connect: { id: metricsUser.id } },
@@ -148,7 +148,10 @@ export class MetricsGithubUserStatisticsController {
   ) {
     return await this.prismaClient.metricsGithubUserStatistics.update({
       data: {
-        ...args,
+        ...(args.periodType !== undefined ? { periodType: args.periodType } : {}),
+        ...(args.followersCount !== undefined ? { followersCount: args.followersCount } : {}),
+        ...(args.followingCount !== undefined ? { followingCount: args.followingCount } : {}),
+        ...(args.recordedAt !== undefined ? { recordedAt: args.recordedAt } : {}),
         MetricsUser_MetricsGithubUserStatistics_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         updatedAt: new Date(),
       },

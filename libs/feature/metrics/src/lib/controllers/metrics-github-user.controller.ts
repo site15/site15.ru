@@ -123,9 +123,17 @@ export class MetricsGithubUserController {
   ) {
     return await this.prismaClient.metricsGithubUser.create({
       data: {
-        ...args,
-        createdBy: metricsUser.id,
-        updatedBy: metricsUser.id,
+        login: args.login,
+        ...(args.name !== undefined ? { name: args.name } : {}),
+        ...(args.email !== undefined ? { email: args.email } : {}),
+        ...(args.description !== undefined ? { description: args.description } : {}),
+        ...(args.avatarUrl !== undefined ? { avatarUrl: args.avatarUrl } : {}),
+        ...(args.websiteUrl !== undefined ? { websiteUrl: args.websiteUrl } : {}),
+        ...(args.location !== undefined ? { location: args.location } : {}),
+        ...(args.telegramUrl !== undefined ? { telegramUrl: args.telegramUrl } : {}),
+        ...(args.twitterUrl !== undefined ? { twitterUrl: args.twitterUrl } : {}),
+        MetricsUser_MetricsGithubUser_createdByToMetricsUser: { connect: { id: metricsUser.id } },
+        MetricsUser_MetricsGithubUser_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         ...(metricsUser.userRole === MetricsRole.Admin
           ? { tenantId: externalTenantId }
           : {
@@ -145,8 +153,16 @@ export class MetricsGithubUserController {
   ) {
     return await this.prismaClient.metricsGithubUser.update({
       data: {
-        ...args,
-        updatedBy: metricsUser.id,
+        ...(args.login !== undefined ? { login: args.login } : {}),
+        ...(args.name !== undefined ? { name: args.name } : {}),
+        ...(args.email !== undefined ? { email: args.email } : {}),
+        ...(args.description !== undefined ? { description: args.description } : {}),
+        ...(args.avatarUrl !== undefined ? { avatarUrl: args.avatarUrl } : {}),
+        ...(args.websiteUrl !== undefined ? { websiteUrl: args.websiteUrl } : {}),
+        ...(args.location !== undefined ? { location: args.location } : {}),
+        ...(args.telegramUrl !== undefined ? { telegramUrl: args.telegramUrl } : {}),
+        ...(args.twitterUrl !== undefined ? { twitterUrl: args.twitterUrl } : {}),
+        MetricsUser_MetricsGithubUser_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         updatedAt: new Date(),
       },
       where: {

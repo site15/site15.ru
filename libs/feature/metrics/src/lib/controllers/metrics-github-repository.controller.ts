@@ -122,7 +122,12 @@ export class MetricsGithubRepositoryController {
   ) {
     return await this.prismaClient.metricsGithubRepository.create({
       data: {
-        ...args,
+        name: args.name,
+        owner: args.owner,
+        private: args.private,
+        fork: args.fork,
+        ...(args.description !== undefined ? { description: args.description } : {}),
+        ...(args.url !== undefined ? { url: args.url } : {}),
         MetricsUser_MetricsGithubRepository_createdByToMetricsUser: { connect: { id: metricsUser.id } },
         MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         ...(metricsUser.userRole === MetricsRole.Admin
@@ -144,7 +149,12 @@ export class MetricsGithubRepositoryController {
   ) {
     return await this.prismaClient.metricsGithubRepository.update({
       data: {
-        ...args,
+        ...(args.name !== undefined ? { name: args.name } : {}),
+        ...(args.owner !== undefined ? { owner: args.owner } : {}),
+        ...(args.private !== undefined ? { private: args.private } : {}),
+        ...(args.fork !== undefined ? { fork: args.fork } : {}),
+        ...(args.description !== undefined ? { description: args.description } : {}),
+        ...(args.url !== undefined ? { url: args.url } : {}),
         MetricsUser_MetricsGithubRepository_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         updatedAt: new Date(),
       },

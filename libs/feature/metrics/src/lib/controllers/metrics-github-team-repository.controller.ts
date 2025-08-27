@@ -145,7 +145,6 @@ export class MetricsGithubTeamRepositoryController {
   ) {
     return await this.prismaClient.metricsGithubTeamRepository.update({
       data: {
-        ...args,
         MetricsUser_MetricsGithubTeamRepository_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         updatedAt: new Date(),
       },

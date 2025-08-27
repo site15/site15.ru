@@ -127,11 +127,11 @@ export class MetricsGithubRepositoryStatisticsController {
     return await this.prismaClient.metricsGithubRepositoryStatistics.create({
       data: {
         periodType: args.periodType,
-        starsCount: args.starsCount,
-        forksCount: args.forksCount,
-        contributorsCount: args.contributorsCount,
-        commitsCount: args.commitsCount,
-        lastCommitDate: args.lastCommitDate,
+        ...(args.starsCount !== undefined ? { starsCount: args.starsCount } : {}),
+        ...(args.forksCount !== undefined ? { forksCount: args.forksCount } : {}),
+        ...(args.contributorsCount !== undefined ? { contributorsCount: args.contributorsCount } : {}),
+        ...(args.commitsCount !== undefined ? { commitsCount: args.commitsCount } : {}),
+        ...(args.lastCommitDate !== undefined ? { lastCommitDate: args.lastCommitDate } : {}),
         recordedAt: args.recordedAt,
         MetricsGithubRepository: { connect: { id: args.repositoryId } },
         MetricsUser_MetricsGithubRepositoryStatistics_createdByToMetricsUser: { connect: { id: metricsUser.id } },
@@ -155,7 +155,13 @@ export class MetricsGithubRepositoryStatisticsController {
   ) {
     return await this.prismaClient.metricsGithubRepositoryStatistics.update({
       data: {
-        ...args,
+        ...(args.periodType !== undefined ? { periodType: args.periodType } : {}),
+        ...(args.starsCount !== undefined ? { starsCount: args.starsCount } : {}),
+        ...(args.forksCount !== undefined ? { forksCount: args.forksCount } : {}),
+        ...(args.contributorsCount !== undefined ? { contributorsCount: args.contributorsCount } : {}),
+        ...(args.commitsCount !== undefined ? { commitsCount: args.commitsCount } : {}),
+        ...(args.lastCommitDate !== undefined ? { lastCommitDate: args.lastCommitDate } : {}),
+        ...(args.recordedAt !== undefined ? { recordedAt: args.recordedAt } : {}),
         MetricsUser_MetricsGithubRepositoryStatistics_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         updatedAt: new Date(),
       },
