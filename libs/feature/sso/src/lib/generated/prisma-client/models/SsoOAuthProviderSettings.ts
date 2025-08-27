@@ -632,9 +632,6 @@ export type $SsoOAuthProviderSettingsPayload<
       id: string;
       name: string;
       value: string;
-      /**
-       * @DtoUpdateHidden
-       */
       providerId: string;
       /**
        * @DtoCreateHidden

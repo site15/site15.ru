@@ -163,7 +163,6 @@ model SsoOAuthProviderSettings {
   id               String           @id(map: "PK_SSO_OAUTH_PROVIDER_SETTINGS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name             String           @db.VarChar(255)
   value            String
-  /// @DtoUpdateHidden
   providerId       String           @db.Uuid
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
@@ -191,7 +190,6 @@ model SsoOAuthToken {
   verificationCode String?          @db.VarChar(512)
   userId           String           @db.Uuid
   tenantId         String           @db.Uuid
-  /// @DtoUpdateHidden
   providerId       String           @db.Uuid
   providerUserId   String           @db.VarChar(512)
   providerUserData Json?

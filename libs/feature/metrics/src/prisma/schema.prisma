@@ -228,6 +228,7 @@ model migrations_metrics {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubRepositoryStatistics {
+  /// @DtoCreateHidden
   id                                                                   String                  @id(map: "PK_METRICS_GITHUB_REPOSITORY_STATISTICS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   repositoryId                                                         String                  @db.Uuid
   periodType                                                           String                  @db.VarChar(50)
@@ -237,10 +238,20 @@ model MetricsGithubRepositoryStatistics {
   commitsCount                                                         Int?                    @default(0)
   lastCommitDate                                                       DateTime?               @db.Timestamp(6)
   recordedAt                                                           DateTime                @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdBy                                                            String                  @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedBy                                                            String                  @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                                            DateTime                @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                                            DateTime                @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                                             String                  @db.Uuid
   MetricsUser_MetricsGithubRepositoryStatistics_createdByToMetricsUser MetricsUser             @relation("MetricsGithubRepositoryStatistics_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY_STATISTICS__CREATED_BY")
   MetricsGithubRepository                                              MetricsGithubRepository @relation(fields: [repositoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_REPOSITORY_STATISTICS__REPOSITORY_ID")
@@ -253,13 +264,24 @@ model MetricsGithubRepositoryStatistics {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubTeam {
+  /// @DtoCreateHidden
   id                                                   String                        @id(map: "PK_METRICS_GITHUB_TEAM") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   name                                                 String                        @db.VarChar(255)
   description                                          String?
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdBy                                            String                        @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedBy                                            String                        @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                            DateTime                      @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                            DateTime                      @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                             String                        @db.Uuid
   MetricsUser_MetricsGithubTeam_createdByToMetricsUser MetricsUser                   @relation("MetricsGithubTeam_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM__CREATED_BY")
   MetricsUser_MetricsGithubTeam_updatedByToMetricsUser MetricsUser                   @relation("MetricsGithubTeam_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM__UPDATED_BY")
@@ -272,13 +294,24 @@ model MetricsGithubTeam {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubTeamRepository {
+  /// @DtoCreateHidden
   id                                                             String                  @id(map: "PK_METRICS_GITHUB_TEAM_REPOSITORY") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   teamId                                                         String                  @db.Uuid
   repositoryId                                                   String                  @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdBy                                                      String                  @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedBy                                                      String                  @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                                      DateTime                @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                                      DateTime                @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                                       String                  @db.Uuid
   MetricsUser_MetricsGithubTeamRepository_createdByToMetricsUser MetricsUser             @relation("MetricsGithubTeamRepository_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_REPOSITORY__CREATED_BY")
   MetricsGithubRepository                                        MetricsGithubRepository @relation(fields: [repositoryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_REPOSITORY__REPOSITORY_ID")
@@ -291,14 +324,25 @@ model MetricsGithubTeamRepository {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubTeamUser {
+  /// @DtoCreateHidden
   id                                                       String            @id(map: "PK_METRICS_GITHUB_TEAM_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   teamId                                                   String            @db.Uuid
   userId                                                   String            @db.Uuid
   role                                                     String?           @db.VarChar(100)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdBy                                                String            @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedBy                                                String            @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                                DateTime          @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                                DateTime          @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                                 String            @db.Uuid
   MetricsUser_MetricsGithubTeamUser_createdByToMetricsUser MetricsUser       @relation("MetricsGithubTeamUser_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_USER__CREATED_BY")
   MetricsGithubTeam                                        MetricsGithubTeam @relation(fields: [teamId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_TEAM_USER__TEAM_ID")
@@ -311,16 +355,27 @@ model MetricsGithubTeamUser {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MetricsGithubUserStatistics {
+  /// @DtoCreateHidden
   id                                                             String            @id(map: "PK_METRICS_GITHUB_USER_STATISTICS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   userId                                                         String            @db.Uuid
   periodType                                                     String            @db.VarChar(50)
   followersCount                                                 Int?              @default(0)
   followingCount                                                 Int?              @default(0)
   recordedAt                                                     DateTime          @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdBy                                                      String            @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedBy                                                      String            @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   createdAt                                                      DateTime          @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   updatedAt                                                      DateTime          @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
   tenantId                                                       String            @db.Uuid
   MetricsUser_MetricsGithubUserStatistics_createdByToMetricsUser MetricsUser       @relation("MetricsGithubUserStatistics_createdByToMetricsUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER_STATISTICS__CREATED_BY")
   MetricsUser_MetricsGithubUserStatistics_updatedByToMetricsUser MetricsUser       @relation("MetricsGithubUserStatistics_updatedByToMetricsUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_METRICS_GITHUB_USER_STATISTICS__UPDATED_BY")

@@ -157,12 +157,6 @@ export interface CreateFullMetricsGithubRepositoryStatisticsDto {
      * @type {string}
      * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
      */
-    'tenantId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateFullMetricsGithubRepositoryStatisticsDto
-     */
     'repositoryId': string;
 }
 /**
@@ -171,12 +165,6 @@ export interface CreateFullMetricsGithubRepositoryStatisticsDto {
  * @interface CreateFullMetricsGithubTeamRepositoryDto
  */
 export interface CreateFullMetricsGithubTeamRepositoryDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateFullMetricsGithubTeamRepositoryDto
-     */
-    'tenantId': string;
     /**
      * 
      * @type {string}
@@ -202,12 +190,6 @@ export interface CreateFullMetricsGithubTeamUserDto {
      * @memberof CreateFullMetricsGithubTeamUserDto
      */
     'role'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateFullMetricsGithubTeamUserDto
-     */
-    'tenantId': string;
     /**
      * 
      * @type {string}
@@ -276,12 +258,6 @@ export interface CreateFullMetricsGithubUserStatisticsDto {
      * @memberof CreateFullMetricsGithubUserStatisticsDto
      */
     'recordedAt': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateFullMetricsGithubUserStatisticsDto
-     */
-    'tenantId': string;
     /**
      * 
      * @type {string}
@@ -371,12 +347,6 @@ export interface CreateMetricsGithubTeamDto {
      * @memberof CreateMetricsGithubTeamDto
      */
     'description'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateMetricsGithubTeamDto
-     */
-    'tenantId': string;
 }
 /**
  * 
@@ -4992,12 +4962,6 @@ export interface UpdateMetricsGithubRepositoryStatisticsDto {
      * @memberof UpdateMetricsGithubRepositoryStatisticsDto
      */
     'recordedAt'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateMetricsGithubRepositoryStatisticsDto
-     */
-    'tenantId'?: string;
 }
 /**
  * 
@@ -5017,25 +4981,6 @@ export interface UpdateMetricsGithubTeamDto {
      * @memberof UpdateMetricsGithubTeamDto
      */
     'description'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateMetricsGithubTeamDto
-     */
-    'tenantId'?: string;
-}
-/**
- * 
- * @export
- * @interface UpdateMetricsGithubTeamRepositoryDto
- */
-export interface UpdateMetricsGithubTeamRepositoryDto {
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateMetricsGithubTeamRepositoryDto
-     */
-    'tenantId'?: string;
 }
 /**
  * 
@@ -5049,12 +4994,6 @@ export interface UpdateMetricsGithubTeamUserDto {
      * @memberof UpdateMetricsGithubTeamUserDto
      */
     'role'?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateMetricsGithubTeamUserDto
-     */
-    'tenantId'?: string;
 }
 /**
  * 
@@ -5160,12 +5099,6 @@ export interface UpdateMetricsGithubUserStatisticsDto {
      * @memberof UpdateMetricsGithubUserStatisticsDto
      */
     'recordedAt'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UpdateMetricsGithubUserStatisticsDto
-     */
-    'tenantId'?: string;
 }
 /**
  * 
@@ -7295,15 +7228,15 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @param {string} id 
-         * @param {UpdateMetricsGithubTeamRepositoryDto} updateMetricsGithubTeamRepositoryDto 
+         * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubTeamRepositoryControllerUpdateOne: async (id: string, updateMetricsGithubTeamRepositoryDto: UpdateMetricsGithubTeamRepositoryDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubTeamRepositoryControllerUpdateOne: async (id: string, body: object, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('metricsGithubTeamRepositoryControllerUpdateOne', 'id', id)
-            // verify required parameter 'updateMetricsGithubTeamRepositoryDto' is not null or undefined
-            assertParamExists('metricsGithubTeamRepositoryControllerUpdateOne', 'updateMetricsGithubTeamRepositoryDto', updateMetricsGithubTeamRepositoryDto)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('metricsGithubTeamRepositoryControllerUpdateOne', 'body', body)
             const localVarPath = `/api/metrics/github/team-repository/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -7324,7 +7257,7 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateMetricsGithubTeamRepositoryDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -8626,12 +8559,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {string} id 
-         * @param {UpdateMetricsGithubTeamRepositoryDto} updateMetricsGithubTeamRepositoryDto 
+         * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDto: UpdateMetricsGithubTeamRepositoryDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamRepositoryDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamRepositoryControllerUpdateOne(id, updateMetricsGithubTeamRepositoryDto, options);
+        async metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsGithubTeamRepositoryDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamRepositoryControllerUpdateOne(id, body, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamRepositoryControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9214,12 +9147,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @param {string} id 
-         * @param {UpdateMetricsGithubTeamRepositoryDto} updateMetricsGithubTeamRepositoryDto 
+         * @param {object} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDto: UpdateMetricsGithubTeamRepositoryDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamRepositoryDto> {
-            return localVarFp.metricsGithubTeamRepositoryControllerUpdateOne(id, updateMetricsGithubTeamRepositoryDto, options).then((request) => request(axios, basePath));
+        metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubTeamRepositoryDto> {
+            return localVarFp.metricsGithubTeamRepositoryControllerUpdateOne(id, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9772,13 +9705,13 @@ export class MetricsApi extends BaseAPI {
     /**
      * 
      * @param {string} id 
-     * @param {UpdateMetricsGithubTeamRepositoryDto} updateMetricsGithubTeamRepositoryDto 
+     * @param {object} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDto: UpdateMetricsGithubTeamRepositoryDto, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubTeamRepositoryControllerUpdateOne(id, updateMetricsGithubTeamRepositoryDto, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamRepositoryControllerUpdateOne(id, body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

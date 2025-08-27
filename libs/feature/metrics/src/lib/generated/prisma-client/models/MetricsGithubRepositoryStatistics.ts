@@ -1596,6 +1596,9 @@ export type $MetricsGithubRepositoryStatisticsPayload<
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
+      /**
+       * @DtoCreateHidden
+       */
       id: string;
       repositoryId: string;
       periodType: string;
@@ -1605,10 +1608,30 @@ export type $MetricsGithubRepositoryStatisticsPayload<
       commitsCount: number | null;
       lastCommitDate: Date | null;
       recordedAt: Date;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       createdBy: string;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       updatedBy: string;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       createdAt: Date;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       updatedAt: Date;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       tenantId: string;
     },
     ExtArgs['result']['metricsGithubRepositoryStatistics']

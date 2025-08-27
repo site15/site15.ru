@@ -64,10 +64,4 @@ export class CreateMetricsGithubRepositoryStatisticsDto {
   @IsNotEmpty()
   @IsDateString()
   recordedAt!: Date;
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  tenantId!: string;
 }

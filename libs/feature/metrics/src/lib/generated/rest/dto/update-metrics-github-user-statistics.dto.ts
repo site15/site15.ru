@@ -37,11 +37,4 @@ export class UpdateMetricsGithubUserStatisticsDto {
   @IsOptional()
   @IsDateString()
   recordedAt?: Date;
-  @ApiProperty({
-    type: 'string',
-    required: false,
-  })
-  @IsOptional()
-  @IsString()
-  tenantId?: string;
 }

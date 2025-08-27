@@ -12,6 +12,5 @@
 export interface UpdateMetricsGithubTeamDtoInterface { 
     name?: string;
     description?: string | null;
-    tenantId?: string;
 }
 

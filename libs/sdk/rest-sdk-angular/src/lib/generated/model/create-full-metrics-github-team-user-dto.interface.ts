@@ -11,7 +11,6 @@
 
 export interface CreateFullMetricsGithubTeamUserDtoInterface { 
     role?: string | null;
-    tenantId: string;
     teamId: string;
     userId: string;
 }

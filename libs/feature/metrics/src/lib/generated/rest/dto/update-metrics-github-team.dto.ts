@@ -17,11 +17,4 @@ export class UpdateMetricsGithubTeamDto {
   @IsOptional()
   @IsString()
   description?: string | null;
-  @ApiProperty({
-    type: 'string',
-    required: false,
-  })
-  @IsOptional()
-  @IsString()
-  tenantId?: string;
 }

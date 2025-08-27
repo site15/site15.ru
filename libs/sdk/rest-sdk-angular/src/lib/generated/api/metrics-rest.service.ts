@@ -89,8 +89,6 @@ import { UpdateMetricsGithubRepositoryStatisticsDtoInterface } from '../model/up
 // @ts-ignore
 import { UpdateMetricsGithubTeamDtoInterface } from '../model/update-metrics-github-team-dto.interface';
 // @ts-ignore
-import { UpdateMetricsGithubTeamRepositoryDtoInterface } from '../model/update-metrics-github-team-repository-dto.interface';
-// @ts-ignore
 import { UpdateMetricsGithubTeamUserDtoInterface } from '../model/update-metrics-github-team-user-dto.interface';
 // @ts-ignore
 import { UpdateMetricsGithubUserDtoInterface } from '../model/update-metrics-github-user-dto.interface';
@@ -1912,19 +1910,19 @@ export class MetricsSite15RestService {
 
     /**
      * @param id 
-     * @param updateMetricsGithubTeamRepositoryDtoInterface 
+     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDtoInterface: UpdateMetricsGithubTeamRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamRepositoryDtoInterface>;
-    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDtoInterface: UpdateMetricsGithubTeamRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamRepositoryDtoInterface>>;
-    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDtoInterface: UpdateMetricsGithubTeamRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamRepositoryDtoInterface>>;
-    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, updateMetricsGithubTeamRepositoryDtoInterface: UpdateMetricsGithubTeamRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamRepositoryDtoInterface>;
+    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamRepositoryDtoInterface>>;
+    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamRepositoryDtoInterface>>;
+    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamRepositoryControllerUpdateOne.');
         }
-        if (updateMetricsGithubTeamRepositoryDtoInterface === null || updateMetricsGithubTeamRepositoryDtoInterface === undefined) {
-            throw new Error('Required parameter updateMetricsGithubTeamRepositoryDtoInterface was null or undefined when calling metricsGithubTeamRepositoryControllerUpdateOne.');
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling metricsGithubTeamRepositoryControllerUpdateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1976,7 +1974,7 @@ export class MetricsSite15RestService {
         return this.httpClient.request<MetricsGithubTeamRepositoryDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: updateMetricsGithubTeamRepositoryDtoInterface,
+                body: body,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

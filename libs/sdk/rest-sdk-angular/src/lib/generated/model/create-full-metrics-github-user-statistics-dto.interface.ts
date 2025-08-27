@@ -14,7 +14,6 @@ export interface CreateFullMetricsGithubUserStatisticsDtoInterface {
     followersCount?: number | null;
     followingCount?: number | null;
     recordedAt: string;
-    tenantId: string;
     userId: string;
 }
 

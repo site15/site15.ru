@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class CreateMetricsGithubTeamUserDto {
   @ApiProperty({
@@ -10,10 +10,4 @@ export class CreateMetricsGithubTeamUserDto {
   @IsOptional()
   @IsString()
   role?: string | null;
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  tenantId!: string;
 }

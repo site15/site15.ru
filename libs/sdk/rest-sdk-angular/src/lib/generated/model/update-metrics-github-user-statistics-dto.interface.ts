@@ -14,6 +14,5 @@ export interface UpdateMetricsGithubUserStatisticsDtoInterface {
     followersCount?: number | null;
     followingCount?: number | null;
     recordedAt?: string;
-    tenantId?: string;
 }
 

@@ -10,11 +10,4 @@ export class UpdateMetricsGithubTeamUserDto {
   @IsOptional()
   @IsString()
   role?: string | null;
-  @ApiProperty({
-    type: 'string',
-    required: false,
-  })
-  @IsOptional()
-  @IsString()
-  tenantId?: string;
 }

@@ -120,7 +120,6 @@ export * from './update-metrics-github-metric-dto.interface';
 export * from './update-metrics-github-repository-dto.interface';
 export * from './update-metrics-github-repository-statistics-dto.interface';
 export * from './update-metrics-github-team-dto.interface';
-export * from './update-metrics-github-team-repository-dto.interface';
 export * from './update-metrics-github-team-user-dto.interface';
 export * from './update-metrics-github-user-dto.interface';
 export * from './update-metrics-github-user-repository-dto.interface';

@@ -1350,16 +1350,39 @@ export type $MetricsGithubUserStatisticsPayload<
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
+      /**
+       * @DtoCreateHidden
+       */
       id: string;
       userId: string;
       periodType: string;
       followersCount: number | null;
       followingCount: number | null;
       recordedAt: Date;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       createdBy: string;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       updatedBy: string;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       createdAt: Date;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       updatedAt: Date;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       tenantId: string;
     },
     ExtArgs['result']['metricsGithubUserStatistics']

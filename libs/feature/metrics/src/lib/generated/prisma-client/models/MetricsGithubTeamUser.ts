@@ -1365,14 +1365,37 @@ export type $MetricsGithubTeamUserPayload<
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
+      /**
+       * @DtoCreateHidden
+       */
       id: string;
       teamId: string;
       userId: string;
       role: string | null;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       createdBy: string;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       updatedBy: string;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       createdAt: Date;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       updatedAt: Date;
+      /**
+       * @DtoCreateHidden
+       * @DtoUpdateHidden
+       */
       tenantId: string;
     },
     ExtArgs['result']['metricsGithubTeamUser']

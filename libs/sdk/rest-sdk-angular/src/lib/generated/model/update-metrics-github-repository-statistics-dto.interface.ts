@@ -17,6 +17,5 @@ export interface UpdateMetricsGithubRepositoryStatisticsDtoInterface {
     commitsCount?: number | null;
     lastCommitDate?: string | null;
     recordedAt?: string;
-    tenantId?: string;
 }
 

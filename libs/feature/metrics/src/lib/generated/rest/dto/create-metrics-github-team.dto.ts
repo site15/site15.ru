@@ -16,10 +16,4 @@ export class CreateMetricsGithubTeamDto {
   @IsOptional()
   @IsString()
   description?: string | null;
-  @ApiProperty({
-    type: 'string',
-  })
-  @IsNotEmpty()
-  @IsString()
-  tenantId!: string;
 }

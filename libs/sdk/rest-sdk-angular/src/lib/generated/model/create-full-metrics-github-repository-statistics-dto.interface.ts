@@ -17,7 +17,6 @@ export interface CreateFullMetricsGithubRepositoryStatisticsDtoInterface {
     commitsCount?: number | null;
     lastCommitDate?: string | null;
     recordedAt: string;
-    tenantId: string;
     repositoryId: string;
 }
 

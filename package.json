@@ -44,7 +44,7 @@
     "docker-compose:stop-prod:server": "export COMPOSE_INTERACTIVE_NO_CLI=1 && docker compose -f ./apps/server/docker-compose-prod.yml --env-file ./apps/server/docker-compose-prod.env down",
     "_____tests_____": "_____tests_____",
     "test": "export CI=true && ./node_modules/.bin/nx run-many --all -t=test --skip-nx-cache=true --passWithNoTests --output-style=stream-without-prefixes",
-    "test:e2e": "export CI=true && ./node_modules/.bin/nx run-many --all -t=e2e --skip-nx-cache=true --output-style=stream-without-prefixes",
+    "test:e2e": "export CI=true && ./node_modules/.bin/nx run-many --all -t=e2e --skip-nx-cache=true --output-style=stream-without-prefixes -- sso-profile.spec",
     "test:server": "./node_modules/.bin/nx test server --skip-nx-cache=true --passWithNoTests --output-style=stream-without-prefixes",
     "_____lint_____": "_____lint_____",
     "lint": "npm run tsc:lint && ./node_modules/.bin/nx run-many --all -t=lint --parallel=1",

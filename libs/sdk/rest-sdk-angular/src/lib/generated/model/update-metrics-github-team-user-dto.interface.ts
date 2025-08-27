@@ -11,6 +11,5 @@
 
 export interface UpdateMetricsGithubTeamUserDtoInterface { 
     role?: string | null;
-    tenantId?: string;
 }
 

@@ -1405,9 +1405,6 @@ export type $SsoOAuthTokenPayload<
       verificationCode: string | null;
       userId: string;
       tenantId: string;
-      /**
-       * @DtoUpdateHidden
-       */
       providerId: string;
       providerUserId: string;
       providerUserData: runtime.JsonValue | null;

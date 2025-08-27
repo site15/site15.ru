@@ -10,7 +10,6 @@
 
 
 export interface CreateFullMetricsGithubTeamRepositoryDtoInterface { 
-    tenantId: string;
     teamId: string;
     repositoryId: string;
 }
