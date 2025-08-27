@@ -1,3 +1,9 @@
+# [1.8.0](https://github.com/site15/site15.ru/compare/client-v1.7.0...client-v1.8.0) (2025-08-27)
+
+### Features
+
+- **metrics-afat:** add repository, team, and user IDs to forms and grids ([829b675](https://github.com/site15/site15.ru/commit/829b675c35485ef4a510ec958023fc5b1cd03cbf))
+
 # [1.7.0](https://github.com/site15/site15.ru/compare/client-v1.6.0...client-v1.7.0) (2025-08-24)
 
 ### Features
