@@ -50,6 +50,12 @@ export class MetricsGithubUserRepositoryFormComponent implements OnInit {
   id?: string;
 
   @Input()
+  userId?: string;
+
+  @Input()
+  repositoryId?: string;
+
+  @Input()
   hideButtons?: boolean;
 
   @Output()
@@ -159,7 +165,11 @@ export class MetricsGithubUserRepositoryFormComponent implements OnInit {
 
   private createOne() {
     return this.metricsGithubUserRepositoryService
-      .createOne(this.metricsGithubUserRepositoryMapperService.toJson(this.form.value))
+      .createOne({
+        ...this.metricsGithubUserRepositoryMapperService.toJson(this.form.value),
+        userId: this.userId,
+        repositoryId: this.repositoryId,
+      })
       .pipe(
         catchError((err) =>
           this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),

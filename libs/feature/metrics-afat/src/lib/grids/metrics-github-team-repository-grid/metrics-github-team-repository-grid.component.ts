@@ -58,6 +58,13 @@ import { MetricsGithubTeamRepositoryFormComponent } from '../../forms/metrics-gi
 export class MetricsGithubTeamRepositoryGridComponent implements OnInit {
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  @Input()
+  teamId?: string;
+
+  @Input()
+  repositoryId?: string;
+
   items$ = new BehaviorSubject<MetricsGithubTeamRepositoryModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -123,6 +130,14 @@ export class MetricsGithubTeamRepositoryGridComponent implements OnInit {
       filters['search'] = this.searchField.value;
     }
 
+    if (!filters['teamId'] && this.teamId) {
+      filters['teamId'] = this.teamId;
+    }
+
+    if (!filters['repositoryId'] && this.repositoryId) {
+      filters['repositoryId'] = this.repositoryId;
+    }
+
     if (
       !args?.force &&
       isEqual(
@@ -165,6 +180,8 @@ export class MetricsGithubTeamRepositoryGridComponent implements OnInit {
       nzData: {
         hideButtons: true,
         id,
+        teamId: this.teamId,
+        repositoryId: this.repositoryId,
       } as MetricsGithubTeamRepositoryFormComponent,
       nzFooter: [
         {

@@ -52,6 +52,12 @@ export class MetricsGithubTeamUserFormComponent implements OnInit {
   id?: string;
 
   @Input()
+  teamId?: string;
+
+  @Input()
+  userId?: string;
+
+  @Input()
   hideButtons?: boolean;
 
   @Output()
@@ -161,7 +167,11 @@ export class MetricsGithubTeamUserFormComponent implements OnInit {
 
   private createOne() {
     return this.metricsGithubTeamUserService
-      .createOne(this.metricsGithubTeamUserMapperService.toJson(this.form.value))
+      .createOne({
+        ...this.metricsGithubTeamUserMapperService.toJson(this.form.value),
+        teamId: this.teamId,
+        userId: this.userId,
+      })
       .pipe(
         catchError((err) =>
           this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),

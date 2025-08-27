@@ -59,6 +59,10 @@ import { MetricsGithubRepositoryStatisticsFormComponent } from '../../forms/metr
 export class MetricsGithubRepositoryStatisticsGridComponent implements OnInit {
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  @Input()
+  repositoryId?: string;
+
   items$ = new BehaviorSubject<MetricsGithubRepositoryStatisticsModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -150,6 +154,10 @@ export class MetricsGithubRepositoryStatisticsGridComponent implements OnInit {
       filters['search'] = this.searchField.value;
     }
 
+    if (!filters['repositoryId'] && this.repositoryId) {
+      filters['repositoryId'] = this.repositoryId;
+    }
+
     if (
       !args?.force &&
       isEqual(
@@ -192,6 +200,7 @@ export class MetricsGithubRepositoryStatisticsGridComponent implements OnInit {
       nzData: {
         hideButtons: true,
         id,
+        repositoryId: this.repositoryId,
       } as MetricsGithubRepositoryStatisticsFormComponent,
       nzFooter: [
         {

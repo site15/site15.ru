@@ -56,6 +56,12 @@ export class MetricsGithubUserRepositoryGridComponent implements OnInit {
   @Input()
   forceLoadStream?: Observable<unknown>[];
 
+  @Input()
+  userId?: string;
+
+  @Input()
+  repositoryId?: string;
+
   items$ = new BehaviorSubject<MetricsGithubUserRepositoryModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -122,6 +128,14 @@ export class MetricsGithubUserRepositoryGridComponent implements OnInit {
       filters['search'] = this.searchField.value;
     }
 
+    if (!filters['userId'] && this.userId) {
+      filters['userId'] = this.userId;
+    }
+
+    if (!filters['repositoryId'] && this.repositoryId) {
+      filters['repositoryId'] = this.repositoryId;
+    }
+
     if (
       !args?.force &&
       isEqual(
@@ -164,6 +178,8 @@ export class MetricsGithubUserRepositoryGridComponent implements OnInit {
       nzData: {
         hideButtons: true,
         id,
+        userId: this.userId,
+        repositoryId: this.repositoryId,
       } as MetricsGithubUserRepositoryFormComponent,
       nzFooter: [
         {

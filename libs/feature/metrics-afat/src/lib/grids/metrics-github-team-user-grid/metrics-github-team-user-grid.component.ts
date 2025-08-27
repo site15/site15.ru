@@ -58,6 +58,13 @@ import { MetricsGithubTeamUserFormComponent } from '../../forms/metrics-github-t
 export class MetricsGithubTeamUserGridComponent implements OnInit {
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  @Input()
+  teamId?: string;
+
+  @Input()
+  userId?: string;
+
   items$ = new BehaviorSubject<MetricsGithubTeamUserModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -121,6 +128,14 @@ export class MetricsGithubTeamUserGridComponent implements OnInit {
       filters['search'] = this.searchField.value;
     }
 
+    if (!filters['teamId'] && this.teamId) {
+      filters['teamId'] = this.teamId;
+    }
+
+    if (!filters['userId'] && this.userId) {
+      filters['userId'] = this.userId;
+    }
+
     if (
       !args?.force &&
       isEqual(
@@ -160,6 +175,8 @@ export class MetricsGithubTeamUserGridComponent implements OnInit {
       nzData: {
         hideButtons: true,
         id,
+        teamId: this.teamId,
+        userId: this.userId,
       } as MetricsGithubTeamUserFormComponent,
       nzFooter: [
         {

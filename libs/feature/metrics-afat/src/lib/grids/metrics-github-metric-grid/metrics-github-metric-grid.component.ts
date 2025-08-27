@@ -59,6 +59,10 @@ import { MetricsGithubMetricFormComponent } from '../../forms/metrics-github-met
 export class MetricsGithubMetricGridComponent implements OnInit {
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  @Input()
+  repositoryId?: string;
+
   items$ = new BehaviorSubject<MetricsGithubMetricModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -124,6 +128,10 @@ export class MetricsGithubMetricGridComponent implements OnInit {
       filters['search'] = this.searchField.value;
     }
 
+    if (!filters['repositoryId'] && this.repositoryId) {
+      filters['repositoryId'] = this.repositoryId;
+    }
+
     if (
       !args?.force &&
       isEqual(
@@ -163,6 +171,7 @@ export class MetricsGithubMetricGridComponent implements OnInit {
       nzData: {
         hideButtons: true,
         id,
+        repositoryId: this.repositoryId,
       } as MetricsGithubMetricFormComponent,
       nzFooter: [
         {
