@@ -20,7 +20,7 @@ export class MetricsGithubUserStatisticsMapperService {
   toModel(item?: MetricsGithubUserStatisticsDtoInterface): MetricsGithubUserStatisticsModel {
     return {
       ...item,
-      recordedAt: item?.recordedAt ? addHours(new Date(item.recordedAt), TIMEZONE_OFFSET) : null,
+      recordedAt: item?.recordedAt ? new Date(item.recordedAt) : null,
       createdAt: item?.createdAt ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET) : null,
       updatedAt: item?.updatedAt ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET) : null,
     };

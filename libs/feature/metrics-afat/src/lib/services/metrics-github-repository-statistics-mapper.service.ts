@@ -24,8 +24,8 @@ export class MetricsGithubRepositoryStatisticsMapperService {
   toModel(item?: MetricsGithubRepositoryStatisticsDtoInterface): MetricsGithubRepositoryStatisticsModel {
     return {
       ...item,
-      lastCommitDate: item?.lastCommitDate ? addHours(new Date(item.lastCommitDate), TIMEZONE_OFFSET) : null,
-      recordedAt: item?.recordedAt ? addHours(new Date(item.recordedAt), TIMEZONE_OFFSET) : null,
+      lastCommitDate: item?.lastCommitDate ? new Date(item.lastCommitDate) : null,
+      recordedAt: item?.recordedAt ? new Date(item.recordedAt) : null,
       createdAt: item?.createdAt ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET) : null,
       updatedAt: item?.updatedAt ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET) : null,
     };

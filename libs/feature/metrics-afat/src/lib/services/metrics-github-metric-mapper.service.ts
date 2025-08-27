@@ -5,7 +5,8 @@ import { MetricsGithubMetricDtoInterface } from '@site15/rest-sdk-angular';
 import { addHours } from 'date-fns';
 
 export interface MetricsGithubMetricModel
-  extends Partial<Omit<MetricsGithubMetricDtoInterface, 'createdAt' | 'updatedAt' | 'tenantId'>> {
+  extends Partial<Omit<MetricsGithubMetricDtoInterface, 'createdAt' | 'updatedAt' | 'recordedAt' | 'tenantId'>> {
+  recordedAt?: Date | null;
   createdAt?: Date | null;
   updatedAt?: Date | null;
 }
@@ -19,20 +20,22 @@ export class MetricsGithubMetricMapperService {
       ...item,
       createdAt: item?.createdAt ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET) : null,
       updatedAt: item?.updatedAt ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET) : null,
+      recordedAt: item?.recordedAt ? new Date(item.recordedAt) : null,
     };
   }
 
   toForm(model: MetricsGithubMetricModel) {
     return {
       ...model,
+      recordedAt: model.recordedAt ? new Date(model.recordedAt) : null,
     };
   }
 
   toJson(data: MetricsGithubMetricModel) {
     return {
-      metricName: data.metricName || '',
-      metricValue: data.metricValue || 0,
-      recordedAt: data.recordedAt || new Date().toISOString(),
+      metricName: data.metricName || null,
+      metricValue: data.metricValue || null,
+      recordedAt: data.recordedAt ? new Date(data.recordedAt) : new Date(),
     };
   }
 }
