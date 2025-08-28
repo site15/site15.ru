@@ -73,6 +73,7 @@ export * from './lib/generated/rest/dto/update-metrics-github-user.dto';
 export * from './lib/generated/rest/dto/update-metrics-user.dto';
 export * from './lib/generated/rest/dto/update-migrations-metrics.dto';
 export * from './lib/services/metrics-cache.service';
+export * from './lib/services/metrics-github-statistics-sync.service';
 export * from './lib/types/CreateFullMetricsGithubMetricDto';
 export * from './lib/types/CreateFullMetricsGithubRepositoryStatisticsDto';
 export * from './lib/types/CreateFullMetricsGithubTeamRepositoryDto';

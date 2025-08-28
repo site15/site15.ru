@@ -41,4 +41,11 @@ export class MetricsStaticEnvironments {
     hidden: true,
   })
   cacheTTL?: number;
+
+  // GitHub settings
+  @EnvModelProperty({
+    description: 'GitHub personal access token for API integration',
+    hidden: true,
+  })
+  githubToken?: string;
 }

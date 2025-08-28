@@ -22,6 +22,7 @@ import { MetricsExceptionsFilter } from './metrics.filter';
 import { MetricsGuard } from './metrics.guard';
 import { MetricsPrismaSdk } from './metrics.prisma-sdk';
 import { MetricsCacheService } from './services/metrics-cache.service';
+import { MetricsGithubStatisticsSyncService } from './services/metrics-github-statistics-sync.service';
 
 export const { MetricsModule } = createNestModule({
   moduleName: METRICS_MODULE,
@@ -85,7 +86,7 @@ export const { MetricsModule } = createNestModule({
       ? [{ provide: APP_FILTER, useClass: MetricsExceptionsFilter }]
       : []),
   ],
-  sharedProviders: [MetricsCacheService],
+  sharedProviders: [MetricsCacheService, MetricsGithubStatisticsSyncService],
   wrapForRootAsync: (asyncModuleOptions) => {
     if (!asyncModuleOptions) {
       asyncModuleOptions = {};

@@ -16,6 +16,7 @@ import { MetricsError } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
 import { CreateFullMetricsGithubUserStatisticsDto } from '../types/CreateFullMetricsGithubUserStatisticsDto';
 import { FindManyMetricsGithubUserStatisticsResponse } from '../types/FindManyMetricsGithubUserStatisticsResponse';
+import { MetricsGithubStatisticsSyncService } from '../services/metrics-github-statistics-sync.service';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
@@ -28,6 +29,7 @@ export class MetricsGithubUserStatisticsController {
     @InjectPrismaClient(METRICS_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly prismaToolsService: PrismaToolsService,
+    private readonly metricsGithubStatisticsSyncService: MetricsGithubStatisticsSyncService,
   ) {}
 
   @Get()
@@ -204,5 +206,31 @@ export class MetricsGithubUserStatisticsController {
             }),
       },
     });
+  }
+
+  @Post('sync/user/:id')
+  @ApiOkResponse({ type: StatusResponse })
+  async syncUserStatistics(
+    @CurrentMetricsExternalTenantId() externalTenantId: string,
+    @CurrentMetricsUser() metricsUser: MetricsUser,
+    @Param('id') id: string,
+    @InjectTranslateFunction() getText: TranslateFunction,
+  ) {
+    // Check if user has permission to sync this GitHub user
+    const githubUser = await this.prismaClient.metricsGithubUser.findFirstOrThrow({
+      where: {
+        id,
+        ...(metricsUser.userRole === MetricsRole.Admin
+          ? {}
+          : {
+              tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+            }),
+      },
+    });
+
+    // Trigger synchronization
+    await this.metricsGithubStatisticsSyncService.syncUserStatistics(id);
+
+    return { message: getText('User statistics synchronization started') };
   }
 }
