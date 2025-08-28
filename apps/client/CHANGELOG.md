@@ -1,3 +1,9 @@
+# [1.10.0](https://github.com/site15/site15.ru/compare/client-v1.9.0...client-v1.10.0) (2025-08-28)
+
+### Features
+
+- **metrics:** add GitHub statistics sync functionality ([b336365](https://github.com/site15/site15.ru/commit/b33636506eafafb86f6035d81610200d47b0c86d))
+
 # [1.9.0](https://github.com/site15/site15.ru/compare/client-v1.8.0...client-v1.9.0) (2025-08-28)
 
 ### Features
