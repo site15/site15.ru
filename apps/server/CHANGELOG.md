@@ -1,3 +1,9 @@
+# [1.10.0](https://github.com/site15/site15.ru/compare/server-v1.9.0...server-v1.10.0) (2025-08-28)
+
+### Features
+
+- **sdk:** integrate MetricsApi into REST SDK service and helpers ([63fd608](https://github.com/site15/site15.ru/commit/63fd608d5db1695eaa7b3933e66223af3562b199))
+
 # [1.9.0](https://github.com/site15/site15.ru/compare/server-v1.8.0...server-v1.9.0) (2025-08-27)
 
 ### Features
