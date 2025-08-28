@@ -277,12 +277,6 @@ export interface CreateFullMetricsUserDto {
      * @memberof CreateFullMetricsUserDto
      */
     'userRole': MetricsRole;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateFullMetricsUserDto
-     */
-    'externalUserId': string;
 }
 
 

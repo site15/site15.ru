@@ -77,6 +77,10 @@ export class Site15RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'>
     return this.site15RestSdkService.getTimeApi();
   }
 
+  getMetricsApi() {
+    return this.site15RestSdkService.getMetricsApi();
+  }
+
   getWebhookApi() {
     return this.webhookRestSdkService.getWebhookApi();
   }

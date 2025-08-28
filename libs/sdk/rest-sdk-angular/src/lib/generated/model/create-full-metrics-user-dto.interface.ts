@@ -12,7 +12,6 @@ import { MetricsRoleInterface } from './metrics-role.interface';
 
 export interface CreateFullMetricsUserDtoInterface { 
     userRole: MetricsRoleInterface;
-    externalUserId: string;
 }
 export namespace CreateFullMetricsUserDtoInterface {
 }

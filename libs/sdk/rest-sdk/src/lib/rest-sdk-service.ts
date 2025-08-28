@@ -2,14 +2,16 @@ import axios, { AxiosInstance } from 'axios';
 import { Observable, finalize } from 'rxjs';
 
 import WebSocket from 'ws';
-import { Configuration, SsoApi, TimeApi } from './generated';
+import { Configuration, SsoApi, TimeApi, MetricsApi } from './generated';
 
 export class Site15RestSdkService {
   private ssoApi?: SsoApi;
   private timeApi?: TimeApi;
+  private metricsApi?: MetricsApi;
 
   private timeApiAxios?: AxiosInstance;
   private ssoApiAxios?: AxiosInstance;
+  private metricsApiAxios?: AxiosInstance;
 
   private wsHeaders: Record<string, string> = {};
 
@@ -37,6 +39,13 @@ export class Site15RestSdkService {
     return this.ssoApi;
   }
 
+  getMetricsApi() {
+    if (!this.metricsApi) {
+      throw new Error('metricsApi not set');
+    }
+    return this.metricsApi;
+  }
+
   updateHeaders(headers: Record<string, string>) {
     Object.assign(this.wsHeaders, headers);
 
@@ -45,6 +54,9 @@ export class Site15RestSdkService {
     }
     if (this.timeApiAxios) {
       Object.assign(this.timeApiAxios.defaults.headers.common, headers);
+    }
+    if (this.metricsApiAxios) {
+      Object.assign(this.metricsApiAxios.defaults.headers.common, headers);
     }
   }
 
@@ -89,7 +101,6 @@ export class Site15RestSdkService {
       undefined,
       this.ssoApiAxios,
     );
-    //
 
     this.timeApiAxios = axios.create();
     this.timeApi = new TimeApi(
@@ -98,6 +109,15 @@ export class Site15RestSdkService {
       }),
       undefined,
       this.timeApiAxios,
+    );
+
+    this.metricsApiAxios = axios.create();
+    this.metricsApi = new MetricsApi(
+      new Configuration({
+        basePath: this.options?.serverUrl,
+      }),
+      undefined,
+      this.metricsApiAxios,
     );
   }
 }
