@@ -1,3 +1,9 @@
+# [1.8.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.7.0...rest-sdk-v1.8.0) (2025-08-28)
+
+### Features
+
+- **metrics:** add GitHub statistics sync functionality ([b336365](https://github.com/site15/site15.ru/commit/b33636506eafafb86f6035d81610200d47b0c86d))
+
 # [1.7.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.6.0...rest-sdk-v1.7.0) (2025-08-28)
 
 ### Features
