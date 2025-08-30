@@ -12,7 +12,8 @@ import type * as Prisma from '../internal/prismaNamespace';
 
 /**
  * Model MetricsUser
- *
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * Note: Only one user can have botForDataSync = true (enforced by unique partial index IDX_METRICS_USER__BOT_FOR_DATA_SYNC)
  */
 export type MetricsUserModel = runtime.Types.Result.DefaultSelection<Prisma.$MetricsUserPayload>;
 
@@ -29,6 +30,7 @@ export type MetricsUserMinAggregateOutputType = {
   userRole: $Enums.MetricsRole | null;
   createdAt: Date | null;
   updatedAt: Date | null;
+  botForDataSync: boolean | null;
 };
 
 export type MetricsUserMaxAggregateOutputType = {
@@ -38,6 +40,7 @@ export type MetricsUserMaxAggregateOutputType = {
   userRole: $Enums.MetricsRole | null;
   createdAt: Date | null;
   updatedAt: Date | null;
+  botForDataSync: boolean | null;
 };
 
 export type MetricsUserCountAggregateOutputType = {
@@ -47,6 +50,7 @@ export type MetricsUserCountAggregateOutputType = {
   userRole: number;
   createdAt: number;
   updatedAt: number;
+  botForDataSync: number;
   _all: number;
 };
 
@@ -57,6 +61,7 @@ export type MetricsUserMinAggregateInputType = {
   userRole?: true;
   createdAt?: true;
   updatedAt?: true;
+  botForDataSync?: true;
 };
 
 export type MetricsUserMaxAggregateInputType = {
@@ -66,6 +71,7 @@ export type MetricsUserMaxAggregateInputType = {
   userRole?: true;
   createdAt?: true;
   updatedAt?: true;
+  botForDataSync?: true;
 };
 
 export type MetricsUserCountAggregateInputType = {
@@ -75,6 +81,7 @@ export type MetricsUserCountAggregateInputType = {
   userRole?: true;
   createdAt?: true;
   updatedAt?: true;
+  botForDataSync?: true;
   _all?: true;
 };
 
@@ -158,6 +165,7 @@ export type MetricsUserGroupByOutputType = {
   userRole: $Enums.MetricsRole;
   createdAt: Date;
   updatedAt: Date;
+  botForDataSync: boolean;
   _count: MetricsUserCountAggregateOutputType | null;
   _min: MetricsUserMinAggregateOutputType | null;
   _max: MetricsUserMaxAggregateOutputType | null;
@@ -185,6 +193,7 @@ export type MetricsUserWhereInput = {
   userRole?: Prisma.EnumMetricsRoleFilter<'MetricsUser'> | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFilter<'MetricsUser'> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<'MetricsUser'> | Date | string;
+  botForDataSync?: Prisma.BoolFilter<'MetricsUser'> | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricListRelationFilter;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricListRelationFilter;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryListRelationFilter;
@@ -212,6 +221,7 @@ export type MetricsUserOrderByWithRelationInput = {
   userRole?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  botForDataSync?: Prisma.SortOrder;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricOrderByRelationAggregateInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricOrderByRelationAggregateInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryOrderByRelationAggregateInput;
@@ -244,6 +254,7 @@ export type MetricsUserWhereUniqueInput = Prisma.AtLeast<
     userRole?: Prisma.EnumMetricsRoleFilter<'MetricsUser'> | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFilter<'MetricsUser'> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<'MetricsUser'> | Date | string;
+    botForDataSync?: Prisma.BoolFilter<'MetricsUser'> | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricListRelationFilter;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricListRelationFilter;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryListRelationFilter;
@@ -273,6 +284,7 @@ export type MetricsUserOrderByWithAggregationInput = {
   userRole?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  botForDataSync?: Prisma.SortOrder;
   _count?: Prisma.MetricsUserCountOrderByAggregateInput;
   _max?: Prisma.MetricsUserMaxOrderByAggregateInput;
   _min?: Prisma.MetricsUserMinOrderByAggregateInput;
@@ -288,6 +300,7 @@ export type MetricsUserScalarWhereWithAggregatesInput = {
   userRole?: Prisma.EnumMetricsRoleWithAggregatesFilter<'MetricsUser'> | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeWithAggregatesFilter<'MetricsUser'> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<'MetricsUser'> | Date | string;
+  botForDataSync?: Prisma.BoolWithAggregatesFilter<'MetricsUser'> | boolean;
 };
 
 export type MetricsUserCreateInput = {
@@ -297,6 +310,7 @@ export type MetricsUserCreateInput = {
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -324,6 +338,7 @@ export type MetricsUserUncheckedCreateInput = {
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -351,6 +366,7 @@ export type MetricsUserUpdateInput = {
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -378,6 +394,7 @@ export type MetricsUserUncheckedUpdateInput = {
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -405,6 +422,7 @@ export type MetricsUserCreateManyInput = {
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
 };
 
 export type MetricsUserUpdateManyMutationInput = {
@@ -414,6 +432,7 @@ export type MetricsUserUpdateManyMutationInput = {
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 
 export type MetricsUserUncheckedUpdateManyInput = {
@@ -423,6 +442,7 @@ export type MetricsUserUncheckedUpdateManyInput = {
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
 };
 
 export type MetricsUserScalarRelationFilter = {
@@ -442,6 +462,7 @@ export type MetricsUserCountOrderByAggregateInput = {
   userRole?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  botForDataSync?: Prisma.SortOrder;
 };
 
 export type MetricsUserMaxOrderByAggregateInput = {
@@ -451,6 +472,7 @@ export type MetricsUserMaxOrderByAggregateInput = {
   userRole?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  botForDataSync?: Prisma.SortOrder;
 };
 
 export type MetricsUserMinOrderByAggregateInput = {
@@ -460,6 +482,7 @@ export type MetricsUserMinOrderByAggregateInput = {
   userRole?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
+  botForDataSync?: Prisma.SortOrder;
 };
 
 export type MetricsUserCreateNestedOneWithoutMetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUserInput = {
@@ -965,6 +988,7 @@ export type MetricsUserCreateWithoutMetricsGithubMetric_MetricsGithubMetric_crea
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserInput;
@@ -991,6 +1015,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubMetric_MetricsGithubMe
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserInput;
@@ -1025,6 +1050,7 @@ export type MetricsUserCreateWithoutMetricsGithubMetric_MetricsGithubMetric_upda
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserInput;
@@ -1051,6 +1077,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubMetric_MetricsGithubMe
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserInput;
@@ -1106,6 +1133,7 @@ export type MetricsUserUpdateWithoutMetricsGithubMetric_MetricsGithubMetric_crea
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
@@ -1132,6 +1160,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubMetric_MetricsGithubMe
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
@@ -1179,6 +1208,7 @@ export type MetricsUserUpdateWithoutMetricsGithubMetric_MetricsGithubMetric_upda
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
@@ -1205,6 +1235,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubMetric_MetricsGithubMe
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
@@ -1231,6 +1262,7 @@ export type MetricsUserCreateWithoutMetricsGithubRepository_MetricsGithubReposit
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserInput;
@@ -1258,6 +1290,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubRepository_MetricsGith
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserInput;
@@ -1293,6 +1326,7 @@ export type MetricsUserCreateWithoutMetricsGithubRepository_MetricsGithubReposit
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1320,6 +1354,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubRepository_MetricsGith
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1376,6 +1411,7 @@ export type MetricsUserUpdateWithoutMetricsGithubRepository_MetricsGithubReposit
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
@@ -1403,6 +1439,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubRepository_MetricsGith
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_updatedByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_updatedByToMetricsUserNestedInput;
@@ -1450,6 +1487,7 @@ export type MetricsUserUpdateWithoutMetricsGithubRepository_MetricsGithubReposit
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -1477,6 +1515,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubRepository_MetricsGith
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -1503,6 +1542,7 @@ export type MetricsUserCreateWithoutMetricsGithubUser_MetricsGithubUser_createdB
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1529,6 +1569,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubUser_MetricsGithubUser
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1563,6 +1604,7 @@ export type MetricsUserCreateWithoutMetricsGithubUser_MetricsGithubUser_updatedB
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1589,6 +1631,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubUser_MetricsGithubUser
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1643,6 +1686,7 @@ export type MetricsUserUpdateWithoutMetricsGithubUser_MetricsGithubUser_createdB
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -1669,6 +1713,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubUser_MetricsGithubUser
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -1715,6 +1760,7 @@ export type MetricsUserUpdateWithoutMetricsGithubUser_MetricsGithubUser_updatedB
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -1741,6 +1787,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubUser_MetricsGithubUser
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -1768,6 +1815,7 @@ export type MetricsUserCreateWithoutMetricsGithubUserRepository_MetricsGithubUse
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1795,6 +1843,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubUserRepository_Metrics
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1831,6 +1880,7 @@ export type MetricsUserCreateWithoutMetricsGithubUserRepository_MetricsGithubUse
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1858,6 +1908,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubUserRepository_Metrics
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -1916,6 +1967,7 @@ export type MetricsUserUpdateWithoutMetricsGithubUserRepository_MetricsGithubUse
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -1943,6 +1995,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubUserRepository_Metrics
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -1992,6 +2045,7 @@ export type MetricsUserUpdateWithoutMetricsGithubUserRepository_MetricsGithubUse
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2019,6 +2073,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubUserRepository_Metrics
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2046,6 +2101,7 @@ export type MetricsUserCreateWithoutMetricsGithubRepositoryStatistics_MetricsGit
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2073,6 +2129,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubRepositoryStatistics_M
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2109,6 +2166,7 @@ export type MetricsUserCreateWithoutMetricsGithubRepositoryStatistics_MetricsGit
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2136,6 +2194,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubRepositoryStatistics_M
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2194,6 +2253,7 @@ export type MetricsUserUpdateWithoutMetricsGithubRepositoryStatistics_MetricsGit
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2221,6 +2281,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubRepositoryStatistics_M
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2270,6 +2331,7 @@ export type MetricsUserUpdateWithoutMetricsGithubRepositoryStatistics_MetricsGit
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2297,6 +2359,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubRepositoryStatistics_M
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2323,6 +2386,7 @@ export type MetricsUserCreateWithoutMetricsGithubTeam_MetricsGithubTeam_createdB
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2349,6 +2413,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubTeam_MetricsGithubTeam
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2383,6 +2448,7 @@ export type MetricsUserCreateWithoutMetricsGithubTeam_MetricsGithubTeam_updatedB
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2409,6 +2475,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubTeam_MetricsGithubTeam
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2463,6 +2530,7 @@ export type MetricsUserUpdateWithoutMetricsGithubTeam_MetricsGithubTeam_createdB
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2489,6 +2557,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubTeam_MetricsGithubTeam
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2535,6 +2604,7 @@ export type MetricsUserUpdateWithoutMetricsGithubTeam_MetricsGithubTeam_updatedB
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2561,6 +2631,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubTeam_MetricsGithubTeam
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2588,6 +2659,7 @@ export type MetricsUserCreateWithoutMetricsGithubTeamRepository_MetricsGithubTea
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2615,6 +2687,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubTeamRepository_Metrics
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2651,6 +2724,7 @@ export type MetricsUserCreateWithoutMetricsGithubTeamRepository_MetricsGithubTea
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2678,6 +2752,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubTeamRepository_Metrics
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2736,6 +2811,7 @@ export type MetricsUserUpdateWithoutMetricsGithubTeamRepository_MetricsGithubTea
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2763,6 +2839,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubTeamRepository_Metrics
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2812,6 +2889,7 @@ export type MetricsUserUpdateWithoutMetricsGithubTeamRepository_MetricsGithubTea
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2839,6 +2917,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubTeamRepository_Metrics
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -2865,6 +2944,7 @@ export type MetricsUserCreateWithoutMetricsGithubTeamUser_MetricsGithubTeamUser_
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2891,6 +2971,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubTeamUser_MetricsGithub
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2925,6 +3006,7 @@ export type MetricsUserCreateWithoutMetricsGithubTeamUser_MetricsGithubTeamUser_
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -2951,6 +3033,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubTeamUser_MetricsGithub
   userRole: $Enums.MetricsRole;
   createdAt?: Date | string;
   updatedAt?: Date | string;
+  botForDataSync?: boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -3006,6 +3089,7 @@ export type MetricsUserUpdateWithoutMetricsGithubTeamUser_MetricsGithubTeamUser_
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -3032,6 +3116,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubTeamUser_MetricsGithub
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -3079,6 +3164,7 @@ export type MetricsUserUpdateWithoutMetricsGithubTeamUser_MetricsGithubTeamUser_
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -3105,6 +3191,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubTeamUser_MetricsGithub
   userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -3132,6 +3219,7 @@ export type MetricsUserCreateWithoutMetricsGithubUserStatistics_MetricsGithubUse
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -3159,6 +3247,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubUserStatistics_Metrics
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -3195,6 +3284,7 @@ export type MetricsUserCreateWithoutMetricsGithubUserStatistics_MetricsGithubUse
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -3222,6 +3312,7 @@ export type MetricsUserUncheckedCreateWithoutMetricsGithubUserStatistics_Metrics
     userRole: $Enums.MetricsRole;
     createdAt?: Date | string;
     updatedAt?: Date | string;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedCreateNestedManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserInput;
@@ -3280,6 +3371,7 @@ export type MetricsUserUpdateWithoutMetricsGithubUserStatistics_MetricsGithubUse
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -3307,6 +3399,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubUserStatistics_Metrics
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -3356,6 +3449,7 @@ export type MetricsUserUpdateWithoutMetricsGithubUserStatistics_MetricsGithubUse
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -3383,6 +3477,7 @@ export type MetricsUserUncheckedUpdateWithoutMetricsGithubUserStatistics_Metrics
     userRole?: Prisma.EnumMetricsRoleFieldUpdateOperationsInput | $Enums.MetricsRole;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    botForDataSync?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_createdByToMetricsUserNestedInput;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Prisma.MetricsGithubMetricUncheckedUpdateManyWithoutMetricsUser_MetricsGithubMetric_updatedByToMetricsUserNestedInput;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Prisma.MetricsGithubRepositoryUncheckedUpdateManyWithoutMetricsUser_MetricsGithubRepository_createdByToMetricsUserNestedInput;
@@ -3670,6 +3765,7 @@ export type MetricsUserSelect<
     userRole?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    botForDataSync?: boolean;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?:
       | boolean
       | Prisma.MetricsUser$MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUserArgs<ExtArgs>;
@@ -3739,6 +3835,7 @@ export type MetricsUserSelectCreateManyAndReturn<
     userRole?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    botForDataSync?: boolean;
   },
   ExtArgs['result']['metricsUser']
 >;
@@ -3753,6 +3850,7 @@ export type MetricsUserSelectUpdateManyAndReturn<
     userRole?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
+    botForDataSync?: boolean;
   },
   ExtArgs['result']['metricsUser']
 >;
@@ -3764,12 +3862,13 @@ export type MetricsUserSelectScalar = {
   userRole?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
+  botForDataSync?: boolean;
 };
 
 export type MetricsUserOmit<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
-  'id' | 'tenantId' | 'externalUserId' | 'userRole' | 'createdAt' | 'updatedAt',
+  'id' | 'tenantId' | 'externalUserId' | 'userRole' | 'createdAt' | 'updatedAt' | 'botForDataSync',
   ExtArgs['result']['metricsUser']
 >;
 export type MetricsUserInclude<
@@ -3889,6 +3988,7 @@ export type $MetricsUserPayload<
        * @DtoUpdateHidden
        */
       updatedAt: Date;
+      botForDataSync: boolean;
     },
     ExtArgs['result']['metricsUser']
   >;
@@ -4631,6 +4731,7 @@ export interface MetricsUserFieldRefs {
   readonly userRole: Prisma.FieldRef<'MetricsUser', 'MetricsRole'>;
   readonly createdAt: Prisma.FieldRef<'MetricsUser', 'DateTime'>;
   readonly updatedAt: Prisma.FieldRef<'MetricsUser', 'DateTime'>;
+  readonly botForDataSync: Prisma.FieldRef<'MetricsUser', 'Boolean'>;
 }
 
 // Custom InputTypes

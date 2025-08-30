@@ -59,7 +59,8 @@ export type MetricsGithubUser = Prisma.MetricsGithubUserModel;
 export type MetricsGithubUserRepository = Prisma.MetricsGithubUserRepositoryModel;
 /**
  * Model MetricsUser
- *
+ * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+ * Note: Only one user can have botForDataSync = true (enforced by unique partial index IDX_METRICS_USER__BOT_FOR_DATA_SYNC)
  */
 export type MetricsUser = Prisma.MetricsUserModel;
 /**

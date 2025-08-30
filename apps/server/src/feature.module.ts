@@ -1,5 +1,4 @@
 import KeyvRedis from '@keyv/redis';
-import { APP_DATA_TWO_FACTOR_TIMEOUT, SsoModule, SsoUsersService } from '@site15/sso';
 import { createNestModule, isInfrastructureMode } from '@nestjs-mod/common';
 import { FilesModule } from '@nestjs-mod/files';
 import { KeyvModule } from '@nestjs-mod/keyv';
@@ -11,6 +10,8 @@ import { TerminusHealthCheckModule } from '@nestjs-mod/terminus';
 import { TWO_FACTOR_FEATURE, TwoFactorModule } from '@nestjs-mod/two-factor';
 import { ValidationModule } from '@nestjs-mod/validation';
 import { WebhookModule } from '@nestjs-mod/webhook';
+import { MetricsModule } from '@site15/metrics';
+import { APP_DATA_TWO_FACTOR_TIMEOUT, SsoModule, SsoUsersService } from '@site15/sso';
 import { createClient } from 'redis';
 import { AppModule } from './app/app.module';
 import { filesModuleForRootAsyncOptions } from './integrations/minio-files-integration.configuration';
@@ -18,7 +19,6 @@ import { notificationsModuleForRootAsyncOptions } from './integrations/notificat
 import { ssoModuleForRootAsyncOptions } from './integrations/sso-integration.configuration';
 import { terminusHealthCheckModuleForRootAsyncOptions } from './integrations/terminus-health-check-integration.configuration';
 import { webhookModuleForRootAsyncOptions } from './integrations/webhook-integration.configuration';
-import { MetricsModule } from '@site15/metrics';
 
 export const FEATURE_MODULE_IMPORTS = [
   NestjsPinoLoggerModule.forRoot(),

@@ -1356,6 +1356,7 @@ export const MetricsUserScalarFieldEnum = {
   userRole: 'userRole',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  botForDataSync: 'botForDataSync',
 } as const;
 
 export type MetricsUserScalarFieldEnum = (typeof MetricsUserScalarFieldEnum)[keyof typeof MetricsUserScalarFieldEnum];

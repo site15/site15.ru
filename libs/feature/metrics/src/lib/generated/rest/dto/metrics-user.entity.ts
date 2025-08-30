@@ -39,6 +39,10 @@ export class MetricsUser {
   })
   updatedAt!: Date;
   @ApiProperty({
+    type: 'boolean',
+  })
+  botForDataSync!: boolean;
+  @ApiProperty({
     type: () => MetricsGithubMetric,
     isArray: true,
     required: false,

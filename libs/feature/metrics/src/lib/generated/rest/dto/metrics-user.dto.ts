@@ -29,4 +29,8 @@ export class MetricsUserDto {
     format: 'date-time',
   })
   updatedAt!: Date;
+  @ApiProperty({
+    type: 'boolean',
+  })
+  botForDataSync!: boolean;
 }
