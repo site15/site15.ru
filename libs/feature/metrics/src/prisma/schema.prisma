@@ -170,6 +170,8 @@ model MetricsGithubUserRepository {
   @@index([tenantId], map: "IDX_METRICS_GITHUB_USER_REPOSITORY__TENANT_ID")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// Note: Only one user can have botForDataSync = true (enforced by unique partial index IDX_METRICS_USER__BOT_FOR_DATA_SYNC)
 model MetricsUser {
   /// @DtoCreateHidden
   id                                                                                         String                              @id(map: "PK_METRICS_USER") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
@@ -186,6 +188,7 @@ model MetricsUser {
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
   updatedAt                                                                                  DateTime                            @default(now()) @db.Timestamp(6)
+  botForDataSync                                                                             Boolean                             @default(false)
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser                             MetricsGithubMetric[]               @relation("MetricsGithubMetric_createdByToMetricsUser")
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser                             MetricsGithubMetric[]               @relation("MetricsGithubMetric_updatedByToMetricsUser")
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser                     MetricsGithubRepository[]           @relation("MetricsGithubRepository_createdByToMetricsUser")

@@ -16,7 +16,7 @@ import {
   METRICS_GITHUB_REPOSITORY_STATISTICS_CONTROLLER_PATH,
 } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
-import { MetricsError } from '../metrics.errors';
+import { MetricsError, MetricsErrorEnum } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
 import { CreateFullMetricsGithubRepositoryStatisticsDto } from '../types/CreateFullMetricsGithubRepositoryStatisticsDto';
 import { FindManyMetricsGithubRepositoryStatisticsResponse } from '../types/FindManyMetricsGithubRepositoryStatisticsResponse';
@@ -226,21 +226,25 @@ export class MetricsGithubRepositoryStatisticsController {
     @Param('id') id: string,
     @InjectTranslateFunction() getText: TranslateFunction,
   ) {
-    // Check if user has permission to sync this repository
-    const repository = await this.prismaClient.metricsGithubRepository.findFirstOrThrow({
-      where: {
-        id,
-        ...(metricsUser.userRole === MetricsRole.Admin
-          ? {}
-          : {
-              tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
-            }),
-      },
-    });
+    try {
+      // Check if user has permission to sync this repository
+      const repository = await this.prismaClient.metricsGithubRepository.findFirstOrThrow({
+        where: {
+          id,
+          ...(metricsUser.userRole === MetricsRole.Admin
+            ? {}
+            : {
+                tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+              }),
+        },
+      });
 
-    // Trigger synchronization
-    await this.metricsGithubStatisticsSyncService.syncRepositoryStatistics(id);
+      // Trigger synchronization
+      await this.metricsGithubStatisticsSyncService.syncRepositoryStatistics(repository.id);
 
-    return { message: getText('Repository statistics synchronization started') };
+      return { message: getText('Repository statistics synchronization started') };
+    } catch (error) {
+      throw new MetricsError(MetricsErrorEnum.FORBIDDEN);
+    }
   }
 }

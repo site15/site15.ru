@@ -12,11 +12,11 @@ import { MetricsGithubUserStatisticsDto } from '../generated/rest/dto/metrics-gi
 import { UpdateMetricsGithubUserStatisticsDto } from '../generated/rest/dto/update-metrics-github-user-statistics.dto';
 import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_USER_STATISTICS_CONTROLLER_PATH } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
-import { MetricsError } from '../metrics.errors';
-import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
-import { CreateFullMetricsGithubUserStatisticsDto } from '../types/CreateFullMetricsGithubUserStatisticsDto';
-import { FindManyMetricsGithubUserStatisticsResponse } from '../types/FindManyMetricsGithubUserStatisticsResponse';
+import { MetricsError, MetricsErrorEnum } from '../metrics.errors';
 import { MetricsGithubStatisticsSyncService } from '../services/metrics-github-statistics-sync.service';
+import { CreateFullMetricsGithubUserStatisticsDto } from '../types/CreateFullMetricsGithubUserStatisticsDto';
+import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
+import { FindManyMetricsGithubUserStatisticsResponse } from '../types/FindManyMetricsGithubUserStatisticsResponse';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
@@ -216,21 +216,25 @@ export class MetricsGithubUserStatisticsController {
     @Param('id') id: string,
     @InjectTranslateFunction() getText: TranslateFunction,
   ) {
-    // Check if user has permission to sync this GitHub user
-    const githubUser = await this.prismaClient.metricsGithubUser.findFirstOrThrow({
-      where: {
-        id,
-        ...(metricsUser.userRole === MetricsRole.Admin
-          ? {}
-          : {
-              tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
-            }),
-      },
-    });
+    try {
+      // Check if user has permission to sync this GitHub user
+      const githubUser = await this.prismaClient.metricsGithubUser.findFirstOrThrow({
+        where: {
+          id,
+          ...(metricsUser.userRole === MetricsRole.Admin
+            ? {}
+            : {
+                tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
+              }),
+        },
+      });
 
-    // Trigger synchronization
-    await this.metricsGithubStatisticsSyncService.syncUserStatistics(id);
+      // Trigger synchronization
+      await this.metricsGithubStatisticsSyncService.syncUserStatistics(githubUser.id);
 
-    return { message: getText('User statistics synchronization started') };
+      return { message: getText('User statistics synchronization started') };
+    } catch (error) {
+      throw new MetricsError(MetricsErrorEnum.FORBIDDEN);
+    }
   }
 }

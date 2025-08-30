@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { KeyvService } from '@nestjs-mod/keyv';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger } from '@nestjs/common';
 import { Octokit } from '@octokit/core';
-import { MetricsGithubRepository, MetricsGithubUser, PrismaClient } from '../generated/prisma-client';
+import { MetricsGithubRepository, MetricsGithubUser, MetricsUser, PrismaClient } from '../generated/prisma-client';
 import { METRICS_FEATURE } from '../metrics.constants';
 import { MetricsStaticEnvironments } from '../metrics.environments';
 
@@ -17,6 +19,7 @@ interface ExtendedMetricsGithubUser extends MetricsGithubUser {
 interface UserStatisticsResult {
   user: {
     githubData: any;
+    statistics: any;
   } & MetricsGithubUser;
   repositories: ExtendedMetricsGithubRepository[];
 }
@@ -38,12 +41,39 @@ export class MetricsGithubStatisticsSyncService {
     @InjectPrismaClient(METRICS_FEATURE)
     private readonly prismaClient: PrismaClient,
     private readonly metricsStaticEnvironments: MetricsStaticEnvironments,
+    private readonly keyvService: KeyvService,
   ) {
     // Initialize Octokit with a personal access token if available
     const githubToken = this.metricsStaticEnvironments.githubToken;
     this.octokit = new Octokit({
       auth: githubToken || undefined,
     });
+  }
+
+  /**
+   * Fetches the bot user for data synchronization with caching
+   * @returns The bot user with botForDataSync = true
+   */
+  private async getBotUser(): Promise<MetricsUser> {
+    // Try to get bot user from cache first
+    const cachedBotUser = await this.keyvService.get('metricsBotUser');
+    if (cachedBotUser) {
+      return cachedBotUser;
+    }
+
+    // If not in cache, fetch from database
+    const botUser = await this.prismaClient.metricsUser.findFirst({
+      where: { botForDataSync: true },
+    });
+
+    if (!botUser) {
+      throw new Error('Bot user for data synchronization not found');
+    }
+
+    // Cache the bot user for 30 seconds
+    await this.keyvService.set('metricsBotUser', botUser, 30_000);
+
+    return botUser;
   }
 
   /**
@@ -64,6 +94,9 @@ export class MetricsGithubStatisticsSyncService {
     }
 
     try {
+      // Get the bot user for data synchronization
+      const botUser = await this.getBotUser();
+
       // Get repositories linked to this user in our database
       const userRepositories = await this.prismaClient.metricsGithubUserRepository.findMany({
         where: { userId: githubUserId },
@@ -90,8 +123,12 @@ export class MetricsGithubStatisticsSyncService {
           websiteUrl: githubUser.blog || dbUser.websiteUrl,
           location: githubUser.location || dbUser.location,
           updatedAt: new Date(),
+          updatedBy: botUser.id, // Use bot user ID for updatedBy field
         },
       });
+
+      // Create or update user statistics
+      const userStats = await this.createOrUpdateUserStatistics(githubUserId, githubUser);
 
       // Fetch repository information from GitHub API for each linked repository
       const repositoriesWithStats: ExtendedMetricsGithubRepository[] = [];
@@ -112,24 +149,25 @@ export class MetricsGithubStatisticsSyncService {
               private: githubRepo.private,
               fork: githubRepo.fork,
               updatedAt: new Date(),
+              updatedBy: botUser.id, // Use bot user ID for updatedBy field
             },
           });
 
           repositoriesWithStats.push({
             ...updatedRepo,
             githubData: githubRepo,
-          });
-        } catch (error) {
+          } as ExtendedMetricsGithubRepository);
+        } catch (error: any) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           this.logger.error(
-            `Error fetching repository data for ${userRepo.repositoryId}: ${(error as any).message}`,
-            (error as any).stack,
+            `Error fetching repository data for ${userRepo.repositoryId}: ${error.message}`,
+            error.stack,
           );
           // Still include the repository even if we can't fetch GitHub data
           repositoriesWithStats.push({
             ...userRepo.MetricsGithubRepository,
             githubData: null,
-          });
+          } as ExtendedMetricsGithubRepository);
         }
       }
 
@@ -137,15 +175,12 @@ export class MetricsGithubStatisticsSyncService {
         user: {
           ...updatedUser,
           githubData: githubUser,
+          statistics: userStats,
         },
         repositories: repositoriesWithStats,
       };
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.logger.error(
-        `Error syncing user statistics for GitHub user ${githubUserId}: ${(error as any).message}`,
-        (error as any).stack,
-      );
+    } catch (error: any) {
+      this.logger.error(`Error syncing user statistics for GitHub user ${githubUserId}: ${error.message}`, error.stack);
       throw error;
     }
   }
@@ -168,6 +203,9 @@ export class MetricsGithubStatisticsSyncService {
     }
 
     try {
+      // Get the bot user for data synchronization
+      const botUser = await this.getBotUser();
+
       // Get users linked to this repository in our database
       const repositoryUsers = await this.prismaClient.metricsGithubUserRepository.findMany({
         where: { repositoryId: repositoryId },
@@ -193,6 +231,7 @@ export class MetricsGithubStatisticsSyncService {
           private: githubRepo.private,
           fork: githubRepo.fork,
           updatedAt: new Date(),
+          updatedBy: botUser.id, // Use bot user ID for updatedBy field
         },
       });
 
@@ -216,24 +255,22 @@ export class MetricsGithubStatisticsSyncService {
               websiteUrl: githubUser.blog || user.websiteUrl,
               location: githubUser.location || user.location,
               updatedAt: new Date(),
+              updatedBy: botUser.id, // Use bot user ID for updatedBy field
             },
           });
 
           usersWithStats.push({
             ...updatedUser,
             githubData: githubUser,
-          });
-        } catch (error) {
+          } as ExtendedMetricsGithubUser);
+        } catch (error: any) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          this.logger.error(
-            `Error fetching user data for ${repoUser.userId}: ${(error as any).message}`,
-            (error as any).stack,
-          );
+          this.logger.error(`Error fetching user data for ${repoUser.userId}: ${error.message}`, error.stack);
           // Still include the user even if we can't fetch GitHub data
           usersWithStats.push({
             ...repoUser.MetricsGithubUser,
             githubData: null,
-          });
+          } as ExtendedMetricsGithubUser);
         }
       }
 
@@ -248,13 +285,122 @@ export class MetricsGithubStatisticsSyncService {
         },
         users: usersWithStats,
       };
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       this.logger.error(
-        `Error syncing repository statistics for repository ${repositoryId}: ${(error as any).message}`,
-        (error as any).stack,
+        `Error syncing repository statistics for repository ${repositoryId}: ${error.message}`,
+        error.stack,
       );
       throw error;
+    }
+  }
+
+  /**
+   * Fetches the date of the last commit for a GitHub repository
+   * @param owner The owner of the repository
+   * @param repo The name of the repository
+   * @returns The date of the last commit or null if not found
+   */
+  private async getRepositoryLastCommitDate(owner: string, repo: string): Promise<Date | null> {
+    try {
+      // Fetch the most recent commit (GitHub returns commits in descending order by default)
+      const commits = await this.octokit.request('GET /repos/{owner}/{repo}/commits', {
+        owner,
+        repo,
+        per_page: 1,
+        page: 1,
+      });
+
+      // If we have commits, return the date of the first (most recent) one
+      if (commits.data && commits.data.length > 0) {
+        const lastCommit = commits.data[0];
+        return lastCommit.commit.author?.date ? new Date(lastCommit.commit.author.date) : null;
+      }
+
+      return null;
+    } catch (error: any) {
+      this.logger.error(`Error fetching last commit date for ${owner}/${repo}: ${error.message}`, error.stack);
+      // Return null if we can't fetch the last commit date
+      return null;
+    }
+  }
+
+  /**
+   * Fetches the number of commits for a GitHub repository
+   * @param owner The owner of the repository
+   * @param repo The name of the repository
+   * @returns The number of commits
+   */
+  private async getRepositoryCommitsCount(owner: string, repo: string): Promise<number> {
+    try {
+      let allCommits: any[] = [];
+      let page = 1;
+      let hasNextPage = true;
+
+      // Fetch commits paginated (GitHub returns max 100 per page)
+      while (hasNextPage) {
+        const commits = await this.octokit.request('GET /repos/{owner}/{repo}/commits', {
+          owner,
+          repo,
+          per_page: 100,
+          page,
+        });
+
+        allCommits = allCommits.concat(commits.data);
+
+        // Check if there are more pages
+        const linkHeader = commits.headers.link;
+        if (linkHeader && linkHeader.includes('rel="next"')) {
+          page++;
+        } else {
+          hasNextPage = false;
+        }
+      }
+
+      return allCommits.length;
+    } catch (error: any) {
+      this.logger.error(`Error fetching commits count for ${owner}/${repo}: ${error.message}`, error.stack);
+      // Return 0 if we can't fetch the commits count
+      return 0;
+    }
+  }
+
+  /**
+   * Fetches the number of contributors for a GitHub repository
+   * @param owner The owner of the repository
+   * @param repo The name of the repository
+   * @returns The number of contributors
+   */
+  private async getRepositoryContributorsCount(owner: string, repo: string): Promise<number> {
+    try {
+      let allContributors: any[] = [];
+      let page = 1;
+      let hasNextPage = true;
+
+      // Fetch contributors paginated (GitHub returns max 100 per page)
+      while (hasNextPage) {
+        const contributors = await this.octokit.request('GET /repos/{owner}/{repo}/contributors', {
+          owner,
+          repo,
+          per_page: 100,
+          page,
+        });
+
+        allContributors = allContributors.concat(contributors.data);
+
+        // Check if there are more pages
+        const linkHeader = contributors.headers.link;
+        if (linkHeader && linkHeader.includes('rel="next"')) {
+          page++;
+        } else {
+          hasNextPage = false;
+        }
+      }
+
+      return allContributors.length;
+    } catch (error: any) {
+      this.logger.error(`Error fetching contributors count for ${owner}/${repo}: ${error.message}`, error.stack);
+      // Return 0 if we can't fetch the contributors count
+      return 0;
     }
   }
 
@@ -275,57 +421,77 @@ export class MetricsGithubStatisticsSyncService {
         throw new Error(`Repository with ID ${repositoryId} not found`);
       }
 
-      // Try to find existing statistics
-      const existingStats = await this.prismaClient.metricsGithubRepositoryStatistics.findFirst({
-        where: { repositoryId: repositoryId },
+      // Get the bot user for data synchronization
+      const botUser = await this.getBotUser();
+
+      // Get contributors count for the repository
+      let contributorsCount = 0;
+      let commitsCount = 0;
+      let lastCommitDate: Date | null = null;
+      if (githubRepo) {
+        contributorsCount = await this.getRepositoryContributorsCount(repository.owner, repository.name);
+        commitsCount = await this.getRepositoryCommitsCount(repository.owner, repository.name);
+        lastCommitDate = await this.getRepositoryLastCommitDate(repository.owner, repository.name);
+      }
+
+      this.logger.debug({ githubRepo });
+      // Create new statistics
+      return await this.prismaClient.metricsGithubRepositoryStatistics.create({
+        data: {
+          repositoryId: repositoryId,
+          tenantId: repository.tenantId,
+          periodType: 'CURRENT',
+          starsCount: githubRepo?.stargazers_count || 0,
+          forksCount: githubRepo?.forks_count || 0,
+          contributorsCount: contributorsCount,
+          commitsCount: commitsCount,
+          lastCommitDate: lastCommitDate,
+          recordedAt: new Date(),
+          createdBy: botUser.id,
+          updatedBy: botUser.id,
+        },
+      });
+    } catch (error: any) {
+      this.logger.error(`Error creating/updating repository statistics: ${error.message}`, error.stack);
+      return null;
+    }
+  }
+
+  /**
+   * Creates or updates user statistics
+   * @param userId The ID of the user
+   * @param githubUser The GitHub user data (optional)
+   * @returns The created or updated user statistics
+   */
+  private async createOrUpdateUserStatistics(userId: string, githubUser: any) {
+    try {
+      // First, get the user to access tenantId
+      const user = await this.prismaClient.metricsGithubUser.findUnique({
+        where: { id: userId },
       });
 
-      // For now, we'll use a placeholder user ID. In a real implementation,
-      // this should be the actual user performing the sync operation.
-      const placeholderUserId = '00000000-0000-0000-0000-000000000000';
-
-      if (existingStats) {
-        // Update existing statistics
-        return await this.prismaClient.metricsGithubRepositoryStatistics.update({
-          where: { id: existingStats.id },
-          data: {
-            repositoryId: repositoryId,
-            tenantId: repository.tenantId,
-            periodType: 'CURRENT',
-            starsCount: githubRepo?.stargazers_count || 0,
-            forksCount: githubRepo?.forks_count || 0,
-            contributorsCount: 0,
-            commitsCount: 0,
-            lastCommitDate: null,
-            recordedAt: new Date(),
-            updatedAt: new Date(),
-            updatedBy: placeholderUserId,
-          },
-        });
-      } else {
-        // Create new statistics
-        return await this.prismaClient.metricsGithubRepositoryStatistics.create({
-          data: {
-            repositoryId: repositoryId,
-            tenantId: repository.tenantId,
-            periodType: 'CURRENT',
-            starsCount: githubRepo?.stargazers_count || 0,
-            forksCount: githubRepo?.forks_count || 0,
-            contributorsCount: 0,
-            commitsCount: 0,
-            lastCommitDate: null,
-            recordedAt: new Date(),
-            createdBy: placeholderUserId,
-            updatedBy: placeholderUserId,
-          },
-        });
+      if (!user) {
+        throw new Error(`User with ID ${userId} not found`);
       }
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      this.logger.error(
-        `Error creating/updating repository statistics: ${(error as any).message}`,
-        (error as any).stack,
-      );
+
+      // Get the bot user for data synchronization
+      const botUser = await this.getBotUser();
+
+      // Create new statistics
+      return await this.prismaClient.metricsGithubUserStatistics.create({
+        data: {
+          userId: userId,
+          tenantId: user.tenantId,
+          periodType: 'CURRENT',
+          followersCount: githubUser?.followers || 0,
+          followingCount: githubUser?.following || 0,
+          recordedAt: new Date(),
+          createdBy: botUser.id,
+          updatedBy: botUser.id,
+        },
+      });
+    } catch (error: any) {
+      this.logger.error(`Error creating/updating user statistics: ${error.message}`, error.stack);
       return null;
     }
   }
