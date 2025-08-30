@@ -1,3 +1,9 @@
+# [1.12.0](https://github.com/site15/site15.ru/compare/server-v1.11.0...server-v1.12.0) (2025-08-30)
+
+### Features
+
+- **metrics:** add bot user support for data synchronization ([f486886](https://github.com/site15/site15.ru/commit/f4868865d1db9ea48ef6e09adaecf2cf5fc14654))
+
 # [1.11.0](https://github.com/site15/site15.ru/compare/server-v1.10.0...server-v1.11.0) (2025-08-28)
 
 ### Features
