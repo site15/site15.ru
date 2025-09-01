@@ -188,7 +188,7 @@ model MetricsUser {
   /// @DtoCreateHidden
   /// @DtoUpdateHidden
   updatedAt                                                                                  DateTime                            @default(now()) @db.Timestamp(6)
-  botForDataSync                                                                             Boolean                             @default(false)
+  botForDataSync                                                                             Boolean?                            @default(false)
   MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser                             MetricsGithubMetric[]               @relation("MetricsGithubMetric_createdByToMetricsUser")
   MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser                             MetricsGithubMetric[]               @relation("MetricsGithubMetric_updatedByToMetricsUser")
   MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser                     MetricsGithubRepository[]           @relation("MetricsGithubRepository_createdByToMetricsUser")
@@ -387,6 +387,29 @@ model MetricsGithubUserStatistics {
   @@unique([tenantId, userId, periodType, recordedAt], map: "UQ_METRICS_GITHUB_USER_STATISTICS__USER_PERIOD_RECORDED")
   @@index([tenantId], map: "IDX_METRICS_GITHUB_USER_STATISTICS__TENANT_ID")
   @@index([tenantId, userId], map: "IDX_METRICS_GITHUB_USER_STATISTICS__USER_ID")
+}
+
+/// Settings for the metrics module, with tenant-based separation
+/// Each tenant can have only one record with enabled = true
+model MetricsSettings {
+  /// @DtoCreateHidden
+  id          String   @id(map: "PK_METRICS_SETTINGS") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  tenantId    String   @db.Uuid
+  /// @DtoCreateOptional
+  /// @DtoUpdateOptional
+  enabled     Boolean  @default(false)
+  githubToken String?  @db.VarChar(255)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  createdAt   DateTime @default(now()) @db.Timestamp(6)
+  /// @DtoCreateHidden
+  /// @DtoUpdateHidden
+  updatedAt   DateTime @default(now()) @db.Timestamp(6)
+
+  @@index([tenantId], map: "IDX_METRICS_SETTINGS__TENANT_ID")
+  @@index([enabled], map: "IDX_METRICS_SETTINGS__ENABLED")
 }
 
 enum MetricsRole {

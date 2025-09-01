@@ -51,6 +51,59 @@ export class MetricsGithubStatisticsSyncService {
   }
 
   /**
+   * Gets the GitHub token for a specific tenant, first trying the tenant's active settings,
+   * then falling back to the environment variable token
+   * @param tenantId The tenant ID to get the token for
+   * @returns The GitHub token or null if none available
+   */
+  private async getGithubTokenForTenant(tenantId: string): Promise<string | null> {
+    try {
+      // First, try to get the active metrics settings for this tenant
+      const activeSettings = await this.prismaClient.metricsSettings.findFirst({
+        where: {
+          tenantId: tenantId,
+          enabled: true,
+        },
+      });
+
+      // If we found active settings with a GitHub token, use it
+      if (activeSettings?.githubToken) {
+        this.logger.debug(`Using tenant-specific GitHub token for tenant ${tenantId}`);
+        return activeSettings.githubToken;
+      }
+
+      // If no tenant-specific token, fall back to the environment variable token
+      if (this.metricsStaticEnvironments.githubToken) {
+        this.logger.debug(`Using environment variable GitHub token for tenant ${tenantId}`);
+        return this.metricsStaticEnvironments.githubToken;
+      }
+
+      // No token available
+      this.logger.warn(`No GitHub token available for tenant ${tenantId}`);
+      return null;
+    } catch (error: any) {
+      this.logger.error(`Error getting GitHub token for tenant ${tenantId}: ${error.message}`, error.stack);
+      // Fall back to environment variable token even in case of error
+      return this.metricsStaticEnvironments.githubToken || null;
+    }
+  }
+
+  /**
+   * Creates a new Octokit instance with the appropriate token for the given tenant
+   * @param tenantId The tenant ID to create the Octokit instance for
+   * @returns A new Octokit instance or null if no token is available
+   */
+  private async createOctokitForTenant(tenantId: string): Promise<Octokit | null> {
+    const token = await this.getGithubTokenForTenant(tenantId);
+    if (!token) {
+      return new Octokit();
+    }
+    return new Octokit({
+      auth: token,
+    });
+  }
+
+  /**
    * Fetches the bot user for data synchronization with caching
    * @returns The bot user with botForDataSync = true
    */
@@ -105,10 +158,14 @@ export class MetricsGithubStatisticsSyncService {
         },
       });
 
-      // Octokit is always available now
+      // Create tenant-specific Octokit instance
+      const tenantOctokit = await this.createOctokitForTenant(dbUser.tenantId);
+      if (!tenantOctokit) {
+        throw new Error(`No GitHub token available for tenant ${dbUser.tenantId}`);
+      }
 
       // Fetch user information from GitHub API
-      const { data: githubUser } = await this.octokit.request('GET /users/{username}', {
+      const { data: githubUser } = await tenantOctokit.request('GET /users/{username}', {
         username: dbUser.login,
       });
 
@@ -135,7 +192,7 @@ export class MetricsGithubStatisticsSyncService {
       for (const userRepo of userRepositories) {
         try {
           const repo = userRepo.MetricsGithubRepository;
-          const { data: githubRepo } = await this.octokit.request('GET /repos/{owner}/{repo}', {
+          const { data: githubRepo } = await tenantOctokit.request('GET /repos/{owner}/{repo}', {
             owner: repo.owner,
             repo: repo.name,
           });
@@ -214,10 +271,14 @@ export class MetricsGithubStatisticsSyncService {
         },
       });
 
-      // Octokit is always available now
+      // Create tenant-specific Octokit instance
+      const tenantOctokit = await this.createOctokitForTenant(dbRepository.tenantId);
+      if (!tenantOctokit) {
+        throw new Error(`No GitHub token available for tenant ${dbRepository.tenantId}`);
+      }
 
       // Fetch repository information from GitHub API
-      const { data: githubRepo } = await this.octokit.request('GET /repos/{owner}/{repo}', {
+      const { data: githubRepo } = await tenantOctokit.request('GET /repos/{owner}/{repo}', {
         owner: dbRepository.owner,
         repo: dbRepository.name,
       });
@@ -240,7 +301,7 @@ export class MetricsGithubStatisticsSyncService {
       for (const repoUser of repositoryUsers) {
         try {
           const user = repoUser.MetricsGithubUser;
-          const { data: githubUser } = await this.octokit.request('GET /users/{username}', {
+          const { data: githubUser } = await tenantOctokit.request('GET /users/{username}', {
             username: user.login,
           });
 
@@ -298,12 +359,19 @@ export class MetricsGithubStatisticsSyncService {
    * Fetches the date of the last commit for a GitHub repository
    * @param owner The owner of the repository
    * @param repo The name of the repository
+   * @param tenantId The tenant ID to get the token for
    * @returns The date of the last commit or null if not found
    */
-  private async getRepositoryLastCommitDate(owner: string, repo: string): Promise<Date | null> {
+  private async getRepositoryLastCommitDate(owner: string, repo: string, tenantId: string): Promise<Date | null> {
     try {
+      // Create tenant-specific Octokit instance
+      const tenantOctokit = await this.createOctokitForTenant(tenantId);
+      if (!tenantOctokit) {
+        throw new Error(`No GitHub token available for tenant ${tenantId}`);
+      }
+
       // Fetch the most recent commit (GitHub returns commits in descending order by default)
-      const commits = await this.octokit.request('GET /repos/{owner}/{repo}/commits', {
+      const commits = await tenantOctokit.request('GET /repos/{owner}/{repo}/commits', {
         owner,
         repo,
         per_page: 1,
@@ -328,17 +396,24 @@ export class MetricsGithubStatisticsSyncService {
    * Fetches the number of commits for a GitHub repository
    * @param owner The owner of the repository
    * @param repo The name of the repository
+   * @param tenantId The tenant ID to get the token for
    * @returns The number of commits
    */
-  private async getRepositoryCommitsCount(owner: string, repo: string): Promise<number> {
+  private async getRepositoryCommitsCount(owner: string, repo: string, tenantId: string): Promise<number> {
     try {
+      // Create tenant-specific Octokit instance
+      const tenantOctokit = await this.createOctokitForTenant(tenantId);
+      if (!tenantOctokit) {
+        throw new Error(`No GitHub token available for tenant ${tenantId}`);
+      }
+
       let allCommits: any[] = [];
       let page = 1;
       let hasNextPage = true;
 
       // Fetch commits paginated (GitHub returns max 100 per page)
       while (hasNextPage) {
-        const commits = await this.octokit.request('GET /repos/{owner}/{repo}/commits', {
+        const commits = await tenantOctokit.request('GET /repos/{owner}/{repo}/commits', {
           owner,
           repo,
           per_page: 100,
@@ -368,17 +443,24 @@ export class MetricsGithubStatisticsSyncService {
    * Fetches the number of contributors for a GitHub repository
    * @param owner The owner of the repository
    * @param repo The name of the repository
+   * @param tenantId The tenant ID to get the token for
    * @returns The number of contributors
    */
-  private async getRepositoryContributorsCount(owner: string, repo: string): Promise<number> {
+  private async getRepositoryContributorsCount(owner: string, repo: string, tenantId: string): Promise<number> {
     try {
+      // Create tenant-specific Octokit instance
+      const tenantOctokit = await this.createOctokitForTenant(tenantId);
+      if (!tenantOctokit) {
+        throw new Error(`No GitHub token available for tenant ${tenantId}`);
+      }
+
       let allContributors: any[] = [];
       let page = 1;
       let hasNextPage = true;
 
       // Fetch contributors paginated (GitHub returns max 100 per page)
       while (hasNextPage) {
-        const contributors = await this.octokit.request('GET /repos/{owner}/{repo}/contributors', {
+        const contributors = await tenantOctokit.request('GET /repos/{owner}/{repo}/contributors', {
           owner,
           repo,
           per_page: 100,
@@ -429,9 +511,13 @@ export class MetricsGithubStatisticsSyncService {
       let commitsCount = 0;
       let lastCommitDate: Date | null = null;
       if (githubRepo) {
-        contributorsCount = await this.getRepositoryContributorsCount(repository.owner, repository.name);
-        commitsCount = await this.getRepositoryCommitsCount(repository.owner, repository.name);
-        lastCommitDate = await this.getRepositoryLastCommitDate(repository.owner, repository.name);
+        contributorsCount = await this.getRepositoryContributorsCount(
+          repository.owner,
+          repository.name,
+          repository.tenantId,
+        );
+        commitsCount = await this.getRepositoryCommitsCount(repository.owner, repository.name, repository.tenantId);
+        lastCommitDate = await this.getRepositoryLastCommitDate(repository.owner, repository.name, repository.tenantId);
       }
 
       this.logger.debug({ githubRepo });
