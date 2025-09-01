@@ -7,19 +7,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { MetricsRoleInterface } from './metrics-role.interface';
 
 
-export interface MetricsUserDtoInterface { 
+export interface MetricsSettingsDtoInterface { 
     id: string;
     tenantId: string;
-    externalUserId: string;
-    userRole: MetricsRoleInterface;
+    enabled: boolean;
+    githubToken: string | null;
     createdAt: string;
     updatedAt: string;
-    botForDataSync: boolean | null;
 }
-export namespace MetricsUserDtoInterface {
-}
-
 

@@ -390,6 +390,7 @@ export const ModelName = {
   MetricsGithubTeamRepository: 'MetricsGithubTeamRepository',
   MetricsGithubTeamUser: 'MetricsGithubTeamUser',
   MetricsGithubUserStatistics: 'MetricsGithubUserStatistics',
+  MetricsSettings: 'MetricsSettings',
 } as const;
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -421,7 +422,8 @@ export type TypeMap<
       | 'metricsGithubTeam'
       | 'metricsGithubTeamRepository'
       | 'metricsGithubTeamUser'
-      | 'metricsGithubUserStatistics';
+      | 'metricsGithubUserStatistics'
+      | 'metricsSettings';
     txIsolationLevel: TransactionIsolationLevel;
   };
   model: {
@@ -1241,6 +1243,80 @@ export type TypeMap<
         };
       };
     };
+    MetricsSettings: {
+      payload: Prisma.$MetricsSettingsPayload<ExtArgs>;
+      fields: Prisma.MetricsSettingsFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.MetricsSettingsFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.MetricsSettingsFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload>;
+        };
+        findFirst: {
+          args: Prisma.MetricsSettingsFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.MetricsSettingsFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload>;
+        };
+        findMany: {
+          args: Prisma.MetricsSettingsFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload>[];
+        };
+        create: {
+          args: Prisma.MetricsSettingsCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload>;
+        };
+        createMany: {
+          args: Prisma.MetricsSettingsCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.MetricsSettingsCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload>[];
+        };
+        delete: {
+          args: Prisma.MetricsSettingsDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload>;
+        };
+        update: {
+          args: Prisma.MetricsSettingsUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload>;
+        };
+        deleteMany: {
+          args: Prisma.MetricsSettingsDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.MetricsSettingsUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.MetricsSettingsUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload>[];
+        };
+        upsert: {
+          args: Prisma.MetricsSettingsUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsSettingsPayload>;
+        };
+        aggregate: {
+          args: Prisma.MetricsSettingsAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMetricsSettings>;
+        };
+        groupBy: {
+          args: Prisma.MetricsSettingsGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsSettingsGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.MetricsSettingsCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsSettingsCountAggregateOutputType> | number;
+        };
+      };
+    };
   };
 } & {
   other: {
@@ -1457,6 +1533,18 @@ export const MetricsGithubUserStatisticsScalarFieldEnum = {
 export type MetricsGithubUserStatisticsScalarFieldEnum =
   (typeof MetricsGithubUserStatisticsScalarFieldEnum)[keyof typeof MetricsGithubUserStatisticsScalarFieldEnum];
 
+export const MetricsSettingsScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  enabled: 'enabled',
+  githubToken: 'githubToken',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+} as const;
+
+export type MetricsSettingsScalarFieldEnum =
+  (typeof MetricsSettingsScalarFieldEnum)[keyof typeof MetricsSettingsScalarFieldEnum];
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc',
@@ -1630,6 +1718,7 @@ export type GlobalOmitConfig = {
   metricsGithubTeamRepository?: Prisma.MetricsGithubTeamRepositoryOmit;
   metricsGithubTeamUser?: Prisma.MetricsGithubTeamUserOmit;
   metricsGithubUserStatistics?: Prisma.MetricsGithubUserStatisticsOmit;
+  metricsSettings?: Prisma.MetricsSettingsOmit;
 };
 
 /* Types for Logging */

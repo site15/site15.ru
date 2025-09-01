@@ -1,6 +1,6 @@
 import { MetricsRole } from '../../prisma-client';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsOptional } from 'class-validator';
+import { IsBoolean, IsEnum, IsOptional } from 'class-validator';
 
 export class UpdateMetricsUserDto {
   @ApiProperty({
@@ -11,4 +11,13 @@ export class UpdateMetricsUserDto {
   @IsOptional()
   @IsEnum(MetricsRole)
   userRole?: MetricsRole;
+  @ApiProperty({
+    type: 'boolean',
+    default: false,
+    required: false,
+    nullable: true,
+  })
+  @IsOptional()
+  @IsBoolean()
+  botForDataSync?: boolean | null;
 }

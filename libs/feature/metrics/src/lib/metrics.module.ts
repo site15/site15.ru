@@ -15,6 +15,7 @@ import { MetricsGithubTeamUserController } from './controllers/metrics-github-te
 import { MetricsGithubUserController } from './controllers/metrics-github-user.controller';
 import { MetricsGithubUserRepositoryController } from './controllers/metrics-github-user-repository.controller';
 import { MetricsGithubUserStatisticsController } from './controllers/metrics-github-user-statistics.controller';
+import { MetricsSettingsController } from './controllers/metrics-settings.controller';
 import { MetricsUserController } from './controllers/metrics-user.controller';
 import { METRICS_FEATURE, METRICS_MODULE } from './metrics.constants';
 import { MetricsStaticEnvironments } from './metrics.environments';
@@ -74,6 +75,7 @@ export const { MetricsModule } = createNestModule({
       MetricsGithubUserController,
       MetricsGithubUserRepositoryController,
       MetricsGithubUserStatisticsController,
+      MetricsSettingsController,
       MetricsUserController,
     ].map((ctrl) => {
       if (asyncModuleOptions.staticEnvironments?.useGuards) {

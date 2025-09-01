@@ -277,6 +277,12 @@ export interface CreateFullMetricsUserDto {
      * @memberof CreateFullMetricsUserDto
      */
     'userRole': MetricsRole;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateFullMetricsUserDto
+     */
+    'botForDataSync'?: boolean | null;
 }
 
 
@@ -402,6 +408,25 @@ export interface CreateMetricsGithubUserDto {
      * @memberof CreateMetricsGithubUserDto
      */
     'twitterUrl'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface CreateMetricsSettingsDto
+ */
+export interface CreateMetricsSettingsDto {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateMetricsSettingsDto
+     */
+    'enabled'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateMetricsSettingsDto
+     */
+    'githubToken'?: string | null;
 }
 /**
  * 
@@ -729,6 +754,25 @@ export interface FindManyMetricsGithubUserStatisticsResponse {
 /**
  * 
  * @export
+ * @interface FindManyMetricsSettingsResponse
+ */
+export interface FindManyMetricsSettingsResponse {
+    /**
+     * 
+     * @type {Array<MetricsSettingsDto>}
+     * @memberof FindManyMetricsSettingsResponse
+     */
+    'metricsSettings': Array<MetricsSettingsDto>;
+    /**
+     * 
+     * @type {FindManyResponseMeta}
+     * @memberof FindManyMetricsSettingsResponse
+     */
+    'meta': FindManyResponseMeta;
+}
+/**
+ * 
+ * @export
  * @interface FindManyMetricsUserResponse
  */
 export interface FindManyMetricsUserResponse {
@@ -1032,6 +1076,12 @@ export interface MetricsEntities {
      * @memberof MetricsEntities
      */
     'MetricsGithubUserStatistics': MetricsGithubUserStatisticsScalarFieldEnum;
+    /**
+     * 
+     * @type {MetricsSettingsScalarFieldEnum}
+     * @memberof MetricsEntities
+     */
+    'MetricsSettings': MetricsSettingsScalarFieldEnum;
 }
 
 
@@ -2659,6 +2709,67 @@ export type MetricsRole = typeof MetricsRole[keyof typeof MetricsRole];
 /**
  * 
  * @export
+ * @interface MetricsSettingsDto
+ */
+export interface MetricsSettingsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsSettingsDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsSettingsDto
+     */
+    'tenantId': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MetricsSettingsDto
+     */
+    'enabled': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsSettingsDto
+     */
+    'githubToken': string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsSettingsDto
+     */
+    'createdAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MetricsSettingsDto
+     */
+    'updatedAt': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const MetricsSettingsScalarFieldEnum = {
+    Id: 'id',
+    TenantId: 'tenantId',
+    Enabled: 'enabled',
+    GithubToken: 'githubToken',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt'
+} as const;
+
+export type MetricsSettingsScalarFieldEnum = typeof MetricsSettingsScalarFieldEnum[keyof typeof MetricsSettingsScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
  * @interface MetricsUser
  */
 export interface MetricsUser {
@@ -2698,6 +2809,12 @@ export interface MetricsUser {
      * @memberof MetricsUser
      */
     'updatedAt': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MetricsUser
+     */
+    'botForDataSync': boolean | null;
     /**
      * 
      * @type {Array<MetricsGithubMetric>}
@@ -2851,6 +2968,12 @@ export interface MetricsUserDto {
      * @memberof MetricsUserDto
      */
     'updatedAt': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MetricsUserDto
+     */
+    'botForDataSync': boolean | null;
 }
 
 
@@ -2866,7 +2989,8 @@ export const MetricsUserScalarFieldEnum = {
     ExternalUserId: 'externalUserId',
     UserRole: 'userRole',
     CreatedAt: 'createdAt',
-    UpdatedAt: 'updatedAt'
+    UpdatedAt: 'updatedAt',
+    BotForDataSync: 'botForDataSync'
 } as const;
 
 export type MetricsUserScalarFieldEnum = typeof MetricsUserScalarFieldEnum[keyof typeof MetricsUserScalarFieldEnum];
@@ -5097,6 +5221,25 @@ export interface UpdateMetricsGithubUserStatisticsDto {
 /**
  * 
  * @export
+ * @interface UpdateMetricsSettingsDto
+ */
+export interface UpdateMetricsSettingsDto {
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateMetricsSettingsDto
+     */
+    'enabled'?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateMetricsSettingsDto
+     */
+    'githubToken'?: string | null;
+}
+/**
+ * 
+ * @export
  * @interface UpdateMetricsUserDto
  */
 export interface UpdateMetricsUserDto {
@@ -5106,6 +5249,12 @@ export interface UpdateMetricsUserDto {
      * @memberof UpdateMetricsUserDto
      */
     'userRole'?: MetricsRole;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UpdateMetricsUserDto
+     */
+    'botForDataSync'?: boolean | null;
 }
 
 
@@ -8102,6 +8251,229 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @param {CreateMetricsSettingsDto} createMetricsSettingsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerCreateOne: async (createMetricsSettingsDto: CreateMetricsSettingsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createMetricsSettingsDto' is not null or undefined
+            assertParamExists('metricsSettingsControllerCreateOne', 'createMetricsSettingsDto', createMetricsSettingsDto)
+            const localVarPath = `/api/metrics/settings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createMetricsSettingsDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerDeleteOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsSettingsControllerDeleteOne', 'id', id)
+            const localVarPath = `/api/metrics/settings/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerFindCurrent: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/metrics/settings/current`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/metrics/settings`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (curPage !== undefined) {
+                localVarQueryParameter['curPage'] = curPage;
+            }
+
+            if (perPage !== undefined) {
+                localVarQueryParameter['perPage'] = perPage;
+            }
+
+            if (searchText !== undefined) {
+                localVarQueryParameter['searchText'] = searchText;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (tenantId !== undefined) {
+                localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerFindOne: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsSettingsControllerFindOne', 'id', id)
+            const localVarPath = `/api/metrics/settings/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsSettingsDto} updateMetricsSettingsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerUpdateOne: async (id: string, updateMetricsSettingsDto: UpdateMetricsSettingsDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('metricsSettingsControllerUpdateOne', 'id', id)
+            // verify required parameter 'updateMetricsSettingsDto' is not null or undefined
+            assertParamExists('metricsSettingsControllerUpdateOne', 'updateMetricsSettingsDto', updateMetricsSettingsDto)
+            const localVarPath = `/api/metrics/settings/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateMetricsSettingsDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {CreateFullMetricsUserDto} createFullMetricsUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -8915,6 +9287,82 @@ export const MetricsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {CreateMetricsSettingsDto} createMetricsSettingsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsSettingsControllerCreateOne(createMetricsSettingsDto: CreateMetricsSettingsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsSettingsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsSettingsControllerCreateOne(createMetricsSettingsDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsSettingsControllerCreateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsSettingsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsSettingsControllerDeleteOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsSettingsControllerDeleteOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsSettingsControllerFindCurrent(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsSettingsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsSettingsControllerFindCurrent(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsSettingsControllerFindCurrent']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsSettingsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsSettingsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsSettingsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsSettingsControllerFindMany']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsSettingsControllerFindOne(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsSettingsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsSettingsControllerFindOne(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsSettingsControllerFindOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsSettingsDto} updateMetricsSettingsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async metricsSettingsControllerUpdateOne(id: string, updateMetricsSettingsDto: UpdateMetricsSettingsDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MetricsSettingsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsSettingsControllerUpdateOne(id, updateMetricsSettingsDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsSettingsControllerUpdateOne']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {CreateFullMetricsUserDto} createFullMetricsUserDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -9455,6 +9903,64 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          */
         metricsGithubUserStatisticsControllerUpdateOne(id: string, updateMetricsGithubUserStatisticsDto: UpdateMetricsGithubUserStatisticsDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsGithubUserStatisticsDto> {
             return localVarFp.metricsGithubUserStatisticsControllerUpdateOne(id, updateMetricsGithubUserStatisticsDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreateMetricsSettingsDto} createMetricsSettingsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerCreateOne(createMetricsSettingsDto: CreateMetricsSettingsDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsSettingsDto> {
+            return localVarFp.metricsSettingsControllerCreateOne(createMetricsSettingsDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.metricsSettingsControllerDeleteOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerFindCurrent(options?: RawAxiosRequestConfig): AxiosPromise<MetricsSettingsDto> {
+            return localVarFp.metricsSettingsControllerFindCurrent(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} [curPage] 
+         * @param {number} [perPage] 
+         * @param {string} [searchText] 
+         * @param {string} [sort] 
+         * @param {string} [tenantId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsSettingsResponse> {
+            return localVarFp.metricsSettingsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerFindOne(id: string, options?: RawAxiosRequestConfig): AxiosPromise<MetricsSettingsDto> {
+            return localVarFp.metricsSettingsControllerFindOne(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {UpdateMetricsSettingsDto} updateMetricsSettingsDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        metricsSettingsControllerUpdateOne(id: string, updateMetricsSettingsDto: UpdateMetricsSettingsDto, options?: RawAxiosRequestConfig): AxiosPromise<MetricsSettingsDto> {
+            return localVarFp.metricsSettingsControllerUpdateOne(id, updateMetricsSettingsDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10076,6 +10582,76 @@ export class MetricsApi extends BaseAPI {
      */
     public metricsGithubUserStatisticsControllerUpdateOne(id: string, updateMetricsGithubUserStatisticsDto: UpdateMetricsGithubUserStatisticsDto, options?: RawAxiosRequestConfig) {
         return MetricsApiFp(this.configuration).metricsGithubUserStatisticsControllerUpdateOne(id, updateMetricsGithubUserStatisticsDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreateMetricsSettingsDto} createMetricsSettingsDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsSettingsControllerCreateOne(createMetricsSettingsDto: CreateMetricsSettingsDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsSettingsControllerCreateOne(createMetricsSettingsDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsSettingsControllerDeleteOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsSettingsControllerDeleteOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsSettingsControllerFindCurrent(options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsSettingsControllerFindCurrent(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} [curPage] 
+     * @param {number} [perPage] 
+     * @param {string} [searchText] 
+     * @param {string} [sort] 
+     * @param {string} [tenantId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsSettingsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsSettingsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsSettingsControllerFindOne(id: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsSettingsControllerFindOne(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {UpdateMetricsSettingsDto} updateMetricsSettingsDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MetricsApi
+     */
+    public metricsSettingsControllerUpdateOne(id: string, updateMetricsSettingsDto: UpdateMetricsSettingsDto, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsSettingsControllerUpdateOne(id, updateMetricsSettingsDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

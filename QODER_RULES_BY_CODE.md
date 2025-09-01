@@ -1151,6 +1151,7 @@ const result = await prisma.$transaction(async (tx) => {
 - Include table and column comments for documentation
 - Follow consistent naming for constraints and indexes
 - Implement multi-tenancy support in all tables
+- **Migrations must be restartable/idempotent - use IF NOT EXISTS clauses and exception handling to ensure migrations can be safely re-run**
 
 **Example of Migration Structure:**
 
@@ -1162,13 +1163,13 @@ const result = await prisma.$transaction(async (tx) => {
 -- Create enum types first
 DO $$
 BEGIN
-    CREATE TYPE "EntityStatus" AS enum(
-        'Active',
-        'Inactive'
+CREATE TYPE "EntityStatus" AS enum(
+'Active',
+'Inactive'
 );
 EXCEPTION
-    WHEN duplicate_object THEN
-        NULL;
+WHEN duplicate_object THEN
+NULL;
 END
 $$;
 
@@ -1208,13 +1209,13 @@ COMMENT ON COLUMN "EntityName"."tenantId" IS 'Tenant identifier for multi-tenanc
 -- Add primary key constraint
 DO $$
 BEGIN
-    ALTER TABLE "EntityName"
-        ADD CONSTRAINT "PK_ENTITY_NAME" PRIMARY KEY(id);
+ALTER TABLE "EntityName"
+ADD CONSTRAINT "PK_ENTITY_NAME" PRIMARY KEY(id);
 EXCEPTION
-    WHEN duplicate_object THEN
-        NULL;
-    WHEN invalid_table_definition THEN
-        NULL;
+WHEN duplicate_object THEN
+NULL;
+WHEN invalid_table_definition THEN
+NULL;
 END
 $$;
 
@@ -1250,13 +1251,13 @@ COMMENT ON TABLE "EntityNameRelatedEntity" IS 'Relation between entities and rel
 
 DO $$
 BEGIN
-    ALTER TABLE "EntityNameRelatedEntity"
-        ADD CONSTRAINT "PK_ENTITY_NAME_RELATED_ENTITY" PRIMARY KEY(id);
+ALTER TABLE "EntityNameRelatedEntity"
+ADD CONSTRAINT "PK_ENTITY_NAME_RELATED_ENTITY" PRIMARY KEY(id);
 EXCEPTION
-    WHEN duplicate_object THEN
-        NULL;
-    WHEN invalid_table_definition THEN
-        NULL;
+WHEN duplicate_object THEN
+NULL;
+WHEN invalid_table_definition THEN
+NULL;
 END
 $$;
 
@@ -1265,11 +1266,11 @@ $$;
 -- Add foreign key constraints
 DO $$
 BEGIN
-    ALTER TABLE "EntityNameRelatedEntity"
+ALTER TABLE "EntityNameRelatedEntity"
         ADD CONSTRAINT "FK_ENTITY_NAME_RELATED_ENTITY__ENTITY_NAME_ID" FOREIGN KEY("entityNameId") REFERENCES "EntityName"(id);
 EXCEPTION
-    WHEN duplicate_object THEN
-        NULL;
+WHEN duplicate_object THEN
+NULL;
 END
 $$;
 
@@ -1277,11 +1278,11 @@ $$;
 
 DO $$
 BEGIN
-    ALTER TABLE "EntityNameRelatedEntity"
+ALTER TABLE "EntityNameRelatedEntity"
         ADD CONSTRAINT "FK_ENTITY_NAME_RELATED_ENTITY__RELATED_ENTITY_ID" FOREIGN KEY("relatedEntityId") REFERENCES "RelatedEntity"(id);
 EXCEPTION
-    WHEN duplicate_object THEN
-        NULL;
+WHEN duplicate_object THEN
+NULL;
 END
 $$;
 
@@ -1301,6 +1302,7 @@ CREATE INDEX IF NOT EXISTS "IDX_ENTITY_NAME_RELATED_ENTITY__TENANT_ID" ON "Entit
 - Use database introspection tools to generate schema from existing databases
 - Generate client code after schema changes
 - Implement proper environment configuration for different deployment targets
+- **Always request user permission before applying migrations or synchronizing Prisma schemas. If the user agrees, apply migrations using `npm run db:create-and-fill` and update the Prisma schema using `npm run prisma:pull`**
 
 **Example of Schema Generation Commands:**
 

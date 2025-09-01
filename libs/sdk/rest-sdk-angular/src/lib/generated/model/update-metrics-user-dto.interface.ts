@@ -12,6 +12,7 @@ import { MetricsRoleInterface } from './metrics-role.interface';
 
 export interface UpdateMetricsUserDtoInterface { 
     userRole?: MetricsRoleInterface;
+    botForDataSync?: boolean | null;
 }
 export namespace UpdateMetricsUserDtoInterface {
 }

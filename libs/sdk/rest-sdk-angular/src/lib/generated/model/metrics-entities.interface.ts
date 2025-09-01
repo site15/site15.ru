@@ -15,6 +15,7 @@ import { MetricsGithubUserStatisticsScalarFieldEnumInterface } from './metrics-g
 import { MetricsGithubMetricScalarFieldEnumInterface } from './metrics-github-metric-scalar-field-enum.interface';
 import { MetricsGithubRepositoryScalarFieldEnumInterface } from './metrics-github-repository-scalar-field-enum.interface';
 import { MetricsGithubTeamRepositoryScalarFieldEnumInterface } from './metrics-github-team-repository-scalar-field-enum.interface';
+import { MetricsSettingsScalarFieldEnumInterface } from './metrics-settings-scalar-field-enum.interface';
 import { MetricsGithubUserScalarFieldEnumInterface } from './metrics-github-user-scalar-field-enum.interface';
 import { MetricsGithubTeamUserScalarFieldEnumInterface } from './metrics-github-team-user-scalar-field-enum.interface';
 
@@ -30,6 +31,7 @@ export interface MetricsEntitiesInterface {
     MetricsGithubTeamRepository: MetricsGithubTeamRepositoryScalarFieldEnumInterface;
     MetricsGithubTeamUser: MetricsGithubTeamUserScalarFieldEnumInterface;
     MetricsGithubUserStatistics: MetricsGithubUserStatisticsScalarFieldEnumInterface;
+    MetricsSettings: MetricsSettingsScalarFieldEnumInterface;
 }
 export namespace MetricsEntitiesInterface {
 }

@@ -157,7 +157,6 @@ describe('Create all need for github metrics and run sync methods (e2e)', () => 
       // If we reach here, the test should fail
       expect(true).toBe(false);
     } catch (error) {
-      console.log(error.response);
       // Expect a 404 error
       expect(error.response.status).toBe(400);
       expect(error.response.data.code).toBe(MetricsErrorEnum.Metrics001);

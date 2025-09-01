@@ -1,7 +1,6 @@
-import { MetricsRole } from '../../prisma-client';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class MetricsUserDto {
+export class MetricsSettingsDto {
   @ApiProperty({
     type: 'string',
   })
@@ -11,14 +10,14 @@ export class MetricsUserDto {
   })
   tenantId!: string;
   @ApiProperty({
-    type: 'string',
+    type: 'boolean',
   })
-  externalUserId!: string;
+  enabled!: boolean;
   @ApiProperty({
-    enum: MetricsRole,
-    enumName: 'MetricsRole',
+    type: 'string',
+    nullable: true,
   })
-  userRole!: MetricsRole;
+  githubToken!: string | null;
   @ApiProperty({
     type: 'string',
     format: 'date-time',
@@ -29,9 +28,4 @@ export class MetricsUserDto {
     format: 'date-time',
   })
   updatedAt!: Date;
-  @ApiProperty({
-    type: 'boolean',
-    nullable: true,
-  })
-  botForDataSync!: boolean | null;
 }

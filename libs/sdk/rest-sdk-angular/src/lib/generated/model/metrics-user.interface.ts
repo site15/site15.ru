@@ -26,6 +26,7 @@ export interface MetricsUserInterface {
     userRole: MetricsRoleInterface;
     createdAt: string;
     updatedAt: string;
+    botForDataSync: boolean | null;
     MetricsGithubMetric_MetricsGithubMetric_createdByToMetricsUser?: Array<MetricsGithubMetricInterface>;
     MetricsGithubMetric_MetricsGithubMetric_updatedByToMetricsUser?: Array<MetricsGithubMetricInterface>;
     MetricsGithubRepository_MetricsGithubRepository_createdByToMetricsUser?: Array<MetricsGithubRepositoryInterface>;

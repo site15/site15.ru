@@ -93,6 +93,12 @@ export type MetricsGithubTeamUser = Prisma.MetricsGithubTeamUserModel;
  * This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
  */
 export type MetricsGithubUserStatistics = Prisma.MetricsGithubUserStatisticsModel;
+/**
+ * Model MetricsSettings
+ * Settings for the metrics module, with tenant-based separation
+ * Each tenant can have only one record with enabled = true
+ */
+export type MetricsSettings = Prisma.MetricsSettingsModel;
 
 export type MetricsRole = $Enums.MetricsRole;
 export const MetricsRole = $Enums.MetricsRole;

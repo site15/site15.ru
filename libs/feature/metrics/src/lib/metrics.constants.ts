@@ -16,3 +16,4 @@ export const METRICS_GITHUB_USER_REPOSITORY_CONTROLLER_PATH = '/metrics/github/u
 export const METRICS_GITHUB_USER_STATISTICS_CONTROLLER_PATH = '/metrics/github/user-statistics';
 export const METRICS_GITHUB_USER_CONTROLLER_PATH = '/metrics/github/user';
 export const METRICS_USER_CONTROLLER_PATH = '/metrics/user';
+export const METRICS_SETTINGS_CONTROLLER_PATH = '/metrics/settings';

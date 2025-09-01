@@ -17,4 +17,5 @@ export type * from './models/MetricsGithubTeam';
 export type * from './models/MetricsGithubTeamRepository';
 export type * from './models/MetricsGithubTeamUser';
 export type * from './models/MetricsGithubUserStatistics';
+export type * from './models/MetricsSettings';
 export type * from './commonInputTypes';

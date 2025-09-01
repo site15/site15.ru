@@ -9,7 +9,7 @@
  */
 
 
-export type MetricsUserScalarFieldEnumInterface = 'id' | 'tenantId' | 'externalUserId' | 'userRole' | 'createdAt' | 'updatedAt';
+export type MetricsUserScalarFieldEnumInterface = 'id' | 'tenantId' | 'externalUserId' | 'userRole' | 'createdAt' | 'updatedAt' | 'botForDataSync';
 
 export const MetricsUserScalarFieldEnumInterface = {
     id: 'id' as MetricsUserScalarFieldEnumInterface,
@@ -17,6 +17,7 @@ export const MetricsUserScalarFieldEnumInterface = {
     externalUserId: 'externalUserId' as MetricsUserScalarFieldEnumInterface,
     userRole: 'userRole' as MetricsUserScalarFieldEnumInterface,
     createdAt: 'createdAt' as MetricsUserScalarFieldEnumInterface,
-    updatedAt: 'updatedAt' as MetricsUserScalarFieldEnumInterface
+    updatedAt: 'updatedAt' as MetricsUserScalarFieldEnumInterface,
+    botForDataSync: 'botForDataSync' as MetricsUserScalarFieldEnumInterface
 };
 

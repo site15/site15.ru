@@ -26,6 +26,7 @@ model/create-full-metrics-user-dto.interface.ts
 model/create-metrics-github-repository-dto.interface.ts
 model/create-metrics-github-team-dto.interface.ts
 model/create-metrics-github-user-dto.interface.ts
+model/create-metrics-settings-dto.interface.ts
 model/create-sso-tenant-dto.interface.ts
 model/create-webhook-dto.interface.ts
 model/files-error-enum.interface.ts
@@ -40,6 +41,7 @@ model/find-many-metrics-github-team-user-response.interface.ts
 model/find-many-metrics-github-user-repository-response.interface.ts
 model/find-many-metrics-github-user-response.interface.ts
 model/find-many-metrics-github-user-statistics-response.interface.ts
+model/find-many-metrics-settings-response.interface.ts
 model/find-many-metrics-user-response.interface.ts
 model/find-many-notification-response.interface.ts
 model/find-many-response-meta.interface.ts
@@ -84,6 +86,8 @@ model/metrics-github-user-statistics-scalar-field-enum.interface.ts
 model/metrics-github-user-statistics.interface.ts
 model/metrics-github-user.interface.ts
 model/metrics-role.interface.ts
+model/metrics-settings-dto.interface.ts
+model/metrics-settings-scalar-field-enum.interface.ts
 model/metrics-user-dto.interface.ts
 model/metrics-user-scalar-field-enum.interface.ts
 model/metrics-user.interface.ts
@@ -141,6 +145,7 @@ model/update-metrics-github-team-user-dto.interface.ts
 model/update-metrics-github-user-dto.interface.ts
 model/update-metrics-github-user-repository-dto.interface.ts
 model/update-metrics-github-user-statistics-dto.interface.ts
+model/update-metrics-settings-dto.interface.ts
 model/update-metrics-user-dto.interface.ts
 model/update-notifications-event-dto.interface.ts
 model/update-profile-args.interface.ts

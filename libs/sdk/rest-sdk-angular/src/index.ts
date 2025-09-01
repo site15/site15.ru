@@ -26,6 +26,7 @@ export * from './lib/generated/model/create-full-metrics-user-dto.interface';
 export * from './lib/generated/model/create-metrics-github-repository-dto.interface';
 export * from './lib/generated/model/create-metrics-github-team-dto.interface';
 export * from './lib/generated/model/create-metrics-github-user-dto.interface';
+export * from './lib/generated/model/create-metrics-settings-dto.interface';
 export * from './lib/generated/model/create-sso-tenant-dto.interface';
 export * from './lib/generated/model/create-webhook-dto.interface';
 export * from './lib/generated/model/files-error-enum.interface';
@@ -40,6 +41,7 @@ export * from './lib/generated/model/find-many-metrics-github-team-user-response
 export * from './lib/generated/model/find-many-metrics-github-user-repository-response.interface';
 export * from './lib/generated/model/find-many-metrics-github-user-response.interface';
 export * from './lib/generated/model/find-many-metrics-github-user-statistics-response.interface';
+export * from './lib/generated/model/find-many-metrics-settings-response.interface';
 export * from './lib/generated/model/find-many-metrics-user-response.interface';
 export * from './lib/generated/model/find-many-notification-response.interface';
 export * from './lib/generated/model/find-many-response-meta.interface';
@@ -84,6 +86,8 @@ export * from './lib/generated/model/metrics-github-user-statistics-scalar-field
 export * from './lib/generated/model/metrics-github-user-statistics.interface';
 export * from './lib/generated/model/metrics-github-user.interface';
 export * from './lib/generated/model/metrics-role.interface';
+export * from './lib/generated/model/metrics-settings-dto.interface';
+export * from './lib/generated/model/metrics-settings-scalar-field-enum.interface';
 export * from './lib/generated/model/metrics-user-dto.interface';
 export * from './lib/generated/model/metrics-user-scalar-field-enum.interface';
 export * from './lib/generated/model/metrics-user.interface';
@@ -141,6 +145,7 @@ export * from './lib/generated/model/update-metrics-github-team-user-dto.interfa
 export * from './lib/generated/model/update-metrics-github-user-dto.interface';
 export * from './lib/generated/model/update-metrics-github-user-repository-dto.interface';
 export * from './lib/generated/model/update-metrics-github-user-statistics-dto.interface';
+export * from './lib/generated/model/update-metrics-settings-dto.interface';
 export * from './lib/generated/model/update-metrics-user-dto.interface';
 export * from './lib/generated/model/update-notifications-event-dto.interface';
 export * from './lib/generated/model/update-profile-args.interface';
