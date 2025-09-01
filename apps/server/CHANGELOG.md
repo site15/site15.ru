@@ -1,3 +1,9 @@
+# [1.13.0](https://github.com/site15/site15.ru/compare/server-v1.12.0...server-v1.13.0) (2025-09-01)
+
+### Features
+
+- **metrics:** support tenant-specific GitHub tokens for API requests ([d99455c](https://github.com/site15/site15.ru/commit/d99455cde6cf783dd6f39df362f58e6e67751a3e))
+
 # [1.12.0](https://github.com/site15/site15.ru/compare/server-v1.11.0...server-v1.12.0) (2025-08-30)
 
 ### Features
