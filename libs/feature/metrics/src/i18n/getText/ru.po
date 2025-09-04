@@ -24,3 +24,72 @@ msgstr ""
 
 msgid "User not found"
 msgstr ""
+
+msgid "Metrics Settings"
+msgstr "Настройки метрик"
+
+msgid "Enabled"
+msgstr "Включено"
+
+msgid "GitHub Token"
+msgstr "Токен GitHub"
+
+msgid "Created At"
+msgstr "Создано"
+
+msgid "Updated At"
+msgstr "Обновлено"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Create Metrics Settings"
+msgstr "Создать настройки метрик"
+
+msgid "Enter GitHub token"
+msgstr "Введите токен GitHub"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Repository statistics synchronization started"
+msgstr ""
+
+msgid "User statistics synchronization started"
+msgstr ""
+
+msgid "metrics-settings.grid.columns.id"
+msgstr "ID"
+
+msgid "metrics-settings.grid.columns.enabled"
+msgstr "Включено"
+
+msgid "metrics-settings.grid.columns.github-token"
+msgstr "Токен GitHub"
+
+msgid "metrics-settings.grid.columns.created-at"
+msgstr "Создано"
+
+msgid "metrics-settings.form.fields.enabled"
+msgstr "Включено"
+
+msgid "metrics-settings.form.fields.github-token"
+msgstr "Токен GitHub"
+
+msgid "metrics-settings.create-modal.title"
+msgstr "Создать настройки метрик"
+
+msgid "metrics-settings.update-modal.title"
+msgstr "Обновить настройки метрик {{id}}"
+
+msgid "metrics-settings.delete-modal.title"
+msgstr "Удалить настройки метрик {{id}}"

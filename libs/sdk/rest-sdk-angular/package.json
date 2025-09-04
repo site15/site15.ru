@@ -27,7 +27,7 @@
   "sideEffects": false,
   "i18n": [
     {
-      "scope": "rest-sdk-angular",
+      "scope": "site-15-rest-sdk-angular",
       "path": "src/i18n",
       "strategy": "join"
     }

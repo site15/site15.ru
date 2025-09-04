@@ -23,3 +23,72 @@ msgstr "User ID not set"
 
 msgid "User not found"
 msgstr "User not found"
+
+msgid "Metrics Settings"
+msgstr "Metrics Settings"
+
+msgid "Enabled"
+msgstr "Enabled"
+
+msgid "GitHub Token"
+msgstr "GitHub Token"
+
+msgid "Created At"
+msgstr "Created At"
+
+msgid "Updated At"
+msgstr "Updated At"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Create Metrics Settings"
+msgstr "Create Metrics Settings"
+
+msgid "Enter GitHub token"
+msgstr "Enter GitHub token"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Repository statistics synchronization started"
+msgstr "Repository statistics synchronization started"
+
+msgid "User statistics synchronization started"
+msgstr "User statistics synchronization started"
+
+msgid "metrics-settings.grid.columns.id"
+msgstr "ID"
+
+msgid "metrics-settings.grid.columns.enabled"
+msgstr "Enabled"
+
+msgid "metrics-settings.grid.columns.github-token"
+msgstr "GitHub Token"
+
+msgid "metrics-settings.grid.columns.created-at"
+msgstr "Created At"
+
+msgid "metrics-settings.form.fields.enabled"
+msgstr "Enabled"
+
+msgid "metrics-settings.form.fields.github-token"
+msgstr "GitHub Token"
+
+msgid "metrics-settings.create-modal.title"
+msgstr "Create Metrics Settings"
+
+msgid "metrics-settings.update-modal.title"
+msgstr "Update Metrics Settings {{id}}"
+
+msgid "metrics-settings.delete-modal.title"
+msgstr "Delete Metrics Settings {{id}}"

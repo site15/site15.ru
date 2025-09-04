@@ -9,7 +9,7 @@
   "typings": "./src/index.d.ts",
   "i18n": [
     {
-      "scope": "generator",
+      "scope": "site-15-generator",
       "path": "src/i18n",
       "strategy": "join"
     }

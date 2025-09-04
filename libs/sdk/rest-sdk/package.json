@@ -32,7 +32,7 @@
   "typings": "./src/index.d.ts",
   "i18n": [
     {
-      "scope": "rest-sdk",
+      "scope": "site-15-rest-sdk",
       "path": "src/i18n",
       "strategy": "join"
     }

@@ -27,6 +27,108 @@ msgstr "Save"
 msgid "Create"
 msgstr "Create"
 
+msgid "metrics-getText.Metrics Settings"
+msgstr "metrics-getText.Metrics Settings"
+
+msgid "metrics-getText.Create Metrics Settings"
+msgstr "metrics-getText.Create Metrics Settings"
+
+msgid "metrics-getText.Enabled"
+msgstr "metrics-getText.Enabled"
+
+msgid "metrics-getText.Created At"
+msgstr "metrics-getText.Created At"
+
+msgid "metrics-getText.Updated At"
+msgstr "metrics-getText.Updated At"
+
+msgid "metrics-getText.Actions"
+msgstr "metrics-getText.Actions"
+
+msgid "metrics-getText.Edit"
+msgstr "metrics-getText.Edit"
+
+msgid "metrics-getText.Delete"
+msgstr "metrics-getText.Delete"
+
+msgid "metrics-getText.Cancel"
+msgstr "metrics-getText.Cancel"
+
+msgid "metrics-getText.Save"
+msgstr "metrics-getText.Save"
+
+msgid "metrics-user.form.fields.external-user-id"
+msgstr "metrics-user.form.fields.external-user-id"
+
+msgid "metrics-user.form.fields.user-role"
+msgstr "metrics-user.form.fields.user-role"
+
+msgid "metrics-user.form.roles.user"
+msgstr "metrics-user.form.roles.user"
+
+msgid "metrics-user.form.roles.admin"
+msgstr "metrics-user.form.roles.admin"
+
+msgid "metrics-getText.GitHub Token"
+msgstr "metrics-getText.GitHub Token"
+
+msgid "metrics-getText.Enter GitHub token"
+msgstr "metrics-getText.Enter GitHub token"
+
+msgid "metrics-github-user-statistics.form.fields.periodType"
+msgstr "metrics-github-user-statistics.form.fields.periodType"
+
+msgid "metrics-github-user-statistics.form.fields.followersCount"
+msgstr "metrics-github-user-statistics.form.fields.followersCount"
+
+msgid "metrics-github-user-statistics.form.fields.followingCount"
+msgstr "metrics-github-user-statistics.form.fields.followingCount"
+
+msgid "metrics-github-user-statistics.form.fields.recordedAt"
+msgstr "metrics-github-user-statistics.form.fields.recordedAt"
+
+msgid "metrics-github-user-repository.form.fields.role"
+msgstr "metrics-github-user-repository.form.fields.role"
+
+msgid "metrics-github-user.form.fields.login"
+msgstr "metrics-github-user.form.fields.login"
+
+msgid "metrics-github-user.form.fields.name"
+msgstr "metrics-github-user.form.fields.name"
+
+msgid "metrics-github-user.form.fields.email"
+msgstr "metrics-github-user.form.fields.email"
+
+msgid "metrics-github-team-user.form.fields.role"
+msgstr "metrics-github-team-user.form.fields.role"
+
+msgid "metrics-github-team.form.fields.name"
+msgstr "metrics-github-team.form.fields.name"
+
+msgid "metrics-github-team.form.fields.description"
+msgstr "metrics-github-team.form.fields.description"
+
+msgid "metrics-github-repository-statistics.form.fields.periodType"
+msgstr "metrics-github-repository-statistics.form.fields.periodType"
+
+msgid "metrics-github-repository-statistics.form.fields.starsCount"
+msgstr "metrics-github-repository-statistics.form.fields.starsCount"
+
+msgid "metrics-github-repository-statistics.form.fields.forksCount"
+msgstr "metrics-github-repository-statistics.form.fields.forksCount"
+
+msgid "metrics-github-repository-statistics.form.fields.contributorsCount"
+msgstr "metrics-github-repository-statistics.form.fields.contributorsCount"
+
+msgid "metrics-github-repository-statistics.form.fields.commitsCount"
+msgstr "metrics-github-repository-statistics.form.fields.commitsCount"
+
+msgid "metrics-github-repository-statistics.form.fields.lastCommitDate"
+msgstr "metrics-github-repository-statistics.form.fields.lastCommitDate"
+
+msgid "metrics-github-repository-statistics.form.fields.recordedAt"
+msgstr "metrics-github-repository-statistics.form.fields.recordedAt"
+
 msgid "metrics-github-repository.form.fields.name"
 msgstr "metrics-github-repository.form.fields.name"
 
@@ -39,23 +141,215 @@ msgstr "metrics-github-repository.form.fields.private"
 msgid "metrics-github-repository.form.fields.fork"
 msgstr "metrics-github-repository.form.fields.fork"
 
-msgid "metrics-github-repository.update-modal.title"
-msgstr "metrics-github-repository.update-modal.title"
+msgid "metrics-github-metric.form.fields.metric-name"
+msgstr "metrics-github-metric.form.fields.metric-name"
 
-msgid "metrics-github-repository.create-modal.title"
-msgstr "metrics-github-repository.create-modal.title"
+msgid "metrics-github-metric.form.fields.metric-value"
+msgstr "metrics-github-metric.form.fields.metric-value"
+
+msgid "metrics-github-metric.form.fields.recorded-at"
+msgstr "metrics-github-metric.form.fields.recorded-at"
+
+msgid "metrics-user.update-modal.title"
+msgstr "Edit user #{{ id }}"
+
+msgid "metrics-user.create-modal.title"
+msgstr "Create user"
 
 msgid "Cancel"
 msgstr "Cancel"
 
-msgid "metrics-github-repository.delete-modal.title"
-msgstr "metrics-github-repository.delete-modal.title"
+msgid "metrics-user.delete-modal.title"
+msgstr "Delete user #{{ id }}"
 
 msgid "Yes"
 msgstr "Yes"
 
 msgid "No"
 msgstr "No"
+
+msgid "metrics-user.grid.columns.id"
+msgstr "ID"
+
+msgid "metrics-user.grid.columns.external-user-id"
+msgstr "metrics-user.grid.columns.external-user-id"
+
+msgid "metrics-user.grid.columns.user-role"
+msgstr "metrics-user.grid.columns.user-role"
+
+msgid "metrics-user.grid.columns.created-at"
+msgstr "metrics-user.grid.columns.created-at"
+
+msgid "metrics-github-user-statistics.update-modal.title"
+msgstr "metrics-github-user-statistics.update-modal.title"
+
+msgid "metrics-github-user-statistics.create-modal.title"
+msgstr "metrics-github-user-statistics.create-modal.title"
+
+msgid "metrics-github-user-statistics.delete-modal.title"
+msgstr "metrics-github-user-statistics.delete-modal.title"
+
+msgid "metrics-github-user-statistics.grid.columns.id"
+msgstr "metrics-github-user-statistics.grid.columns.id"
+
+msgid "metrics-github-user-statistics.grid.columns.userId"
+msgstr "metrics-github-user-statistics.grid.columns.userId"
+
+msgid "metrics-github-user-statistics.grid.columns.periodType"
+msgstr "metrics-github-user-statistics.grid.columns.periodType"
+
+msgid "metrics-github-user-statistics.grid.columns.followersCount"
+msgstr "metrics-github-user-statistics.grid.columns.followersCount"
+
+msgid "metrics-github-user-statistics.grid.columns.followingCount"
+msgstr "metrics-github-user-statistics.grid.columns.followingCount"
+
+msgid "metrics-github-user-statistics.grid.columns.recordedAt"
+msgstr "metrics-github-user-statistics.grid.columns.recordedAt"
+
+msgid "metrics-github-user-repository.update-modal.title"
+msgstr "metrics-github-user-repository.update-modal.title"
+
+msgid "metrics-github-user-repository.create-modal.title"
+msgstr "metrics-github-user-repository.create-modal.title"
+
+msgid "metrics-github-user-repository.delete-modal.title"
+msgstr "metrics-github-user-repository.delete-modal.title"
+
+msgid "metrics-github-user-repository.grid.columns.id"
+msgstr "metrics-github-user-repository.grid.columns.id"
+
+msgid "metrics-github-user-repository.grid.columns.role"
+msgstr "metrics-github-user-repository.grid.columns.role"
+
+msgid "metrics-github-user-repository.grid.columns.user-id"
+msgstr "metrics-github-user-repository.grid.columns.user-id"
+
+msgid "metrics-github-user-repository.grid.columns.repository-id"
+msgstr "metrics-github-user-repository.grid.columns.repository-id"
+
+msgid "metrics-github-user.update-modal.title"
+msgstr "metrics-github-user.update-modal.title"
+
+msgid "metrics-github-user.create-modal.title"
+msgstr "metrics-github-user.create-modal.title"
+
+msgid "metrics-github-user.delete-modal.title"
+msgstr "metrics-github-user.delete-modal.title"
+
+msgid "metrics-github-user.grid.columns.id"
+msgstr "metrics-github-user.grid.columns.id"
+
+msgid "metrics-github-user.grid.columns.login"
+msgstr "metrics-github-user.grid.columns.login"
+
+msgid "metrics-github-user.grid.columns.name"
+msgstr "metrics-github-user.grid.columns.name"
+
+msgid "metrics-github-user.grid.columns.email"
+msgstr "metrics-github-user.grid.columns.email"
+
+msgid "metrics-github-team-user.update-modal.title"
+msgstr "metrics-github-team-user.update-modal.title"
+
+msgid "metrics-github-team-user.create-modal.title"
+msgstr "metrics-github-team-user.create-modal.title"
+
+msgid "metrics-github-team-user.delete-modal.title"
+msgstr "metrics-github-team-user.delete-modal.title"
+
+msgid "metrics-github-team-user.grid.columns.id"
+msgstr "metrics-github-team-user.grid.columns.id"
+
+msgid "metrics-github-team-user.grid.columns.teamId"
+msgstr "metrics-github-team-user.grid.columns.teamId"
+
+msgid "metrics-github-team-user.grid.columns.userId"
+msgstr "metrics-github-team-user.grid.columns.userId"
+
+msgid "metrics-github-team-user.grid.columns.role"
+msgstr "metrics-github-team-user.grid.columns.role"
+
+msgid "metrics-github-team-repository.update-modal.title"
+msgstr "metrics-github-team-repository.update-modal.title"
+
+msgid "metrics-github-team-repository.create-modal.title"
+msgstr "metrics-github-team-repository.create-modal.title"
+
+msgid "metrics-github-team-repository.delete-modal.title"
+msgstr "metrics-github-team-repository.delete-modal.title"
+
+msgid "metrics-github-team-repository.grid.columns.id"
+msgstr "metrics-github-team-repository.grid.columns.id"
+
+msgid "metrics-github-team-repository.grid.columns.teamId"
+msgstr "metrics-github-team-repository.grid.columns.teamId"
+
+msgid "metrics-github-team-repository.grid.columns.repositoryId"
+msgstr "metrics-github-team-repository.grid.columns.repositoryId"
+
+msgid "metrics-github-team.update-modal.title"
+msgstr "metrics-github-team.update-modal.title"
+
+msgid "metrics-github-team.create-modal.title"
+msgstr "metrics-github-team.create-modal.title"
+
+msgid "metrics-github-team.delete-modal.title"
+msgstr "metrics-github-team.delete-modal.title"
+
+msgid "metrics-github-team.grid.columns.id"
+msgstr "metrics-github-team.grid.columns.id"
+
+msgid "metrics-github-team.grid.columns.name"
+msgstr "metrics-github-team.grid.columns.name"
+
+msgid "metrics-github-team.grid.columns.description"
+msgstr "metrics-github-team.grid.columns.description"
+
+msgid "metrics-github-repository-statistics.update-modal.title"
+msgstr "metrics-github-repository-statistics.update-modal.title"
+
+msgid "metrics-github-repository-statistics.create-modal.title"
+msgstr "metrics-github-repository-statistics.create-modal.title"
+
+msgid "metrics-github-repository-statistics.delete-modal.title"
+msgstr "metrics-github-repository-statistics.delete-modal.title"
+
+msgid "metrics-github-repository-statistics.grid.columns.id"
+msgstr "metrics-github-repository-statistics.grid.columns.id"
+
+msgid "metrics-github-repository-statistics.grid.columns.repositoryId"
+msgstr "metrics-github-repository-statistics.grid.columns.repositoryId"
+
+msgid "metrics-github-repository-statistics.grid.columns.periodType"
+msgstr "metrics-github-repository-statistics.grid.columns.periodType"
+
+msgid "metrics-github-repository-statistics.grid.columns.starsCount"
+msgstr "metrics-github-repository-statistics.grid.columns.starsCount"
+
+msgid "metrics-github-repository-statistics.grid.columns.forksCount"
+msgstr "metrics-github-repository-statistics.grid.columns.forksCount"
+
+msgid "metrics-github-repository-statistics.grid.columns.contributorsCount"
+msgstr "metrics-github-repository-statistics.grid.columns.contributorsCount"
+
+msgid "metrics-github-repository-statistics.grid.columns.commitsCount"
+msgstr "metrics-github-repository-statistics.grid.columns.commitsCount"
+
+msgid "metrics-github-repository-statistics.grid.columns.lastCommitDate"
+msgstr "metrics-github-repository-statistics.grid.columns.lastCommitDate"
+
+msgid "metrics-github-repository-statistics.grid.columns.recordedAt"
+msgstr "metrics-github-repository-statistics.grid.columns.recordedAt"
+
+msgid "metrics-github-repository.update-modal.title"
+msgstr "metrics-github-repository.update-modal.title"
+
+msgid "metrics-github-repository.create-modal.title"
+msgstr "metrics-github-repository.create-modal.title"
+
+msgid "metrics-github-repository.delete-modal.title"
+msgstr "metrics-github-repository.delete-modal.title"
 
 msgid "metrics-github-repository.grid.columns.id"
 msgstr "metrics-github-repository.grid.columns.id"
@@ -71,6 +365,27 @@ msgstr "metrics-github-repository.grid.columns.fork"
 
 msgid "metrics-github-repository.grid.columns.private"
 msgstr "metrics-github-repository.grid.columns.private"
+
+msgid "metrics-github-metric.update-modal.title"
+msgstr "metrics-github-metric.update-modal.title"
+
+msgid "metrics-github-metric.create-modal.title"
+msgstr "metrics-github-metric.create-modal.title"
+
+msgid "metrics-github-metric.delete-modal.title"
+msgstr "metrics-github-metric.delete-modal.title"
+
+msgid "metrics-github-metric.grid.columns.id"
+msgstr "metrics-github-metric.grid.columns.id"
+
+msgid "metrics-github-metric.grid.columns.metric-name"
+msgstr "metrics-github-metric.grid.columns.metric-name"
+
+msgid "metrics-github-metric.grid.columns.metric-value"
+msgstr "metrics-github-metric.grid.columns.metric-value"
+
+msgid "metrics-github-metric.grid.columns.recorded-at"
+msgstr "metrics-github-metric.grid.columns.recorded-at"
 
 msgid "Success"
 msgstr "Success"
@@ -378,15 +693,6 @@ msgstr "Confirm password"
 msgid "metrics-user.invite-members-modal.title"
 msgstr "Sending invitations"
 
-msgid "metrics-user.update-modal.title"
-msgstr "Edit user #{{ id }}"
-
-msgid "metrics-user.create-modal.title"
-msgstr "Create user"
-
-msgid "metrics-user.grid.columns.id"
-msgstr "ID"
-
 msgid "metrics-user.grid.columns.email"
 msgstr "Email"
 
@@ -511,9 +817,6 @@ msgstr "Tenant users"
 
 msgid "metrics-tenant.form.fields.name"
 msgstr "Name"
-
-msgid "metrics-user.delete-modal.title"
-msgstr "Delete user #{{ id }}"
 
 msgid "metrics-user.grid.columns.app-data"
 msgstr "Additional data"

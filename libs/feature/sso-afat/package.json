@@ -20,7 +20,7 @@
     "@nestjs-mod/misc": "1.4.3",
     "@fingerprintjs/fingerprintjs": "4.6.1",
     "date-fns": "^4.1.0",
-    "@site15/rest-sdk-angular": "1.6.0"
+    "@site15/rest-sdk-angular": "1.8.0"
   },
   "sideEffects": false,
   "i18n": [

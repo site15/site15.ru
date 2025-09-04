@@ -51,6 +51,33 @@ msgstr "Github"
 msgid "Github repositories"
 msgstr "Github repositories"
 
+msgid "Github users"
+msgstr "Github users"
+
+msgid "Github metrics"
+msgstr "Github metrics"
+
+msgid "Github user repositories"
+msgstr "Github user repositories"
+
+msgid "Github repository statistics"
+msgstr "Github repository statistics"
+
+msgid "Github teams"
+msgstr "Github teams"
+
+msgid "Github team repositories"
+msgstr "Github team repositories"
+
+msgid "Github team users"
+msgstr "Github team users"
+
+msgid "Github user statistics"
+msgstr "Github user statistics"
+
+msgid "General"
+msgstr "General"
+
 msgid ""
 "Dev/Watch mode: the infrastructure is running using docker-compose, "
 "applications are launched in watch pm2 mode"

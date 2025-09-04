@@ -1,3 +1,5 @@
+export * from './lib/components/metrics-settings-form/metrics-settings-form.component';
+export * from './lib/components/metrics-settings-grid/metrics-settings-grid.component';
 export * from './lib/forms/metrics-github-metric-form/metrics-github-metric-form.component';
 export * from './lib/forms/metrics-github-repository-form/metrics-github-repository-form.component';
 export * from './lib/forms/metrics-github-repository-statistics-form/metrics-github-repository-statistics-form.component';
@@ -45,6 +47,9 @@ export * from './lib/services/metrics-github-user-statistics-form.service';
 export * from './lib/services/metrics-github-user-statistics-mapper.service';
 export * from './lib/services/metrics-github-user-statistics.service';
 export * from './lib/services/metrics-github-user.service';
+export * from './lib/services/metrics-settings-form.service';
+export * from './lib/services/metrics-settings-mapper.service';
+export * from './lib/services/metrics-settings.service';
 export * from './lib/services/metrics-user-form.service';
 export * from './lib/services/metrics-user-mapper.service';
 export * from './lib/services/metrics-user.service';
