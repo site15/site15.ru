@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/site15/site15.ru/compare/client-v1.10.0...client-v1.11.0) (2025-09-29)
+
+### Features
+
+- **i18n:** add GitHub and metrics translation keys and placeholders [skip ci] ([3cbc8dc](https://github.com/site15/site15.ru/commit/3cbc8dcf117a6cab6c072c51f257ab75dbf4f818))
+- **metrics-afat:** add metrics settings management feature ([d5a2bab](https://github.com/site15/site15.ru/commit/d5a2babdc4dce5d5efa21c47ca499c8f2321eaf3))
+
 # [1.10.0](https://github.com/site15/site15.ru/compare/client-v1.9.0...client-v1.10.0) (2025-08-28)
 
 ### Features
