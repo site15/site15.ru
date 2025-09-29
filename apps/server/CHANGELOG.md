@@ -1,3 +1,14 @@
+# [1.14.0](https://github.com/site15/site15.ru/compare/server-v1.13.0...server-v1.14.0) (2025-09-29)
+
+### Bug Fixes
+
+- обновил документацию ([b773d92](https://github.com/site15/site15.ru/commit/b773d92cd24839aaaef0199db2b724417f3189d2))
+
+### Features
+
+- **i18n:** add GitHub and metrics translation keys and placeholders [skip ci] ([3cbc8dc](https://github.com/site15/site15.ru/commit/3cbc8dcf117a6cab6c072c51f257ab75dbf4f818))
+- **metrics-afat:** add metrics settings management feature ([d5a2bab](https://github.com/site15/site15.ru/commit/d5a2babdc4dce5d5efa21c47ca499c8f2321eaf3))
+
 # [1.13.0](https://github.com/site15/site15.ru/compare/server-v1.12.0...server-v1.13.0) (2025-09-01)
 
 ### Features
