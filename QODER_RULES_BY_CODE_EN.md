@@ -1,20 +1,20 @@
-# Правила QODER по анализу кода
+# QODER Rules by Code Analysis
 
-Этот документ содержит шаблоны разработки и правила, извлеченные из фактических реализаций кода в проекте. Эти правила должны использоваться Qoder для поддержания согласованности и следования установленным шаблонам.
+This document contains development patterns and rules extracted from actual code implementations in the project. These rules should be used by Qoder to maintain consistency and follow established patterns.
 
-## Шаблоны разработки бэкенда
+## Backend Development Patterns
 
-### 1. Шаблоны контроллеров
+### 1. Controller Patterns
 
-#### 1.1. Структура контроллера
+#### 1.1. Controller Structure
 
-- Все контроллеры должны расширять базовые операции CRUD (findMany, findOne, createOne, updateOne, deleteOne)
-- Используйте декораторы `@nestjs/common` для HTTP-методов
-- Используйте `@nestjs/swagger` для документации API
-- Реализуйте надлежащую обработку ошибок с `@nestjs-mod/validation`
-- Используйте клиент Prisma для операций с базой данных
+- All controllers should extend basic CRUD operations (findMany, findOne, createOne, updateOne, deleteOne)
+- Use `@nestjs/common` decorators for HTTP methods
+- Use `@nestjs/swagger` for API documentation
+- Implement proper error handling with `@nestjs-mod/validation`
+- Use Prisma client for database operations
 
-**Пример структуры контроллера:**
+**Example Controller Structure:**
 
 ```typescript
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
@@ -38,71 +38,71 @@ export class FeatureNameController {
   @Get()
   @ApiOkResponse({ type: FindManyResponseDto })
   async findMany(@Query() args: FindManyArgsDto) {
-    // Реализация
+    // Implementation
   }
 
   @Post()
   @ApiCreatedResponse({ type: EntityDto })
   async createOne(@Body() args: CreateEntityDto) {
-    // Реализация
+    // Implementation
   }
 
   @Put(':id')
   @ApiOkResponse({ type: EntityDto })
   async updateOne(@Param('id', new ParseUUIDPipe()) id: string, @Body() args: UpdateEntityDto) {
-    // Реализация
+    // Implementation
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: StatusResponse })
   async deleteOne(@Param('id', new ParseUUIDPipe()) id: string, @InjectTranslateFunction() getText: TranslateFunction) {
-    // Реализация
+    // Implementation
   }
 
   @Get(':id')
   @ApiOkResponse({ type: EntityDto })
   async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    // Реализация
+    // Implementation
   }
 }
 ```
 
-#### 1.2. Обработка полей в контроллерах
+#### 1.2. Field Handling in Controllers
 
-- **Явное перечисление полей**: Контроллеры должны явно перечислять поля во время вставки и обновления вместо использования деструктуризации
-- **Пропуск реляционных полей**: Поля для реляционных соединений должны быть пропущены в основном перечислении полей
-- **Условное присваивание полей**: Используйте шаблон `...(args.fieldName !== undefined ? { fieldName: args.fieldName } : {})` для необязательных полей
+- **Explicit Field Listing**: Controllers must explicitly list fields during insertion and updating instead of using destructuring
+- **Skip Relational Fields**: Fields for relational connections should be skipped in the main field listing
+- **Conditional Field Assignment**: Use pattern `...(args.fieldName !== undefined ? { fieldName: args.fieldName } : {})` for optional fields
 
-**Пример явного перечисления полей:**
+**Example of Explicit Field Listing:**
 
 ```typescript
-// Правильный подход - явное перечисление полей
+// Correct approach - explicit field listing
 return await this.prismaClient.entity.create({
   data: {
     field1: args.field1,
     field2: args.field2,
     ...(args.optionalField !== undefined ? { optionalField: args.optionalField } : {}),
-    // Реляционные поля обрабатываются отдельно
+    // Relational fields handled separately
     RelatedEntity: { connect: { id: args.relatedEntityId } },
   },
 });
 
-// Неправильный подход - использование деструктуризации
+// Incorrect approach - using destructuring
 return await this.prismaClient.entity.create({
   data: {
-    ...args, // Не делайте так
+    ...args, // Don't do this
     RelatedEntity: { connect: { id: args.relatedEntityId } },
   },
 });
 ```
 
-#### 1.3. Обработка контекста пользователя
+#### 1.3. User Context Handling
 
-- Всегда внедряйте контекст пользователя с помощью пользовательских декораторов
-- Обрабатывайте изоляцию арендаторов с помощью декораторов внешнего ID арендатора
-- Подключайте текущего пользователя как создателя/обновляющего с использованием имен полей отношений
+- Always inject user context using custom decorators
+- Handle tenant isolation using external tenant ID decorators
+- Connect current user as creator/updater using relation-specific field names
 
-**Пример обработки контекста пользователя:**
+**Example of User Context Handling:**
 
 ```typescript
 @Post()
@@ -114,15 +114,15 @@ async createOne(
 ) {
   return await this.prismaClient.entity.create({
     data: {
-      // Поля сущности
+      // Entity fields
       name: args.name,
       description: args.description,
 
-      // Соединения пользователей
+      // User connections
       User_Entity_createdByToUser: { connect: { id: user.id } },
       User_Entity_updatedByToUser: { connect: { id: user.id } },
 
-      // Обработка арендаторов
+      // Tenant handling
       ...(user.userRole === UserRole.Admin
         ? { tenantId: externalTenantId }
         : {
@@ -133,19 +133,19 @@ async createOne(
 }
 ```
 
-#### 1.4. Контроль доступа на основе ролей
+#### 1.4. Role-Based Access Control
 
-- Используйте пользовательские декораторы для проверки ролей
-- Реализуйте фильтрацию на основе арендаторов в запросах в зависимости от роли пользователя
-- Администраторы могут получить доступ ко всем арендаторам, обычные пользователи - только к своему
+- Use custom decorators for role validation
+- Implement tenant-based filtering in queries based on user role
+- Admin users can access all tenants, regular users only their own tenant
 
-**Пример контроля доступа на основе ролей:**
+**Example of Role-Based Access Control:**
 
 ```typescript
 @CheckRole([UserRole.User, UserRole.Admin])
 @Controller('/feature/name')
 export class FeatureNameController {
-  // Реализация контроллера
+  // Controller implementation
 
   async findMany(
     @CurrentExternalTenantId() externalTenantId: string,
@@ -156,7 +156,7 @@ export class FeatureNameController {
       return {
         entities: await prisma.entity.findMany({
           where: {
-            // Условия поиска
+            // Search conditions
             ...(args.searchText
               ? {
                   OR: [
@@ -166,18 +166,18 @@ export class FeatureNameController {
                 }
               : {}),
 
-            // Фильтрация арендаторов на основе роли
+            // Tenant filtering based on role
             ...(user.userRole === UserRole.Admin
               ? { tenantId: args.tenantId }
               : {
                   tenantId: user?.userRole === UserRole.User ? user.tenantId : externalTenantId,
                 }),
           },
-          // Пагинация и сортировка
+          // Pagination and sorting
         }),
         totalResults: await prisma.entity.count({
           where: {
-            // Те же условия, что и выше
+            // Same conditions as above
           },
         }),
       };
@@ -186,22 +186,22 @@ export class FeatureNameController {
 }
 ```
 
-#### 1.5. Валидация данных
+#### 1.5. Data Validation
 
-- Используйте DTO для валидации входных данных с декораторами `class-validator`
-- Расширяйте сгенерированные DTO для дополнительных требований валидации
-- Используйте декораторы `ApiProperty` для документации Swagger
+- Use DTOs for input validation with `class-validator` decorators
+- Extend generated DTOs for additional validation requirements
+- Use `ApiProperty` decorators for Swagger documentation
 
-**Пример валидации DTO:**
+**Example of DTO Validation:**
 
 ```typescript
-// Базовый DTO (сгенерированный)
+// Base DTO (generated)
 export class CreateEntityDto {
   name: string;
   description?: string | null;
 }
 
-// Расширенный DTO с валидацией
+// Extended DTO with validation
 import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -222,15 +222,15 @@ export class CreateFullEntityDto extends CreateEntityDto {
 }
 ```
 
-### 2. Шаблоны сервисов
+### 2. Service Patterns
 
-#### 2.1. Использование клиента Prisma
+#### 2.1. Prisma Client Usage
 
-- Внедряйте клиент Prisma с использованием токенов внедрения, специфичных для функции
-- Используйте транзакции для операций, требующих атомарности
-- Реализуйте надлежащую обработку ошибок и преобразование типов
+- Inject Prisma client using feature-specific injection tokens
+- Use transactions for operations that need atomicity
+- Implement proper error handling and type conversion
 
-**Пример использования клиента Prisma:**
+**Example of Prisma Client Usage:**
 
 ```typescript
 import { Injectable } from '@nestjs/common';
@@ -245,7 +245,7 @@ export class EntityService {
 
   async create(data: CreateEntityInput) {
     return await this.prismaClient.$transaction(async (prisma) => {
-      // Выполняем несколько связанных операций атомарно
+      // Perform multiple related operations atomically
       const entity = await prisma.entity.create({
         data: {
           ...data,
@@ -254,7 +254,7 @@ export class EntityService {
         },
       });
 
-      // Дополнительные операции, связанные с созданием сущности
+      // Additional operations related to entity creation
       await prisma.entityLog.create({
         data: {
           entityId: entity.id,
@@ -269,14 +269,14 @@ export class EntityService {
 }
 ```
 
-#### 2.2. Шаблоны запросов
+#### 2.2. Query Patterns
 
-- Реализуйте функциональность поиска с условиями OR для нескольких полей
-- Используйте пагинацию с параметрами take/skip
-- Реализуйте сортировку с динамической проверкой полей
-- Применяйте фильтрацию арендаторов на основе роли пользователя
+- Implement search functionality with OR conditions for multiple fields
+- Use pagination with take/skip parameters
+- Implement sorting with dynamic field validation
+- Apply tenant filtering based on user role
 
-**Пример шаблонов запросов:**
+**Example of Query Patterns:**
 
 ```typescript
 async findMany(args: {
@@ -326,39 +326,40 @@ async findMany(args: {
       }),
       totalResults: await prisma.entity.count({
         where: {
-          // Те же условия, что и выше
+          // Same conditions as above
         },
-      },    });
-  }
+      }),
+    };
+  });
 }
 ```
 
-### 3. Шаблоны DTO
+### 3. DTO Patterns
 
-#### 3.1. DTO для создания
+#### 3.1. Create DTOs
 
-- Расширяйте базовые DTO, сгенерированные Prisma
-- Добавляйте декораторы валидации для обязательных полей
-- Используйте префикс `CreateFull` для DTO, включающих реляционные поля
-- Не включайте `externalUserId` в расширенные DTO для создания
+- Extend base DTOs generated by Prisma
+- Add validation decorators for required fields
+- Use `CreateFull` prefix for DTOs that include relational fields
+- Do not include `externalUserId` in extended DTOs for creation
 
-**Пример DTO для создания:**
+**Example of Create DTOs:**
 
 ```typescript
-// Базовый DTO (сгенерированный Prisma)
+// Base DTO (generated by Prisma)
 export class CreateEntityDto {
   name: string;
   description?: string | null;
 }
 
-// Расширенный DTO с валидацией
+// Extended DTO with validation
 import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateFullEntityDto extends CreateEntityDto {
   @ApiProperty({
     type: 'string',
-    description: 'ID связанной сущности',
+    description: 'ID of the related entity',
   })
   @IsNotEmpty()
   @IsString()
@@ -366,7 +367,7 @@ export class CreateFullEntityDto extends CreateEntityDto {
 
   @ApiProperty({
     type: 'string',
-    description: 'Необязательное поле',
+    description: 'Optional field',
   })
   @IsOptional()
   @IsString()
@@ -374,29 +375,29 @@ export class CreateFullEntityDto extends CreateEntityDto {
 }
 ```
 
-#### 3.2. DTO для обновления
+#### 3.2. Update DTOs
 
-- Расширяйте базовые DTO обновления, сгенерированные Prisma
-- Делайте все поля необязательными для поддержки частичных обновлений
-- Используйте шаблон `PartialType` для операций обновления
+- Extend base update DTOs generated by Prisma
+- Make all fields optional to support partial updates
+- Use `PartialType` pattern for update operations
 
-**Пример DTO для обновления:**
+**Example of Update DTOs:**
 
 ```typescript
-// Базовый DTO (сгенерированный Prisma)
+// Base DTO (generated by Prisma)
 export class UpdateEntityDto {
   name?: string | null;
   description?: string | null;
 }
 
-// Расширенный DTO с дополнительной валидацией при необходимости
+// Extended DTO with additional validation if needed
 import { IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateFullEntityDto extends UpdateEntityDto {
   @ApiProperty({
     type: 'string',
-    description: 'Необязательное поле для обновления',
+    description: 'Optional field for update',
   })
   @IsOptional()
   @IsString()
@@ -404,16 +405,16 @@ export class UpdateFullEntityDto extends UpdateEntityDto {
 }
 ```
 
-### 4. Шаблоны модулей
+### 4. Module Patterns
 
-#### 4.1. Структура модуля
+#### 4.1. Module Structure
 
-- Используйте функцию `createNestModule` для создания модулей
-- Определяйте надлежащие категории модулей (feature, infrastructure и т.д.)
-- Реализуйте конфигурацию среды с надлежащими соглашениями об именовании
-- Используйте имена контекстов, специфичные для функций, для Prisma и других сервисов
+- Use `createNestModule` function for module creation
+- Define proper module categories (feature, infrastructure, etc.)
+- Implement environment configuration with proper naming conventions
+- Use feature-specific context names for Prisma and other services
 
-**Пример структуры модуля:**
+**Example of Module Structure:**
 
 ```typescript
 import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
@@ -444,17 +445,17 @@ export const { FeatureModule } = createNestModule({
 });
 ```
 
-#### 4.2. Регистрация контроллеров
+#### 4.2. Controller Registration
 
-- Регистрируйте все контроллеры в массиве controllers модуля
-- Применяйте guards условно на основе настроек среды
-- Используйте надлежащее внедрение зависимостей для всех сервисов
+- Register all controllers in the module's controllers array
+- Apply guards conditionally based on environment settings
+- Use proper dependency injection for all services
 
-**Пример регистрации контроллеров:**
+**Example of Controller Registration:**
 
 ```typescript
 export const { FeatureModule } = createNestModule({
-  // ... другая конфигурация
+  // ... other configuration
   controllers: (asyncModuleOptions) =>
     [FeatureController].map((ctrl) => {
       if (asyncModuleOptions.staticEnvironments?.useGuards) {
@@ -470,17 +471,17 @@ export const { FeatureModule } = createNestModule({
 });
 ```
 
-## Шаблоны разработки фронтенда
+## Frontend Development Patterns
 
-### 1. Шаблоны компонентов
+### 1. Component Patterns
 
-#### 1.1. Автономные компоненты
+#### 1.1. Standalone Components
 
-- Используйте автономные компоненты Angular с явными импортами
-- Реализуйте `ChangeDetectionStrategy.OnPush` для лучшей производительности
-- Используйте декоратор `@UntilDestroy()` для автоматической очистки подписок
+- Use Angular standalone components with explicit imports
+- Implement `ChangeDetectionStrategy.OnPush` for better performance
+- Use `@UntilDestroy()` decorator for automatic subscription cleanup
 
-**Пример автономного компонента:**
+**Example of Standalone Component:**
 
 ```typescript
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -509,23 +510,23 @@ export class FeatureFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Инициализация компонента
+    // Component initialization
   }
 }
 ```
 
-#### 1.2. Компоненты форм
+#### 1.2. Form Components
 
-- Реализуйте реактивные формы с `UntypedFormGroup`
-- Используйте Formly для динамической конфигурации форм
-- Обрабатывайте отправку формы с надлежащей обработкой ошибок
-- Реализуйте логику создания/обновления на основе наличия ID
+- Implement reactive forms with `UntypedFormGroup`
+- Use Formly for dynamic form configuration
+- Handle form submission with proper error handling
+- Implement create/update logic based on presence of ID
 
-**Пример компонента формы:**
+**Example of Form Component:**
 
 ```typescript
 @Component({
-  // ... конфигурация компонента
+  // ... component configuration
 })
 export class FeatureFormComponent implements OnInit {
   @Input() id?: string;
@@ -608,18 +609,18 @@ export class FeatureFormComponent implements OnInit {
 }
 ```
 
-#### 1.3. Компоненты сетки
+#### 1.3. Grid Components
 
-- Используйте компоненты таблиц Ant Design для отображения данных
-- Реализуйте функциональность поиска, пагинации и сортировки
-- Используйте BehaviorSubject для управления состоянием
-- Реализуйте модальные диалоги для операций создания/обновления
+- Use Ant Design table components for data display
+- Implement search, pagination, and sorting functionality
+- Use BehaviorSubject for state management
+- Implement modal dialogs for create/update operations
 
-**Пример компонента сетки:**
+**Example of Grid Component:**
 
 ```typescript
 @Component({
-  // ... конфигурация компонента
+  // ... component configuration
 })
 export class FeatureGridComponent implements OnInit {
   @Input() relatedEntityId?: string;
@@ -667,7 +668,7 @@ export class FeatureGridComponent implements OnInit {
     let meta = { meta: {}, ...(args || {}) }.meta as RequestMeta;
     const { queryParams, filters } = { filters: {}, ...(args || {}) };
 
-    // Обработка параметров запроса и фильтров
+    // Process query parameters and filters
     if (!args?.force && queryParams) {
       meta = getQueryMetaByParams(queryParams);
     }
@@ -697,7 +698,7 @@ export class FeatureGridComponent implements OnInit {
 
   showCreateOrUpdateModal(id?: string): void {
     const modal = this.nzModalService.create<FeatureFormComponent, FeatureFormComponent>({
-      nzTitle: id ? `Обновить ${id}` : 'Создать новый',
+      nzTitle: id ? `Update ${id}` : 'Create New',
       nzContent: FeatureFormComponent,
       nzViewContainerRef: this.viewContainerRef,
       nzData: {
@@ -707,11 +708,11 @@ export class FeatureGridComponent implements OnInit {
       } as FeatureFormComponent,
       nzFooter: [
         {
-          label: 'Отмена',
+          label: 'Cancel',
           onClick: () => modal.close(),
         },
         {
-          label: id ? 'Сохранить' : 'Создать',
+          label: id ? 'Save' : 'Create',
           onClick: () => {
             modal.componentInstance?.afterUpdate
               .pipe(
@@ -742,16 +743,16 @@ export class FeatureGridComponent implements OnInit {
 }
 ```
 
-### 2. Шаблоны сервисов
+### 2. Service Patterns
 
-#### 2.1. Структура API сервисов
+#### 2.1. API Service Structure
 
-- Создавайте сервисы, оборачивающие вызовы REST API
-- Реализуйте надлежащее преобразование типов между API и объектами модели
-- Используйте операторы RxJS для преобразования данных
-- Обрабатывайте ошибки валидации на стороне сервера
+- Create services that wrap REST API calls
+- Implement proper type conversion between API and model objects
+- Use RxJS operators for data transformation
+- Handle server-side validation errors
 
-**Пример API сервиса:**
+**Example of API Service:**
 
 ```typescript
 @Injectable({ providedIn: 'root' })
@@ -809,13 +810,13 @@ export class FeatureService {
 }
 ```
 
-#### 2.2. Сервисы маппинга
+#### 2.2. Mapper Services
 
-- Создавайте сервисы маппинга для преобразования данных между различными форматами
-- Обрабатывайте преобразования даты/времени с надлежащей обработкой часовых поясов
-- Реализуйте методы `toModel`, `toForm` и `toJson` для различных преобразований
+- Create mapper services for data transformation between different formats
+- Handle date/time conversions with proper timezone handling
+- Implement `toModel`, `toForm`, and `toJson` methods for different transformations
 
-**Пример сервиса маппинга:**
+**Example of Mapper Service:**
 
 ```typescript
 export interface FeatureModel extends Partial<Omit<FeatureDtoInterface, 'createdAt' | 'updatedAt'>> {
@@ -851,13 +852,13 @@ export class FeatureMapperService {
 }
 ```
 
-#### 2.3. Сервисы форм
+#### 2.3. Form Services
 
-- Создавайте сервисы форм для конфигурации полей Formly
-- Реализуйте поддержку нескольких языков для меток форм
-- Обрабатывайте ошибки валидации на стороне сервера в полях формы
+- Create form services for Formly field configuration
+- Implement multilingual support for form labels
+- Handle server-side validation errors in form fields
 
-**Пример сервиса форм:**
+**Example of Form Service:**
 
 ```typescript
 @Injectable({ providedIn: 'root' })
@@ -885,7 +886,7 @@ export class FeatureFormService {
           },
           props: {
             label: this.translocoService.translate(`feature.form.fields.name`),
-            placeholder: 'Название',
+            placeholder: 'Name',
             required: true,
           },
         },
@@ -897,7 +898,7 @@ export class FeatureFormService {
           },
           props: {
             label: this.translocoService.translate(`feature.form.fields.description`),
-            placeholder: 'Описание',
+            placeholder: 'Description',
             required: false,
           },
         },
@@ -912,19 +913,19 @@ export class FeatureFormService {
 }
 ```
 
-### 3. Шаблоны управления состоянием
+### 3. State Management Patterns
 
-#### 3.1. Реактивное состояние
+#### 3.1. Reactive State
 
-- Используйте BehaviorSubject для управления состоянием компонентов
-- Реализуйте надлежащую очистку подписок с `untilDestroyed`
-- Используйте операторы RxJS для преобразований состояния
+- Use BehaviorSubject for managing component state
+- Implement proper subscription cleanup with `untilDestroyed`
+- Use RxJS operators for state transformations
 
-**Пример реактивного состояния:**
+**Example of Reactive State:**
 
 ```typescript
 @Component({
-  // ... конфигурация компонента
+  // ... component configuration
 })
 export class FeatureComponent implements OnInit {
   items$ = new BehaviorSubject<FeatureModel[]>([]);
@@ -935,7 +936,7 @@ export class FeatureComponent implements OnInit {
   ngOnInit(): void {
     merge(
       this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
-      // ... другие потоки
+      // ... other streams
     )
       .pipe(
         tap(() => this.loadData({ force: true })),
@@ -949,7 +950,7 @@ export class FeatureComponent implements OnInit {
   private loadData(args?: { force?: boolean }) {
     this.featureService
       .findMany({
-        /* параметры */
+        /* parameters */
       })
       .pipe(
         tap((result) => {
@@ -964,16 +965,16 @@ export class FeatureComponent implements OnInit {
 }
 ```
 
-#### 3.2. Поток данных
+#### 3.2. Data Flow
 
-- Реализуйте однонаправленный поток данных
-- Используйте observables для асинхронной обработки данных
-- Реализуйте надлежащую обработку ошибок для всех асинхронных операций
+- Implement unidirectional data flow
+- Use observables for async data handling
+- Implement proper error handling for all async operations
 
-**Пример потока данных:**
+**Example of Data Flow:**
 
-````typescript
-// Родительский компонент, передающий данные дочернему
+```typescript
+// Parent component passing data to child
 @Component({
   template: `
     <feature-grid [relatedEntityId]="selectedId$ | async" [forceLoadStream]="refreshStream$"> </feature-grid>
@@ -988,7 +989,7 @@ export class ParentComponent {
   }
 }
 
-// Дочерний компонент, принимающий и обрабатывающий данные
+// Child component receiving and processing data
 @Component({
   selector: 'feature-grid',
 })
@@ -996,31 +997,31 @@ export class FeatureGridComponent implements OnInit {
   @Input() relatedEntityId?: string;
   @Input() forceLoadStream?: Observable<unknown>[];
 
-  // Реализация, использующая эти входные данные
-```}
-````
+  // Implementation that uses these inputs
+}
+```
 
-## Шаблоны баз данных и ORM
+## Database and ORM Patterns
 
-### 1. Шаблоны Prisma
+### 1. Prisma Patterns
 
-#### 1.1. Проектирование схемы
+#### 1.1. Schema Design
 
-- Используйте имена полей отношений, специфичные для соединений
-- Реализуйте надлежащую индексацию для часто запрашиваемых полей
-- Используйте соответствующие типы данных для каждого поля
-- Следуйте согласованным соглашениям об именовании для таблиц, столбцов, ограничений и индексов
-- Реализуйте многотенантность с полем tenantId во всех сущностях
-- Включайте поля аудита (createdAt, updatedAt, createdBy, updatedBy) во все сущности
-- Используйте UUID в качестве типа первичного ключа для всех сущностей
-- Реализуйте надлежащие ограничения внешних ключей с описательными именами
-- Используйте уникальные ограничения для бизнес-ключей
-- Включайте описательные комментарии для таблиц и столбцов
+- Use relation-specific field names for connecting related entities
+- Implement proper indexing for frequently queried fields
+- Use appropriate data types for each field
+- Follow consistent naming conventions for tables, columns, constraints, and indexes
+- Implement multi-tenancy with tenantId field on all entities
+- Include audit fields (createdAt, updatedAt, createdBy, updatedBy) on all entities
+- Use UUID as primary key type for all entities
+- Implement proper foreign key constraints with descriptive names
+- Use unique constraints for business keys
+- Include descriptive comments for tables and columns
 
-**Пример проектирования схемы Prisma:**
+**Example of Prisma Schema Design:**
 
 ```prisma
-// Полная сущность со всеми стандартными полями
+// Complete entity with all standard fields
 model EntityName {
   /// @DtoCreateHidden
   id          String   @id(map: "PK_ENTITY_NAME") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
@@ -1043,17 +1044,17 @@ model EntityName {
   /// @DtoUpdateHidden
   tenantId    String   @db.Uuid
 
-  // Отношения
+  // Relations
   User_EntityName_createdByToUser User @relation("EntityName_createdByToUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ENTITY_NAME__CREATED_BY")
   User_EntityName_updatedByToUser User @relation("EntityName_updatedByToUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ENTITY_NAME__UPDATED_BY")
   RelatedEntity RelatedEntity[]
 
-  // Ограничения
+  // Constraints
   @@unique([tenantId, name], map: "UQ_ENTITY_NAME__NAME")
   @@index([tenantId], map: "IDX_ENTITY_NAME__TENANT_ID")
 }
 
-// Таблица соединения для отношений многие-ко-многим
+// Junction table for many-to-many relationships
 model EntityNameRelatedEntity {
   /// @DtoCreateHidden
   id              String   @id(map: "PK_ENTITY_NAME_RELATED_ENTITY") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
@@ -1076,28 +1077,28 @@ model EntityNameRelatedEntity {
   /// @DtoUpdateHidden
   tenantId        String   @db.Uuid
 
-  // Отношения
+  // Relations
   User_EntityNameRelatedEntity_createdByToUser User @relation("EntityNameRelatedEntity_createdByToUser", fields: [createdBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ENTITY_NAME_RELATED_ENTITY__CREATED_BY")
   EntityName    EntityName    @relation(fields: [entityNameId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ENTITY_NAME_RELATED_ENTITY__ENTITY_NAME_ID")
   RelatedEntity RelatedEntity @relation(fields: [relatedEntityId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ENTITY_NAME_RELATED_ENTITY__RELATED_ENTITY_ID")
   User_EntityNameRelatedEntity_updatedByToUser User @relation("EntityNameRelatedEntity_updatedByToUser", fields: [updatedBy], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ENTITY_NAME_RELATED_ENTITY__UPDATED_BY")
 
-  // Ограничения
+  // Constraints
   @@unique([tenantId, entityNameId, relatedEntityId], map: "UQ_ENTITY_NAME_RELATED_ENTITY__ENTITY_RELATED")
   @@index([tenantId], map: "IDX_ENTITY_NAME_RELATED_ENTITY__TENANT_ID")
 }
 ```
 
-#### 1.2. Оптимизация запросов
+#### 1.2. Query Optimization
 
-- Используйте предложения select/where для ограничения извлечения данных
-- Реализуйте надлежащую пагинацию для больших наборов данных
-- Используйте транзакции для связанных операций
+- Use select/where clauses to limit data retrieval
+- Implement proper pagination for large datasets
+- Use transactions for related operations
 
-**Пример оптимизации запросов:**
+**Example of Query Optimization:**
 
 ```typescript
-// Эффективный запрос с надлежащим выбором
+// Efficient query with proper selection
 const entities = await prisma.entity.findMany({
   where: {
     tenantId: userTenantId,
@@ -1119,11 +1120,11 @@ const entities = await prisma.entity.findMany({
   },
 });
 
-// Транзакция для связанных операций
+// Transaction for related operations
 const result = await prisma.$transaction(async (tx) => {
   const entity = await tx.entity.create({
     data: {
-      /* данные сущности */
+      /* entity data */
     },
   });
 
@@ -1139,27 +1140,27 @@ const result = await prisma.$transaction(async (tx) => {
 });
 ```
 
-### 2. Шаблоны миграций
+### 2. Migration Patterns
 
-#### 2.1. Миграции баз данных
+#### 2.1. Database Migrations
 
-- Используйте инструменты миграции для управления базой данных
-- Создавайте миграции с описательными именами в формате: `V{yyyyMMddkkmm}__{Description}.sql` (https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table)
-- Реализуйте надлежащие процедуры базового уровня и проверки
-- Используйте защитный DDL с обработкой исключений для идемпотентных миграций
-- Включайте комментарии к таблицам и столбцам для документации
-- Следуйте согласованным соглашениям об именовании для ограничений и индексов
-- Реализуйте поддержку многотенантности во всех таблицах
-- **Миграции должны быть перезапускаемыми/идемпотентными - используйте предложения IF NOT EXISTS и обработку исключений, чтобы миграции можно было безопасно повторно запускать**
+- Use migration tools for database management
+- Create migrations with descriptive names following the format: `V{yyyyMMddkkmm}__{Description}.sql` (https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table)
+- Implement proper baseline and validation procedures
+- Use defensive DDL with exception handling for idempotent migrations
+- Include table and column comments for documentation
+- Follow consistent naming for constraints and indexes
+- Implement multi-tenancy support in all tables
+- **Migrations must be restartable/idempotent - use IF NOT EXISTS clauses and exception handling to ensure migrations can be safely re-run**
 
-**Пример структуры миграции:**
+**Example of Migration Structure:**
 
 ```sql
 -- V202507191859__Init.sql
--- Миграция: Создание начальных таблиц для функции
--- Описание: Создает таблицы, индексы и ограничения для функции
+-- Migration: Create initial tables for feature
+-- Description: Creates tables, indexes, and constraints for the feature
 
--- Сначала создаем типы перечислений
+-- Create enum types first
 DO $$
 BEGIN
 CREATE TYPE "EntityStatus" AS enum(
@@ -1174,7 +1175,7 @@ $$;
 
 --
 
--- Создаем основную таблицу сущности
+-- Create main entity table
 CREATE TABLE IF NOT EXISTS "EntityName"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     "name" varchar(255) NOT NULL,
@@ -1189,23 +1190,23 @@ CREATE TABLE IF NOT EXISTS "EntityName"(
 
 --
 
--- Добавляем комментарии к таблице
-COMMENT ON TABLE "EntityName" IS 'Описание сущности';
+-- Add table comments
+COMMENT ON TABLE "EntityName" IS 'Description of the entity';
 
 --
 
--- Добавляем комментарии к столбцам
-COMMENT ON COLUMN "EntityName".id IS 'Первичный ключ: уникальный идентификатор сущности';
-COMMENT ON COLUMN "EntityName"."name" IS 'Название сущности';
-COMMENT ON COLUMN "EntityName"."description" IS 'Описание сущности';
-COMMENT ON COLUMN "EntityName"."status" IS 'Статус сущности';
-COMMENT ON COLUMN "EntityName"."createdAt" IS 'Временная метка создания записи';
-COMMENT ON COLUMN "EntityName"."updatedAt" IS 'Временная метка обновления записи';
-COMMENT ON COLUMN "EntityName"."tenantId" IS 'Идентификатор арендатора для многотенантности';
+-- Add column comments
+COMMENT ON COLUMN "EntityName".id IS 'Primary key: unique entity identifier';
+COMMENT ON COLUMN "EntityName"."name" IS 'Entity name';
+COMMENT ON COLUMN "EntityName"."description" IS 'Entity description';
+COMMENT ON COLUMN "EntityName"."status" IS 'Entity status';
+COMMENT ON COLUMN "EntityName"."createdAt" IS 'Record creation timestamp';
+COMMENT ON COLUMN "EntityName"."updatedAt" IS 'Record update timestamp';
+COMMENT ON COLUMN "EntityName"."tenantId" IS 'Tenant identifier for multi-tenancy';
 
 --
 
--- Добавляем ограничение первичного ключа
+-- Add primary key constraint
 DO $$
 BEGIN
 ALTER TABLE "EntityName"
@@ -1220,17 +1221,17 @@ $$;
 
 --
 
--- Добавляем уникальные ограничения
+-- Add unique constraints
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_ENTITY_NAME__NAME" ON "EntityName"("tenantId", "name");
 
 --
 
--- Добавляем индексы
+-- Add indexes
 CREATE INDEX IF NOT EXISTS "IDX_ENTITY_NAME__TENANT_ID" ON "EntityName"("tenantId");
 CREATE INDEX IF NOT EXISTS "IDX_ENTITY_NAME__STATUS" ON "EntityName"("tenantId", "status");
 
 --
--- Создаем таблицу соединения для отношений многие-ко-многим
+-- Create junction table for many-to-many relationships
 CREATE TABLE IF NOT EXISTS "EntityNameRelatedEntity"(
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     "entityNameId" uuid NOT NULL,
@@ -1244,7 +1245,7 @@ CREATE TABLE IF NOT EXISTS "EntityNameRelatedEntity"(
 
 --
 
-COMMENT ON TABLE "EntityNameRelatedEntity" IS 'Отношение между сущностями и связанными сущностями';
+COMMENT ON TABLE "EntityNameRelatedEntity" IS 'Relation between entities and related entities';
 
 --
 
@@ -1262,7 +1263,7 @@ $$;
 
 --
 
--- Добавляем ограничения внешних ключей
+-- Add foreign key constraints
 DO $$
 BEGIN
 ALTER TABLE "EntityNameRelatedEntity"
@@ -1287,51 +1288,51 @@ $$;
 
 --
 
--- Добавляем уникальные ограничения для таблицы соединения
+-- Add unique constraints for junction table
 CREATE UNIQUE INDEX IF NOT EXISTS "UQ_ENTITY_NAME_RELATED_ENTITY__ENTITY_RELATED" ON "EntityNameRelatedEntity"("tenantId", "entityNameId", "relatedEntityId");
 
 --
 
--- Добавляем индексы для таблицы соединения
+-- Add indexes for junction table
 CREATE INDEX IF NOT EXISTS "IDX_ENTITY_NAME_RELATED_ENTITY__TENANT_ID" ON "EntityNameRelatedEntity"("tenantId");
 ```
 
-#### 2.2. Генерация схемы
+#### 2.2. Schema Generation
 
-- Используйте инструменты интроспекции базы данных для генерации схемы из существующих баз данных
-- Генерируйте клиентский код после изменений схемы
-- Реализуйте надлежащую конфигурацию среды для различных целевых развертываний
-- **Всегда запрашивайте разрешение пользователя перед применением миграций или синхронизацией схем Prisma. Если пользователь соглашается, применяйте миграции с помощью `npm run db:create-and-fill` и обновляйте схему Prisma с помощью `npm run prisma:pull`**
+- Use database introspection tools to generate schema from existing databases
+- Generate client code after schema changes
+- Implement proper environment configuration for different deployment targets
+- **Always request user permission before applying migrations or synchronizing Prisma schemas. If the user agrees, apply migrations using `npm run db:create-and-fill` and update the Prisma schema using `npm run prisma:pull`**
 
-**Пример команд генерации схемы:**
+**Example of Schema Generation Commands:**
 
 ```bash
-# Генерация схемы Prisma из существующей базы данных
+# Generate Prisma schema from existing database
 npx prisma db pull --schema=./src/prisma/schema.prisma
 
-# Генерация клиента Prisma
+# Generate Prisma client
 npx prisma generate --schema=./src/prisma/schema.prisma
 
-# Создание новой миграции
+# Create new migration
 npx prisma migrate dev --name add_new_feature
 
-# Применение миграций к производству
+# Apply migrations to production
 npx prisma migrate deploy
 ```
 
-## Шаблоны интернационализации
+## Internationalization Patterns
 
-### 1. Реализация перевода
+### 1. Translation Implementation
 
-- Используйте библиотеки перевода для интернационализации
-- Реализуйте функции маркеров для извлечения ключей перевода
-- Создавайте отдельные файлы перевода для каждого модуля функций
-- Используйте pipes и directives перевода в шаблонах
+- Use translation libraries for internationalization
+- Implement marker functions for translation key extraction
+- Create separate translation files for each feature module
+- Use translation pipes and directives in templates
 
-**Пример реализации перевода:**
+**Example of Translation Implementation:**
 
 ```typescript
-// Компонент с переводами
+// Component with translations
 @Component({
   template: `
     <h1>{{ 'feature.title' | transloco }}</h1>
@@ -1342,7 +1343,7 @@ export class FeatureComponent {
   constructor(private readonly translocoService: TranslocoService) {}
 }
 
-// Маркеры ключей перевода
+// Translation keys marker
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 
 export class FeatureGridComponent {
@@ -1353,7 +1354,7 @@ export class FeatureGridComponent {
 }
 ```
 
-**Пример файлов перевода:**
+**Example of Translation Files:**
 
 ```json
 // assets/i18n/en.json
@@ -1397,13 +1398,13 @@ export class FeatureGridComponent {
 }
 ```
 
-### 2. Метки форм и столбцы сетки
+### 2. Form Labels and Grid Columns
 
-- Используйте ключи перевода для всего текста, видимого пользователю
-- Реализуйте надлежащие соглашения об именовании ключей
-- Поддерживайте несколько языков
+- Use translation keys for all user-facing text
+- Implement proper key naming conventions
+- Support multiple languages
 
-**Пример меток форм:**
+**Example of Form Labels:**
 
 ```typescript
 getFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
@@ -1427,19 +1428,19 @@ getFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
 }
 ```
 
-## Шаблоны обработки ошибок
+## Error Handling Patterns
 
-### 1. Ошибки на стороне сервера
+### 1. Server-Side Errors
 
-- Реализуйте пользовательские классы ошибок для конкретных типов ошибок
-- Используйте надлежащие коды состояния HTTP
-- Включайте детали ошибок в тела ответов
-- Реализуйте фильтрацию и логирование ошибок
+- Implement custom error classes for specific error types
+- Use proper HTTP status codes
+- Include error details in response bodies
+- Implement error filtering and logging
 
-**Пример обработки ошибок на стороне сервера:**
+**Example of Server-Side Error Handling:**
 
 ```typescript
-// Пользовательские классы ошибок
+// Custom error classes
 export class FeatureError extends Error {
   constructor(
     public readonly code: FeatureErrorEnum,
@@ -1454,7 +1455,7 @@ export enum FeatureErrorEnum {
   UNAUTHORIZED_ACCESS = 'UNAUTHORIZED_ACCESS',
 }
 
-// Фильтр ошибок
+// Error filter
 @Catch(FeatureError)
 export class FeatureExceptionsFilter implements ExceptionFilter {
   catch(exception: FeatureError, host: ArgumentsHost) {
@@ -1483,14 +1484,14 @@ export class FeatureExceptionsFilter implements ExceptionFilter {
 }
 ```
 
-### 2. Ошибки на стороне клиента
+### 2. Client-Side Errors
 
-- Обрабатывайте ошибки валидации сервера в формах
-- Отображайте понятные сообщения об ошибках для пользователей
-- Реализуйте надлежащее управление состоянием ошибок
-- Используйте компоненты UI для отображения ошибок
+- Handle server validation errors in forms
+- Display user-friendly error messages
+- Implement proper error state management
+- Use UI components for error display
 
-**Пример обработки ошибок на стороне клиента:**
+**Example of Client-Side Error Handling:**
 
 ```typescript
 @Injectable({ providedIn: 'root' })
@@ -1511,7 +1512,7 @@ export class ValidationService {
   }
 }
 
-// В компоненте формы
+// In form component
 private createOne() {
   return this.featureService
     .createOne(this.form.value)
@@ -1526,16 +1527,16 @@ private createOne() {
 }
 ```
 
-## Шаблоны тестирования
+## Testing Patterns
 
-### 1. Модульное тестирование
+### 1. Unit Testing
 
-- Используйте фреймворки тестирования для модульного тестирования
-- Реализуйте надлежащую настройку и разборку тестов
-- Используйте мокирование для внешних зависимостей
-- Тестируйте как положительные, так и отрицательные сценарии
+- Use testing frameworks for unit testing
+- Implement proper test setup and teardown
+- Use mocking for external dependencies
+- Test both positive and negative scenarios
 
-**Пример модульного тестирования:**
+**Example of Unit Testing:**
 
 ```typescript
 describe('FeatureService', () => {
@@ -1581,14 +1582,14 @@ describe('FeatureService', () => {
 });
 ```
 
-### 2. End-to-End тестирование
+### 2. End-to-End Testing
 
-- Используйте фреймворки E2E тестирования для интеграционного тестирования
-- Реализуйте шаблоны объектов страниц
-- Тестируйте пользовательские рабочие процессы и точки интеграции
-- Используйте надлежащее управление тестовыми данными
+- Use E2E testing frameworks for integration testing
+- Implement page object patterns
+- Test user workflows and integration points
+- Use proper test data management
 
-**Пример E2E тестирования:**
+**Example of E2E Testing:**
 
 ```typescript
 // page-object.ts
@@ -1626,16 +1627,16 @@ test.describe('Feature Management', () => {
 });
 ```
 
-## Шаблоны развертывания и инфраструктуры
+## Deployment and Infrastructure Patterns
 
-### 1. Конфигурация среды
+### 1. Environment Configuration
 
-- Используйте переменные среды для конфигурации
-- Реализуйте надлежащую проверку среды
-- Используйте соглашения об именовании, специфичные для функций, для среды
-- Поддерживайте несколько целевых развертываний (dev, prod и т.д.)
+- Use environment variables for configuration
+- Implement proper environment validation
+- Use feature-specific environment naming conventions
+- Support multiple deployment targets (dev, prod, etc.)
 
-**Пример конфигурации среды:**
+**Example of Environment Configuration:**
 
 ```typescript
 // environments.ts
@@ -1660,14 +1661,14 @@ FEATURE_USE_GUARDS=true
 FEATURE_USE_FILTERS=true
 ```
 
-### 2. Docker и контейнеризация
+### 2. Docker and Containerization
 
-- Используйте Docker для контейнеризации
-- Реализуйте надлежащую сетевую контейнеризацию
-- Используйте файлы среды для конфигурации
-- Поддерживайте как конфигурации разработки, так и производства
+- Use Docker for containerization
+- Implement proper container networking
+- Use environment files for configuration
+- Support both development and production configurations
 
-**Пример конфигурации Docker:**
+**Example of Docker Configuration:**
 
 ```dockerfile
 # Dockerfile
@@ -1713,14 +1714,14 @@ volumes:
   postgres_data:
 ```
 
-### 3. Шаблоны CI/CD
+### 3. CI/CD Patterns
 
-- Реализуйте надлежащие скрипты сборки и развертывания
-- Используйте инструменты управления монорепозиторием
-- Реализуйте автоматическое тестирование в CI пайплайнах
-- Используйте семантическое версионирование для релизов
+- Implement proper build and deployment scripts
+- Use monorepo management tools
+- Implement automated testing in CI pipelines
+- Use semantic versioning for releases
 
-**Пример конфигурации CI/CD:**
+**Example of CI/CD Configuration:**
 
 ```yaml
 # .github/workflows/ci.yml
@@ -1753,16 +1754,16 @@ jobs:
       - run: npm run deploy
 ```
 
-## Шаблоны организации кода
+## Code Organization Patterns
 
-### 1. Структура проекта
+### 1. Project Structure
 
-- Используйте структуру монорепозитория для нескольких приложений
-- Организуйте код по модулям функций
-- Разделяйте код фронтенда и бэкенда
-- Реализуйте надлежащие границы библиотек
+- Use monorepo structure for multiple applications
+- Organize code by feature modules
+- Separate frontend and backend code
+- Implement proper library boundaries
 
-**Пример структуры проекта:**
+**Example of Project Structure:**
 
 ```
 project/
@@ -1795,14 +1796,14 @@ project/
 └── tools/
 ```
 
-### 2. Соглашения об именовании файлов
+### 2. File Naming Conventions
 
-- Используйте описательные имена файлов, соответствующие именам классов/компонентов
-- Используйте согласованные шаблоны именования (kebab-case для файлов, PascalCase для классов)
-- Группируйте связанные файлы в соответствующие каталоги
-- Используйте файлы index.ts для экспорта модулей
+- Use descriptive file names that match class/component names
+- Use consistent naming patterns (kebab-case for files, PascalCase for classes)
+- Group related files in appropriate directories
+- Use index.ts files for module exports
 
-**Пример соглашений об именовании:**
+**Example of File Naming:**
 
 ```
 feature-name/
@@ -1823,14 +1824,14 @@ feature-name/
 │       └── feature-name.spec.ts
 ```
 
-### 3. Стиль кода и форматирование
+### 3. Code Style and Formatting
 
-- Используйте линтеры для проверки качества кода
-- Реализуйте форматировщики кода для согласованного форматирования
-- Следуйте передовым практикам TypeScript
-- Используйте надлежащую организацию импортов
+- Use linters for code quality checks
+- Implement code formatters for consistent formatting
+- Follow TypeScript best practices
+- Use proper import organization
 
-**Пример конфигурации стиля кода:**
+**Example of Code Style Configuration:**
 
 ```json
 // .eslintrc.json

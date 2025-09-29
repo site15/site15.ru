@@ -4,6 +4,20 @@
 
   <p align="center">Boilerplate for creating a sso application on NestJS and Angular</p>
 
+## Документация на русском языке
+
+Подробная документация проекта на русском языке доступна в следующих файлах:
+
+- [README_RU.md](./README_RU.md) - Основная информация о правилах и шаблонах проекта
+- [QODER_RULES.md](./QODER_RULES.md) - Основные правила и рекомендации для работы с кодовой базой
+- [QODER_RULES_BY_CODE.md](./QODER_RULES_BY_CODE.md) - Подробные шаблоны разработки, извлеченные из кода проекта
+- [PATTERNS_DISCUSSED.md](./PATTERNS_DISCUSSED.md) - Паттерны, обсуждаемые в ходе разработки
+
+Оригинальные файлы на английском языке сохранены с суффиксом `_EN`:
+
+- [QODER_RULES_EN.md](./QODER_RULES_EN.md)
+- [QODER_RULES_BY_CODE_EN.md](./QODER_RULES_BY_CODE_EN.md)
+
 ## Demo
 
 https://sso.nestjs-mod.com - live demo on Kubernetes
