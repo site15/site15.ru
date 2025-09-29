@@ -1,3 +1,9 @@
+# [1.9.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.8.0...rest-sdk-v1.9.0) (2025-09-29)
+
+### Features
+
+- **i18n:** add GitHub and metrics translation keys and placeholders [skip ci] ([3cbc8dc](https://github.com/site15/site15.ru/commit/3cbc8dcf117a6cab6c072c51f257ab75dbf4f818))
+
 # [1.8.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.7.0...rest-sdk-v1.8.0) (2025-08-28)
 
 ### Features
