@@ -28,36 +28,6 @@ msgstr "Сохранить"
 msgid "Create"
 msgstr "Создать"
 
-msgid "metrics-getText.Metrics Settings"
-msgstr ""
-
-msgid "metrics-getText.Create Metrics Settings"
-msgstr ""
-
-msgid "metrics-getText.Enabled"
-msgstr ""
-
-msgid "metrics-getText.Created At"
-msgstr ""
-
-msgid "metrics-getText.Updated At"
-msgstr ""
-
-msgid "metrics-getText.Actions"
-msgstr ""
-
-msgid "metrics-getText.Edit"
-msgstr ""
-
-msgid "metrics-getText.Delete"
-msgstr ""
-
-msgid "metrics-getText.Cancel"
-msgstr ""
-
-msgid "metrics-getText.Save"
-msgstr ""
-
 msgid "metrics-user.form.fields.external-user-id"
 msgstr ""
 
@@ -70,10 +40,10 @@ msgstr ""
 msgid "metrics-user.form.roles.admin"
 msgstr ""
 
-msgid "metrics-getText.GitHub Token"
+msgid "metrics-settings.form.fields.enabled"
 msgstr ""
 
-msgid "metrics-getText.Enter GitHub token"
+msgid "metrics-settings.form.fields.github-token"
 msgstr ""
 
 msgid "metrics-github-user-statistics.form.fields.periodType"
@@ -393,6 +363,27 @@ msgstr "Успешно"
 
 msgid "id not set"
 msgstr "ИД. не установлен"
+
+msgid "metrics-settings.update-modal.title"
+msgstr ""
+
+msgid "metrics-settings.create-modal.title"
+msgstr ""
+
+msgid "metrics-settings.delete-modal.title"
+msgstr ""
+
+msgid "metrics-settings.grid.columns.id"
+msgstr ""
+
+msgid "metrics-settings.grid.columns.enabled"
+msgstr ""
+
+msgid "metrics-settings.grid.columns.github-token"
+msgstr ""
+
+msgid "metrics-settings.grid.columns.created-at"
+msgstr ""
 
 msgid "Users for tenant #{{tenantId}}"
 msgstr "Пользователи тенанта #{{tenantId}}"

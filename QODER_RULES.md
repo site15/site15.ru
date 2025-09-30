@@ -1,201 +1,201 @@
-# Правила QODER
+# QODER Rules
 
-Этот документ содержит правила и рекомендации для Qoder при работе с этой кодовой базой.
+This document contains rules and guidelines for Qoder to follow when working with this codebase.
 
-## Содержание
+## Table of Contents
 
-1. [Общие правила разработки](#общие-правила-разработки)
-2. [Правила разработки бэкенда](#правила-разработки-бэкенда)
-3. [Правила разработки фронтенда](#правила-разработки-фронтенда)
-4. [Правила работы с базами данных](#правила-работы-с-базами-данных)
-5. [Правила тестирования](#правила-тестирования)
-6. [Правила документирования](#правила-документирования)
-7. [Правила код-ревью](#правила-код-ревью)
-8. [Правила производительности](#правила-производительности)
-9. [Правила безопасности](#правила-безопасности)
-10. [Правила структуры файлов](#правила-структуры-файлов)
-11. [Дополнительные рекомендации](#дополнительные-рекомендации)
+1. [General Development Rules](#general-development-rules)
+2. [Backend Development Rules](#backend-development-rules)
+3. [Frontend Development Rules](#frontend-development-rules)
+4. [Database Rules](#database-rules)
+5. [Testing Rules](#testing-rules)
+6. [Documentation Rules](#documentation-rules)
+7. [Code Review Rules](#code-review-rules)
+8. [Performance Rules](#performance-rules)
+9. [Security Rules](#security-rules)
+10. [File Structure Rules](#file-structure-rules)
+11. [Additional Guidelines](#additional-guidelines)
 
-## 1. Общие правила разработки
+## 1. General Development Rules
 
-### 1.1. Соглашения о коде
+### 1.1. Code Conventions
 
-- Используйте согласованные соглашения об именовании для переменных, функций и классов.
-- Следуйте установленным шаблонам кодирования и передовым практикам.
-- Пишите понятный, краткий и поддерживаемый код.
+- Use consistent naming conventions for variables, functions, and classes.
+- Follow established coding patterns and best practices.
+- Write clear, concise, and maintainable code.
 
-### 1.2. Управление версиями
+### 1.2. Version Control
 
-- Используйте feature-ветки для новой разработки.
-- Пишите понятные и описательные сообщения коммитов.
-- Отправляйте pull request'ы для код-ревью перед слиянием.
+- Use feature branches for new development.
+- Write clear and descriptive commit messages.
+- Submit pull requests for code review before merging.
 
-### 1.3. Код-ревью
+### 1.3. Code Review
 
-- Проверяйте код на соответствие стандартам кодирования.
-- Предоставляйте конструктивную обратную связь и предложения по улучшению.
-- Убедитесь, что код соответствует требованиям качества и производительности.
+- Review code for consistency with coding standards.
+- Provide constructive feedback and suggestions for improvement.
+- Ensure code meets quality and performance requirements.
 
-## 2. Правила разработки бэкенда
+## 2. Backend Development Rules
 
-### 2.1. Реализация контроллеров
+### 2.1. Controller Implementation
 
-- Явно перечисляйте поля во время операций вставки и обновления.
-- Пропускайте реляционные поля в явном перечислении полей и обрабатывайте их отдельно, используя синтаксис Prisma `connect`.
-- Используйте условное присваивание полей для необязательных полей.
+- Explicitly list fields during insertion and updating operations.
+- Skip relational fields in explicit field listing and handle separately using Prisma's `connect` syntax.
+- Use conditional field assignment for optional fields.
 
-### 2.2. Использование DTO
+### 2.2. DTO Usage
 
-- Расширенные DTO не должны содержать поля, которые автоматически управляются системой.
-- Используйте базовые DTO для полей, которые должны быть явно предоставлены пользователем.
+- Extended DTOs should not contain fields that are automatically managed by the system.
+- Use base DTOs for fields that should be explicitly provided by the user.
 
-### 2.3. Схема Prisma и миграции
+### 2.3. Prisma Schema and Migration
 
-- Используйте описательные имена для полей отношений.
-- Добавляйте индексы к часто запрашиваемым полям.
-- Определяйте уникальные ограничения для полей, которые должны быть уникальными.
-- Устанавливайте соответствующие значения по умолчанию для полей.
-- Внимательно рассматривайте, должны ли поля быть nullable.
+- Use descriptive names for relation fields.
+- Add indexes to frequently queried fields.
+- Define unique constraints for fields that should be unique.
+- Set appropriate default values for fields.
+- Carefully consider whether fields should be nullable.
 
-### 2.4. Обработка отношений
+### 2.4. Relation Handling
 
-- Определяйте двунаправленные отношения с надлежащими соглашениями об именовании.
-- Используйте конкретные имена полей для отношений, чтобы избежать неоднозначности.
-- Внимательно рассматривайте каскадные операции для операций удаления.
+- Define bidirectional relations with proper naming conventions.
+- Use specific field names for relations to avoid ambiguity.
+- Carefully consider cascade operations for delete operations.
 
-## 3. Правила разработки фронтенда
+## 3. Frontend Development Rules
 
-### 3.1. Реализация компонентов сетки
+### 3.1. Grid Component Implementation
 
-- Компоненты сетки должны иметь входные свойства для реляционных полей.
-- Используйте реляционные поля в качестве фильтров в методе `loadMany`.
-- Передавайте реляционные поля компонентам формы в методе `showCreateOrUpdateModal`.
+- Grid components should have input properties for relational fields.
+- Use relational fields as filters in the `loadMany` method.
+- Pass relational fields to form components in the `showCreateOrUpdateModal` method.
 
-### 3.2. Реализация компонентов формы
+### 3.2. Form Component Implementation
 
-- Компоненты формы должны принимать входные данные реляционных полей от компонентов сетки.
-- Включайте реляционные поля в объект данных при создании новых записей.
+- Form components should accept relational field inputs from grid components.
+- Include relational fields in the data object when creating new records.
 
-### 3.3. Обработка полей даты
+### 3.3. Date Field Handling
 
-- Обрабатывайте поля `createdAt` и `updatedAt` с корректировкой смещения часового пояса.
-- Обрабатывайте другие поля дат как обычные даты без корректировки часового пояса.
+- Handle `createdAt` and `updatedAt` fields with timezone offset adjustment.
+- Handle other date fields as regular dates without timezone adjustment.
 
-## 4. Правила работы с базами данных
+## 4. Database Rules
 
-### 4.1. Проектирование баз данных
+### 4.1. Database Design
 
-- Проектируйте базы данных с учетом производительности и масштабируемости.
-- Используйте соответствующие типы данных и стратегии индексации.
-- Обеспечивайте целостность и согласованность данных.
+- Design databases with performance and scalability in mind.
+- Use appropriate data types and indexing strategies.
+- Ensure data integrity and consistency.
 
-### 4.2. Миграция данных
+### 4.2. Data Migration
 
-- Включайте шаги миграции данных при изменении структур или типов данных.
-- Тестируйте миграции в среде разработки перед применением в производстве.
-- Имейте планы отката для критических миграций.
+- Include data migration steps when changing data structures or types.
+- Test migrations in a development environment before applying to production.
+- Have rollback plans for critical migrations.
 
-## 5. Правила тестирования
+## 5. Testing Rules
 
-### 5.1. Модульное тестирование
+### 5.1. Unit Testing
 
-- Пишите модульные тесты для сервисов и компонентов.
-- Правильно мокайте зависимости в тестах.
-- Тестируйте граничные случаи и условия ошибок.
+- Write unit tests for services and components.
+- Properly mock dependencies in tests.
+- Test edge cases and error conditions.
 
-### 5.2. Интеграционное тестирование
+### 5.2. Integration Testing
 
-- Пишите интеграционные тесты для сложных рабочих процессов и взаимодействий.
-- Убедитесь, что тесты охватывают все возможные сценарии.
+- Write integration tests for complex workflows and interactions.
+- Ensure tests cover all possible scenarios.
 
-## 6. Правила документирования
+## 6. Documentation Rules
 
-### 6.1. Комментарии в коде
+### 6.1. Code Comments
 
-- Добавляйте встроенные комментарии для сложной логики.
-- Документируйте публичные функции с описанием параметров и возвращаемых значений.
-- Документируйте интерфейсы и их свойства.
+- Add inline comments for complex logic.
+- Document public functions with parameter and return value descriptions.
+- Document interfaces and their properties.
 
-### 6.2. Файлы README
+### 6.2. README Files
 
-- Поддерживайте актуальность файлов README для проектов и библиотек.
-- Предоставляйте четкие инструкции по установке и настройке.
-- Включайте примеры использования для ключевых функций.
+- Maintain up-to-date README files for projects and libraries.
+- Provide clear setup and installation instructions.
+- Include usage examples for key features.
 
-## 7. Правила код-ревью
+## 7. Code Review Rules
 
-### 7.1. Процесс код-ревью
+### 7.1. Code Review Process
 
-- Проверяйте код на соответствие стандартам кодирования.
-- Предоставляйте конструктивную обратную связь и предложения по улучшению.
-- Убедитесь, что код соответствует требованиям качества и производительности.
+- Review code for consistency with coding standards.
+- Provide constructive feedback and suggestions for improvement.
+- Ensure code meets quality and performance requirements.
 
-### 7.2. Парное программирование
+### 7.2. Pair Programming
 
-- Поощряйте парное программирование для сложных функций.
-- Содействуйте обмену знаниями и сотрудничеству.
+- Encourage pair programming for complex features.
+- Promote knowledge sharing and collaboration.
 
-## 8. Правила производительности
+## 8. Performance Rules
 
-### 8.1. Загрузка данных
+### 8.1. Data Loading
 
-- Реализуйте надлежащую пагинацию для больших наборов данных.
-- Используйте дебаунсинг для поисковых полей ввода для уменьшения вызовов API.
-- Реализуйте соответствующие стратегии кэширования.
+- Implement proper pagination for large datasets.
+- Use debouncing for search inputs to reduce API calls.
+- Implement appropriate caching strategies.
 
-### 8.2. Управление памятью
+### 8.2. Memory Management
 
-- Всегда отписывайтесь от observables, чтобы предотвратить утечки памяти.
-- Правильно обрабатывайте события жизненного цикла компонентов.
+- Always unsubscribe from observables to prevent memory leaks.
+- Properly handle component lifecycle events.
 
-## 9. Правила безопасности
+## 9. Security Rules
 
-### 9.1. Аутентификация и авторизация
+### 9.1. Authentication and Authorization
 
-- Реализуйте надлежащий контроль доступа на основе ролей.
-- Обеспечьте надлежащую изоляцию арендаторов в многотенантных приложениях.
-- Фильтруйте данные на основе ролей пользователей и ID арендаторов.
+- Implement proper role-based access control.
+- Ensure proper tenant isolation in multi-tenant applications.
+- Filter data based on user roles and tenant IDs.
 
-### 9.2. Санитизация ввода
+### 9.2. Input Sanitization
 
-- Проверяйте все входные данные как на фронтенде, так и на бэкенде.
-- Используйте параметризованные запросы и функции ORM для предотвращения SQL-инъекций.
+- Validate all input data on both frontend and backend.
+- Use parameterized queries and ORM features to prevent SQL injection.
 
-## 10. Правила структуры файлов
+## 10. File Structure Rules
 
-### 10.1. Именование файлов
+### 10.1. File Naming
 
-- Используйте согласованные соглашения об именовании для файлов и каталогов.
-- Используйте описательные имена для файлов и каталогов.
+- Use consistent naming conventions for files and directories.
+- Use descriptive names for files and directories.
 
-### 10.2. Организация файлов
+### 10.2. File Organization
 
-- Организуйте файлы в логическую структуру, отражающую архитектуру приложения.
-- Разделяйте различные аспекты по разным файлам и каталогам.
+- Organize files in a logical structure that reflects the application's architecture.
+- Separate different concerns into different files and directories.
 
-## 11. Дополнительные рекомендации
+## 11. Additional Guidelines
 
-### 11.1. Правила анализа кода
+### 11.1. Code Analysis Rules
 
-Для получения полного набора шаблонов разработки, извлеченных непосредственно из кодовой базы, обратитесь к [QODER_RULES_BY_CODE.md](./QODER_RULES_BY_CODE.md). Этот файл содержит правила, полученные из фактических реализаций в проекте, и должен использоваться в качестве справочника для поддержания согласованности с существующими шаблонами.
+For a comprehensive set of development patterns extracted directly from the codebase, please refer to [QODER_RULES_BY_CODE.md](./QODER_RULES_BY_CODE.md). This file contains rules derived from actual implementations in the project and should be used as a reference for maintaining consistency with existing patterns.
 
-### 11.2. Согласованность технологического стека
+### 11.2. Technology Stack Consistency
 
-- Поддерживайте согласованность с существующим технологическим стеком
-- Следуйте установленным шаблонам для разработки новых функций
-- Обеспечьте совместимость с существующими модулями и сервисами
+- Maintain consistency with the existing technology stack
+- Follow established patterns for new feature development
+- Ensure compatibility with existing modules and services
 
-### 11.3. Обработка ошибок
+### 11.3. Error Handling
 
-- Реализуйте graceful degradation для некритических функций.
-- Предоставляйте соответствующую обратную связь пользователям при возникновении ошибок.
+- Implement graceful degradation for non-critical features.
+- Provide appropriate feedback to users when errors occur.
 
-### 11.4. Повторное использование кода
+### 11.4. Code Reusability
 
-- Проектируйте компоненты так, чтобы они были пригодны для повторного использования, где это уместно.
-- Абстрагируйте общую функциональность в сервисы.
+- Design components to be reusable where appropriate.
+- Abstract common functionality into services.
 
-### 11.5. Соображения производительности
+### 11.5. Performance Considerations
 
-- Реализуйте ленивую загрузку для модулей и компонентов, когда это уместно.
-- Оптимизируйте размеры бандлов для улучшения производительности загрузки.
+- Implement lazy loading for modules and components when appropriate.
+- Optimize bundle sizes to improve loading performance.

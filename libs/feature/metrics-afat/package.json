@@ -18,12 +18,12 @@
     "@jsverse/transloco-locale": "^7.0.1",
     "@nestjs-mod/misc": "1.4.3",
     "date-fns": "^4.1.0",
-    "@site15/rest-sdk-angular": "1.8.0"
+    "@site15/rest-sdk-angular": "1.9.0"
   },
   "sideEffects": false,
   "i18n": [
     {
-      "scope": "site-15-metrics-afat",
+      "scope": "metrics-afat",
       "path": "src/i18n",
       "strategy": "join"
     }

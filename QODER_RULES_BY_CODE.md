@@ -1,20 +1,20 @@
-# Правила QODER по анализу кода
+# QODER Rules by Code Analysis
 
-Этот документ содержит шаблоны разработки и правила, извлеченные из фактических реализаций кода в проекте. Эти правила должны использоваться Qoder для поддержания согласованности и следования установленным шаблонам.
+This document contains development patterns and rules extracted from actual code implementations in the project. These rules should be used by Qoder to maintain consistency and follow established patterns.
 
-## Шаблоны разработки бэкенда
+## Backend Development Patterns
 
-### 1. Шаблоны контроллеров
+### 1. Controller Patterns
 
-#### 1.1. Структура контроллера
+#### 1.1. Controller Structure
 
-- Все контроллеры должны расширять базовые операции CRUD (findMany, findOne, createOne, updateOne, deleteOne)
-- Используйте декораторы `@nestjs/common` для HTTP-методов
-- Используйте `@nestjs/swagger` для документации API
-- Реализуйте надлежащую обработку ошибок с `@nestjs-mod/validation`
-- Используйте клиент Prisma для операций с базой данных
+- All controllers should extend basic CRUD operations (findMany, findOne, createOne, updateOne, deleteOne)
+- Use `@nestjs/common` decorators for HTTP methods
+- Use `@nestjs/swagger` for API documentation
+- Implement proper error handling with `@nestjs-mod/validation`
+- Use Prisma client for database operations
 
-**Пример структуры контроллера:**
+**Example Controller Structure:**
 
 ```typescript
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
@@ -38,71 +38,71 @@ export class FeatureNameController {
   @Get()
   @ApiOkResponse({ type: FindManyResponseDto })
   async findMany(@Query() args: FindManyArgsDto) {
-    // Реализация
+    // Implementation
   }
 
   @Post()
   @ApiCreatedResponse({ type: EntityDto })
   async createOne(@Body() args: CreateEntityDto) {
-    // Реализация
+    // Implementation
   }
 
   @Put(':id')
   @ApiOkResponse({ type: EntityDto })
   async updateOne(@Param('id', new ParseUUIDPipe()) id: string, @Body() args: UpdateEntityDto) {
-    // Реализация
+    // Implementation
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: StatusResponse })
   async deleteOne(@Param('id', new ParseUUIDPipe()) id: string, @InjectTranslateFunction() getText: TranslateFunction) {
-    // Реализация
+    // Implementation
   }
 
   @Get(':id')
   @ApiOkResponse({ type: EntityDto })
   async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    // Реализация
+    // Implementation
   }
 }
 ```
 
-#### 1.2. Обработка полей в контроллерах
+#### 1.2. Field Handling in Controllers
 
-- **Явное перечисление полей**: Контроллеры должны явно перечислять поля во время вставки и обновления вместо использования деструктуризации
-- **Пропуск реляционных полей**: Поля для реляционных соединений должны быть пропущены в основном перечислении полей
-- **Условное присваивание полей**: Используйте шаблон `...(args.fieldName !== undefined ? { fieldName: args.fieldName } : {})` для необязательных полей
+- **Explicit Field Listing**: Controllers must explicitly list fields during insertion and updating instead of using destructuring
+- **Skip Relational Fields**: Fields for relational connections should be skipped in the main field listing
+- **Conditional Field Assignment**: Use pattern `...(args.fieldName !== undefined ? { fieldName: args.fieldName } : {})` for optional fields
 
-**Пример явного перечисления полей:**
+**Example of Explicit Field Listing:**
 
 ```typescript
-// Правильный подход - явное перечисление полей
+// Correct approach - explicit field listing
 return await this.prismaClient.entity.create({
   data: {
     field1: args.field1,
     field2: args.field2,
     ...(args.optionalField !== undefined ? { optionalField: args.optionalField } : {}),
-    // Реляционные поля обрабатываются отдельно
+    // Relational fields handled separately
     RelatedEntity: { connect: { id: args.relatedEntityId } },
   },
 });
 
-// Неправильный подход - использование деструктуризации
+// Incorrect approach - using destructuring
 return await this.prismaClient.entity.create({
   data: {
-    ...args, // Не делайте так
+    ...args, // Don't do this
     RelatedEntity: { connect: { id: args.relatedEntityId } },
   },
 });
 ```
 
-#### 1.3. Обработка контекста пользователя
+#### 1.3. User Context Handling
 
-- Всегда внедряйте контекст пользователя с помощью пользовательских декораторов
-- Обрабатывайте изоляцию арендаторов с помощью декораторов внешнего ID арендатора
-- Подключайте текущего пользователя как создателя/обновляющего с использованием имен полей отношений
+- Always inject user context using custom decorators
+- Handle tenant isolation using external tenant ID decorators
+- Connect current user as creator/updater using relation-specific field names
 
-**Пример обработки контекста пользователя:**
+**Example of User Context Handling:**
 
 ```typescript
 @Post()
@@ -114,15 +114,15 @@ async createOne(
 ) {
   return await this.prismaClient.entity.create({
     data: {
-      // Поля сущности
+      // Entity fields
       name: args.name,
       description: args.description,
 
-      // Соединения пользователей
+      // User connections
       User_Entity_createdByToUser: { connect: { id: user.id } },
       User_Entity_updatedByToUser: { connect: { id: user.id } },
 
-      // Обработка арендаторов
+      // Tenant handling
       ...(user.userRole === UserRole.Admin
         ? { tenantId: externalTenantId }
         : {
@@ -133,19 +133,19 @@ async createOne(
 }
 ```
 
-#### 1.4. Контроль доступа на основе ролей
+#### 1.4. Role-Based Access Control
 
-- Используйте пользовательские декораторы для проверки ролей
-- Реализуйте фильтрацию на основе арендаторов в запросах в зависимости от роли пользователя
-- Администраторы могут получить доступ ко всем арендаторам, обычные пользователи - только к своему
+- Use custom decorators for role validation
+- Implement tenant-based filtering in queries based on user role
+- Admin users can access all tenants, regular users only their own tenant
 
-**Пример контроля доступа на основе ролей:**
+**Example of Role-Based Access Control:**
 
 ```typescript
 @CheckRole([UserRole.User, UserRole.Admin])
 @Controller('/feature/name')
 export class FeatureNameController {
-  // Реализация контроллера
+  // Controller implementation
 
   async findMany(
     @CurrentExternalTenantId() externalTenantId: string,
@@ -156,7 +156,7 @@ export class FeatureNameController {
       return {
         entities: await prisma.entity.findMany({
           where: {
-            // Условия поиска
+            // Search conditions
             ...(args.searchText
               ? {
                   OR: [
@@ -166,18 +166,18 @@ export class FeatureNameController {
                 }
               : {}),
 
-            // Фильтрация арендаторов на основе роли
+            // Tenant filtering based on role
             ...(user.userRole === UserRole.Admin
               ? { tenantId: args.tenantId }
               : {
                   tenantId: user?.userRole === UserRole.User ? user.tenantId : externalTenantId,
                 }),
           },
-          // Пагинация и сортировка
+          // Pagination and sorting
         }),
         totalResults: await prisma.entity.count({
           where: {
-            // Те же условия, что и выше
+            // Same conditions as above
           },
         }),
       };
@@ -186,22 +186,22 @@ export class FeatureNameController {
 }
 ```
 
-#### 1.5. Валидация данных
+#### 1.5. Data Validation
 
-- Используйте DTO для валидации входных данных с декораторами `class-validator`
-- Расширяйте сгенерированные DTO для дополнительных требований валидации
-- Используйте декораторы `ApiProperty` для документации Swagger
+- Use DTOs for input validation with `class-validator` decorators
+- Extend generated DTOs for additional validation requirements
+- Use `ApiProperty` decorators for Swagger documentation
 
-**Пример валидации DTO:**
+**Example of DTO Validation:**
 
 ```typescript
-// Базовый DTO (сгенерированный)
+// Base DTO (generated)
 export class CreateEntityDto {
   name: string;
   description?: string | null;
 }
 
-// Расширенный DTO с валидацией
+// Extended DTO with validation
 import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -222,15 +222,15 @@ export class CreateFullEntityDto extends CreateEntityDto {
 }
 ```
 
-### 2. Шаблоны сервисов
+### 2. Service Patterns
 
-#### 2.1. Использование клиента Prisma
+#### 2.1. Prisma Client Usage
 
-- Внедряйте клиент Prisma с использованием токенов внедрения, специфичных для функции
-- Используйте транзакции для операций, требующих атомарности
-- Реализуйте надлежащую обработку ошибок и преобразование типов
+- Inject Prisma client using feature-specific injection tokens
+- Use transactions for operations that need atomicity
+- Implement proper error handling and type conversion
 
-**Пример использования клиента Prisma:**
+**Example of Prisma Client Usage:**
 
 ```typescript
 import { Injectable } from '@nestjs/common';
@@ -245,7 +245,7 @@ export class EntityService {
 
   async create(data: CreateEntityInput) {
     return await this.prismaClient.$transaction(async (prisma) => {
-      // Выполняем несколько связанных операций атомарно
+      // Perform multiple related operations atomically
       const entity = await prisma.entity.create({
         data: {
           ...data,
@@ -254,7 +254,7 @@ export class EntityService {
         },
       });
 
-      // Дополнительные операции, связанные с созданием сущности
+      // Additional operations related to entity creation
       await prisma.entityLog.create({
         data: {
           entityId: entity.id,
@@ -269,14 +269,14 @@ export class EntityService {
 }
 ```
 
-#### 2.2. Шаблоны запросов
+#### 2.2. Query Patterns
 
-- Реализуйте функциональность поиска с условиями OR для нескольких полей
-- Используйте пагинацию с параметрами take/skip
-- Реализуйте сортировку с динамической проверкой полей
-- Применяйте фильтрацию арендаторов на основе роли пользователя
+- Implement search functionality with OR conditions for multiple fields
+- Use pagination with take/skip parameters
+- Implement sorting with dynamic field validation
+- Apply tenant filtering based on user role
 
-**Пример шаблонов запросов:**
+**Example of Query Patterns:**
 
 ```typescript
 async findMany(args: {
@@ -326,39 +326,40 @@ async findMany(args: {
       }),
       totalResults: await prisma.entity.count({
         where: {
-          // Те же условия, что и выше
+          // Same conditions as above
         },
-      },    });
+      },
+    });
   }
 }
 ```
 
-### 3. Шаблоны DTO
+### 3. DTO Patterns
 
-#### 3.1. DTO для создания
+#### 3.1. Create DTOs
 
-- Расширяйте базовые DTO, сгенерированные Prisma
-- Добавляйте декораторы валидации для обязательных полей
-- Используйте префикс `CreateFull` для DTO, включающих реляционные поля
-- Не включайте `externalUserId` в расширенные DTO для создания
+- Extend base DTOs generated by Prisma
+- Add validation decorators for required fields
+- Use `CreateFull` prefix for DTOs that include relational fields
+- Do not include `externalUserId` in extended DTOs for creation
 
-**Пример DTO для создания:**
+**Example of Create DTOs:**
 
 ```typescript
-// Базовый DTO (сгенерированный Prisma)
+// Base DTO (generated by Prisma)
 export class CreateEntityDto {
   name: string;
   description?: string | null;
 }
 
-// Расширенный DTO с валидацией
+// Extended DTO with validation
 import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateFullEntityDto extends CreateEntityDto {
   @ApiProperty({
     type: 'string',
-    description: 'ID связанной сущности',
+    description: 'ID of the related entity',
   })
   @IsNotEmpty()
   @IsString()
@@ -366,7 +367,7 @@ export class CreateFullEntityDto extends CreateEntityDto {
 
   @ApiProperty({
     type: 'string',
-    description: 'Необязательное поле',
+    description: 'Optional field',
   })
   @IsOptional()
   @IsString()
@@ -374,29 +375,29 @@ export class CreateFullEntityDto extends CreateEntityDto {
 }
 ```
 
-#### 3.2. DTO для обновления
+#### 3.2. Update DTOs
 
-- Расширяйте базовые DTO обновления, сгенерированные Prisma
-- Делайте все поля необязательными для поддержки частичных обновлений
-- Используйте шаблон `PartialType` для операций обновления
+- Extend base update DTOs generated by Prisma
+- Make all fields optional to support partial updates
+- Use `PartialType` pattern for update operations
 
-**Пример DTO для обновления:**
+**Example of Update DTOs:**
 
 ```typescript
-// Базовый DTO (сгенерированный Prisma)
+// Base DTO (generated by Prisma)
 export class UpdateEntityDto {
   name?: string | null;
   description?: string | null;
 }
 
-// Расширенный DTO с дополнительной валидацией при необходимости
+// Extended DTO with additional validation if needed
 import { IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateFullEntityDto extends UpdateEntityDto {
   @ApiProperty({
     type: 'string',
-    description: 'Необязательное поле для обновления',
+    description: 'Optional field for update',
   })
   @IsOptional()
   @IsString()
@@ -404,16 +405,16 @@ export class UpdateFullEntityDto extends UpdateEntityDto {
 }
 ```
 
-### 4. Шаблоны модулей
+### 4. Module Patterns
 
-#### 4.1. Структура модуля
+#### 4.1. Module Structure
 
-- Используйте функцию `createNestModule` для создания модулей
-- Определяйте надлежащие категории модулей (feature, infrastructure и т.д.)
-- Реализуйте конфигурацию среды с надлежащими соглашениями об именовании
-- Используйте имена контекстов, специфичные для функций, для Prisma и других сервисов
+- Use `createNestModule` function for module creation
+- Define proper module categories (feature, infrastructure, etc.)
+- Implement environment configuration with proper naming conventions
+- Use feature-specific context names for Prisma and other services
 
-**Пример структуры модуля:**
+**Example of Module Structure:**
 
 ```typescript
 import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
@@ -444,17 +445,17 @@ export const { FeatureModule } = createNestModule({
 });
 ```
 
-#### 4.2. Регистрация контроллеров
+#### 4.2. Controller Registration
 
-- Регистрируйте все контроллеры в массиве controllers модуля
-- Применяйте guards условно на основе настроек среды
-- Используйте надлежащее внедрение зависимостей для всех сервисов
+- Register all controllers in the module's controllers array
+- Apply guards conditionally based on environment settings
+- Use proper dependency injection for all services
 
-**Пример регистрации контроллеров:**
+**Example of Controller Registration:**
 
 ```typescript
 export const { FeatureModule } = createNestModule({
-  // ... другая конфигурация
+  // ... other configuration
   controllers: (asyncModuleOptions) =>
     [FeatureController].map((ctrl) => {
       if (asyncModuleOptions.staticEnvironments?.useGuards) {
@@ -470,17 +471,17 @@ export const { FeatureModule } = createNestModule({
 });
 ```
 
-## Шаблоны разработки фронтенда
+## Frontend Development Patterns
 
-### 1. Шаблоны компонентов
+### 1. Component Patterns
 
-#### 1.1. Автономные компоненты
+#### 1.1. Standalone Components
 
-- Используйте автономные компоненты Angular с явными импортами
-- Реализуйте `ChangeDetectionStrategy.OnPush` для лучшей производительности
-- Используйте декоратор `@UntilDestroy()` для автоматической очистки подписок
+- Use Angular standalone components with explicit imports
+- Implement `ChangeDetectionStrategy.OnPush` for better performance
+- Use `@UntilDestroy()` decorator for automatic subscription cleanup
 
-**Пример автономного компонента:**
+**Example of Standalone Component:**
 
 ```typescript
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -509,23 +510,23 @@ export class FeatureFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Инициализация компонента
+    // Component initialization
   }
 }
 ```
 
-#### 1.2. Компоненты форм
+#### 1.2. Form Components
 
-- Реализуйте реактивные формы с `UntypedFormGroup`
-- Используйте Formly для динамической конфигурации форм
-- Обрабатывайте отправку формы с надлежащей обработкой ошибок
-- Реализуйте логику создания/обновления на основе наличия ID
+- Implement reactive forms with `UntypedFormGroup`
+- Use Formly for dynamic form configuration
+- Handle form submission with proper error handling
+- Implement create/update logic based on presence of ID
 
-**Пример компонента формы:**
+**Example of Form Component:**
 
 ```typescript
 @Component({
-  // ... конфигурация компонента
+  // ... component configuration
 })
 export class FeatureFormComponent implements OnInit {
   @Input() id?: string;
@@ -608,66 +609,67 @@ export class FeatureFormComponent implements OnInit {
 }
 ```
 
-#### 1.3. Компоненты сетки
+#### 1.3. Grid Components
 
-- Используйте компоненты таблиц Ant Design для отображения данных
-- Реализуйте функциональность поиска, пагинации и сортировки
-- Используйте BehaviorSubject для управления состоянием
-- Реализуйте модальные диалоги для операций создания/обновления
+- Use Ant Design table components for data display
+- Implement search, pagination, and sorting functionality
+- Use BehaviorSubject for state management
+- Implement modal dialogs for create/update operations
 
-**Пример компонента сетки:**
+**Example of Grid Component:**
 
-```typescript
+``typescript
 @Component({
-  // ... конфигурация компонента
+// ... component configuration
 })
 export class FeatureGridComponent implements OnInit {
-  @Input() relatedEntityId?: string;
-  @Input() forceLoadStream?: Observable<unknown>[];
+@Input() relatedEntityId?: string;
+@Input() forceLoadStream?: Observable<unknown>[];
 
-  items$ = new BehaviorSubject<EntityModel[]>([]);
-  meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
-  searchField = new FormControl('');
-  selectedIds$ = new BehaviorSubject<string[]>([]);
+items$ = new BehaviorSubject<EntityModel[]>([]);
+meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
+searchField = new FormControl('');
+selectedIds$ = new BehaviorSubject<string[]>([]);
 
-  keys = [EntityScalarFieldEnum.id, EntityScalarFieldEnum.name, EntityScalarFieldEnum.description];
+keys = [EntityScalarFieldEnum.id, EntityScalarFieldEnum.name, EntityScalarFieldEnum.description];
 
-  columns = {
-    [EntityScalarFieldEnum.id]: 'feature.grid.columns.id',
-    [EntityScalarFieldEnum.name]: 'feature.grid.columns.name',
-    [EntityScalarFieldEnum.description]: 'feature.grid.columns.description',
-  };
+columns = {
+[EntityScalarFieldEnum.id]: 'feature.grid.columns.id',
+[EntityScalarFieldEnum.name]: 'feature.grid.columns.name',
+[EntityScalarFieldEnum.description]: 'feature.grid.columns.description',
+};
 
-  constructor(
-    private readonly featureService: FeatureService,
-    private readonly nzModalService: NzModalService,
-    private readonly viewContainerRef: ViewContainerRef,
-  ) {}
+constructor(
+private readonly featureService: FeatureService,
+private readonly nzModalService: NzModalService,
+private readonly viewContainerRef: ViewContainerRef,
+) {}
 
-  ngOnInit(): void {
-    merge(
-      this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
-      ...(this.forceLoadStream ? this.forceLoadStream : []),
-    )
-      .pipe(
-        tap(() => this.loadMany({ force: true })),
-        untilDestroyed(this),
-      )
-      .subscribe();
+ngOnInit(): void {
+merge(
+this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
+...(this.forceLoadStream ? this.forceLoadStream : []),
+)
+.pipe(
+tap(() => this.loadMany({ force: true })),
+untilDestroyed(this),
+)
+.subscribe();
 
     this.loadMany();
-  }
 
-  loadMany(args?: {
-    filters?: Record<string, string>;
-    meta?: RequestMeta;
-    queryParams?: NzTableQueryParams;
-    force?: boolean;
-  }) {
-    let meta = { meta: {}, ...(args || {}) }.meta as RequestMeta;
-    const { queryParams, filters } = { filters: {}, ...(args || {}) };
+}
 
-    // Обработка параметров запроса и фильтров
+loadMany(args?: {
+filters?: Record<string, string>;
+meta?: RequestMeta;
+queryParams?: NzTableQueryParams;
+force?: boolean;
+}) {
+let meta = { meta: {}, ...(args || {}) }.meta as RequestMeta;
+const { queryParams, filters } = { filters: {}, ...(args || {}) };
+
+    // Process query parameters and filters
     if (!args?.force && queryParams) {
       meta = getQueryMetaByParams(queryParams);
     }
@@ -693,35 +695,36 @@ export class FeatureGridComponent implements OnInit {
         untilDestroyed(this),
       )
       .subscribe();
-  }
 
-  showCreateOrUpdateModal(id?: string): void {
-    const modal = this.nzModalService.create<FeatureFormComponent, FeatureFormComponent>({
-      nzTitle: id ? `Обновить ${id}` : 'Создать новый',
-      nzContent: FeatureFormComponent,
-      nzViewContainerRef: this.viewContainerRef,
-      nzData: {
-        hideButtons: true,
-        id,
-        relatedEntityId: this.relatedEntityId,
-      } as FeatureFormComponent,
-      nzFooter: [
-        {
-          label: 'Отмена',
-          onClick: () => modal.close(),
-        },
-        {
-          label: id ? 'Сохранить' : 'Создать',
-          onClick: () => {
-            modal.componentInstance?.afterUpdate
-              .pipe(
-                tap(() => {
-                  modal.close();
-                  this.loadMany({ force: true });
-                }),
-                untilDestroyed(modal.componentInstance),
-              )
-              .subscribe();
+}
+
+showCreateOrUpdateModal(id?: string): void {
+const modal = this.nzModalService.create<FeatureFormComponent, FeatureFormComponent>({
+nzTitle: id ? `Update ${id}` : 'Create New',
+nzContent: FeatureFormComponent,
+nzViewContainerRef: this.viewContainerRef,
+nzData: {
+hideButtons: true,
+id,
+relatedEntityId: this.relatedEntityId,
+} as FeatureFormComponent,
+nzFooter: [
+{
+label: 'Cancel',
+onClick: () => modal.close(),
+},
+{
+label: id ? 'Save' : 'Create',
+onClick: () => {
+modal.componentInstance?.afterUpdate
+.pipe(
+tap(() => {
+modal.close();
+this.loadMany({ force: true });
+}),
+untilDestroyed(modal.componentInstance),
+)
+.subscribe();
 
             modal.componentInstance?.afterCreate
               .pipe(
@@ -738,20 +741,22 @@ export class FeatureGridComponent implements OnInit {
         },
       ],
     });
-  }
+
 }
-```
+}
 
-### 2. Шаблоны сервисов
+````
 
-#### 2.1. Структура API сервисов
+### 2. Service Patterns
 
-- Создавайте сервисы, оборачивающие вызовы REST API
-- Реализуйте надлежащее преобразование типов между API и объектами модели
-- Используйте операторы RxJS для преобразования данных
-- Обрабатывайте ошибки валидации на стороне сервера
+#### 2.1. API Service Structure
 
-**Пример API сервиса:**
+- Create services that wrap REST API calls
+- Implement proper type conversion between API and model objects
+- Use RxJS operators for data transformation
+- Handle server-side validation errors
+
+**Example of API Service:**
 
 ```typescript
 @Injectable({ providedIn: 'root' })
@@ -807,57 +812,58 @@ export class FeatureService {
       .pipe(map((p) => this.featureMapperService.toModel(p)));
   }
 }
-```
+````
 
-#### 2.2. Сервисы маппинга
+#### 2.2. Mapper Services
 
-- Создавайте сервисы маппинга для преобразования данных между различными форматами
-- Обрабатывайте преобразования даты/времени с надлежащей обработкой часовых поясов
-- Реализуйте методы `toModel`, `toForm` и `toJson` для различных преобразований
+- Create mapper services for data transformation between different formats
+- Handle date/time conversions with proper timezone handling
+- Implement `toModel`, `toForm`, and `toJson` methods for different transformations
 
-**Пример сервиса маппинга:**
+**Example of Mapper Service:**
 
-```typescript
+``typescript
 export interface FeatureModel extends Partial<Omit<FeatureDtoInterface, 'createdAt' | 'updatedAt'>> {
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
+createdAt?: Date | null;
+updatedAt?: Date | null;
 }
 
 @Injectable({ providedIn: 'root' })
 export class FeatureMapperService {
-  constructor(protected readonly translocoService: TranslocoService) {}
+constructor(protected readonly translocoService: TranslocoService) {}
 
-  toModel(item?: FeatureDtoInterface): FeatureModel {
-    return {
-      ...item,
-      createdAt: item?.createdAt ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET) : null,
-      updatedAt: item?.updatedAt ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET) : null,
-    };
-  }
-
-  toForm(model: FeatureModel) {
-    return {
-      ...model,
-      createdAt: model.createdAt ? new Date(model.createdAt) : null,
-    };
-  }
-
-  toJson(data: FeatureModel) {
-    return {
-      name: data.name || null,
-      description: data.description || null,
-    };
-  }
+toModel(item?: FeatureDtoInterface): FeatureModel {
+return {
+...item,
+createdAt: item?.createdAt ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET) : null,
+updatedAt: item?.updatedAt ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET) : null,
+};
 }
-```
 
-#### 2.3. Сервисы форм
+toForm(model: FeatureModel) {
+return {
+...model,
+createdAt: model.createdAt ? new Date(model.createdAt) : null,
+};
+}
 
-- Создавайте сервисы форм для конфигурации полей Formly
-- Реализуйте поддержку нескольких языков для меток форм
-- Обрабатывайте ошибки валидации на стороне сервера в полях формы
+toJson(data: FeatureModel) {
+return {
+name: data.name || null,
+description: data.description || null,
+};
+}
+}
 
-**Пример сервиса форм:**
+````
+
+#### 2.3. Form Services
+
+- Create form services for Formly field configuration
+- Implement multilingual support for form labels
+- Handle server-side validation errors in form fields
+
+**Example of Form Service:**
 
 ```typescript
 @Injectable({ providedIn: 'root' })
@@ -885,7 +891,7 @@ export class FeatureFormService {
           },
           props: {
             label: this.translocoService.translate(`feature.form.fields.name`),
-            placeholder: 'Название',
+            placeholder: 'Name',
             required: true,
           },
         },
@@ -897,7 +903,7 @@ export class FeatureFormService {
           },
           props: {
             label: this.translocoService.translate(`feature.form.fields.description`),
-            placeholder: 'Описание',
+            placeholder: 'Description',
             required: false,
           },
         },
@@ -910,21 +916,21 @@ export class FeatureFormService {
     return this.translocoService.getAvailableLangs() as LangDefinition[];
   }
 }
-```
+````
 
-### 3. Шаблоны управления состоянием
+### 3. State Management Patterns
 
-#### 3.1. Реактивное состояние
+#### 3.1. Reactive State
 
-- Используйте BehaviorSubject для управления состоянием компонентов
-- Реализуйте надлежащую очистку подписок с `untilDestroyed`
-- Используйте операторы RxJS для преобразований состояния
+- Use BehaviorSubject for managing component state
+- Implement proper subscription cleanup with `untilDestroyed`
+- Use RxJS operators for state transformations
 
-**Пример реактивного состояния:**
+**Example of Reactive State:**
 
 ```typescript
 @Component({
-  // ... конфигурация компонента
+  // ... component configuration
 })
 export class FeatureComponent implements OnInit {
   items$ = new BehaviorSubject<FeatureModel[]>([]);
@@ -935,7 +941,7 @@ export class FeatureComponent implements OnInit {
   ngOnInit(): void {
     merge(
       this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
-      // ... другие потоки
+      // ... other streams
     )
       .pipe(
         tap(() => this.loadData({ force: true })),
@@ -949,7 +955,7 @@ export class FeatureComponent implements OnInit {
   private loadData(args?: { force?: boolean }) {
     this.featureService
       .findMany({
-        /* параметры */
+        /* parameters */
       })
       .pipe(
         tap((result) => {
@@ -964,16 +970,16 @@ export class FeatureComponent implements OnInit {
 }
 ```
 
-#### 3.2. Поток данных
+#### 3.2. Data Flow
 
-- Реализуйте однонаправленный поток данных
-- Используйте observables для асинхронной обработки данных
-- Реализуйте надлежащую обработку ошибок для всех асинхронных операций
+- Implement unidirectional data flow
+- Use observables for async data handling
+- Implement proper error handling for all async operations
 
-**Пример потока данных:**
+**Example of Data Flow:**
 
-````typescript
-// Родительский компонент, передающий данные дочернему
+```typescript
+// Parent component passing data to child
 @Component({
   template: `
     <feature-grid [relatedEntityId]="selectedId$ | async" [forceLoadStream]="refreshStream$"> </feature-grid>
@@ -988,7 +994,7 @@ export class ParentComponent {
   }
 }
 
-// Дочерний компонент, принимающий и обрабатывающий данные
+// Child component receiving and processing data
 @Component({
   selector: 'feature-grid',
 })
@@ -996,8 +1002,9 @@ export class FeatureGridComponent implements OnInit {
   @Input() relatedEntityId?: string;
   @Input() forceLoadStream?: Observable<unknown>[];
 
-  // Реализация, использующая эти входные данные
-```}
+  // Implementation that uses these inputs
+```
+
 ````
 
 ## Шаблоны баз данных и ORM
@@ -1854,3 +1861,4 @@ feature-name/
   "tabWidth": 2
 }
 ```
+````

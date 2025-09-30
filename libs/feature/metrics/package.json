@@ -10,12 +10,12 @@
   "typings": "./src/index.d.ts",
   "i18n": [
     {
-      "scope": "site-15-metrics",
+      "scope": "metrics",
       "path": "src/i18n",
       "strategy": "join"
     },
     {
-      "scope": "site-15-metrics-getText",
+      "scope": "metrics-getText",
       "path": "src/i18n/getText",
       "strategy": "join"
     }

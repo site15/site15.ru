@@ -4,19 +4,103 @@
 
   <p align="center">Boilerplate for creating a sso application on NestJS and Angular</p>
 
-## Документация на русском языке
+## Project Documentation
 
-Подробная документация проекта на русском языке доступна в следующих файлах:
+This project follows specific development rules and patterns that are described in the following files:
 
-- [README_RU.md](./README_RU.md) - Основная информация о правилах и шаблонах проекта
-- [QODER_RULES.md](./QODER_RULES.md) - Основные правила и рекомендации для работы с кодовой базой
-- [QODER_RULES_BY_CODE.md](./QODER_RULES_BY_CODE.md) - Подробные шаблоны разработки, извлеченные из кода проекта
-- [PATTERNS_DISCUSSED.md](./PATTERNS_DISCUSSED.md) - Паттерны, обсуждаемые в ходе разработки
+## Main Rule Files
 
-Оригинальные файлы на английском языке сохранены с суффиксом `_EN`:
+1. [QODER_RULES.md](./QODER_RULES.md) - Main rules and recommendations for working with the codebase
+2. [QODER_RULES_BY_CODE.md](./QODER_RULES_BY_CODE.md) - Detailed development patterns extracted from the project code
+3. [PATTERNS_DISCUSSED.md](./PATTERNS_DISCUSSED.md) - Patterns discussed during development
 
-- [QODER_RULES_EN.md](./QODER_RULES_EN.md)
-- [QODER_RULES_BY_CODE_EN.md](./QODER_RULES_BY_CODE_EN.md)
+## Rule Files Structure
+
+### QODER_RULES.md
+
+Contains general development rules, including:
+
+- General development rules
+- Backend development rules
+- Frontend development rules
+- Database rules
+- Testing rules
+- Documentation rules
+- Code review rules
+- Performance rules
+- Security rules
+- File structure rules
+- Additional guidelines
+
+### QODER_RULES_BY_CODE.md
+
+Contains detailed development patterns extracted from the project code:
+
+- Backend development patterns
+- Frontend development patterns
+- Database and ORM patterns
+- Internationalization patterns
+- Error handling patterns
+- Testing patterns
+- Deployment and infrastructure patterns
+- Code organization patterns
+
+### PATTERNS_DISCUSSED.md
+
+Contains patterns and rules that have been discussed and agreed upon during our interaction:
+
+- Documentation language localization
+- QODER rule files structure
+- File naming conventions
+- Multilingual support
+- Documentation updates
+- Project documentation structure
+- Documentation versioning
+- Documentation accessibility
+- Working with translations:
+  - Translation keys are collected from the code into POT files
+  - POT files can be located in both applications and libraries
+  - When running `npm run translates`, PO and JSON translation files are generated
+  - All translations from libs and node_modules are collected in applications
+  - Translations are manually edited in PO files or using Poedit
+  - After editing, `npm run translates` is run to update JSON files
+
+## Usage Recommendations
+
+When working with this project:
+
+1. Always familiarize yourself with the rules in QODER_RULES.md
+2. Study the patterns in QODER_RULES_BY_CODE.md to understand the project architecture
+3. Review the discussed patterns in PATTERNS_DISCUSSED.md
+4. Follow established conventions when adding new code
+5. Update documentation when making changes to the architecture
+
+## Language Support
+
+The project supports the following languages:
+
+- English (main documentation language)
+- Russian (documentation available in files with \_RU suffix)
+
+Russian versions are available in files with the \_RU suffix:
+
+- [QODER_RULES_RU.md](./QODER_RULES_RU.md)
+- [QODER_RULES_BY_CODE_RU.md](./QODER_RULES_BY_CODE_RU.md)
+- [README_RU.md](./README_RU.md)
+
+## Working with Translations
+
+The translation process in the project:
+
+- Translation keys are collected from the code into POT files (example: libs/feature/metrics-afat/src/i18n/template.pot)
+- POT files can be located in both applications (examples: apps/client/src/assets/i18n/template.pot, apps/server/src/assets/i18n/getText/template.pot) and libraries (examples: libs/feature/sso/src/i18n/getText/template.pot, libs/feature/sso-afat/src/i18n/template.pot)
+- When a developer manually runs `npm run translates`, then:
+  1. Translations are formed in multiple languages in this project it is ru (example: libs/feature/metrics-afat/src/i18n/ru.po) and en (example: libs/feature/metrics-afat/src/i18n/en.po)
+  2. JSON variants are formed for translations of different languages ru (example: libs/feature/metrics-afat/src/i18n/ru.json) and en (example: libs/feature/metrics-afat/src/i18n/en.json)
+  3. All translations from libs and node modules are collected in applications (example: apps/server/src/assets/i18n/ru.vendor.json, apps/client/src/assets/i18n/en.vendor.json)
+- As a result, after the above steps, translation files are created where there are only keys but no translation values, if the value was previously filled, it will remain filled
+- The translation is done manually by the developer by editing the PO files or using the Poedit program
+- After that, manually run `npm run translates` to generate json files and update the translation files in the applications
 
 ## Demo
 

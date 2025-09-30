@@ -27,36 +27,6 @@ msgstr "Save"
 msgid "Create"
 msgstr "Create"
 
-msgid "metrics-getText.Metrics Settings"
-msgstr "metrics-getText.Metrics Settings"
-
-msgid "metrics-getText.Create Metrics Settings"
-msgstr "metrics-getText.Create Metrics Settings"
-
-msgid "metrics-getText.Enabled"
-msgstr "metrics-getText.Enabled"
-
-msgid "metrics-getText.Created At"
-msgstr "metrics-getText.Created At"
-
-msgid "metrics-getText.Updated At"
-msgstr "metrics-getText.Updated At"
-
-msgid "metrics-getText.Actions"
-msgstr "metrics-getText.Actions"
-
-msgid "metrics-getText.Edit"
-msgstr "metrics-getText.Edit"
-
-msgid "metrics-getText.Delete"
-msgstr "metrics-getText.Delete"
-
-msgid "metrics-getText.Cancel"
-msgstr "metrics-getText.Cancel"
-
-msgid "metrics-getText.Save"
-msgstr "metrics-getText.Save"
-
 msgid "metrics-user.form.fields.external-user-id"
 msgstr "metrics-user.form.fields.external-user-id"
 
@@ -69,11 +39,11 @@ msgstr "metrics-user.form.roles.user"
 msgid "metrics-user.form.roles.admin"
 msgstr "metrics-user.form.roles.admin"
 
-msgid "metrics-getText.GitHub Token"
-msgstr "metrics-getText.GitHub Token"
+msgid "metrics-settings.form.fields.enabled"
+msgstr "metrics-settings.form.fields.enabled"
 
-msgid "metrics-getText.Enter GitHub token"
-msgstr "metrics-getText.Enter GitHub token"
+msgid "metrics-settings.form.fields.github-token"
+msgstr "metrics-settings.form.fields.github-token"
 
 msgid "metrics-github-user-statistics.form.fields.periodType"
 msgstr "metrics-github-user-statistics.form.fields.periodType"
@@ -392,6 +362,27 @@ msgstr "Success"
 
 msgid "id not set"
 msgstr "ID not set"
+
+msgid "metrics-settings.update-modal.title"
+msgstr "metrics-settings.update-modal.title"
+
+msgid "metrics-settings.create-modal.title"
+msgstr "metrics-settings.create-modal.title"
+
+msgid "metrics-settings.delete-modal.title"
+msgstr "metrics-settings.delete-modal.title"
+
+msgid "metrics-settings.grid.columns.id"
+msgstr "metrics-settings.grid.columns.id"
+
+msgid "metrics-settings.grid.columns.enabled"
+msgstr "metrics-settings.grid.columns.enabled"
+
+msgid "metrics-settings.grid.columns.github-token"
+msgstr "metrics-settings.grid.columns.github-token"
+
+msgid "metrics-settings.grid.columns.created-at"
+msgstr "metrics-settings.grid.columns.created-at"
 
 msgid "Users for tenant #{{tenantId}}"
 msgstr "Users for tenant #{{tenantId}}"
