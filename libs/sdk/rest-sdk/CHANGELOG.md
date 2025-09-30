@@ -1,3 +1,9 @@
+# [1.10.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.9.0...rest-sdk-v1.10.0) (2025-09-30)
+
+### Features
+
+- **i18n:** update documentation files and add translation workflow details ([07f938f](https://github.com/site15/site15.ru/commit/07f938fdf62853165420d635833e81360f6fce38))
+
 # [1.9.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.8.0...rest-sdk-v1.9.0) (2025-09-29)
 
 ### Features
