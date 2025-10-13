@@ -6,9 +6,9 @@
 
 ### 1. Шаблоны контроллеров
 
-#### 1.1. Структура контроллера
+#### 1.1. CRUD контроллеры
 
-- Все контроллеры должны расширять базовые операции CRUD (findMany, findOne, createOne, updateOne, deleteOne)
+- Все CRUD контроллеры должны расширять базовые операции (findMany, findOne, createOne, updateOne, deleteOne)
 - Используйте декораторы `@nestjs/common` для HTTP-методов
 - Используйте `@nestjs/swagger` для документации API
 - Реализуйте надлежащую обработку ошибок с `@nestjs-mod/validation`
@@ -224,13 +224,14 @@ export class CreateFullEntityDto extends CreateEntityDto {
 
 ### 2. Шаблоны сервисов
 
-#### 2.1. Использование клиента Prisma
+#### 2.1. CRUD сервисы
 
+- CRUD сервисы должны реализовывать базовые операции (create, findMany, findOne, update, delete)
 - Внедряйте клиент Prisma с использованием токенов внедрения, специфичных для функции
 - Используйте транзакции для операций, требующих атомарности
 - Реализуйте надлежащую обработку ошибок и преобразование типов
 
-**Пример использования клиента Prisma:**
+**Пример CRUD сервиса:**
 
 ```typescript
 import { Injectable } from '@nestjs/common';
@@ -266,10 +267,85 @@ export class EntityService {
       return entity;
     });
   }
+
+  async findMany(args: FindManyArgs) {
+    return await this.prismaClient.entity.findMany({
+      where: args.where,
+      take: args.take,
+      skip: args.skip,
+      orderBy: args.orderBy,
+    });
+  }
+
+  async findOne(id: string) {
+    return await this.prismaClient.entity.findUnique({
+      where: { id },
+    });
+  }
+
+  async update(id: string, data: UpdateEntityInput) {
+    return await this.prismaClient.entity.update({
+      where: { id },
+      data: {
+        ...data,
+        updatedAt: new Date(),
+      },
+    });
+  }
+
+  async delete(id: string) {
+    return await this.prismaClient.entity.delete({
+      where: { id },
+    });
+  }
 }
 ```
 
-#### 2.2. Шаблоны запросов
+#### 2.2. Сервисы с дополнительными методами
+
+- Сервисы могут содержать дополнительные методы для бизнес-логики, таких как аутентификация, активация и другие
+- Дополнительные методы должны следовать тем же принципам обработки ошибок и транзакций
+- Используйте отдельные методы для сложных бизнес-операций
+
+**Пример сервиса с дополнительными методами:**
+
+```typescript
+@Injectable()
+export class AuthService {
+  constructor(
+    private readonly userService: UserService,
+    private readonly tokenService: TokenService,
+  ) {}
+
+  async signIn(credentials: SignInCredentials) {
+    const user = await this.userService.findByEmail(credentials.email);
+    if (!user || !this.validatePassword(credentials.password, user.password)) {
+      throw new AuthError(AuthErrorEnum.WrongPassword);
+    }
+    return await this.tokenService.generateTokens(user);
+  }
+
+  async signUp(userData: SignUpData) {
+    const existingUser = await this.userService.findByEmail(userData.email);
+    if (existingUser) {
+      throw new AuthError(AuthErrorEnum.UserIsExists);
+    }
+    const user = await this.userService.create(userData);
+    await this.sendActivationEmail(user);
+    return user;
+  }
+
+  async activate(activationData: ActivationData) {
+    const user = await this.userService.findByActivationCode(activationData.code);
+    if (!user) {
+      throw new AuthError(AuthErrorEnum.ActivateEmailWrongCode);
+    }
+    return await this.userService.activate(user.id);
+  }
+}
+```
+
+#### 2.3. Шаблоны запросов
 
 - Реализуйте функциональность поиска с условиями OR для нескольких полей
 - Используйте пагинацию с параметрами take/skip
@@ -406,14 +482,44 @@ export class UpdateFullEntityDto extends UpdateEntityDto {
 
 ### 4. Шаблоны модулей
 
-#### 4.1. Структура модуля
+#### 4.1. Простая структура модуля
 
 - Используйте функцию `createNestModule` для создания модулей
 - Определяйте надлежащие категории модулей (feature, infrastructure и т.д.)
 - Реализуйте конфигурацию среды с надлежащими соглашениями об именовании
 - Используйте имена контекстов, специфичные для функций, для Prisma и других сервисов
 
-**Пример структуры модуля:**
+**Пример простой структуры модуля:**
+
+```typescript
+import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
+import { PrismaModule } from '@nestjs-mod/prisma';
+import { FEATURE_NAME, FEATURE_MODULE } from './feature.constants';
+import { FeatureController } from './controllers/feature.controller';
+import { FeatureService } from './services/feature.service';
+
+export const { FeatureModule } = createNestModule({
+  moduleName: FEATURE_MODULE,
+  moduleCategory: NestModuleCategory.feature,
+  staticEnvironmentsModel: FeatureStaticEnvironments,
+  imports: [
+    PrismaModule.forFeature({
+      contextName: FEATURE_NAME,
+      featureModuleName: FEATURE_NAME,
+    }),
+  ],
+  controllers: [FeatureController],
+  providers: [FeatureService],
+});
+```
+
+#### 4.2. Расширенная структура модуля
+
+- Расширенная структура модуля позволяет динамически создавать контроллеры или сервисы
+- Используйте эту структуру когда необходимо условное создание компонентов
+- Применяйте guards и filters условно на основе настроек среды
+
+**Пример расширенной структуры модуля:**
 
 ```typescript
 import { createNestModule, NestModuleCategory } from '@nestjs-mod/common';
@@ -438,23 +544,6 @@ export const { FeatureModule } = createNestModule({
       featureModuleName: FEATURE_NAME,
     }),
   ],
-  controllers: [FeatureController],
-  providers: [FeatureService],
-  sharedProviders: [FeatureCacheService],
-});
-```
-
-#### 4.2. Регистрация контроллеров
-
-- Регистрируйте все контроллеры в массиве controllers модуля
-- Применяйте guards условно на основе настроек среды
-- Используйте надлежащее внедрение зависимостей для всех сервисов
-
-**Пример регистрации контроллеров:**
-
-```typescript
-export const { FeatureModule } = createNestModule({
-  // ... другая конфигурация
   controllers: (asyncModuleOptions) =>
     [FeatureController].map((ctrl) => {
       if (asyncModuleOptions.staticEnvironments?.useGuards) {
@@ -463,10 +552,12 @@ export const { FeatureModule } = createNestModule({
       return ctrl;
     }),
   providers: (asyncModuleOptions) => [
+    FeatureService,
     ...(asyncModuleOptions.staticEnvironments.useFilters
       ? [{ provide: APP_FILTER, useClass: FeatureExceptionsFilter }]
       : []),
   ],
+  sharedProviders: [FeatureCacheService],
 });
 ```
 
@@ -516,12 +607,14 @@ export class FeatureFormComponent implements OnInit {
 
 #### 1.2. Компоненты форм
 
+#### 1.2.1. CRUD формы
+
 - Реализуйте реактивные формы с `UntypedFormGroup`
 - Используйте Formly для динамической конфигурации форм
 - Обрабатывайте отправку формы с надлежащей обработкой ошибок
 - Реализуйте логику создания/обновления на основе наличия ID
 
-**Пример компонента формы:**
+**Пример CRUD формы:**
 
 ```typescript
 @Component({
@@ -608,14 +701,70 @@ export class FeatureFormComponent implements OnInit {
 }
 ```
 
-#### 1.3. Компоненты сетки
+#### 1.2.2. Формы с дополнительными методами
+
+- Формы могут содержать дополнительные методы для специфичной бизнес-логики
+- Используйте отдельные формы для сложных рабочих процессов, таких как аутентификация
+
+**Пример формы с дополнительными методами:**
+
+```typescript
+@Component({
+  // ... конфигурация компонента
+})
+export class SignInFormComponent implements OnInit {
+  @Output() afterSignIn = new EventEmitter<AuthModel>();
+
+  form = new UntypedFormGroup({});
+  formlyModel$ = new BehaviorSubject<object | null>(null);
+  formlyFields$ = new BehaviorSubject<FormlyFieldConfig[] | null>(null);
+
+  constructor(
+    private readonly authService: AuthService,
+    private readonly authFormService: AuthFormService,
+  ) {}
+
+  ngOnInit(): void {
+    this.authFormService.init().then(() => {
+      this.setFieldsAndModel();
+    });
+  }
+
+  submitForm(): void {
+    this.signIn()
+      .pipe(
+        tap((result) => {
+          if (result) {
+            this.afterSignIn.next(result);
+          }
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
+  }
+
+  private signIn() {
+    return this.authService
+      .signIn(this.featureMapperService.toJson(this.form.value))
+      .pipe(
+        catchError((err) =>
+          this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
+        ),
+      );
+  }
+}
+```
+
+#### 1.3. Компоненты таблиц
+
+#### 1.3.1. CRUD таблицы
 
 - Используйте компоненты таблиц Ant Design для отображения данных
 - Реализуйте функциональность поиска, пагинации и сортировки
 - Используйте BehaviorSubject для управления состоянием
 - Реализуйте модальные диалоги для операций создания/обновления
 
-**Пример компонента сетки:**
+**Пример CRUD таблицы:**
 
 ```typescript
 @Component({
@@ -742,16 +891,76 @@ export class FeatureGridComponent implements OnInit {
 }
 ```
 
+#### 1.3.2. Гриды с дополнительными методами
+
+- Таблицы могут содержать дополнительные методы для специфичной функциональности
+- Используйте отдельные таблицы для сложных рабочих процессов
+
+**Пример таблицы с дополнительными методами:**
+
+```typescript
+@Component({
+  // ... конфигурация компонента
+})
+export class UserManagementGridComponent implements OnInit {
+  // ... стандартные свойства таблицы
+
+  constructor(
+    private readonly userService: UserService,
+    private readonly nzModalService: NzModalService,
+    private readonly viewContainerRef: ViewContainerRef,
+  ) {}
+
+  // ... стандартные методы таблицы
+
+  showActivateUserModal(userId: string): void {
+    const modal = this.nzModalService.confirm({
+      nzTitle: 'Активировать пользователя',
+      nzContent: 'Вы уверены, что хотите активировать этого пользователя?',
+      nzOnOk: () => {
+        return this.userService
+          .activate(userId)
+          .pipe(
+            tap(() => {
+              this.loadMany({ force: true });
+            }),
+            untilDestroyed(this),
+          )
+          .subscribe();
+      },
+    });
+  }
+
+  showBlockUserModal(userId: string): void {
+    const modal = this.nzModalService.confirm({
+      nzTitle: 'Заблокировать пользователя',
+      nzContent: 'Вы уверены, что хотите заблокировать этого пользователя?',
+      nzOnOk: () => {
+        return this.userService
+          .block(userId)
+          .pipe(
+            tap(() => {
+              this.loadMany({ force: true });
+            }),
+            untilDestroyed(this),
+          )
+          .subscribe();
+      },
+    });
+  }
+}
+```
+
 ### 2. Шаблоны сервисов
 
-#### 2.1. Структура API сервисов
+#### 2.1. CRUD API сервисы
 
 - Создавайте сервисы, оборачивающие вызовы REST API
 - Реализуйте надлежащее преобразование типов между API и объектами модели
 - Используйте операторы RxJS для преобразования данных
 - Обрабатывайте ошибки валидации на стороне сервера
 
-**Пример API сервиса:**
+**Пример CRUD API сервиса:**
 
 ```typescript
 @Injectable({ providedIn: 'root' })
@@ -1139,11 +1348,11 @@ const result = await prisma.$transaction(async (tx) => {
 });
 ```
 
-### 2. Шаблоны миграций
+### 2. Миграции баз данных
 
-#### 2.1. Миграции баз данных
+#### 2.1. Управление миграциями через pg-flyway
 
-- Используйте инструменты миграции для управления базой данных
+- В проекте не используются миграции Prisma, вместо этого применяется инструмент pg-flyway для управления миграциями базы данных
 - Создавайте миграции с описательными именами в формате: `V{yyyyMMddkkmm}__{Description}.sql` (https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table)
 - Реализуйте надлежащие процедуры базового уровня и проверки
 - Используйте защитный DDL с обработкой исключений для идемпотентных миграций
@@ -1301,7 +1510,9 @@ CREATE INDEX IF NOT EXISTS "IDX_ENTITY_NAME_RELATED_ENTITY__TENANT_ID" ON "Entit
 - Используйте инструменты интроспекции базы данных для генерации схемы из существующих баз данных
 - Генерируйте клиентский код после изменений схемы
 - Реализуйте надлежащую конфигурацию среды для различных целевых развертываний
-- **Всегда запрашивайте разрешение пользователя перед применением миграций или синхронизацией схем Prisma. Если пользователь соглашается, применяйте миграции с помощью `npm run db:create-and-fill` и обновляйте схему Prisma с помощью `npm run prisma:pull`**
+- **Всегда запрашивайте разрешение пользователя перед применением миграций. Если пользователь соглашается, применяйте миграции с помощью `npm run db:create-and-fill`**
+- Схему Prisma вручную не описываем, она создается через prisma pull из существующей базы данных, затем дописываем в него опции для генераторов и анотации генераторов для полей и таблиц для кастомизации генерируемого кода
+- CRUD операции для сущностей реализуются непосредственно в контроллерах без отдельного описания в сервисах - это не лучшая практика, но допустимо для ускорения разработки
 
 **Пример команд генерации схемы:**
 
@@ -1311,12 +1522,6 @@ npx prisma db pull --schema=./src/prisma/schema.prisma
 
 # Генерация клиента Prisma
 npx prisma generate --schema=./src/prisma/schema.prisma
-
-# Создание новой миграции
-npx prisma migrate dev --name add_new_feature
-
-# Применение миграций к производству
-npx prisma migrate deploy
 ```
 
 ## Шаблоны интернационализации
@@ -1327,6 +1532,12 @@ npx prisma migrate deploy
 - Реализуйте функции маркеров для извлечения ключей перевода
 - Создавайте отдельные файлы перевода для каждого модуля функций
 - Используйте pipes и directives перевода в шаблонах
+- Переводы собираются из кода в POT файлы
+- POT файлы могут находиться как в приложениях, так и в библиотеках
+- При запуске `npm run translates` генерируются PO и JSON файлы переводов
+- Все переводы из библиотек и node_modules собираются в приложениях
+- Переводы редактируются вручную в PO файлах или с помощью Poedit
+- После редактирования запускается `npm run translates` для обновления JSON файлов
 
 **Пример реализации перевода:**
 
@@ -1435,49 +1646,105 @@ getFormlyFields(options?: { errors?: ValidationErrorMetadataInterface[] }) {
 - Используйте надлежащие коды состояния HTTP
 - Включайте детали ошибок в тела ответов
 - Реализуйте фильтрацию и логирование ошибок
+- Используйте перечисления для кодов ошибок с описательными названиями
+- Реализуйте автоматическую генерацию сообщений об ошибках на основе кодов
+- Добавляйте метаданные к ошибкам для дополнительной информации
 
-**Пример обработки ошибок на стороне сервера:**
+**Пример обработки ошибок на стороне сервера (реализованные решения):**
 
 ```typescript
-// Пользовательские классы ошибок
-export class FeatureError extends Error {
-  constructor(
-    public readonly code: FeatureErrorEnum,
-    message: string,
-  ) {
+// Пользовательские классы ошибок с автоматической генерацией сообщений
+export class SsoError<T = unknown> extends Error {
+  override message: string;
+  code = SsoErrorEnum.COMMON;
+  metadata?: T;
+
+  constructor(message?: string | SsoErrorEnum, code?: SsoErrorEnum | T, metadata?: T) {
+    const codeAsMetadata = Boolean(code && !Object.values(SsoErrorEnum).includes(String(code) as SsoErrorEnum));
+    const messageAsCode = Boolean(message && Object.values(SsoErrorEnum).includes(message as SsoErrorEnum));
+    const preparedCode = messageAsCode ? (message as SsoErrorEnum) : code;
+    const preparedMessage =
+      messageAsCode && preparedCode ? SSO_ERROR_ENUM_TITLES[preparedCode as SsoErrorEnum] : message;
+
+    metadata = codeAsMetadata ? (code as T) : metadata;
+    code = preparedCode || SsoErrorEnum.COMMON;
+    message = preparedMessage || SSO_ERROR_ENUM_TITLES[code as SsoErrorEnum];
+
     super(message);
+
+    this.code = code as SsoErrorEnum;
+    this.message = message;
+    this.metadata = metadata;
   }
 }
 
-export enum FeatureErrorEnum {
-  ENTITY_NOT_FOUND = 'ENTITY_NOT_FOUND',
-  UNAUTHORIZED_ACCESS = 'UNAUTHORIZED_ACCESS',
+export enum SsoErrorEnum {
+  COMMON = 'SSO-000',
+  UserNotFound = 'SSO-001',
+  WrongPassword = 'SSO-002',
+  UserIsExists = 'SSO-003',
+  ActivateEmailWrongCode = 'SSO-004',
+  ActivateEmailNotProcessed = 'SSO-005',
+  ActivateEmailProcessed = 'SSO-006',
+  RefreshTokenNotProvided = 'SSO-007',
+  SessionExpired = 'SSO-008',
+  InvalidRefreshSession = 'SSO-009',
+  AccessTokenExpired = 'SSO-010',
+  EmailIsExists = 'SSO-011',
+  EmailNotVerified = 'SSO-012',
+  Forbidden = 'SSO-013',
+  WrongOldPassword = 'SSO-014',
+  NonExistentRoleSpecified = 'SSO-015',
+  BadAccessToken = 'SSO-016',
+  YourSessionHasBeenBlocked = 'SSO-017',
+  VerificationCodeNotFound = 'SSO-018',
 }
 
-// Фильтр ошибок
-@Catch(FeatureError)
-export class FeatureExceptionsFilter implements ExceptionFilter {
-  catch(exception: FeatureError, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
+// SSO_ERROR_ENUM_TITLES содержит переводы для каждого кода ошибки
+export const SSO_ERROR_ENUM_TITLES: Record<SsoErrorEnum, string> = {
+  [SsoErrorEnum.COMMON]: getText('Sso error'),
+  [SsoErrorEnum.UserNotFound]: getText('User not found'),
+  [SsoErrorEnum.WrongPassword]: getText('Wrong password'),
+  [SsoErrorEnum.UserIsExists]: getText('User is exists'),
+  [SsoErrorEnum.ActivateEmailWrongCode]: getText('Wrong activate email code'),
+  [SsoErrorEnum.ActivateEmailNotProcessed]: getText('Activate email not processed'),
+  [SsoErrorEnum.ActivateEmailProcessed]: getText('Activate email processed'),
+  [SsoErrorEnum.RefreshTokenNotProvided]: getText('Refresh token not provided'),
+  [SsoErrorEnum.SessionExpired]: getText('Session expired'),
+  [SsoErrorEnum.InvalidRefreshSession]: getText('Invalid refresh session'),
+  [SsoErrorEnum.AccessTokenExpired]: getText('Access token expired'),
+  [SsoErrorEnum.EmailIsExists]: getText('User is exists'),
+  [SsoErrorEnum.EmailNotVerified]: getText('Email not verified'),
+  [SsoErrorEnum.Forbidden]: getText('Forbidden'),
+  [SsoErrorEnum.WrongOldPassword]: getText('Wrong old password'),
+  [SsoErrorEnum.NonExistentRoleSpecified]: getText('Non-existent role specified'),
+  [SsoErrorEnum.BadAccessToken]: getText('Bad access token'),
+  [SsoErrorEnum.YourSessionHasBeenBlocked]: getText('Your session has been blocked'),
+  [SsoErrorEnum.VerificationCodeNotFound]: getText('Verification code not found'),
+};
 
-    const status = this.getHttpStatus(exception.code);
+// Фильтр ошибок с логированием
+@Catch(SsoError)
+export class SsoExceptionsFilter extends BaseExceptionFilter {
+  private logger = new Logger(SsoExceptionsFilter.name);
 
-    response.status(status).json({
-      statusCode: status,
-      error: exception.code,
-      message: exception.message,
-    });
-  }
-
-  private getHttpStatus(code: FeatureErrorEnum): number {
-    switch (code) {
-      case FeatureErrorEnum.ENTITY_NOT_FOUND:
-        return HttpStatus.NOT_FOUND;
-      case FeatureErrorEnum.UNAUTHORIZED_ACCESS:
-        return HttpStatus.FORBIDDEN;
-      default:
-        return HttpStatus.INTERNAL_SERVER_ERROR;
+  override catch(exception: SsoError, host: ArgumentsHost) {
+    if (exception instanceof SsoError) {
+      this.logger.error(exception, exception.stack);
+      super.catch(
+        new HttpException(
+          {
+            code: exception.code,
+            message: exception.message,
+            metadata: exception.metadata,
+          },
+          exception.code === SsoErrorEnum.AccessTokenExpired ? HttpStatus.UNAUTHORIZED : HttpStatus.BAD_REQUEST,
+        ),
+        host,
+      );
+    } else {
+      this.logger.error(exception, (exception as any)?.stack);
+      super.catch(exception, host);
     }
   }
 }
@@ -1801,6 +2068,7 @@ project/
 - Используйте согласованные шаблоны именования (kebab-case для файлов, PascalCase для классов)
 - Группируйте связанные файлы в соответствующие каталоги
 - Используйте файлы index.ts для экспорта модулей
+- Барел файлы создаются сами через запуск команды npm run make-ts-list
 
 **Пример соглашений об именовании:**
 
