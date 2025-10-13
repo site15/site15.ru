@@ -2,6 +2,8 @@
 
 This document contains development patterns and rules extracted from actual code implementations in the project. These rules should be used by Qoder to maintain consistency and follow established patterns.
 
+> **Note**: For proper code block formatting in documentation, refer to the [Correct Code Insertions Pattern](./docs/patterns/correct-code-insertions.md)
+
 ## Backend Development Patterns
 
 ### 1. Controller Patterns
@@ -111,6 +113,7 @@ async createOne(
   @CurrentExternalTenantId() externalTenantId: string,
   @CurrentUser() user: User,
   @Body() args: CreateEntityDto,
+
 ) {
   return await this.prismaClient.entity.create({
     data: {
@@ -1061,40 +1064,39 @@ export class FeatureService {
 
 **Example Mapper Service:**
 
-``typescript
+```typescript
 export interface FeatureModel extends Partial<Omit<FeatureDtoInterface, 'createdAt' | 'updatedAt'>> {
-createdAt?: Date | null;
-updatedAt?: Date | null;
+  createdAt?: Date | null;
+  updatedAt?: Date | null;
 }
 
 @Injectable({ providedIn: 'root' })
 export class FeatureMapperService {
-constructor(protected readonly translocoService: TranslocoService) {}
+  constructor(protected readonly translocoService: TranslocoService) {}
 
-toModel(item?: FeatureDtoInterface): FeatureModel {
-return {
-...item,
-createdAt: item?.createdAt ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET) : null,
-updatedAt: item?.updatedAt ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET) : null,
-};
-}
+  toModel(item?: FeatureDtoInterface): FeatureModel {
+    return {
+      ...item,
+      createdAt: item?.createdAt ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET) : null,
+      updatedAt: item?.updatedAt ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET) : null,
+    };
+  }
 
-toForm(model: FeatureModel) {
-return {
-...model,
-createdAt: model.createdAt ? new Date(model.createdAt) : null,
-};
-}
+  toForm(model: FeatureModel) {
+    return {
+      ...model,
+      createdAt: model.createdAt ? new Date(model.createdAt) : null,
+    };
+  }
 
-toJson(data: FeatureModel) {
-return {
-name: data.name || null,
-description: data.description || null,
-};
+  toJson(data: FeatureModel) {
+    return {
+      name: data.name || null,
+      description: data.description || null,
+    };
+  }
 }
-}
-
-````
+```
 
 #### 2.3. Form Services
 
@@ -1155,7 +1157,7 @@ export class FeatureFormService {
     return this.translocoService.getAvailableLangs() as LangDefinition[];
   }
 }
-````
+```
 
 ### 3. State Management Patterns
 
