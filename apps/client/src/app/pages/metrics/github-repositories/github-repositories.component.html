@@ -1,7 +1,17 @@
-<metrics-github-repository-grid nz-col [nzSpan]="24" (synced)="githubRepositoryStatisticsGrid.loadMany()"
-  #githubRepositoryGrid>
+<metrics-github-repository-grid
+  nz-col
+  [nzSpan]="24"
+  (synced)="githubRepositoryStatisticsGrid.loadMany()"
+  #githubRepositoryGrid
+>
 </metrics-github-repository-grid>
-<metrics-github-repository-statistics-grid *ngIf="(githubRepositoryGrid.selectedIds$ | async)?.[0] as repoId" nz-col
-  [nzSpan]="24" [repositoryId]="repoId" [title]="'Statistic for repository #{{repoId}}' | transloco:{repoId}"
-  [viewMode]="true" #githubRepositoryStatisticsGrid>
+<metrics-github-repository-statistics-grid
+  *ngIf="(githubRepositoryGrid.selectedIds$ | async)?.[0] as repoId"
+  nz-col
+  [nzSpan]="24"
+  [repositoryId]="repoId"
+  [title]="'Statistic for repository #{{repoId}}' | transloco: { repoId }"
+  [viewMode]="true"
+  #githubRepositoryStatisticsGrid
+>
 </metrics-github-repository-statistics-grid>

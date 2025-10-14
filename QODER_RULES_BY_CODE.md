@@ -74,6 +74,8 @@ export class FeatureNameController {
 - **Explicit Field Listing**: Controllers must explicitly list fields during insertion and updating instead of using destructuring
 - **Skip Relational Fields**: Fields for relational connections should be skipped in the main field listing
 - **Conditional Field Assignment**: Use pattern `...(args.fieldName !== undefined ? { fieldName: args.fieldName } : {})` for optional fields
+- **Relational Filter Handling**: Controllers must create specific DTOs for handling relational filters in findMany operations
+- **Filter Parameter Usage**: Use `...(args.filterName ? { filterName: { equals: args.filterName } } : {})` pattern for conditional filter application
 
 **Example of Explicit Field Listing:**
 
@@ -96,6 +98,42 @@ return await this.prismaClient.entity.create({
     RelatedEntity: { connect: { id: args.relatedEntityId } },
   },
 });
+```
+
+**Example of Relational Filter Handling:**
+
+```typescript
+// Create specific DTO for relational filters
+export class FindManyEntityWithRelationArgs extends FindManyArgs {
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  @IsUUID()
+  relatedEntityId?: string;
+}
+
+// Use in controller with proper filter application
+async findMany(@Query() args: FindManyEntityWithRelationArgs) {
+  return await this.prismaClient.$transaction(async (prisma) => {
+    return {
+      entities: await prisma.entity.findMany({
+        where: {
+          // Other conditions
+          ...(args.relatedEntityId
+            ? { RelatedEntity: { id: { equals: args.relatedEntityId } } }
+            : {}),
+        },
+      }),
+      totalResults: await prisma.entity.count({
+        where: {
+          // Same conditions as above
+          ...(args.relatedEntityId
+            ? { RelatedEntity: { id: { equals: args.relatedEntityId } } }
+            : {}),
+        },
+      }),
+    };
+  });
+}
 ```
 
 #### 1.3. User Context Handling
@@ -768,6 +806,8 @@ export class SignInFormComponent implements OnInit {
 - Implement search, pagination, and sorting functionality
 - Use BehaviorSubject for state management
 - Implement modal dialogs for create/update operations
+- Pass relational filter parameters from grid components to services
+- Use ngOnChanges to detect changes in relational inputs and trigger data reload
 
 **Example CRUD Grid:**
 
@@ -775,7 +815,7 @@ export class SignInFormComponent implements OnInit {
 @Component({
   // ... component configuration
 })
-export class FeatureGridComponent implements OnInit {
+export class FeatureGridComponent implements OnInit, OnChanges {
   @Input() relatedEntityId?: string;
   @Input() forceLoadStream?: Observable<unknown>[];
 
@@ -797,6 +837,15 @@ export class FeatureGridComponent implements OnInit {
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
   ) {}
+
+  ngOnChanges(changes: NgChanges<FeatureGridComponent>): void {
+    // Need for ignore dbl load
+    if (!changes['relatedEntityId']?.firstChange) {
+      this.loadMany({ force: true });
+    } else {
+      this.loadMany();
+    }
+  }
 
   ngOnInit(): void {
     merge(
@@ -825,40 +874,6 @@ export class FeatureGridComponent implements OnInit {
     if (!args?.force && queryParams) {
       meta = getQueryMetaByParams(queryParams);
     }
-
-    meta = getQueryMeta(meta, this.meta$.value);
-
-    if (!filters['search'] && this.searchField.value) {
-      filters['search'] = this.searchField.value;
-    }
-
-    if (!filters['relatedEntityId'] && this.relatedEntityId) {
-      filters['relatedEntityId'] = this.relatedEntityId;
-    }
-
-    this.featureService
-      .findMany({ filters, meta })
-      .pipe(
-        tap((result) => {
-          this.items$.next(result.entities);
-          this.meta$.next({ ...result.meta, ...meta });
-          this.selectedIds$.next([]);
-        }),
-        untilDestroyed(this),
-      )
-      .subscribe();
-  }
-
-  showCreateOrUpdateModal(id?: string): void {
-    const modal = this.nzModalService.create<FeatureFormComponent, FeatureFormComponent>({
-      nzTitle: id ? `Update ${id}` : 'Create New',
-      nzContent: FeatureFormComponent,
-      nzViewContainerRef: this.viewContainerRef,
-      nzData: {
-        hideButtons: true,
-        id,
-        relatedEntityId: this.relatedEntityId,
-      } as FeatureForm
 
     meta = getQueryMeta(meta, this.meta$.value);
 
@@ -1187,6 +1202,8 @@ In the template, conditionally render action buttons and columns based on view m
 - Implement proper type conversion between API and model objects
 - Use RxJS operators for data transformation
 - Handle server-side validation errors
+- Pass all filter parameters from filters object to API calls
+- Maintain parameter order consistency with controller method signatures
 
 **Example CRUD API Service:**
 
@@ -1217,6 +1234,8 @@ export class FeatureService {
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
           : undefined,
+        filters['tenantId'],
+        filters['relatedEntityId'],
       )
       .pipe(
         map(({ meta, entities }) => ({
@@ -1345,6 +1364,165 @@ export class FeatureFormService {
 
   private getAvailableLangs() {
     return this.translocoService.getAvailableLangs() as LangDefinition[];
+  }
+}
+```
+
+#### 2.4. Relational Filter Patterns
+
+- Create specific DTOs extending base FindManyArgs for each controller that needs relational filters
+- Pass relational filter parameters from frontend services to backend controllers
+- Use consistent naming conventions for relational filter parameters
+- Implement proper validation for UUID-type relational parameters
+
+**Example Relational Filter DTO:**
+
+```typescript
+// Create specific DTO for each controller with relational filters
+export class FindManyEntityWithRelationArgs extends FindManyArgs {
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  @IsUUID()
+  relatedEntityId?: string;
+
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
+  @IsUUID()
+  userId?: string;
+}
+
+// Use in controller with proper filter application
+async findMany(
+  @CurrentExternalTenantId() externalTenantId: string,
+  @CurrentUser() user: User,
+  @Query() args: FindManyEntityWithRelationArgs,
+) {
+  const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
+    curPage: args.curPage,
+    perPage: args.perPage,
+  });
+
+  return await this.prismaClient.$transaction(async (prisma) => {
+    return {
+      entities: await prisma.entity.findMany({
+        where: {
+          // Search and other conditions
+          ...(user.userRole === UserRole.Admin
+            ? { tenantId: args.tenantId }
+            : {
+                tenantId: user?.userRole === UserRole.User ? user.tenantId : externalTenantId,
+              }),
+          // Relational filters
+          ...(args.relatedEntityId
+            ? { RelatedEntity: { id: { equals: args.relatedEntityId } } }
+            : {}),
+          ...(args.userId
+            ? { userId: { equals: args.userId } }
+            : {}),
+        },
+        take,
+        skip,
+        // Sorting
+      }),
+      totalResults: await prisma.entity.count({
+        where: {
+          // Same conditions as above
+        },
+      }),
+    };
+  });
+}
+```
+
+**Example Service Implementation with Relational Filters:**
+
+```typescript
+findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
+  return this.apiService
+    .getFeatureApi()
+    .featureControllerFindMany(
+      meta?.curPage,
+      meta?.perPage,
+      filters['search'],
+      meta?.sort
+        ? Object.entries(meta?.sort)
+            .map(([key, value]) => `${key}:${value}`)
+            .join(',')
+        : undefined,
+      filters['tenantId'],
+      filters['relatedEntityId'],
+      filters['userId'],
+    )
+    .pipe(
+      map(({ meta, entities }) => ({
+        meta,
+        entities: entities.map((p) => this.featureMapperService.toModel(p)),
+      })),
+    );
+}
+```
+
+**Example Grid Component with Relational Filters:**
+
+```typescript
+@Component({
+  // ... component configuration
+})
+export class FeatureGridComponent implements OnInit, OnChanges {
+  @Input() relatedEntityId?: string;
+  @Input() userId?: string;
+
+  // ... other inputs and properties
+
+  ngOnChanges(changes: NgChanges<FeatureGridComponent>): void {
+    // Reload data when relational inputs change
+    if (!changes['relatedEntityId']?.firstChange || !changes['userId']?.firstChange) {
+      this.loadMany({ force: true });
+    } else {
+      this.loadMany();
+    }
+  }
+
+  loadMany(args?: {
+    filters?: Record<string, string>;
+    meta?: RequestMeta;
+    queryParams?: NzTableQueryParams;
+    force?: boolean;
+  }) {
+    let meta = { meta: {}, ...(args || {}) }.meta as RequestMeta;
+    const { queryParams, filters } = { filters: {}, ...(args || {}) };
+
+    // Handle query parameters and filters
+    if (!args?.force && queryParams) {
+      meta = getQueryMetaByParams(queryParams);
+    }
+
+    meta = getQueryMeta(meta, this.meta$.value);
+
+    if (!filters['search'] && this.searchField.value) {
+      filters['search'] = this.searchField.value;
+    }
+
+    // Pass relational filters to service
+    if (!filters['relatedEntityId'] && this.relatedEntityId) {
+      filters['relatedEntityId'] = this.relatedEntityId;
+    }
+
+    if (!filters['userId'] && this.userId) {
+      filters['userId'] = this.userId;
+    }
+
+    this.featureService
+      .findMany({ filters, meta })
+      .pipe(
+        tap((result) => {
+          this.items$.next(result.entities);
+          this.meta$.next({ ...result.meta, ...meta });
+          this.selectedIds$.next([]);
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 }
 ```

@@ -14,6 +14,7 @@ import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_USER_CONTROLLER_PATH }
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
+import { FindManyMetricsGithubUserArgs } from '../types/FindManyMetricsGithubUserArgs';
 import { FindManyMetricsGithubUserResponse } from '../types/FindManyMetricsGithubUserResponse';
 
 @ApiBadRequestResponse({
@@ -34,7 +35,7 @@ export class MetricsGithubUserController {
   async findMany(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
-    @Query() args: FindManyMetricsArgs,
+    @Query() args: FindManyMetricsGithubUserArgs,
   ) {
     const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
       curPage: args.curPage,
@@ -77,6 +78,15 @@ export class MetricsGithubUserController {
               : {
                   tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
                 }),
+            ...(args.repositoryId
+              ? {
+                  MetricsGithubUser_MetricsGithubUserRepository_userIdTometricsGithubUser: {
+                    some: {
+                      repositoryId: { equals: args.repositoryId },
+                    },
+                  },
+                }
+              : {}),
           },
           take,
           skip,
@@ -100,6 +110,15 @@ export class MetricsGithubUserController {
               : {
                   tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
                 }),
+            ...(args.repositoryId
+              ? {
+                  MetricsGithubUser_MetricsGithubUserRepository_userIdTometricsGithubUser: {
+                    some: {
+                      repositoryId: { equals: args.repositoryId },
+                    },
+                  },
+                }
+              : {}),
           },
         }),
       };

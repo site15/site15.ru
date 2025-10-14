@@ -13,7 +13,7 @@ import { UpdateMetricsGithubTeamUserDto } from '../generated/rest/dto/update-met
 import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_TEAM_USER_CONTROLLER_PATH } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
-import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
+import { FindManyMetricsGithubTeamUserArgs } from '../types/FindManyMetricsGithubTeamUserArgs';
 import { CreateFullMetricsGithubTeamUserDto } from '../types/CreateFullMetricsGithubTeamUserDto';
 import { FindManyMetricsGithubTeamUserResponse } from '../types/FindManyMetricsGithubTeamUserResponse';
 
@@ -35,13 +35,15 @@ export class MetricsGithubTeamUserController {
   async findMany(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
-    @Query() args: FindManyMetricsArgs,
+    @Query() args: FindManyMetricsGithubTeamUserArgs,
   ) {
     const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
       curPage: args.curPage,
       perPage: args.perPage,
     });
     const searchText = args.searchText;
+    const teamId = args.teamId;
+    const userId = args.userId;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')
@@ -72,6 +74,8 @@ export class MetricsGithubTeamUserController {
                   ],
                 }
               : {}),
+            ...(teamId ? { teamId: { equals: teamId } } : {}),
+            ...(userId ? { userId: { equals: userId } } : {}),
 
             ...(metricsUser.userRole === MetricsRole.Admin
               ? { tenantId: args.tenantId }
@@ -96,6 +100,8 @@ export class MetricsGithubTeamUserController {
                   ],
                 }
               : {}),
+            ...(teamId ? { teamId: { equals: teamId } } : {}),
+            ...(userId ? { userId: { equals: userId } } : {}),
             ...(metricsUser.userRole === MetricsRole.Admin
               ? { tenantId: args.tenantId }
               : {

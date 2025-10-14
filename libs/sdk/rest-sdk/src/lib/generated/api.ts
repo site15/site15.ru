@@ -6512,10 +6512,11 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubMetricControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubMetricControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/metrics/github/metric`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6546,6 +6547,10 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+            if (repositoryId !== undefined) {
+                localVarQueryParameter['repositoryId'] = repositoryId;
             }
 
 
@@ -6706,10 +6711,11 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubRepositoryControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubRepositoryControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/metrics/github/repository`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6740,6 +6746,10 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+            if (repositoryId !== undefined) {
+                localVarQueryParameter['repositoryId'] = repositoryId;
             }
 
 
@@ -6900,10 +6910,11 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubRepositoryStatisticsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubRepositoryStatisticsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/metrics/github/repository-statistics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -6934,6 +6945,10 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+            if (repositoryId !== undefined) {
+                localVarQueryParameter['repositoryId'] = repositoryId;
             }
 
 
@@ -7127,10 +7142,11 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubTeamControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubTeamControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/metrics/github/team`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7161,6 +7177,10 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+            if (repositoryId !== undefined) {
+                localVarQueryParameter['repositoryId'] = repositoryId;
             }
 
 
@@ -7321,10 +7341,12 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [teamId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubTeamRepositoryControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubTeamRepositoryControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/metrics/github/team-repository`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7355,6 +7377,14 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+            if (teamId !== undefined) {
+                localVarQueryParameter['teamId'] = teamId;
+            }
+
+            if (repositoryId !== undefined) {
+                localVarQueryParameter['repositoryId'] = repositoryId;
             }
 
 
@@ -7515,10 +7545,12 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [teamId] 
+         * @param {string} [userId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubTeamUserControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubTeamUserControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/metrics/github/team-user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7549,6 +7581,14 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+            if (teamId !== undefined) {
+                localVarQueryParameter['teamId'] = teamId;
+            }
+
+            if (userId !== undefined) {
+                localVarQueryParameter['userId'] = userId;
             }
 
 
@@ -7709,10 +7749,11 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubUserControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubUserControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/metrics/github/user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7743,6 +7784,10 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+            if (repositoryId !== undefined) {
+                localVarQueryParameter['repositoryId'] = repositoryId;
             }
 
 
@@ -7903,10 +7948,12 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [userId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubUserRepositoryControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubUserRepositoryControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/metrics/github/user-repository`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -7937,6 +7984,14 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+            if (userId !== undefined) {
+                localVarQueryParameter['userId'] = userId;
+            }
+
+            if (repositoryId !== undefined) {
+                localVarQueryParameter['repositoryId'] = repositoryId;
             }
 
 
@@ -8097,10 +8152,11 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [userId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubUserStatisticsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        metricsGithubUserStatisticsControllerFindMany: async (curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/metrics/github/user-statistics`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -8131,6 +8187,10 @@ export const MetricsApiAxiosParamCreator = function (configuration?: Configurati
 
             if (tenantId !== undefined) {
                 localVarQueryParameter['tenantId'] = tenantId;
+            }
+
+            if (userId !== undefined) {
+                localVarQueryParameter['userId'] = userId;
             }
 
 
@@ -8707,11 +8767,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubMetricResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubMetricControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+        async metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubMetricResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubMetricControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubMetricControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -8772,11 +8833,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubRepositoryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+        async metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubRepositoryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubRepositoryControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -8837,11 +8899,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubRepositoryStatisticsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubRepositoryStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+        async metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubRepositoryStatisticsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubRepositoryStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubRepositoryStatisticsControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -8914,11 +8977,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubTeamResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+        async metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubTeamResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -8979,11 +9043,13 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [teamId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubTeamRepositoryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+        async metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubTeamRepositoryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, teamId, repositoryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamRepositoryControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9044,11 +9110,13 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [teamId] 
+         * @param {string} [userId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubTeamUserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+        async metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubTeamUserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubTeamUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, teamId, userId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubTeamUserControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9109,11 +9177,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubUserResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+        async metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubUserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9174,11 +9243,13 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [userId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubUserRepositoryResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+        async metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubUserRepositoryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, userId, repositoryId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserRepositoryControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9239,11 +9310,12 @@ export const MetricsApiFp = function(configuration?: Configuration) {
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [userId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubUserStatisticsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options);
+        async metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindManyMetricsGithubUserStatisticsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.metricsGithubUserStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, userId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MetricsApi.metricsGithubUserStatisticsControllerFindMany']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9461,11 +9533,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubMetricResponse> {
-            return localVarFp.metricsGithubMetricControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubMetricResponse> {
+            return localVarFp.metricsGithubMetricControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9511,11 +9584,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubRepositoryResponse> {
-            return localVarFp.metricsGithubRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubRepositoryResponse> {
+            return localVarFp.metricsGithubRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9561,11 +9635,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubRepositoryStatisticsResponse> {
-            return localVarFp.metricsGithubRepositoryStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubRepositoryStatisticsResponse> {
+            return localVarFp.metricsGithubRepositoryStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9620,11 +9695,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubTeamResponse> {
-            return localVarFp.metricsGithubTeamControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubTeamResponse> {
+            return localVarFp.metricsGithubTeamControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9670,11 +9746,13 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [teamId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubTeamRepositoryResponse> {
-            return localVarFp.metricsGithubTeamRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubTeamRepositoryResponse> {
+            return localVarFp.metricsGithubTeamRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, teamId, repositoryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9720,11 +9798,13 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [teamId] 
+         * @param {string} [userId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubTeamUserResponse> {
-            return localVarFp.metricsGithubTeamUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubTeamUserResponse> {
+            return localVarFp.metricsGithubTeamUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, teamId, userId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9770,11 +9850,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubUserResponse> {
-            return localVarFp.metricsGithubUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubUserResponse> {
+            return localVarFp.metricsGithubUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9820,11 +9901,13 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [userId] 
+         * @param {string} [repositoryId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubUserRepositoryResponse> {
-            return localVarFp.metricsGithubUserRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubUserRepositoryResponse> {
+            return localVarFp.metricsGithubUserRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, userId, repositoryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -9870,11 +9953,12 @@ export const MetricsApiFactory = function (configuration?: Configuration, basePa
          * @param {string} [searchText] 
          * @param {string} [sort] 
          * @param {string} [tenantId] 
+         * @param {string} [userId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubUserStatisticsResponse> {
-            return localVarFp.metricsGithubUserStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(axios, basePath));
+        metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, options?: RawAxiosRequestConfig): AxiosPromise<FindManyMetricsGithubUserStatisticsResponse> {
+            return localVarFp.metricsGithubUserStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, userId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -10051,12 +10135,13 @@ export class MetricsApi extends BaseAPI {
      * @param {string} [searchText] 
      * @param {string} [sort] 
      * @param {string} [tenantId] 
+     * @param {string} [repositoryId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubMetricControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubMetricControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10111,12 +10196,13 @@ export class MetricsApi extends BaseAPI {
      * @param {string} [searchText] 
      * @param {string} [sort] 
      * @param {string} [tenantId] 
+     * @param {string} [repositoryId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10171,12 +10257,13 @@ export class MetricsApi extends BaseAPI {
      * @param {string} [searchText] 
      * @param {string} [sort] 
      * @param {string} [tenantId] 
+     * @param {string} [repositoryId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubRepositoryStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubRepositoryStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10242,12 +10329,13 @@ export class MetricsApi extends BaseAPI {
      * @param {string} [searchText] 
      * @param {string} [sort] 
      * @param {string} [tenantId] 
+     * @param {string} [repositoryId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubTeamControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10302,12 +10390,14 @@ export class MetricsApi extends BaseAPI {
      * @param {string} [searchText] 
      * @param {string} [sort] 
      * @param {string} [tenantId] 
+     * @param {string} [teamId] 
+     * @param {string} [repositoryId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubTeamRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, teamId, repositoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10362,12 +10452,14 @@ export class MetricsApi extends BaseAPI {
      * @param {string} [searchText] 
      * @param {string} [sort] 
      * @param {string} [tenantId] 
+     * @param {string} [teamId] 
+     * @param {string} [userId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubTeamUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubTeamUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, teamId, userId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10422,12 +10514,13 @@ export class MetricsApi extends BaseAPI {
      * @param {string} [searchText] 
      * @param {string} [sort] 
      * @param {string} [tenantId] 
+     * @param {string} [repositoryId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubUserControllerFindMany(curPage, perPage, searchText, sort, tenantId, repositoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10482,12 +10575,14 @@ export class MetricsApi extends BaseAPI {
      * @param {string} [searchText] 
      * @param {string} [sort] 
      * @param {string} [tenantId] 
+     * @param {string} [userId] 
+     * @param {string} [repositoryId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubUserRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubUserRepositoryControllerFindMany(curPage, perPage, searchText, sort, tenantId, userId, repositoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -10542,12 +10637,13 @@ export class MetricsApi extends BaseAPI {
      * @param {string} [searchText] 
      * @param {string} [sort] 
      * @param {string} [tenantId] 
+     * @param {string} [userId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MetricsApi
      */
-    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, options?: RawAxiosRequestConfig) {
-        return MetricsApiFp(this.configuration).metricsGithubUserStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, options).then((request) => request(this.axios, this.basePath));
+    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, options?: RawAxiosRequestConfig) {
+        return MetricsApiFp(this.configuration).metricsGithubUserStatisticsControllerFindMany(curPage, perPage, searchText, sort, tenantId, userId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

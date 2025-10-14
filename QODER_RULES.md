@@ -43,11 +43,15 @@ This document contains rules and guidelines for Qoder to follow when working wit
 - Explicitly list fields during insertion and updating operations.
 - Skip relational fields in explicit field listing and handle separately using Prisma's `connect` syntax.
 - Use conditional field assignment for optional fields.
+- Create specific DTOs extending base FindManyArgs for handling relational filters in findMany operations.
+- Apply relational filters in database queries using the pattern `...(args.filterName ? { filterName: { equals: args.filterName } } : {})`.
 
 ### 2.2. DTO Usage
 
 - Extended DTOs should not contain fields that are automatically managed by the system.
 - Use base DTOs for fields that should be explicitly provided by the user.
+- Create specific DTOs for findMany operations that require relational filters.
+- Use proper validation decorators for relational filter fields (e.g., `@IsUUID()` for ID fields).
 
 ### 2.3. Prisma Schema and Migration
 
@@ -63,6 +67,12 @@ This document contains rules and guidelines for Qoder to follow when working wit
 - Use specific field names for relations to avoid ambiguity.
 - Carefully consider cascade operations for delete operations.
 
+### 2.5. Service Implementation
+
+- Pass all filter parameters from the filters object to API calls in the correct order.
+- Maintain consistency between frontend service method signatures and backend controller method signatures.
+- Include relational filter parameters in service method calls following the standard parameter order (curPage, perPage, searchText, sort, tenantId, ...relationalFilters).
+
 ## 3. Frontend Development Rules
 
 ### 3.1. Grid Component Implementation
@@ -71,11 +81,14 @@ This document contains rules and guidelines for Qoder to follow when working wit
 - Use relational fields as filters in the `loadMany` method.
 - Pass relational fields to form components in the `showCreateOrUpdateModal` method.
 - Grid components should support view mode with custom title display instead of action buttons.
+- Implement `OnChanges` lifecycle hook to detect changes in relational inputs and trigger data reload.
+- Use `ngOnChanges` to avoid double loading when inputs change.
 
 ### 3.2. Form Component Implementation
 
 - Form components should accept relational field inputs from grid components.
 - Include relational fields in the data object when creating new records.
+- Pass relational field values to modal form components via `nzData` property.
 
 ### 3.3. Date Field Handling
 

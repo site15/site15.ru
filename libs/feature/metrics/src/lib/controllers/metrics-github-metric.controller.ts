@@ -14,6 +14,7 @@ import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } 
 import { MetricsError } from '../metrics.errors';
 import { CreateFullMetricsGithubMetricDto } from '../types/CreateFullMetricsGithubMetricDto';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
+import { FindManyMetricsGithubMetricArgs } from '../types/FindManyMetricsGithubMetricArgs';
 import { FindManyMetricsGithubMetricResponse } from '../types/FindManyMetricsGithubMetricResponse';
 
 @ApiBadRequestResponse({
@@ -34,7 +35,7 @@ export class MetricsGithubMetricController {
   async findMany(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
-    @Query() args: FindManyMetricsArgs,
+    @Query() args: FindManyMetricsGithubMetricArgs,
   ) {
     const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
       curPage: args.curPage,
@@ -76,6 +77,7 @@ export class MetricsGithubMetricController {
               : {
                   tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
                 }),
+            ...(args.repositoryId ? { repositoryId: { equals: args.repositoryId } } : {}),
           },
           take,
           skip,
@@ -98,6 +100,7 @@ export class MetricsGithubMetricController {
               : {
                   tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
                 }),
+            ...(args.repositoryId ? { repositoryId: { equals: args.repositoryId } } : {}),
           },
         }),
       };

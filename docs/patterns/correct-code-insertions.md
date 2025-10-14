@@ -132,6 +132,7 @@ function example() {
    ```
 
 3. **Inconsistent indentation:**
+
    ````markdown
    // DON'T DO THIS
 
@@ -141,6 +142,7 @@ function example() {
    }
    ```
    ````
+
    ```
 
    ```

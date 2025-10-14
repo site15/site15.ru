@@ -30,6 +30,8 @@ export class MetricsGithubTeamService {
               .map(([key, value]) => `${key}:${value}`)
               .join(',')
           : undefined,
+        undefined, // tenantId
+        filters['repositoryId'],
       )
       .pipe(
         map(({ meta, metricsGithubTeams }) => ({

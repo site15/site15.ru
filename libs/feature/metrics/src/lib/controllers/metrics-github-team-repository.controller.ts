@@ -14,6 +14,7 @@ import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_TEAM_REPOSITORY_CONTRO
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
 import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
+import { FindManyMetricsGithubTeamRepositoryArgs } from '../types/FindManyMetricsGithubTeamRepositoryArgs';
 import { CreateFullMetricsGithubTeamRepositoryDto } from '../types/CreateFullMetricsGithubTeamRepositoryDto';
 import { FindManyMetricsGithubTeamRepositoryResponse } from '../types/FindManyMetricsGithubTeamRepositoryResponse';
 
@@ -35,13 +36,15 @@ export class MetricsGithubTeamRepositoryController {
   async findMany(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
-    @Query() args: FindManyMetricsArgs,
+    @Query() args: FindManyMetricsGithubTeamRepositoryArgs,
   ) {
     const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
       curPage: args.curPage,
       perPage: args.perPage,
     });
     const searchText = args.searchText;
+    const teamId = args.teamId;
+    const repositoryId = args.repositoryId;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')
@@ -71,6 +74,8 @@ export class MetricsGithubTeamRepositoryController {
                   ],
                 }
               : {}),
+            ...(teamId ? { teamId: { equals: teamId } } : {}),
+            ...(repositoryId ? { repositoryId: { equals: repositoryId } } : {}),
 
             ...(metricsUser.userRole === MetricsRole.Admin
               ? { tenantId: args.tenantId }
@@ -94,6 +99,8 @@ export class MetricsGithubTeamRepositoryController {
                   ],
                 }
               : {}),
+            ...(teamId ? { teamId: { equals: teamId } } : {}),
+            ...(repositoryId ? { repositoryId: { equals: repositoryId } } : {}),
             ...(metricsUser.userRole === MetricsRole.Admin
               ? { tenantId: args.tenantId }
               : {

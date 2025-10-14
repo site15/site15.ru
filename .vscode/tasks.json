@@ -1,23 +1,23 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "testOne",
-            "type": "shell",
-            "icon": {
-                "id": "rocket",
-                "tooltip": "testOne"
-            },
-            "command": "npm run pm2-full:dev:test:one-server-e2e",
-        },
-        {
-            "label": "testAll",
-            "type": "shell",
-            "icon": {
-                "id": "rocket",
-                "tooltip": "testAll"
-            },
-            "command": "npm run pm2-full:dev:test:e2e",
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "testOne",
+      "type": "shell",
+      "icon": {
+        "id": "rocket",
+        "tooltip": "testOne"
+      },
+      "command": "npm run pm2-full:dev:test:one-server-e2e"
+    },
+    {
+      "label": "testAll",
+      "type": "shell",
+      "icon": {
+        "id": "rocket",
+        "tooltip": "testAll"
+      },
+      "command": "npm run pm2-full:dev:test:e2e"
+    }
+  ]
 }

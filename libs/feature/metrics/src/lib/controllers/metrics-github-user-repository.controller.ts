@@ -13,7 +13,7 @@ import { UpdateMetricsGithubUserRepositoryDto } from '../generated/rest/dto/upda
 import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_USER_REPOSITORY_CONTROLLER_PATH } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
-import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
+import { FindManyMetricsGithubUserRepositoryArgs } from '../types/FindManyMetricsGithubUserRepositoryArgs';
 import { FindManyMetricsGithubUserRepositoryResponse } from '../types/FindManyMetricsGithubUserRepositoryResponse';
 import { CreateFullMetricsGithubUserRepositoryDto } from '../types/CreateFullMetricsGithubUserRepositoryDto';
 
@@ -35,13 +35,15 @@ export class MetricsGithubUserRepositoryController {
   async findMany(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
-    @Query() args: FindManyMetricsArgs,
+    @Query() args: FindManyMetricsGithubUserRepositoryArgs,
   ) {
     const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
       curPage: args.curPage,
       perPage: args.perPage,
     });
     const searchText = args.searchText;
+    const userId = args.userId;
+    const repositoryId = args.repositoryId;
 
     const orderBy = (args.sort || 'createdAt:desc')
       .split(',')
@@ -72,6 +74,8 @@ export class MetricsGithubUserRepositoryController {
                   ],
                 }
               : {}),
+            ...(userId ? { userId: { equals: userId } } : {}),
+            ...(repositoryId ? { repositoryId: { equals: repositoryId } } : {}),
 
             ...(metricsUser.userRole === MetricsRole.Admin
               ? { tenantId: args.tenantId }
@@ -96,6 +100,8 @@ export class MetricsGithubUserRepositoryController {
                   ],
                 }
               : {}),
+            ...(userId ? { userId: { equals: userId } } : {}),
+            ...(repositoryId ? { repositoryId: { equals: repositoryId } } : {}),
             ...(metricsUser.userRole === MetricsRole.Admin
               ? { tenantId: args.tenantId }
               : {

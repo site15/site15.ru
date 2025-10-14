@@ -320,13 +320,14 @@ export class MetricsSite15RestService {
      * @param searchText 
      * @param sort 
      * @param tenantId 
+     * @param repositoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubMetricResponseInterface>;
-    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubMetricResponseInterface>>;
-    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubMetricResponseInterface>>;
-    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubMetricResponseInterface>;
+    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubMetricResponseInterface>>;
+    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubMetricResponseInterface>>;
+    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -348,6 +349,10 @@ export class MetricsSite15RestService {
         if (tenantId !== undefined && tenantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>tenantId, 'tenantId');
+        }
+        if (repositoryId !== undefined && repositoryId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>repositoryId, 'repositoryId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -683,13 +688,14 @@ export class MetricsSite15RestService {
      * @param searchText 
      * @param sort 
      * @param tenantId 
+     * @param repositoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubRepositoryResponseInterface>;
-    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubRepositoryResponseInterface>>;
-    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubRepositoryResponseInterface>>;
-    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubRepositoryResponseInterface>;
+    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubRepositoryResponseInterface>>;
+    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubRepositoryResponseInterface>>;
+    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -711,6 +717,10 @@ export class MetricsSite15RestService {
         if (tenantId !== undefined && tenantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>tenantId, 'tenantId');
+        }
+        if (repositoryId !== undefined && repositoryId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>repositoryId, 'repositoryId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1046,13 +1056,14 @@ export class MetricsSite15RestService {
      * @param searchText 
      * @param sort 
      * @param tenantId 
+     * @param repositoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubRepositoryStatisticsResponseInterface>;
-    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubRepositoryStatisticsResponseInterface>>;
-    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubRepositoryStatisticsResponseInterface>>;
-    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubRepositoryStatisticsResponseInterface>;
+    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubRepositoryStatisticsResponseInterface>>;
+    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubRepositoryStatisticsResponseInterface>>;
+    public metricsGithubRepositoryStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -1074,6 +1085,10 @@ export class MetricsSite15RestService {
         if (tenantId !== undefined && tenantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>tenantId, 'tenantId');
+        }
+        if (repositoryId !== undefined && repositoryId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>repositoryId, 'repositoryId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1472,13 +1487,14 @@ export class MetricsSite15RestService {
      * @param searchText 
      * @param sort 
      * @param tenantId 
+     * @param repositoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamResponseInterface>;
-    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamResponseInterface>>;
-    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamResponseInterface>>;
-    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamResponseInterface>;
+    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamResponseInterface>>;
+    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamResponseInterface>>;
+    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -1500,6 +1516,10 @@ export class MetricsSite15RestService {
         if (tenantId !== undefined && tenantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>tenantId, 'tenantId');
+        }
+        if (repositoryId !== undefined && repositoryId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>repositoryId, 'repositoryId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1835,13 +1855,15 @@ export class MetricsSite15RestService {
      * @param searchText 
      * @param sort 
      * @param tenantId 
+     * @param teamId 
+     * @param repositoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamRepositoryResponseInterface>;
-    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamRepositoryResponseInterface>>;
-    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamRepositoryResponseInterface>>;
-    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamRepositoryResponseInterface>;
+    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamRepositoryResponseInterface>>;
+    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamRepositoryResponseInterface>>;
+    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -1863,6 +1885,14 @@ export class MetricsSite15RestService {
         if (tenantId !== undefined && tenantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>tenantId, 'tenantId');
+        }
+        if (teamId !== undefined && teamId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>teamId, 'teamId');
+        }
+        if (repositoryId !== undefined && repositoryId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>repositoryId, 'repositoryId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2198,13 +2228,15 @@ export class MetricsSite15RestService {
      * @param searchText 
      * @param sort 
      * @param tenantId 
+     * @param teamId 
+     * @param userId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamUserResponseInterface>;
-    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamUserResponseInterface>>;
-    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamUserResponseInterface>>;
-    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamUserResponseInterface>;
+    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamUserResponseInterface>>;
+    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamUserResponseInterface>>;
+    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -2226,6 +2258,14 @@ export class MetricsSite15RestService {
         if (tenantId !== undefined && tenantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>tenantId, 'tenantId');
+        }
+        if (teamId !== undefined && teamId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>teamId, 'teamId');
+        }
+        if (userId !== undefined && userId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>userId, 'userId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2561,13 +2601,14 @@ export class MetricsSite15RestService {
      * @param searchText 
      * @param sort 
      * @param tenantId 
+     * @param repositoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserResponseInterface>;
-    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserResponseInterface>>;
-    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserResponseInterface>>;
-    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserResponseInterface>;
+    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserResponseInterface>>;
+    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserResponseInterface>>;
+    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -2589,6 +2630,10 @@ export class MetricsSite15RestService {
         if (tenantId !== undefined && tenantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>tenantId, 'tenantId');
+        }
+        if (repositoryId !== undefined && repositoryId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>repositoryId, 'repositoryId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2924,13 +2969,15 @@ export class MetricsSite15RestService {
      * @param searchText 
      * @param sort 
      * @param tenantId 
+     * @param userId 
+     * @param repositoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserRepositoryResponseInterface>;
-    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserRepositoryResponseInterface>>;
-    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserRepositoryResponseInterface>>;
-    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserRepositoryResponseInterface>;
+    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserRepositoryResponseInterface>>;
+    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserRepositoryResponseInterface>>;
+    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -2952,6 +2999,14 @@ export class MetricsSite15RestService {
         if (tenantId !== undefined && tenantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>tenantId, 'tenantId');
+        }
+        if (userId !== undefined && userId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>userId, 'userId');
+        }
+        if (repositoryId !== undefined && repositoryId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>repositoryId, 'repositoryId');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -3287,13 +3342,14 @@ export class MetricsSite15RestService {
      * @param searchText 
      * @param sort 
      * @param tenantId 
+     * @param userId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserStatisticsResponseInterface>;
-    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserStatisticsResponseInterface>>;
-    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserStatisticsResponseInterface>>;
-    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserStatisticsResponseInterface>;
+    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserStatisticsResponseInterface>>;
+    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserStatisticsResponseInterface>>;
+    public metricsGithubUserStatisticsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -3315,6 +3371,10 @@ export class MetricsSite15RestService {
         if (tenantId !== undefined && tenantId !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>tenantId, 'tenantId');
+        }
+        if (userId !== undefined && userId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>userId, 'userId');
         }
 
         let localVarHeaders = this.defaultHeaders;
