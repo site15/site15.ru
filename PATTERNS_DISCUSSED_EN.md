@@ -122,3 +122,29 @@ Translations in the project are collected automatically from the code using mark
 - After that, manually run `npm run translates` to generate json files and update the translation files in the applications
 - Manual editing of JSON translation files is not required
 - All translations are extracted automatically from the code using markers
+
+## 10. View Mode Implementation Pattern in Table Components
+
+### Rule
+
+Table components should support a view mode with the ability to display a custom title instead of standard action buttons.
+
+### Implementation
+
+- Table components should have input parameters `viewMode` (boolean) and `title` (string)
+- In view mode, action buttons (create, edit, delete) should be hidden
+- In view mode, a custom title should be displayed instead of the "Create" button
+- In view mode, modal windows for create/edit/delete should not open
+- Example implementation can be found in components of the metrics-afat module
+
+## 11. Consistency of Functionality Implementation Between Modules
+
+### Rule
+
+Similar functionality in different modules should be implemented consistently.
+
+### Implementation
+
+- When adding new functionality to one module, similar functionality should be added to other modules
+- Implementation patterns should be consistent between modules
+- Example: view mode functionality was added to the metrics-afat module and then implemented similarly in the sso-afat module

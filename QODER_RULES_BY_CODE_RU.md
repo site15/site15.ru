@@ -710,51 +710,52 @@ export class FeatureFormComponent implements OnInit {
 
 **Пример формы с дополнительными методами:**
 
-```typescript
+``typescript
 @Component({
-  // ... конфигурация компонента
+// ... конфигурация компонента
 })
 export class SignInFormComponent implements OnInit {
-  @Output() afterSignIn = new EventEmitter<AuthModel>();
+@Output() afterSignIn = new EventEmitter<AuthModel>();
 
-  form = new UntypedFormGroup({});
-  formlyModel$ = new BehaviorSubject<object | null>(null);
-  formlyFields$ = new BehaviorSubject<FormlyFieldConfig[] | null>(null);
+form = new UntypedFormGroup({});
+formlyModel$ = new BehaviorSubject<object | null>(null);
+formlyFields$ = new BehaviorSubject<FormlyFieldConfig[] | null>(null);
 
-  constructor(
-    private readonly authService: AuthService,
-    private readonly authFormService: AuthFormService,
-  ) {}
+constructor(
+private readonly authService: AuthService,
+private readonly authFormService: AuthFormService,
+) {}
 
-  ngOnInit(): void {
-    this.authFormService.init().then(() => {
-      this.setFieldsAndModel();
-    });
-  }
-
-  submitForm(): void {
-    this.signIn()
-      .pipe(
-        tap((result) => {
-          if (result) {
-            this.afterSignIn.next(result);
-          }
-        }),
-        untilDestroyed(this),
-      )
-      .subscribe();
-  }
-
-  private signIn() {
-    return this.authService
-      .signIn(this.featureMapperService.toJson(this.form.value))
-      .pipe(
-        catchError((err) =>
-          this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
-        ),
-      );
-  }
+ngOnInit(): void {
+this.authFormService.init().then(() => {
+this.setFieldsAndModel();
+});
 }
+
+submitForm(): void {
+this.signIn()
+.pipe(
+tap((result) => {
+if (result) {
+this.afterSignIn.next(result);
+}
+}),
+untilDestroyed(this),
+)
+.subscribe();
+}
+
+private signIn() {
+return this.authService
+.signIn(this.featureMapperService.toJson(this.form.value))
+.pipe(
+catchError((err) =>
+this.validationService.catchAndProcessServerError(err, (options) => this.setFormlyFields(options)),
+),
+);
+}
+}
+
 ```
 
 #### 1.3. Компоненты таблиц
@@ -768,7 +769,7 @@ export class SignInFormComponent implements OnInit {
 
 **Пример CRUD таблицы:**
 
-```typescript
+``typescript
 @Component({
   // ... конфигурация компонента
 })
@@ -900,57 +901,246 @@ export class FeatureGridComponent implements OnInit {
 
 **Пример таблицы с дополнительными методами:**
 
-```typescript
+``typescript
+@Component({
+// ... конфигурация компонента
+})
+export class UserManagementGridComponent implements OnInit {
+// ... стандартные свойства таблицы
+
+constructor(
+private readonly userService: UserService,
+private readonly nzModalService: NzModalService,
+private readonly viewContainerRef: ViewContainerRef,
+) {}
+
+// ... стандартные методы таблицы
+
+showActivateUserModal(userId: string): void {
+const modal = this.nzModalService.confirm({
+nzTitle: 'Активировать пользователя',
+nzContent: 'Вы уверены, что хотите активировать этого пользователя?',
+nzOnOk: () => {
+return this.userService
+.activate(userId)
+.pipe(
+tap(() => {
+this.loadMany({ force: true });
+}),
+untilDestroyed(this),
+)
+.subscribe();
+},
+});
+}
+
+showBlockUserModal(userId: string): void {
+const modal = this.nzModalService.confirm({
+nzTitle: 'Заблокировать пользователя',
+nzContent: 'Вы уверены, что хотите заблокировать этого пользователя?',
+nzOnOk: () => {
+return this.userService
+.block(userId)
+.pipe(
+tap(() => {
+this.loadMany({ force: true });
+}),
+untilDestroyed(this),
+)
+.subscribe();
+},
+});
+}
+}
+
+```
+
+#### 1.3.3. Гриды с поддержкой режима просмотра
+
+- Компоненты таблиц должны поддерживать режим просмотра, который отображает пользовательский заголовок вместо кнопок действий
+- Реализуйте входные параметры `viewMode` (boolean) и `title` (string)
+- Условно отображайте кнопки действий и столбцы в зависимости от режима просмотра
+- Предотвращайте открытие модальных диалогов в режиме просмотра
+
+**Пример таблицы с поддержкой режима просмотра:**
+
+``typescript
 @Component({
   // ... конфигурация компонента
 })
-export class UserManagementGridComponent implements OnInit {
-  // ... стандартные свойства таблицы
+export class FeatureGridComponent implements OnInit {
+  @Input() relatedEntityId?: string;
+  @Input() forceLoadStream?: Observable<unknown>[];
+
+  // Входные параметры режима просмотра
+  @Input() viewMode = false;
+  @Input() title?: string;
+
+  items$ = new BehaviorSubject<EntityModel[]>([]);
+  meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
+  searchField = new FormControl('');
+  selectedIds$ = new BehaviorSubject<string[]>([]);
+
+  keys = [EntityScalarFieldEnum.id, EntityScalarFieldEnum.name, EntityScalarFieldEnum.description];
+
+  columns = {
+    [EntityScalarFieldEnum.id]: 'feature.grid.columns.id',
+    [EntityScalarFieldEnum.name]: 'feature.grid.columns.name',
+    [EntityScalarFieldEnum.description]: 'feature.grid.columns.description',
+  };
 
   constructor(
-    private readonly userService: UserService,
+    private readonly featureService: FeatureService,
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
   ) {}
 
-  // ... стандартные методы таблицы
+  ngOnInit(): void {
+    merge(
+      this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
+      ...(this.forceLoadStream ? this.forceLoadStream : []),
+    )
+      .pipe(
+        tap(() => this.loadMany({ force: true })),
+        untilDestroyed(this),
+      )
+      .subscribe();
 
-  showActivateUserModal(userId: string): void {
-    const modal = this.nzModalService.confirm({
-      nzTitle: 'Активировать пользователя',
-      nzContent: 'Вы уверены, что хотите активировать этого пользователя?',
-      nzOnOk: () => {
-        return this.userService
-          .activate(userId)
-          .pipe(
-            tap(() => {
-              this.loadMany({ force: true });
-            }),
-            untilDestroyed(this),
-          )
-          .subscribe();
-      },
-    });
+    this.loadMany();
   }
 
-  showBlockUserModal(userId: string): void {
-    const modal = this.nzModalService.confirm({
-      nzTitle: 'Заблокировать пользователя',
-      nzContent: 'Вы уверены, что хотите заблокировать этого пользователя?',
-      nzOnOk: () => {
-        return this.userService
-          .block(userId)
-          .pipe(
-            tap(() => {
-              this.loadMany({ force: true });
-            }),
-            untilDestroyed(this),
-          )
-          .subscribe();
-      },
+  loadMany(args?: {
+    filters?: Record<string, string>;
+    meta?: RequestMeta;
+    queryParams?: NzTableQueryParams;
+    force?: boolean;
+  }) {
+    let meta = { meta: {}, ...(args || {}) }.meta as RequestMeta;
+    const { queryParams, filters } = { filters: {}, ...(args || {}) };
+
+    // Обработка параметров запроса и фильтров
+    if (!args?.force && queryParams) {
+      meta = getQueryMetaByParams(queryParams);
+    }
+
+    meta = getQueryMeta(meta, this.meta$.value);
+
+    if (!filters['search'] && this.searchField.value) {
+      filters['search'] = this.searchField.value;
+    }
+
+    if (!filters['relatedEntityId'] && this.relatedEntityId) {
+      filters['relatedEntityId'] = this.relatedEntityId;
+    }
+
+    this.featureService
+      .findMany({ filters, meta })
+      .pipe(
+        tap((result) => {
+          this.items$.next(result.entities);
+          this.meta$.next({ ...result.meta, ...meta });
+          this.selectedIds$.next([]);
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
+  }
+
+  showCreateOrUpdateModal(id?: string): void {
+    // В режиме просмотра не показываем модальное окно
+    if (this.viewMode) {
+      return;
+    }
+
+    const modal = this.nzModalService.create<FeatureFormComponent, FeatureFormComponent>({
+      nzTitle: id ? `Обновить ${id}` : 'Создать новый',
+      nzContent: FeatureFormComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzData: {
+        hideButtons: true,
+        id,
+        relatedEntityId: this.relatedEntityId,
+      } as FeatureFormComponent,
+      nzFooter: [
+        {
+          label: 'Отмена',
+          onClick: () => modal.close(),
+        },
+        {
+          label: id ? 'Сохранить' : 'Создать',
+          onClick: () => {
+            modal.componentInstance?.afterUpdate
+              .pipe(
+                tap(() => {
+                  modal.close();
+                  this.loadMany({ force: true });
+                }),
+                untilDestroyed(modal.componentInstance),
+              )
+              .subscribe();
+
+            modal.componentInstance?.afterCreate
+              .pipe(
+                tap(() => {
+                  modal.close();
+                  this.loadMany({ force: true });
+                }),
+                untilDestroyed(modal.componentInstance),
+              )
+              .subscribe();
+
+            modal.componentInstance?.submitForm();
+          },
+        },
+      ],
     });
   }
 }
+```
+
+В шаблоне условно отображайте кнопки действий и столбцы в зависимости от режима просмотра:
+
+```
+<div class="table-operations" nz-row nzJustify="space-between">
+  <div nz-col nzSpan="8">
+    <!-- Отображаем либо кнопку Создать, либо пользовательский заголовок в зависимости от режима просмотра -->
+    @if (!viewMode) {
+      <button nz-button nzType="primary" (click)="showCreateOrUpdateModal()" transloco="Создать новый"></button>
+    } @else {
+      <span>{{ title }}</span>
+    }
+  </div>
+  <!-- ... другие операции с таблицей -->
+</div>
+
+<nz-table ...>
+  <thead>
+    <tr>
+      @for (key of keys; track $index) {
+        <th [nzColumnKey]="key" [nzSortFn]="true" [nzSortOrder]="meta.sort[key] | nzTableSortOrderDetector"
+          [transloco]="columns[key]"></th>
+      }
+      <!-- Условно отображаем столбец Действия только когда не в режиме просмотра -->
+      @if (!viewMode) {
+        <th transloco="Действия"></th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of basicTable.data; track $index) {
+      <tr ...>
+        <!-- ... столбцы данных ... -->
+        <!-- Условно отображаем кнопки действий только когда не в режиме просмотра -->
+        @if (!viewMode) {
+          <td>
+            <a (click)="showCreateOrUpdateModal(data.id)" transloco="Редактировать"></a>
+            <!-- ... другие кнопки действий ... -->
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</nz-table>
 ```
 
 ### 2. Шаблоны сервисов
@@ -964,104 +1154,62 @@ export class UserManagementGridComponent implements OnInit {
 
 **Пример CRUD API сервиса:**
 
-```typescript
+``typescript
 @Injectable({ providedIn: 'root' })
 export class FeatureService {
-  constructor(
-    private readonly apiService: ApiService,
-    private readonly featureMapperService: FeatureMapperService,
-  ) {}
+constructor(
+private readonly apiService: ApiService,
+private readonly featureMapperService: FeatureMapperService,
+) {}
 
-  findOne(id: string) {
-    return this.apiService
-      .getFeatureApi()
-      .featureControllerFindOne(id)
-      .pipe(map((p) => this.featureMapperService.toModel(p)));
-  }
-
-  findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
-    return this.apiService
-      .getFeatureApi()
-      .featureControllerFindMany(
-        meta?.curPage,
-        meta?.perPage,
-        filters['search'],
-        meta?.sort
-          ? Object.entries(meta?.sort)
-              .map(([key, value]) => `${key}:${value}`)
-              .join(',')
-          : undefined,
-      )
-      .pipe(
-        map(({ meta, entities }) => ({
-          meta,
-          entities: entities.map((p) => this.featureMapperService.toModel(p)),
-        })),
-      );
-  }
-
-  updateOne(id: string, data: Record<string, unknown>) {
-    return this.apiService
-      .getFeatureApi()
-      .featureControllerUpdateOne(id, data as any)
-      .pipe(map((p) => this.featureMapperService.toModel(p)));
-  }
-
-  deleteOne(id: string) {
-    return this.apiService.getFeatureApi().featureControllerDeleteOne(id);
-  }
-
-  createOne(data: Record<string, unknown>) {
-    return this.apiService
-      .getFeatureApi()
-      .featureControllerCreateOne(data as any)
-      .pipe(map((p) => this.featureMapperService.toModel(p)));
-  }
-}
-```
-
-#### 2.2. Сервисы маппинга
-
-- Создавайте сервисы маппинга для преобразования данных между различными форматами
-- Обрабатывайте преобразования даты/времени с надлежащей обработкой часовых поясов
-- Реализуйте методы `toModel`, `toForm` и `toJson` для различных преобразований
-
-**Пример сервиса маппинга:**
-
-```typescript
-export interface FeatureModel extends Partial<Omit<FeatureDtoInterface, 'createdAt' | 'updatedAt'>> {
-  createdAt?: Date | null;
-  updatedAt?: Date | null;
+findOne(id: string) {
+return this.apiService
+.getFeatureApi()
+.featureControllerFindOne(id)
+.pipe(map((p) => this.featureMapperService.toModel(p)));
 }
 
-@Injectable({ providedIn: 'root' })
-export class FeatureMapperService {
-  constructor(protected readonly translocoService: TranslocoService) {}
-
-  toModel(item?: FeatureDtoInterface): FeatureModel {
-    return {
-      ...item,
-      createdAt: item?.createdAt ? addHours(new Date(item.createdAt), TIMEZONE_OFFSET) : null,
-      updatedAt: item?.updatedAt ? addHours(new Date(item.updatedAt), TIMEZONE_OFFSET) : null,
-    };
-  }
-
-  toForm(model: FeatureModel) {
-    return {
-      ...model,
-      createdAt: model.createdAt ? new Date(model.createdAt) : null,
-    };
-  }
-
-  toJson(data: FeatureModel) {
-    return {
-      name: data.name || null,
-      description: data.description || null,
-    };
-  }
+findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
+return this.apiService
+.getFeatureApi()
+.featureControllerFindMany(
+meta?.curPage,
+meta?.perPage,
+filters['search'],
+meta?.sort
+? Object.entries(meta?.sort)
+.map(([key, value]) => `${key}:${value}`)
+.join(',')
+: undefined,
+)
+.pipe(
+map(({ meta, entities }) => ({
+meta,
+entities: entities.map((p) => this.featureMapperService.toModel(p)),
+})),
+);
 }
-```
 
+updateOne(id: string, data: Record<string, unknown>) {
+return this.apiService
+.getFeatureApi()
+.featureControllerUpdateOne(id, data as any)
+.pipe(map((p) => this.featureMapperService.toModel(p)));
+}
+
+deleteOne(id: string) {
+return this.apiService.getFeatureApi().featureControllerDeleteOne(id);
+}
+
+createOne(data: Record<string, unknown>) {
+return this.apiService
+.getFeatureApi()
+.featureControllerCreateOne(data as any)
+.pipe(map((p) => this.featureMapperService.toModel(p)));
+}
+}
+
+````
 #### 2.3. Сервисы форм
 
 - Создавайте сервисы форм для конфигурации полей Formly
@@ -1121,7 +1269,7 @@ export class FeatureFormService {
     return this.translocoService.getAvailableLangs() as LangDefinition[];
   }
 }
-```
+````
 
 ### 3. Шаблоны управления состоянием
 

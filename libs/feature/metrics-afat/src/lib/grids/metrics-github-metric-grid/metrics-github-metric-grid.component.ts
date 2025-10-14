@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -21,7 +21,7 @@ import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge,
 import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
+import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { MetricsGithubMetricScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import { MetricsGithubMetricService } from '../../services/metrics-github-metric.service';
@@ -48,15 +48,15 @@ import { MetricsGithubMetricFormComponent } from '../../forms/metrics-github-met
     NzTableSortOrderDetectorPipe,
     TranslocoDirective,
     TranslocoPipe,
-    TranslocoDatePipe,
     NzFormModule,
+    TranslocoDatePipe,
   ],
   selector: 'metrics-github-metric-grid',
   templateUrl: './metrics-github-metric-grid.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class MetricsGithubMetricGridComponent implements OnInit {
+export class MetricsGithubMetricGridComponent implements OnInit, OnChanges {
   @Input()
   forceLoadStream?: Observable<unknown>[];
 
@@ -102,6 +102,15 @@ export class MetricsGithubMetricGridComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly viewContainerRef: ViewContainerRef,
   ) {}
+
+  ngOnChanges(changes: NgChanges<MetricsGithubMetricGridComponent>): void {
+    // need for ignore dbl load
+    if (!changes['repositoryId']?.firstChange) {
+      this.loadMany({ force: true });
+    } else {
+      this.loadMany();
+    }
+  }
 
   ngOnInit(): void {
     merge(

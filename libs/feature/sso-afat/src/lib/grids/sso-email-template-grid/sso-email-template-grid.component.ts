@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -20,7 +20,7 @@ import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge,
 import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
+import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { SsoEmailTemplateFormComponent } from '../../forms/sso-email-template-form/sso-email-template-form.component';
@@ -56,7 +56,7 @@ import { SsoTenantService } from '../../services/sso-tenant.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class SsoEmailTemplateGridComponent implements OnInit {
+export class SsoEmailTemplateGridComponent implements OnInit, OnChanges {
   @Input()
   tenantId?: string;
   @Input()
@@ -104,6 +104,15 @@ export class SsoEmailTemplateGridComponent implements OnInit {
 
   onTenantSearch(searchText: string) {
     this.loadManyTenants(searchText);
+  }
+
+  ngOnChanges(changes: NgChanges<SsoEmailTemplateGridComponent>): void {
+    // need for ignore dbl load
+    if (!changes.tenantId?.firstChange) {
+      this.loadMany({ force: true });
+    } else {
+      this.loadMany();
+    }
   }
 
   ngOnInit(): void {

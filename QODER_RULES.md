@@ -70,6 +70,7 @@ This document contains rules and guidelines for Qoder to follow when working wit
 - Grid components should have input properties for relational fields.
 - Use relational fields as filters in the `loadMany` method.
 - Pass relational fields to form components in the `showCreateOrUpdateModal` method.
+- Grid components should support view mode with custom title display instead of action buttons.
 
 ### 3.2. Form Component Implementation
 
@@ -198,4 +199,3 @@ For a comprehensive set of development patterns extracted directly from the code
 ### 11.5. Performance Considerations
 
 - Implement lazy loading for modules and components when appropriate.
-- Optimize bundle sizes to improve loading performance.

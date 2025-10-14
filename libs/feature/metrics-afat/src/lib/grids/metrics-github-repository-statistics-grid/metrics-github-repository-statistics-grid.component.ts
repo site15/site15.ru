@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -21,12 +21,12 @@ import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge,
 import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
+import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { MetricsGithubRepositoryStatisticsScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
-import { MetricsGithubRepositoryStatisticsFormComponent } from '../../forms/metrics-github-repository-statistics-form/metrics-github-repository-statistics-form.component';
-import { MetricsGithubRepositoryStatisticsModel } from '../../services/metrics-github-repository-statistics-mapper.service';
 import { MetricsGithubRepositoryStatisticsService } from '../../services/metrics-github-repository-statistics.service';
+import { MetricsGithubRepositoryStatisticsModel } from '../../services/metrics-github-repository-statistics-mapper.service';
+import { MetricsGithubRepositoryStatisticsFormComponent } from '../../forms/metrics-github-repository-statistics-form/metrics-github-repository-statistics-form.component';
 
 @UntilDestroy()
 @Component({
@@ -48,15 +48,15 @@ import { MetricsGithubRepositoryStatisticsService } from '../../services/metrics
     NzTableSortOrderDetectorPipe,
     TranslocoDirective,
     TranslocoPipe,
-    TranslocoDatePipe,
     NzFormModule,
+    TranslocoDatePipe,
   ],
   selector: 'metrics-github-repository-statistics-grid',
   templateUrl: './metrics-github-repository-statistics-grid.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class MetricsGithubRepositoryStatisticsGridComponent implements OnInit {
+export class MetricsGithubRepositoryStatisticsGridComponent implements OnInit, OnChanges {
   @Input()
   forceLoadStream?: Observable<unknown>[];
 
@@ -128,6 +128,15 @@ export class MetricsGithubRepositoryStatisticsGridComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly viewContainerRef: ViewContainerRef,
   ) {}
+
+  ngOnChanges(changes: NgChanges<MetricsGithubRepositoryStatisticsGridComponent>): void {
+    // need for ignore dbl load
+    if (!changes['repositoryId']?.firstChange) {
+      this.loadMany({ force: true });
+    } else {
+      this.loadMany();
+    }
+  }
 
   ngOnInit(): void {
     merge(

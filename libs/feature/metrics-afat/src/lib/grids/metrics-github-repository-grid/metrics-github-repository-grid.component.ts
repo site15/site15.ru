@@ -4,6 +4,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
   ViewContainerRef,
@@ -28,7 +29,7 @@ import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge,
 import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
+import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { MetricsGithubRepositoryFormComponent } from '../../forms/metrics-github-repository-form/metrics-github-repository-form.component';
 import { MetricsGithubRepositoryModel } from '../../services/metrics-github-repository-mapper.service';
@@ -60,7 +61,7 @@ import { MetricsGithubRepositoryService } from '../../services/metrics-github-re
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class MetricsGithubRepositoryGridComponent implements OnInit {
+export class MetricsGithubRepositoryGridComponent implements OnInit, OnChanges {
   @Input()
   forceLoadStream?: Observable<unknown>[];
 
@@ -106,6 +107,15 @@ export class MetricsGithubRepositoryGridComponent implements OnInit {
     private readonly viewContainerRef: ViewContainerRef,
     private readonly translocoService: TranslocoService,
   ) {}
+
+  ngOnChanges(changes: NgChanges<MetricsGithubRepositoryGridComponent>): void {
+    // need for ignore dbl load
+    if (!changes['repositoryId']?.firstChange) {
+      this.loadMany({ force: true });
+    } else {
+      this.loadMany();
+    }
+  }
 
   ngOnInit(): void {
     merge(

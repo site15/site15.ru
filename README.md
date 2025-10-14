@@ -64,6 +64,8 @@ Contains patterns and rules that have been discussed and agreed upon during our 
   - All translations from libs and node_modules are collected in applications
   - Translations are manually edited in PO files or using Poedit
   - After editing, `npm run translates` is run to update JSON files
+- View mode implementation pattern in table components
+- Consistency of functionality implementation between modules
 
 ## Usage Recommendations
 
@@ -97,7 +99,7 @@ The translation process in the project:
 - When a developer manually runs `npm run translates`, then:
   1. Translations are formed in multiple languages in this project it is ru (example: libs/feature/metrics-afat/src/i18n/ru.po) and en (example: libs/feature/metrics-afat/src/i18n/en.po)
   2. JSON variants are formed for translations of different languages ru (example: libs/feature/metrics-afat/src/i18n/ru.json) and en (example: libs/feature/metrics-afat/src/i18n/en.json)
-  3. All translations from libs and node modules are collected in applications (example: apps/server/src/assets/i18n/ru.vendor.json, apps/client/src/assets/i18n/en.vendor.json)
+  3. All translations from libs and node_modules are collected in applications (example: apps/server/src/assets/i18n/ru.vendor.json, apps/client/src/assets/i18n/en.vendor.json)
 - As a result, after the above steps, translation files are created where there are only keys but no translation values, if the value was previously filled, it will remain filled
 - The translation is done manually by the developer by editing the PO files or using the Poedit program
 - After that, manually run `npm run translates` to generate json files and update the translation files in the applications

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MetricsGithubUserRepositoryScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
@@ -20,7 +20,7 @@ import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge,
 import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
+import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { MetricsGithubUserRepositoryService } from '../../services/metrics-github-user-repository.service';
 import { MetricsGithubUserRepositoryModel } from '../../services/metrics-github-user-repository-mapper.service';
@@ -52,7 +52,7 @@ import { MetricsGithubUserRepositoryFormComponent } from '../../forms/metrics-gi
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class MetricsGithubUserRepositoryGridComponent implements OnInit {
+export class MetricsGithubUserRepositoryGridComponent implements OnInit, OnChanges {
   @Input()
   forceLoadStream?: Observable<unknown>[];
 
@@ -102,6 +102,15 @@ export class MetricsGithubUserRepositoryGridComponent implements OnInit {
     private readonly viewContainerRef: ViewContainerRef,
     private readonly translocoService: TranslocoService,
   ) {}
+
+  ngOnChanges(changes: NgChanges<MetricsGithubUserRepositoryGridComponent>): void {
+    // need for ignore dbl load
+    if (!changes['userId']?.firstChange || !changes['repositoryId']?.firstChange) {
+      this.loadMany({ force: true });
+    } else {
+      this.loadMany();
+    }
+  }
 
   ngOnInit(): void {
     merge(

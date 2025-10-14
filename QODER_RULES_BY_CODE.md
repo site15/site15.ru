@@ -357,61 +357,62 @@ export class AuthService {
 
 **Example Query Patterns:**
 
-```typescript
+``typescript
 async findMany(args: {
-  searchText?: string;
-  tenantId?: string;
-  curPage?: number;
-  perPage?: number;
-  sort?: string;
+searchText?: string;
+tenantId?: string;
+curPage?: number;
+perPage?: number;
+sort?: string;
 }) {
-  const { take, skip } = this.prismaToolsService.getFirstSkipFromCurPerPage({
-    curPage: args.curPage,
-    perPage: args.perPage,
-  });
+const { take, skip } = this.prismaToolsService.getFirstSkipFromCurPerPage({
+curPage: args.curPage,
+perPage: args.perPage,
+});
 
-  const orderBy = (args.sort || 'createdAt:desc')
-    .split(',')
-    .map((s) => s.split(':'))
-    .reduce(
-      (all, [key, value]) => ({
-        ...all,
-        ...(key in Prisma.EntityScalarFieldEnum
-          ? {
-              [key]: value === 'desc' ? 'desc' : 'asc',
-            }
-          : {}),
-      }),
-      {},
-    );
-
-  return await this.prismaClient.$transaction(async (prisma) => {
-    return {
-      entities: await prisma.entity.findMany({
-        where: {
-          ...(args.searchText
-            ? {
-                OR: [
-                  { name: { contains: args.searchText, mode: 'insensitive' } },
-                  { description: { contains: args.searchText, mode: 'insensitive' } },
-                ],
-              }
-            : {}),
-          ...(args.tenantId ? { tenantId: args.tenantId } : {}),
-        },
-        take,
-        skip,
-        orderBy,
-      }),
-      totalResults: await prisma.entity.count({
-        where: {
-          // Same conditions as above
-        },
-      },
-    });
-  });
+const orderBy = (args.sort || 'createdAt:desc')
+.split(',')
+.map((s) => s.split(':'))
+.reduce(
+(all, [key, value]) => ({
+...all,
+...(key in Prisma.EntityScalarFieldEnum
+? {
+[key]: value === 'desc' ? 'desc' : 'asc',
 }
-```
+: {}),
+}),
+{},
+);
+
+return await this.prismaClient.$transaction(async (prisma) => {
+return {
+entities: await prisma.entity.findMany({
+where: {
+...(args.searchText
+? {
+OR: [
+{ name: { contains: args.searchText, mode: 'insensitive' } },
+{ description: { contains: args.searchText, mode: 'insensitive' } },
+],
+}
+: {}),
+...(args.tenantId ? { tenantId: args.tenantId } : {}),
+},
+take,
+skip,
+orderBy,
+}),
+totalResults: await prisma.entity.count({
+where: {
+// Same conditions as above
+},
+},
+});
+});
+}
+
+````
 
 ### 3. DTO Patterns
 
@@ -452,7 +453,7 @@ export class CreateFullEntityDto extends CreateEntityDto {
   @IsString()
   optionalField?: string;
 }
-```
+````
 
 #### 3.2. Update DTOs
 
@@ -936,57 +937,246 @@ export class FeatureGridComponent implements OnInit {
 
 **Example Grid with Additional Methods:**
 
-```typescript
+``typescript
+@Component({
+// ... component configuration
+})
+export class UserManagementGridComponent implements OnInit {
+// ... standard grid properties
+
+constructor(
+private readonly userService: UserService,
+private readonly nzModalService: NzModalService,
+private readonly viewContainerRef: ViewContainerRef,
+) {}
+
+// ... standard grid methods
+
+showActivateUserModal(userId: string): void {
+const modal = this.nzModalService.confirm({
+nzTitle: 'Activate User',
+nzContent: 'Are you sure you want to activate this user?',
+nzOnOk: () => {
+return this.userService
+.activate(userId)
+.pipe(
+tap(() => {
+this.loadMany({ force: true });
+}),
+untilDestroyed(this),
+)
+.subscribe();
+},
+});
+}
+
+showBlockUserModal(userId: string): void {
+const modal = this.nzModalService.confirm({
+nzTitle: 'Block User',
+nzContent: 'Are you sure you want to block this user?',
+nzOnOk: () => {
+return this.userService
+.block(userId)
+.pipe(
+tap(() => {
+this.loadMany({ force: true });
+}),
+untilDestroyed(this),
+)
+.subscribe();
+},
+});
+}
+}
+
+```
+
+#### 1.3.3. Grids with View Mode Support
+
+- Grid components should support a view mode that displays a custom title instead of action buttons
+- Implement `viewMode` boolean input and `title` string input properties
+- Conditionally render action buttons and columns based on view mode
+- Prevent modal dialogs from opening in view mode
+
+**Example Grid with View Mode Support:**
+
+``typescript
 @Component({
   // ... component configuration
 })
-export class UserManagementGridComponent implements OnInit {
-  // ... standard grid properties
+export class FeatureGridComponent implements OnInit {
+  @Input() relatedEntityId?: string;
+  @Input() forceLoadStream?: Observable<unknown>[];
+
+  // View mode inputs
+  @Input() viewMode = false;
+  @Input() title?: string;
+
+  items$ = new BehaviorSubject<EntityModel[]>([]);
+  meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
+  searchField = new FormControl('');
+  selectedIds$ = new BehaviorSubject<string[]>([]);
+
+  keys = [EntityScalarFieldEnum.id, EntityScalarFieldEnum.name, EntityScalarFieldEnum.description];
+
+  columns = {
+    [EntityScalarFieldEnum.id]: 'feature.grid.columns.id',
+    [EntityScalarFieldEnum.name]: 'feature.grid.columns.name',
+    [EntityScalarFieldEnum.description]: 'feature.grid.columns.description',
+  };
 
   constructor(
-    private readonly userService: UserService,
+    private readonly featureService: FeatureService,
     private readonly nzModalService: NzModalService,
     private readonly viewContainerRef: ViewContainerRef,
   ) {}
 
-  // ... standard grid methods
+  ngOnInit(): void {
+    merge(
+      this.searchField.valueChanges.pipe(debounceTime(700), distinctUntilChanged()),
+      ...(this.forceLoadStream ? this.forceLoadStream : []),
+    )
+      .pipe(
+        tap(() => this.loadMany({ force: true })),
+        untilDestroyed(this),
+      )
+      .subscribe();
 
-  showActivateUserModal(userId: string): void {
-    const modal = this.nzModalService.confirm({
-      nzTitle: 'Activate User',
-      nzContent: 'Are you sure you want to activate this user?',
-      nzOnOk: () => {
-        return this.userService
-          .activate(userId)
-          .pipe(
-            tap(() => {
-              this.loadMany({ force: true });
-            }),
-            untilDestroyed(this),
-          )
-          .subscribe();
-      },
-    });
+    this.loadMany();
   }
 
-  showBlockUserModal(userId: string): void {
-    const modal = this.nzModalService.confirm({
-      nzTitle: 'Block User',
-      nzContent: 'Are you sure you want to block this user?',
-      nzOnOk: () => {
-        return this.userService
-          .block(userId)
-          .pipe(
-            tap(() => {
-              this.loadMany({ force: true });
-            }),
-            untilDestroyed(this),
-          )
-          .subscribe();
-      },
+  loadMany(args?: {
+    filters?: Record<string, string>;
+    meta?: RequestMeta;
+    queryParams?: NzTableQueryParams;
+    force?: boolean;
+  }) {
+    let meta = { meta: {}, ...(args || {}) }.meta as RequestMeta;
+    const { queryParams, filters } = { filters: {}, ...(args || {}) };
+
+    // Handle query parameters and filters
+    if (!args?.force && queryParams) {
+      meta = getQueryMetaByParams(queryParams);
+    }
+
+    meta = getQueryMeta(meta, this.meta$.value);
+
+    if (!filters['search'] && this.searchField.value) {
+      filters['search'] = this.searchField.value;
+    }
+
+    if (!filters['relatedEntityId'] && this.relatedEntityId) {
+      filters['relatedEntityId'] = this.relatedEntityId;
+    }
+
+    this.featureService
+      .findMany({ filters, meta })
+      .pipe(
+        tap((result) => {
+          this.items$.next(result.entities);
+          this.meta$.next({ ...result.meta, ...meta });
+          this.selectedIds$.next([]);
+        }),
+        untilDestroyed(this),
+      )
+      .subscribe();
+  }
+
+  showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
+    const modal = this.nzModalService.create<FeatureFormComponent, FeatureFormComponent>({
+      nzTitle: id ? `Update ${id}` : 'Create New',
+      nzContent: FeatureFormComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      nzData: {
+        hideButtons: true,
+        id,
+        relatedEntityId: this.relatedEntityId,
+      } as FeatureFormComponent,
+      nzFooter: [
+        {
+          label: 'Cancel',
+          onClick: () => modal.close(),
+        },
+        {
+          label: id ? 'Save' : 'Create',
+          onClick: () => {
+            modal.componentInstance?.afterUpdate
+              .pipe(
+                tap(() => {
+                  modal.close();
+                  this.loadMany({ force: true });
+                }),
+                untilDestroyed(modal.componentInstance),
+              )
+              .subscribe();
+
+            modal.componentInstance?.afterCreate
+              .pipe(
+                tap(() => {
+                  modal.close();
+                  this.loadMany({ force: true });
+                }),
+                untilDestroyed(modal.componentInstance),
+              )
+              .subscribe();
+
+            modal.componentInstance?.submitForm();
+          },
+        },
+      ],
     });
   }
 }
+```
+
+In the template, conditionally render action buttons and columns based on view mode:
+
+```
+<div class="table-operations" nz-row nzJustify="space-between">
+  <div nz-col nzSpan="8">
+    <!-- Show either the Create button or the title text based on viewMode -->
+    @if (!viewMode) {
+      <button nz-button nzType="primary" (click)="showCreateOrUpdateModal()" transloco="Create new"></button>
+    } @else {
+      <span>{{ title }}</span>
+    }
+  </div>
+  <!-- ... other table operations -->
+</div>
+
+<nz-table ...>
+  <thead>
+    <tr>
+      @for (key of keys; track $index) {
+        <th [nzColumnKey]="key" [nzSortFn]="true" [nzSortOrder]="meta.sort[key] | nzTableSortOrderDetector"
+          [transloco]="columns[key]"></th>
+      }
+      <!-- Conditionally show the Action column only when not in view mode -->
+      @if (!viewMode) {
+        <th transloco="Action"></th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of basicTable.data; track $index) {
+      <tr ...>
+        <!-- ... data columns ... -->
+        <!-- Conditionally show the action buttons only when not in view mode -->
+        @if (!viewMode) {
+          <td>
+            <a (click)="showCreateOrUpdateModal(data.id)" transloco="Edit"></a>
+            <!-- ... other action buttons ... -->
+          </td>
+        }
+      </tr>
+    }
+  </tbody>
+</nz-table>
 ```
 
 ### 2. Service Patterns
@@ -1401,8 +1591,8 @@ const result = await prisma.$transaction(async (tx) => {
 
 **Example Migration Structure:**
 
-```sql
--- V202507191859__Init.sql
+``sql
+-- V202507191859\_\_Init.sql
 -- Migration: Create initial tables for feature
 -- Description: Creates tables, indexes, and constraints for feature
 
@@ -1417,7 +1607,9 @@ EXCEPTION
 WHEN duplicate_object THEN
 NULL;
 END
-$$;
+
+$$
+;
 
 --
 
@@ -1453,7 +1645,9 @@ COMMENT ON COLUMN "EntityName"."tenantId" IS 'Tenant identifier for multi-tenanc
 --
 
 -- Add primary key constraint
-DO $$
+DO
+$$
+
 BEGIN
 ALTER TABLE "EntityName"
 ADD CONSTRAINT "PK_ENTITY_NAME" PRIMARY KEY(id);
@@ -1463,7 +1657,9 @@ NULL;
 WHEN invalid_table_definition THEN
 NULL;
 END
-$$;
+
+$$
+;
 
 --
 
@@ -1495,7 +1691,9 @@ COMMENT ON TABLE "EntityNameRelatedEntity" IS 'Relationship between entities and
 
 --
 
-DO $$
+DO
+$$
+
 BEGIN
 ALTER TABLE "EntityNameRelatedEntity"
 ADD CONSTRAINT "PK_ENTITY_NAME_RELATED_ENTITY" PRIMARY KEY(id);
@@ -1505,32 +1703,42 @@ NULL;
 WHEN invalid_table_definition THEN
 NULL;
 END
-$$;
+
+$$
+;
 
 --
 
 -- Add foreign key constraints
-DO $$
+DO
+$$
+
 BEGIN
 ALTER TABLE "EntityNameRelatedEntity"
-        ADD CONSTRAINT "FK_ENTITY_NAME_RELATED_ENTITY__ENTITY_NAME_ID" FOREIGN KEY("entityNameId") REFERENCES "EntityName"(id);
+ADD CONSTRAINT "FK_ENTITY_NAME_RELATED_ENTITY\_\_ENTITY_NAME_ID" FOREIGN KEY("entityNameId") REFERENCES "EntityName"(id);
 EXCEPTION
 WHEN duplicate_object THEN
 NULL;
 END
-$$;
+
+$$
+;
 
 --
 
-DO $$
+DO
+$$
+
 BEGIN
 ALTER TABLE "EntityNameRelatedEntity"
-        ADD CONSTRAINT "FK_ENTITY_NAME_RELATED_ENTITY__RELATED_ENTITY_ID" FOREIGN KEY("relatedEntityId") REFERENCES "RelatedEntity"(id);
+ADD CONSTRAINT "FK_ENTITY_NAME_RELATED_ENTITY\_\_RELATED_ENTITY_ID" FOREIGN KEY("relatedEntityId") REFERENCES "RelatedEntity"(id);
 EXCEPTION
 WHEN duplicate_object THEN
 NULL;
 END
-$$;
+
+$$
+;
 
 --
 
@@ -1842,7 +2050,7 @@ private createOne() {
 
 **Example Unit Testing:**
 
-```typescript
+``typescript
 describe('FeatureService', () => {
   let service: FeatureService;
   let apiService: jest.Mocked<ApiService>;
@@ -2159,4 +2367,4 @@ feature-name/
   "printWidth": 100,
   "tabWidth": 2
 }
-```
+$$

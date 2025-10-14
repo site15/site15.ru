@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -21,7 +21,7 @@ import { BehaviorSubject, Observable, debounceTime, distinctUntilChanged, merge,
 import { TranslocoDirective, TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
+import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { MetricsGithubTeamRepositoryScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import { MetricsGithubTeamRepositoryService } from '../../services/metrics-github-team-repository.service';
@@ -55,7 +55,7 @@ import { MetricsGithubTeamRepositoryFormComponent } from '../../forms/metrics-gi
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class MetricsGithubTeamRepositoryGridComponent implements OnInit {
+export class MetricsGithubTeamRepositoryGridComponent implements OnInit, OnChanges {
   @Input()
   forceLoadStream?: Observable<unknown>[];
 
@@ -104,6 +104,15 @@ export class MetricsGithubTeamRepositoryGridComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly viewContainerRef: ViewContainerRef,
   ) {}
+
+  ngOnChanges(changes: NgChanges<MetricsGithubTeamRepositoryGridComponent>): void {
+    // need for ignore dbl load
+    if (!changes['teamId']?.firstChange || !changes['repositoryId']?.firstChange) {
+      this.loadMany({ force: true });
+    } else {
+      this.loadMany();
+    }
+  }
 
   ngOnInit(): void {
     merge(
