@@ -58,6 +58,18 @@ import { MetricsGithubTeamFormComponent } from '../../forms/metrics-github-team-
 export class MetricsGithubTeamGridComponent implements OnInit {
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
+
+  @Input()
+  repositoryId?: string;
+
   items$ = new BehaviorSubject<MetricsGithubTeamModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -147,6 +159,11 @@ export class MetricsGithubTeamGridComponent implements OnInit {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<MetricsGithubTeamFormComponent, MetricsGithubTeamFormComponent>({
       nzTitle: id
         ? this.translocoService.translate('metrics-github-team.update-modal.title', {
@@ -197,9 +214,11 @@ export class MetricsGithubTeamGridComponent implements OnInit {
   }
 
   showDeleteModal(id?: string) {
-    if (!id) {
+    // In view mode, don't show the modal
+    if (this.viewMode || !id) {
       return;
     }
+
     this.nzModalService.confirm({
       nzTitle: this.translocoService.translate(`metrics-github-team.delete-modal.title`, {
         id,

@@ -1,6 +1,11 @@
 <div class="table-operations" nz-row nzJustify="space-between">
   <div nz-col nzSpan="8">
-    {{ 'Email templates' | transloco }}
+    <!-- Show either the default text or the custom title based on viewMode -->
+    @if (!viewMode) {
+      {{ 'Email templates' | transloco }}
+    } @else {
+      <span>{{ title }}</span>
+    }
   </div>
   <div nz-col nzSpan="8">
     <div nz-row nzJustify="space-between">
@@ -68,7 +73,10 @@
             [transloco]="columns[key]"
           ></th>
         }
-        <th transloco="Action"></th>
+        <!-- Conditionally show the Action column only when not in view mode -->
+        @if (!viewMode) {
+          <th transloco="Action"></th>
+        }
       </tr>
     </thead>
     @if (selectedIds$ | async; as selectedIds) {
@@ -95,9 +103,12 @@
                 </td>
               }
             }
-            <td>
-              <a (click)="showCreateOrUpdateModal(data.id)" transloco="Edit"></a>
-            </td>
+            <!-- Conditionally show the action buttons only when not in view mode -->
+            @if (!viewMode) {
+              <td>
+                <a (click)="showCreateOrUpdateModal(data.id)" transloco="Edit"></a>
+              </td>
+            }
           </tr>
         }
       </tbody>

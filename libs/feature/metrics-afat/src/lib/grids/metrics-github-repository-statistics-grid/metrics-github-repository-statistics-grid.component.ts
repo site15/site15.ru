@@ -24,9 +24,9 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
 import { MetricsGithubRepositoryStatisticsScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
-import { MetricsGithubRepositoryStatisticsService } from '../../services/metrics-github-repository-statistics.service';
-import { MetricsGithubRepositoryStatisticsModel } from '../../services/metrics-github-repository-statistics-mapper.service';
 import { MetricsGithubRepositoryStatisticsFormComponent } from '../../forms/metrics-github-repository-statistics-form/metrics-github-repository-statistics-form.component';
+import { MetricsGithubRepositoryStatisticsModel } from '../../services/metrics-github-repository-statistics-mapper.service';
+import { MetricsGithubRepositoryStatisticsService } from '../../services/metrics-github-repository-statistics.service';
 
 @UntilDestroy()
 @Component({
@@ -62,6 +62,14 @@ export class MetricsGithubRepositoryStatisticsGridComponent implements OnInit {
 
   @Input()
   repositoryId?: string;
+
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
 
   items$ = new BehaviorSubject<MetricsGithubRepositoryStatisticsModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
@@ -186,6 +194,11 @@ export class MetricsGithubRepositoryStatisticsGridComponent implements OnInit {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<
       MetricsGithubRepositoryStatisticsFormComponent,
       MetricsGithubRepositoryStatisticsFormComponent
@@ -240,9 +253,11 @@ export class MetricsGithubRepositoryStatisticsGridComponent implements OnInit {
   }
 
   showDeleteModal(id?: string) {
-    if (!id) {
+    // In view mode, don't show the modal
+    if (this.viewMode || !id) {
       return;
     }
+
     this.nzModalService.confirm({
       nzTitle: this.translocoService.translate(`metrics-github-repository-statistics.delete-modal.title`, {
         id,

@@ -58,6 +58,14 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
   @Input()
   forceLoadStream?: Observable<unknown>[];
 
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
+
   items$ = new BehaviorSubject<SsoSessionModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -169,6 +177,11 @@ export class SsoSessionGridComponent implements OnInit, OnChanges {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<SsoSessionFormComponent, SsoSessionFormComponent>({
       nzTitle: id
         ? this.translocoService.translate('sso-session.update-modal.title', {

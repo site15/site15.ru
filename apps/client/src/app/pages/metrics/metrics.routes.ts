@@ -13,6 +13,7 @@ import {
   MetricsGithubTeamUserGridComponent,
   MetricsGithubUserStatisticsGridComponent,
 } from '@site15/metrics-afat';
+import { GithubRepositoryComponent } from './github-repositories/github-repositories.component';
 
 export const metricsRoutes: Route[] = [
   {
@@ -22,7 +23,7 @@ export const metricsRoutes: Route[] = [
   },
   {
     path: 'github-repositories',
-    component: MetricsGithubRepositoryGridComponent,
+    component: GithubRepositoryComponent,
     title: marker('Github repositories'),
   },
   {

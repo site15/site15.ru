@@ -1,9 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MetricsGithubRepositoryScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { MetricsGithubRepositoryScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -22,9 +30,9 @@ import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
-import { MetricsGithubRepositoryService } from '../../services/metrics-github-repository.service';
-import { MetricsGithubRepositoryModel } from '../../services/metrics-github-repository-mapper.service';
 import { MetricsGithubRepositoryFormComponent } from '../../forms/metrics-github-repository-form/metrics-github-repository-form.component';
+import { MetricsGithubRepositoryModel } from '../../services/metrics-github-repository-mapper.service';
+import { MetricsGithubRepositoryService } from '../../services/metrics-github-repository.service';
 
 @UntilDestroy()
 @Component({
@@ -55,6 +63,20 @@ import { MetricsGithubRepositoryFormComponent } from '../../forms/metrics-github
 export class MetricsGithubRepositoryGridComponent implements OnInit {
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  @Input()
+  repositoryId?: string;
+
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
+
+  @Output()
+  synced = new EventEmitter<string>();
 
   items$ = new BehaviorSubject<MetricsGithubRepositoryModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
@@ -97,6 +119,16 @@ export class MetricsGithubRepositoryGridComponent implements OnInit {
       .subscribe();
 
     this.loadMany();
+  }
+
+  sync(repositoryId: string) {
+    this.metricsGithubRepositoryService
+      .sync(repositoryId)
+      .pipe(
+        tap(() => this.synced && this.synced.emit(repositoryId)),
+        untilDestroyed(this),
+      )
+      .subscribe();
   }
 
   loadMany(args?: {
@@ -146,6 +178,11 @@ export class MetricsGithubRepositoryGridComponent implements OnInit {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<
       MetricsGithubRepositoryFormComponent,
       MetricsGithubRepositoryFormComponent
@@ -193,16 +230,17 @@ export class MetricsGithubRepositoryGridComponent implements OnInit {
 
             modal.componentInstance?.submitForm();
           },
-          type: 'primary',
         },
       ],
     });
   }
 
   showDeleteModal(id?: string) {
-    if (!id) {
+    // In view mode, don't show the modal
+    if (this.viewMode || !id) {
       return;
     }
+
     this.nzModalService.confirm({
       nzTitle: this.translocoService.translate(`metrics-github-repository.delete-modal.title`, {
         id,

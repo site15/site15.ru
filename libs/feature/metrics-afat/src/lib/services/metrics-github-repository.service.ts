@@ -15,6 +15,12 @@ export class MetricsGithubRepositoryService {
     private readonly metricsGithubRepositoryMapperService: MetricsGithubRepositoryMapperService,
   ) {}
 
+  sync(id: string) {
+    return this.site15RestSdkAngularService
+      .getMetricsApi()
+      .metricsGithubRepositoryStatisticsControllerSyncRepositoryStatistics(id);
+  }
+
   findOne(id: string) {
     return this.site15RestSdkAngularService
       .getMetricsApi()

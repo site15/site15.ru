@@ -1,9 +1,14 @@
 <div class="table-operations" nz-row nzJustify="space-between">
   <div nz-col nzSpan="8">
-    @if (tenantId) {
-      {{ 'Users for tenant #{{tenantId}}' | transloco:{tenantId} }}
+    <!-- Show either the Invite Members button/title or the custom title based on viewMode -->
+    @if (!viewMode) {
+      @if (tenantId) {
+        {{ 'Users for tenant #{{tenantId}}' | transloco:{tenantId} }}
+      } @else {
+        <button nz-button nzType="primary" (click)="showInviteMembersModal()" transloco="Invite Members"></button>
+      }
     } @else {
-      <button nz-button nzType="primary" (click)="showInviteMembersModal()" transloco="Invite Members"></button>
+      <span>{{ title }}</span>
     }
   </div>
   <div nz-col nzSpan="8">
@@ -72,7 +77,10 @@
             [transloco]="columns[key]"
           ></th>
         }
-        <th transloco="Action"></th>
+        <!-- Conditionally show the Action column only when not in view mode -->
+        @if (!viewMode) {
+          <th transloco="Action"></th>
+        }
       </tr>
     </thead>
     @if (selectedIds$ | async; as selectedIds) {
@@ -106,9 +114,12 @@
                 </td>
               }
             }
-            <td>
-              <a (click)="showCreateOrUpdateModal(data.id)" transloco="Edit"></a>
-            </td>
+            <!-- Conditionally show the action buttons only when not in view mode -->
+            @if (!viewMode) {
+              <td>
+                <a (click)="showCreateOrUpdateModal(data.id)" transloco="Edit"></a>
+              </td>
+            }
           </tr>
         }
       </tbody>

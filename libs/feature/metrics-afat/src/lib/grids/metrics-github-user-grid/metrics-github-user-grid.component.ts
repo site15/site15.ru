@@ -59,6 +59,18 @@ import { MetricsGithubUserFormComponent } from '../../forms/metrics-github-user-
 export class MetricsGithubUserGridComponent implements OnInit {
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
+
+  @Input()
+  repositoryId?: string;
+
   items$ = new BehaviorSubject<MetricsGithubUserModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -150,6 +162,11 @@ export class MetricsGithubUserGridComponent implements OnInit {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<MetricsGithubUserFormComponent, MetricsGithubUserFormComponent>({
       nzTitle: id
         ? this.translocoService.translate('metrics-github-user.update-modal.title', {
@@ -200,9 +217,11 @@ export class MetricsGithubUserGridComponent implements OnInit {
   }
 
   showDeleteModal(id?: string) {
-    if (!id) {
+    // In view mode, don't show the modal
+    if (this.viewMode || !id) {
       return;
     }
+
     this.nzModalService.confirm({
       nzTitle: this.translocoService.translate(`metrics-github-user.delete-modal.title`, {
         id,

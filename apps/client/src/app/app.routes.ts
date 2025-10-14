@@ -40,6 +40,25 @@ export const appRoutes: Route[] = [
     title: marker('Home'),
   },
   {
+    path: 'metrics',
+    title: marker('Metrics'),
+    component: MetricsComponent,
+    canActivate: [SsoGuardService],
+    data: {
+      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
+        roles: [SsoRoleInterface.user, SsoRoleInterface.manager, SsoRoleInterface.admin],
+        afterActivate: async (options: OnActivateOptions) => {
+          if (options.error) {
+            options.router.navigate(['/metrics']);
+            return false;
+          }
+          return true;
+        },
+      }),
+    },
+    children: metricsRoutes,
+  },
+  {
     path: 'webhooks',
     component: WebhooksComponent,
     title: marker('Webhooks'),
@@ -74,25 +93,6 @@ export const appRoutes: Route[] = [
         },
       }),
     },
-  },
-  {
-    path: 'metrics',
-    title: marker('Metrics'),
-    component: MetricsComponent,
-    canActivate: [SsoGuardService],
-    data: {
-      [SSO_GUARD_DATA_ROUTE_KEY]: new SsoGuardData({
-        roles: [SsoRoleInterface.manager, SsoRoleInterface.admin],
-        afterActivate: async (options: OnActivateOptions) => {
-          if (options.error) {
-            options.router.navigate(['/metrics']);
-            return false;
-          }
-          return true;
-        },
-      }),
-    },
-    children: metricsRoutes,
   },
   {
     path: 'users',

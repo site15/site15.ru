@@ -65,8 +65,8 @@ export async function generateRandomUser(
     })}`;
   const createdAt = new Date();
   const domainWord = faker.internet.domainWord();
-  const site = `https://${domainWord}.${faker.internet.domainSuffix}`;
-  return {
+  const site = `https://${domainWord}.${faker.internet.domainSuffix()}`;
+  const user = {
     ...options,
     id: faker.string.uuid(),
     username: `${prefix}${+createdAt}${num}`,
@@ -89,4 +89,7 @@ export async function generateRandomUser(
     site,
     domainWord,
   };
+
+  console.log(user);
+  return user as Required<GenerateRandomUserResult>;
 }

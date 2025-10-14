@@ -1,6 +1,11 @@
 <div class="table-operations" nz-row nzJustify="space-between">
   <div nz-col nzSpan="8">
-    <button nz-button nzType="primary" (click)="showCreateOrUpdateModal()" transloco="Create new"></button>
+    <!-- Show either the Create button or the title text based on viewMode -->
+    @if (!viewMode) {
+      <button nz-button nzType="primary" (click)="showCreateOrUpdateModal()" transloco="Create new"></button>
+    } @else {
+      <span>{{ title }}</span>
+    }
   </div>
   <div nz-col nzSpan="8">
     <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
@@ -42,7 +47,10 @@
             [transloco]="columns[key]"
           ></th>
         }
-        <th transloco="Action"></th>
+        <!-- Conditionally show the Action column only when not in view mode -->
+        @if (!viewMode) {
+          <th transloco="Action"></th>
+        }
       </tr>
     </thead>
     @if (selectedIds$ | async; as selectedIds) {
@@ -57,11 +65,14 @@
                 {{ data[key] }}
               </td>
             }
-            <td>
-              <a (click)="showCreateOrUpdateModal(data.id)" transloco="Edit"></a>
-              <nz-divider nzType="vertical"></nz-divider>
-              <a (click)="showDeleteModal(data.id)" transloco="Delete"></a>
-            </td>
+            <!-- Conditionally show the action buttons only when not in view mode -->
+            @if (!viewMode) {
+              <td>
+                <a (click)="showCreateOrUpdateModal(data.id)" transloco="Edit"></a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a (click)="showDeleteModal(data.id)" transloco="Delete"></a>
+              </td>
+            }
           </tr>
         }
       </tbody>

@@ -184,7 +184,7 @@ export class Site15RestClientHelper<T extends 'strict' | 'no_strict' = 'strict'>
           .ssoTenantsControllerCreateOne(
             {
               public: false,
-              name: this.tenantHelper.randomUser.uniqId,
+              name: this.tenantHelper.randomUser.company,
               clientId: this.tenantHelper.randomUser.id,
               clientSecret: this.tenantHelper.randomUser.password,
               enabled: true,

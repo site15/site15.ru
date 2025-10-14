@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, ViewConta
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FilesService } from '@nestjs-mod/files-afat';
-import { SsoUserScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { SsoUserScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -23,12 +23,12 @@ import { marker } from '@jsverse/transloco-keys-manager/marker';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { NgChanges, NzTableSortOrderDetectorPipe, getQueryMetaByParams } from '@nestjs-mod/afat';
 import { RequestMeta, getQueryMeta } from '@nestjs-mod/misc';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 import { SsoInviteMembersFormComponent } from '../../forms/sso-invite-members-form/sso-invite-members-form.component';
 import { SsoUserFormComponent } from '../../forms/sso-user-form/sso-user-form.component';
+import { SsoTenantService } from '../../services/sso-tenant.service';
 import { SsoUserModel } from '../../services/sso-user-mapper.service';
 import { SsoUserService } from '../../services/sso-user.service';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { SsoTenantService } from '../../services/sso-tenant.service';
 
 @UntilDestroy()
 @Component({
@@ -62,6 +62,14 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
   tenantId?: string;
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
 
   tenantSearchField = new FormControl('');
   tenantSearchLoading$ = new BehaviorSubject(false);
@@ -136,6 +144,11 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
   }
 
   showInviteMembersModal(): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<SsoInviteMembersFormComponent, SsoInviteMembersFormComponent>({
       nzTitle: this.translocoService.translate('sso-user.invite-members-modal.title'),
       nzContent: SsoInviteMembersFormComponent,
@@ -273,6 +286,11 @@ export class SsoUserGridComponent implements OnInit, OnChanges {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<SsoUserFormComponent, SsoUserFormComponent>({
       nzTitle: id
         ? this.translocoService.translate('sso-user.update-modal.title', {

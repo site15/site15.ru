@@ -59,6 +59,18 @@ import { MetricsGithubUserStatisticsFormComponent } from '../../forms/metrics-gi
 export class MetricsGithubUserStatisticsGridComponent implements OnInit {
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  @Input()
+  userId?: string;
+
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
+
   items$ = new BehaviorSubject<MetricsGithubUserStatisticsModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -76,19 +88,19 @@ export class MetricsGithubUserStatisticsGridComponent implements OnInit {
   columns = {
     [MetricsGithubUserStatisticsScalarFieldEnumInterface.id]: marker('metrics-github-user-statistics.grid.columns.id'),
     [MetricsGithubUserStatisticsScalarFieldEnumInterface.userId]: marker(
-      'metrics-github-user-statistics.grid.columns.userId',
+      'metrics-github-user-statistics.grid.columns.user-id',
     ),
     [MetricsGithubUserStatisticsScalarFieldEnumInterface.periodType]: marker(
-      'metrics-github-user-statistics.grid.columns.periodType',
+      'metrics-github-user-statistics.grid.columns.period-type',
     ),
     [MetricsGithubUserStatisticsScalarFieldEnumInterface.followersCount]: marker(
-      'metrics-github-user-statistics.grid.columns.followersCount',
+      'metrics-github-user-statistics.grid.columns.followers-count',
     ),
     [MetricsGithubUserStatisticsScalarFieldEnumInterface.followingCount]: marker(
-      'metrics-github-user-statistics.grid.columns.followingCount',
+      'metrics-github-user-statistics.grid.columns.following-count',
     ),
     [MetricsGithubUserStatisticsScalarFieldEnumInterface.recordedAt]: marker(
-      'metrics-github-user-statistics.grid.columns.recordedAt',
+      'metrics-github-user-statistics.grid.columns.recorded-at',
     ),
   };
 
@@ -136,6 +148,10 @@ export class MetricsGithubUserStatisticsGridComponent implements OnInit {
       filters['search'] = this.searchField.value;
     }
 
+    if (!filters['userId'] && this.userId) {
+      filters['userId'] = this.userId;
+    }
+
     if (
       !args?.force &&
       isEqual(
@@ -164,6 +180,11 @@ export class MetricsGithubUserStatisticsGridComponent implements OnInit {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<
       MetricsGithubUserStatisticsFormComponent,
       MetricsGithubUserStatisticsFormComponent
@@ -217,9 +238,11 @@ export class MetricsGithubUserStatisticsGridComponent implements OnInit {
   }
 
   showDeleteModal(id?: string) {
-    if (!id) {
+    // In view mode, don't show the modal
+    if (this.viewMode || !id) {
       return;
     }
+
     this.nzModalService.confirm({
       nzTitle: this.translocoService.translate(`metrics-github-user-statistics.delete-modal.title`, {
         id,

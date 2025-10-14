@@ -128,6 +128,16 @@ describe('Create all need for github metrics and run sync methods (e2e)', () => 
     expect(response.data).toHaveProperty('id');
   });
 
+  it('should manually sync repository statistics', async () => {
+    // Trigger manual synchronization
+    const syncResponse = await user
+      .getMetricsApi()
+      .metricsGithubRepositoryStatisticsControllerSyncRepositoryStatistics(metricsGithubRepositoryDto.id);
+
+    expect(syncResponse.data).toHaveProperty('message');
+    expect(syncResponse.data.message).toContain('Repository statistics synchronization started');
+  });
+
   xit('should manually sync user statistics', async () => {
     // Trigger manual synchronization
     const syncResponse = await user
@@ -136,16 +146,6 @@ describe('Create all need for github metrics and run sync methods (e2e)', () => 
 
     expect(syncResponse.data).toHaveProperty('message');
     expect(syncResponse.data.message).toContain('User statistics synchronization started');
-  });
-
-  xit('should manually sync repository statistics', async () => {
-    // Trigger manual synchronization
-    const syncResponse = await user
-      .getMetricsApi()
-      .metricsGithubRepositoryStatisticsControllerSyncRepositoryStatistics(metricsGithubRepositoryDto.id);
-
-    expect(syncResponse.data).toHaveProperty('message');
-    expect(syncResponse.data.message).toContain('Repository statistics synchronization started');
   });
 
   it('should handle sync requests for non-existent entities gracefully', async () => {

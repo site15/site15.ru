@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SsoEmailTemplateScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { SsoEmailTemplateScalarFieldEnumInterface } from '@site15/rest-sdk-angular';
 import isEqual from 'lodash/fp/isEqual';
 import omit from 'lodash/fp/omit';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -61,6 +61,14 @@ export class SsoEmailTemplateGridComponent implements OnInit {
   tenantId?: string;
   @Input()
   forceLoadStream?: Observable<unknown>[];
+
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
 
   tenantSearchField = new FormControl('');
   tenantSearchLoading$ = new BehaviorSubject(false);
@@ -191,6 +199,11 @@ export class SsoEmailTemplateGridComponent implements OnInit {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<SsoEmailTemplateFormComponent, SsoEmailTemplateFormComponent>({
       nzWidth: '700px',
       nzTitle: id

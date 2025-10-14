@@ -63,6 +63,14 @@ export class MetricsGithubMetricGridComponent implements OnInit {
   @Input()
   repositoryId?: string;
 
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
+
   items$ = new BehaviorSubject<MetricsGithubMetricModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -160,6 +168,11 @@ export class MetricsGithubMetricGridComponent implements OnInit {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<MetricsGithubMetricFormComponent, MetricsGithubMetricFormComponent>({
       nzTitle: id
         ? this.translocoService.translate('metrics-github-metric.update-modal.title', {
@@ -211,9 +224,11 @@ export class MetricsGithubMetricGridComponent implements OnInit {
   }
 
   showDeleteModal(id?: string) {
-    if (!id) {
+    // In view mode, don't show the modal
+    if (this.viewMode || !id) {
       return;
     }
+
     this.nzModalService.confirm({
       nzTitle: this.translocoService.translate(`metrics-github-metric.delete-modal.title`, {
         id,

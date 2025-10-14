@@ -65,6 +65,14 @@ export class MetricsGithubTeamUserGridComponent implements OnInit {
   @Input()
   userId?: string;
 
+  // New inputs for view mode
+  @Input()
+  viewMode = false;
+
+  // New title input
+  @Input()
+  title?: string;
+
   items$ = new BehaviorSubject<MetricsGithubTeamUserModel[]>([]);
   meta$ = new BehaviorSubject<RequestMeta | undefined>(undefined);
   searchField = new FormControl('');
@@ -164,6 +172,11 @@ export class MetricsGithubTeamUserGridComponent implements OnInit {
   }
 
   showCreateOrUpdateModal(id?: string): void {
+    // In view mode, don't show the modal
+    if (this.viewMode) {
+      return;
+    }
+
     const modal = this.nzModalService.create<MetricsGithubTeamUserFormComponent, MetricsGithubTeamUserFormComponent>({
       nzTitle: id
         ? this.translocoService.translate('metrics-github-team-user.update-modal.title', {
@@ -216,9 +229,11 @@ export class MetricsGithubTeamUserGridComponent implements OnInit {
   }
 
   showDeleteModal(id?: string) {
-    if (!id) {
+    // In view mode, don't show the modal
+    if (this.viewMode || !id) {
       return;
     }
+
     this.nzModalService.confirm({
       nzTitle: this.translocoService.translate(`metrics-github-team-user.delete-modal.title`, {
         id,
