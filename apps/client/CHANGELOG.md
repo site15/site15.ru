@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/site15/site15.ru/compare/client-v1.12.0...client-v1.13.0) (2025-10-14)
+
+### Features
+
+- **grid:** implement view mode with custom title display ([c44d8bc](https://github.com/site15/site15.ru/commit/c44d8bcce948fad377b75cc5cedac09a029ec0e8))
+- **metrics:** add view mode and repository sync for grids ([b04d912](https://github.com/site15/site15.ru/commit/b04d912d2c21f4696554076224a9bee939988a4c))
+
 # [1.12.0](https://github.com/site15/site15.ru/compare/client-v1.11.0...client-v1.12.0) (2025-09-30)
 
 ### Features
