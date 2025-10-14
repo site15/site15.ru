@@ -1,3 +1,9 @@
+# [1.17.0](https://github.com/site15/site15.ru/compare/server-v1.16.0...server-v1.17.0) (2025-10-14)
+
+### Features
+
+- **i18n:** add and refine translation keys for metrics and GitHub features ([c4200c7](https://github.com/site15/site15.ru/commit/c4200c7008dd09feca97ceea86a24ef79a8773c2))
+
 # [1.16.0](https://github.com/site15/site15.ru/compare/server-v1.15.0...server-v1.16.0) (2025-10-14)
 
 ### Features
