@@ -18,14 +18,14 @@ msgstr "Select active tenant"
 msgid "Home"
 msgstr "Home"
 
+msgid "Metrics"
+msgstr "Metrics"
+
 msgid "Webhooks"
 msgstr "Webhooks"
 
 msgid "Templates"
 msgstr "Templates"
-
-msgid "Metrics"
-msgstr "Metrics"
 
 msgid "Users"
 msgstr "Users"
@@ -77,6 +77,9 @@ msgstr "Github user statistics"
 
 msgid "General"
 msgstr "General"
+
+msgid "Statistic for repository #{{repoId}}"
+msgstr "Statistic for repository #{{repoId}}"
 
 msgid ""
 "Dev/Watch mode: the infrastructure is running using docker-compose, "

@@ -19,14 +19,14 @@ msgstr "Выберите активный тенат"
 msgid "Home"
 msgstr "Домашняя страница"
 
+msgid "Metrics"
+msgstr "Метрики"
+
 msgid "Webhooks"
 msgstr "Вебхуки"
 
 msgid "Templates"
 msgstr "Шаблоны"
-
-msgid "Metrics"
-msgstr ""
 
 msgid "Users"
 msgstr "Пользователи"
@@ -50,33 +50,36 @@ msgid "Github"
 msgstr ""
 
 msgid "Github repositories"
-msgstr ""
+msgstr "Репозитории Github"
 
 msgid "Github users"
-msgstr ""
+msgstr "Пользователи Github"
 
 msgid "Github metrics"
-msgstr ""
+msgstr "Метрики Github"
 
 msgid "Github user repositories"
-msgstr ""
+msgstr "Репозитории пользователей Github"
 
 msgid "Github repository statistics"
-msgstr ""
+msgstr "Статистика репозиториев Github"
 
 msgid "Github teams"
-msgstr ""
+msgstr "Команды Github"
 
 msgid "Github team repositories"
-msgstr ""
+msgstr "Репозитории команд Github"
 
 msgid "Github team users"
-msgstr ""
+msgstr "Пользователи команд Github"
 
 msgid "Github user statistics"
-msgstr ""
+msgstr "Статистика пользователей Github"
 
 msgid "General"
+msgstr "Общие"
+
+msgid "Statistic for repository #{{repoId}}"
 msgstr ""
 
 msgid ""
@@ -275,7 +278,7 @@ msgid "UTC+14:00: Date Line (east)"
 msgstr "UTC+14:00: Линия перемены дат (восток)"
 
 msgid "client"
-msgstr ""
+msgstr "клиент"
 
 msgid "Demo"
 msgstr "Демо"
