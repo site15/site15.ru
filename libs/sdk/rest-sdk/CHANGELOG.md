@@ -1,3 +1,9 @@
+# [1.11.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.10.0...rest-sdk-v1.11.0) (2025-10-14)
+
+### Features
+
+- **i18n:** add and refine translation keys for metrics and GitHub features ([c4200c7](https://github.com/site15/site15.ru/commit/c4200c7008dd09feca97ceea86a24ef79a8773c2))
+
 # [1.10.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.9.0...rest-sdk-v1.10.0) (2025-09-30)
 
 ### Features
