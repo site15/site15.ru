@@ -1,23 +1,23 @@
 {
-    "name": "@site15/metrics",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "tslib": "^2.3.0"
+  "name": "@site15/metrics",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "i18n": [
+    {
+      "scope": "metrics",
+      "path": "src/i18n",
+      "strategy": "join"
     },
-    "type": "commonjs",
-    "main": "./src/index.js",
-    "typings": "./src/index.d.ts",
-    "i18n": [
-        {
-            "scope": "metrics",
-            "path": "src/i18n",
-            "strategy": "join"
-        },
-        {
-            "scope": "metrics-getText",
-            "path": "src/i18n/getText",
-            "strategy": "join"
-        }
-    ]
+    {
+      "scope": "metrics-getText",
+      "path": "src/i18n/getText",
+      "strategy": "join"
+    }
+  ]
 }
