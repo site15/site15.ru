@@ -31,6 +31,7 @@ generator prismaClassGenerator {
   prettier                        = "true"
   reExport                        = "false"
   updateDtoPrefix                 = "Update"
+  moduleName                      = "sso"
 }
 
 model SsoUser {

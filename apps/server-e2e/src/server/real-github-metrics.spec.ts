@@ -39,7 +39,7 @@ describe('Create all need for github metrics and run sync methods (e2e)', () => 
       url: 'https://github.com/nestjs-mod/nestjs-mod',
     };
 
-    const response = await user.getMetricsApi().metricsGithubRepositoryControllerCreateOne(repoData);
+    const response = await user.getMetricsApi().metricsGithubRepositoriesControllerCreateOne(repoData);
 
     expect(response.data).toHaveProperty('id');
     expect(response.data.name).toEqual('nestjs-mod');
@@ -63,7 +63,7 @@ describe('Create all need for github metrics and run sync methods (e2e)', () => 
       twitterUrl: 'https://twitter.com/EndyKaufman',
     };
 
-    const response = await user.getMetricsApi().metricsGithubUserControllerCreateOne(userData);
+    const response = await user.getMetricsApi().metricsGithubUsersControllerCreateOne(userData);
 
     expect(response.data).toHaveProperty('id');
     expect(response.data.login).toEqual('EndyKaufman');
@@ -79,7 +79,7 @@ describe('Create all need for github metrics and run sync methods (e2e)', () => 
       description: 'Test team for integration tests',
     };
 
-    const response = await user.getMetricsApi().metricsGithubTeamControllerCreateOne(teamData);
+    const response = await user.getMetricsApi().metricsGithubTeamsControllerCreateOne(teamData);
 
     expect(response.data).toHaveProperty('id');
     expect(response.data.name).toContain('test-team');
@@ -96,7 +96,7 @@ describe('Create all need for github metrics and run sync methods (e2e)', () => 
       role: 'member',
     };
 
-    const response = await user.getMetricsApi().metricsGithubTeamUserControllerCreateOne(teamUserData);
+    const response = await user.getMetricsApi().metricsGithubTeamUsersControllerCreateOne(teamUserData);
 
     expect(response.data).toHaveProperty('id');
     // Note: The response DTO doesn't include teamId and userId directly
@@ -110,7 +110,7 @@ describe('Create all need for github metrics and run sync methods (e2e)', () => 
       repositoryId: metricsGithubRepositoryDto.id,
     };
 
-    const response = await user.getMetricsApi().metricsGithubTeamRepositoryControllerCreateOne(teamRepoData);
+    const response = await user.getMetricsApi().metricsGithubTeamRepositoriesControllerCreateOne(teamRepoData);
 
     expect(response.data).toHaveProperty('id');
   });
@@ -123,7 +123,7 @@ describe('Create all need for github metrics and run sync methods (e2e)', () => 
       role: 'owner',
     };
 
-    const response = await user.getMetricsApi().metricsGithubUserRepositoryControllerCreateOne(userRepoData);
+    const response = await user.getMetricsApi().metricsGithubUserRepositoriesControllerCreateOne(userRepoData);
 
     expect(response.data).toHaveProperty('id');
   });

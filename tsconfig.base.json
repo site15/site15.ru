@@ -35,5 +35,10 @@
       "@site15/testing": ["libs/testing/src/index.ts"]
     }
   },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "preserveWhitespaces": true,
+    "strictInjectionParameters": true
+  },
   "exclude": ["node_modules", "tmp"]
 }

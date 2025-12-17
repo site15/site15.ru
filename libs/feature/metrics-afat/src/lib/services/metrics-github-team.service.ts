@@ -14,14 +14,14 @@ export class MetricsGithubTeamService {
   findOne(id: string) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubTeamControllerFindOne(id)
+      .metricsGithubTeamsControllerFindOne(id)
       .pipe(map((p) => this.metricsGithubTeamMapperService.toModel(p)));
   }
 
   findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubTeamControllerFindMany(
+      .metricsGithubTeamsControllerFindMany(
         meta?.curPage,
         meta?.perPage,
         filters['search'],
@@ -44,18 +44,18 @@ export class MetricsGithubTeamService {
   updateOne(id: string, data: Record<string, unknown>) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubTeamControllerUpdateOne(id, data as any)
+      .metricsGithubTeamsControllerUpdateOne(id, data as any)
       .pipe(map((p) => this.metricsGithubTeamMapperService.toModel(p)));
   }
 
   deleteOne(id: string) {
-    return this.site15RestSdkAngularService.getMetricsApi().metricsGithubTeamControllerDeleteOne(id);
+    return this.site15RestSdkAngularService.getMetricsApi().metricsGithubTeamsControllerDeleteOne(id);
   }
 
   createOne(data: Record<string, unknown>) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubTeamControllerCreateOne(data as any)
+      .metricsGithubTeamsControllerCreateOne(data as any)
       .pipe(map((p) => this.metricsGithubTeamMapperService.toModel(p)));
   }
 }

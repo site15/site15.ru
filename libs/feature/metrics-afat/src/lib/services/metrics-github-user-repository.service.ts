@@ -14,14 +14,14 @@ export class MetricsGithubUserRepositoryService {
   findOne(id: string) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubUserRepositoryControllerFindOne(id)
+      .metricsGithubUserRepositoriesControllerFindOne(id)
       .pipe(map((p) => this.metricsGithubUserRepositoryMapperService.toModel(p)));
   }
 
   findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubUserRepositoryControllerFindMany(
+      .metricsGithubUserRepositoriesControllerFindMany(
         meta?.curPage,
         meta?.perPage,
         filters['search'],
@@ -44,18 +44,18 @@ export class MetricsGithubUserRepositoryService {
   updateOne(id: string, data: Record<string, unknown>) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubUserRepositoryControllerUpdateOne(id, data as any)
+      .metricsGithubUserRepositoriesControllerUpdateOne(id, data as any)
       .pipe(map((p) => this.metricsGithubUserRepositoryMapperService.toModel(p)));
   }
 
   deleteOne(id: string) {
-    return this.site15RestSdkAngularService.getMetricsApi().metricsGithubUserRepositoryControllerDeleteOne(id);
+    return this.site15RestSdkAngularService.getMetricsApi().metricsGithubUserRepositoriesControllerDeleteOne(id);
   }
 
   createOne(data: Record<string, unknown>) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubUserRepositoryControllerCreateOne(data as any)
+      .metricsGithubUserRepositoriesControllerCreateOne(data as any)
       .pipe(map((p) => this.metricsGithubUserRepositoryMapperService.toModel(p)));
   }
 }

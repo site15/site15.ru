@@ -6,17 +6,17 @@ import { UseGuards } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { TranslatesModule } from 'nestjs-translates';
-import { MetricsGithubMetricController } from './controllers/metrics-github-metric.controller';
-import { MetricsGithubRepositoryController } from './controllers/metrics-github-repository.controller';
+import { MetricsGithubMetricsController } from './controllers/metrics-github-metrics.controller';
+import { MetricsGithubRepositoriesController } from './controllers/metrics-github-repositories.controller';
 import { MetricsGithubRepositoryStatisticsController } from './controllers/metrics-github-repository-statistics.controller';
-import { MetricsGithubTeamController } from './controllers/metrics-github-team.controller';
-import { MetricsGithubTeamRepositoryController } from './controllers/metrics-github-team-repository.controller';
-import { MetricsGithubTeamUserController } from './controllers/metrics-github-team-user.controller';
-import { MetricsGithubUserController } from './controllers/metrics-github-user.controller';
-import { MetricsGithubUserRepositoryController } from './controllers/metrics-github-user-repository.controller';
+import { MetricsGithubTeamRepositoriesController } from './controllers/metrics-github-team-repositories.controller';
+import { MetricsGithubTeamUsersController } from './controllers/metrics-github-team-users.controller';
+import { MetricsGithubTeamsController } from './controllers/metrics-github-teams.controller';
+import { MetricsGithubUserRepositoriesController } from './controllers/metrics-github-user-repositories.controller';
 import { MetricsGithubUserStatisticsController } from './controllers/metrics-github-user-statistics.controller';
+import { MetricsGithubUsersController } from './controllers/metrics-github-users.controller';
 import { MetricsSettingsController } from './controllers/metrics-settings.controller';
-import { MetricsUserController } from './controllers/metrics-user.controller';
+import { MetricsUsersController } from './controllers/metrics-users.controller';
 import { METRICS_FEATURE, METRICS_MODULE } from './metrics.constants';
 import { MetricsStaticEnvironments } from './metrics.environments';
 import { MetricsExceptionsFilter } from './metrics.filter';
@@ -66,17 +66,17 @@ export const { MetricsModule } = createNestModule({
   ],
   controllers: (asyncModuleOptions) =>
     [
-      MetricsGithubMetricController,
-      MetricsGithubRepositoryController,
+      MetricsGithubMetricsController,
+      MetricsGithubRepositoriesController,
       MetricsGithubRepositoryStatisticsController,
-      MetricsGithubTeamController,
-      MetricsGithubTeamRepositoryController,
-      MetricsGithubTeamUserController,
-      MetricsGithubUserController,
-      MetricsGithubUserRepositoryController,
+      MetricsGithubTeamsController,
+      MetricsGithubTeamRepositoriesController,
+      MetricsGithubTeamUsersController,
+      MetricsGithubUsersController,
+      MetricsGithubUserRepositoriesController,
       MetricsGithubUserStatisticsController,
       MetricsSettingsController,
-      MetricsUserController,
+      MetricsUsersController,
     ].map((ctrl) => {
       if (asyncModuleOptions.staticEnvironments?.useGuards) {
         UseGuards(MetricsGuard)(ctrl);

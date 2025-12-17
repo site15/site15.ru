@@ -33,7 +33,7 @@ describe('Create all need for github metrics (e2e)', () => {
       url: 'https://github.com/test-owner/test-repo',
     };
 
-    const response = await user.getMetricsApi().metricsGithubRepositoryControllerCreateOne(repoData);
+    const response = await user.getMetricsApi().metricsGithubRepositoriesControllerCreateOne(repoData);
 
     expect(response.data).toHaveProperty('id');
     expect(response.data.name).toContain('test-repo');
@@ -56,7 +56,7 @@ describe('Create all need for github metrics (e2e)', () => {
       twitterUrl: 'https://twitter.com/testuser',
     };
 
-    const response = await user.getMetricsApi().metricsGithubUserControllerCreateOne(userData);
+    const response = await user.getMetricsApi().metricsGithubUsersControllerCreateOne(userData);
 
     expect(response.data).toHaveProperty('id');
     expect(response.data.login).toContain('testuser');
@@ -71,7 +71,7 @@ describe('Create all need for github metrics (e2e)', () => {
       description: 'Test team for integration tests',
     };
 
-    const response = await user.getMetricsApi().metricsGithubTeamControllerCreateOne(teamData);
+    const response = await user.getMetricsApi().metricsGithubTeamsControllerCreateOne(teamData);
 
     expect(response.data).toHaveProperty('id');
     expect(response.data.name).toContain('test-team');
@@ -81,7 +81,7 @@ describe('Create all need for github metrics (e2e)', () => {
   // 4) Привязать юзера к команде
   it('should bind a user to a team', async () => {
     // First create a team
-    const teamResponse = await user.getMetricsApi().metricsGithubTeamControllerCreateOne({
+    const teamResponse = await user.getMetricsApi().metricsGithubTeamsControllerCreateOne({
       name: 'bind-test-team-' + Date.now(),
       description: 'Test team for binding user',
     });
@@ -89,7 +89,7 @@ describe('Create all need for github metrics (e2e)', () => {
     const team = teamResponse.data;
 
     // Then create a user
-    const userResponse = await user.getMetricsApi().metricsGithubUserControllerCreateOne({
+    const userResponse = await user.getMetricsApi().metricsGithubUsersControllerCreateOne({
       login: 'bind-testuser-' + Date.now(),
       name: 'Bind Test User',
       email: 'bindtest@example.com',
@@ -110,7 +110,7 @@ describe('Create all need for github metrics (e2e)', () => {
       role: 'member',
     };
 
-    const response = await user.getMetricsApi().metricsGithubTeamUserControllerCreateOne(teamUserData);
+    const response = await user.getMetricsApi().metricsGithubTeamUsersControllerCreateOne(teamUserData);
 
     expect(response.data).toHaveProperty('id');
     // Note: The response DTO doesn't include teamId and userId directly
@@ -120,7 +120,7 @@ describe('Create all need for github metrics (e2e)', () => {
   // 5) Привязать репозиторий к команде
   it('should bind a repository to a team', async () => {
     // First create a team
-    const teamResponse = await user.getMetricsApi().metricsGithubTeamControllerCreateOne({
+    const teamResponse = await user.getMetricsApi().metricsGithubTeamsControllerCreateOne({
       name: 'repo-team-' + Date.now(),
       description: 'Test team for repository binding',
     });
@@ -128,7 +128,7 @@ describe('Create all need for github metrics (e2e)', () => {
     const team = teamResponse.data;
 
     // Then create a repository
-    const repoResponse = await user.getMetricsApi().metricsGithubRepositoryControllerCreateOne({
+    const repoResponse = await user.getMetricsApi().metricsGithubRepositoriesControllerCreateOne({
       name: 'team-test-repo-' + Date.now(),
       owner: 'test-owner',
       private: false,
@@ -145,7 +145,7 @@ describe('Create all need for github metrics (e2e)', () => {
       repositoryId: repository.id,
     };
 
-    const response = await user.getMetricsApi().metricsGithubTeamRepositoryControllerCreateOne(teamRepoData);
+    const response = await user.getMetricsApi().metricsGithubTeamRepositoriesControllerCreateOne(teamRepoData);
 
     expect(response.data).toHaveProperty('id');
     // Note: The response DTO doesn't include teamId and repositoryId directly
@@ -154,7 +154,7 @@ describe('Create all need for github metrics (e2e)', () => {
   // 6) Привязать репозиторий к юзеру
   it('should bind a repository to a user', async () => {
     // First create a user
-    const userResponse = await user.getMetricsApi().metricsGithubUserControllerCreateOne({
+    const userResponse = await user.getMetricsApi().metricsGithubUsersControllerCreateOne({
       login: 'repo-user-' + Date.now(),
       name: 'Repo Test User',
       email: 'repotest@example.com',
@@ -169,7 +169,7 @@ describe('Create all need for github metrics (e2e)', () => {
     const githubUser = userResponse.data;
 
     // Then create a repository
-    const repoResponse = await user.getMetricsApi().metricsGithubRepositoryControllerCreateOne({
+    const repoResponse = await user.getMetricsApi().metricsGithubRepositoriesControllerCreateOne({
       name: 'user-test-repo-' + Date.now(),
       owner: 'test-owner',
       private: false,
@@ -187,7 +187,7 @@ describe('Create all need for github metrics (e2e)', () => {
       role: 'owner',
     };
 
-    const response = await user.getMetricsApi().metricsGithubUserRepositoryControllerCreateOne(userRepoData);
+    const response = await user.getMetricsApi().metricsGithubUserRepositoriesControllerCreateOne(userRepoData);
 
     expect(response.data).toHaveProperty('id');
     // Note: The response DTO doesn't include userId and repositoryId directly

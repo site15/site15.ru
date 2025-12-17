@@ -1,30 +1,28 @@
-import { StatusResponse } from '@nestjs-mod/swagger';
-
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { PrismaToolsService } from '@nestjs-mod/prisma-tools';
+import { StatusResponse } from '@nestjs-mod/swagger';
 import { ValidationError } from '@nestjs-mod/validation';
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { isUUID } from 'class-validator';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 import { MetricsRole, MetricsUser, Prisma, PrismaClient } from '../generated/prisma-client';
-import { CreateMetricsGithubTeamDto } from '../generated/rest/dto/create-metrics-github-team.dto';
-import { MetricsGithubTeamDto } from '../generated/rest/dto/metrics-github-team.dto';
-import { UpdateMetricsGithubTeamDto } from '../generated/rest/dto/update-metrics-github-team.dto';
-import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_TEAM_CONTROLLER_PATH } from '../metrics.constants';
+import { MetricsGithubMetricDto } from '../generated/rest/dto/metrics-github-metric.dto';
+import { UpdateMetricsGithubMetricDto } from '../generated/rest/dto/update-metrics-github-metric.dto';
+import { METRICS_API_TAG, METRICS_FEATURE, METRICS_GITHUB_METRICS_CONTROLLER_PATH } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError } from '../metrics.errors';
-import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
-import { FindManyMetricsGithubTeamArgs } from '../types/FindManyMetricsGithubTeamArgs';
-import { FindManyMetricsGithubTeamResponse } from '../types/FindManyMetricsGithubTeamResponse';
+import { CreateFullMetricsGithubMetricDto } from '../types/CreateFullMetricsGithubMetricDto';
+import { FindManyMetricsGithubMetricArgs } from '../types/FindManyMetricsGithubMetricArgs';
+import { FindManyMetricsGithubMetricResponse } from '../types/FindManyMetricsGithubMetricResponse';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },
 })
 @ApiTags(METRICS_API_TAG)
 @CheckMetricsRole([MetricsRole.User, MetricsRole.Admin])
-@Controller(METRICS_GITHUB_TEAM_CONTROLLER_PATH)
-export class MetricsGithubTeamController {
+@Controller(METRICS_GITHUB_METRICS_CONTROLLER_PATH)
+export class MetricsGithubMetricsController {
   constructor(
     @InjectPrismaClient(METRICS_FEATURE)
     private readonly prismaClient: PrismaClient,
@@ -32,11 +30,11 @@ export class MetricsGithubTeamController {
   ) {}
 
   @Get()
-  @ApiOkResponse({ type: FindManyMetricsGithubTeamResponse })
+  @ApiOkResponse({ type: FindManyMetricsGithubMetricResponse })
   async findMany(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
-    @Query() args: FindManyMetricsGithubTeamArgs,
+    @Query() args: FindManyMetricsGithubMetricArgs,
   ) {
     const { take, skip, curPage, perPage } = this.prismaToolsService.getFirstSkipFromCurPerPage({
       curPage: args.curPage,
@@ -44,13 +42,13 @@ export class MetricsGithubTeamController {
     });
     const searchText = args.searchText;
 
-    const orderBy = (args.sort || 'createdAt:desc')
+    const orderBy = (args.sort || 'recordedAt:desc')
       .split(',')
       .map((s) => s.split(':'))
       .reduce(
         (all, [key, value]) => ({
           ...all,
-          ...(key in Prisma.MetricsGithubTeamScalarFieldEnum
+          ...(key in Prisma.MetricsGithubMetricScalarFieldEnum
             ? {
                 [key]: value === 'desc' ? 'desc' : 'asc',
               }
@@ -60,15 +58,15 @@ export class MetricsGithubTeamController {
       );
     const result = await this.prismaClient.$transaction(async (prisma) => {
       return {
-        metricsGithubTeams: await prisma.metricsGithubTeam.findMany({
+        metricsGithubMetrics: await prisma.metricsGithubMetric.findMany({
           where: {
             ...(searchText
               ? {
                   OR: [
                     ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     { tenantId: { equals: searchText, mode: 'insensitive' } },
-                    { name: { contains: searchText, mode: 'insensitive' } },
-                    { description: { contains: searchText, mode: 'insensitive' } },
+                    { metricName: { contains: searchText, mode: 'insensitive' } },
+                    { repositoryId: { equals: searchText } },
                   ],
                 }
               : {}),
@@ -78,29 +76,21 @@ export class MetricsGithubTeamController {
               : {
                   tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
                 }),
-            ...(args.repositoryId
-              ? {
-                  MetricsGithubTeam_MetricsGithubTeamRepository_teamIdTometricsGithubTeam: {
-                    some: {
-                      repositoryId: { equals: args.repositoryId },
-                    },
-                  },
-                }
-              : {}),
+            ...(args.repositoryId ? { repositoryId: { equals: args.repositoryId } } : {}),
           },
           take,
           skip,
           orderBy,
         }),
-        totalResults: await prisma.metricsGithubTeam.count({
+        totalResults: await prisma.metricsGithubMetric.count({
           where: {
             ...(searchText
               ? {
                   OR: [
                     ...(isUUID(searchText) ? [{ id: { equals: searchText } }] : []),
                     { tenantId: { equals: searchText, mode: 'insensitive' } },
-                    { name: { contains: searchText, mode: 'insensitive' } },
-                    { description: { contains: searchText, mode: 'insensitive' } },
+                    { metricName: { contains: searchText, mode: 'insensitive' } },
+                    { repositoryId: { equals: searchText } },
                   ],
                 }
               : {}),
@@ -109,21 +99,13 @@ export class MetricsGithubTeamController {
               : {
                   tenantId: metricsUser?.userRole === MetricsRole.User ? metricsUser.tenantId : externalTenantId,
                 }),
-            ...(args.repositoryId
-              ? {
-                  MetricsGithubTeam_MetricsGithubTeamRepository_teamIdTometricsGithubTeam: {
-                    some: {
-                      repositoryId: { equals: args.repositoryId },
-                    },
-                  },
-                }
-              : {}),
+            ...(args.repositoryId ? { repositoryId: { equals: args.repositoryId } } : {}),
           },
         }),
       };
     });
     return {
-      metricsGithubTeams: result.metricsGithubTeams,
+      metricsGithubMetrics: result.metricsGithubMetrics,
       meta: {
         totalResults: result.totalResults,
         curPage,
@@ -133,18 +115,20 @@ export class MetricsGithubTeamController {
   }
 
   @Post()
-  @ApiCreatedResponse({ type: MetricsGithubTeamDto })
+  @ApiCreatedResponse({ type: MetricsGithubMetricDto })
   async createOne(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
-    @Body() args: CreateMetricsGithubTeamDto,
+    @Body() args: CreateFullMetricsGithubMetricDto,
   ) {
-    return await this.prismaClient.metricsGithubTeam.create({
+    return await this.prismaClient.metricsGithubMetric.create({
       data: {
-        name: args.name,
-        ...(args.description !== undefined ? { description: args.description } : {}),
-        MetricsUser_MetricsGithubTeam_createdByToMetricsUser: { connect: { id: metricsUser.id } },
-        MetricsUser_MetricsGithubTeam_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
+        metricName: args.metricName,
+        metricValue: args.metricValue,
+        recordedAt: args.recordedAt,
+        MetricsGithubRepository: { connect: { id: args.repositoryId } },
+        MetricsUser_MetricsGithubMetric_createdByToMetricsUser: { connect: { id: metricsUser.id } },
+        MetricsUser_MetricsGithubMetric_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         ...(metricsUser.userRole === MetricsRole.Admin
           ? { tenantId: externalTenantId }
           : {
@@ -155,18 +139,19 @@ export class MetricsGithubTeamController {
   }
 
   @Put(':id')
-  @ApiOkResponse({ type: MetricsGithubTeamDto })
+  @ApiOkResponse({ type: MetricsGithubMetricDto })
   async updateOne(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() args: UpdateMetricsGithubTeamDto,
+    @Body() args: UpdateMetricsGithubMetricDto,
   ) {
-    return await this.prismaClient.metricsGithubTeam.update({
+    return await this.prismaClient.metricsGithubMetric.update({
       data: {
-        ...(args.name !== undefined ? { name: args.name } : {}),
-        ...(args.description !== undefined ? { description: args.description } : {}),
-        MetricsUser_MetricsGithubTeam_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
+        ...(args.metricName !== undefined ? { metricName: args.metricName } : {}),
+        ...(args.metricValue !== undefined ? { metricValue: args.metricValue } : {}),
+        ...(args.recordedAt !== undefined ? { recordedAt: args.recordedAt } : {}),
+        MetricsUser_MetricsGithubMetric_updatedByToMetricsUser: { connect: { id: metricsUser.id } },
         updatedAt: new Date(),
       },
       where: {
@@ -188,7 +173,7 @@ export class MetricsGithubTeamController {
     @Param('id', new ParseUUIDPipe()) id: string,
     @InjectTranslateFunction() getText: TranslateFunction,
   ) {
-    await this.prismaClient.metricsGithubTeam.delete({
+    await this.prismaClient.metricsGithubMetric.delete({
       where: {
         id,
         ...(metricsUser.userRole === MetricsRole.Admin
@@ -202,15 +187,16 @@ export class MetricsGithubTeamController {
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: MetricsGithubTeamDto })
+  @ApiOkResponse({ type: MetricsGithubMetricDto })
   async findOne(
     @CurrentMetricsExternalTenantId() externalTenantId: string,
     @CurrentMetricsUser() metricsUser: MetricsUser,
     @Param('id', new ParseUUIDPipe()) id: string,
   ) {
-    return await this.prismaClient.metricsGithubTeam.findFirstOrThrow({
+    return await this.prismaClient.metricsGithubMetric.findFirstOrThrow({
       where: {
         id,
+
         ...(metricsUser.userRole === MetricsRole.Admin
           ? {}
           : {

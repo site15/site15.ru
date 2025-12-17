@@ -17,11 +17,10 @@ import {
 } from '../metrics.constants';
 import { CheckMetricsRole, CurrentMetricsExternalTenantId, CurrentMetricsUser } from '../metrics.decorators';
 import { MetricsError, MetricsErrorEnum } from '../metrics.errors';
-import { FindManyMetricsArgs } from '../types/FindManyMetricsArgs';
-import { FindManyMetricsGithubRepositoryStatisticsArgs } from '../types/FindManyMetricsGithubRepositoryStatisticsArgs';
-import { CreateFullMetricsGithubRepositoryStatisticsDto } from '../types/CreateFullMetricsGithubRepositoryStatisticsDto';
-import { FindManyMetricsGithubRepositoryStatisticsResponse } from '../types/FindManyMetricsGithubRepositoryStatisticsResponse';
 import { MetricsGithubStatisticsSyncService } from '../services/metrics-github-statistics-sync.service';
+import { CreateFullMetricsGithubRepositoryStatisticsDto } from '../types/CreateFullMetricsGithubRepositoryStatisticsDto';
+import { FindManyMetricsGithubRepositoryStatisticsArgs } from '../types/FindManyMetricsGithubRepositoryStatisticsArgs';
+import { FindManyMetricsGithubRepositoryStatisticsResponse } from '../types/FindManyMetricsGithubRepositoryStatisticsResponse';
 
 @ApiBadRequestResponse({
   schema: { allOf: refs(MetricsError, ValidationError) },

@@ -14,14 +14,14 @@ export class MetricsUserService {
   findOne(id: string) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsUserControllerFindOne(id)
+      .metricsUsersControllerFindOne(id)
       .pipe(map((p) => this.metricsUserMapperService.toModel(p)));
   }
 
   findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsUserControllerFindMany(
+      .metricsUsersControllerFindMany(
         meta?.curPage,
         meta?.perPage,
         filters['search'],
@@ -43,18 +43,18 @@ export class MetricsUserService {
   updateOne(id: string, data: Record<string, unknown>) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsUserControllerUpdateOne(id, data as any)
+      .metricsUsersControllerUpdateOne(id, data as any)
       .pipe(map((p) => this.metricsUserMapperService.toModel(p)));
   }
 
   deleteOne(id: string) {
-    return this.site15RestSdkAngularService.getMetricsApi().metricsUserControllerDeleteOne(id);
+    return this.site15RestSdkAngularService.getMetricsApi().metricsUsersControllerDeleteOne(id);
   }
 
   createOne(data: Record<string, unknown>) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsUserControllerCreateOne(data as any)
+      .metricsUsersControllerCreateOne(data as any)
       .pipe(map((p) => this.metricsUserMapperService.toModel(p)));
   }
 }

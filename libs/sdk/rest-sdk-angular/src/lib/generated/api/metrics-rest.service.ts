@@ -61,9 +61,9 @@ import { FindManyMetricsSettingsResponseInterface } from '../model/find-many-met
 // @ts-ignore
 import { FindManyMetricsUserResponseInterface } from '../model/find-many-metrics-user-response.interface';
 // @ts-ignore
-import { MetricsGithubMetricControllerFindMany400ResponseInterface } from '../model/metrics-github-metric-controller-find-many400-response.interface';
-// @ts-ignore
 import { MetricsGithubMetricDtoInterface } from '../model/metrics-github-metric-dto.interface';
+// @ts-ignore
+import { MetricsGithubMetricsControllerFindMany400ResponseInterface } from '../model/metrics-github-metrics-controller-find-many400-response.interface';
 // @ts-ignore
 import { MetricsGithubRepositoryDtoInterface } from '../model/metrics-github-repository-dto.interface';
 // @ts-ignore
@@ -183,12 +183,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubMetricDtoInterface>;
-    public metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubMetricDtoInterface>>;
-    public metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubMetricDtoInterface>>;
-    public metricsGithubMetricControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubMetricsControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubMetricDtoInterface>;
+    public metricsGithubMetricsControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubMetricDtoInterface>>;
+    public metricsGithubMetricsControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubMetricDtoInterface>>;
+    public metricsGithubMetricsControllerCreateOne(createFullMetricsGithubMetricDtoInterface: CreateFullMetricsGithubMetricDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createFullMetricsGithubMetricDtoInterface === null || createFullMetricsGithubMetricDtoInterface === undefined) {
-            throw new Error('Required parameter createFullMetricsGithubMetricDtoInterface was null or undefined when calling metricsGithubMetricControllerCreateOne.');
+            throw new Error('Required parameter createFullMetricsGithubMetricDtoInterface was null or undefined when calling metricsGithubMetricsControllerCreateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -236,7 +236,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/metric`;
+        let localVarPath = `/api/metrics/github/metrics`;
         return this.httpClient.request<MetricsGithubMetricDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -256,12 +256,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubMetricControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public metricsGithubMetricControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public metricsGithubMetricControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public metricsGithubMetricControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubMetricsControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public metricsGithubMetricsControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public metricsGithubMetricsControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public metricsGithubMetricsControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubMetricControllerDeleteOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubMetricsControllerDeleteOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -300,7 +300,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/metric/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/metrics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -324,10 +324,10 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubMetricResponseInterface>;
-    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubMetricResponseInterface>>;
-    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubMetricResponseInterface>>;
-    public metricsGithubMetricControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubMetricsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubMetricResponseInterface>;
+    public metricsGithubMetricsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubMetricResponseInterface>>;
+    public metricsGithubMetricsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubMetricResponseInterface>>;
+    public metricsGithubMetricsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -391,7 +391,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/metric`;
+        let localVarPath = `/api/metrics/github/metrics`;
         return this.httpClient.request<FindManyMetricsGithubMetricResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -411,12 +411,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubMetricControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubMetricDtoInterface>;
-    public metricsGithubMetricControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubMetricDtoInterface>>;
-    public metricsGithubMetricControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubMetricDtoInterface>>;
-    public metricsGithubMetricControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubMetricsControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubMetricDtoInterface>;
+    public metricsGithubMetricsControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubMetricDtoInterface>>;
+    public metricsGithubMetricsControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubMetricDtoInterface>>;
+    public metricsGithubMetricsControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubMetricControllerFindOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubMetricsControllerFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -455,7 +455,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/metric/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/metrics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubMetricDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -475,15 +475,15 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubMetricControllerUpdateOne(id: string, updateMetricsGithubMetricDtoInterface: UpdateMetricsGithubMetricDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubMetricDtoInterface>;
-    public metricsGithubMetricControllerUpdateOne(id: string, updateMetricsGithubMetricDtoInterface: UpdateMetricsGithubMetricDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubMetricDtoInterface>>;
-    public metricsGithubMetricControllerUpdateOne(id: string, updateMetricsGithubMetricDtoInterface: UpdateMetricsGithubMetricDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubMetricDtoInterface>>;
-    public metricsGithubMetricControllerUpdateOne(id: string, updateMetricsGithubMetricDtoInterface: UpdateMetricsGithubMetricDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubMetricsControllerUpdateOne(id: string, updateMetricsGithubMetricDtoInterface: UpdateMetricsGithubMetricDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubMetricDtoInterface>;
+    public metricsGithubMetricsControllerUpdateOne(id: string, updateMetricsGithubMetricDtoInterface: UpdateMetricsGithubMetricDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubMetricDtoInterface>>;
+    public metricsGithubMetricsControllerUpdateOne(id: string, updateMetricsGithubMetricDtoInterface: UpdateMetricsGithubMetricDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubMetricDtoInterface>>;
+    public metricsGithubMetricsControllerUpdateOne(id: string, updateMetricsGithubMetricDtoInterface: UpdateMetricsGithubMetricDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubMetricControllerUpdateOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubMetricsControllerUpdateOne.');
         }
         if (updateMetricsGithubMetricDtoInterface === null || updateMetricsGithubMetricDtoInterface === undefined) {
-            throw new Error('Required parameter updateMetricsGithubMetricDtoInterface was null or undefined when calling metricsGithubMetricControllerUpdateOne.');
+            throw new Error('Required parameter updateMetricsGithubMetricDtoInterface was null or undefined when calling metricsGithubMetricsControllerUpdateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -531,7 +531,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/metric/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/metrics/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubMetricDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -551,12 +551,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubRepositoryControllerCreateOne(createMetricsGithubRepositoryDtoInterface: CreateMetricsGithubRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubRepositoryDtoInterface>;
-    public metricsGithubRepositoryControllerCreateOne(createMetricsGithubRepositoryDtoInterface: CreateMetricsGithubRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubRepositoryDtoInterface>>;
-    public metricsGithubRepositoryControllerCreateOne(createMetricsGithubRepositoryDtoInterface: CreateMetricsGithubRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubRepositoryDtoInterface>>;
-    public metricsGithubRepositoryControllerCreateOne(createMetricsGithubRepositoryDtoInterface: CreateMetricsGithubRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubRepositoriesControllerCreateOne(createMetricsGithubRepositoryDtoInterface: CreateMetricsGithubRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubRepositoryDtoInterface>;
+    public metricsGithubRepositoriesControllerCreateOne(createMetricsGithubRepositoryDtoInterface: CreateMetricsGithubRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubRepositoryDtoInterface>>;
+    public metricsGithubRepositoriesControllerCreateOne(createMetricsGithubRepositoryDtoInterface: CreateMetricsGithubRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubRepositoryDtoInterface>>;
+    public metricsGithubRepositoriesControllerCreateOne(createMetricsGithubRepositoryDtoInterface: CreateMetricsGithubRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createMetricsGithubRepositoryDtoInterface === null || createMetricsGithubRepositoryDtoInterface === undefined) {
-            throw new Error('Required parameter createMetricsGithubRepositoryDtoInterface was null or undefined when calling metricsGithubRepositoryControllerCreateOne.');
+            throw new Error('Required parameter createMetricsGithubRepositoryDtoInterface was null or undefined when calling metricsGithubRepositoriesControllerCreateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -604,7 +604,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository`;
+        let localVarPath = `/api/metrics/github/repositories`;
         return this.httpClient.request<MetricsGithubRepositoryDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -624,12 +624,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubRepositoryControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public metricsGithubRepositoryControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public metricsGithubRepositoryControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public metricsGithubRepositoryControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubRepositoriesControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public metricsGithubRepositoriesControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public metricsGithubRepositoriesControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public metricsGithubRepositoriesControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubRepositoryControllerDeleteOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubRepositoriesControllerDeleteOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -668,7 +668,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/repositories/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -692,10 +692,10 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubRepositoryResponseInterface>;
-    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubRepositoryResponseInterface>>;
-    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubRepositoryResponseInterface>>;
-    public metricsGithubRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubRepositoryResponseInterface>;
+    public metricsGithubRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubRepositoryResponseInterface>>;
+    public metricsGithubRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubRepositoryResponseInterface>>;
+    public metricsGithubRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -759,7 +759,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository`;
+        let localVarPath = `/api/metrics/github/repositories`;
         return this.httpClient.request<FindManyMetricsGithubRepositoryResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -779,12 +779,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubRepositoryControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubRepositoryDtoInterface>;
-    public metricsGithubRepositoryControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubRepositoryDtoInterface>>;
-    public metricsGithubRepositoryControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubRepositoryDtoInterface>>;
-    public metricsGithubRepositoryControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubRepositoriesControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubRepositoryDtoInterface>;
+    public metricsGithubRepositoriesControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubRepositoryDtoInterface>>;
+    public metricsGithubRepositoriesControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubRepositoryDtoInterface>>;
+    public metricsGithubRepositoriesControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubRepositoryControllerFindOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubRepositoriesControllerFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -823,7 +823,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/repositories/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubRepositoryDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -843,15 +843,15 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubRepositoryControllerUpdateOne(id: string, updateMetricsGithubRepositoryDtoInterface: UpdateMetricsGithubRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubRepositoryDtoInterface>;
-    public metricsGithubRepositoryControllerUpdateOne(id: string, updateMetricsGithubRepositoryDtoInterface: UpdateMetricsGithubRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubRepositoryDtoInterface>>;
-    public metricsGithubRepositoryControllerUpdateOne(id: string, updateMetricsGithubRepositoryDtoInterface: UpdateMetricsGithubRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubRepositoryDtoInterface>>;
-    public metricsGithubRepositoryControllerUpdateOne(id: string, updateMetricsGithubRepositoryDtoInterface: UpdateMetricsGithubRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubRepositoriesControllerUpdateOne(id: string, updateMetricsGithubRepositoryDtoInterface: UpdateMetricsGithubRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubRepositoryDtoInterface>;
+    public metricsGithubRepositoriesControllerUpdateOne(id: string, updateMetricsGithubRepositoryDtoInterface: UpdateMetricsGithubRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubRepositoryDtoInterface>>;
+    public metricsGithubRepositoriesControllerUpdateOne(id: string, updateMetricsGithubRepositoryDtoInterface: UpdateMetricsGithubRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubRepositoryDtoInterface>>;
+    public metricsGithubRepositoriesControllerUpdateOne(id: string, updateMetricsGithubRepositoryDtoInterface: UpdateMetricsGithubRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubRepositoryControllerUpdateOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubRepositoriesControllerUpdateOne.');
         }
         if (updateMetricsGithubRepositoryDtoInterface === null || updateMetricsGithubRepositoryDtoInterface === undefined) {
-            throw new Error('Required parameter updateMetricsGithubRepositoryDtoInterface was null or undefined when calling metricsGithubRepositoryControllerUpdateOne.');
+            throw new Error('Required parameter updateMetricsGithubRepositoryDtoInterface was null or undefined when calling metricsGithubRepositoriesControllerUpdateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -899,7 +899,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/repositories/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubRepositoryDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1346,384 +1346,16 @@ export class MetricsSite15RestService {
     }
 
     /**
-     * @param createMetricsGithubTeamDtoInterface 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDtoInterface: CreateMetricsGithubTeamDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamDtoInterface>;
-    public metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDtoInterface: CreateMetricsGithubTeamDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamDtoInterface>>;
-    public metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDtoInterface: CreateMetricsGithubTeamDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamDtoInterface>>;
-    public metricsGithubTeamControllerCreateOne(createMetricsGithubTeamDtoInterface: CreateMetricsGithubTeamDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (createMetricsGithubTeamDtoInterface === null || createMetricsGithubTeamDtoInterface === undefined) {
-            throw new Error('Required parameter createMetricsGithubTeamDtoInterface was null or undefined when calling metricsGithubTeamControllerCreateOne.');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-        let localVarTransferCache: boolean | undefined = options && options.transferCache;
-        if (localVarTransferCache === undefined) {
-            localVarTransferCache = true;
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
-        }
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/api/metrics/github/team`;
-        return this.httpClient.request<MetricsGithubTeamDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                body: createMetricsGithubTeamDtoInterface,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                transferCache: localVarTransferCache,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param id 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public metricsGithubTeamControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public metricsGithubTeamControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public metricsGithubTeamControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public metricsGithubTeamControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamControllerDeleteOne.');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-        let localVarTransferCache: boolean | undefined = options && options.transferCache;
-        if (localVarTransferCache === undefined) {
-            localVarTransferCache = true;
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/api/metrics/github/team/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                transferCache: localVarTransferCache,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param curPage 
-     * @param perPage 
-     * @param searchText 
-     * @param sort 
-     * @param tenantId 
-     * @param repositoryId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamResponseInterface>;
-    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamResponseInterface>>;
-    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamResponseInterface>>;
-    public metricsGithubTeamControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-
-        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
-        if (curPage !== undefined && curPage !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>curPage, 'curPage');
-        }
-        if (perPage !== undefined && perPage !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>perPage, 'perPage');
-        }
-        if (searchText !== undefined && searchText !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>searchText, 'searchText');
-        }
-        if (sort !== undefined && sort !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>sort, 'sort');
-        }
-        if (tenantId !== undefined && tenantId !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>tenantId, 'tenantId');
-        }
-        if (repositoryId !== undefined && repositoryId !== null) {
-          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-            <any>repositoryId, 'repositoryId');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-        let localVarTransferCache: boolean | undefined = options && options.transferCache;
-        if (localVarTransferCache === undefined) {
-            localVarTransferCache = true;
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/api/metrics/github/team`;
-        return this.httpClient.request<FindManyMetricsGithubTeamResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                params: localVarQueryParameters,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                transferCache: localVarTransferCache,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param id 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public metricsGithubTeamControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamDtoInterface>;
-    public metricsGithubTeamControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamDtoInterface>>;
-    public metricsGithubTeamControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamDtoInterface>>;
-    public metricsGithubTeamControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamControllerFindOne.');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-        let localVarTransferCache: boolean | undefined = options && options.transferCache;
-        if (localVarTransferCache === undefined) {
-            localVarTransferCache = true;
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/api/metrics/github/team/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<MetricsGithubTeamDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                transferCache: localVarTransferCache,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param id 
-     * @param updateMetricsGithubTeamDtoInterface 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public metricsGithubTeamControllerUpdateOne(id: string, updateMetricsGithubTeamDtoInterface: UpdateMetricsGithubTeamDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamDtoInterface>;
-    public metricsGithubTeamControllerUpdateOne(id: string, updateMetricsGithubTeamDtoInterface: UpdateMetricsGithubTeamDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamDtoInterface>>;
-    public metricsGithubTeamControllerUpdateOne(id: string, updateMetricsGithubTeamDtoInterface: UpdateMetricsGithubTeamDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamDtoInterface>>;
-    public metricsGithubTeamControllerUpdateOne(id: string, updateMetricsGithubTeamDtoInterface: UpdateMetricsGithubTeamDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamControllerUpdateOne.');
-        }
-        if (updateMetricsGithubTeamDtoInterface === null || updateMetricsGithubTeamDtoInterface === undefined) {
-            throw new Error('Required parameter updateMetricsGithubTeamDtoInterface was null or undefined when calling metricsGithubTeamControllerUpdateOne.');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-        let localVarTransferCache: boolean | undefined = options && options.transferCache;
-        if (localVarTransferCache === undefined) {
-            localVarTransferCache = true;
-        }
-
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
-        }
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/api/metrics/github/team/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<MetricsGithubTeamDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                body: updateMetricsGithubTeamDtoInterface,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                transferCache: localVarTransferCache,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
      * @param createFullMetricsGithubTeamRepositoryDtoInterface 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDtoInterface: CreateFullMetricsGithubTeamRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamRepositoryDtoInterface>;
-    public metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDtoInterface: CreateFullMetricsGithubTeamRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamRepositoryDtoInterface>>;
-    public metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDtoInterface: CreateFullMetricsGithubTeamRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamRepositoryDtoInterface>>;
-    public metricsGithubTeamRepositoryControllerCreateOne(createFullMetricsGithubTeamRepositoryDtoInterface: CreateFullMetricsGithubTeamRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamRepositoriesControllerCreateOne(createFullMetricsGithubTeamRepositoryDtoInterface: CreateFullMetricsGithubTeamRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamRepositoryDtoInterface>;
+    public metricsGithubTeamRepositoriesControllerCreateOne(createFullMetricsGithubTeamRepositoryDtoInterface: CreateFullMetricsGithubTeamRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamRepositoryDtoInterface>>;
+    public metricsGithubTeamRepositoriesControllerCreateOne(createFullMetricsGithubTeamRepositoryDtoInterface: CreateFullMetricsGithubTeamRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamRepositoryDtoInterface>>;
+    public metricsGithubTeamRepositoriesControllerCreateOne(createFullMetricsGithubTeamRepositoryDtoInterface: CreateFullMetricsGithubTeamRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createFullMetricsGithubTeamRepositoryDtoInterface === null || createFullMetricsGithubTeamRepositoryDtoInterface === undefined) {
-            throw new Error('Required parameter createFullMetricsGithubTeamRepositoryDtoInterface was null or undefined when calling metricsGithubTeamRepositoryControllerCreateOne.');
+            throw new Error('Required parameter createFullMetricsGithubTeamRepositoryDtoInterface was null or undefined when calling metricsGithubTeamRepositoriesControllerCreateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1771,7 +1403,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-repository`;
+        let localVarPath = `/api/metrics/github/team-repositories`;
         return this.httpClient.request<MetricsGithubTeamRepositoryDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1791,12 +1423,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamRepositoryControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public metricsGithubTeamRepositoryControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public metricsGithubTeamRepositoryControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public metricsGithubTeamRepositoryControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamRepositoriesControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public metricsGithubTeamRepositoriesControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public metricsGithubTeamRepositoriesControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public metricsGithubTeamRepositoriesControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamRepositoryControllerDeleteOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamRepositoriesControllerDeleteOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1835,7 +1467,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-repositories/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1860,10 +1492,10 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamRepositoryResponseInterface>;
-    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamRepositoryResponseInterface>>;
-    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamRepositoryResponseInterface>>;
-    public metricsGithubTeamRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamRepositoryResponseInterface>;
+    public metricsGithubTeamRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamRepositoryResponseInterface>>;
+    public metricsGithubTeamRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamRepositoryResponseInterface>>;
+    public metricsGithubTeamRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -1931,7 +1563,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-repository`;
+        let localVarPath = `/api/metrics/github/team-repositories`;
         return this.httpClient.request<FindManyMetricsGithubTeamRepositoryResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -1951,12 +1583,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamRepositoryControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamRepositoryDtoInterface>;
-    public metricsGithubTeamRepositoryControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamRepositoryDtoInterface>>;
-    public metricsGithubTeamRepositoryControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamRepositoryDtoInterface>>;
-    public metricsGithubTeamRepositoryControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamRepositoriesControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamRepositoryDtoInterface>;
+    public metricsGithubTeamRepositoriesControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamRepositoryDtoInterface>>;
+    public metricsGithubTeamRepositoriesControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamRepositoryDtoInterface>>;
+    public metricsGithubTeamRepositoriesControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamRepositoryControllerFindOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamRepositoriesControllerFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -1995,7 +1627,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-repositories/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubTeamRepositoryDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2015,15 +1647,15 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamRepositoryDtoInterface>;
-    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamRepositoryDtoInterface>>;
-    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamRepositoryDtoInterface>>;
-    public metricsGithubTeamRepositoryControllerUpdateOne(id: string, body: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamRepositoriesControllerUpdateOne(id: string, body: object, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamRepositoryDtoInterface>;
+    public metricsGithubTeamRepositoriesControllerUpdateOne(id: string, body: object, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamRepositoryDtoInterface>>;
+    public metricsGithubTeamRepositoriesControllerUpdateOne(id: string, body: object, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamRepositoryDtoInterface>>;
+    public metricsGithubTeamRepositoriesControllerUpdateOne(id: string, body: object, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamRepositoryControllerUpdateOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamRepositoriesControllerUpdateOne.');
         }
         if (body === null || body === undefined) {
-            throw new Error('Required parameter body was null or undefined when calling metricsGithubTeamRepositoryControllerUpdateOne.');
+            throw new Error('Required parameter body was null or undefined when calling metricsGithubTeamRepositoriesControllerUpdateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2071,7 +1703,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-repositories/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubTeamRepositoryDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2091,12 +1723,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDtoInterface: CreateFullMetricsGithubTeamUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamUserDtoInterface>;
-    public metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDtoInterface: CreateFullMetricsGithubTeamUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamUserDtoInterface>>;
-    public metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDtoInterface: CreateFullMetricsGithubTeamUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamUserDtoInterface>>;
-    public metricsGithubTeamUserControllerCreateOne(createFullMetricsGithubTeamUserDtoInterface: CreateFullMetricsGithubTeamUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamUsersControllerCreateOne(createFullMetricsGithubTeamUserDtoInterface: CreateFullMetricsGithubTeamUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamUserDtoInterface>;
+    public metricsGithubTeamUsersControllerCreateOne(createFullMetricsGithubTeamUserDtoInterface: CreateFullMetricsGithubTeamUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamUserDtoInterface>>;
+    public metricsGithubTeamUsersControllerCreateOne(createFullMetricsGithubTeamUserDtoInterface: CreateFullMetricsGithubTeamUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamUserDtoInterface>>;
+    public metricsGithubTeamUsersControllerCreateOne(createFullMetricsGithubTeamUserDtoInterface: CreateFullMetricsGithubTeamUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createFullMetricsGithubTeamUserDtoInterface === null || createFullMetricsGithubTeamUserDtoInterface === undefined) {
-            throw new Error('Required parameter createFullMetricsGithubTeamUserDtoInterface was null or undefined when calling metricsGithubTeamUserControllerCreateOne.');
+            throw new Error('Required parameter createFullMetricsGithubTeamUserDtoInterface was null or undefined when calling metricsGithubTeamUsersControllerCreateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2144,7 +1776,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-user`;
+        let localVarPath = `/api/metrics/github/team-users`;
         return this.httpClient.request<MetricsGithubTeamUserDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2164,12 +1796,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamUserControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public metricsGithubTeamUserControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public metricsGithubTeamUserControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public metricsGithubTeamUserControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamUsersControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public metricsGithubTeamUsersControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public metricsGithubTeamUsersControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public metricsGithubTeamUsersControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamUserControllerDeleteOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamUsersControllerDeleteOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2208,7 +1840,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2233,10 +1865,10 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamUserResponseInterface>;
-    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamUserResponseInterface>>;
-    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamUserResponseInterface>>;
-    public metricsGithubTeamUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamUserResponseInterface>;
+    public metricsGithubTeamUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamUserResponseInterface>>;
+    public metricsGithubTeamUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamUserResponseInterface>>;
+    public metricsGithubTeamUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, teamId?: string, userId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -2304,7 +1936,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-user`;
+        let localVarPath = `/api/metrics/github/team-users`;
         return this.httpClient.request<FindManyMetricsGithubTeamUserResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2324,12 +1956,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamUserControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamUserDtoInterface>;
-    public metricsGithubTeamUserControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamUserDtoInterface>>;
-    public metricsGithubTeamUserControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamUserDtoInterface>>;
-    public metricsGithubTeamUserControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamUsersControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamUserDtoInterface>;
+    public metricsGithubTeamUsersControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamUserDtoInterface>>;
+    public metricsGithubTeamUsersControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamUserDtoInterface>>;
+    public metricsGithubTeamUsersControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamUserControllerFindOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamUsersControllerFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2368,7 +2000,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubTeamUserDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2388,15 +2020,15 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubTeamUserControllerUpdateOne(id: string, updateMetricsGithubTeamUserDtoInterface: UpdateMetricsGithubTeamUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamUserDtoInterface>;
-    public metricsGithubTeamUserControllerUpdateOne(id: string, updateMetricsGithubTeamUserDtoInterface: UpdateMetricsGithubTeamUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamUserDtoInterface>>;
-    public metricsGithubTeamUserControllerUpdateOne(id: string, updateMetricsGithubTeamUserDtoInterface: UpdateMetricsGithubTeamUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamUserDtoInterface>>;
-    public metricsGithubTeamUserControllerUpdateOne(id: string, updateMetricsGithubTeamUserDtoInterface: UpdateMetricsGithubTeamUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamUsersControllerUpdateOne(id: string, updateMetricsGithubTeamUserDtoInterface: UpdateMetricsGithubTeamUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamUserDtoInterface>;
+    public metricsGithubTeamUsersControllerUpdateOne(id: string, updateMetricsGithubTeamUserDtoInterface: UpdateMetricsGithubTeamUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamUserDtoInterface>>;
+    public metricsGithubTeamUsersControllerUpdateOne(id: string, updateMetricsGithubTeamUserDtoInterface: UpdateMetricsGithubTeamUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamUserDtoInterface>>;
+    public metricsGithubTeamUsersControllerUpdateOne(id: string, updateMetricsGithubTeamUserDtoInterface: UpdateMetricsGithubTeamUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamUserControllerUpdateOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamUsersControllerUpdateOne.');
         }
         if (updateMetricsGithubTeamUserDtoInterface === null || updateMetricsGithubTeamUserDtoInterface === undefined) {
-            throw new Error('Required parameter updateMetricsGithubTeamUserDtoInterface was null or undefined when calling metricsGithubTeamUserControllerUpdateOne.');
+            throw new Error('Required parameter updateMetricsGithubTeamUserDtoInterface was null or undefined when calling metricsGithubTeamUsersControllerUpdateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2444,7 +2076,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/team-user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/team-users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubTeamUserDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2460,16 +2092,16 @@ export class MetricsSite15RestService {
     }
 
     /**
-     * @param createMetricsGithubUserDtoInterface 
+     * @param createMetricsGithubTeamDtoInterface 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserControllerCreateOne(createMetricsGithubUserDtoInterface: CreateMetricsGithubUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserDtoInterface>;
-    public metricsGithubUserControllerCreateOne(createMetricsGithubUserDtoInterface: CreateMetricsGithubUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserDtoInterface>>;
-    public metricsGithubUserControllerCreateOne(createMetricsGithubUserDtoInterface: CreateMetricsGithubUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserDtoInterface>>;
-    public metricsGithubUserControllerCreateOne(createMetricsGithubUserDtoInterface: CreateMetricsGithubUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        if (createMetricsGithubUserDtoInterface === null || createMetricsGithubUserDtoInterface === undefined) {
-            throw new Error('Required parameter createMetricsGithubUserDtoInterface was null or undefined when calling metricsGithubUserControllerCreateOne.');
+    public metricsGithubTeamsControllerCreateOne(createMetricsGithubTeamDtoInterface: CreateMetricsGithubTeamDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamDtoInterface>;
+    public metricsGithubTeamsControllerCreateOne(createMetricsGithubTeamDtoInterface: CreateMetricsGithubTeamDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamDtoInterface>>;
+    public metricsGithubTeamsControllerCreateOne(createMetricsGithubTeamDtoInterface: CreateMetricsGithubTeamDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamDtoInterface>>;
+    public metricsGithubTeamsControllerCreateOne(createMetricsGithubTeamDtoInterface: CreateMetricsGithubTeamDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createMetricsGithubTeamDtoInterface === null || createMetricsGithubTeamDtoInterface === undefined) {
+            throw new Error('Required parameter createMetricsGithubTeamDtoInterface was null or undefined when calling metricsGithubTeamsControllerCreateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2517,11 +2149,11 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user`;
-        return this.httpClient.request<MetricsGithubUserDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/metrics/github/teams`;
+        return this.httpClient.request<MetricsGithubTeamDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: createMetricsGithubUserDtoInterface,
+                body: createMetricsGithubTeamDtoInterface,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -2537,12 +2169,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public metricsGithubUserControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public metricsGithubUserControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public metricsGithubUserControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamsControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public metricsGithubTeamsControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public metricsGithubTeamsControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public metricsGithubTeamsControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubUserControllerDeleteOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamsControllerDeleteOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2581,7 +2213,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/teams/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2605,10 +2237,10 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserResponseInterface>;
-    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserResponseInterface>>;
-    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserResponseInterface>>;
-    public metricsGithubUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubTeamResponseInterface>;
+    public metricsGithubTeamsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubTeamResponseInterface>>;
+    public metricsGithubTeamsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubTeamResponseInterface>>;
+    public metricsGithubTeamsControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -2672,8 +2304,8 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user`;
-        return this.httpClient.request<FindManyMetricsGithubUserResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/metrics/github/teams`;
+        return this.httpClient.request<FindManyMetricsGithubTeamResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -2692,12 +2324,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserDtoInterface>;
-    public metricsGithubUserControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserDtoInterface>>;
-    public metricsGithubUserControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserDtoInterface>>;
-    public metricsGithubUserControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamsControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamDtoInterface>;
+    public metricsGithubTeamsControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamDtoInterface>>;
+    public metricsGithubTeamsControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamDtoInterface>>;
+    public metricsGithubTeamsControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubUserControllerFindOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamsControllerFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2736,8 +2368,8 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<MetricsGithubUserDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/metrics/github/teams/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<MetricsGithubTeamDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -2752,19 +2384,19 @@ export class MetricsSite15RestService {
 
     /**
      * @param id 
-     * @param updateMetricsGithubUserDtoInterface 
+     * @param updateMetricsGithubTeamDtoInterface 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserControllerUpdateOne(id: string, updateMetricsGithubUserDtoInterface: UpdateMetricsGithubUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserDtoInterface>;
-    public metricsGithubUserControllerUpdateOne(id: string, updateMetricsGithubUserDtoInterface: UpdateMetricsGithubUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserDtoInterface>>;
-    public metricsGithubUserControllerUpdateOne(id: string, updateMetricsGithubUserDtoInterface: UpdateMetricsGithubUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserDtoInterface>>;
-    public metricsGithubUserControllerUpdateOne(id: string, updateMetricsGithubUserDtoInterface: UpdateMetricsGithubUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubTeamsControllerUpdateOne(id: string, updateMetricsGithubTeamDtoInterface: UpdateMetricsGithubTeamDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubTeamDtoInterface>;
+    public metricsGithubTeamsControllerUpdateOne(id: string, updateMetricsGithubTeamDtoInterface: UpdateMetricsGithubTeamDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubTeamDtoInterface>>;
+    public metricsGithubTeamsControllerUpdateOne(id: string, updateMetricsGithubTeamDtoInterface: UpdateMetricsGithubTeamDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubTeamDtoInterface>>;
+    public metricsGithubTeamsControllerUpdateOne(id: string, updateMetricsGithubTeamDtoInterface: UpdateMetricsGithubTeamDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubUserControllerUpdateOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubTeamsControllerUpdateOne.');
         }
-        if (updateMetricsGithubUserDtoInterface === null || updateMetricsGithubUserDtoInterface === undefined) {
-            throw new Error('Required parameter updateMetricsGithubUserDtoInterface was null or undefined when calling metricsGithubUserControllerUpdateOne.');
+        if (updateMetricsGithubTeamDtoInterface === null || updateMetricsGithubTeamDtoInterface === undefined) {
+            throw new Error('Required parameter updateMetricsGithubTeamDtoInterface was null or undefined when calling metricsGithubTeamsControllerUpdateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2812,11 +2444,11 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
-        return this.httpClient.request<MetricsGithubUserDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/metrics/github/teams/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<MetricsGithubTeamDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: updateMetricsGithubUserDtoInterface,
+                body: updateMetricsGithubTeamDtoInterface,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -2832,12 +2464,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserRepositoryDtoInterface>;
-    public metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserRepositoryDtoInterface>>;
-    public metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserRepositoryDtoInterface>>;
-    public metricsGithubUserRepositoryControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubUserRepositoriesControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserRepositoryDtoInterface>;
+    public metricsGithubUserRepositoriesControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserRepositoryDtoInterface>>;
+    public metricsGithubUserRepositoriesControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserRepositoryDtoInterface>>;
+    public metricsGithubUserRepositoriesControllerCreateOne(createFullMetricsGithubUserRepositoryDtoInterface: CreateFullMetricsGithubUserRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createFullMetricsGithubUserRepositoryDtoInterface === null || createFullMetricsGithubUserRepositoryDtoInterface === undefined) {
-            throw new Error('Required parameter createFullMetricsGithubUserRepositoryDtoInterface was null or undefined when calling metricsGithubUserRepositoryControllerCreateOne.');
+            throw new Error('Required parameter createFullMetricsGithubUserRepositoryDtoInterface was null or undefined when calling metricsGithubUserRepositoriesControllerCreateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2885,7 +2517,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user-repository`;
+        let localVarPath = `/api/metrics/github/user-repositories`;
         return this.httpClient.request<MetricsGithubUserRepositoryDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2905,12 +2537,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserRepositoryControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public metricsGithubUserRepositoryControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public metricsGithubUserRepositoryControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public metricsGithubUserRepositoryControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubUserRepositoriesControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public metricsGithubUserRepositoriesControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public metricsGithubUserRepositoriesControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public metricsGithubUserRepositoriesControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubUserRepositoryControllerDeleteOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubUserRepositoriesControllerDeleteOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -2949,7 +2581,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user-repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/user-repositories/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -2974,10 +2606,10 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserRepositoryResponseInterface>;
-    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserRepositoryResponseInterface>>;
-    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserRepositoryResponseInterface>>;
-    public metricsGithubUserRepositoryControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubUserRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserRepositoryResponseInterface>;
+    public metricsGithubUserRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserRepositoryResponseInterface>>;
+    public metricsGithubUserRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserRepositoryResponseInterface>>;
+    public metricsGithubUserRepositoriesControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, userId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -3045,7 +2677,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user-repository`;
+        let localVarPath = `/api/metrics/github/user-repositories`;
         return this.httpClient.request<FindManyMetricsGithubUserRepositoryResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -3065,12 +2697,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserRepositoryControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserRepositoryDtoInterface>;
-    public metricsGithubUserRepositoryControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserRepositoryDtoInterface>>;
-    public metricsGithubUserRepositoryControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserRepositoryDtoInterface>>;
-    public metricsGithubUserRepositoryControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubUserRepositoriesControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserRepositoryDtoInterface>;
+    public metricsGithubUserRepositoriesControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserRepositoryDtoInterface>>;
+    public metricsGithubUserRepositoriesControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserRepositoryDtoInterface>>;
+    public metricsGithubUserRepositoriesControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubUserRepositoryControllerFindOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubUserRepositoriesControllerFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -3109,7 +2741,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user-repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/user-repositories/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubUserRepositoryDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -3129,15 +2761,15 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsGithubUserRepositoryControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDtoInterface: UpdateMetricsGithubUserRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserRepositoryDtoInterface>;
-    public metricsGithubUserRepositoryControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDtoInterface: UpdateMetricsGithubUserRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserRepositoryDtoInterface>>;
-    public metricsGithubUserRepositoryControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDtoInterface: UpdateMetricsGithubUserRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserRepositoryDtoInterface>>;
-    public metricsGithubUserRepositoryControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDtoInterface: UpdateMetricsGithubUserRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsGithubUserRepositoriesControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDtoInterface: UpdateMetricsGithubUserRepositoryDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserRepositoryDtoInterface>;
+    public metricsGithubUserRepositoriesControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDtoInterface: UpdateMetricsGithubUserRepositoryDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserRepositoryDtoInterface>>;
+    public metricsGithubUserRepositoriesControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDtoInterface: UpdateMetricsGithubUserRepositoryDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserRepositoryDtoInterface>>;
+    public metricsGithubUserRepositoriesControllerUpdateOne(id: string, updateMetricsGithubUserRepositoryDtoInterface: UpdateMetricsGithubUserRepositoryDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsGithubUserRepositoryControllerUpdateOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubUserRepositoriesControllerUpdateOne.');
         }
         if (updateMetricsGithubUserRepositoryDtoInterface === null || updateMetricsGithubUserRepositoryDtoInterface === undefined) {
-            throw new Error('Required parameter updateMetricsGithubUserRepositoryDtoInterface was null or undefined when calling metricsGithubUserRepositoryControllerUpdateOne.');
+            throw new Error('Required parameter updateMetricsGithubUserRepositoryDtoInterface was null or undefined when calling metricsGithubUserRepositoriesControllerUpdateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -3185,7 +2817,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/github/user-repository/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/github/user-repositories/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsGithubUserRepositoryDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -3632,6 +3264,374 @@ export class MetricsSite15RestService {
     }
 
     /**
+     * @param createMetricsGithubUserDtoInterface 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public metricsGithubUsersControllerCreateOne(createMetricsGithubUserDtoInterface: CreateMetricsGithubUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserDtoInterface>;
+    public metricsGithubUsersControllerCreateOne(createMetricsGithubUserDtoInterface: CreateMetricsGithubUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserDtoInterface>>;
+    public metricsGithubUsersControllerCreateOne(createMetricsGithubUserDtoInterface: CreateMetricsGithubUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserDtoInterface>>;
+    public metricsGithubUsersControllerCreateOne(createMetricsGithubUserDtoInterface: CreateMetricsGithubUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (createMetricsGithubUserDtoInterface === null || createMetricsGithubUserDtoInterface === undefined) {
+            throw new Error('Required parameter createMetricsGithubUserDtoInterface was null or undefined when calling metricsGithubUsersControllerCreateOne.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/metrics/github/users`;
+        return this.httpClient.request<MetricsGithubUserDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: createMetricsGithubUserDtoInterface,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public metricsGithubUsersControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public metricsGithubUsersControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public metricsGithubUsersControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public metricsGithubUsersControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubUsersControllerDeleteOne.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/metrics/github/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param curPage 
+     * @param perPage 
+     * @param searchText 
+     * @param sort 
+     * @param tenantId 
+     * @param repositoryId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public metricsGithubUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsGithubUserResponseInterface>;
+    public metricsGithubUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsGithubUserResponseInterface>>;
+    public metricsGithubUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsGithubUserResponseInterface>>;
+    public metricsGithubUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, repositoryId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (curPage !== undefined && curPage !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>curPage, 'curPage');
+        }
+        if (perPage !== undefined && perPage !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>perPage, 'perPage');
+        }
+        if (searchText !== undefined && searchText !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>searchText, 'searchText');
+        }
+        if (sort !== undefined && sort !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>sort, 'sort');
+        }
+        if (tenantId !== undefined && tenantId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>tenantId, 'tenantId');
+        }
+        if (repositoryId !== undefined && repositoryId !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>repositoryId, 'repositoryId');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/metrics/github/users`;
+        return this.httpClient.request<FindManyMetricsGithubUserResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                params: localVarQueryParameters,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public metricsGithubUsersControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserDtoInterface>;
+    public metricsGithubUsersControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserDtoInterface>>;
+    public metricsGithubUsersControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserDtoInterface>>;
+    public metricsGithubUsersControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubUsersControllerFindOne.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/metrics/github/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<MetricsGithubUserDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param id 
+     * @param updateMetricsGithubUserDtoInterface 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public metricsGithubUsersControllerUpdateOne(id: string, updateMetricsGithubUserDtoInterface: UpdateMetricsGithubUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsGithubUserDtoInterface>;
+    public metricsGithubUsersControllerUpdateOne(id: string, updateMetricsGithubUserDtoInterface: UpdateMetricsGithubUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsGithubUserDtoInterface>>;
+    public metricsGithubUsersControllerUpdateOne(id: string, updateMetricsGithubUserDtoInterface: UpdateMetricsGithubUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsGithubUserDtoInterface>>;
+    public metricsGithubUsersControllerUpdateOne(id: string, updateMetricsGithubUserDtoInterface: UpdateMetricsGithubUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling metricsGithubUsersControllerUpdateOne.');
+        }
+        if (updateMetricsGithubUserDtoInterface === null || updateMetricsGithubUserDtoInterface === undefined) {
+            throw new Error('Required parameter updateMetricsGithubUserDtoInterface was null or undefined when calling metricsGithubUsersControllerUpdateOne.');
+        }
+
+        let localVarHeaders = this.defaultHeaders;
+
+        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (localVarHttpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (localVarHttpHeaderAcceptSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+        }
+
+        let localVarHttpContext: HttpContext | undefined = options && options.context;
+        if (localVarHttpContext === undefined) {
+            localVarHttpContext = new HttpContext();
+        }
+
+        let localVarTransferCache: boolean | undefined = options && options.transferCache;
+        if (localVarTransferCache === undefined) {
+            localVarTransferCache = true;
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            localVarHeaders = localVarHeaders.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType_: 'text' | 'json' | 'blob' = 'json';
+        if (localVarHttpHeaderAcceptSelected) {
+            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+                responseType_ = 'text';
+            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+                responseType_ = 'json';
+            } else {
+                responseType_ = 'blob';
+            }
+        }
+
+        let localVarPath = `/api/metrics/github/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        return this.httpClient.request<MetricsGithubUserDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
+            {
+                context: localVarHttpContext,
+                body: updateMetricsGithubUserDtoInterface,
+                responseType: <any>responseType_,
+                withCredentials: this.configuration.withCredentials,
+                headers: localVarHeaders,
+                observe: observe,
+                transferCache: localVarTransferCache,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * @param createMetricsSettingsDtoInterface 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -4058,12 +4058,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsUserControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsUserDtoInterface>;
-    public metricsUserControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsUserDtoInterface>>;
-    public metricsUserControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsUserDtoInterface>>;
-    public metricsUserControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsUsersControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsUserDtoInterface>;
+    public metricsUsersControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsUserDtoInterface>>;
+    public metricsUsersControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsUserDtoInterface>>;
+    public metricsUsersControllerCreateOne(createFullMetricsUserDtoInterface: CreateFullMetricsUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (createFullMetricsUserDtoInterface === null || createFullMetricsUserDtoInterface === undefined) {
-            throw new Error('Required parameter createFullMetricsUserDtoInterface was null or undefined when calling metricsUserControllerCreateOne.');
+            throw new Error('Required parameter createFullMetricsUserDtoInterface was null or undefined when calling metricsUsersControllerCreateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -4111,7 +4111,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/user`;
+        let localVarPath = `/api/metrics/users`;
         return this.httpClient.request<MetricsUserDtoInterface>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -4131,12 +4131,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsUserControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
-    public metricsUserControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
-    public metricsUserControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
-    public metricsUserControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsUsersControllerDeleteOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<StatusResponseInterface>;
+    public metricsUsersControllerDeleteOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<StatusResponseInterface>>;
+    public metricsUsersControllerDeleteOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<StatusResponseInterface>>;
+    public metricsUsersControllerDeleteOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsUserControllerDeleteOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsUsersControllerDeleteOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -4175,7 +4175,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<StatusResponseInterface>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -4198,10 +4198,10 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsUserResponseInterface>;
-    public metricsUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsUserResponseInterface>>;
-    public metricsUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsUserResponseInterface>>;
-    public metricsUserControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<FindManyMetricsUserResponseInterface>;
+    public metricsUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<FindManyMetricsUserResponseInterface>>;
+    public metricsUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<FindManyMetricsUserResponseInterface>>;
+    public metricsUsersControllerFindMany(curPage?: number, perPage?: number, searchText?: string, sort?: string, tenantId?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (curPage !== undefined && curPage !== null) {
@@ -4261,7 +4261,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/user`;
+        let localVarPath = `/api/metrics/users`;
         return this.httpClient.request<FindManyMetricsUserResponseInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -4281,12 +4281,12 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsUserControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsUserDtoInterface>;
-    public metricsUserControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsUserDtoInterface>>;
-    public metricsUserControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsUserDtoInterface>>;
-    public metricsUserControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsUsersControllerFindOne(id: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsUserDtoInterface>;
+    public metricsUsersControllerFindOne(id: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsUserDtoInterface>>;
+    public metricsUsersControllerFindOne(id: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsUserDtoInterface>>;
+    public metricsUsersControllerFindOne(id: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsUserControllerFindOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsUsersControllerFindOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -4325,7 +4325,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsUserDtoInterface>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -4345,15 +4345,15 @@ export class MetricsSite15RestService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public metricsUserControllerUpdateOne(id: string, updateMetricsUserDtoInterface: UpdateMetricsUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsUserDtoInterface>;
-    public metricsUserControllerUpdateOne(id: string, updateMetricsUserDtoInterface: UpdateMetricsUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsUserDtoInterface>>;
-    public metricsUserControllerUpdateOne(id: string, updateMetricsUserDtoInterface: UpdateMetricsUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsUserDtoInterface>>;
-    public metricsUserControllerUpdateOne(id: string, updateMetricsUserDtoInterface: UpdateMetricsUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+    public metricsUsersControllerUpdateOne(id: string, updateMetricsUserDtoInterface: UpdateMetricsUserDtoInterface, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<MetricsUserDtoInterface>;
+    public metricsUsersControllerUpdateOne(id: string, updateMetricsUserDtoInterface: UpdateMetricsUserDtoInterface, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<MetricsUserDtoInterface>>;
+    public metricsUsersControllerUpdateOne(id: string, updateMetricsUserDtoInterface: UpdateMetricsUserDtoInterface, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<MetricsUserDtoInterface>>;
+    public metricsUsersControllerUpdateOne(id: string, updateMetricsUserDtoInterface: UpdateMetricsUserDtoInterface, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling metricsUserControllerUpdateOne.');
+            throw new Error('Required parameter id was null or undefined when calling metricsUsersControllerUpdateOne.');
         }
         if (updateMetricsUserDtoInterface === null || updateMetricsUserDtoInterface === undefined) {
-            throw new Error('Required parameter updateMetricsUserDtoInterface was null or undefined when calling metricsUserControllerUpdateOne.');
+            throw new Error('Required parameter updateMetricsUserDtoInterface was null or undefined when calling metricsUsersControllerUpdateOne.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -4401,7 +4401,7 @@ export class MetricsSite15RestService {
             }
         }
 
-        let localVarPath = `/api/metrics/user/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
+        let localVarPath = `/api/metrics/users/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "string", dataFormat: undefined})}`;
         return this.httpClient.request<MetricsUserDtoInterface>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,

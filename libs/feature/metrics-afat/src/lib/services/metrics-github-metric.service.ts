@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { RequestMeta } from '@nestjs-mod/misc';
 import { Site15RestSdkAngularService } from '@site15/rest-sdk-angular';
 import { map } from 'rxjs';
 import { MetricsGithubMetricMapperService } from './metrics-github-metric-mapper.service';
+import { RequestMeta } from '@nestjs-mod/misc';
 
 @Injectable({ providedIn: 'root' })
 export class MetricsGithubMetricService {
@@ -14,14 +14,14 @@ export class MetricsGithubMetricService {
   findOne(id: string) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubMetricControllerFindOne(id)
+      .metricsGithubMetricsControllerFindOne(id)
       .pipe(map((p) => this.metricsGithubMetricMapperService.toModel(p)));
   }
 
   findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubMetricControllerFindMany(
+      .metricsGithubMetricsControllerFindMany(
         meta?.curPage,
         meta?.perPage,
         filters['search'],
@@ -44,18 +44,18 @@ export class MetricsGithubMetricService {
   updateOne(id: string, data: Record<string, unknown>) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubMetricControllerUpdateOne(id, data as any)
+      .metricsGithubMetricsControllerUpdateOne(id, data as any)
       .pipe(map((p) => this.metricsGithubMetricMapperService.toModel(p)));
   }
 
   deleteOne(id: string) {
-    return this.site15RestSdkAngularService.getMetricsApi().metricsGithubMetricControllerDeleteOne(id);
+    return this.site15RestSdkAngularService.getMetricsApi().metricsGithubMetricsControllerDeleteOne(id);
   }
 
   createOne(data: Record<string, unknown>) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubMetricControllerCreateOne(data as any)
+      .metricsGithubMetricsControllerCreateOne(data as any)
       .pipe(map((p) => this.metricsGithubMetricMapperService.toModel(p)));
   }
 }

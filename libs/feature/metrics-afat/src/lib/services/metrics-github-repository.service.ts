@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { RequestMeta } from '@nestjs-mod/misc';
 import {
-  CreateMetricsGithubRepositoryDtoInterface,
   Site15RestSdkAngularService,
   UpdateMetricsGithubRepositoryDtoInterface,
+  CreateMetricsGithubRepositoryDtoInterface,
 } from '@site15/rest-sdk-angular';
 import { map } from 'rxjs';
 import { MetricsGithubRepositoryMapperService } from './metrics-github-repository-mapper.service';
@@ -24,14 +24,14 @@ export class MetricsGithubRepositoryService {
   findOne(id: string) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubRepositoryControllerFindOne(id)
+      .metricsGithubRepositoriesControllerFindOne(id)
       .pipe(map((p) => this.metricsGithubRepositoryMapperService.toModel(p)));
   }
 
   findMany({ filters, meta }: { filters: Record<string, string>; meta?: RequestMeta }) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubRepositoryControllerFindMany(
+      .metricsGithubRepositoriesControllerFindMany(
         meta?.curPage,
         meta?.perPage,
         filters['search'],
@@ -56,18 +56,18 @@ export class MetricsGithubRepositoryService {
   updateOne(id: string, data: UpdateMetricsGithubRepositoryDtoInterface) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubRepositoryControllerUpdateOne(id, data)
+      .metricsGithubRepositoriesControllerUpdateOne(id, data)
       .pipe(map((p) => this.metricsGithubRepositoryMapperService.toModel(p)));
   }
 
   deleteOne(id: string) {
-    return this.site15RestSdkAngularService.getMetricsApi().metricsGithubRepositoryControllerDeleteOne(id);
+    return this.site15RestSdkAngularService.getMetricsApi().metricsGithubRepositoriesControllerDeleteOne(id);
   }
 
   createOne(data: CreateMetricsGithubRepositoryDtoInterface) {
     return this.site15RestSdkAngularService
       .getMetricsApi()
-      .metricsGithubRepositoryControllerCreateOne(data)
+      .metricsGithubRepositoriesControllerCreateOne(data)
       .pipe(map((p) => this.metricsGithubRepositoryMapperService.toModel(p)));
   }
 }

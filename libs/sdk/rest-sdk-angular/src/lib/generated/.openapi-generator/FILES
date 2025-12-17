@@ -57,10 +57,10 @@ model/forgot-password-args.interface.ts
 model/metrics-entities.interface.ts
 model/metrics-error-enum.interface.ts
 model/metrics-error.interface.ts
-model/metrics-github-metric-controller-find-many400-response.interface.ts
 model/metrics-github-metric-dto.interface.ts
 model/metrics-github-metric-scalar-field-enum.interface.ts
 model/metrics-github-metric.interface.ts
+model/metrics-github-metrics-controller-find-many400-response.interface.ts
 model/metrics-github-repository-dto.interface.ts
 model/metrics-github-repository-scalar-field-enum.interface.ts
 model/metrics-github-repository-statistics-dto.interface.ts
