@@ -1,3 +1,9 @@
+## [1.14.1](https://github.com/site15/site15.ru/compare/client-v1.14.0...client-v1.14.1) (2025-12-17)
+
+### Bug Fixes
+
+- **metrics:** correct API controller names for github metrics services ([b7c9397](https://github.com/site15/site15.ru/commit/b7c9397138cb97c586f10fbbe82c347f6108dd16))
+
 # [1.14.0](https://github.com/site15/site15.ru/compare/client-v1.13.0...client-v1.14.0) (2025-10-14)
 
 ### Features
