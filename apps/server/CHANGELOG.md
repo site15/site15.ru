@@ -1,3 +1,9 @@
+## [1.17.1](https://github.com/site15/site15.ru/compare/server-v1.17.0...server-v1.17.1) (2025-12-17)
+
+### Bug Fixes
+
+- **metrics:** correct API controller names for github metrics services ([b7c9397](https://github.com/site15/site15.ru/commit/b7c9397138cb97c586f10fbbe82c347f6108dd16))
+
 # [1.17.0](https://github.com/site15/site15.ru/compare/server-v1.16.0...server-v1.17.0) (2025-10-14)
 
 ### Features
