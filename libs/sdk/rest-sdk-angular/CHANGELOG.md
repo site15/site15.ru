@@ -1,3 +1,9 @@
+## [1.11.1](https://github.com/site15/site15.ru/compare/rest-sdk-angular-v1.11.0...rest-sdk-angular-v1.11.1) (2025-12-17)
+
+### Bug Fixes
+
+- **metrics:** correct API controller names for github metrics services ([b7c9397](https://github.com/site15/site15.ru/commit/b7c9397138cb97c586f10fbbe82c347f6108dd16))
+
 # [1.11.0](https://github.com/site15/site15.ru/compare/rest-sdk-angular-v1.10.0...rest-sdk-angular-v1.11.0) (2025-10-14)
 
 ### Features
