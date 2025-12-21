@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: %NAMESPACE%-redis
-          image: public.ecr.aws/redis:7.4.1
+          image: public.ecr.aws/bitnami/redis:7.4.1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 6379
