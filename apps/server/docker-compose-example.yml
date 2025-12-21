@@ -1,101 +1,101 @@
 # Do not modify this file, it is generated using the DockerCompose module included with NestJS-mod.
-version: '3'
+version: "3"
 services:
   site-15-postgre-sql:
-    image: 'bitnami/postgresql:latest'
-    container_name: 'site-15-postgre-sql'
+    image: "bitnami/postgresql:latest"
+    container_name: "site-15-postgre-sql"
     volumes:
-      - 'site-15-postgre-sql-volume:/bitnami/postgresql'
+      - "site-15-postgre-sql-volume:/bitnami/postgresql"
     ports:
-      - '5432:5432'
+      - "5432:5432"
     networks:
-      - 'site-15-network'
+      - "site-15-network"
     healthcheck:
       test:
-        - 'CMD-SHELL'
-        - 'pg_isready -U postgres'
-      interval: '5s'
-      timeout: '5s'
+        - "CMD-SHELL"
+        - "pg_isready -U postgres"
+      interval: "5s"
+      timeout: "5s"
       retries: 5
     tty: true
-    restart: 'always'
+    restart: "always"
     environment:
-      POSTGRESQL_USERNAME: ''
-      POSTGRESQL_PASSWORD: ''
-      POSTGRESQL_DATABASE: ''
+      POSTGRESQL_USERNAME: ""
+      POSTGRESQL_PASSWORD: ""
+      POSTGRESQL_DATABASE: ""
   site-15-redis:
-    image: 'bitnami/redis:latest'
-    container_name: 'site-15-redis'
+    image: "bitnami/redis:latest"
+    container_name: "site-15-redis"
     volumes:
-      - 'site-15-redis-volume:/bitnami/redis/data'
+      - "site-15-redis-volume:/bitnami/redis/data"
     ports:
-      - '6379:6379'
+      - "6379:6379"
     networks:
-      - 'site-15-network'
+      - "site-15-network"
     environment:
-      REDIS_DATABASE: ''
-      REDIS_PASSWORD: ''
-      REDIS_DISABLE_COMMANDS: ''
-      REDIS_IO_THREADS: ''
-      REDIS_IO_THREADS_DO_READS: ''
+      REDIS_DATABASE: ""
+      REDIS_PASSWORD: ""
+      REDIS_DISABLE_COMMANDS: ""
+      REDIS_IO_THREADS: ""
+      REDIS_IO_THREADS_DO_READS: ""
     healthcheck:
       test:
-        - 'CMD-SHELL'
-        - 'redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG'
-      interval: '5s'
-      timeout: '5s'
+        - "CMD-SHELL"
+        - "redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG"
+      interval: "5s"
+      timeout: "5s"
       retries: 5
     tty: true
-    restart: 'always'
+    restart: "always"
   site-15-minio:
-    image: 'bitnami/minio:latest'
-    container_name: 'site-15-minio'
+    image: "bitnami/minio:latest"
+    container_name: "site-15-minio"
     volumes:
-      - 'site-15-minio-volume:/bitnami/minio/data'
+      - "site-15-minio-volume:/bitnami/minio/data"
     ports:
-      - '9000:9000'
-      - '9001:9001'
+      - "9000:9000"
+      - "9001:9001"
     networks:
-      - 'site-15-network'
+      - "site-15-network"
     environment:
-      MINIO_ROOT_USER: ''
-      MINIO_ROOT_PASSWORD: ''
+      MINIO_ROOT_USER: ""
+      MINIO_ROOT_PASSWORD: ""
     healthcheck:
       test:
-        - 'CMD-SHELL'
-        - 'mc'
-        - 'ready'
-        - 'local'
-      interval: '5s'
-      timeout: '5s'
+        - "CMD-SHELL"
+        - "mc"
+        - "ready"
+        - "local"
+      interval: "5s"
+      timeout: "5s"
       retries: 5
     tty: true
-    restart: 'always'
+    restart: "always"
   site-15-maildev:
-    image: 'maildev/maildev:2.2.1'
-    container_name: 'site-15-maildev'
+    image: "maildev/maildev:2.2.1"
+    container_name: "site-15-maildev"
     ports:
-      - '1025:1025'
-      - '1080:1080'
+      - "1025:1025"
+      - "1080:1080"
     networks:
-      - 'site-15-network'
+      - "site-15-network"
     environment:
-      MAILDEV_SMTP_PORT: ''
-      MAILDEV_WEB_PORT: ''
+      MAILDEV_SMTP_PORT: ""
+      MAILDEV_WEB_PORT: ""
     healthcheck:
-      test: 'wget -O - http://localhost:${MAILDEV_WEB_PORT}${MAILDEV_BASE_PATHNAME}/healthz || exit 1'
-      interval: '10s'
-      timeout: '5s'
+      test: "wget -O - http://localhost:${MAILDEV_WEB_PORT}${MAILDEV_BASE_PATHNAME}/healthz || exit 1"
+      interval: "10s"
+      timeout: "5s"
       retries: 5
     tty: true
-    restart: 'always'
+    restart: "always"
 networks:
   site-15-network:
-    driver: 'bridge'
+    driver: "bridge"
 volumes:
   site-15-postgre-sql-volume:
-    name: 'site-15-postgre-sql-volume'
+    name: "site-15-postgre-sql-volume"
   site-15-redis-volume:
-    name: 'site-15-redis-volume'
+    name: "site-15-redis-volume"
   site-15-minio-volume:
-    name: 'site-15-minio-volume'
+    name: "site-15-minio-volume"

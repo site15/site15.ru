@@ -26,7 +26,7 @@ test.describe('basic usage (ru)', () => {
   });
 
   test('has title', async () => {
-    await page.goto('/', {
+    await page.goto('/admin', {
       timeout: 7000,
     });
 
@@ -52,7 +52,7 @@ test.describe('basic usage (ru)', () => {
   });
 
   test('has serverTime format should be equal to "21 дек. 2024 г., 13:56:00" without "13:56:00"', async () => {
-    await page.goto('/', {
+    await page.goto('/admin', {
       timeout: 7000,
     });
 

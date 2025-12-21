@@ -26,7 +26,7 @@ test.describe('basic usage', () => {
   });
 
   test('has title', async () => {
-    await page.goto('/', {
+    await page.goto('/admin', {
       timeout: 7000,
     });
 
@@ -36,7 +36,7 @@ test.describe('basic usage', () => {
   });
 
   test('has serverTime format should be equal to "Dec 21, 2024, 1:56:00 PM" without "1:56:00"', async () => {
-    await page.goto('/', {
+    await page.goto('/admin', {
       timeout: 7000,
     });
 

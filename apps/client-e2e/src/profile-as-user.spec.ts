@@ -28,7 +28,7 @@ test.describe('Work with profile as "User" role', () => {
     page.on('pageerror', (exception) => {
       console.log(exception);
     });
-    await page.goto('/', {
+    await page.goto('/admin', {
       timeout: 7000,
     });
     await page.evaluate(
@@ -47,7 +47,7 @@ test.describe('Work with profile as "User" role', () => {
   });
 
   test('sign up as user', async () => {
-    await page.goto('/sign-up', {
+    await page.goto('/admin/sign-up', {
       timeout: 7000,
     });
 
@@ -102,7 +102,7 @@ test.describe('Work with profile as "User" role', () => {
   });
 
   test('sign in as user', async () => {
-    await page.goto('/sign-in', {
+    await page.goto('/admin/sign-in', {
       timeout: 7000,
     });
 
@@ -202,7 +202,7 @@ test.describe('Work with profile as "User" role', () => {
   });
 
   test('sign in as user with new password', async () => {
-    await page.goto('/sign-in', {
+    await page.goto('/admin/sign-in', {
       timeout: 7000,
     });
 

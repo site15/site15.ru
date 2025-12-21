@@ -30,7 +30,7 @@ test.describe('Work with profile as "User" role (timezone', () => {
     page.on('pageerror', (exception) => {
       console.log(exception);
     });
-    await page.goto('/', {
+    await page.goto('/admin', {
       timeout: 7000,
     });
     await page.evaluate(
@@ -49,7 +49,7 @@ test.describe('Work with profile as "User" role (timezone', () => {
   });
 
   test('sign up as user', async () => {
-    await page.goto('/sign-up', {
+    await page.goto('/admin/sign-up', {
       timeout: 7000,
     });
 
@@ -104,7 +104,7 @@ test.describe('Work with profile as "User" role (timezone', () => {
   });
 
   test('sign in as user', async () => {
-    await page.goto('/sign-in', {
+    await page.goto('/admin/sign-in', {
       timeout: 7000,
     });
 

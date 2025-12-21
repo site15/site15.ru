@@ -90,6 +90,5 @@ export async function generateRandomUser(
     domainWord,
   };
 
-  console.log(user);
   return user as Required<GenerateRandomUserResult>;
 }
