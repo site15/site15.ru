@@ -1,3 +1,9 @@
+## [1.18.1](https://github.com/site15/site15.ru/compare/server-v1.18.0...server-v1.18.1) (2025-12-21)
+
+### Bug Fixes
+
+- update ya metrika html, update output of client application ([943d814](https://github.com/site15/site15.ru/commit/943d814bef5222a4c444752e974043b21f0fdab4))
+
 # [1.18.0](https://github.com/site15/site15.ru/compare/server-v1.17.3...server-v1.18.0) (2025-12-21)
 
 ### Features
