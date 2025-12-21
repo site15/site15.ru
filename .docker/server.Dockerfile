@@ -46,4 +46,5 @@ COPY --from=prod-deps /app/libs /app/libs
 COPY --from=prod-deps /app/package.json /app/package.json
 COPY --from=build /app/dist /app/dist
 COPY --from=prod-deps /app/apps/landing /app/dist/apps/client
+COPY --from=build /app/dist /app/dist
 CMD ["dumb-init", "node", "dist/apps/server/main.js"]
