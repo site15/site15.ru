@@ -49,8 +49,8 @@ export class SsoGoogleOAuthController {
   ) {
     const domain = this.ssoStaticEnvironments.clientUrl;
     const redirectUrlAfterLogin = clientId
-      ? `{{{domain}}}/complete-oauth-sign-up?verification_code={{verificationCode}}&client_id=${clientId}`
-      : `{{{domain}}}/complete-oauth-sign-up?verification_code={{verificationCode}}`;
+      ? `{{{domain}}}/admin/complete-oauth-sign-up?verification_code={{verificationCode}}&client_id=${clientId}`
+      : `{{{domain}}}/admin/complete-oauth-sign-up?verification_code={{verificationCode}}`;
     const context = {
       verificationCode: req?.user?.verificationCode || 'Error',
       domain,

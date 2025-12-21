@@ -4356,7 +4356,6 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
 
             // Create bouncing animation
             function bounceElement() {
-                console.log("bounceElement")
                 log('Starting bounce animation');
                 let posY = 0;
                 let velocity = 0;
@@ -4455,7 +4454,6 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
             }
 
             function changeCoinContent(restarting = true) {
-                console.log('changeCoinContent', currentStateIndex)
                 // Move to next state
                 currentStateIndex = (currentStateIndex + 1) % coinStates.length;
                 const nextState = coinStates[currentStateIndex];

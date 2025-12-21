@@ -8,9 +8,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "baseHref": "/admin/",
         "deployUrl": "/admin/",
@@ -25,9 +23,7 @@
         "outputPath": "dist/apps/client/admin",
         "index": "apps/client/src/index.html",
         "main": "apps/client/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/client/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -52,9 +48,7 @@
             "output": "/assets/i18n/nestjs-mod-afat/"
           }
         ],
-        "styles": [
-          "apps/client/src/styles.scss"
-        ],
+        "styles": ["apps/client/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -161,17 +155,13 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{tenantRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{tenantRoot}"],
       "options": {
         "jestConfig": "apps/client/jest.config.ts"
       }
     },
     "server": {
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "executor": "@angular-devkit/build-angular:server",
       "options": {
         "outputPath": "dist/apps/client/server",
@@ -210,9 +200,7 @@
     "prerender": {
       "executor": "@angular-devkit/build-angular:prerender",
       "options": {
-        "routes": [
-          "/"
-        ]
+        "routes": ["/"]
       },
       "configurations": {
         "development": {

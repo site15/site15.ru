@@ -58,10 +58,10 @@ parsedEnvs.SITE_15_SSO_ADMIN_EMAIL = process.env.SITE_15_SSO_ADMIN_EMAIL || 'adm
 parsedEnvs.SITE_15_SSO_ADMIN_PASSWORD = process.env.SITE_15_SSO_ADMIN_PASSWORD || 'SbxcbII7RUvCOe9TDXnKhfRrLJW5cGDA';
 parsedEnvs.SITE_15_SSO_ADMIN_USERNAME = process.env.SITE_15_SSO_ADMIN_USERNAME || 'admin';
 parsedEnvs.SITE_15_SSO_SERVER_URL = process.env.SITE_15_SSO_SERVER_URL || 'http://localhost:3000';
-parsedEnvs.SITE_15_SSO_CLIENT_URL = process.env.SITE_15_SSO_CLIENT_URL || 'http://localhost:4200';
+parsedEnvs.SITE_15_SSO_CLIENT_URL = process.env.SITE_15_SSO_CLIENT_URL || 'http://localhost:4200/admin';
 parsedEnvs.SITE_15_SSO_ADMIN_SECRET = process.env.SITE_15_SSO_ADMIN_SECRET || 'VfKSfPPljhHBXCEohnitursmgDxfAyiD';
 
-parsedEnvs.E2E_CLIENT_URL = parsedEnvs.E2E_CLIENT_URL || 'http://localhost:4200';
+parsedEnvs.E2E_CLIENT_URL = parsedEnvs.E2E_CLIENT_URL || 'http://localhost:4200/admin';
 parsedEnvs.E2E_SERVER_URL = parsedEnvs.E2E_SERVER_URL || 'http://localhost:3000';
 
 parsedEnvs.SITE_15_SSO_DEFAULT_PUBLIC_PROJECTS = process.env.SITE_15_SSO_DEFAULT_PUBLIC_PROJECTS || '';

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: %NAMESPACE%-minio
-          image: bitnami/minio:2024.11.7
+          image: bitnami/minio:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 9000

@@ -14,10 +14,10 @@ Utilities for setting global application parameters, such as project name, descr
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`applicationPackageJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/apps/server/package.json```|
-|`packageJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/package.json```|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/apps/server/project.json```|
-|`envFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/.env```|
+|`applicationPackageJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/apps/server/package.json```|
+|`packageJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/package.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/apps/server/project.json```|
+|`envFile`|**optional**|```/home/endy/Projects/site15/site15.ru/.env```|
 
 ### DefaultNestApplicationInitializer
 Default NestJS application initializer.
@@ -207,14 +207,14 @@ Webhook module with an error filter, guard, controller, database migrations and 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-21T14:32:49.104Z","updatedAt":"2025-12-21T14:32:49.104Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-21T14:32:49.104Z","updatedAt":"2025-12-21T14:32:49.104Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-21T14:32:49.104Z","updatedAt":"2025-12-21T14:32:49.104Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-12-21T14:32:49.104Z","updatedAt":"2025-12-21T14:32:49.104Z"}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-21T15:30:40.800Z","updatedAt":"2025-12-21T15:30:40.800Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-21T15:30:40.800Z","updatedAt":"2025-12-21T15:30:40.800Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-21T15:30:40.800Z","updatedAt":"2025-12-21T15:30:40.800Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-12-21T15:30:40.800Z","updatedAt":"2025-12-21T15:30:40.800Z"}}``` ]|
 
 #### Modules that use feature configuration
 ##### Feature module name: sso
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T14:32:49.724Z","createdAt":"2025-12-21T14:32:49.724Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T14:32:49.724Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T14:32:49.724Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T14:32:49.724Z","roles":"user","updatedAt":"2025-12-21T14:32:49.724Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T14:32:49.724Z","createdAt":"2025-12-21T14:32:49.724Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T14:32:49.724Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T14:32:49.724Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T14:32:49.724Z","roles":"user","updatedAt":"2025-12-21T14:32:49.724Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T14:32:49.724Z","createdAt":"2025-12-21T14:32:49.724Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T14:32:49.724Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T14:32:49.724Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T14:32:49.724Z","roles":"user","updatedAt":"2025-12-21T14:32:49.724Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T14:32:49.724Z","createdAt":"2025-12-21T14:32:49.724Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T14:32:49.724Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T14:32:49.724Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T14:32:49.724Z","roles":"user","updatedAt":"2025-12-21T14:32:49.724Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T14:32:49.724Z","createdAt":"2025-12-21T14:32:49.724Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T14:32:49.724Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T14:32:49.724Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T14:32:49.724Z","roles":"user","updatedAt":"2025-12-21T14:32:49.724Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T14:32:49.724Z","createdAt":"2025-12-21T14:32:49.724Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T14:32:49.724Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T14:32:49.724Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T14:32:49.724Z","roles":"user","updatedAt":"2025-12-21T14:32:49.724Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T14:32:49.724Z","createdAt":"2025-12-21T14:32:49.724Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T14:32:49.724Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T14:32:49.724Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T14:32:49.724Z","roles":"user","updatedAt":"2025-12-21T14:32:49.724Z","username":"nickname","lang":"en","timezone":0}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T15:30:42.552Z","createdAt":"2025-12-21T15:30:42.552Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T15:30:42.552Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T15:30:42.553Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T15:30:42.553Z","roles":"user","updatedAt":"2025-12-21T15:30:42.553Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T15:30:42.552Z","createdAt":"2025-12-21T15:30:42.552Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T15:30:42.552Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T15:30:42.553Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T15:30:42.553Z","roles":"user","updatedAt":"2025-12-21T15:30:42.553Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T15:30:42.552Z","createdAt":"2025-12-21T15:30:42.552Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T15:30:42.552Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T15:30:42.553Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T15:30:42.553Z","roles":"user","updatedAt":"2025-12-21T15:30:42.553Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T15:30:42.552Z","createdAt":"2025-12-21T15:30:42.552Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T15:30:42.552Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T15:30:42.553Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T15:30:42.553Z","roles":"user","updatedAt":"2025-12-21T15:30:42.553Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T15:30:42.552Z","createdAt":"2025-12-21T15:30:42.552Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T15:30:42.552Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T15:30:42.553Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T15:30:42.553Z","roles":"user","updatedAt":"2025-12-21T15:30:42.553Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T15:30:42.552Z","createdAt":"2025-12-21T15:30:42.552Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T15:30:42.552Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T15:30:42.553Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T15:30:42.553Z","roles":"user","updatedAt":"2025-12-21T15:30:42.553Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-21T15:30:42.552Z","createdAt":"2025-12-21T15:30:42.552Z","email":"user@example.com","emailVerifiedAt":"2025-12-21T15:30:42.552Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-21T15:30:42.553Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-21T15:30:42.553Z","roles":"user","updatedAt":"2025-12-21T15:30:42.553Z","username":"nickname","lang":"en","timezone":0}}``` ]|
 
 ### MetricsModule
 #### Shared providers
@@ -259,7 +259,7 @@ Webhook module with an error filter, guard, controller, database migrations and 
 |`useInterceptors`|`obj['useInterceptors']`, `process.env['SITE_15_SSO_USE_INTERCEPTORS']`|**optional**|```true```|
 |`usePipes`|`obj['usePipes']`, `process.env['SITE_15_SSO_USE_PIPES']`|**optional**|```true```|
 |`serverUrl`|`obj['serverUrl']`, `process.env['SITE_15_SSO_SERVER_URL']`|**isNotEmpty** (serverUrl should not be empty)|```http://localhost:3000```|
-|`clientUrl`|`obj['clientUrl']`, `process.env['SITE_15_SSO_CLIENT_URL']`|**isNotEmpty** (clientUrl should not be empty)|```http://localhost:4200```|
+|`clientUrl`|`obj['clientUrl']`, `process.env['SITE_15_SSO_CLIENT_URL']`|**isNotEmpty** (clientUrl should not be empty)|```http://localhost:4200/admin```|
 |`adminSecret`|`obj['adminSecret']`, `process.env['SITE_15_SSO_ADMIN_SECRET']`|**optional**|```VfKSfPPljhHBXCEohnitursmgDxfAyiD```|
 |`adminEmail`|`obj['adminEmail']`, `process.env['SITE_15_SSO_ADMIN_EMAIL']`|**optional**|```admin@site15.ru```|
 |`adminUsername`|`obj['adminUsername']`, `process.env['SITE_15_SSO_ADMIN_USERNAME']`|**isNotEmpty** (adminUsername should not be empty)|```admin```|
@@ -307,7 +307,7 @@ Production process manager for Node.JS applications with a built-in load balance
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/runner/work/site15.ru/site15.ru/ecosystem.config.json```|
+|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/endy/Projects/site15/site15.ru/ecosystem.config.json```|
 |`applicationScriptFile`|**isNotEmpty** (applicationScriptFile should not be empty)|```dist/apps/server/main.js```|
 
 ### DockerCompose
@@ -320,14 +320,14 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/runner/work/site15.ru/site15.ru/apps/server/docker-compose.yml```|
+|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/endy/Projects/site15/site15.ru/apps/server/docker-compose.yml```|
 
 #### Modules that use feature configuration
 ##### Feature module name: SITE_15_POSTGRE_SQL
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`services`|**optional**|```{"site-15-postgre-sql":{"image":"bitnami/postgresql:15.5.0","container_name":"site-15-postgre-sql","volumes":["site-15-postgre-sql-volume:/bitnami/postgresql"],"ports":["5432:5432"],"networks":["site-15-network"],"healthcheck":{"test":["CMD-SHELL","pg_isready -U postgres"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
+|`services`|**optional**|```{"site-15-postgre-sql":{"image":"bitnami/postgresql:latest","container_name":"site-15-postgre-sql","volumes":["site-15-postgre-sql-volume:/bitnami/postgresql"],"ports":["5432:5432"],"networks":["site-15-network"],"healthcheck":{"test":["CMD-SHELL","pg_isready -U postgres"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
 |`networks`|**optional**|```{"site-15-network":{"driver":"bridge"}}```|
 |`volumes`|**optional**|```{"site-15-postgre-sql-volume":{"name":"site-15-postgre-sql-volume"}}```|
 
@@ -336,7 +336,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`services`|**optional**|```{"site-15-redis":{"image":"bitnami/redis:7.4.1","container_name":"site-15-redis","volumes":["site-15-redis-volume:/bitnami/redis/data"],"ports":["6379:6379"],"networks":["site-15-network"],"environment":{"REDIS_DATABASE":"0","REDIS_PASSWORD":"CHmeOQrZWUHwgahrfzsrzuREOxgAENsC","REDIS_DISABLE_COMMANDS":"FLUSHDB,FLUSHALL","REDIS_IO_THREADS":2,"REDIS_IO_THREADS_DO_READS":"yes"},"keysOfEnvironmentsWithStaticValue":["disableCommands","featureName","image","ioThreads","ioThreadsDoReads","networks"],"healthcheck":{"test":["CMD-SHELL","redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
+|`services`|**optional**|```{"site-15-redis":{"image":"bitnami/redis:latest","container_name":"site-15-redis","volumes":["site-15-redis-volume:/bitnami/redis/data"],"ports":["6379:6379"],"networks":["site-15-network"],"environment":{"REDIS_DATABASE":"0","REDIS_PASSWORD":"CHmeOQrZWUHwgahrfzsrzuREOxgAENsC","REDIS_DISABLE_COMMANDS":"FLUSHDB,FLUSHALL","REDIS_IO_THREADS":2,"REDIS_IO_THREADS_DO_READS":"yes"},"keysOfEnvironmentsWithStaticValue":["disableCommands","featureName","image","ioThreads","ioThreadsDoReads","networks"],"healthcheck":{"test":["CMD-SHELL","redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
 |`networks`|**optional**|```{"site-15-network":{"driver":"bridge"}}```|
 |`volumes`|**optional**|```{"site-15-redis-volume":{"name":"site-15-redis-volume"}}```|
 
@@ -345,7 +345,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`services`|**optional**|```{"site-15-minio":{"image":"bitnami/minio:2024.11.7","container_name":"site-15-minio","volumes":["site-15-minio-volume:/bitnami/minio/data"],"ports":["9000:9000","9001:9001"],"networks":["site-15-network"],"environment":{"MINIO_ROOT_USER":"FWGmrAGaeMKM","MINIO_ROOT_PASSWORD":"QatVJuLoZRARlJguoZMpoKvZMJHzvuOR"},"keysOfEnvironmentsWithStaticValue":["featureName","image","networks","nginxBucketsLocations","nginxConfigContent","nginxConfigFolder","nginxLogsFolder"],"healthcheck":{"test":["CMD-SHELL","mc","ready","local"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
+|`services`|**optional**|```{"site-15-minio":{"image":"bitnami/minio:latest","container_name":"site-15-minio","volumes":["site-15-minio-volume:/bitnami/minio/data"],"ports":["9000:9000","9001:9001"],"networks":["site-15-network"],"environment":{"MINIO_ROOT_USER":"FWGmrAGaeMKM","MINIO_ROOT_PASSWORD":"QatVJuLoZRARlJguoZMpoKvZMJHzvuOR"},"keysOfEnvironmentsWithStaticValue":["featureName","image","networks","nginxBucketsLocations","nginxConfigContent","nginxConfigFolder","nginxLogsFolder"],"healthcheck":{"test":["CMD-SHELL","mc","ready","local"],"interval":"5s","timeout":"5s","retries":5},"tty":true,"restart":"always"}}```|
 |`networks`|**optional**|```{"site-15-network":{"driver":"bridge"}}```|
 |`volumes`|**optional**|```{"site-15-minio-volume":{"name":"site-15-minio-volume"}}```|
 
@@ -371,8 +371,8 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -434,13 +434,13 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
+|`output`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
 |`provider`|**optional**|```prisma-client```|
 |`moduleFormat`|**optional**|```cjs```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 #### Environments(two-factor)
@@ -517,13 +517,13 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
+|`output`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
 |`provider`|**optional**|```prisma-client```|
 |`moduleFormat`|**optional**|```cjs```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 #### Environments(two-factor)
@@ -550,7 +550,7 @@ Infrastructure markdown report generator.
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`markdownFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/apps/server/INFRASTRUCTURE.MD```|
+|`markdownFile`|**optional**|```/home/endy/Projects/site15/site15.ru/apps/server/INFRASTRUCTURE.MD```|
 |`skipEmptySettings`|**optional**|```true```|
 |`style`|**optional**|```pretty```|
 
@@ -563,6 +563,12 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 | ------ | ------- | ----------- | ----- |
 |`rootDatabaseUrl`|`obj['rootDatabaseUrl']`, `process.env['SITE_15_ROOT_DATABASE_URL']`|**isNotEmpty** (rootDatabaseUrl should not be empty)|```postgres://postgres:postgres_password@localhost:5432/postgres?schema=public```|
 
+#### Static configuration
+
+| Key    | Constraints | Value |
+| ------ | ----------- | ----- |
+|`image`|**optional**|```bitnami/postgresql:latest```|
+
 #### Feature environments
 
 | Key    | Sources | Constraints | Value |
@@ -574,7 +580,7 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
 
 #### Modules that use feature environments
 ##### Feature module name: sso
@@ -596,7 +602,7 @@ The open-source, in-memory data store used by millions of developers as a cache,
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`image`|**optional**|```bitnami/redis:7.4.1```|
+|`image`|**optional**|```bitnami/redis:latest```|
 
 ### DockerComposeMinio
 MinIO is a high-performance, S3 compatible object storage. (Generator for minio in docker-compose.yml for https://www.npmjs.com/package/@nestjs-mod/docker-compose)
@@ -612,7 +618,7 @@ MinIO is a high-performance, S3 compatible object storage. (Generator for minio 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`image`|**optional**|```bitnami/minio:2024.11.7```|
+|`image`|**optional**|```bitnami/minio:latest```|
 
 ### DockerComposeMaildev
 MailDev is a simple way to test your projects generated email during development, with an easy to use web interface that runs on your machine. (Generator for maildev in docker-compose.yml for https://www.npmjs.com/package/@nestjs-mod/docker-compose)

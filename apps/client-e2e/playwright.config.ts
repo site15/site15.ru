@@ -22,7 +22,7 @@ if (parsed.error) {
 }
 
 // For CI, you may want to set E2E_CLIENT_URL to the deployed application.
-const baseURL = clientUrl || process.env['E2E_CLIENT_URL'] || 'http://localhost:4200';
+const baseURL = clientUrl || process.env['E2E_CLIENT_URL'] || 'http://localhost:4200/admin';
 
 process.env['E2E_CLIENT_URL'] = baseURL;
 

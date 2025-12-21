@@ -4,7 +4,7 @@ networks:
     driver: 'bridge'
 services:
   site15-postgre-sql:
-    image: 'bitnami/postgresql:15.5.0'
+    image: 'bitnami/postgresql:latest'
     container_name: 'site15-postgre-sql'
     networks:
       - 'site15-network'
@@ -24,7 +24,7 @@ services:
     volumes:
       - 'site15-postgre-sql-volume:/bitnami/postgresql'
   site15-minio:
-    image: 'bitnami/minio:2024.11.7'
+    image: 'bitnami/minio:latest'
     container_name: 'site15-minio'
     volumes:
       - 'site15-minio-volume:/bitnami/minio/data'
@@ -48,7 +48,7 @@ services:
     tty: true
     restart: 'always'
   site15-redis:
-    image: 'bitnami/redis:7.4.1'
+    image: 'bitnami/redis:latest'
     container_name: 'site15-redis'
     volumes:
       - 'site15-redis-volume:/bitnami/redis/data'

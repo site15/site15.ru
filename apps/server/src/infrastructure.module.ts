@@ -39,14 +39,16 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
     },
   }),
   // postgresql
-  DockerComposePostgreSQL.forRoot(),
+  DockerComposePostgreSQL.forRoot({
+    staticConfiguration: { image: 'bitnami/postgresql:latest' },
+  }),
   // redis
   DockerComposeRedis.forRoot({
-    staticConfiguration: { image: 'bitnami/redis:7.4.1' },
+    staticConfiguration: { image: 'bitnami/redis:latest' },
   }),
   // minio
   DockerComposeMinio.forRoot({
-    staticConfiguration: { image: 'bitnami/minio:2024.11.7' },
+    staticConfiguration: { image: 'bitnami/minio:latest' },
   }),
   // maildev
   DockerComposeMaildev.forRoot(),
