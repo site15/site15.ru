@@ -1,3 +1,9 @@
+## [1.17.3](https://github.com/site15/site15.ru/compare/server-v1.17.2...server-v1.17.3) (2025-12-21)
+
+### Bug Fixes
+
+- add static version of root page ([fc90296](https://github.com/site15/site15.ru/commit/fc90296eb4663a6c2fff92b84f696207779124d1))
+
 ## [1.17.2](https://github.com/site15/site15.ru/compare/server-v1.17.1...server-v1.17.2) (2025-12-21)
 
 ### Bug Fixes
