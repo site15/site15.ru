@@ -1,3 +1,9 @@
+## [1.14.2](https://github.com/site15/site15.ru/compare/client-v1.14.1...client-v1.14.2) (2025-12-21)
+
+### Bug Fixes
+
+- update ya metrika html, update output of client application ([943d814](https://github.com/site15/site15.ru/commit/943d814bef5222a4c444752e974043b21f0fdab4))
+
 ## [1.14.1](https://github.com/site15/site15.ru/compare/client-v1.14.0...client-v1.14.1) (2025-12-17)
 
 ### Bug Fixes
