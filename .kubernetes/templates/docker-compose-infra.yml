@@ -4,7 +4,7 @@ networks:
     driver: 'bridge'
 services:
   site15-postgre-sql:
-    image: 'bitnami/postgresql:latest'
+    image: 'public.ecr.aws/bitnami/postgresql:15.10.0'
     container_name: 'site15-postgre-sql'
     networks:
       - 'site15-network'

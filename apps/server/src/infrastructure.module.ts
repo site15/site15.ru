@@ -40,15 +40,15 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
   }),
   // postgresql
   DockerComposePostgreSQL.forRoot({
-    staticConfiguration: { image: 'bitnami/postgresql:latest' },
+    staticConfiguration: { image: 'public.ecr.aws/bitnami/postgresql:15.10.0' },
   }),
   // redis
   DockerComposeRedis.forRoot({
-    staticConfiguration: { image: 'bitnami/redis:latest' },
+    staticConfiguration: { image: 'public.ecr.aws/bitnami/redis:7.4.1' },
   }),
   // minio
   DockerComposeMinio.forRoot({
-    staticConfiguration: { image: 'bitnami/minio:latest' },
+    staticConfiguration: { image: 'public.ecr.aws/bitnami/minio:2024.11.7' },
   }),
   // maildev
   DockerComposeMaildev.forRoot(),
