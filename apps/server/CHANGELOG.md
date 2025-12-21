@@ -1,3 +1,9 @@
+# [1.18.0](https://github.com/site15/site15.ru/compare/server-v1.17.3...server-v1.18.0) (2025-12-21)
+
+### Features
+
+- append static landing page ([778daaf](https://github.com/site15/site15.ru/commit/778daaf749ae8e5a8ce646ff839f408b27a5735b))
+
 ## [1.17.3](https://github.com/site15/site15.ru/compare/server-v1.17.2...server-v1.17.3) (2025-12-21)
 
 ### Bug Fixes
