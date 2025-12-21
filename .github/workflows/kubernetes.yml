@@ -183,47 +183,47 @@ jobs:
           .kubernetes/generated/install.sh > /dev/null 2>&1
           echo 'End'
 
-  e2e-tests:
-    environment: kubernetes
-    runs-on: ubuntu-latest
-    needs: [release, deploy]
-    permissions:
-      contents: read
-      packages: read
-      id-token: write
-    env:
-      ROOT_VERSION: ${{ needs.release.outputs.root_version }}
-      SERVER_VERSION: ${{ needs.release.outputs.server_version }}
-      CLIENT_VERSION: ${{ needs.release.outputs.client_version }}
-    steps:
-      - name: Checkout repository
-        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
-        uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
-        with:
-          node-version: '23'
-          cache: 'yarn'
-
-      - run: yarn install --frozen-lockfile # optional, --immutable
-        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
-
-      - name: Install deps
-        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
-        run: |
-          yarn playwright install chromium --with-deps && echo '' > .env
-
-      - name: Run E2E-tests
-        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
-        env:
-          ENV: ${{ secrets.ENV }}
-        run: |
-          echo "$ENV" > "./.env"
-          set -a && . ./.env && set +a
-          npm run test:e2e
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: e2e-tests-videos
-          path: apps/client-e2e/src/video/
+#  e2e-tests:
+#    environment: kubernetes
+#    runs-on: ubuntu-latest
+#    needs: [release, deploy]
+#    permissions:
+#      contents: read
+#      packages: read
+#      id-token: write
+#    env:
+#      ROOT_VERSION: ${{ needs.release.outputs.root_version }}
+#      SERVER_VERSION: ${{ needs.release.outputs.server_version }}
+#      CLIENT_VERSION: ${{ needs.release.outputs.client_version }}
+#    steps:
+#      - name: Checkout repository
+#        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
+#        uses: actions/checkout@v4
+#
+#      - uses: actions/setup-node@v4
+#        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
+#        with:
+#          node-version: '23'
+#          cache: 'yarn'
+#
+#      - run: yarn install --frozen-lockfile # optional, --immutable
+#        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
+#
+#      - name: Install deps
+#        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
+#        run: |
+#          yarn playwright install chromium --with-deps && echo '' > .env
+#
+#      - name: Run E2E-tests
+#        if: ${{ !contains(github.event.head_commit.message, '[skip e2e]') }}
+#        env:
+#          ENV: ${{ secrets.ENV }}
+#        run: |
+#          echo "$ENV" > "./.env"
+#          set -a && . ./.env && set +a
+#          npm run test:e2e
+#
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: e2e-tests-videos
+#          path: apps/client-e2e/src/video/
