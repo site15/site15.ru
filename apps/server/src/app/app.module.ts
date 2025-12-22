@@ -1,20 +1,23 @@
 import { createNestModule, getRequestFromExecutionContext, NestModuleCategory } from '@nestjs-mod/common';
 
-import { SSO_FEATURE, SsoModule, SsoRequest } from '@site15/sso';
-import { ValidationError, ValidationErrorEnum } from '@nestjs-mod/validation';
 import { PrismaModule } from '@nestjs-mod/prisma';
+import { ValidationError, ValidationErrorEnum } from '@nestjs-mod/validation';
 import { APP_FILTER } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { SSO_FEATURE, SsoModule, SsoRequest } from '@site15/sso';
 import { TranslatesModule } from 'nestjs-translates';
 import { join } from 'path';
 import { APP_FEATURE } from './app.constants';
+import { AppEnvironments } from './app.environments';
 import { AppExceptionsFilter } from './app.filter';
+import { LandingController } from './controllers/landing.controller';
 import { TimeController } from './controllers/time.controller';
 
 export const { AppModule } = createNestModule({
   moduleName: 'AppModule',
   moduleCategory: NestModuleCategory.feature,
+  environmentsModel: AppEnvironments,
   imports: [
     SsoModule.forFeature({ featureModuleName: SSO_FEATURE }),
     PrismaModule.forFeature({
@@ -73,6 +76,6 @@ export const { AppModule } = createNestModule({
           }),
         ]),
   ],
-  controllers: [TimeController],
+  controllers: [TimeController, LandingController],
   providers: [TimeController, { provide: APP_FILTER, useClass: AppExceptionsFilter }],
 });

@@ -2471,23 +2471,23 @@
             <form id="contactForm" class="space-y-6" onsubmit="handleSubmit(event)">
                 <div>
                     <label class="block font-bold mb-2 uppercase text-sm">Ваше Имя</label>
-                    <input type="text" required
+                    <input type="text" id="name"
                         class="w-full p-4 bg-gray-50 border-4 border-gray-200 focus:border-neo-black focus:bg-white outline-none font-mono transition-colors"
-                        placeholder="Иван Иванов">
+                        placeholder="">
                 </div>
                 <div>
-                    <label class="block font-bold mb-2 uppercase text-sm">Email</label>
-                    <input type="email" required
+                    <label class="block font-bold mb-2 uppercase text-sm">E-mail/Телеграм *</label>
+                    <input type="text" id="email" required
                         class="w-full p-4 bg-gray-50 border-4 border-gray-200 focus:border-neo-black focus:bg-white outline-none font-mono transition-colors"
-                        placeholder="email@example.com">
+                        placeholder="">
                 </div>
                 <div>
-                    <label class="block font-bold mb-2 uppercase text-sm">Сообщение</label>
-                    <textarea required rows="4"
+                    <label class="block font-bold mb-2 uppercase text-sm">Сообщение *</label>
+                    <textarea id="message" required rows="4"
                         class="w-full p-4 bg-gray-50 border-4 border-gray-200 focus:border-neo-black focus:bg-white outline-none font-mono transition-colors"
-                        placeholder="Расскажите о проекте..."></textarea>
+                        placeholder=""></textarea>
                 </div>
-                <div class="pt-2">
+                <div class=" pt-2">
                     <button type="submit"
                         class="w-full bg-neo-black text-white font-black uppercase py-4 text-xl border-4 border-transparent hover:bg-neo-pink hover:text-neo-black hover:border-neo-black transition-all shadow-none hover:shadow-neo">
                         Отправить <i data-lucide="send" class="inline-block ml-2 w-5 h-5"></i>
@@ -2502,7 +2502,15 @@
                     <i data-lucide="check" class="w-10 h-10"></i>
                 </div>
                 <h3 class="text-3xl font-black mb-2">ОТПРАВЛЕНО!</h3>
-                <p class="font-mono mb-6">Письмо улетело на admin@site15.ru</p>
+                <p class="font-mono mb-6">Сообщене улетело</p>
+                <button onclick="resetForm()"
+                    class="px-6 py-2 border-2 border-black font-bold hover:bg-gray-100">Отправить еще</button>
+            </div>
+            <!-- Error Message Overlay -->
+            <div id="errorMessage"
+                class="hidden absolute inset-0 bg-white z-20 flex-col items-center justify-center text-center p-8">
+                <h3 class="text-3xl font-black mb-2">ОШИБКА!</h3>
+                <p class="font-mono mb-6" id="errorMessageText">Сообщене не улетело</p>
                 <button onclick="resetForm()"
                     class="px-6 py-2 border-2 border-black font-bold hover:bg-gray-100">Отправить еще</button>
             </div>
@@ -4289,7 +4297,33 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
             btn.innerHTML = 'Отправка...';
             btn.classList.add('opacity-75', 'cursor-not-allowed');
             // Simulate API call
-            setTimeout(() => {
+
+            fetch('https://site15.ru/api/landing/send-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value,
+                }),
+            }).catch((err) => {
+                const errorMessage = document.getElementById('errorMessage');
+                if (errorMessage) {
+                    errorMessage.classList.remove('hidden');
+                    errorMessage.classList.add('flex');
+                }
+                btn.innerHTML = originalText;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                e.target.reset();
+
+                const errorMessageText = document.getElementById('errorMessageText');
+                if (errorMessageText) {
+                    errorMessageText.innerHTML = err.message
+
+                }
+            }).then(() => {
                 const successMsg = document.getElementById('successMessage');
                 if (successMsg) {
                     successMsg.classList.remove('hidden');
@@ -4298,13 +4332,18 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                 btn.innerHTML = originalText;
                 btn.classList.remove('opacity-75', 'cursor-not-allowed');
                 e.target.reset();
-            }, 1500);
+            })
         };
         window.resetForm = function () {
             const successMsg = document.getElementById('successMessage');
             if (successMsg) {
                 successMsg.classList.add('hidden');
                 successMsg.classList.remove('flex');
+            }
+            const errorMessage = document.getElementById('errorMessage');
+            if (errorMessage) {
+                errorMessage.classList.add('hidden');
+                errorMessage.classList.remove('flex');
             }
         };
     </script>
