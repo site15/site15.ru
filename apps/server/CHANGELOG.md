@@ -1,3 +1,9 @@
+## [1.20.1](https://github.com/site15/site15.ru/compare/server-v1.20.0...server-v1.20.1) (2025-12-22)
+
+### Bug Fixes
+
+- update url to server ([7192899](https://github.com/site15/site15.ru/commit/71928993401e5333c4dba78815288f431d50ac98))
+
 # [1.20.0](https://github.com/site15/site15.ru/compare/server-v1.19.1...server-v1.20.0) (2025-12-22)
 
 ### Bug Fixes
