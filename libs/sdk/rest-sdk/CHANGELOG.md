@@ -1,3 +1,9 @@
+# [1.12.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.11.1...rest-sdk-v1.12.0) (2025-12-22)
+
+### Features
+
+- add sync statistic data need for render landing page ([a6dabf2](https://github.com/site15/site15.ru/commit/a6dabf2165aeeb8765b89663efad60ae23b3692f))
+
 ## [1.11.1](https://github.com/site15/site15.ru/compare/rest-sdk-v1.11.0...rest-sdk-v1.11.1) (2025-12-17)
 
 ### Bug Fixes
