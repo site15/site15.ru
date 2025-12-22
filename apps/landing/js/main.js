@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateHabrBadges(allStats);
   }
 
-  fetch('http://localhost:3000/api/landing/stats', {
+  fetch('https://site15.ru/api/landing/stats', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
