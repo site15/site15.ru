@@ -1,3 +1,9 @@
+# [1.19.0](https://github.com/site15/site15.ru/compare/server-v1.18.1...server-v1.19.0) (2025-12-22)
+
+### Features
+
+- append support send message to telegram from site15 ([630f02f](https://github.com/site15/site15.ru/commit/630f02f9d501b8110c2d0ebc983fc1e412293989))
+
 ## [1.18.1](https://github.com/site15/site15.ru/compare/server-v1.18.0...server-v1.18.1) (2025-12-21)
 
 ### Bug Fixes
