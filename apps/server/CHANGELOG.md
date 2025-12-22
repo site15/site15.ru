@@ -1,3 +1,13 @@
+# [1.20.0](https://github.com/site15/site15.ru/compare/server-v1.19.1...server-v1.20.0) (2025-12-22)
+
+### Bug Fixes
+
+- move all js to devided files ([9b5b178](https://github.com/site15/site15.ru/commit/9b5b1780cf170944d2923eb5690ebedfc7180488))
+
+### Features
+
+- add sync statistic data need for render landing page ([a6dabf2](https://github.com/site15/site15.ru/commit/a6dabf2165aeeb8765b89663efad60ae23b3692f))
+
 ## [1.19.1](https://github.com/site15/site15.ru/compare/server-v1.19.0...server-v1.19.1) (2025-12-22)
 
 ### Bug Fixes
