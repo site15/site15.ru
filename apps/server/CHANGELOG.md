@@ -1,3 +1,9 @@
+## [1.19.1](https://github.com/site15/site15.ru/compare/server-v1.19.0...server-v1.19.1) (2025-12-22)
+
+### Bug Fixes
+
+- append new envs to k8s config ([6a4e430](https://github.com/site15/site15.ru/commit/6a4e4304ecaf8bbe94c1b16134c3fd7527301b46))
+
 # [1.19.0](https://github.com/site15/site15.ru/compare/server-v1.18.1...server-v1.19.0) (2025-12-22)
 
 ### Features
