@@ -7,14 +7,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { MetricsGithubUserRepositoryScalarFieldEnumInterface } from './metrics-github-user-repository-scalar-field-enum.interface';
 import { MetricsGithubTeamScalarFieldEnumInterface } from './metrics-github-team-scalar-field-enum.interface';
-import { MetricsUserScalarFieldEnumInterface } from './metrics-user-scalar-field-enum.interface';
 import { MetricsGithubRepositoryStatisticsScalarFieldEnumInterface } from './metrics-github-repository-statistics-scalar-field-enum.interface';
+import { MetricsDynamicCacheScalarFieldEnumInterface } from './metrics-dynamic-cache-scalar-field-enum.interface';
+import { MetricsDynamicHistoryScalarFieldEnumInterface } from './metrics-dynamic-history-scalar-field-enum.interface';
+import { MetricsGithubTeamRepositoryScalarFieldEnumInterface } from './metrics-github-team-repository-scalar-field-enum.interface';
+import { MetricsDynamicScalarFieldEnumInterface } from './metrics-dynamic-scalar-field-enum.interface';
+import { MetricsGithubUserRepositoryScalarFieldEnumInterface } from './metrics-github-user-repository-scalar-field-enum.interface';
+import { MetricsUserScalarFieldEnumInterface } from './metrics-user-scalar-field-enum.interface';
 import { MetricsGithubUserStatisticsScalarFieldEnumInterface } from './metrics-github-user-statistics-scalar-field-enum.interface';
 import { MetricsGithubMetricScalarFieldEnumInterface } from './metrics-github-metric-scalar-field-enum.interface';
 import { MetricsGithubRepositoryScalarFieldEnumInterface } from './metrics-github-repository-scalar-field-enum.interface';
-import { MetricsGithubTeamRepositoryScalarFieldEnumInterface } from './metrics-github-team-repository-scalar-field-enum.interface';
 import { MetricsSettingsScalarFieldEnumInterface } from './metrics-settings-scalar-field-enum.interface';
 import { MetricsGithubUserScalarFieldEnumInterface } from './metrics-github-user-scalar-field-enum.interface';
 import { MetricsGithubTeamUserScalarFieldEnumInterface } from './metrics-github-team-user-scalar-field-enum.interface';
@@ -32,6 +35,9 @@ export interface MetricsEntitiesInterface {
     MetricsGithubTeamUser: MetricsGithubTeamUserScalarFieldEnumInterface;
     MetricsGithubUserStatistics: MetricsGithubUserStatisticsScalarFieldEnumInterface;
     MetricsSettings: MetricsSettingsScalarFieldEnumInterface;
+    MetricsDynamic: MetricsDynamicScalarFieldEnumInterface;
+    MetricsDynamicCache: MetricsDynamicCacheScalarFieldEnumInterface;
+    MetricsDynamicHistory: MetricsDynamicHistoryScalarFieldEnumInterface;
 }
 export namespace MetricsEntitiesInterface {
 }

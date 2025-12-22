@@ -26,12 +26,12 @@ generator prismaClassGenerator {
   exportRelationModifierClasses   = "true"
   fileNamingStyle                 = "kebab"
   flatResourceStructure           = "false"
+  moduleName                      = "sso"
   noDependencies                  = "false"
   outputToNestJsResourceStructure = "false"
   prettier                        = "true"
   reExport                        = "false"
   updateDtoPrefix                 = "Update"
-  moduleName                      = "sso"
 }
 
 model SsoUser {

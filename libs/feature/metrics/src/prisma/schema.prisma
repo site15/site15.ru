@@ -26,12 +26,12 @@ generator prismaClassGenerator {
   exportRelationModifierClasses   = "true"
   fileNamingStyle                 = "kebab"
   flatResourceStructure           = "false"
+  moduleName                      = "metrics"
   noDependencies                  = "false"
   outputToNestJsResourceStructure = "false"
   prettier                        = "true"
   reExport                        = "false"
   updateDtoPrefix                 = "Update"
-  moduleName                      = "metrics"
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -411,6 +411,35 @@ model MetricsSettings {
 
   @@index([tenantId], map: "IDX_METRICS_SETTINGS__TENANT_ID")
   @@index([enabled], map: "IDX_METRICS_SETTINGS__ENABLED")
+}
+
+model MetricsDynamic {
+  id        String   @id(map: "PK_METRICS_DYNAMIC") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  level1    String?  @db.VarChar(255)
+  level2    String?  @db.VarChar(255)
+  level3    String?  @db.VarChar(255)
+  value     String?  @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+
+  @@unique([level1, level2, level3], map: "UQ_METRICS_DYNAMIC")
+}
+
+model MetricsDynamicCache {
+  id        String   @id(map: "PK_METRICS_DYNAMIC_CACHE") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  url       String?  @unique(map: "UQ_METRICS_CACHE")
+  status    String?  @db.VarChar(255)
+  headers   Json?
+  body      String?
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+}
+
+model MetricsDynamicHistory {
+  id        String   @id(map: "PK_METRICS_DYNAMIC_HISTORY") @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  level1    String?  @db.VarChar(255)
+  level2    String?  @db.VarChar(255)
+  level3    String?  @db.VarChar(255)
+  value     String?  @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamp(6)
 }
 
 enum MetricsRole {

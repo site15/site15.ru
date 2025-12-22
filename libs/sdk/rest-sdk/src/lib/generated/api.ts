@@ -523,6 +523,37 @@ export interface CreateWebhookDto {
 /**
  * 
  * @export
+ * @interface DevToStatsDto
+ */
+export interface DevToStatsDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof DevToStatsDto
+     */
+    'articles': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DevToStatsDto
+     */
+    'followers': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DevToStatsDto
+     */
+    'views': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DevToStatsDto
+     */
+    'reactions': number;
+}
+/**
+ * 
+ * @export
  * @interface FilesError
  */
 export interface FilesError {
@@ -1013,6 +1044,290 @@ export interface ForgotPasswordArgs {
 /**
  * 
  * @export
+ * @interface GithubOrgStatsDto
+ */
+export interface GithubOrgStatsDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof GithubOrgStatsDto
+     */
+    'repos': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GithubOrgStatsDto
+     */
+    'totalStars': number;
+}
+/**
+ * 
+ * @export
+ * @interface GithubRepoStatsDto
+ */
+export interface GithubRepoStatsDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof GithubRepoStatsDto
+     */
+    'stars': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GithubRepoStatsDto
+     */
+    'commits': number;
+}
+/**
+ * 
+ * @export
+ * @interface GithubStatsDto
+ */
+export interface GithubStatsDto {
+    /**
+     * 
+     * @type {GithubRepoStatsDto}
+     * @memberof GithubStatsDto
+     */
+    'rucken': GithubRepoStatsDto;
+    /**
+     * 
+     * @type {GithubUserStatsDto}
+     * @memberof GithubStatsDto
+     */
+    'user': GithubUserStatsDto;
+    /**
+     * 
+     * @type {GithubOrgStatsDto}
+     * @memberof GithubStatsDto
+     */
+    'org': GithubOrgStatsDto;
+    /**
+     * 
+     * @type {string}
+     * @memberof GithubStatsDto
+     */
+    'commitDuration': string;
+}
+/**
+ * 
+ * @export
+ * @interface GithubUserStatsDto
+ */
+export interface GithubUserStatsDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof GithubUserStatsDto
+     */
+    'followers': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GithubUserStatsDto
+     */
+    'repos': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof GithubUserStatsDto
+     */
+    'totalStars': number;
+}
+/**
+ * 
+ * @export
+ * @interface HabrStatsDto
+ */
+export interface HabrStatsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof HabrStatsDto
+     */
+    'articles': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HabrStatsDto
+     */
+    'followers': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof HabrStatsDto
+     */
+    'karma': string;
+}
+/**
+ * 
+ * @export
+ * @interface LandingAllStatsDto
+ */
+export interface LandingAllStatsDto {
+    /**
+     * 
+     * @type {GithubStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'githubStats': GithubStatsDto;
+    /**
+     * 
+     * @type {RepoStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'kaufmanbotStats': RepoStatsDto;
+    /**
+     * 
+     * @type {RepoStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'nestjsModStats': RepoStatsDto;
+    /**
+     * 
+     * @type {RepoStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'ngxDynamicFormBuilderStats': RepoStatsDto;
+    /**
+     * 
+     * @type {RepoStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'nestPermissionsSeedStats': RepoStatsDto;
+    /**
+     * 
+     * @type {RepoStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'typeGraphqlPrismaNestjsStats': RepoStatsDto;
+    /**
+     * 
+     * @type {RepoStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'classValidatorMultiLangStats': RepoStatsDto;
+    /**
+     * 
+     * @type {DevToStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'devToStats': DevToStatsDto;
+    /**
+     * 
+     * @type {Array<TelegramChannelStatsDto>}
+     * @memberof LandingAllStatsDto
+     */
+    'telegramDataStats': Array<TelegramChannelStatsDto>;
+    /**
+     * 
+     * @type {HabrStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'habrStats': HabrStatsDto;
+    /**
+     * 
+     * @type {NpmStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'npmNestjsModStats': NpmStatsDto;
+}
+/**
+ * 
+ * @export
+ * @interface LandingAllStatsResponse
+ */
+export interface LandingAllStatsResponse {
+    /**
+     * 
+     * @type {LandingAllStatsDto}
+     * @memberof LandingAllStatsResponse
+     */
+    'allStats': LandingAllStatsDto;
+}
+/**
+ * 
+ * @export
+ * @interface LandingSendMessageDto
+ */
+export interface LandingSendMessageDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof LandingSendMessageDto
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LandingSendMessageDto
+     */
+    'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof LandingSendMessageDto
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const MetricsDynamicCacheScalarFieldEnum = {
+    Id: 'id',
+    Url: 'url',
+    Status: 'status',
+    Headers: 'headers',
+    Body: 'body',
+    CreatedAt: 'createdAt'
+} as const;
+
+export type MetricsDynamicCacheScalarFieldEnum = typeof MetricsDynamicCacheScalarFieldEnum[keyof typeof MetricsDynamicCacheScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const MetricsDynamicHistoryScalarFieldEnum = {
+    Id: 'id',
+    Level1: 'level1',
+    Level2: 'level2',
+    Level3: 'level3',
+    Value: 'value',
+    CreatedAt: 'createdAt'
+} as const;
+
+export type MetricsDynamicHistoryScalarFieldEnum = typeof MetricsDynamicHistoryScalarFieldEnum[keyof typeof MetricsDynamicHistoryScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+
+export const MetricsDynamicScalarFieldEnum = {
+    Id: 'id',
+    Level1: 'level1',
+    Level2: 'level2',
+    Level3: 'level3',
+    Value: 'value',
+    CreatedAt: 'createdAt'
+} as const;
+
+export type MetricsDynamicScalarFieldEnum = typeof MetricsDynamicScalarFieldEnum[keyof typeof MetricsDynamicScalarFieldEnum];
+
+
+/**
+ * 
+ * @export
  * @interface MetricsEntities
  */
 export interface MetricsEntities {
@@ -1082,6 +1397,24 @@ export interface MetricsEntities {
      * @memberof MetricsEntities
      */
     'MetricsSettings': MetricsSettingsScalarFieldEnum;
+    /**
+     * 
+     * @type {MetricsDynamicScalarFieldEnum}
+     * @memberof MetricsEntities
+     */
+    'MetricsDynamic': MetricsDynamicScalarFieldEnum;
+    /**
+     * 
+     * @type {MetricsDynamicCacheScalarFieldEnum}
+     * @memberof MetricsEntities
+     */
+    'MetricsDynamicCache': MetricsDynamicCacheScalarFieldEnum;
+    /**
+     * 
+     * @type {MetricsDynamicHistoryScalarFieldEnum}
+     * @memberof MetricsEntities
+     */
+    'MetricsDynamicHistory': MetricsDynamicHistoryScalarFieldEnum;
 }
 
 
@@ -3403,6 +3736,19 @@ export type NotificationsUserScalarFieldEnum = typeof NotificationsUserScalarFie
 /**
  * 
  * @export
+ * @interface NpmStatsDto
+ */
+export interface NpmStatsDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof NpmStatsDto
+     */
+    'downloads': number;
+}
+/**
+ * 
+ * @export
  * @interface OAuthProvider
  */
 export interface OAuthProvider {
@@ -3461,6 +3807,31 @@ export interface RefreshTokensResponse {
      * @memberof RefreshTokensResponse
      */
     'refreshToken'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RepoStatsDto
+ */
+export interface RepoStatsDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof RepoStatsDto
+     */
+    'stars': number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RepoStatsDto
+     */
+    'commits': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RepoStatsDto
+     */
+    'duration': string;
 }
 /**
  * 
@@ -4861,6 +5232,44 @@ export interface StatusResponse {
      * @memberof StatusResponse
      */
     'message': string;
+}
+/**
+ * 
+ * @export
+ * @interface TelegramChannelDataDto
+ */
+export interface TelegramChannelDataDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof TelegramChannelDataDto
+     */
+    'members': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TelegramChannelDataDto
+     */
+    'online': string;
+}
+/**
+ * 
+ * @export
+ * @interface TelegramChannelStatsDto
+ */
+export interface TelegramChannelStatsDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof TelegramChannelStatsDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {TelegramChannelDataDto}
+     * @memberof TelegramChannelStatsDto
+     */
+    'data': TelegramChannelDataDto;
 }
 /**
  * 
@@ -6426,6 +6835,170 @@ export class FilesApi extends BaseAPI {
      */
     public filesControllerGetPresignedUrl(ext: string, options?: RawAxiosRequestConfig) {
         return FilesApiFp(this.configuration).filesControllerGetPresignedUrl(ext, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * LandingApi - axios parameter creator
+ * @export
+ */
+export const LandingApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {LandingSendMessageDto} landingSendMessageDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        landingControllerSendMessage: async (landingSendMessageDto: LandingSendMessageDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'landingSendMessageDto' is not null or undefined
+            assertParamExists('landingControllerSendMessage', 'landingSendMessageDto', landingSendMessageDto)
+            const localVarPath = `/api/landing/send-message`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(landingSendMessageDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        landingControllerStats: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/landing/stats`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * LandingApi - functional programming interface
+ * @export
+ */
+export const LandingApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = LandingApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {LandingSendMessageDto} landingSendMessageDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async landingControllerSendMessage(landingSendMessageDto: LandingSendMessageDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.landingControllerSendMessage(landingSendMessageDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LandingApi.landingControllerSendMessage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async landingControllerStats(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LandingAllStatsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.landingControllerStats(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LandingApi.landingControllerStats']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * LandingApi - factory interface
+ * @export
+ */
+export const LandingApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LandingApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {LandingSendMessageDto} landingSendMessageDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        landingControllerSendMessage(landingSendMessageDto: LandingSendMessageDto, options?: RawAxiosRequestConfig): AxiosPromise<StatusResponse> {
+            return localVarFp.landingControllerSendMessage(landingSendMessageDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        landingControllerStats(options?: RawAxiosRequestConfig): AxiosPromise<LandingAllStatsResponse> {
+            return localVarFp.landingControllerStats(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * LandingApi - object-oriented interface
+ * @export
+ * @class LandingApi
+ * @extends {BaseAPI}
+ */
+export class LandingApi extends BaseAPI {
+    /**
+     * 
+     * @param {LandingSendMessageDto} landingSendMessageDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LandingApi
+     */
+    public landingControllerSendMessage(landingSendMessageDto: LandingSendMessageDto, options?: RawAxiosRequestConfig) {
+        return LandingApiFp(this.configuration).landingControllerSendMessage(landingSendMessageDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LandingApi
+     */
+    public landingControllerStats(options?: RawAxiosRequestConfig) {
+        return LandingApiFp(this.configuration).landingControllerStats(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

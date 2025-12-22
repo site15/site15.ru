@@ -188,3 +188,9 @@ function changeCoinContent(restarting = true) {
     setTimeout(bounceElement, 600);
   }
 }
+
+function initCoinAnimation() {
+  log('Setting initial animation delay');
+  setTimeout(bounceElement, 2000);
+  changeCoinContent(false);
+}

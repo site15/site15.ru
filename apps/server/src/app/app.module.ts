@@ -13,6 +13,8 @@ import { AppEnvironments } from './app.environments';
 import { AppExceptionsFilter } from './app.filter';
 import { LandingController } from './controllers/landing.controller';
 import { TimeController } from './controllers/time.controller';
+import { MetricsDynamicService } from './services/metrics-dynamic.service';
+import { METRICS_FEATURE } from '@site15/metrics';
 
 export const { AppModule } = createNestModule({
   moduleName: 'AppModule',
@@ -20,6 +22,10 @@ export const { AppModule } = createNestModule({
   environmentsModel: AppEnvironments,
   imports: [
     SsoModule.forFeature({ featureModuleName: SSO_FEATURE }),
+    PrismaModule.forFeature({
+      contextName: METRICS_FEATURE,
+      featureModuleName: METRICS_FEATURE,
+    }),
     PrismaModule.forFeature({
       contextName: SSO_FEATURE,
       featureModuleName: SSO_FEATURE,
@@ -77,5 +83,5 @@ export const { AppModule } = createNestModule({
         ]),
   ],
   controllers: [TimeController, LandingController],
-  providers: [TimeController, { provide: APP_FILTER, useClass: AppExceptionsFilter }],
+  providers: [TimeController, MetricsDynamicService, { provide: APP_FILTER, useClass: AppExceptionsFilter }],
 });

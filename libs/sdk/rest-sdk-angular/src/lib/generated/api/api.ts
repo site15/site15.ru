@@ -1,5 +1,7 @@
 export * from './files-rest.service';
 import { FilesSite15RestService } from './files-rest.service';
+export * from './landing-rest.service';
+import { LandingSite15RestService } from './landing-rest.service';
 export * from './metrics-rest.service';
 import { MetricsSite15RestService } from './metrics-rest.service';
 export * from './notifications-rest.service';
@@ -12,4 +14,4 @@ export * from './time-rest.service';
 import { TimeSite15RestService } from './time-rest.service';
 export * from './webhook-rest.service';
 import { WebhookSite15RestService } from './webhook-rest.service';
-export const APIS = [FilesSite15RestService, MetricsSite15RestService, NotificationsSite15RestService, SsoSite15RestService, TerminusHealthCheckSite15RestService, TimeSite15RestService, WebhookSite15RestService];
+export const APIS = [FilesSite15RestService, LandingSite15RestService, MetricsSite15RestService, NotificationsSite15RestService, SsoSite15RestService, TerminusHealthCheckSite15RestService, TimeSite15RestService, WebhookSite15RestService];

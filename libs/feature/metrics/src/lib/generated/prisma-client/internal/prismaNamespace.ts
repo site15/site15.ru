@@ -391,6 +391,9 @@ export const ModelName = {
   MetricsGithubTeamUser: 'MetricsGithubTeamUser',
   MetricsGithubUserStatistics: 'MetricsGithubUserStatistics',
   MetricsSettings: 'MetricsSettings',
+  MetricsDynamic: 'MetricsDynamic',
+  MetricsDynamicCache: 'MetricsDynamicCache',
+  MetricsDynamicHistory: 'MetricsDynamicHistory',
 } as const;
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -423,7 +426,10 @@ export type TypeMap<
       | 'metricsGithubTeamRepository'
       | 'metricsGithubTeamUser'
       | 'metricsGithubUserStatistics'
-      | 'metricsSettings';
+      | 'metricsSettings'
+      | 'metricsDynamic'
+      | 'metricsDynamicCache'
+      | 'metricsDynamicHistory';
     txIsolationLevel: TransactionIsolationLevel;
   };
   model: {
@@ -1317,6 +1323,228 @@ export type TypeMap<
         };
       };
     };
+    MetricsDynamic: {
+      payload: Prisma.$MetricsDynamicPayload<ExtArgs>;
+      fields: Prisma.MetricsDynamicFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.MetricsDynamicFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.MetricsDynamicFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload>;
+        };
+        findFirst: {
+          args: Prisma.MetricsDynamicFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.MetricsDynamicFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload>;
+        };
+        findMany: {
+          args: Prisma.MetricsDynamicFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload>[];
+        };
+        create: {
+          args: Prisma.MetricsDynamicCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload>;
+        };
+        createMany: {
+          args: Prisma.MetricsDynamicCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.MetricsDynamicCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload>[];
+        };
+        delete: {
+          args: Prisma.MetricsDynamicDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload>;
+        };
+        update: {
+          args: Prisma.MetricsDynamicUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload>;
+        };
+        deleteMany: {
+          args: Prisma.MetricsDynamicDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.MetricsDynamicUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.MetricsDynamicUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload>[];
+        };
+        upsert: {
+          args: Prisma.MetricsDynamicUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicPayload>;
+        };
+        aggregate: {
+          args: Prisma.MetricsDynamicAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMetricsDynamic>;
+        };
+        groupBy: {
+          args: Prisma.MetricsDynamicGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsDynamicGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.MetricsDynamicCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsDynamicCountAggregateOutputType> | number;
+        };
+      };
+    };
+    MetricsDynamicCache: {
+      payload: Prisma.$MetricsDynamicCachePayload<ExtArgs>;
+      fields: Prisma.MetricsDynamicCacheFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.MetricsDynamicCacheFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.MetricsDynamicCacheFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload>;
+        };
+        findFirst: {
+          args: Prisma.MetricsDynamicCacheFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.MetricsDynamicCacheFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload>;
+        };
+        findMany: {
+          args: Prisma.MetricsDynamicCacheFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload>[];
+        };
+        create: {
+          args: Prisma.MetricsDynamicCacheCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload>;
+        };
+        createMany: {
+          args: Prisma.MetricsDynamicCacheCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.MetricsDynamicCacheCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload>[];
+        };
+        delete: {
+          args: Prisma.MetricsDynamicCacheDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload>;
+        };
+        update: {
+          args: Prisma.MetricsDynamicCacheUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload>;
+        };
+        deleteMany: {
+          args: Prisma.MetricsDynamicCacheDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.MetricsDynamicCacheUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.MetricsDynamicCacheUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload>[];
+        };
+        upsert: {
+          args: Prisma.MetricsDynamicCacheUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicCachePayload>;
+        };
+        aggregate: {
+          args: Prisma.MetricsDynamicCacheAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMetricsDynamicCache>;
+        };
+        groupBy: {
+          args: Prisma.MetricsDynamicCacheGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsDynamicCacheGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.MetricsDynamicCacheCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsDynamicCacheCountAggregateOutputType> | number;
+        };
+      };
+    };
+    MetricsDynamicHistory: {
+      payload: Prisma.$MetricsDynamicHistoryPayload<ExtArgs>;
+      fields: Prisma.MetricsDynamicHistoryFieldRefs;
+      operations: {
+        findUnique: {
+          args: Prisma.MetricsDynamicHistoryFindUniqueArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload> | null;
+        };
+        findUniqueOrThrow: {
+          args: Prisma.MetricsDynamicHistoryFindUniqueOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload>;
+        };
+        findFirst: {
+          args: Prisma.MetricsDynamicHistoryFindFirstArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload> | null;
+        };
+        findFirstOrThrow: {
+          args: Prisma.MetricsDynamicHistoryFindFirstOrThrowArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload>;
+        };
+        findMany: {
+          args: Prisma.MetricsDynamicHistoryFindManyArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload>[];
+        };
+        create: {
+          args: Prisma.MetricsDynamicHistoryCreateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload>;
+        };
+        createMany: {
+          args: Prisma.MetricsDynamicHistoryCreateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        createManyAndReturn: {
+          args: Prisma.MetricsDynamicHistoryCreateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload>[];
+        };
+        delete: {
+          args: Prisma.MetricsDynamicHistoryDeleteArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload>;
+        };
+        update: {
+          args: Prisma.MetricsDynamicHistoryUpdateArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload>;
+        };
+        deleteMany: {
+          args: Prisma.MetricsDynamicHistoryDeleteManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateMany: {
+          args: Prisma.MetricsDynamicHistoryUpdateManyArgs<ExtArgs>;
+          result: BatchPayload;
+        };
+        updateManyAndReturn: {
+          args: Prisma.MetricsDynamicHistoryUpdateManyAndReturnArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload>[];
+        };
+        upsert: {
+          args: Prisma.MetricsDynamicHistoryUpsertArgs<ExtArgs>;
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MetricsDynamicHistoryPayload>;
+        };
+        aggregate: {
+          args: Prisma.MetricsDynamicHistoryAggregateArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMetricsDynamicHistory>;
+        };
+        groupBy: {
+          args: Prisma.MetricsDynamicHistoryGroupByArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsDynamicHistoryGroupByOutputType>[];
+        };
+        count: {
+          args: Prisma.MetricsDynamicHistoryCountArgs<ExtArgs>;
+          result: runtime.Types.Utils.Optional<Prisma.MetricsDynamicHistoryCountAggregateOutputType> | number;
+        };
+      };
+    };
   };
 } & {
   other: {
@@ -1545,12 +1773,55 @@ export const MetricsSettingsScalarFieldEnum = {
 export type MetricsSettingsScalarFieldEnum =
   (typeof MetricsSettingsScalarFieldEnum)[keyof typeof MetricsSettingsScalarFieldEnum];
 
+export const MetricsDynamicScalarFieldEnum = {
+  id: 'id',
+  level1: 'level1',
+  level2: 'level2',
+  level3: 'level3',
+  value: 'value',
+  createdAt: 'createdAt',
+} as const;
+
+export type MetricsDynamicScalarFieldEnum =
+  (typeof MetricsDynamicScalarFieldEnum)[keyof typeof MetricsDynamicScalarFieldEnum];
+
+export const MetricsDynamicCacheScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  status: 'status',
+  headers: 'headers',
+  body: 'body',
+  createdAt: 'createdAt',
+} as const;
+
+export type MetricsDynamicCacheScalarFieldEnum =
+  (typeof MetricsDynamicCacheScalarFieldEnum)[keyof typeof MetricsDynamicCacheScalarFieldEnum];
+
+export const MetricsDynamicHistoryScalarFieldEnum = {
+  id: 'id',
+  level1: 'level1',
+  level2: 'level2',
+  level3: 'level3',
+  value: 'value',
+  createdAt: 'createdAt',
+} as const;
+
+export type MetricsDynamicHistoryScalarFieldEnum =
+  (typeof MetricsDynamicHistoryScalarFieldEnum)[keyof typeof MetricsDynamicHistoryScalarFieldEnum];
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc',
 } as const;
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+} as const;
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput];
 
 export const QueryMode = {
   default: 'default',
@@ -1565,6 +1836,14 @@ export const NullsOrder = {
 } as const;
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder];
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull,
+} as const;
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter];
 
 /**
  * Field references
@@ -1624,6 +1903,16 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>;
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>;
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>;
 
 /**
  * Batch Payload for updateMany & deleteMany & createMany
@@ -1719,6 +2008,9 @@ export type GlobalOmitConfig = {
   metricsGithubTeamUser?: Prisma.MetricsGithubTeamUserOmit;
   metricsGithubUserStatistics?: Prisma.MetricsGithubUserStatisticsOmit;
   metricsSettings?: Prisma.MetricsSettingsOmit;
+  metricsDynamic?: Prisma.MetricsDynamicOmit;
+  metricsDynamicCache?: Prisma.MetricsDynamicCacheOmit;
+  metricsDynamicHistory?: Prisma.MetricsDynamicHistoryOmit;
 };
 
 /* Types for Logging */

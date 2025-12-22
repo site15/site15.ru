@@ -1221,3 +1221,12 @@ window.closeProjectDetailsModal = function () {
   projectDetailsModal.classList.add('hidden');
   document.body.style.overflow = '';
 };
+
+function initModals() {
+  document.querySelectorAll('.project-card').forEach((card) => {
+    card.addEventListener('click', function () {
+      const id = this.getAttribute('data-id');
+      window.openProjectModal(id);
+    });
+  });
+}

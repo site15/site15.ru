@@ -99,6 +99,21 @@ export type MetricsGithubUserStatistics = Prisma.MetricsGithubUserStatisticsMode
  * Each tenant can have only one record with enabled = true
  */
 export type MetricsSettings = Prisma.MetricsSettingsModel;
+/**
+ * Model MetricsDynamic
+ *
+ */
+export type MetricsDynamic = Prisma.MetricsDynamicModel;
+/**
+ * Model MetricsDynamicCache
+ *
+ */
+export type MetricsDynamicCache = Prisma.MetricsDynamicCacheModel;
+/**
+ * Model MetricsDynamicHistory
+ *
+ */
+export type MetricsDynamicHistory = Prisma.MetricsDynamicHistoryModel;
 
 export type MetricsRole = $Enums.MetricsRole;
 export const MetricsRole = $Enums.MetricsRole;

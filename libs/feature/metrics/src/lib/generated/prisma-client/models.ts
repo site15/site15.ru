@@ -18,4 +18,7 @@ export type * from './models/MetricsGithubTeamRepository';
 export type * from './models/MetricsGithubTeamUser';
 export type * from './models/MetricsGithubUserStatistics';
 export type * from './models/MetricsSettings';
+export type * from './models/MetricsDynamic';
+export type * from './models/MetricsDynamicCache';
+export type * from './models/MetricsDynamicHistory';
 export type * from './commonInputTypes';
