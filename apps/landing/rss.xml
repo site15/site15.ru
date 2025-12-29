@@ -14,56 +14,56 @@
         <item>
             <title>Rucken: Инженерная платформа</title>
             <description>Rucken - инженерная платформа и набор проектов с открытым исходным кодом для ускорения fullstack-разработки.</description>
-            <link>https://site15.ru/projects/rucken</link>
-            <guid>https://site15.ru/projects/rucken</guid>
+            <link>https://site15.ru/projects/rucken.html</link>
+            <guid>https://site15.ru/projects/rucken.html</guid>
             <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
         </item>
         
         <item>
             <title>KaufmanBot: Архитектурный эксперимент</title>
             <description>Исследовательский и архитектурный проект для изучения мульти-провайдинга в NestJS и построения плагинной архитектуры для Telegram-бота.</description>
-            <link>https://site15.ru/projects/kaufmanbot</link>
-            <guid>https://site15.ru/projects/kaufmanbot</guid>
+            <link>https://site15.ru/projects/kaufmanbot.html</link>
+            <guid>https://site15.ru/projects/kaufmanbot.html</guid>
             <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
         </item>
         
         <item>
             <title>NestJS-mod: Fullstack-платформа</title>
             <description>Моя fullstack-платформа для NestJS с инженерной экосистемой библиотек и архитектурных соглашений.</description>
-            <link>https://site15.ru/projects/nestjs-mod</link>
-            <guid>https://site15.ru/projects/nestjs-mod</guid>
+            <link>https://site15.ru/projects/nestjs-mod.html</link>
+            <guid>https://site15.ru/projects/nestjs-mod.html</guid>
             <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
         </item>
         
         <item>
             <title>ngx-dynamic-form-builder: Angular-библиотека</title>
             <description>Моя библиотека для Angular для динамического построения форм с поддержкой валидаций и мультиязычных сообщений.</description>
-            <link>https://site15.ru/projects/ngx-dynamic-form-builder</link>
-            <guid>https://site15.ru/projects/ngx-dynamic-form-builder</guid>
+            <link>https://site15.ru/projects/ngx-dynamic-form-builder.html</link>
+            <guid>https://site15.ru/projects/ngx-dynamic-form-builder.html</guid>
             <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
         </item>
         
         <item>
             <title>nest-permissions-seed: NestJS-шаблон</title>
             <description>Шаблонный (boilerplate) проект на NestJS с JWT, Guards и разрешениями.</description>
-            <link>https://site15.ru/projects/nest-permissions-seed</link>
-            <guid>https://site15.ru/projects/nest-permissions-seed</guid>
+            <link>https://site15.ru/projects/nest-permissions-seed.html</link>
+            <guid>https://site15.ru/projects/nest-permissions-seed.html</guid>
             <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
         </item>
         
         <item>
             <title>typegraphql-prisma-nestjs: Форк генератора</title>
             <description>Мой форк генератора typegraphql-prisma для NestJS с кастомизациями.</description>
-            <link>https://site15.ru/projects/typegraphql-prisma-nestjs</link>
-            <guid>https://site15.ru/projects/typegraphql-prisma-nestjs</guid>
+            <link>https://site15.ru/projects/typegraphql-prisma-nestjs.html</link>
+            <guid>https://site15.ru/projects/typegraphql-prisma-nestjs.html</guid>
             <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
         </item>
         
         <item>
             <title>class-validator-multi-lang: Многоязычная библиотека</title>
             <description>Мой форк библиотеки class-validator с поддержкой многоязычных сообщений об ошибках для NestJS.</description>
-            <link>https://site15.ru/projects/class-validator-multi-lang</link>
-            <guid>https://site15.ru/projects/class-validator-multi-lang</guid>
+            <link>https://site15.ru/projects/class-validator-multi-lang.html</link>
+            <guid>https://site15.ru/projects/class-validator-multi-lang.html</guid>
             <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
         </item>
     </channel>
