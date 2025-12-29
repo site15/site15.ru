@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>site15.ru - Ilshat Khamitov | Software Engineer</title>
+        <description>Latest updates and information about software engineering projects by Ilshat Khamitov</description>
+        <link>https://site15.ru</link>
+        <language>ru-ru</language>
+        <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
+        <lastBuildDate>Mon, 29 Dec 2025 18:33:00 +0000</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>site15.ru RSS Generator</generator>
+        <copyright>Copyright 2025, Ilshat Khamitov</copyright>
+        
+        <item>
+            <title>Rucken: Engineering Platform</title>
+            <description>Rucken - engineering platform and set of open-source projects for accelerating fullstack development.</description>
+            <link>https://site15.ru/projects/rucken</link>
+            <guid>https://site15.ru/projects/rucken</guid>
+            <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>KaufmanBot: Architectural Experiment</title>
+            <description>Research and architectural project for studying multi-providing in NestJS and building plugin architecture for Telegram bot.</description>
+            <link>https://site15.ru/projects/kaufmanbot</link>
+            <guid>https://site15.ru/projects/kaufmanbot</guid>
+            <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>NestJS-mod: Fullstack Platform</title>
+            <description>My fullstack platform for NestJS with engineering ecosystem of libraries and architectural agreements.</description>
+            <link>https://site15.ru/projects/nestjs-mod</link>
+            <guid>https://site15.ru/projects/nestjs-mod</guid>
+            <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>ngx-dynamic-form-builder: Angular Library</title>
+            <description>My library for Angular for dynamic form building with support for validations and multi-language messages.</description>
+            <link>https://site15.ru/projects/ngx-dynamic-form-builder</link>
+            <guid>https://site15.ru/projects/ngx-dynamic-form-builder</guid>
+            <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>nest-permissions-seed: NestJS Boilerplate</title>
+            <description>Template (boilerplate) project on NestJS with JWT, Guards and permissions.</description>
+            <link>https://site15.ru/projects/nest-permissions-seed</link>
+            <guid>https://site15.ru/projects/nest-permissions-seed</guid>
+            <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>typegraphql-prisma-nestjs: Generator Fork</title>
+            <description>My fork of typegraphql-prisma generator for NestJS with customizations.</description>
+            <link>https://site15.ru/projects/typegraphql-prisma-nestjs</link>
+            <guid>https://site15.ru/projects/typegraphql-prisma-nestjs</guid>
+            <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>class-validator-multi-lang: Multi-language Library</title>
+            <description>My fork of class-validator library with support for multi-language error messages for NestJS.</description>
+            <link>https://site15.ru/projects/class-validator-multi-lang</link>
+            <guid>https://site15.ru/projects/class-validator-multi-lang</guid>
+            <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
+        </item>
+    </channel>
+</rss>
