@@ -216,12 +216,131 @@
             color: #ff7eb6;
             font-weight: bold;
         }
+        /* Breadcrumb styles */
+        .breadcrumb {
+            background-color: #fdfbf7;
+            padding: 1rem 0;
+            border-bottom: 3px solid #0a0a0a;
+        }
+
+        .breadcrumb ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin: 0 0.5rem;
+            color: #0a0a0a;
+        }
+
+        .breadcrumb a {
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            color: #ff7eb6;
+        }
+
+        .breadcrumb .current {
+            color: #ff7eb6;
+            font-weight: bold;
+        }
+    </style>
+    <style>
+        /* Modal specific styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 99;
+        }
+
+        .modal-content {
+            z-index: 100;
+        }
+
+        /* Nested list styles */
+        .modal-content ul ul {
+            list-style-type: circle;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-content blockquote {
+            margin: 1.5rem 0;
+            padding: 1rem;
+        }
     </style>
 </head>
 
-<body class="font-sans">
+<body class="text-neo-black font-sans selection:bg-neo-black selection:text-neo-yellow">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-neo-bg neo-border border-t-0 border-x-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div
+                        class="w-8 h-8 bg-neo-black text-neo-yellow flex items-center justify-center font-bold text-xl neo-border">
+                        <img src="../../ezhik.jpg" alt="Profile Photo" class="w-full h-full object-cover">
+                    </div>
+                    <span class="font-bold text-xl tracking-tighter uppercase hidden sm:block">site15.ru</span>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-4">
+                    <a href="/"
+                        class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О
+                        себе</a>
+                    <a href="/index.html#projects"
+                        class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">15
+                        Проектов</a>
+                    <a href="/index.html#experience"
+                        class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
+                    <a href="/index.html#skills"
+                        class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Навыки</a>
+                    <a href="/index.html#open-source-community"
+                        class="px-4 py-2 font-bold hover:bg-neo-purple transition-colors border-2 border-transparent hover:border-neo-black">Open
+                        Source</a>
+                    <a href="/index.html#contact"
+                        class="px-4 py-2 bg-neo-black text-white font-bold hover:bg-neo-pink hover:text-neo-black hover:shadow-neo transition-all border-2 border-neo-black">Связаться</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn"
+                        class="p-2 neo-border bg-white active:shadow-neo-hover shadow-neo transition-all">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-neo-yellow border-t-2 border-neo-black p-4 space-y-2 absolute w-full">
+            <a href="/" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
+            <a href="/index.html#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">15 Проектов</a>
+            <a href="/index.html#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
+            <a href="/index.html#skills" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Навыки</a>
+            <a href="/index.html#open-source-community"
+                class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Open Source</a>
+            <a href="/index.html#contact" class="block px-4 py-2 font-bold neo-border bg-neo-black text-white">Связаться</a>
+        </div>
+    </nav>
     <!-- Breadcrumb Navigation -->
-    <nav class="breadcrumb">
+    <nav class="breadcrumb mt-20">
         <div class="container mx-auto px-4">
             <ul>
                 <li><a href="/">Главная</a></li>
@@ -293,6 +412,42 @@
             lucide.createIcons();
         }
     </script>
+    <!-- Footer -->
+    <footer class="bg-neo-black text-white py-12 px-4 border-t-4 border-white mt-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <h4 class="font-black text-2xl uppercase mb-2">site15.ru</h4>
+                <p class="font-mono text-sm text-gray-400">© 2025 Все права защищены (или нет).</p>
+                <!-- Footer Badges -->
+                <div class="flex flex-wrap justify-center md:justify-start gap-2 mt-4">
+                    <a href="https://career.habr.com/endykaufman" target="_blank"
+                        class="px-3 py-1 bg-gray-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        ХабрКарьера
+                    </a>
+                    <a href="https://ufa.hh.ru/resume/2615ca8cff019da3eb0039ed1f6732786f4533" target="_blank"
+                        class="px-3 py-1 bg-red-600 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        HeadHunter
+                    </a>
+                    <a href="https://www.linkedin.com/in/ilshatkhamov/" target="_blank"
+                        class="px-3 py-1 bg-blue-700 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col items-center md:items-end font-mono text-sm gap-2">
+                <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
+                </a>
+                <p class="text-gray-500">Уфа, Россия</p>
+            </div>
+        </div>
+    </footer>
+    <script src="../../js/modals.js"></script>
+    <script src="../../js/form.js"></script>
+    <script src="../../js/stats.js"></script>
+    <script src="../../js/coin.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/main.js"></script>
 </body>
 
 </html>
