@@ -1,3 +1,9 @@
+## [1.22.2](https://github.com/site15/site15.ru/compare/server-v1.22.1...server-v1.22.2) (2025-12-29)
+
+### Bug Fixes
+
+- **landing:** update project URLs in rss and sitemap with .html suffix ([1f0ae78](https://github.com/site15/site15.ru/commit/1f0ae789f07c2aa3e1c88327c67e6572ce1b6247))
+
 ## [1.22.1](https://github.com/site15/site15.ru/compare/server-v1.22.0...server-v1.22.1) (2025-12-29)
 
 ### Bug Fixes
