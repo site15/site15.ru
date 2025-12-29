@@ -1,5 +1,5 @@
 # site15
-> Version: 1.22.0
+> Version: 1.22.1
 
 Personal website of Khamitov Ilshat (EndyKaufman)
 ## System modules
@@ -14,10 +14,10 @@ Utilities for setting global application parameters, such as project name, descr
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`applicationPackageJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/apps/server/package.json```|
-|`packageJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/package.json```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/apps/server/project.json```|
-|`envFile`|**optional**|```/home/endy/Projects/site15/site15.ru/.env```|
+|`applicationPackageJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/apps/server/package.json```|
+|`packageJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/package.json```|
+|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/apps/server/project.json```|
+|`envFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/.env```|
 
 ### DefaultNestApplicationInitializer
 Default NestJS application initializer.
@@ -207,14 +207,14 @@ Webhook module with an error filter, guard, controller, database migrations and 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-29T17:09:27.389Z","updatedAt":"2025-12-29T17:09:27.389Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-29T17:09:27.389Z","updatedAt":"2025-12-29T17:09:27.389Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-29T17:09:27.389Z","updatedAt":"2025-12-29T17:09:27.389Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-12-29T17:09:27.389Z","updatedAt":"2025-12-29T17:09:27.389Z"}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"notifications.create","description":"Event that fires after a notification is created","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-29T17:41:45.460Z","updatedAt":"2025-12-29T17:41:45.460Z"}}```, ```{"eventName":"notifications.update","description":"Event that fires after a notification is updated","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-29T17:41:45.460Z","updatedAt":"2025-12-29T17:41:45.460Z"}}```, ```{"eventName":"notifications.sent","description":"Event that fires after a notification is sent","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","createdAt":"2025-12-29T17:41:45.460Z","updatedAt":"2025-12-29T17:41:45.460Z"}}```, ```{"eventName":"notifications.error","description":"Event that occurs when there is an error sending a notification","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","html":"<a>Hello {{{firstname}}}</a>","externalTenantId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","operationName":"forget-password","recipientData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+999999999"},"subject":"Some subject of email","type":"phone","context":{"firstname":"Firstname"},"senderData":{"externalUserId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","email":"user@example.com","name":"User Name","phone":"+888888888"},"text":"Hello {{{firstname}}}","recipientGroupId":"77af2745-d972-4e1f-994a-fae8ad71d7ab","attempt":2,"error":"Error object","used":false,"createdAt":"2025-12-29T17:41:45.460Z","updatedAt":"2025-12-29T17:41:45.460Z"}}``` ]|
 
 #### Modules that use feature configuration
 ##### Feature module name: sso
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:09:28.107Z","createdAt":"2025-12-29T17:09:28.107Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:09:28.107Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:09:28.107Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:09:28.107Z","roles":"user","updatedAt":"2025-12-29T17:09:28.107Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:09:28.107Z","createdAt":"2025-12-29T17:09:28.107Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:09:28.107Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:09:28.107Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:09:28.107Z","roles":"user","updatedAt":"2025-12-29T17:09:28.107Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:09:28.107Z","createdAt":"2025-12-29T17:09:28.107Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:09:28.107Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:09:28.107Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:09:28.107Z","roles":"user","updatedAt":"2025-12-29T17:09:28.107Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:09:28.107Z","createdAt":"2025-12-29T17:09:28.107Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:09:28.107Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:09:28.107Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:09:28.107Z","roles":"user","updatedAt":"2025-12-29T17:09:28.107Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:09:28.107Z","createdAt":"2025-12-29T17:09:28.107Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:09:28.107Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:09:28.107Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:09:28.107Z","roles":"user","updatedAt":"2025-12-29T17:09:28.107Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:09:28.107Z","createdAt":"2025-12-29T17:09:28.107Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:09:28.107Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:09:28.107Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:09:28.107Z","roles":"user","updatedAt":"2025-12-29T17:09:28.107Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:09:28.107Z","createdAt":"2025-12-29T17:09:28.107Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:09:28.107Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:09:28.107Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:09:28.107Z","roles":"user","updatedAt":"2025-12-29T17:09:28.107Z","username":"nickname","lang":"en","timezone":0}}``` ]|
+|`events`|**optional**|[ ```{"eventName":"sso.sign-up","description":"An event that is triggered after a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:41:46.072Z","createdAt":"2025-12-29T17:41:46.072Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:41:46.072Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:41:46.072Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:41:46.072Z","roles":"user","updatedAt":"2025-12-29T17:41:46.072Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-in","description":"An event that is triggered after a user login","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:41:46.072Z","createdAt":"2025-12-29T17:41:46.072Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:41:46.072Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:41:46.072Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:41:46.072Z","roles":"user","updatedAt":"2025-12-29T17:41:46.072Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-sign-up","description":"An event that is triggered after complete a new user registers","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:41:46.072Z","createdAt":"2025-12-29T17:41:46.072Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:41:46.072Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:41:46.072Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:41:46.072Z","roles":"user","updatedAt":"2025-12-29T17:41:46.072Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.sign-out","description":"An event that is triggered after a user logout","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:41:46.072Z","createdAt":"2025-12-29T17:41:46.072Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:41:46.072Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:41:46.072Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:41:46.072Z","roles":"user","updatedAt":"2025-12-29T17:41:46.072Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.forgot-password","description":"An event that is triggered after a user call forgot password method","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:41:46.072Z","createdAt":"2025-12-29T17:41:46.072Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:41:46.072Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:41:46.072Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:41:46.072Z","roles":"user","updatedAt":"2025-12-29T17:41:46.072Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.complete-forgot-password","description":"An event that is triggered after a user calls to confirm a forgotten password change","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:41:46.072Z","createdAt":"2025-12-29T17:41:46.072Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:41:46.072Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:41:46.072Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:41:46.072Z","roles":"user","updatedAt":"2025-12-29T17:41:46.072Z","username":"nickname","lang":"en","timezone":0}}```, ```{"eventName":"sso.update-profile","description":"An event that fires after user information is updated.","example":{"id":"77af2745-d972-4e1f-994a-fae8ad71d7ab","appData":{"custom":"data"},"birthdate":"2025-12-29T17:41:46.072Z","createdAt":"2025-12-29T17:41:46.072Z","email":"user@example.com","emailVerifiedAt":"2025-12-29T17:41:46.072Z","firstname":"Firstname","gender":"m","lastname":"Lastname","phone":"+888888888","phoneVerifiedAt":"2025-12-29T17:41:46.072Z","picture":"http://example.com/image/77af2745-d972-4e1f-994a-fae8ad71d7ab.jpg","revokedAt":"2025-12-29T17:41:46.072Z","roles":"user","updatedAt":"2025-12-29T17:41:46.072Z","username":"nickname","lang":"en","timezone":0}}``` ]|
 
 ### MetricsModule
 #### Shared providers
@@ -316,7 +316,7 @@ Production process manager for Node.JS applications with a built-in load balance
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/endy/Projects/site15/site15.ru/ecosystem.config.json```|
+|`ecosystemConfigFile`|**isNotEmpty** (ecosystemConfigFile should not be empty)|```/home/runner/work/site15.ru/site15.ru/ecosystem.config.json```|
 |`applicationScriptFile`|**isNotEmpty** (applicationScriptFile should not be empty)|```dist/apps/server/main.js```|
 
 ### DockerCompose
@@ -329,7 +329,7 @@ Docker Compose is a tool for defining and running multi-container applications. 
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/endy/Projects/site15/site15.ru/apps/server/docker-compose.yml```|
+|`dockerComposeFile`|**isNotEmpty** (dockerComposeFile should not be empty)|```/home/runner/work/site15.ru/site15.ru/apps/server/docker-compose.yml```|
 
 #### Modules that use feature configuration
 ##### Feature module name: SITE_15_POSTGRE_SQL
@@ -380,8 +380,8 @@ PgFlyway - utility for working with database migrations (site: https://www.npmjs
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/migrations```|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
+|`migrationsFolder`|**isNotEmpty** (migrationsFolder should not be empty)|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/migrations```|
+|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
 
 ### PrismaModule
 Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only for Postgres)
@@ -443,13 +443,13 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
+|`output`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
 |`provider`|**optional**|```prisma-client```|
 |`moduleFormat`|**optional**|```cjs```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 #### Environments(two-factor)
@@ -526,13 +526,13 @@ Next-generation Node.js and TypeScript ORM for NestJS-mod (preview version only 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
 |`featureName`|**optional**|```sso```|
-|`schemaFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
+|`schemaFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/prisma/schema.prisma```|
 |`addMigrationScripts`|**optional**|```false```|
-|`output`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
+|`output`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/src/lib/generated/prisma-client```|
 |`provider`|**optional**|```prisma-client```|
 |`moduleFormat`|**optional**|```cjs```|
 |`previewFeatures`|**optional**|[ ```queryCompiler```, ```driverAdapters``` ]|
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
 |`prismaClientFactory`|**optional**|```prismaClientFactory```|
 
 #### Environments(two-factor)
@@ -559,7 +559,7 @@ Infrastructure markdown report generator.
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`markdownFile`|**optional**|```/home/endy/Projects/site15/site15.ru/apps/server/INFRASTRUCTURE.MD```|
+|`markdownFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/apps/server/INFRASTRUCTURE.MD```|
 |`skipEmptySettings`|**optional**|```true```|
 |`style`|**optional**|```pretty```|
 
@@ -589,7 +589,7 @@ PostgreSQL (Postgres) is an open source object-relational database known for rel
 
 | Key    | Constraints | Value |
 | ------ | ----------- | ----- |
-|`nxProjectJsonFile`|**optional**|```/home/endy/Projects/site15/site15.ru/libs/feature/sso/project.json```|
+|`nxProjectJsonFile`|**optional**|```/home/runner/work/site15.ru/site15.ru/libs/feature/sso/project.json```|
 
 #### Modules that use feature environments
 ##### Feature module name: sso

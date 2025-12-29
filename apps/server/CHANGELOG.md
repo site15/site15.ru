@@ -1,3 +1,9 @@
+## [1.22.1](https://github.com/site15/site15.ru/compare/server-v1.22.0...server-v1.22.1) (2025-12-29)
+
+### Bug Fixes
+
+- **server:** clean up redundant code in replaceEnvs module ([c45a3fd](https://github.com/site15/site15.ru/commit/c45a3fd58d324d8a5105714d38fe2a2beb99f0dc))
+
 # [1.22.0](https://github.com/site15/site15.ru/compare/server-v1.21.0...server-v1.22.0) (2025-12-29)
 
 ### Features
