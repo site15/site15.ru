@@ -1,3 +1,9 @@
+# [1.21.0](https://github.com/site15/site15.ru/compare/server-v1.20.1...server-v1.21.0) (2025-12-29)
+
+### Features
+
+- **landing:** replace project modal buttons with links and add project pages ([573becd](https://github.com/site15/site15.ru/commit/573becd9372f596a7d12bbb532d32eed4f86135a))
+
 ## [1.20.1](https://github.com/site15/site15.ru/compare/server-v1.20.0...server-v1.20.1) (2025-12-22)
 
 ### Bug Fixes
