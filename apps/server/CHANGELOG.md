@@ -1,3 +1,9 @@
+# [1.22.0](https://github.com/site15/site15.ru/compare/server-v1.21.0...server-v1.22.0) (2025-12-29)
+
+### Features
+
+- **landing:** add sitemap and RSS feed links with new sitemap and RSS files ([b935363](https://github.com/site15/site15.ru/commit/b9353631652e46e7b987b4a376587db25085d073))
+
 # [1.21.0](https://github.com/site15/site15.ru/compare/server-v1.20.1...server-v1.21.0) (2025-12-29)
 
 ### Features
