@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class-validator-multi-lang: Презентация проекта | Ильшат Хамитов | Software Engineer | site15.ru</title>
+    <meta name="description"
+        content="class-validator-multi-lang: Мой форк библиотеки для NestJS. Форк class-validator с поддержкой многоязычных сообщений об ошибках.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <!-- Open Graph Generated: a.pr-cy.ru -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="class-validator-multi-lang: Презентация проекта - Ilshat Khamitov">
+    <meta property="og:description"
+        content="class-validator-multi-lang: Мой форк библиотеки для NestJS. Форк class-validator с поддержкой многоязычных сообщений об ошибках.">
+    <meta property="og:url" content="https://site15.ru/projects/class-validator-multi-lang">
+    <meta property="og:image" content="https://site15.ru/ilshat.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+    <!-- Open Graph: Article -->
+    <meta name="twitter:card" content="https://site15.ru/ilshat.jpg" />
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=23044594', 'ym');
+
+        ym(23044594, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/23044594" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script src="../js/tailwind.min.js"></script>
+    <link href="../fonts/fonts.css" rel="stylesheet">
+    <!-- Using unpkg as an alternative reliable CDN for lucide -->
+    <script src="../js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#fdfbf7',
+                        'neo-black': '#0a0a0a',
+                        'neo-yellow': '#ffeb3b',
+                        'neo-pink': '#ff7eb6',
+                        'neo-green': '#7afc50',
+                        'neo-blue': '#82caff',
+                        'neo-purple': '#b388ff',
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #0a0a0a',
+                        'neo-sm': '3px 3px 0px 0px #0a0a0a',
+                        'neo-lg': '8px 8px 0px 0px #0a0a0a',
+                        'neo-hover': '0px 0px 0px 0px #0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for nuances Tailwind can't easily catch */
+        body {
+            background-color: #f3f3f3;
+            background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        .neo-border {
+            border: 3px solid #0a0a0a;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px #0a0a0a;
+        }
+
+        .text-stroke-2 {
+            -webkit-text-stroke: 2px #0a0a0a;
+            color: transparent;
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 120s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Coin Flip Animation */
+        .coin-container {
+            perspective: 1000px;
+        }
+
+        .coin-front,
+        .coin-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+        }
+
+        .coin-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fdfbf7;
+            border-left: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff7eb6;
+            border: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffeb3b;
+        }
+
+        /* Pattern classes */
+        .bg-lines {
+            background-image: repeating-linear-gradient(45deg, #0a0a0a 0, #0a0a0a 1px, transparent 0, transparent 50%);
+            background-size: 10px 10px;
+            opacity: 0.1;
+        }
+
+        /* Breadcrumb styles */
+        .breadcrumb {
+            background-color: #fdfbf7;
+            padding: 1rem 0;
+            border-bottom: 3px solid #0a0a0a;
+        }
+
+        .breadcrumb ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin: 0 0.5rem;
+            color: #0a0a0a;
+        }
+
+        .breadcrumb a {
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            color: #ff7eb6;
+        }
+
+        .breadcrumb .current {
+            color: #ff7eb6;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+        <div class="container mx-auto px-4">
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/#projects">Проекты</a></li>
+                <li class="current">class-validator-multi-lang</li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="prose max-w-none">
+            <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">class‑validator‑multi‑lang: Презентация проекта</h1>
+            <p class="text-xl italic mb-8">Мой форк библиотеки для NestJS</p>
+            
+            <div class="space-y-6">
+                <!-- Essence -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6 text-neo-blue"></i> Суть проекта</h2>
+                    <p class="mb-4">Во всех моих проектах на <strong>NestJS</strong> я активно использую <strong>class‑validator</strong> для валидации DTO и моделей. Основная проблема: стандартная библиотека возвращает ошибки только на английском языке.</p>
+                    
+                    <p class="mb-4">Чтобы решить эту задачу, я создал <strong>форк class‑validator с поддержкой многоязычных сообщений об ошибках</strong>, с возможностью <strong>кастомизации и локализации ошибок на русский язык</strong>.</p>
+                    
+                    <p class="mb-4">Изначально я оформил изменения в виде <strong>pull request к оригинальной библиотеке</strong>, но несмотря на положительные отзывы сообщества, PR был <strong>отклонён</strong>. В итоге я опубликовал <strong>форк в npm</strong> как отдельный пакет, чтобы использовать его в своих проектах.</p>
+                </article>
+
+                <!-- Technical Implementation -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="hammer" class="w-6 h-6 text-neo-green"></i> Техническая реализация</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li><strong>Перевод сообщений</strong> реализован через <strong>PO-файлы</strong>.</li>
+                        <li>Подключён <strong>сервис Crowdin</strong> (<a href="https://crowdin.com/project/class-validator" target="_blank" class="text-neo-blue underline">https://crowdin.com/project/class-validator</a>), что позволяет <strong>любому пользователю предложить исправление или новый перевод</strong>.</li>
+                        <li>После пул-реквеста с переводом я <strong>апрувлю изменения и выпускаю новую версию библиотеки</strong>, если это необходимо.</li>
+                        <li>Поддержка библиотеки минимальна: я <strong>редко обновляю форк</strong>, так как оригинальная библиотека иногда вносит <strong>ломающие изменения</strong>, которые требуют дополнительного тестирования и адаптации.</li>
+                    </ul>
+                </article>
+
+                <!-- Application -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="globe" class="w-6 h-6 text-neo-yellow"></i> Применение</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>Используется <strong>во всех проектах NestJS</strong>, где требуется локализованная валидация.</li>
+                        <li>Библиотека обеспечивает <strong>удобство для конечного пользователя</strong>: ошибки валидации отображаются на понятном языке.</li>
+                        <li>Позволяет <strong>легко расширять и улучшать переводы</strong> через сообщество Crowdin.</li>
+                    </ul>
+                </article>
+
+                <!-- Project Status -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="activity" class="w-6 h-6 text-neo-purple"></i> Состояние проекта</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>Проект <strong>живой</strong> и активно используется в продакшене.</li>
+                        <li>Обновления происходят <strong>по мере необходимости</strong> или при поступлении исправленных переводов.</li>
+                        <li>Форк полностью совместим с оригинальной библиотекой, но добавляет <strong>i18n функционал и кастомизацию сообщений</strong>.</li>
+                    </ul>
+                </article>
+
+                <!-- Main Conclusion -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="award" class="w-6 h-6 text-neo-pink"></i> Основной вывод</h2>
+                    <p class="mb-4"><strong>class‑validator‑multi‑lang</strong> — это <strong>практическая библиотека‑форк</strong>, которая решает задачу локализованной валидации в NestJS и делает ошибки понятными для русскоязычных пользователей, оставаясь при этом удобной для разработчиков благодаря интеграции с Crowdin и PO-файлами.</p>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>

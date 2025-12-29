@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nest-permissions-seed: Презентация проекта | Ильшат Хамитов | Software Engineer | site15.ru</title>
+    <meta name="description"
+        content="nest-permissions-seed — шаблон (бойлерплейт) проекта на NestJS. Демо-шаблон с JWT авторизацией, Guards, Swagger UI и seed-данными.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <!-- Open Graph Generated: a.pr-cy.ru -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="nest-permissions-seed: Презентация проекта - Ilshat Khamitov">
+    <meta property="og:description"
+        content="nest-permissions-seed — шаблон (бойлерплейт) проекта на NestJS. Демо-шаблон с JWT авторизацией, Guards, Swagger UI и seed-данными.">
+    <meta property="og:url" content="https://site15.ru/projects/nest-permissions-seed">
+    <meta property="og:image" content="https://site15.ru/ilshat.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+    <!-- Open Graph: Article -->
+    <meta name="twitter:card" content="https://site15.ru/ilshat.jpg" />
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=23044594', 'ym');
+
+        ym(23044594, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/23044594" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script src="../js/tailwind.min.js"></script>
+    <link href="../fonts/fonts.css" rel="stylesheet">
+    <!-- Using unpkg as an alternative reliable CDN for lucide -->
+    <script src="../js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#fdfbf7',
+                        'neo-black': '#0a0a0a',
+                        'neo-yellow': '#ffeb3b',
+                        'neo-pink': '#ff7eb6',
+                        'neo-green': '#7afc50',
+                        'neo-blue': '#82caff',
+                        'neo-purple': '#b388ff',
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #0a0a0a',
+                        'neo-sm': '3px 3px 0px 0px #0a0a0a',
+                        'neo-lg': '8px 8px 0px 0px #0a0a0a',
+                        'neo-hover': '0px 0px 0px 0px #0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for nuances Tailwind can't easily catch */
+        body {
+            background-color: #f3f3f3;
+            background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        .neo-border {
+            border: 3px solid #0a0a0a;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px #0a0a0a;
+        }
+
+        .text-stroke-2 {
+            -webkit-text-stroke: 2px #0a0a0a;
+            color: transparent;
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 120s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Coin Flip Animation */
+        .coin-container {
+            perspective: 1000px;
+        }
+
+        .coin-front,
+        .coin-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+        }
+
+        .coin-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fdfbf7;
+            border-left: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff7eb6;
+            border: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffeb3b;
+        }
+
+        /* Pattern classes */
+        .bg-lines {
+            background-image: repeating-linear-gradient(45deg, #0a0a0a 0, #0a0a0a 1px, transparent 0, transparent 50%);
+            background-size: 10px 10px;
+            opacity: 0.1;
+        }
+
+        /* Breadcrumb styles */
+        .breadcrumb {
+            background-color: #fdfbf7;
+            padding: 1rem 0;
+            border-bottom: 3px solid #0a0a0a;
+        }
+
+        .breadcrumb ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin: 0 0.5rem;
+            color: #0a0a0a;
+        }
+
+        .breadcrumb a {
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            color: #ff7eb6;
+        }
+
+        .breadcrumb .current {
+            color: #ff7eb6;
+            font-weight: bold;
+        }
+
+        /* Code block styling */
+        code {
+            background-color: #f5f5f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+        <div class="container mx-auto px-4">
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/#projects">Проекты</a></li>
+                <li class="current">nest-permissions-seed</li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="prose max-w-none">
+            <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">nest-permissions-seed — шаблон (бойлерплейт) проекта на NestJS</h1>
+            
+            <div class="space-y-6">
+                <!-- Context -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6 text-neo-blue"></i> Контекст появления</h2>
+                    <p class="mb-4">В общем, когда NestJS только появился, никто не знал, как на нём писать приложения, а информации в интернете было очень мало.</p>
+                    
+                    <p class="mb-4">У меня уже был опыт работы с разными технологиями:</p>
+                    
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li><strong>Backend:</strong> .NET Core, Java Spring</li>
+                        <li><strong>Frontend:</strong> Angular</li>
+                        <li><strong>Домашние проекты:</strong> Django на Python</li>
+                    </ul>
+                    
+                    <p class="mb-4">Я искал информацию в интернете и собрал <strong>шаблонный проект (бойлерплейт)</strong>, который начал использовать, чтобы показывать, <strong>как нужно писать на NestJS</strong>.</p>
+                    
+                    <p class="mb-4">Сейчас эти все практики не актуальны, мои подходы поменялись, но проект всё ещё полезен для новичков, так как демонстрирует <strong>основы NestJS без переусложнений</strong> — всё сделано в лоб.</p>
+                </article>
+
+                <!-- Purpose -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="flag" class="w-6 h-6 text-neo-green"></i> Назначение проекта</h2>
+                    <p class="mb-4"><code>nest-permissions-seed</code> — это <strong>демо-шаблон / boilerplate</strong>:</p>
+                    
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>Показывает базовую архитектуру <strong>NestJS приложения</strong></li>
+                        <li>Демонстрирует <strong>permissions</strong> и роли пользователей (<code>admin</code>, <code>user</code>)</li>
+                        <li>Содержит <strong>JWT авторизацию и Guards</strong> для проверки прав</li>
+                        <li>Подключена база данных и миграции</li>
+                        <li>Swagger UI для тестирования API</li>
+                        <li>Seed-данные для быстрого старта</li>
+                    </ul>
+                    
+                    <p class="mb-4">Цель: дать <strong>готовую стартовую точку</strong> для новичков и показать <strong>правильные подходы к структуре и организации кода</strong>.</p>
+                </article>
+
+                <!-- Structure -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="layout" class="w-6 h-6 text-neo-purple"></i> Структура бойлерплейта</h2>
+                    <p class="mb-4">Проект минималистичный, типичный для NestJS, но упрощённый для обучения:</p>
+                    
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li><strong>src/</strong> — исходный код приложения
+                            <ul class="list-disc pl-6 mb-2 space-y-1">
+                                <li><strong>modules/</strong> — модули (<code>permissions</code>, <code>auth</code>, <code>users</code>)</li>
+                                <li><strong>guards/</strong> — Guards для проверки ролей и разрешений</li>
+                                <li><strong>entities/</strong> — сущности базы данных (User, Role, Permission)</li>
+                                <li><strong>services/</strong> — бизнес-логика и работа с данными</li>
+                                <li><strong>controllers/</strong> — REST API контроллеры</li>
+                            </ul>
+                        </li>
+                        <li><strong>config/</strong> — настройки приложения и JWT</li>
+                        <li><strong>scripts/</strong> — миграции и инициализация базы</li>
+                        <li><strong>main.ts</strong> — точка входа приложения</li>
+                    </ul>
+                    
+                    <p class="mb-4">Проект сделан <strong>наглядно и просто</strong>, без лишних абстракций.</p>
+                </article>
+
+                <!-- Technical Features -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="code" class="w-6 h-6 text-neo-yellow"></i> Технические особенности</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>TypeScript и стандартные возможности NestJS (модули, DI, Guards)</li>
+                        <li>JWT авторизация и проверка ролей через Guards</li>
+                        <li>Реляционная база данных (PostgreSQL/MySQL)</li>
+                        <li>Swagger UI локально и онлайн для тестирования API</li>
+                        <li>Seed-данные пользователей:
+                            <ul class="list-disc pl-6 mb-2 space-y-1">
+                                <li><code>admin@admin.com / 12345678</code> (admin)</li>
+                                <li><code>user1@user1.com / 12345678</code> (user)</li>
+                                <li><code>user2@user2.com / 12345678</code> (user)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- Usage Instructions -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="book-open" class="w-6 h-6 text-neo-pink"></i> Инструкция по использованию шаблона</h2>
+                    <ol class="list-decimal pl-6 mb-4 space-y-2">
+                        <li>Клонировать репозиторий:<br>
+                            <code>git clone --recursive https://github.com/EndyKaufman/nest-permissions-seed.git</code></li>
+                        <li>Установить Node.js ≥6 и NPM ≥3</li>
+                        <li><code>npm install</code> — установка зависимостей</li>
+                        <li>Скопировать <code>_env</code> в <code>.env</code> и настроить окружение</li>
+                        <li><code>npm run schema:sync</code> — создать таблицы базы данных</li>
+                        <li><code>npm run migrate:run</code> — выполнить миграции</li>
+                        <li><code>npm run start:prod</code> — запустить продакшн-сервер<br>
+                            (<code>npm run start:watch</code> — dev-сервер)</li>
+                        <li>Swagger: <a href="https://nest-permissions-seed.herokuapp.com/swagger" target="_blank" class="text-neo-blue underline">https://nest-permissions-seed.herokuapp.com/swagger</a></li>
+                    </ol>
+                </article>
+
+                <!-- Time Estimates -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="clock" class="w-6 h-6 text-neo-green"></i> Временные затраты на создание бойлерплейта</h2>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Этап</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Примерное время</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Инициация проекта и настройка NestJS</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2–4 часа</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Реализация модели Permissions + Guards</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">4–8 часов</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">JWT авторизация и seed-данные</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3–6 часов</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Настройка Swagger и база данных</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2–5 часов</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Тестирование, документация, примеры</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2–4 часа</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="mb-4"><strong>Итого:</strong> ~12–27 <strong>человекочасов</strong> для опытного разработчика.</p>
+                </article>
+
+                <!-- Relevance -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="zap" class="w-6 h-6 text-neo-purple"></i> Актуальность</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>Сейчас эти все практики не актуальны, мои подходы поменялись</li>
+                        <li>Проект ориентирован на <strong>новичков</strong> — демонстрирует основы NestJS без переусложнений</li>
+                        <li>Всё сделано максимально просто, как <strong>шаблон/бойлерплейт</strong>, чтобы наглядно показать структуру и подходы</li>
+                        <li>Отличная стартовая точка для изучения и дальнейшего расширения</li>
+                    </ul>
+                </article>
+
+                <!-- Conclusion -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="award" class="w-6 h-6 text-neo-yellow"></i> Итог</h2>
+                    <p class="mb-4"><code>nest-permissions-seed</code> — это <strong>боилерплейт / шаблон проекта</strong>, созданный для обучения и быстрого старта на NestJS. Он показывает базовую архитектуру, работу с permissions, Guards и JWT, предоставляя готовый пример для дальнейшего использования.</p>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>

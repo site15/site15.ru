@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>typegraphql-prisma-nestjs: Презентация проекта | Ильшат Хамитов | Software Engineer | site15.ru</title>
+    <meta name="description"
+        content="typegraphql-prisma-nestjs: Мой форк оригинального генератора typegraphql-prisma. Форк с поддержкой NestJS и кастомизациями для CRUD API.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <!-- Open Graph Generated: a.pr-cy.ru -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="typegraphql-prisma-nestjs: Презентация проекта - Ilshat Khamitov">
+    <meta property="og:description"
+        content="typegraphql-prisma-nestjs: Мой форк оригинального генератора typegraphql-prisma. Форк с поддержкой NestJS и кастомизациями для CRUD API.">
+    <meta property="og:url" content="https://site15.ru/projects/typegraphql-prisma-nestjs">
+    <meta property="og:image" content="https://site15.ru/ilshat.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+    <!-- Open Graph: Article -->
+    <meta name="twitter:card" content="https://site15.ru/ilshat.jpg" />
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=23044594', 'ym');
+
+        ym(23044594, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/23044594" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script src="../js/tailwind.min.js"></script>
+    <link href="../fonts/fonts.css" rel="stylesheet">
+    <!-- Using unpkg as an alternative reliable CDN for lucide -->
+    <script src="../js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#fdfbf7',
+                        'neo-black': '#0a0a0a',
+                        'neo-yellow': '#ffeb3b',
+                        'neo-pink': '#ff7eb6',
+                        'neo-green': '#7afc50',
+                        'neo-blue': '#82caff',
+                        'neo-purple': '#b388ff',
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #0a0a0a',
+                        'neo-sm': '3px 3px 0px 0px #0a0a0a',
+                        'neo-lg': '8px 8px 0px 0px #0a0a0a',
+                        'neo-hover': '0px 0px 0px 0px #0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for nuances Tailwind can't easily catch */
+        body {
+            background-color: #f3f3f3;
+            background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        .neo-border {
+            border: 3px solid #0a0a0a;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px #0a0a0a;
+        }
+
+        .text-stroke-2 {
+            -webkit-text-stroke: 2px #0a0a0a;
+            color: transparent;
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 120s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Coin Flip Animation */
+        .coin-container {
+            perspective: 1000px;
+        }
+
+        .coin-front,
+        .coin-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+        }
+
+        .coin-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fdfbf7;
+            border-left: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff7eb6;
+            border: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffeb3b;
+        }
+
+        /* Pattern classes */
+        .bg-lines {
+            background-image: repeating-linear-gradient(45deg, #0a0a0a 0, #0a0a0a 1px, transparent 0, transparent 50%);
+            background-size: 10px 10px;
+            opacity: 0.1;
+        }
+
+        /* Breadcrumb styles */
+        .breadcrumb {
+            background-color: #fdfbf7;
+            padding: 1rem 0;
+            border-bottom: 3px solid #0a0a0a;
+        }
+
+        .breadcrumb ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin: 0 0.5rem;
+            color: #0a0a0a;
+        }
+
+        .breadcrumb a {
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            color: #ff7eb6;
+        }
+
+        .breadcrumb .current {
+            color: #ff7eb6;
+            font-weight: bold;
+        }
+
+        /* Code block styling */
+        code {
+            background-color: #f5f5f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+        <div class="container mx-auto px-4">
+            <ul>
+                <li><a href="/">Главная</a></li>
+                <li><a href="/#projects">Проекты</a></li>
+                <li class="current">typegraphql-prisma-nestjs</li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="prose max-w-none">
+            <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">typegraphql-prisma-nestjs: Презентация проекта</h1>
+            <p class="text-xl italic mb-8">Мой форк оригинального генератора typegraphql-prisma</p>
+            
+            <div class="space-y-6">
+                <!-- Main Idea -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6 text-neo-blue"></i> Основная идея</h2>
+                    <p class="mb-4">Это <strong>мой форк оригинального генератора typegraphql-prisma</strong>, который я использую для <strong>быстрой генерации CRUD‑бэкенда на GraphQL</strong>.</p>
+                    
+                    <p class="mb-4">Оригинальный генератор перестал корректно работать с определённой версией <strong>NestJS</strong>: автор NestJS интегрировал части TypeGraphQL, что <strong>сломало обратную совместимость с декораторами</strong>. В итоге весь туллинг оригинального проекта перестал работать или работает частично.</p>
+                    
+                    <p class="mb-4">Моя версия форка решает эти проблемы:</p>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>Поддержка NestJS интеграции на должном уровне.</li>
+                        <li>Корректные импорты и совместимость с последними версиями NestJS.</li>
+                        <li>Генератор CRUD Prisma для GraphQL остаётся доступным и полностью работоспособным.</li>
+                    </ul>
+                </article>
+
+                <!-- What I Did -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="hammer" class="w-6 h-6 text-neo-green"></i> Что я сделал</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>Форк с изменёнными <strong>импортами и адаптацией под NestJS</strong>.</li>
+                        <li>Добавил <strong>небольшие кастомизации по работе с CRUD</strong>, чтобы удобно использовать как в рабочих, так и домашних проектах.</li>
+                    </ul>
+                </article>
+
+                <!-- Where It's Used -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="zap" class="w-6 h-6 text-neo-yellow"></i> Где используется</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li><strong>На работе</strong>: активно применяю для ускоренной генерации CRUD API на NestJS + Prisma + GraphQL.</li>
+                        <li><strong>В домашних проектах</strong>: удобно для прототипирования и тестирования идей.</li>
+                    </ul>
+                    
+                    <blockquote class="border-l-4 border-neo-pink pl-4 italic mb-4">
+                        <p>Важно: библиотека даёт полный доступ к базе, поэтому <strong>нужно внимательно контролировать, что шариcь наружу</strong>.</p>
+                    </blockquote>
+                </article>
+
+                <!-- My Recommendations -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="lightbulb" class="w-6 h-6 text-neo-purple"></i> Мои рекомендации</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>Генератор удобно использовать на этапе <strong>MVP проекта</strong>, чтобы быстро получить рабочие CRUD‑эндпоинты.</li>
+                        <li>Перед релизом: пройтись по всем эндпоинтам, <strong>ограничить вариации запросов и права доступа</strong>, чтобы обезопасить базу.</li>
+                        <li>Поддерживать форк актуальным относительно <strong>NestJS и Prisma</strong>, чтобы интеграция оставалась стабильной.</li>
+                    </ul>
+                </article>
+
+                <!-- Differences from Original -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="git-compare" class="w-6 h-6 text-neo-blue"></i> Отличия моего форка от оригинала</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">1. Импорты для NestJS</h3>
+                            <ul class="list-disc pl-6 mb-2 space-y-1">
+                                <li>Оригинал использует: <code>import { Ctx, Query, Resolver } from "type-graphql"</code></li>
+                                <li>Мой форк: <code>import { Context, Query, Resolver } from "@nestjs/graphql"</code></li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">2. Поддержка модификации аргументов перед запросом к Prisma</h3>
+                            <ul class="list-disc pl-6 mb-2 space-y-1">
+                                <li>Добавлены функции <code>transformArgsIntoPrismaArgs</code> и <code>setTransformArgsIntoPrismaArgs</code>, позволяющие менять аргументы до отправки запроса к базе.</li>
+                                <li>PR в оригинальном проекте: 399</li>
+                                <li>Примеры форка и приложения доступны в репозиториях EndyKaufman.</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">3. Поддержка отметки части полей как опциональных</h3>
+                            <ul class="list-disc pl-6 mb-2 space-y-1">
+                                <li>Можно использовать: <code>@TypeGraphQL.optional(input: ["create", "update"])</code></li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">4. Поддержка вызова асинхронных событий после запроса к Prisma</h3>
+                            <ul class="list-disc pl-6 mb-2 space-y-1">
+                                <li>Позволяет выполнять дополнительную логику после обработки запроса, сохраняя результат.</li>
+                                <li>Пример использования: возможность вставлять коллбэки <code>afterProcessEvents</code> для обработки результата после запроса.</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">5. Опции для пропуска генерации методов и полей резолверов</h3>
+                            <ul class="list-disc pl-6 mb-2 space-y-1">
+                                <li>Настраиваются списки методов и свойств для генерации:</li>
+                                <li><code>emitActions</code> — методы CRUD и агрегирование (<code>findUnique, findMany, createOne…</code>)</li>
+                                <li><code>emitPropertyMethods</code> — методы работы с полями сущностей (<code>create, connectOrCreate, upsert…</code>)</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-bold mb-3">6. Интеграция с Dataloader для вложенных объектов</h3>
+                            <ul class="list-disc pl-6 mb-2 space-y-1">
+                                <li>Настройки:</li>
+                                <li><code>useDataloaderForResolveFields</code> — использовать Dataloader для сущностей</li>
+                                <li><code>useDataloaderForAllResolveFields</code> — использовать Dataloader для массивов сущностей</li>
+                                <li><code>useDataloaderMaxBatchSize</code> — ограничение на размер батча (<code>Infinity</code> по умолчанию)</li>
+                                <li><code>useDataloaderBatchScheduleFnDelay</code> — задержка для решения проблемы с nextTick</li>
+                                <li><code>useDataloaderCache</code> — включение/выключение кеширования ключей</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Advantages -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="star" class="w-6 h-6 text-neo-green"></i> Преимущества</h2>
+                    <ul class="list-disc pl-6 mb-4 space-y-2">
+                        <li>Сильная интеграция с NestJS.</li>
+                        <li>Полностью работоспособный CRUD генератор Prisma для GraphQL.</li>
+                        <li>Возможность добавления собственных кастомизаций.</li>
+                        <li>Сокращает время разработки API и минимизирует рутинный код.</li>
+                        <li>Позволяет гибко управлять генерацией методов и аргументов, включая асинхронные события и Dataloader.</li>
+                    </ul>
+                </article>
+
+                <!-- Important Note -->
+                <article class="p-6 neo-border bg-white shadow-neo-sm">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-6 h-6 text-neo-red"></i> Важное замечание</h2>
+                    <p class="mb-4">Это <strong>моя библиотека‑инструмент</strong>, а не полноценное приложение. Основная роль — <strong>автоматическая генерация типов и CRUD‑резолверов</strong>, без бизнес-логики. Использовать её безопасно можно на этапе прототипирования, а перед продакшеном следует провести ревью всех сгенерированных эндпоинтов.</p>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+
+</html>
