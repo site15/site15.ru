@@ -812,6 +812,51 @@
                         <p class="detail-scale mb-4">Активно используется во всех проектах NestJS, где требуется
                             локализованная валидация.</p>
                     </div>
+                </article>
+                <!-- Project 8 -->
+                <article
+                    class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
+                    data-id="8">
+                    <div class="flex justify-between items-start">
+                        <div class="font-mono text-xs text-neo-blue font-bold mb-1">Fullstack, Mobile</div>
+                        <span
+                            class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border">
+                            <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
+                            LIVE
+                        </span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1 leading-tight">My Dashboard</h3>
+                    <p class="text-sm text-gray-600">Комплексная система управления дашбордами с веб-приложением,
+                        мобильным приложением и API для отображения информации в реальном времени.</p>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        <a href="https://github.com/site15/my-dashboard" target="_blank"
+                            class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                            </svg>
+                            <span id="github-my-dashboard-stars">GitHub</span>
+                        </a>
+                        <a href="https://site15-my-dashboard.vercel.app" target="_blank"
+                            class="inline-flex items-center px-2 py-1 bg-neo-pink text-white text-xs font-mono font-bold rounded neo-border">
+                            <i data-lucide="external-link" class="w-3 h-3 mr-1"></i>
+                            DEMO
+                        </a>
+                    </div>
+                    <div class="hidden project-details">
+                        <p class="detail-title font-bold text-xl mb-2">My Dashboard</p>
+                        <p class="detail-business mb-4">Комплексная система управления дашбордами с веб-приложением,
+                            мобильным приложением (Ionic/Capacitor) и API для отображения информации в реальном времени.
+                            Поддержка разных типов виджетов, QR-привязка устройств, OAuth-авторизация через Supabase.</p>
+                        <p class="detail-arch mb-2">Fullstack архитектура: AnalogJS/Angular фронтенд с TRPC API,
+                            мобильное приложение на Ionic/Capacitor, Supabase для авторизации и базы данных.</p>
+                        <p class="detail-stack mb-2">AnalogJS, Angular, Ionic, Capacitor, TRPC, Prisma, Supabase,
+                            TypeScript, GitHub Actions, Vercel.</p>
+                        <p class="detail-role mb-2">Software Engineer. Создание fullstack-системы с веб-интерфейсом,
+                            мобильным приложением и API для управления дашбордами.</p>
+                        <p class="detail-scale mb-4">MVP с поддержкой реального времени, QR-привязки устройств и
+                            автоматических сборок мобильных приложений через CI/CD.</p>
+                    </div>
                 </article>                
             </div>
         </div>
@@ -1354,369 +1399,110 @@
                 </div>
                 <!-- Project 8 Content -->
                 <div class="project-content hidden" data-project-id="8">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">GraphQL API Gateway</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">My Dashboard</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Упрощение клиентской разработки и сокращение количества запросов путем создания унифицированного
-                        API на базе GraphQL, агрегирующего данные из разных источников.</p>
+                        Комплексная система управления дашбордами с веб-приложением, мобильным приложением (Ionic/Capacitor) 
+                        и API для отображения информации в реальном времени. Поддержка разных типов виджетов, QR-привязка 
+                        устройств, OAuth-авторизация через Supabase. <a href="https://github.com/site15/my-dashboard" 
+                        target="_blank" class="text-neo-pink font-bold underline">GitHub репозиторий</a></p>
                     <div class="space-y-6">
                         <article class="p-4 neo-border bg-white shadow-neo-sm">
                             <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
                                     class="w-6 h-6 text-neo-blue"></i> Архитектурный подход</h4>
-                            <p class="font-mono text-sm leading-relaxed">GraphQL Federation (Apollo Gateway) для
-                                объединения подграфов. Использование gRPC для быстрого внутреннего взаимодействия между
-                                Gateway и сервисами.</p>
+                            <p class="font-mono text-sm leading-relaxed">Fullstack архитектура с тремя основными компонентами: 
+                                1) Веб-приложение на AnalogJS/Angular с TRPC API для управления дашбордами и виджетами; 
+                                2) Мобильное приложение на Ionic/Capacitor для отображения информации на старых Android-устройствах; 
+                                3) Backend API с Prisma схемой для хранения данных дашбордов и обработки запросов в реальном времени. 
+                                Интеграция с Supabase для авторизации и базы данных.</p>
                         </article>
                         <div class="grid md:grid-cols-2 gap-6">
                             <article class="p-4 neo-border bg-white shadow-neo-sm">
                                 <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="code"
                                         class="w-6 h-6 text-neo-green"></i> Стек технологий</h4>
-                                <p class="font-mono text-sm leading-relaxed">NestJS, Apollo Federation, gRPC, Redis
-                                    Cache.</p>
+                                <p class="font-mono text-sm leading-relaxed">AnalogJS, Angular, Ionic, Capacitor, TRPC, 
+                                    Prisma, Supabase, TypeScript, GitHub Actions, Vercel, Telegram Bot API.</p>
                             </article>
                             <article class="p-4 neo-border bg-white shadow-neo-sm">
                                 <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="user-check"
                                         class="w-6 h-6 text-neo-purple"></i> Роль в проекте</h4>
-                                <p class="font-mono text-sm leading-relaxed">Архитектор API. Разработка схемы,
-                                    обеспечение безопасности и производительности.</p>
+                                <p class="font-mono text-sm leading-relaxed">Software Engineer. Создание fullstack-системы 
+                                    с веб-интерфейсом, мобильным приложением и API для управления дашбордами. Разработка 
+                                    механизмов авторизации, QR-привязки устройств и автоматизации CI/CD.</p>
                             </article>
                         </div>
                         <article class="p-4 neo-border bg-white shadow-neo-sm">
                             <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="activity"
                                     class="w-6 h-6 text-neo-yellow"></i> Примерный срок реализации</h4>
-                            <p class="font-mono text-sm leading-relaxed">Единая точка входа для всех публичных и
-                                внутренних фронтендов.</p>
+                            <p class="font-mono text-sm leading-relaxed">MVP с набором виджетов, UI/UX дизайном базовой 
+                                панели, TRPC API и Prisma схемой. Веб-интерфейс с авторизацией, мобильное приложение 
+                                под Android, сборки и автоматическая доставка APK. Автоматическая генерация TODO задач 
+                                из кода и Telegram-уведомления о деплое. Оценка: 4-6 месяцев активной разработки 
+                                (~412 коммитов в репозитории).</p>
                         </article>
                         <article class="p-4 neo-border bg-white shadow-neo-sm">
                             <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="link"
                                     class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
-                            <div class="font-mono text-sm leading-relaxed"></div>
-                        </article>
-                    </div>
-                </div>
-                <!-- Project 9 Content -->
-                <div class="project-content hidden" data-project-id="9">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">CI/CD Pipeline Automation</h3>
-                    <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Ускорение процесса доставки фич (Time-to-Market) и повышение качества кода за счет обязательного
-                        автоматического тестирования и контролируемого развертывания.</p>
-                    <div class="space-y-6">
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
-                                    class="w-6 h-6 text-neo-blue"></i> Архитектурный подход</h4>
-                            <p class="font-mono text-sm leading-relaxed">Multi-stage pipeline с этапами: linting, unit
-                                tests, e2e tests (Cypress/Playwright), security scanning и деплой в K8s/Docker Registry.
-                            </p>
-                        </article>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="code"
-                                        class="w-6 h-6 text-neo-green"></i> Стек технологий</h4>
-                                <p class="font-mono text-sm leading-relaxed">GitLab CI/CD, Docker, Kubernetes,
-                                    Cypress/Jest.</p>
-                            </article>
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="user-check"
-                                        class="w-6 h-6 text-neo-purple"></i> Роль в проекте</h4>
-                                <p class="font-mono text-sm leading-relaxed">Tech Lead. Разработка шаблонов пайплайнов
-                                    для команд, настройка инфраструктуры тестирования.</p>
-                            </article>
-                        </div>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="activity"
-                                    class="w-6 h-6 text-neo-yellow"></i> Примерный срок реализации</h4>
-                            <p class="font-mono text-sm leading-relaxed">Инфраструктура для 50+ репозиториев и 5+ сред
-                                разработки (Dev, Stage, Prod).</p>
+                            <div class="font-mono text-sm leading-relaxed">
+                                <div class="detail-links grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="flex items-start">
+                                        <a href="https://github.com/site15/my-dashboard" target="_blank"
+                                            class="inline-block text-neo-black font-bold underline">GitHub</a>
+                                        <span class="ml-2 text-gray-700">— Репозиторий проекта</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <a href="https://site15-my-dashboard.vercel.app" target="_blank"
+                                            class="inline-block text-neo-black font-bold underline">Демо</a>
+                                        <span class="ml-2 text-gray-700">— Онлайн-версия на Vercel</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <a href="https://t.me/site15_community/187" target="_blank"
+                                            class="inline-block text-neo-black font-bold underline">Telegram</a>
+                                        <span class="ml-2 text-gray-700">— Чат сообщества</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <a href="https://habr.com/ru/articles/983086/" target="_blank"
+                                            class="inline-block text-neo-black font-bold underline">Habr</a>
+                                        <span class="ml-2 text-gray-700">— Публикация о проекте</span>
+                                    </div>
+                                </div>
+                            </div>
                         </article>
                         <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="link"
-                                    class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
-                            <div class="font-mono text-sm leading-relaxed"></div>
-                        </article>
-                    </div>
-                </div>
-                <!-- Project 10 Content -->
-                <div class="project-content hidden" data-project-id="10">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">Database Schema Management</h3>
-                    <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Обеспечение строгой консистентности и управляемости изменениями в схемах БД (DDL/DML) на
-                        различных стендах и в разных регионах.</p>
-                    <div class="space-y-6">
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
-                                    class="w-6 h-6 text-neo-blue"></i> Архитектурный подход</h4>
-                            <p class="font-mono text-sm leading-relaxed">Использование Flyway как основного инструмента
-                                миграции, интегрированного в CI/CD. Разработка скриптов с учётом особенностей PL/SQL и
-                                сложных хранимых процедур.</p>
-                        </article>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="code"
-                                        class="w-6 h-6 text-neo-green"></i> Стек технологий</h4>
-                                <p class="font-mono text-sm leading-relaxed">SQL (ANSI/PL/SQL), Flyway, Oracle,
-                                    PostgreSQL.</p>
-                            </article>
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="user-check"
-                                        class="w-6 h-6 text-neo-purple"></i> Роль в проекте</h4>
-                                <p class="font-mono text-sm leading-relaxed">Data Engineer. Проектирование процесса
-                                    миграции, написание и ревью критических миграционных скриптов.</p>
-                            </article>
-                        </div>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="activity"
-                                    class="w-6 h-6 text-neo-yellow"></i> Примерный срок реализации</h4>
-                            <p class="font-mono text-sm leading-relaxed">Базы данных с 100+ таблицами и миллионами
-                                записей.</p>
+                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="zap"
+                                    class="w-6 h-6 text-neo-green"></i> Основные фичи</h4>
+                            <div class="mt-4">
+                                <ul class="font-mono text-sm space-y-2">
+                                    <li>✔ Динамические виджеты с кастомной компоновкой</li>
+                                    <li>✔ QR-привязка устройств</li>
+                                    <li>✔ Реальное время обновлений</li>
+                                    <li>✔ Supabase-авторизация + OAuth (Telegram, Google, GitHub)</li>
+                                    <li>✔ Dark/Light theme</li>
+                                    <li>✔ Интеграция Telegram уведомлений о деплое</li>
+                                    <li>✔ Автоматизация CI/CD (GitHub Actions)</li>
+                                    <li>✔ Автоматическая генерация TODO задач из кода</li>
+                                </ul>
+                            </div>
                         </article>
                         <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="link"
-                                    class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
-                            <div class="font-mono text-sm leading-relaxed"></div>
-                        </article>
-                    </div>
-                </div>
-                <!-- Project 11 Content -->
-                <div class="project-content hidden" data-project-id="11">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">Desktop Club Management</h3>
-                    <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Создание единого, надёжного и быстрого клиентского приложения для рабочих станций с функциями
-                        учета времени, управления играми и интеграцией периферийного оборудования.</p>
-                    <div class="space-y-6">
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
-                                    class="w-6 h-6 text-neo-blue"></i> Архитектурный подход</h4>
-                            <p class="font-mono text-sm leading-relaxed">Electron (Main/Renderer Process). Использование
-                                IPC для взаимодействия с системными API. Модульный Frontend на Angular/React.</p>
-                        </article>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="code"
-                                        class="w-6 h-6 text-neo-green"></i> Стек технологий</h4>
-                                <p class="font-mono text-sm leading-relaxed">Electron, TypeScript, Angular/React,
-                                    WebSockets.</p>
-                            </article>
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="user-check"
-                                        class="w-6 h-6 text-neo-purple"></i> Роль в проекте</h4>
-                                <p class="font-mono text-sm leading-relaxed">Software Engineer. Выбор стека, контроль
-                                    архитектуры, разработка ключевых нативных модулей.</p>
-                            </article>
-                        </div>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="activity"
-                                    class="w-6 h-6 text-neo-yellow"></i> Примерный срок реализации</h4>
-                            <p class="font-mono text-sm leading-relaxed">Приложение используется в более чем 100
-                                локациях.</p>
-                        </article>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="link"
-                                    class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
-                            <div class="font-mono text-sm leading-relaxed"></div>
-                        </article>
-                    </div>
-                </div>
-                <!-- Project 12 Content -->
-                <div class="project-content hidden" data-project-id="12">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">Crypto Wallet Backend</h3>
-                    <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Разработка высокобезопасного и аудируемого бэкэнда для учета внутренних транзакций между
-                        пользователями крипто-кошелька (без прямого взаимодействия с блокчейном).</p>
-                    <div class="space-y-6">
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
-                                    class="w-6 h-6 text-neo-blue"></i> Архитектурный подход</h4>
-                            <p class="font-mono text-sm leading-relaxed">Применение паттерна Event Sourcing для
-                                обеспечения полной и неизменяемой истории транзакций. Использование NATS Streaming для
-                                гарантированной доставки финансовых событий.</p>
-                        </article>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="code"
-                                        class="w-6 h-6 text-neo-green"></i> Стек технологий</h4>
-                                <p class="font-mono text-sm leading-relaxed">NestJS, NATS Streaming, PostgreSQL (для
-                                    Ledger), Redis.</p>
-                            </article>
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="user-check"
-                                        class="w-6 h-6 text-neo-purple"></i> Роль в проекте</h4>
-                                <p class="font-mono text-sm leading-relaxed">Ведущий разработчик. Ответственность за
-                                    логику двойной записи и безопасность финансовых операций.</p>
-                            </article>
-                        </div>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="activity"
-                                    class="w-6 h-6 text-neo-yellow"></i> Примерный срок реализации</h4>
-                            <p class="font-mono text-sm leading-relaxed">High-security финансовая система, ежедневно
-                                обрабатывающая тысячи переводов.</p>
-                        </article>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="link"
-                                    class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
-                            <div class="font-mono text-sm leading-relaxed"></div>
-                        </article>
-                    </div>
-                </div>
-                <!-- Project 13 Content -->
-                <div class="project-content hidden" data-project-id="13">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">ERP Integration Layer (PHP)</h3>
-                    <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Обеспечение бесшовной интеграции нового стека микросервисов с устаревшей, но критически важной
-                        ERP-системой, написанной на PHP.</p>
-                    <div class="space-y-6">
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
-                                    class="w-6 h-6 text-neo-blue"></i> Архитектурный подход</h4>
-                            <p class="font-mono text-sm leading-relaxed">Разработка сервиса-адаптера (Middleware
-                                Pattern), который преобразует современные запросы в формат, понятный старому ERP, и
-                                обратно.</p>
-                        </article>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="code"
-                                        class="w-6 h-6 text-neo-green"></i> Стек технологий</h4>
-                                <p class="font-mono text-sm leading-relaxed">PHP (Laravel), Redis, NestJS (для целевых
-                                    микросервисов).</p>
-                            </article>
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="user-check"
-                                        class="w-6 h-6 text-neo-purple"></i> Роль в проекте</h4>
-                                <p class="font-mono text-sm leading-relaxed">Backend Engineer. Разработка прокси-логики
-                                    и обеспечение обратной совместимости.</p>
-                            </article>
-                        </div>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="activity"
-                                    class="w-6 h-6 text-neo-yellow"></i> Примерный срок реализации</h4>
-                            <p class="font-mono text-sm leading-relaxed">Связующий элемент для 5+ ключевых корпоративных
-                                систем.</p>
-                        </article>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="link"
-                                    class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
-                            <div class="font-mono text-sm leading-relaxed"></div>
-                        </article>
-                    </div>
-                </div>
-                <!-- Project 14 Content -->
-                <div class="project-content hidden" data-project-id="14">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">Microservice Orchestration</h3>
-                    <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Создание системы оркестровки для управления сложными бизнес-процессами, охватывающими десятки
-                        микросервисов.</p>
-                    <div class="space-y-6">
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
-                                    class="w-6 h-6 text-neo-blue"></i> Архитектурный подход</h4>
-                            <p class="font-mono text-sm leading-relaxed">Использование Camunda BPMN Engine для
-                                моделирования и выполнения сложных бизнес-процессов с возможностью human-in-the-loop.
-                            </p>
-                        </article>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="code"
-                                        class="w-6 h-6 text-neo-green"></i> Стек технологий</h4>
-                                <p class="font-mono text-sm leading-relaxed">Spring Boot, Camunda, Kafka, PostgreSQL.
+                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="info"
+                                    class="w-6 h-6 text-neo-black"></i> Проект как MVP</h4>
+                            <div class="mt-6 p-4 bg-gray-100 border-l-4 border-neo-pink">
+                                <p class="font-mono text-sm">
+                                    My Dashboard позиционируется как MVP для кастомных информационных панелей, 
+                                    ориентированный на гибкость, поддержку старых устройств и расширяемость. 
+                                    Проект объединяет fullstack разработку, реальное приложение (веб + мобильное), 
+                                    интеграции с внешними сервисами, автоматизации и CI/CD. Это амбициозный проект, 
+                                    совмещающий техническую реализацию с публикациями и документированием. 
+                                    Онлайн-версия доступна на Vercel, мобильные сборки готовятся через GitHub Actions.
                                 </p>
-                            </article>
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="user-check"
-                                        class="w-6 h-6 text-neo-purple"></i> Роль в проекте</h4>
-                                <p class="font-mono text-sm leading-relaxed">Архитектор, Tech Lead. Проектирование
-                                    процессов, интеграция с существующими сервисами.</p>
-                            </article>
+                            </div>
+                        </article>
+                        <div class="mt-6 text-center">
+                            <a href="/projects/my-dashboard.html"
+                                class="px-6 py-3 bg-neo-black text-white font-bold uppercase neo-border hover:bg-neo-pink hover:text-neo-black transition-all inline-block">
+                                My Dashboard: Презентация проекта
+                            </a>
                         </div>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="activity"
-                                    class="w-6 h-6 text-neo-yellow"></i> Примерный срок реализации</h4>
-                            <p class="font-mono text-sm leading-relaxed">Система управляет 50+ бизнес-процессами,
-                                включающими 200+ микросервисов.</p>
-                        </article>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="link"
-                                    class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
-                            <div class="font-mono text-sm leading-relaxed"></div>
-                        </article>
-                    </div>
-                </div>
-                <!-- Project 15 Content -->
-                <div class="project-content hidden" data-project-id="15">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">AI-Powered Analytics Dashboard</h3>
-                    <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Разработка аналитической платформы с применением машинного обучения для прогнозирования
-                        бизнес-метрик и автоматического обнаружения аномалий.</p>
-                    <div class="space-y-6">
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
-                                    class="w-6 h-6 text-neo-blue"></i> Архитектурный подход</h4>
-                            <p class="font-mono text-sm leading-relaxed">Microservices с выделенными ML-сервисами,
-                                потоковой обработкой данных (Apache Kafka Streams) и batch-обработкой (Apache Spark).
-                            </p>
-                        </article>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="code"
-                                        class="w-6 h-6 text-neo-green"></i> Стек технологий</h4>
-                                <p class="font-mono text-sm leading-relaxed">Python (scikit-learn, TensorFlow), FastAPI,
-                                    Kafka, Spark, PostgreSQL, Redis.</p>
-                            </article>
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="user-check"
-                                        class="w-6 h-6 text-neo-purple"></i> Роль в проекте</h4>
-                                <p class="font-mono text-sm leading-relaxed">ML Engineering Lead. Разработка моделей,
-                                    интеграция с бизнес-логикой, оптимизация производительности.</p>
-                            </article>
-                        </div>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="activity"
-                                    class="w-6 h-6 text-neo-yellow"></i> Примерный срок реализации</h4>
-                            <p class="font-mono text-sm leading-relaxed">Платформа обрабатывает 10 миллионов событий в
-                                день, обучает 20+ моделей еженедельно.</p>
-                        </article>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="link"
-                                    class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
-                            <div class="font-mono text-sm leading-relaxed"></div>
-                        </article>
-                    </div>
-                </div>
-                <!-- Project 16 Content -->
-                <div class="project-content hidden" data-project-id="16">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">Internal Admin Panel Generator</h3>
-                    <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Резкое сокращение времени разработки внутренних CRUD-интерфейсов для новых микросервисов за счет
-                        автоматизации (Code Generation).</p>
-                    <div class="space-y-6">
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
-                                    class="w-6 h-6 text-neo-blue"></i> Архитектурный подход</h4>
-                            <p class="font-mono text-sm leading-relaxed">Сервис, который интроспектирует схему БД (через
-                                Prisma), использует Template Engine (Handlebars/EJS) для генерации кода
-                                (Backend/Frontend) и миграций.</p>
-                        </article>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="code"
-                                        class="w-6 h-6 text-neo-green"></i> Стек технологий</h4>
-                                <p class="font-mono text-sm leading-relaxed">NestJS, Handlebars, Prisma, TypeScript.</p>
-                            </article>
-                            <article class="p-4 neo-border bg-white shadow-neo-sm">
-                                <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="user-check"
-                                        class="w-6 h-6 text-neo-purple"></i> Роль в проекте</h4>
-                                <p class="font-mono text-sm leading-relaxed">Software Engineer, Tooling Lead. Разработка
-                                    концепции, архитектуры генератора и шаблонов кода.</p>
-                            </article>
-                        </div>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="activity"
-                                    class="w-6 h-6 text-neo-yellow"></i> Примерный срок реализации</h4>
-                            <p class="font-mono text-sm leading-relaxed">Сокращение Time-to-Market на 30% для новых
-                                продуктов.</p>
-                        </article>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="link"
-                                    class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
-                            <div class="font-mono text-sm leading-relaxed"></div>
-                        </article>
                     </div>
                 </div>
             </div>
