@@ -1,3 +1,9 @@
+# [1.23.0](https://github.com/site15/site15.ru/compare/server-v1.22.2...server-v1.23.0) (2026-01-11)
+
+### Features
+
+- **utils:** add script to find and delete empty files and directories ([eb0f43a](https://github.com/site15/site15.ru/commit/eb0f43ae9c84d531712c919c1cfaa683b423506b))
+
 ## [1.22.2](https://github.com/site15/site15.ru/compare/server-v1.22.1...server-v1.22.2) (2025-12-29)
 
 ### Bug Fixes
