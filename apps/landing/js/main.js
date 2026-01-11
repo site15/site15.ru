@@ -62,6 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
       commits: 807,
       duration: '5 лет 3 месяца 28 дней',
     },
+    myDashboardStats: {
+      stars: 0,
+      commits: 0,
+      duration: '0 дней',
+    },
     devToStats: {
       articles: 97,
       followers: 2944,
@@ -160,12 +165,20 @@ document.addEventListener('DOMContentLoaded', function () {
     updateHabrBadges(allStats);
   }
 
-  fetch('https://site15.ru/api/landing/stats', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
+  // NOTE: This API endpoint can be called locally during development
+  // Local development URL: http://localhost:3000/api/landing/stats
+  // Production URL: https://site15.ru/api/landing/stats
+  fetch(
+    this.location.href.includes('localhost')
+      ? 'http://localhost:3000/api/landing/stats'
+      : 'https://site15.ru/api/landing/stats',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  })
+  )
     .then((response) => response.json())
     .catch(() => {
       updateHtml();

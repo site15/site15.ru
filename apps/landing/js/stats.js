@@ -204,6 +204,30 @@ function initializeGitHubBadges(allStats) {
                             <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1C4.134 1 1 4.134 1 8s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7zm0 13c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm.5-10.5H7v5h4.5V7h-4V6.5h4z"/><\/svg>
                             <span>${allStats.typeGraphqlPrismaNestjsStats.duration}<\/span>`;
   }
+
+  // Update My Dashboard stars badge
+  const myDashboardStarsElement = document.getElementById('github-my-dashboard-stars');
+  if (myDashboardStarsElement) {
+    const starsWord = getRussianDeclension(allStats.myDashboardStats.stars, ['звезда', 'звезды', 'звезд']);
+    myDashboardStarsElement.textContent = `${allStats.myDashboardStats.stars} ${starsWord}`;
+  }
+
+  // Update My Dashboard commit count badge
+  const myDashboardCommitsElement = document.getElementById('github-my-dashboard-commits');
+  if (myDashboardCommitsElement) {
+    const commitWord = getRussianDeclension(allStats.myDashboardStats.commits, ['коммит', 'коммита', 'коммитов']);
+    myDashboardCommitsElement.innerHTML = `
+                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M13 3.997V3a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v1l1.5 1v8.5a2.5 2.5 0 0 0 2.5 2.5h4a2.5 2.5 0 0 0 2.5-2.5V4.997L13 3.997zM11.5 4H11v8.5a1.5 1.5 0 0 1-1.5 1.5h-4A1.5 1.5 0 0 1 4 12.5V4H4.5L5 4.5V12h1V8.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V12h1V4.5l.5-.5zM6 5h1v1H6V5zm2 0h1v1H8V5zm2 0h1v1h-1V5z"/><\/svg>
+                            <span>${allStats.myDashboardStats.commits} ${commitWord}<\/span>`;
+  }
+
+  // Update My Dashboard duration badge
+  const myDashboardDurationElement = document.getElementById('github-my-dashboard-duration');
+  if (myDashboardDurationElement) {
+    myDashboardDurationElement.innerHTML = `
+                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1C4.134 1 1 4.134 1 8s3.134 7 7 7 7-3.134 7-7-3.134-7-7-7zm0 13c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm.5-10.5H7v5h4.5V7h-4V6.5h4z"/><\/svg>
+                            <span>${allStats.myDashboardStats.duration}<\/span>`;
+  }
 }
 
 // Function to get proper Russian declension for numbers

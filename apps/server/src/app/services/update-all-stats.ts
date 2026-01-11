@@ -1250,9 +1250,57 @@ async function fetchTypeGraphqlPrismaNestjsStats() {
       commits = 100; // Default fallback
     }
 
-    // For now, we'll use static duration since GitHub API doesn't provide easy access to first commit date
-    // In a real implementation, you would fetch the first commit and calculate the duration
-    const duration = '4 года 6 месяцев 15 дней';
+    // Fetch commit dates for duration calculation
+    console.log('📥 Fetching commit dates for duration calculation...');
+    await delay(1000); // Delay to avoid rate limits
+
+    let commitDates;
+    try {
+      commitDates = await fetchCommitDates(`${REPO_OWNER}/${REPO_NAME}`, GITHUB_TOKEN);
+      console.log('📥 Commit dates:', commitDates);
+    } catch (error) {
+      console.warn(`⚠️  Error fetching commit dates: ${error.message}. Using default duration.`);
+      commitDates = { firstCommitDate: null, lastCommitDate: null };
+    }
+
+    // Calculate duration text
+    let duration = '';
+    if (commitDates.firstCommitDate && commitDates.lastCommitDate) {
+      try {
+        const latestDate = new Date(commitDates.firstCommitDate);
+        const oldestDate = new Date(commitDates.lastCommitDate);
+
+        // Calculate duration
+        const durationMs = Math.abs(+latestDate - +oldestDate);
+        const durationDays = Math.floor(durationMs / (1000 * 60 * 60 * 24));
+        const durationYears = Math.floor(durationDays / 365);
+        const remainingDays = durationDays % 365;
+        const durationMonths = Math.floor(remainingDays / 30);
+        const finalDays = remainingDays % 30;
+
+        const durationComponents: any[] = [];
+        if (durationYears > 0) {
+          const yearWord = getRussianDeclension(durationYears, ['год', 'года', 'лет']);
+          durationComponents.push(`${durationYears} ${yearWord}`);
+        }
+        if (durationMonths > 0) {
+          const monthWord = getRussianDeclension(durationMonths, ['месяц', 'месяца', 'месяцев']);
+          durationComponents.push(`${durationMonths} ${monthWord}`);
+        }
+        if (finalDays > 0 || durationComponents.length === 0) {
+          const dayWord = getRussianDeclension(finalDays, ['день', 'дня', 'дней']);
+          durationComponents.push(`${finalDays} ${dayWord}`);
+        }
+
+        duration = durationComponents.join(' ');
+        console.log('📥 Calculated duration text:', duration);
+      } catch (e) {
+        console.warn('⚠️  Error calculating commit duration:', e.message);
+        duration = '4 года 6 месяцев 15 дней'; // Fallback
+      }
+    } else {
+      duration = '4 года 6 месяцев 15 дней'; // Default fallback
+    }
 
     // Compile statistics
     const stats = {
@@ -1264,6 +1312,83 @@ async function fetchTypeGraphqlPrismaNestjsStats() {
     return stats;
   } catch (error) {
     console.error('❌ Failed to fetch typegraphql-prisma-nestjs GitHub statistics:', error.message);
+    throw error;
+  }
+}
+
+/**
+ * Fetch My Dashboard GitHub statistics
+ * @returns {Promise<Object>} My Dashboard GitHub statistics
+ */
+async function fetchMyDashboardStats() {
+  try {
+    // GitHub repository information
+    const GITHUB_TOKEN = globalAppEnvironments.githubToken;
+    const REPO_FULL_NAME = 'site15/my-dashboard';
+
+    // Fetch repository data
+    console.log('📥 Fetching My Dashboard repository data...');
+    const repoData = await fetchRepoData(REPO_FULL_NAME, GITHUB_TOKEN);
+    console.log('📥 Repo data:', repoData);
+
+    // Fetch commit count
+    console.log('📥 Fetching My Dashboard commit count...');
+    await delay(1000); // Delay to avoid rate limits
+    const commitCount = await fetchCommitCount(REPO_FULL_NAME, GITHUB_TOKEN);
+    console.log('📥 Commit count:', commitCount);
+
+    // Fetch commit dates for duration calculation
+    console.log('📥 Fetching commit dates for duration calculation...');
+    await delay(1000); // Delay to avoid rate limits
+    const commitDates = await fetchCommitDates(REPO_FULL_NAME, GITHUB_TOKEN);
+    console.log('📥 Commit dates:', commitDates);
+
+    // Calculate duration text
+    let commitDurationText = '';
+    if (commitDates.firstCommitDate && commitDates.lastCommitDate) {
+      try {
+        const latestDate = new Date(commitDates.firstCommitDate);
+        const oldestDate = new Date(commitDates.lastCommitDate);
+
+        // Calculate duration
+        const durationMs = Math.abs(+latestDate - +oldestDate);
+        const durationDays = Math.floor(durationMs / (1000 * 60 * 60 * 24));
+        const durationYears = Math.floor(durationDays / 365);
+        const remainingDays = durationDays % 365;
+        const durationMonths = Math.floor(remainingDays / 30);
+        const finalDays = remainingDays % 30;
+
+        const durationComponents: any[] = [];
+        if (durationYears > 0) {
+          const yearWord = getRussianDeclension(durationYears, ['год', 'года', 'лет']);
+          durationComponents.push(`${durationYears} ${yearWord}`);
+        }
+        if (durationMonths > 0) {
+          const monthWord = getRussianDeclension(durationMonths, ['месяц', 'месяца', 'месяцев']);
+          durationComponents.push(`${durationMonths} ${monthWord}`);
+        }
+        if (finalDays > 0 || durationComponents.length === 0) {
+          const dayWord = getRussianDeclension(finalDays, ['день', 'дня', 'дней']);
+          durationComponents.push(`${finalDays} ${dayWord}`);
+        }
+
+        commitDurationText = durationComponents.join(' ');
+        console.log('📥 Calculated duration text:', commitDurationText);
+      } catch (e) {
+        console.warn('⚠️  Error calculating commit duration:', e.message);
+      }
+    }
+
+    // Compile statistics
+    const stats = {
+      stars: repoData.stars,
+      commits: commitCount,
+      duration: commitDurationText,
+    };
+
+    return stats;
+  } catch (error) {
+    console.error('❌ Failed to fetch My Dashboard GitHub statistics:', error.message);
     throw error;
   }
 }
@@ -1338,11 +1463,57 @@ async function fetchClassValidatorMultiLangStats() {
       console.warn(`⚠️  Error fetching commits data: ${error.message}. Using default values.`);
     }
 
-    // Calculate duration based on repository creation date
-    const createdAt = '2020-08-28T06:23:04Z'; // Repository creation date from GitHub API
-    const startDate = new Date(createdAt);
-    const endDate = new Date();
-    const duration = calculateDuration(startDate, endDate);
+    // Fetch commit dates for duration calculation
+    console.log('📥 Fetching commit dates for duration calculation...');
+    await delay(1000); // Delay to avoid rate limits
+
+    let commitDates;
+    try {
+      commitDates = await fetchCommitDates(`${REPO_OWNER}/${REPO_NAME}`, GITHUB_TOKEN);
+      console.log('📥 Commit dates:', commitDates);
+    } catch (error) {
+      console.warn(`⚠️  Error fetching commit dates: ${error.message}. Using creation date fallback.`);
+      commitDates = { firstCommitDate: null, lastCommitDate: null };
+    }
+
+    // Calculate duration text
+    let duration = '';
+    if (commitDates.firstCommitDate && commitDates.lastCommitDate) {
+      try {
+        const latestDate = new Date(commitDates.firstCommitDate);
+        const oldestDate = new Date(commitDates.lastCommitDate);
+
+        // Calculate duration
+        const durationMs = Math.abs(+latestDate - +oldestDate);
+        const durationDays = Math.floor(durationMs / (1000 * 60 * 60 * 24));
+        const durationYears = Math.floor(durationDays / 365);
+        const remainingDays = durationDays % 365;
+        const durationMonths = Math.floor(remainingDays / 30);
+        const finalDays = remainingDays % 30;
+
+        const durationComponents: any[] = [];
+        if (durationYears > 0) {
+          const yearWord = getRussianDeclension(durationYears, ['год', 'года', 'лет']);
+          durationComponents.push(`${durationYears} ${yearWord}`);
+        }
+        if (durationMonths > 0) {
+          const monthWord = getRussianDeclension(durationMonths, ['месяц', 'месяца', 'месяцев']);
+          durationComponents.push(`${durationMonths} ${monthWord}`);
+        }
+        if (finalDays > 0 || durationComponents.length === 0) {
+          const dayWord = getRussianDeclension(finalDays, ['день', 'дня', 'дней']);
+          durationComponents.push(`${finalDays} ${dayWord}`);
+        }
+
+        duration = durationComponents.join(' ');
+        console.log('📥 Calculated duration text:', duration);
+      } catch (e) {
+        console.warn('⚠️  Error calculating commit duration:', e.message);
+        duration = ''; // No duration when calculation fails
+      }
+    } else {
+      duration = ''; // No duration when commit dates unavailable
+    }
 
     // Compile statistics
     const stats = {
@@ -1403,6 +1574,7 @@ async function getJsAllStats(allStats: {
   nestPermissionsSeed?: any;
   typeGraphqlPrismaNestjs?: any;
   classValidatorMultiLang?: any;
+  myDashboard?: any;
   devTo?: any;
   telegram?: any;
   habr?: any;
@@ -1464,6 +1636,12 @@ async function getJsAllStats(allStats: {
       duration: allStats.classValidatorMultiLang.duration,
     },
     // done
+    myDashboardStats: {
+      stars: allStats.myDashboard.stars,
+      commits: allStats.myDashboard.commits,
+      duration: allStats.myDashboard.duration,
+    },
+    // done
     devToStats: {
       articles: allStats.devTo.articles,
       followers: allStats.devTo.followers,
@@ -1507,6 +1685,7 @@ export async function syncAllStats(): Promise<AllStats | null> {
       nestPermissionsSeed?: any;
       typeGraphqlPrismaNestjs?: any;
       classValidatorMultiLang?: any;
+      myDashboard?: any;
     } = {};
 
     // Collect Dev.to statistics
@@ -1606,6 +1785,15 @@ export async function syncAllStats(): Promise<AllStats | null> {
       console.log('✅ Class Validator Multi Lang statistics collected');
     } catch (error) {
       console.error('❌ Failed to collect Class Validator Multi Lang statistics:', error.message);
+    }
+
+    // Collect My Dashboard statistics
+    console.log('\n--- My Dashboard Statistics ---');
+    try {
+      allStats.myDashboard = await fetchMyDashboardStats();
+      console.log('✅ My Dashboard statistics collected');
+    } catch (error) {
+      console.error('❌ Failed to collect My Dashboard statistics:', error.message);
     }
 
     // Update the JS-file with all collected statistics
