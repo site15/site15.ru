@@ -1,3 +1,9 @@
+# [1.26.0](https://github.com/site15/site15.ru/compare/server-v1.25.0...server-v1.26.0) (2026-01-11)
+
+### Features
+
+- **metrics:** add My Dashboard GitHub stats and enhance metrics settings table ([e70d047](https://github.com/site15/site15.ru/commit/e70d0475f33995102a6caed15ce31e50ebaecc64))
+
 # [1.25.0](https://github.com/site15/site15.ru/compare/server-v1.24.0...server-v1.25.0) (2026-01-11)
 
 ### Features
