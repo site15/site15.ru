@@ -1,3 +1,9 @@
+# [1.25.0](https://github.com/site15/site15.ru/compare/server-v1.24.0...server-v1.25.0) (2026-01-11)
+
+### Features
+
+- **landing:** add My Dashboard project to RSS and sitemap ([3a6d830](https://github.com/site15/site15.ru/commit/3a6d8301f6ab7c8193d49a40cb8dccb5eee9e5f9))
+
 # [1.24.0](https://github.com/site15/site15.ru/compare/server-v1.23.0...server-v1.24.0) (2026-01-11)
 
 ### Bug Fixes
