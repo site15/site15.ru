@@ -1,3 +1,14 @@
+# [1.24.0](https://github.com/site15/site15.ru/compare/server-v1.23.0...server-v1.24.0) (2026-01-11)
+
+### Bug Fixes
+
+- **landing:** remove commented-out obsolete project cards in index.html ([a5d50db](https://github.com/site15/site15.ru/commit/a5d50db7917e685fd50e44e6b7fbdd761e523d04))
+
+### Features
+
+- **landing:** add and update My Dashboard project details ([9142f92](https://github.com/site15/site15.ru/commit/9142f927324d610cc77c3da7da8b48fb8023fb00))
+- **landing:** add My Dashboard project page and update project count ([f086684](https://github.com/site15/site15.ru/commit/f086684db3cee0ca8b623fa9dd8fcebad796d301))
+
 # [1.23.0](https://github.com/site15/site15.ru/compare/server-v1.22.2...server-v1.23.0) (2026-01-11)
 
 ### Features
