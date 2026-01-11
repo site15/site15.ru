@@ -66,5 +66,13 @@
             <guid>https://site15.ru/projects/class-validator-multi-lang.html</guid>
             <pubDate>Mon, 29 Dec 2025 18:33:00 +0000</pubDate>
         </item>
+        
+        <item>
+            <title>My Dashboard: Система управления дашбордами</title>
+            <description>Комплексная система управления дашбордами с веб-приложением, мобильным приложением (Ionic/Capacitor) и API для отображения информации в реальном времени.</description>
+            <link>https://site15.ru/projects/my-dashboard.html</link>
+            <guid>https://site15.ru/projects/my-dashboard.html</guid>
+            <pubDate>Sun, 11 Jan 2026 16:20:00 +0000</pubDate>
+        </item>
     </channel>
 </rss>
