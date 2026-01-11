@@ -1,3 +1,9 @@
+## [1.15.1](https://github.com/site15/site15.ru/compare/client-v1.15.0...client-v1.15.1) (2026-01-11)
+
+### Bug Fixes
+
+- **landing:** remove commented-out obsolete project cards in index.html ([a5d50db](https://github.com/site15/site15.ru/commit/a5d50db7917e685fd50e44e6b7fbdd761e523d04))
+
 # [1.15.0](https://github.com/site15/site15.ru/compare/client-v1.14.2...client-v1.15.0) (2025-12-22)
 
 ### Features
