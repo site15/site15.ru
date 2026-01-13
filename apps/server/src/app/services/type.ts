@@ -254,3 +254,52 @@ export class LandingSendMessageDto {
   @IsString()
   message!: string;
 }
+
+/* ---------------- Chat ---------------- */
+
+export class ChatMessageDto {
+  @ApiProperty()
+  id!: string;
+
+  @ApiProperty()
+  sessionId!: string;
+
+  @ApiProperty()
+  message!: string;
+
+  @ApiProperty()
+  sender!: 'user' | 'bot';
+
+  @ApiProperty()
+  timestamp!: Date;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  name?: string;
+}
+
+export class ChatSendMessageDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  sessionId!: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  message!: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  name?: string;
+}
+
+export class ChatListMessagesResponse {
+  @ApiProperty({
+    type: () => ChatMessageDto,
+    isArray: true,
+  })
+  messages!: ChatMessageDto[];
+}

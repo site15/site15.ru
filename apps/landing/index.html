@@ -2152,12 +2152,214 @@
             </div>
         </div>
     </footer>
+    <!-- Floating Chat Button -->
+    <button id="chatSupportButton" 
+            class="fixed bottom-6 right-6 w-16 h-16 bg-neo-pink text-neo-black font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow transition-all z-50 flex items-center justify-center">
+        <i data-lucide="message-circle" class="w-8 h-8"></i>
+    </button>
+    
+    <!-- Chat Modal -->
+    <div id="chatModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end md:items-center justify-end p-4">
+        <div class="bg-neo-bg neo-border w-full max-w-md h-[80vh] md:h-[70vh] flex flex-col">
+            <!-- Chat Header -->
+            <div class="bg-neo-black text-white p-4 neo-border flex justify-between items-center">
+                <h3 class="font-bold text-lg">Поддержка сайта</h3>
+                <button id="closeChatButton" class="p-1 hover:bg-neo-pink rounded">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <!-- Chat Messages -->
+            <div id="chatMessages" class="flex-1 p-4 overflow-y-auto bg-white">
+                <div class="mb-4">
+                    <div class="bg-neo-blue text-neo-black p-3 rounded-lg neo-border inline-block max-w-xs">
+                        <p class="font-mono text-sm">Привет! 👋</p>
+                        <p class="font-mono text-sm">Я ваш ассистент по сайту site15.ru</p>
+                        <p class="font-mono text-sm">Чем могу помочь?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Input -->
+            <div class="p-4 neo-border border-t-3 border-neo-black">
+                <div class="flex gap-2">
+                    <input type="text" 
+                           id="chatInput" 
+                           placeholder="Введите сообщение..." 
+                           class="flex-1 px-3 py-2 border-2 border-neo-black focus:outline-none focus:border-neo-pink neo-border">
+                    <button id="sendChatButton" 
+                            class="px-4 py-2 bg-neo-black text-white font-bold neo-border hover:bg-neo-pink hover:text-neo-black transition-all">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="./js/modals.js"></script>
     <script src="./js/form.js"></script>
     <script src="./js/stats.js"></script>
     <script src="./js/coin.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/main.js"></script>
+    
+    <!-- Chat Support Script -->
+    <script>
+        // Initialize chat functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatButton = document.getElementById('chatSupportButton');
+            const chatModal = document.getElementById('chatModal');
+            const closeButton = document.getElementById('closeChatButton');
+            const sendButton = document.getElementById('sendChatButton');
+            const chatInput = document.getElementById('chatInput');
+            const chatMessages = document.getElementById('chatMessages');
+            
+            // Get or create session ID from localStorage
+            let sessionId = localStorage.getItem('chatSessionId');
+            if (!sessionId) {
+                sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('chatSessionId', sessionId);
+            }
+            
+            // Load existing messages for this session
+            loadChatHistory();
+            
+            // Open chat modal
+            chatButton.addEventListener('click', function() {
+                chatModal.classList.remove('hidden');
+                chatInput.focus();
+            });
+            
+            // Close chat modal
+            closeButton.addEventListener('click', function() {
+                chatModal.classList.add('hidden');
+            });
+            
+            // Close modal when clicking outside
+            chatModal.addEventListener('click', function(e) {
+                if (e.target === chatModal) {
+                    chatModal.classList.add('hidden');
+                }
+            });
+            
+            // Load chat history from API
+            async function loadChatHistory() {
+                try {
+                    const response = await fetch(`/api/landing/chat/list-messages/${sessionId}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        renderMessages(data.messages);
+                    }
+                } catch (error) {
+                    console.error('Error loading chat history:', error);
+                }
+            }
+            
+            // Render messages in the chat
+            function renderMessages(messages) {
+                chatMessages.innerHTML = '<div class="mb-4"><div class="bg-neo-blue text-neo-black p-3 rounded-lg neo-border inline-block max-w-xs"><p class="font-mono text-sm">Привет! 👋</p><p class="font-mono text-sm">Я ваш ассистент по сайту site15.ru</p><p class="font-mono text-sm">Чем могу помочь?</p></div></div>';
+                
+                messages.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'mb-4 ' + (msg.sender === 'user' ? 'flex justify-end' : '');
+                    
+                    const bgColor = msg.sender === 'user' ? 'bg-neo-green' : 'bg-neo-blue';
+                    const textColor = 'text-neo-black';
+                    
+                    messageDiv.innerHTML = `
+                        <div class="${bgColor} ${textColor} p-3 rounded-lg neo-border inline-block max-w-xs">
+                            <p class="font-mono text-sm">${msg.message}</p>
+                            <p class="font-mono text-xs opacity-70 mt-1">${new Date(msg.timestamp).toLocaleTimeString()}</p>
+                        </div>
+                    `;
+                    
+                    chatMessages.appendChild(messageDiv);
+                });
+                
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Send message function
+            async function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Add user message to UI immediately
+                    addUserMessage(message);
+                    
+                    // Clear input
+                    chatInput.value = '';
+                    
+                    try {
+                        // Send to API
+                        const response = await fetch('/api/landing/chat/send-message', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                sessionId: sessionId,
+                                message: message,
+                                name: 'Посетитель сайта' // You can collect user name if needed
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            const botMessage = await response.json();
+                            addBotMessage(botMessage.message);
+                        } else {
+                            addBotMessage('Извините, произошла ошибка. Попробуйте позже.');
+                        }
+                    } catch (error) {
+                        console.error('Error sending message:', error);
+                        addBotMessage('Извините, произошла ошибка. Попробуйте позже.');
+                    }
+                }
+            }
+            
+            // Add user message to UI
+            function addUserMessage(message) {
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.className = 'mb-4 flex justify-end';
+                userMessageDiv.innerHTML = `
+                    <div class="bg-neo-green text-neo-black p-3 rounded-lg neo-border inline-block max-w-xs">
+                        <p class="font-mono text-sm">${message}</p>
+                        <p class="font-mono text-xs opacity-70 mt-1">${new Date().toLocaleTimeString()}</p>
+                    </div>
+                `;
+                chatMessages.appendChild(userMessageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Add bot message to UI
+            function addBotMessage(message) {
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.className = 'mb-4';
+                botMessageDiv.innerHTML = `
+                    <div class="bg-neo-blue text-neo-black p-3 rounded-lg neo-border inline-block max-w-xs">
+                        <p class="font-mono text-sm">${message}</p>
+                        <p class="font-mono text-xs opacity-70 mt-1">${new Date().toLocaleTimeString()}</p>
+                    </div>
+                `;
+                chatMessages.appendChild(botMessageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Send message on button click
+            sendButton.addEventListener('click', sendMessage);
+            
+            // Send message on Enter key
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
 </body>
 
 </html>
