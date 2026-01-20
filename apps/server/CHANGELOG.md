@@ -1,3 +1,9 @@
+# [1.28.0](https://github.com/site15/site15.ru/compare/server-v1.27.0...server-v1.28.0) (2026-01-20)
+
+### Features
+
+- **config:** add flow controller URL and API key to configmap ([9f3e1b9](https://github.com/site15/site15.ru/commit/9f3e1b93ada36e84f003d93c7fda53b7a71686ce))
+
 # [1.27.0](https://github.com/site15/site15.ru/compare/server-v1.26.0...server-v1.27.0) (2026-01-20)
 
 ### Features
