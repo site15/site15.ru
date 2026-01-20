@@ -1,6 +1,6 @@
 import { StatusResponse } from '@nestjs-mod/swagger';
 import { ValidationError } from '@nestjs-mod/validation';
-import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Param, Post, UnauthorizedException } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 
@@ -40,7 +40,7 @@ export class LandingController {
   async sendMessage(@Body() args: LandingSendMessageDto, @InjectTranslateFunction() getText: TranslateFunction) {
     if (!this.appEnvironments.landingBotToken || !this.appEnvironments.landingChatId) {
       this.logger.error('Landing bot token or chat ID is not set');
-      throw new MediaError();
+      throw new UnauthorizedException('Bot configuration is incomplete');
     }
     const url = `https://api.telegram.org/bot${this.appEnvironments.landingBotToken}/sendMessage`;
     let contact = args.email;
@@ -77,72 +77,150 @@ export class LandingController {
   @Post('chat/send-message')
   @ApiOkResponse({ type: ChatMessageDto })
   async chatSendMessage(@Body() args: ChatSendMessageDto): Promise<ChatMessageDto> {
-    // Store user message
-    const userMessage: ChatMessageDto = {
-      id: this.generateMessageId(),
-      sessionId: args.sessionId,
-      message: args.message,
-      sender: 'user',
-      timestamp: new Date(),
-      name: args.name,
-    };
+    const flowControllerUrl = this.appEnvironments.flowControllerUrl;
+    const apiKey = this.appEnvironments.flowControllerApiKey;
 
-    // Store in memory (in production, use database)
-    this.storeMessage(userMessage);
+    // Check if API key is configured
+    if (!apiKey) {
+      this.logger.warn('Flow Controller API key not configured, using fallback responses');
+      return this.getFallbackResponse(args);
+    }
 
-    // Generate random bot response
-    const botGreetings = [
-      'Привет! Рад вас видеть! 👋',
-      'Здравствуйте! Как я могу вам помочь?',
-      'Добрый день! Чем могу быть полезен?',
-      'Приветствуем! Готов ответить на ваши вопросы.',
-      'Хай! Расскажите, что вам нужно?',
-      'Здравствуйте! Помогу разобраться с сайтом.',
-      'Привет! Спасибо за обращение!',
-      'Доброго времени суток! Что интересует?',
-    ];
+    try {
+      // Send message to Flow Controller with API key authentication
+      const response = await fetch(`${flowControllerUrl}/flow/message/send`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+        },
+        body: JSON.stringify({
+          message: args.message,
+          dialogId: args.sessionId, // Using sessionId as dialogId
+        }),
+      });
+      const result = await response.json();
 
-    const randomGreeting = botGreetings[Math.floor(Math.random() * botGreetings.length)];
+      if (!response.ok) {
+        this.logger.error(`Flow Controller error: ${response.status} - ${response.statusText}`);
+        return this.getFallbackResponse(args);
+      }
 
-    // Create bot response
-    const botMessage: ChatMessageDto = {
-      id: this.generateMessageId(),
-      sessionId: args.sessionId,
-      message: randomGreeting,
-      sender: 'bot',
-      timestamp: new Date(Date.now() + 1000), // Slight delay for realism
-      name: 'Site Assistant',
-    };
+      // Return the bot's response
+      const botMessage: ChatMessageDto = {
+        id: result.messageId || this.generateMessageId(),
+        sessionId: result.dialogId,
+        message: result.answer,
+        sender: 'bot',
+        timestamp: result.answerSentAt ? new Date(result.answerSentAt) : null,
+        name: 'Site Assistant',
+        isProcessing: true,
+      };
 
-    // Store bot message
-    this.storeMessage(botMessage);
-
-    return botMessage;
+      return botMessage;
+    } catch (error) {
+      this.logger.debug({ flowControllerResponse: { ...error } });
+      this.logger.error('Error communicating with Flow Controller:', error);
+      return this.getFallbackResponse(args);
+    }
   }
 
   @Get('chat/list-messages/:sessionId')
   @ApiOkResponse({ type: ChatListMessagesResponse })
   async chatListMessages(@Param('sessionId') sessionId: string): Promise<ChatListMessagesResponse> {
-    const messages = this.getStoredMessages(sessionId);
-    return { messages };
-  }
+    const flowControllerUrl = this.appEnvironments.flowControllerUrl;
+    const apiKey = this.appEnvironments.flowControllerApiKey;
 
-  // Helper methods for in-memory storage (replace with database in production)
-  private storedMessages: Map<string, ChatMessageDto[]> = new Map();
+    // Check if API key is configured
+    if (!apiKey) {
+      this.logger.warn('Flow Controller API key not configured, returning empty message list');
+      return { messages: [] };
+    }
+
+    try {
+      // Get dialog messages from Flow Controller with API key authentication
+      const params = new URLSearchParams({
+        dialogId: sessionId,
+        curPage: '1',
+        perPage: '50', // Get recent messages
+      });
+
+      const response = await fetch(`${flowControllerUrl}/flow/dialog?${params}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+        },
+      });
+      if (!response.ok) {
+        this.logger.error(`Flow Controller error: ${response.status} - ${response.statusText}`);
+        return { messages: [] };
+      }
+
+      const result = await response.json();
+
+      // Convert Flow Controller format to our format
+      // Each dialog item contains both user question and bot answer
+      const messages: ChatMessageDto[] = [];
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      result.items.forEach((item: any) => {
+        // Add user message
+        messages.push({
+          id: `user_${item.id}`,
+          sessionId: sessionId,
+          message: item.question,
+          sender: 'user',
+          timestamp: item.questionReceivedAt ? new Date(item.questionReceivedAt) : null,
+          name: 'User',
+          isProcessing: false,
+        });
+
+        // Add bot response
+        messages.push({
+          id: `bot_${item.id}`,
+          sessionId: sessionId,
+          message: item.answer,
+          sender: 'bot',
+          timestamp: item.answerSentAt ? new Date(item.answerSentAt) : null,
+          name: 'Site Assistant',
+          isProcessing: item.isProcessing,
+        });
+      });
+
+      return { messages };
+    } catch (error) {
+      this.logger.error('Error fetching dialog from Flow Controller:', error);
+      return { messages: [] };
+    }
+  }
 
   private generateMessageId(): string {
     return Date.now().toString() + Math.random().toString(36).substr(2, 9);
   }
 
-  private storeMessage(message: ChatMessageDto): void {
-    if (!this.storedMessages.has(message.sessionId)) {
-      this.storedMessages.set(message.sessionId, []);
-    }
-    this.storedMessages.get(message.sessionId)!.push(message);
-    this.logger.debug(`Stored message for session ${message.sessionId}: ${message.message}`);
-  }
+  private getFallbackResponse(args: ChatSendMessageDto): ChatMessageDto {
+    const botGreetings = [
+      'Извините, но чат временно недоступен. 🙏',
+      'К сожалению, функция чата сейчас не работает. Попробуйте позже.',
+      'Чат временно отключен. Мы работаем над исправлением.',
+      'Извините за неудобства, чат находится на техническом обслуживании.',
+      'Функция чата временно недоступна. Скоро всё заработает!',
+      'Чат не работает в данный момент. Пожалуйста, попробуйте позже.',
+      'Приносим извинения, чатовая система временно отключена.',
+      'К сожалению, чат сейчас недоступен. Мы уже решаем эту проблему.',
+    ];
 
-  private getStoredMessages(sessionId: string): ChatMessageDto[] {
-    return this.storedMessages.get(sessionId) || [];
+    const randomGreeting = botGreetings[Math.floor(Math.random() * botGreetings.length)];
+
+    return {
+      id: this.generateMessageId(),
+      sessionId: args.sessionId || '',
+      message: randomGreeting,
+      sender: 'bot',
+      timestamp: new Date(),
+      name: 'Site Assistant',
+      isProcessing: false,
+    };
   }
 }

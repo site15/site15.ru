@@ -271,19 +271,24 @@ export class ChatMessageDto {
   sender!: 'user' | 'bot';
 
   @ApiProperty()
-  timestamp!: Date;
+  timestamp!: Date | null;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
   name?: string;
+
+  @ApiProperty({
+    type: 'boolean',
+  })
+  isProcessing!: boolean;
 }
 
 export class ChatSendMessageDto {
-  @ApiProperty()
-  @IsNotEmpty()
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
-  sessionId!: string;
+  sessionId?: string;
 
   @ApiProperty()
   @IsNotEmpty()

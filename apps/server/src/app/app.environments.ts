@@ -36,4 +36,16 @@ export class AppEnvironments {
     description: 'Sync all stats by interval - replace with your actual value',
   })
   syncAllStatsByInterval?: boolean;
+
+  @EnvModelProperty({
+    description: 'Flow Controller API URL for chat integration',
+    default: 'http://locahost:23000/api',
+  })
+  flowControllerUrl?: string;
+
+  @EnvModelProperty({
+    description: 'Flow Controller API Key for authentication',
+    hideValueFromOutputs: true,
+  })
+  flowControllerApiKey?: string;
 }
