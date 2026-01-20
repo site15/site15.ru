@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { isInfrastructureMode } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { METRICS_FEATURE, MetricsDynamic, MetricsPrismaSdk } from '@site15/metrics';
@@ -6,7 +7,6 @@ import { AppEnvironments } from '../app.environments';
 import { setAppEnvironments, setPrismaClient } from './global';
 import { AllStats } from './type';
 import { syncAllStats } from './update-all-stats';
-import { isInfrastructureMode } from '@nestjs-mod/common';
 
 type ShortMetricsDynamic = Pick<MetricsDynamic, 'level1' | 'level2' | 'level3' | 'value'>;
 
@@ -30,8 +30,13 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
       return;
     }
 
-    setInterval(() => this.syncAllStats().then(), 1000 * 60 * 60 * 3);
-    this.syncAllStats().then();
+    if (this.appEnvironments.syncAllStatsByInterval) {
+      setInterval(() => this.syncAllStats().then(), 1000 * 60 * 60 * 3);
+    }
+
+    if (this.appEnvironments.syncAllStatsAfterStart) {
+      this.syncAllStats().then();
+    }
   }
 
   async getAllSync() {

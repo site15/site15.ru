@@ -8,11 +8,11 @@ import { AllowEmptySsoUser } from '@site15/sso';
 import { AppEnvironments } from '../app.environments';
 import { MetricsDynamicService } from '../services/metrics-dynamic.service';
 import {
-  LandingAllStatsResponse,
-  LandingSendMessageDto,
-  ChatSendMessageDto,
   ChatListMessagesResponse,
   ChatMessageDto,
+  ChatSendMessageDto,
+  LandingAllStatsResponse,
+  LandingSendMessageDto,
 } from '../services/type';
 
 @ApiBadRequestResponse({
@@ -38,6 +38,10 @@ export class LandingController {
   @Post('send-message')
   @ApiOkResponse({ type: StatusResponse })
   async sendMessage(@Body() args: LandingSendMessageDto, @InjectTranslateFunction() getText: TranslateFunction) {
+    if (!this.appEnvironments.landingBotToken || !this.appEnvironments.landingChatId) {
+      this.logger.error('Landing bot token or chat ID is not set');
+      throw new MediaError();
+    }
     const url = `https://api.telegram.org/bot${this.appEnvironments.landingBotToken}/sendMessage`;
     let contact = args.email;
     if (contact.includes('@') && contact.split('@')[0]) {

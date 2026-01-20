@@ -81,7 +81,10 @@ async function fetchDevToStats() {
   // Dev.to username and API key
   const DEVTO_USERNAME = 'endykaufman';
   const DEVTO_API_KEY = globalAppEnvironments.devtoApiKey; // Set your API key as an environment variable
-
+  if (!DEVTO_API_KEY) {
+    console.log('⚠️  No API key provided, using manual follower count');
+    throw new Error('DEVTO_API_KEY is not set');
+  }
   // Manual override for follower count (fallback if API fails)
   // Update this value manually or through another method
   const MANUAL_FOLLOWER_COUNT = 2944; // From dashboard: <span class="c-indicator">2944</span>
@@ -473,6 +476,10 @@ async function fetchOrgStars(org: string, token: string | undefined) {
  * @returns {Promise<Object>} GitHub statistics
  */
 async function fetchGitHubStats() {
+  if (!globalAppEnvironments.githubToken) {
+    console.log('⚠️  No GitHub token provided, using public data');
+    throw new Error('GITHUB_TOKEN is not set');
+  }
   try {
     // GitHub username and repositories
     const GITHUB_USERNAME = 'EndyKaufman';
@@ -816,6 +823,10 @@ async function fetchAllTelegramData() {
  * @returns {Promise<Object>} KaufmanBot GitHub statistics
  */
 async function fetchKaufmanBotStats() {
+  if (!globalAppEnvironments.githubToken) {
+    console.log('⚠️  No GitHub token provided, using public data');
+    throw new Error('GITHUB_TOKEN is not set');
+  }
   try {
     // GitHub username and repository
     const GITHUB_USERNAME = 'EndyKaufman';
@@ -890,6 +901,10 @@ async function fetchKaufmanBotStats() {
  * @returns {Promise<Object>} NestJS-mod GitHub statistics
  */
 async function fetchNestjsModStats() {
+  if (!globalAppEnvironments.githubToken) {
+    console.log('⚠️  No GitHub token provided, using public data');
+    throw new Error('GITHUB_TOKEN is not set');
+  }
   try {
     // GitHub organization and repositories
     const GITHUB_TOKEN = globalAppEnvironments.githubToken;
@@ -1007,6 +1022,10 @@ async function fetchNestjsModStats() {
  * @returns {Promise<Object>} ngx-dynamic-form-builder GitHub statistics
  */
 async function fetchNgxDynamicFormBuilderStats() {
+  if (!globalAppEnvironments.githubToken) {
+    console.log('⚠️  No GitHub token provided, using public data');
+    throw new Error('GITHUB_TOKEN is not set');
+  }
   try {
     // GitHub repository
     const GITHUB_TOKEN = globalAppEnvironments.githubToken;
@@ -1089,6 +1108,10 @@ async function fetchNgxDynamicFormBuilderStats() {
  * @returns {Promise<Object>} nest-permissions-seed GitHub statistics
  */
 async function fetchNestPermissionsSeedStats() {
+  if (!globalAppEnvironments.githubToken) {
+    console.log('⚠️  No GitHub token provided, using public data');
+    throw new Error('GITHUB_TOKEN is not set');
+  }
   try {
     // GitHub repository
     const GITHUB_TOKEN = globalAppEnvironments.githubToken;
@@ -1171,6 +1194,10 @@ async function fetchNestPermissionsSeedStats() {
  * @returns {Promise<Object>} typegraphql-prisma-nestjs GitHub statistics
  */
 async function fetchTypeGraphqlPrismaNestjsStats() {
+  if (!globalAppEnvironments.githubToken) {
+    console.log('⚠️  No GitHub token provided, using public data');
+    throw new Error('GITHUB_TOKEN is not set');
+  }
   try {
     // GitHub repository information
     const GITHUB_TOKEN = globalAppEnvironments.githubToken;
@@ -1321,6 +1348,10 @@ async function fetchTypeGraphqlPrismaNestjsStats() {
  * @returns {Promise<Object>} My Dashboard GitHub statistics
  */
 async function fetchMyDashboardStats() {
+  if (!globalAppEnvironments.githubToken) {
+    console.log('⚠️  No GitHub token provided, using public data');
+    throw new Error('GITHUB_TOKEN is not set');
+  }
   try {
     // GitHub repository information
     const GITHUB_TOKEN = globalAppEnvironments.githubToken;
@@ -1398,6 +1429,10 @@ async function fetchMyDashboardStats() {
  * @returns {Promise<Object>} class-validator-multi-lang GitHub statistics
  */
 async function fetchClassValidatorMultiLangStats() {
+  if (!globalAppEnvironments.githubToken) {
+    console.log('⚠️  No GitHub token provided, using public data');
+    throw new Error('GITHUB_TOKEN is not set');
+  }
   try {
     // GitHub repository information
     const GITHUB_TOKEN = globalAppEnvironments.githubToken;
