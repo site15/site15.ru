@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/site15/site15.ru/compare/server-v1.26.0...server-v1.27.0) (2026-01-20)
+
+### Features
+
+- **landing:** add real-time chat support feature ([4f0ab29](https://github.com/site15/site15.ru/commit/4f0ab295fd79131dfaac954499ccc0517deeb99c))
+- **server:** add optional environment variables for syncing all stats ([461586f](https://github.com/site15/site15.ru/commit/461586fc339edce3ea578a6fc309e13a02edce53))
+
 # [1.26.0](https://github.com/site15/site15.ru/compare/server-v1.25.0...server-v1.26.0) (2026-01-11)
 
 ### Features
