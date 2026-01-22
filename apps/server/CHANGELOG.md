@@ -1,3 +1,9 @@
+# [1.29.0](https://github.com/site15/site15.ru/compare/server-v1.28.0...server-v1.29.0) (2026-01-22)
+
+### Features
+
+- **chat:** add chat reset button and improve message handling ([b147c05](https://github.com/site15/site15.ru/commit/b147c05682688c1e1166364ac0508a4053214d91))
+
 # [1.28.0](https://github.com/site15/site15.ru/compare/server-v1.27.0...server-v1.28.0) (2026-01-20)
 
 ### Features
