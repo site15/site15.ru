@@ -1,3 +1,9 @@
+## [1.29.1](https://github.com/site15/site15.ru/compare/server-v1.29.0...server-v1.29.1) (2026-01-22)
+
+### Bug Fixes
+
+- **chat:** correct background color logic for error messages ([ad04311](https://github.com/site15/site15.ru/commit/ad04311c0e365829496827e3811314c413154857))
+
 # [1.29.0](https://github.com/site15/site15.ru/compare/server-v1.28.0...server-v1.29.0) (2026-01-22)
 
 ### Features
