@@ -282,6 +282,11 @@ export class ChatMessageDto {
     type: 'boolean',
   })
   isProcessing!: boolean;
+
+  @ApiProperty({
+    type: 'boolean',
+  })
+  isError!: boolean;
 }
 
 export class ChatSendMessageDto {

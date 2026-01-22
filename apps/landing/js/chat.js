@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const chatButton = document.getElementById('chatSupportButton');
   const chatModal = document.getElementById('chatModal');
   const closeButton = document.getElementById('closeChatButton');
+  const resetButton = document.getElementById('resetChatButton');
   const sendButton = document.getElementById('sendChatButton');
   const chatInput = document.getElementById('chatInput');
   const chatMessages = document.getElementById('chatMessages');
@@ -33,11 +34,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Reset chat functionality
+  resetButton.addEventListener('click', function () {
+    resetChat();
+  });
+
   setInterval(() => {
     loadChatHistory();
   }, 3000);
 
-  let prevMessages = [];
+  let prevMessages = null;
 
   // Load chat history from API
   async function loadChatHistory() {
@@ -139,13 +145,13 @@ document.addEventListener('DOMContentLoaded', function () {
           if (botMessage.sessionId) {
             localStorage.setItem('chatSessionId', botMessage.sessionId);
           }
-          addBotMessage(botMessage.message, botMessage.isProcessing);
+          addBotMessage(botMessage, botMessage.isProcessing);
         } else {
-          addBotMessage('Извините, произошла ошибка. Попробуйте позже.', false);
+          addBotMessage({ message: 'Извините, произошла ошибка. Попробуйте позже.', isProcessing: false }, false);
         }
       } catch (error) {
         console.error('Error sending message:', error);
-        addBotMessage('Извините, произошла ошибка. Попробуйте позже.', false);
+        addBotMessage({ message: 'Извините, произошла ошибка. Попробуйте позже.', isProcessing: false }, false);
       }
     }
   }
@@ -165,26 +171,53 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Add bot message to UI
-  function addBotMessage(message, isProcessing) {
+  /**
+   * @param {{ message: string, timestamp: string, sessionId: string, sender: string }} msg
+   * @param {*} isProcessing
+   */
+  function addBotMessage(msg, isProcessing) {
     const botMessageDiv = document.createElement('div');
     botMessageDiv.className = 'mb-4';
+
+    const bgColor = !msg.isError ? 'bg-neo-pink' : 'bg-neo-blue';
+    const textColor = 'text-neo-black';
+
     if (isProcessing) {
-      messageDiv.innerHTML = `
+      botMessageDiv.innerHTML = `
                 <div class="${bgColor} ${textColor} p-3 rounded-lg neo-border inline-block max-w-xs">
                     <p class="font-mono text-sm">обработка...</p>
                     <p class="font-mono text-xs opacity-70 mt-1">${msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}</p>
                 </div>
             `;
     } else {
-      messageDiv.innerHTML = `
+      botMessageDiv.innerHTML = `
                 <div class="${bgColor} ${textColor} p-3 rounded-lg neo-border inline-block max-w-xs">
                     <p class="font-mono text-sm">${msg.message}</p>
                     <p class="font-mono text-xs opacity-70 mt-1">${msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}</p>
                 </div>
             `;
     }
+
     chatMessages.appendChild(botMessageDiv);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Reset chat function
+  function resetChat() {
+    prevMessages = null;
+
+    // Remove session ID from localStorage
+    localStorage.removeItem('chatSessionId');
+
+    loadChatHistory();
+
+    // Clear input field
+    chatInput.value = '';
+
+    localStorage.removeItem('chatSessionId');
+
+    // Focus input field
+    chatInput.focus();
   }
 
   // Send message on button click

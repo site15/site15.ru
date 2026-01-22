@@ -2164,9 +2164,16 @@
             <!-- Chat Header -->
             <div class="bg-neo-black text-white p-4 neo-border flex justify-between items-center">
                 <h3 class="font-bold text-lg">Поддержка сайта</h3>
-                <button id="closeChatButton" class="p-1 hover:bg-neo-pink rounded">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+                <div class="flex gap-2">
+                    <button id="resetChatButton" 
+                            class="p-1 hover:bg-neo-pink rounded" 
+                            title="Сбросить чат">
+                        <i data-lucide="rotate-ccw" class="w-6 h-6"></i>
+                    </button>
+                    <button id="closeChatButton" class="p-1 hover:bg-neo-pink rounded">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
             </div>
             
             <!-- Chat Messages -->

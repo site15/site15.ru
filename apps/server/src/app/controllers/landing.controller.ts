@@ -115,6 +115,7 @@ export class LandingController {
         timestamp: result.answerSentAt ? new Date(result.answerSentAt) : null,
         name: 'Site Assistant',
         isProcessing: true,
+        isError: false,
       };
 
       return botMessage;
@@ -134,7 +135,9 @@ export class LandingController {
     // Check if API key is configured
     if (!apiKey) {
       this.logger.warn('Flow Controller API key not configured, returning empty message list');
-      return { messages: [] };
+      return {
+        messages: [],
+      };
     }
 
     try {
@@ -152,12 +155,15 @@ export class LandingController {
           'x-api-key': apiKey,
         },
       });
-      if (!response.ok) {
-        this.logger.error(`Flow Controller error: ${response.status} - ${response.statusText}`);
-        return { messages: [] };
-      }
 
       const result = await response.json();
+      if (!response.ok) {
+        this.logger.debug({ flowControllerResponse: result });
+        this.logger.error(`Flow Controller error: ${response.status} - ${response.statusText}`);
+        return {
+          messages: [],
+        };
+      }
 
       // Convert Flow Controller format to our format
       // Each dialog item contains both user question and bot answer
@@ -174,6 +180,7 @@ export class LandingController {
           timestamp: item.questionReceivedAt ? new Date(item.questionReceivedAt) : null,
           name: 'User',
           isProcessing: false,
+          isError: false,
         });
 
         // Add bot response
@@ -185,13 +192,16 @@ export class LandingController {
           timestamp: item.answerSentAt ? new Date(item.answerSentAt) : null,
           name: 'Site Assistant',
           isProcessing: item.isProcessing,
+          isError: false,
         });
       });
 
       return { messages };
     } catch (error) {
       this.logger.error('Error fetching dialog from Flow Controller:', error);
-      return { messages: [] };
+      return {
+        messages: [],
+      };
     }
   }
 
@@ -207,7 +217,6 @@ export class LandingController {
       'Извините за неудобства, чат находится на техническом обслуживании.',
       'Функция чата временно недоступна. Скоро всё заработает!',
       'Чат не работает в данный момент. Пожалуйста, попробуйте позже.',
-      'Приносим извинения, чатовая система временно отключена.',
       'К сожалению, чат сейчас недоступен. Мы уже решаем эту проблему.',
     ];
 
@@ -221,6 +230,7 @@ export class LandingController {
       timestamp: new Date(),
       name: 'Site Assistant',
       isProcessing: false,
+      isError: true,
     };
   }
 }
