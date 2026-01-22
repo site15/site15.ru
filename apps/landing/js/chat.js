@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const botMessageDiv = document.createElement('div');
     botMessageDiv.className = 'mb-4';
 
-    const bgColor = !msg.isError ? 'bg-neo-pink' : 'bg-neo-blue';
+    const bgColor = msg.isError ? 'bg-neo-pink' : 'bg-neo-blue';
     const textColor = 'text-neo-black';
 
     if (isProcessing) {
