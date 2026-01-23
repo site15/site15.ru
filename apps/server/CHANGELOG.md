@@ -1,3 +1,11 @@
+# [1.30.0](https://github.com/site15/site15.ru/compare/server-v1.29.1...server-v1.30.0) (2026-01-23)
+
+### Features
+
+- **landing:** add RAG System project and update project stats display ([3799314](https://github.com/site15/site15.ru/commit/37993145a0844822202d429040c15e2f110b5782))
+- **landing:** update core tech, architecture, and leadership text to Russian ([8a5bdb1](https://github.com/site15/site15.ru/commit/8a5bdb130db8660718aec0f19a0cb27f81878425))
+- **landing:** update skill section layout and project card colors ([55d3a10](https://github.com/site15/site15.ru/commit/55d3a1068403525ab9ec110f8dea3a751581e5c2))
+
 ## [1.29.1](https://github.com/site15/site15.ru/compare/server-v1.29.0...server-v1.29.1) (2026-01-22)
 
 ### Bug Fixes
