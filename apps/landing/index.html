@@ -579,7 +579,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-200"
                     data-id="3">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-pink font-bold mb-1">NestJS, Platform</div>
+                        <div class="font-mono text-xs text-neo-blue font-bold mb-1">NestJS, Platform</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border whitespace-nowrap">
                             <i data-lucide="activity" class="w-3 h-3 mr-1"></i>
@@ -695,7 +695,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-300"
                     data-id="5">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-blue font-bold mb-1">Boilerplate, NestJS</div>
+                        <div class="font-mono text-xs text-neo-pink font-bold mb-1">Boilerplate, NestJS</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-yellow text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="archive" class="w-3 h-3 mr-1"></i>
@@ -1893,11 +1893,14 @@
     <section id="skills" class="py-20 bg-neo-black text-white px-4 border-y-4 border-white">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-5xl font-black mb-12 uppercase text-neo-yellow">Стек технологий</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Skill Group -->
                 <div class="reveal">
-                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-pink inline-block text-neo-pink">Backend
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-pink inline-block text-neo-pink">Backend & API
                     </h3>
+                    <p class="font-mono text-sm mb-3 leading-relaxed">
+                        Разработка серверной логики и архитектуры приложений, проектирование и реализация API (REST, GraphQL, gRPC), интеграции между сервисами, обработка real-time данных и асинхронных потоков.
+                    </p>
                     <div class="flex flex-wrap gap-2">
                         <span
                             class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">Node.js</span>
@@ -1908,57 +1911,111 @@
                         <span
                             class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">GraphQL</span>
                         <span
-                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">PostgreSQL</span>
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">gRPC</span>
                         <span
-                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">Oracle</span>
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">WebSockets</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">NATS</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">Kafka</span>
                     </div>
                 </div>
                 <!-- Skill Group -->
                 <div class="reveal delay-100">
-                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-blue inline-block text-neo-blue">Frontend
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-blue inline-block text-neo-blue">Frontend & Desktop
                     </h3>
+                    <p class="font-mono text-sm mb-3 leading-relaxed">
+                        Создание современных веб-приложений и десктопных решений с использованием реактивного программирования, реализацией SSR и кроссплатформенных интерфейсов для веба и desktop.
+                    </p>
                     <div class="flex flex-wrap gap-2">
                         <span
                             class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-blue hover:border-white cursor-default transition-colors">Angular</span>
                         <span
                             class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-blue hover:border-white cursor-default transition-colors">Electron</span>
                         <span
-                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-blue hover:border-white cursor-default transition-colors">SSR</span>
-                        <span
                             class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-blue hover:border-white cursor-default transition-colors">RxJS</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-blue hover:border-white cursor-default transition-colors">SSR</span>
+                    </div>
+                </div>
+                <!-- Skill Group -->
+                <div class="reveal delay-150">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-purple inline-block text-neo-purple">Базы данных & Миграции
+                    </h3>
+                    <p class="font-mono text-sm mb-3 leading-relaxed">
+                        Проектирование структур баз данных, оптимизация запросов, ручные и автоматизированные миграции, работа с реляционными и аналитическими СУБД, кэширование данных для высокой производительности.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-purple hover:border-white cursor-default transition-colors">PostgreSQL</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-purple hover:border-white cursor-default transition-colors">Oracle</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-purple hover:border-white cursor-default transition-colors">MySQL</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-purple hover:border-white cursor-default transition-colors">Clickhouse</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-purple hover:border-white cursor-default transition-colors">Prisma</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-purple hover:border-white cursor-default transition-colors">Flyway</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-purple hover:border-white cursor-default transition-colors">Redis</span>
                     </div>
                 </div>
                 <!-- Skill Group -->
                 <div class="reveal delay-200">
-                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-green inline-block text-neo-green">DevOps
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-green inline-block text-neo-green">DevOps & CI/CD
                     </h3>
+                    <p class="font-mono text-sm mb-3 leading-relaxed">
+                        Настройка окружений разработки и продакшена, контейнеризация приложений, автоматизация процессов сборки, тестирования и деплоя через CI/CD пайплайны.
+                    </p>
                     <div class="flex flex-wrap gap-2">
                         <span
                             class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-green hover:border-white cursor-default transition-colors">Docker</span>
                         <span
                             class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-green hover:border-white cursor-default transition-colors">Kubernetes</span>
                         <span
-                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-green hover:border-white cursor-default transition-colors">GitLab
-                            CI/CD</span>
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-green hover:border-white cursor-default transition-colors">GitLab</span>
                         <span
-                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-green hover:border-white cursor-default transition-colors">Flyway</span>
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-green hover:border-white cursor-default transition-colors">GitHub Actions</span>
                     </div>
                 </div>
                 <!-- Skill Group -->
-                <div class="reveal delay-300">
-                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-yellow inline-block text-neo-yellow">
-                        Methodologies</h3>
+                <div class="reveal delay-250">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-yellow inline-block text-neo-yellow">Архитектура & Методологии
+                    </h3>
+                    <p class="font-mono text-sm mb-3 leading-relaxed">
+                        Применение принципов проектирования (SOLID), планирование и управление разработкой через Scrum, тестирование и контроль качества кода, ведение документации и обеспечение масштабируемости приложений.
+                    </p>
                     <div class="flex flex-wrap gap-2">
                         <span
                             class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-yellow hover:border-white cursor-default transition-colors">SOLID</span>
                         <span
                             class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-yellow hover:border-white cursor-default transition-colors">Scrum</span>
                         <span
-                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-yellow hover:border-white cursor-default transition-colors">e2e
-                            Testing</span>
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-yellow hover:border-white cursor-default transition-colors">E2E</span>
                         <span
-                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-yellow hover:border-white cursor-default transition-colors">Code
-                            Review</span>
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-yellow hover:border-white cursor-default transition-colors">Unit</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-yellow hover:border-white cursor-default transition-colors">Integration</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-yellow hover:border-white cursor-default transition-colors">Documentation</span>
+                    </div>
+                </div>
+                <!-- Skill Group -->
+                <div class="reveal delay-300">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-neo-pink inline-block text-neo-pink">Производительность & Асинхронность
+                    </h3>
+                    <p class="font-mono text-sm mb-3 leading-relaxed">
+                        Оптимизация производительности приложений, обработка очередей сообщений, стриминг событий, кэширование и снижение нагрузки на базу данных для обеспечения стабильной работы систем.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">Kafka</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">NATS</span>
+                        <span
+                            class="bg-white text-black px-3 py-1 font-bold border-2 border-transparent hover:bg-neo-pink hover:border-white cursor-default transition-colors">Redis</span>
                     </div>
                 </div>
             </div>
@@ -2201,6 +2258,49 @@
                         </div>
                     </div>
                 </div>
+                <!-- Plans -->
+                <div class="reveal delay-200">
+                    <h2 class="text-4xl font-black mb-8 uppercase flex items-center gap-3">
+                        <i data-lucide="rocket" class="w-10 h-10"></i> Планы
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="p-4 neo-border bg-white">
+                            <h3 class="font-bold text-xl mb-2">Платформа для поиска работы и фриланс-проектов на NestJS</h3>
+                            <p class="font-mono text-sm opacity-70 mb-3">Платформа для поиска и размещения вакансий и фриланс-заказов в экосистеме NestJS.</p>
+                            <div class="flex gap-2 flex-wrap">
+                                <span class="inline-flex items-center px-2 py-1 bg-neo-blue text-neo-black text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="briefcase" class="w-3 h-3 mr-1"></i>
+                                    Вакансии
+                                </span>
+                                <span class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="users" class="w-3 h-3 mr-1"></i>
+                                    Фриланс
+                                </span>
+                                <span class="inline-flex items-center px-2 py-1 bg-neo-purple text-neo-black text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="code" class="w-3 h-3 mr-1"></i>
+                                    NestJS
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-4 neo-border bg-white">
+                            <h3 class="font-bold text-xl mb-2">Платформа для быстрого создания ботов под мессенджеры</h3>
+                            <p class="font-mono text-sm opacity-70 mb-3">Конструктор ботов с визуальным интерфейсом для Telegram, Discord, Slack и других платформ.</p>
+                            <div class="flex gap-2 flex-wrap">
+                                <span class="inline-flex items-center px-2 py-1 bg-neo-yellow text-neo-black text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="bot" class="w-3 h-3 mr-1"></i>
+                                    Telegram
+                                </span>
+                                <span class="inline-flex items-center px-2 py-1 bg-neo-pink text-neo-black text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="message-circle" class="w-3 h-3 mr-1"></i>
+                                    Discord
+                                </span>
+                                <span class="inline-flex items-center px-2 py-1 bg-neo-blue text-neo-black text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="slack" class="w-3 h-3 mr-1"></i>
+                                    Slack
+                                </span>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </section>
