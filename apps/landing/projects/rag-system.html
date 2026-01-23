@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG System | Ильшат Хамитов | Software Engineer | site15.ru</title>
+    <meta name="description"
+        content="RAG-система на NestJS + PostgreSQL (pgvector) для ответов на вопросы на основе знаний и опыта.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    
+    <!-- Sitemap and RSS Links -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+    <link rel="alternate" type="application/rss+xml" title="site15.ru - Ilshat Khamitov | Software Engineer" href="../rss.xml" />
+
+    <!-- Open Graph Generated: a.pr-cy.ru -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="RAG System - Ilshat Khamitov">
+    <meta property="og:description"
+        content="RAG-система на NestJS + PostgreSQL (pgvector) для ответов на вопросы на основе знаний и опыта.">
+    <meta property="og:url" content="https://site15.ru/projects/rag-system">
+    <meta property="og:image" content="https://site15.ru/ilshat.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+    <!-- Open Graph: Article -->
+    <meta name="twitter:card" content="https://site15.ru/ilshat.jpg" />
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=23044594', 'ym');
+
+        ym(23044594, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/23044594" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script src="../js/tailwind.min.js"></script>
+    <link href="../fonts/fonts.css" rel="stylesheet">
+    <!-- Using unpkg as an alternative reliable CDN for lucide -->
+    <script src="../js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#fdfbf7',
+                        'neo-black': '#0a0a0a',
+                        'neo-yellow': '#ffeb3b',
+                        'neo-pink': '#ff7eb6',
+                        'neo-green': '#7afc50',
+                        'neo-blue': '#82caff',
+                        'neo-purple': '#b388ff',
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #0a0a0a',
+                        'neo-sm': '3px 3px 0px 0px #0a0a0a',
+                        'neo-lg': '8px 8px 0px 0px #0a0a0a',
+                        'neo-hover': '0px 0px 0px 0px #0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for nuances Tailwind can't easily catch */
+        body {
+            background-color: #f3f3f3;
+            background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        .neo-border {
+            border: 3px solid #0a0a0a;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px #0a0a0a;
+        }
+
+        .text-stroke-2 {
+            -webkit-text-stroke: 2px #0a0a0a;
+            color: transparent;
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 120s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Coin Flip Animation */
+        .coin-container {
+            perspective: 1000px;
+        }
+
+        .coin-front,
+        .coin-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+        }
+
+        .coin-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fdfbf7;
+            border-left: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff7eb6;
+            border: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffeb3b;
+        }
+
+        /* Pattern classes */
+        .bg-lines {
+            background-image: repeating-linear-gradient(45deg, #0a0a0a 0, #0a0a0a 1px, transparent 0, transparent 50%);
+            background-size: 10px 10px;
+            opacity: 0.1;
+        }
+
+        /* Breadcrumb styles */
+        .breadcrumb {
+            background-color: #fdfbf7;
+            padding: 1rem 0;
+            border-bottom: 3px solid #0a0a0a;
+        }
+
+        .breadcrumb ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin: 0 0.5rem;
+            color: #0a0a0a;
+        }
+
+        .breadcrumb a {
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            color: #ff7eb6;
+        }
+
+        .breadcrumb .current {
+            color: #ff7eb6;
+            font-weight: bold;
+        }
+
+        /* Code block styling */
+        pre {
+            background-color: #0a0a0a;
+            color: #7afc50;
+            padding: 1rem;
+            border-radius: 0;
+            border: 3px solid #0a0a0a;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #0a0a0a;
+            color: #7afc50;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0;
+        }
+
+        blockquote {
+            border-left: 4px solid #b388ff;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        /* Strong text styling */
+        strong {
+            color: #0a0a0a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="text-neo-black font-sans selection:bg-neo-black selection:text-neo-yellow">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-neo-bg neo-border border-t-0 border-x-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <a href="../" class="w-8 h-8 bg-neo-black text-neo-yellow flex items-center justify-center font-bold text-xl neo-border">
+                        <img src="../ezhik.jpg" alt="Profile Photo" class="w-full h-full object-cover">
+                    </a>
+                    <a href="../" class="font-bold text-xl tracking-tighter uppercase hidden sm:block">site15.ru</a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-4">
+                    <a href="../#about"
+                        class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О
+                        себе</a>
+                    <a href="../#projects"
+                        class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">15
+                        Проектов</a>
+                    <a href="../#experience"
+                        class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
+                    <a href="../#skills"
+                        class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Навыки</a>
+                    <a href="../#open-source-community"
+                        class="px-4 py-2 font-bold hover:bg-neo-purple transition-colors border-2 border-transparent hover:border-neo-black">Open
+                        Source</a>
+                    <a href="../#contact"
+                        class="px-4 py-2 bg-neo-black text-white font-bold hover:bg-neo-pink hover:text-neo-black hover:shadow-neo transition-all border-2 border-neo-black">Связаться</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn"
+                        class="p-2 neo-border bg-white active:shadow-neo-hover shadow-neo transition-all">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-neo-yellow border-t-2 border-neo-black p-4 space-y-2 absolute w-full">
+            <a href="../#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
+            <a href="../#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">15 Проектов</a>
+            <a href="../#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
+            <a href="../#skills" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Навыки</a>
+            <a href="../#open-source-community"
+                class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Open Source</a>
+            <a href="../#contact" class="block px-4 py-2 font-bold neo-border bg-neo-black text-white">Связаться</a>
+        </div>
+    </nav>
+    <section class="py-24 px-4 bg-neo-purple/10 border-b-4 border-neo-black" style="padding-bottom: 0px !important;">
+        <div class="max-w-7xl mx-auto">
+            <nav class="mb-8">
+                <div class="container mx-auto px-20">
+                    <ul class="flex items-center justify-center">
+                        <li><a href="/" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Главная</a></li>
+                        <li><a href="/index.html#projects" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a></li>
+                        <li class="px-4 py-2 bg-neo-purple text-white font-bold">RAG System</li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-black uppercase mb-4 text-neo-black">RAG System</h1>
+                <p class="inline-block px-4 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">RAG-система на NestJS + PostgreSQL (pgvector) для ответов на вопросы на основе знаний и опыта.</p>
+            </div>
+        </div>
+    </section>
+    
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="prose max-w-none space-y-8">
+            
+            <!-- TL;DR -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="zap" class="w-6 h-6 text-neo-yellow"></i> TL;DR</h2>
+                <p class="mb-4">За 8 дней частичной занятости я собрал RAG-систему на <strong>NestJS + PostgreSQL (pgvector)</strong>, которая обрабатывает <strong>~11 000 чанков документов</strong>.</p>
+                
+                <p class="mb-4">Первая версия отвечала около <strong>4 минут</strong>, после оптимизации — <strong>40–60 секунд</strong>.</p>
+                
+                <p class="mb-6">Главный вывод: <strong>RAG — это не «векторный поиск + LLM», а в первую очередь подготовка данных, фильтрация контекста и аккуратная работа с промптами</strong>.</p>
+            </article>
+
+            <!-- С чего всё началось -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="lightbulb" class="w-6 h-6 text-neo-pink"></i> С чего всё началось</h2>
+                <p class="mb-4">Идея проекта возникла довольно прозаично. Я давно хотел сделать себе простой сайт-визитку, но всё время откладывал. В какой-то момент понял, что в эпоху нейросетей это уже не большая проблема — и за вечер собрал <strong>site15.ru</strong>.</p>
+                
+                <p class="mb-4">Дальше возник логичный вопрос: <em>почему бы не добавить на сайт чат, который мог бы отвечать на вопросы на основе моих знаний, опыта и проектов?</em></p>
+                
+                <p class="mb-6">Так я и начал разбираться, как вообще делаются RAG-системы.</p>
+                
+                <p class="mb-6">Проект изначально был <strong>для личного использования</strong> — без бизнес-целей и «стартап-мышления». Мне хотелось руками пройти путь от «ничего не знаю про RAG» до рабочей системы.</p>
+            </article>
+
+            <!-- Зачем вообще RAG -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="help-circle" class="w-6 h-6 text-neo-blue"></i> Зачем вообще RAG</h2>
+                <p class="mb-4">Основная задача была учебная: научиться работать с RAG-системами, потому что сейчас это одна из самых востребованных тем — корпоративные базы знаний, ответы в стиле компании, поиск по внутренней документации.</p>
+                
+                <p class="mb-6">По ходу стало понятно, что <strong>RAG — это не какая-то магия, а довольно жёсткий инженерный процесс</strong>, где ошибки в данных или промптах мгновенно вылезают наружу.</p>
+            </article>
+
+            <!-- Как это встроено в site15.ru -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="link" class="w-6 h-6 text-neo-green"></i> Как это встроено в site15.ru</h2>
+                <p class="mb-4">RAG-система интегрирована с моим сайтом-визиткой. Site15.ru выступает как <strong>демо и интерфейс</strong>:</p>
+                
+                <pre>frontend site15.ru → backend site15.ru → отдельный сервер rag-system</pre>
+                
+                <p class="mb-4">Backend передаёт специальный API-ключ, что хотя бы минимально защищает систему от лишних запросов. Это не про серьёзную безопасность — просто базовая гигиена.</p>
+                
+                <p class="mb-6">Таким образом сайт стал не просто визиткой, а живым примером работы RAG.</p>
+            </article>
+
+            <!-- Почему стек именно такой -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="cpu" class="w-6 h-6 text-neo-purple"></i> Почему стек именно такой</h2>
+                
+                <h3 class="text-xl font-bold mb-3 mt-4">Backend — NestJS</h3>
+                <p class="mb-4">Я постоянно пишу бэкенды на NestJS, поэтому тут даже не было выбора.</p>
+                
+                <h3 class="text-xl font-bold mb-3 mt-4">Frontend — React Admin</h3>
+                <p class="mb-4">Вообще я работаю с Angular, но полноценного фронтенда тут не было нужно — требовалась только админка для управления документами, эмбеддингами и промптами.</p>
+                <p class="mb-6">В Angular-экосистеме готового аналога react-admin нет, поэтому решил взять его и заодно получить практический опыт.</p>
+                
+                <h3 class="text-xl font-bold mb-3 mt-4">PostgreSQL + pgvector</h3>
+                <p class="mb-6">Очень удобно, когда не нужно поднимать отдельное векторное хранилище. Обычные данные и векторы живут в одной базе — меньше инфраструктуры, меньше точек отказа.</p>
+                
+                <h3 class="text-xl font-bold mb-3 mt-4">Несколько LLM-провайдеров</h3>
+                <p class="mb-6">Изначально заложил поддержку разных провайдеров (OpenAI, Groq, Ollama и т.д.), чтобы можно было переключаться между ними и использовать бесплатные лимиты. Когда лимит одного заканчивается — активным становится следующий.</p>
+            </article>
+
+            <!-- Архитектура и ключевая идея -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-6 h-6 text-neo-yellow"></i> Архитектура и ключевая идея</h2>
+                <p class="mb-4">В какой-то момент стало очевидно, что <strong>главная проблема — не LLM</strong>, а объём данных, который ты в неё пихаешь.</p>
+                
+                <p class="mb-4">Я реализовал <strong>иерархическую фильтрацию</strong>:</p>
+                
+                <pre>Запрос пользователя
+ → нормализация вопроса
+ → фильтрация по метаданным       (11000 → ~500)
+ → фильтрация по секциям          (500 → ~200)
+ → векторный поиск                (200 → 5–10)
+ → один оптимизированный запрос в LLM</pre>
+                
+                <p class="mb-6">Идея простая: <strong>не отправлять в LLM всё подряд</strong>.</p>
+            </article>
+
+            <!-- Почему RAG оказался сложнее, чем казалось -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-6 h-6 text-neo-pink"></i> Почему RAG оказался сложнее, чем казалось</h2>
+                <p class="mb-4">На старте всё выглядело очень просто:</p>
+                
+                <blockquote>RAG = векторный поиск + LLM</blockquote>
+                
+                <p class="mb-6">На практике оказалось, что <strong>большая часть времени уходит на</strong>:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2">
+                    <li>сегментацию документов,</li>
+                    <li>генерацию метаданных,</li>
+                    <li>согласование промптов между собой.</li>
+                </ul>
+                
+                <p class="mb-6">Первая версия системы делала всё последовательно и отвечала <strong>около 4 минут</strong> даже на простой вопрос.</p>
+            </article>
+
+            <!-- Самая большая техническая боль -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="hammer" class="w-6 h-6 text-neo-blue"></i> Самая большая техническая боль</h2>
+                <p class="mb-4">Самым тяжёлым этапом стало <strong>создание метаданных для 11 005 чанков документов</strong>.</p>
+                
+                <p class="mb-4">В облаке это просто не взлетало — слишком долго и дорого. В итоге я запустил всё локально через <strong>LM Studio</strong> с моделью <code>qwen2.5-7b-instruct</code> и <strong>два дня гонял чанки на своей RTX 2060 SUPER</strong>.</p>
+                
+                <p class="mb-6">Это был момент, когда стало особенно понятно, что <strong>RAG — это не игрушка</strong>.</p>
+            </article>
+
+            <!-- Оптимизация и ускорение -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="trending-up" class="w-6 h-6 text-neo-green"></i> Оптимизация и ускорение</h2>
+                <p class="mb-4">После того как всё заработало, выяснилось, что система тормозит не из-за LLM, а из-за:</p>
+                <ul class="list-disc pl-6 mb-4 space-y-2">
+                    <li>лишних промежуточных промптов,</li>
+                    <li>последовательных вызовов, которые можно было запускать параллельно.</li>
+                </ul>
+                
+                <p class="mb-4">В первой версии было <strong>8 промежуточных промптов</strong>, сейчас — <strong>4</strong>. Часть этапов стала параллельной, появилась асинхронная очередь на RxJS.</p>
+                
+                <p class="mb-6">Результат: <strong>40–60 секунд вместо 4 минут</strong>.</p>
+            </article>
+
+            <!-- Промпты — это ад -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="message-square" class="w-6 h-6 text-neo-purple"></i> Промпты — это ад</h2>
+                <p class="mb-4">Самое долгое и сложное — формирование промптов. Они легко конфликтуют друг с другом или начинают «утекать»:</p>
+                
+                <pre>Промпт: отвечай только по контексту
+LLM: ...и ещё немного от себя</pre>
+                
+                <p class="mb-6">Главный вывод: <strong>меньше промптов, но они должны быть согласованы</strong>.</p>
+            </article>
+
+            <!-- Использование ИИ при разработке -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="bot" class="w-6 h-6 text-neo-yellow"></i> Использование ИИ при разработке</h2>
+                <p class="mb-4">Примерно <strong>70% кода писалось с помощью ИИ-ассистентов</strong>, но без моей архитектурной логики, правок и отладки этот код просто не работал бы.</p>
+                
+                <p class="mb-6"><strong>Ассистент — это инструмент, а не замена инженера</strong>.</p>
+            </article>
+
+            <!-- Безопасность и деплой -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="shield" class="w-6 h-6 text-neo-pink"></i> Безопасность и деплой</h2>
+                <p class="mb-4">Проект не production-ready, но я добавил:</p>
+                <ul class="list-disc pl-6 mb-4 space-y-2">
+                    <li>проверку разрешённого IP,</li>
+                    <li>проверку API-ключа.</li>
+                </ul>
+                
+                <p class="mb-4">Развёртывание максимально простое:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2">
+                    <li>отдельный VPS,</li>
+                    <li><code>docker-compose</code> для PostgreSQL и Ollama,</li>
+                    <li>backend через <code>pm2</code>.</li>
+                </ul>
+                
+                <p class="mb-6">CI/CD пока нет — в планах Docker + Kubernetes.</p>
+            </article>
+
+            <!-- Текущий статус и планы -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="calendar" class="w-6 h-6 text-neo-blue"></i> Текущий статус и планы</h2>
+                <p class="mb-4">Сейчас это <strong>экспериментальный проект</strong>, не MVP и не продакшен. Скорее заготовка и рабочий пример того, <strong>как можно собирать RAG-системы руками</strong>.</p>
+                
+                <p class="mb-6">В планах:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2">
+                    <li>написать тесты пользовательских сценариев,</li>
+                    <li>отрефакторить LLM-модуль в стиле NestJS,</li>
+                    <li>добавить аналитику и статистику,</li>
+                    <li>автоматизировать деплой,</li>
+                    <li>возможно сделать публичную SaaS-версию.</li>
+                </ul>
+            </article>
+
+            <!-- Ссылки -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="link" class="w-6 h-6 text-neo-purple"></i> Ссылки</h2>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <a href="https://github.com/site15/rag-system" target="_blank" class="inline-block text-neo-black font-bold underline mr-2">https://github.com/site15/rag-system</a>
+                        <span class="text-gray-700">— Репозиторий проекта</span>
+                    </div>
+                    <div class="flex items-start">
+                        <a href="https://site15.ru" target="_blank" class="inline-block text-neo-black font-bold underline mr-2">https://site15.ru</a>
+                        <span class="text-gray-700">— Мой сайт визитка с чатом поддержки</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Итог -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="flag" class="w-6 h-6 text-neo-green"></i> Итог</h2>
+                <p class="mb-4"><strong>RAG — это не «подключил LLM и поехали»</strong>. Это про данные, фильтрацию и дисциплину в промптах.</p>
+                
+                <p class="mb-6">За 8 дней частичной занятости мне удалось собрать рабочую систему, интегрировать её с site15.ru и получить реальное понимание того, как RAG работает на практике.</p>
+            </article>
+
+        </div>
+    </div>
+
+    <script>
+        // Initialize lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+    <!-- Footer -->
+    <footer class="bg-neo-black text-white py-12 px-4 border-t-4 border-white mt-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <h4 class="font-black text-2xl uppercase mb-2">site15.ru</h4>
+                <p class="font-mono text-sm text-gray-400">© 2025 Все права защищены (или нет).</p>
+            </div>
+            <div class="flex flex-col items-center md:items-end font-mono text-sm gap-2">
+                <!-- Footer Badges -->
+                <div class="flex flex-wrap justify-center md:justify-end gap-2">
+                    <a href="https://career.habr.com/endykaufman" target="_blank"
+                        class="px-3 py-1 bg-gray-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        ХабрКарьера
+                    </a>
+                    <a href="https://ufa.hh.ru/resume/2615ca8cff019da3eb0039ed1f6732786f4533" target="_blank"
+                        class="px-3 py-1 bg-red-600 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        HeadHunter
+                    </a>
+                    <a href="https://www.linkedin.com/in/ilshatkhamitov/" target="_blank"
+                        class="px-3 py-1 bg-blue-700 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        LinkedIn
+                    </a>
+                    <a href="../rss.xml" target="_blank"
+                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        RSS
+                    </a>
+                </div>
+                <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
+                </a>
+                <p class="text-gray-500">Уфа, Россия</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

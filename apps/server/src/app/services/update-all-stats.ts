@@ -1424,6 +1424,83 @@ async function fetchMyDashboardStats() {
   }
 }
 
+async function fetchRagSystemStats() {
+  if (!globalAppEnvironments.githubToken) {
+    console.log('⚠️  No GitHub token provided, using public data');
+    throw new Error('GITHUB_TOKEN is not set');
+  }
+  try {
+    // GitHub repository information
+    const GITHUB_TOKEN = globalAppEnvironments.githubToken;
+    const REPO_FULL_NAME = 'site15/rag-system';
+
+    // Fetch repository data
+    console.log('📥 Fetching RAG System repository data...');
+    const repoData = await fetchRepoData(REPO_FULL_NAME, GITHUB_TOKEN);
+    console.log('📥 Repo data:', repoData);
+
+    // Fetch commit count
+    console.log('📥 Fetching RAG System commit count...');
+    await delay(1000); // Delay to avoid rate limits
+    const commitCount = await fetchCommitCount(REPO_FULL_NAME, GITHUB_TOKEN);
+    console.log('📥 Commit count:', commitCount);
+
+    // Fetch commit dates for duration calculation
+    console.log('📥 Fetching commit dates for duration calculation...');
+    await delay(1000); // Delay to avoid rate limits
+    const commitDates = await fetchCommitDates(REPO_FULL_NAME, GITHUB_TOKEN);
+    console.log('📥 Commit dates:', commitDates);
+
+    // Calculate duration text
+    let commitDurationText = '';
+    if (commitDates.firstCommitDate && commitDates.lastCommitDate) {
+      try {
+        const latestDate = new Date(commitDates.firstCommitDate);
+        const oldestDate = new Date(commitDates.lastCommitDate);
+
+        // Calculate duration
+        const durationMs = Math.abs(+latestDate - +oldestDate);
+        const durationDays = Math.floor(durationMs / (1000 * 60 * 60 * 24));
+        const durationYears = Math.floor(durationDays / 365);
+        const remainingDays = durationDays % 365;
+        const durationMonths = Math.floor(remainingDays / 30);
+        const finalDays = remainingDays % 30;
+
+        const durationComponents: any[] = [];
+        if (durationYears > 0) {
+          const yearWord = getRussianDeclension(durationYears, ['год', 'года', 'лет']);
+          durationComponents.push(`${durationYears} ${yearWord}`);
+        }
+        if (durationMonths > 0) {
+          const monthWord = getRussianDeclension(durationMonths, ['месяц', 'месяца', 'месяцев']);
+          durationComponents.push(`${durationMonths} ${monthWord}`);
+        }
+        if (finalDays > 0 || durationComponents.length === 0) {
+          const dayWord = getRussianDeclension(finalDays, ['день', 'дня', 'дней']);
+          durationComponents.push(`${finalDays} ${dayWord}`);
+        }
+
+        commitDurationText = durationComponents.join(' ');
+        console.log('📥 Calculated duration text:', commitDurationText);
+      } catch (e) {
+        console.warn('⚠️  Error calculating commit duration:', e.message);
+      }
+    }
+
+    // Compile statistics
+    const stats = {
+      stars: repoData.stars,
+      commits: commitCount,
+      duration: commitDurationText,
+    };
+
+    return stats;
+  } catch (error) {
+    console.error('❌ Failed to fetch RAG System GitHub statistics:', error.message);
+    throw error;
+  }
+}
+
 /**
  * Fetch class-validator-multi-lang GitHub statistics
  * @returns {Promise<Object>} class-validator-multi-lang GitHub statistics
@@ -1610,6 +1687,7 @@ async function getJsAllStats(allStats: {
   typeGraphqlPrismaNestjs?: any;
   classValidatorMultiLang?: any;
   myDashboard?: any;
+  ragSystem?: any;
   devTo?: any;
   telegram?: any;
   habr?: any;
@@ -1677,6 +1755,12 @@ async function getJsAllStats(allStats: {
       duration: allStats.myDashboard.duration,
     },
     // done
+    ragSystemStats: {
+      stars: allStats.ragSystem.stars,
+      commits: allStats.ragSystem.commits,
+      duration: allStats.ragSystem.duration,
+    },
+    // done
     devToStats: {
       articles: allStats.devTo.articles,
       followers: allStats.devTo.followers,
@@ -1721,6 +1805,7 @@ export async function syncAllStats(): Promise<AllStats | null> {
       typeGraphqlPrismaNestjs?: any;
       classValidatorMultiLang?: any;
       myDashboard?: any;
+      ragSystem?: any;
     } = {};
 
     // Collect Dev.to statistics
@@ -1829,6 +1914,15 @@ export async function syncAllStats(): Promise<AllStats | null> {
       console.log('✅ My Dashboard statistics collected');
     } catch (error) {
       console.error('❌ Failed to collect My Dashboard statistics:', error.message);
+    }
+
+    // Collect RAG System statistics
+    console.log('\n--- RAG System Statistics ---');
+    try {
+      allStats.ragSystem = await fetchRagSystemStats();
+      console.log('✅ RAG System statistics collected');
+    } catch (error) {
+      console.error('❌ Failed to collect RAG System statistics:', error.message);
     }
 
     // Update the JS-file with all collected statistics

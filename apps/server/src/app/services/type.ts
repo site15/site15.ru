@@ -10,6 +10,7 @@ export interface AllStats {
   typeGraphqlPrismaNestjsStats: RepoStats;
   classValidatorMultiLangStats: RepoStats;
   myDashboardStats: RepoStats;
+  ragSystemStats: RepoStats;
   devToStats: DevToStats;
   telegramDataStats: TelegramChannelStats[];
   habrStats: HabrStats;
@@ -208,6 +209,9 @@ export class LandingAllStatsDto {
 
   @ApiProperty({ type: () => RepoStatsDto })
   myDashboardStats!: RepoStatsDto;
+
+  @ApiProperty({ type: () => RepoStatsDto })
+  ragSystemStats!: RepoStatsDto;
 
   @ApiProperty({ type: () => DevToStatsDto })
   devToStats!: DevToStatsDto;
