@@ -1,3 +1,4 @@
+setIntervalRef = null;
 // Chat Support System
 document.addEventListener('DOMContentLoaded', function () {
   const chatButton = document.getElementById('chatSupportButton');
@@ -13,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (sessionId) {
     // Load existing messages for this session
-    loadChatHistory();
+    startInterval();
   }
 
   // Open chat modal
@@ -39,9 +40,14 @@ document.addEventListener('DOMContentLoaded', function () {
     resetChat();
   });
 
-  setInterval(() => {
-    loadChatHistory();
-  }, 3000);
+  function startInterval() {
+    if (setIntervalRef) {
+      clearInterval(setIntervalRef);
+    }
+    setIntervalRef = setInterval(() => {
+      loadChatHistory();
+    }, 3000);
+  }
 
   let prevMessages = null;
 
@@ -89,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (msg.isProcessing) {
         messageDiv.innerHTML = `
                 <div class="${bgColor} ${textColor} p-3 rounded-lg neo-border inline-block max-w-xs">
-                    <p class="font-mono text-sm">обработка...</p>
+                    <p class="font-mono text-sm">${msg.message || 'обработка...'}</p>
                     <p class="font-mono text-xs opacity-70 mt-1">${msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}</p>
                 </div>
             `;
@@ -185,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isProcessing) {
       botMessageDiv.innerHTML = `
                 <div class="${bgColor} ${textColor} p-3 rounded-lg neo-border inline-block max-w-xs">
-                    <p class="font-mono text-sm">обработка...</p>
+                    <p class="font-mono text-sm">${msg.message || 'обработка...'}</p>
                     <p class="font-mono text-xs opacity-70 mt-1">${msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}</p>
                 </div>
             `;
@@ -209,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Remove session ID from localStorage
     localStorage.removeItem('chatSessionId');
 
-    loadChatHistory();
+    startInterval();
 
     // Clear input field
     chatInput.value = '';
