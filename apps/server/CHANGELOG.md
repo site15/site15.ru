@@ -1,3 +1,9 @@
+## [1.30.1](https://github.com/site15/site15.ru/compare/server-v1.30.0...server-v1.30.1) (2026-01-26)
+
+### Bug Fixes
+
+- **chat:** replace fixed interval with managed interval for chat loading ([d176690](https://github.com/site15/site15.ru/commit/d176690bd6f27452862113f7944e6359cb8859fa))
+
 # [1.30.0](https://github.com/site15/site15.ru/compare/server-v1.29.1...server-v1.30.0) (2026-01-23)
 
 ### Features
