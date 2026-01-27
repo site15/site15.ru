@@ -1,3 +1,9 @@
+## [1.30.2](https://github.com/site15/site15.ru/compare/server-v1.30.1...server-v1.30.2) (2026-01-27)
+
+### Bug Fixes
+
+- **chat:** improve message rendering and fallback handling ([1ebd1f8](https://github.com/site15/site15.ru/commit/1ebd1f8d9d1d09ce3d2911329b7ee0a880fef150))
+
 ## [1.30.1](https://github.com/site15/site15.ru/compare/server-v1.30.0...server-v1.30.1) (2026-01-26)
 
 ### Bug Fixes
