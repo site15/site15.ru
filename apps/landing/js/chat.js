@@ -84,6 +84,9 @@ document.addEventListener('DOMContentLoaded', function () {
       '<div class="mb-4"><div class="bg-neo-blue text-neo-black p-3 rounded-lg neo-border inline-block max-w-xs"><p class="font-mono text-sm">Привет! 👋</p><p class="font-mono text-sm">Я ваш ассистент по сайту site15.ru</p><p class="font-mono text-sm">Чем могу помочь?</p></div></div>';
 
     messages.forEach((msg) => {
+      if (msg.info === 'null/null:null') {
+        msg.info = '';
+      }
       const messageDiv = document.createElement('div');
       messageDiv.className = 'mb-4 ' + (msg.sender === 'user' ? 'flex justify-end' : '');
 
@@ -145,13 +148,13 @@ document.addEventListener('DOMContentLoaded', function () {
           },
         );
 
-        if (response.ok) {
-          const botMessage = await response.json();
+        const result = await response.json();
 
-          if (botMessage.sessionId) {
-            localStorage.setItem('chatSessionId', botMessage.sessionId);
+        if (response.ok) {
+          if (result.sessionId) {
+            localStorage.setItem('chatSessionId', result.sessionId);
           }
-          addBotMessage(botMessage, botMessage.isProcessing);
+          addBotMessage(result, result.isProcessing);
         } else {
           addBotMessage({ message: 'Извините, произошла ошибка. Попробуйте позже.', isProcessing: false }, false);
         }
@@ -182,6 +185,9 @@ document.addEventListener('DOMContentLoaded', function () {
    * @param {*} isProcessing
    */
   function addBotMessage(msg, isProcessing) {
+    if (msg.info === 'null/null:null') {
+      msg.info = '';
+    }
     const botMessageDiv = document.createElement('div');
     botMessageDiv.className = 'mb-4';
 

@@ -92,7 +92,7 @@ export class LandingController {
       this.logger.debug(
         `Sending message to Flow Controller with API key authentication ${url}, options: ${JSON.stringify({
           message: args.message,
-          dialogId: args.sessionId, // Using sessionId as dialogId
+          ...(args.sessionId ? { dialogId: args.sessionId } : {}), // Using sessionId as dialogId
         })}`,
       );
       const response = await fetch(url, {
@@ -103,14 +103,14 @@ export class LandingController {
         },
         body: JSON.stringify({
           message: args.message,
-          dialogId: args.sessionId, // Using sessionId as dialogId
+          ...(args.sessionId ? { dialogId: args.sessionId } : {}), // Using sessionId as dialogId
         }),
       });
       const result = await response.json();
 
       if (!response.ok) {
         this.logger.error(`Flow Controller error: ${response.status} - ${response.statusText}`);
-        return this.getFallbackResponse(args, result.response);
+        return { ...this.getFallbackResponse(args), message: result.response, sessionId: result.dialogId };
       }
 
       // Return the bot's response
@@ -217,7 +217,7 @@ export class LandingController {
     return Date.now().toString() + Math.random().toString(36).substr(2, 9);
   }
 
-  private getFallbackResponse(args: ChatSendMessageDto, message?: string): ChatMessageDto {
+  private getFallbackResponse(args: ChatSendMessageDto): ChatMessageDto {
     const botGreetings = [
       'Извините, но чат временно недоступен. 🙏',
       'К сожалению, функция чата сейчас не работает. Попробуйте позже.',
@@ -233,7 +233,7 @@ export class LandingController {
     return {
       id: this.generateMessageId(),
       sessionId: args.sessionId || '',
-      message: message || randomGreeting,
+      message: randomGreeting,
       sender: 'bot',
       timestamp: new Date(),
       name: 'Site Assistant',
