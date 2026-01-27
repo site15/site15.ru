@@ -1,3 +1,9 @@
+## [1.30.3](https://github.com/site15/site15.ru/compare/server-v1.30.2...server-v1.30.3) (2026-01-27)
+
+### Bug Fixes
+
+- **chat:** handle null info field and improve sessionId usage ([6102323](https://github.com/site15/site15.ru/commit/61023232321b13d5d6c47980827b3f577d9b23e8))
+
 ## [1.30.2](https://github.com/site15/site15.ru/compare/server-v1.30.1...server-v1.30.2) (2026-01-27)
 
 ### Bug Fixes
