@@ -291,6 +291,11 @@ export class ChatMessageDto {
     type: 'boolean',
   })
   isError!: boolean;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  info?: string;
 }
 
 export class ChatSendMessageDto {

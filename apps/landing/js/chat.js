@@ -12,10 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Get or create session ID from localStorage
   let sessionId = localStorage.getItem('chatSessionId');
 
-  if (sessionId) {
-    // Load existing messages for this session
-    startInterval();
-  }
+  // Load existing messages for this session
+  startInterval();
 
   // Open chat modal
   chatButton.addEventListener('click', function () {
@@ -95,7 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (msg.isProcessing) {
         messageDiv.innerHTML = `
                 <div class="${bgColor} ${textColor} p-3 rounded-lg neo-border inline-block max-w-xs">
-                    <p class="font-mono text-sm">${msg.message || 'обработка...'}</p>
+                    <p class="font-mono text-sm">${msg.message || 'Обработка...'}</p>
+                    ${msg.info ? `<p class="font-mono text-xs opacity-70 mt-1">${msg.info}</p>` : ''}
                     <p class="font-mono text-xs opacity-70 mt-1">${msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}</p>
                 </div>
             `;
@@ -103,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         messageDiv.innerHTML = `
                 <div class="${bgColor} ${textColor} p-3 rounded-lg neo-border inline-block max-w-xs">
                     <p class="font-mono text-sm">${msg.message}</p>
+                    ${msg.info ? `<p class="font-mono text-xs opacity-70 mt-1">${msg.info}</p>` : ''}
                     <p class="font-mono text-xs opacity-70 mt-1">${msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}</p>
                 </div>
             `;
@@ -191,7 +191,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (isProcessing) {
       botMessageDiv.innerHTML = `
                 <div class="${bgColor} ${textColor} p-3 rounded-lg neo-border inline-block max-w-xs">
-                    <p class="font-mono text-sm">${msg.message || 'обработка...'}</p>
+                    <p class="font-mono text-sm">${msg.message || 'Обработка...'}</p>
+                    ${msg.info ? `<p class="font-mono text-xs opacity-70 mt-1">${msg.info}</p>` : ''}
                     <p class="font-mono text-xs opacity-70 mt-1">${msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}</p>
                 </div>
             `;
@@ -199,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function () {
       botMessageDiv.innerHTML = `
                 <div class="${bgColor} ${textColor} p-3 rounded-lg neo-border inline-block max-w-xs">
                     <p class="font-mono text-sm">${msg.message}</p>
+                    ${msg.info ? `<p class="font-mono text-xs opacity-70 mt-1">${msg.info}</p>` : ''}
                     <p class="font-mono text-xs opacity-70 mt-1">${msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}</p>
                 </div>
             `;
