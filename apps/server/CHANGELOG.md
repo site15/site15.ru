@@ -1,3 +1,9 @@
+# [1.31.0](https://github.com/site15/site15.ru/compare/server-v1.30.3...server-v1.31.0) (2026-01-28)
+
+### Features
+
+- **chat:** add message info modal with detailed prompt results view ([091dd72](https://github.com/site15/site15.ru/commit/091dd728e83d871bc39827a229db127a190c5d43))
+
 ## [1.30.3](https://github.com/site15/site15.ru/compare/server-v1.30.2...server-v1.30.3) (2026-01-27)
 
 ### Bug Fixes
