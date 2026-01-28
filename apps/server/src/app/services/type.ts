@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString, IsNotEmpty } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsOptional, IsString, IsNotEmpty, IsDefined } from 'class-validator';
 
 export interface AllStats {
   githubStats: GithubStats;
@@ -261,6 +262,29 @@ export class LandingSendMessageDto {
 
 /* ---------------- Chat ---------------- */
 
+export class DialogMessagePrompt {
+  @ApiProperty({
+    type: 'string',
+  })
+  @IsDefined()
+  prompt!: string;
+
+  @ApiProperty({
+    type: 'string',
+  })
+  @IsDefined()
+  result!: string;
+
+  @ApiProperty({ type: 'number' })
+  @IsDefined()
+  @Type(() => Number)
+  duration!: number;
+
+  @ApiProperty({ type: 'string' })
+  @IsString()
+  info!: string;
+}
+
 export class ChatMessageDto {
   @ApiProperty()
   id!: string;
@@ -296,6 +320,10 @@ export class ChatMessageDto {
   @IsOptional()
   @IsString()
   info?: string;
+
+  @ApiPropertyOptional({ type: () => [DialogMessagePrompt] })
+  @IsDefined()
+  prompts?: DialogMessagePrompt[];
 }
 
 export class ChatSendMessageDto {

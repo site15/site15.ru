@@ -151,6 +151,7 @@ export class LandingController {
       // Get dialog messages from Flow Controller with API key authentication
       const params = new URLSearchParams({
         dialogId: sessionId,
+        showPrompts: 'true',
         curPage: '1',
         perPage: '50', // Get recent messages
       });
@@ -201,6 +202,7 @@ export class LandingController {
           isProcessing: item.isProcessing,
           isError: false,
           info: item.info,
+          prompts: item.prompts,
         });
       });
 
