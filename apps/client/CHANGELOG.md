@@ -1,3 +1,9 @@
+# [1.16.0](https://github.com/site15/site15.ru/compare/client-v1.15.1...client-v1.16.0) (2026-04-10)
+
+### Features
+
+- add support use proxy for correct work ([1560492](https://github.com/site15/site15.ru/commit/156049286e189c439675b97ea0d4c558a8689eb3))
+
 ## [1.15.1](https://github.com/site15/site15.ru/compare/client-v1.15.0...client-v1.15.1) (2026-01-11)
 
 ### Bug Fixes
