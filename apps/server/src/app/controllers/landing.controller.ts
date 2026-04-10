@@ -7,7 +7,7 @@ import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 import { AllowEmptySsoUser } from '@site15/sso';
 import { AppEnvironments } from '../app.environments';
 import { MetricsDynamicService } from '../services/metrics-dynamic.service';
-import { fetchWithProxy } from '../services/fetch-with-file-cache';
+import { customFetch } from '../services/fetch-with-file-cache';
 import {
   ChatListMessagesResponse,
   ChatMessageDto,
@@ -54,24 +54,24 @@ export class LandingController {
         contact = `@${contact}`;
       }
     }
-    const response = await fetchWithProxy(url, {
+    const response = await customFetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
+      data: {
         chat_id: -1 * +this.appEnvironments.landingChatId,
         text: `<u>Сообщение с site15.ru</u>
 <b>Дата:</b> <i>${new Date().toLocaleString()}</i>
 <b>Имя:</b> <i>${args.name}</i>
 <b>E-mail/Телеграм:</b> <i>${contact}</i>
 <b>Сообщение:</b> <i>${args.message}</i>`,
-        parse_mode: 'HTML', // можно MarkdownV2
-      }),
+        parse_mode: 'HTML',
+      },
     });
 
     const result = await response.json();
-    this.logger.debug({ sendMessageResult: result });
+    // this.logger.debug({ sendMessageResult: result });
     return { message: getText('ok') };
   }
 
@@ -90,22 +90,22 @@ export class LandingController {
     try {
       // Send message to Flow Controller with API key authentication
       const url = `${flowControllerUrl}/flow/message/send`;
-      this.logger.debug(
-        `Sending message to Flow Controller with API key authentication ${url}, options: ${JSON.stringify({
-          message: args.message,
-          ...(args.sessionId ? { dialogId: args.sessionId } : {}), // Using sessionId as dialogId
-        })}`,
-      );
-      const response = await fetchWithProxy(url, {
+      //    this.logger.debug(
+      //      `Sending message to Flow Controller with API key authentication ${url}, options: ${JSON.stringify({
+      //        message: args.message,
+      //        ...(args.sessionId ? { dialogId: args.sessionId } : {}), // Using sessionId as dialogId
+      //      })}`,
+      //    );
+      const response = await customFetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': apiKey,
         },
-        body: JSON.stringify({
+        data: {
           message: args.message,
-          ...(args.sessionId ? { dialogId: args.sessionId } : {}), // Using sessionId as dialogId
-        }),
+          ...(args.sessionId ? { dialogId: args.sessionId } : {}),
+        },
       });
       const result = await response.json();
 
@@ -157,7 +157,7 @@ export class LandingController {
         perPage: '50', // Get recent messages
       });
 
-      const response = await fetchWithProxy(`${flowControllerUrl}/flow/dialog?${params}`, {
+      const response = await customFetch(`${flowControllerUrl}/flow/dialog?${params}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

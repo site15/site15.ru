@@ -7,17 +7,22 @@ window.handleSubmit = function (e) {
   btn.classList.add('opacity-75', 'cursor-not-allowed');
   // Simulate API call
 
-  fetch('https://site15.ru/api/landing/send-message', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  fetch(
+    window.location.href.includes('localhost')
+      ? 'http://localhost:3000/api/landing/send-message'
+      : 'https://site15.ru/api/landing/send-message',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value,
+      }),
     },
-    body: JSON.stringify({
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      message: document.getElementById('message').value,
-    }),
-  })
+  )
     .catch((err) => {
       const errorMessage = document.getElementById('errorMessage');
       if (errorMessage) {

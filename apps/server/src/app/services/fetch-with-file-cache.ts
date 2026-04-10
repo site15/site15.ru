@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 import { globalPrismaClient } from './global';
 import { globalAppEnvironments } from './global';
@@ -39,8 +40,17 @@ async function writeCache(
   },
 ) {
   await globalPrismaClient.metricsDynamicCache.upsert({
-    create: { url: filePath, body: data.body, headers: data.headers, status: String(data.status) },
-    update: { body: data.body, headers: data.headers, status: String(data.status) },
+    create: {
+      url: filePath,
+      body: data.body,
+      headers: data.headers,
+      status: String(data.status),
+    },
+    update: {
+      body: data.body,
+      headers: data.headers,
+      status: String(data.status),
+    },
     where: { url: filePath },
   });
 }
@@ -61,63 +71,60 @@ function getProxyAgent(): HttpsProxyAgent<string> | undefined {
 }
 
 /**
- * Merge proxy agent into fetch options
+ * Создание axios config с прокси
  */
-function withProxyOptions(options?: RequestInit): RequestInit {
+function withProxyConfig(options?: AxiosRequestConfig): AxiosRequestConfig {
   const agent = getProxyAgent();
-  if (!agent) {
-    return options || {};
-  }
 
   return {
     ...options,
-    // @ts-expect-error - agent is not in RequestInit but node-fetch supports it
-    agent,
+    ...(agent
+      ? {
+          httpAgent: agent,
+          httpsAgent: agent,
+        }
+      : {}),
   };
 }
 
 /**
- * Helper function to apply proxy to raw fetch calls
- * Use this for direct fetch calls that need proxy support
+ * ===== AXIOS WRAPPER =====
  */
-export function fetchWithProxy(url: string, options?: RequestInit): Promise<Response> {
-  return fetch(url, withProxyOptions(options));
-}
-
-/**
- * ===== ПЕРЕОПРЕДЕЛЕНИЕ fetch =====
- */
-export const customFetch = async function cachedFetch(url: string, options?: RequestInit | undefined) {
+export const customFetch = async function cachedFetch(url: string, options?: AxiosRequestConfig): Promise<Response> {
   const method = (options?.method || 'GET').toUpperCase();
 
-  // Apply proxy to all requests
-  const proxiedOptions = withProxyOptions(options);
+  const axiosConfig: AxiosRequestConfig = withProxyConfig({
+    url,
+    method: method as any,
+    responseType: 'text', // важно: аналог response.text()
+    validateStatus: () => true, // не бросаем на 4xx/5xx
+    ...options,
+  });
 
   // Кэшируем только GET
-  if (method !== 'GET') {
-    return fetch(url, proxiedOptions);
+  if (method === 'GET') {
+    const cached = await readCache(url);
+
+    if (cached) {
+      return new Response(cached.body, {
+        status: +(cached.status || 0),
+        headers: cached.headers as any,
+      });
+    }
   }
 
-  const cached = await readCache(url);
-  if (cached) {
-    return new Response(cached.body, {
-      status: +(cached.status || 0),
-      headers: cached.headers as any,
+  const response: AxiosResponse<string> = await axios(axiosConfig);
+
+  if (method === 'GET') {
+    await writeCache(url, {
+      status: response.status,
+      headers: response.headers,
+      body: response.data,
     });
   }
 
-  const response = await fetch(url, proxiedOptions);
-  const body = await response.text();
-
-  await writeCache(url, {
+  return new Response(response.data, {
     status: response.status,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    headers: Object.fromEntries((response.headers as any).entries()),
-    body,
-  });
-
-  return new Response(body, {
-    status: response.status,
-    headers: response.headers,
+    headers: response.headers as any,
   });
 };
