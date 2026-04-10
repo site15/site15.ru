@@ -26,6 +26,111 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface ChatListMessagesResponse
+ */
+export interface ChatListMessagesResponse {
+    /**
+     * 
+     * @type {Array<ChatMessageDto>}
+     * @memberof ChatListMessagesResponse
+     */
+    'messages': Array<ChatMessageDto>;
+}
+/**
+ * 
+ * @export
+ * @interface ChatMessageDto
+ */
+export interface ChatMessageDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatMessageDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatMessageDto
+     */
+    'sessionId': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatMessageDto
+     */
+    'message': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatMessageDto
+     */
+    'sender': string;
+    /**
+     * 
+     * @type {object}
+     * @memberof ChatMessageDto
+     */
+    'timestamp': object;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatMessageDto
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ChatMessageDto
+     */
+    'isProcessing': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ChatMessageDto
+     */
+    'isError': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatMessageDto
+     */
+    'info'?: string;
+    /**
+     * 
+     * @type {Array<DialogMessagePrompt>}
+     * @memberof ChatMessageDto
+     */
+    'prompts'?: Array<DialogMessagePrompt>;
+}
+/**
+ * 
+ * @export
+ * @interface ChatSendMessageDto
+ */
+export interface ChatSendMessageDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatSendMessageDto
+     */
+    'sessionId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatSendMessageDto
+     */
+    'message': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatSendMessageDto
+     */
+    'name'?: string;
+}
+/**
+ * 
+ * @export
  * @interface CompleteForgotPasswordArgs
  */
 export interface CompleteForgotPasswordArgs {
@@ -550,6 +655,37 @@ export interface DevToStatsDto {
      * @memberof DevToStatsDto
      */
     'reactions': number;
+}
+/**
+ * 
+ * @export
+ * @interface DialogMessagePrompt
+ */
+export interface DialogMessagePrompt {
+    /**
+     * 
+     * @type {string}
+     * @memberof DialogMessagePrompt
+     */
+    'prompt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DialogMessagePrompt
+     */
+    'result': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof DialogMessagePrompt
+     */
+    'duration': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DialogMessagePrompt
+     */
+    'info': string;
 }
 /**
  * 
@@ -1208,6 +1344,18 @@ export interface LandingAllStatsDto {
      * @memberof LandingAllStatsDto
      */
     'classValidatorMultiLangStats': RepoStatsDto;
+    /**
+     * 
+     * @type {RepoStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'myDashboardStats': RepoStatsDto;
+    /**
+     * 
+     * @type {RepoStatsDto}
+     * @memberof LandingAllStatsDto
+     */
+    'ragSystemStats': RepoStatsDto;
     /**
      * 
      * @type {DevToStatsDto}
@@ -6848,6 +6996,74 @@ export const LandingApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
+         * @param {string} sessionId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        landingControllerChatListMessages: async (sessionId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'sessionId' is not null or undefined
+            assertParamExists('landingControllerChatListMessages', 'sessionId', sessionId)
+            const localVarPath = `/api/landing/chat/list-messages/{sessionId}`
+                .replace(`{${"sessionId"}}`, encodeURIComponent(String(sessionId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ChatSendMessageDto} chatSendMessageDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        landingControllerChatSendMessage: async (chatSendMessageDto: ChatSendMessageDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chatSendMessageDto' is not null or undefined
+            assertParamExists('landingControllerChatSendMessage', 'chatSendMessageDto', chatSendMessageDto)
+            const localVarPath = `/api/landing/chat/send-message`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(chatSendMessageDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {LandingSendMessageDto} landingSendMessageDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6922,6 +7138,30 @@ export const LandingApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {string} sessionId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async landingControllerChatListMessages(sessionId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChatListMessagesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.landingControllerChatListMessages(sessionId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LandingApi.landingControllerChatListMessages']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {ChatSendMessageDto} chatSendMessageDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async landingControllerChatSendMessage(chatSendMessageDto: ChatSendMessageDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChatMessageDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.landingControllerChatSendMessage(chatSendMessageDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['LandingApi.landingControllerChatSendMessage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {LandingSendMessageDto} landingSendMessageDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6955,6 +7195,24 @@ export const LandingApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
+         * @param {string} sessionId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        landingControllerChatListMessages(sessionId: string, options?: RawAxiosRequestConfig): AxiosPromise<ChatListMessagesResponse> {
+            return localVarFp.landingControllerChatListMessages(sessionId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ChatSendMessageDto} chatSendMessageDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        landingControllerChatSendMessage(chatSendMessageDto: ChatSendMessageDto, options?: RawAxiosRequestConfig): AxiosPromise<ChatMessageDto> {
+            return localVarFp.landingControllerChatSendMessage(chatSendMessageDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {LandingSendMessageDto} landingSendMessageDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -6980,6 +7238,28 @@ export const LandingApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class LandingApi extends BaseAPI {
+    /**
+     * 
+     * @param {string} sessionId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LandingApi
+     */
+    public landingControllerChatListMessages(sessionId: string, options?: RawAxiosRequestConfig) {
+        return LandingApiFp(this.configuration).landingControllerChatListMessages(sessionId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ChatSendMessageDto} chatSendMessageDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LandingApi
+     */
+    public landingControllerChatSendMessage(chatSendMessageDto: ChatSendMessageDto, options?: RawAxiosRequestConfig) {
+        return LandingApiFp(this.configuration).landingControllerChatSendMessage(chatSendMessageDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {LandingSendMessageDto} landingSendMessageDto 

@@ -15,6 +15,9 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/chat-list-messages-response.interface.ts
+model/chat-message-dto.interface.ts
+model/chat-send-message-dto.interface.ts
 model/complete-forgot-password-args.interface.ts
 model/complete-sign-up-args.interface.ts
 model/create-full-metrics-github-metric-dto.interface.ts
@@ -31,6 +34,7 @@ model/create-metrics-settings-dto.interface.ts
 model/create-sso-tenant-dto.interface.ts
 model/create-webhook-dto.interface.ts
 model/dev-to-stats-dto.interface.ts
+model/dialog-message-prompt.interface.ts
 model/files-error-enum.interface.ts
 model/files-error.interface.ts
 model/files-presigned-urls.interface.ts

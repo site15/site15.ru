@@ -7,6 +7,7 @@ import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 import { AllowEmptySsoUser } from '@site15/sso';
 import { AppEnvironments } from '../app.environments';
 import { MetricsDynamicService } from '../services/metrics-dynamic.service';
+import { fetchWithProxy } from '../services/fetch-with-file-cache';
 import {
   ChatListMessagesResponse,
   ChatMessageDto,
@@ -53,7 +54,7 @@ export class LandingController {
         contact = `@${contact}`;
       }
     }
-    const response = await fetch(url, {
+    const response = await fetchWithProxy(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -95,7 +96,7 @@ export class LandingController {
           ...(args.sessionId ? { dialogId: args.sessionId } : {}), // Using sessionId as dialogId
         })}`,
       );
-      const response = await fetch(url, {
+      const response = await fetchWithProxy(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -156,7 +157,7 @@ export class LandingController {
         perPage: '50', // Get recent messages
       });
 
-      const response = await fetch(`${flowControllerUrl}/flow/dialog?${params}`, {
+      const response = await fetchWithProxy(`${flowControllerUrl}/flow/dialog?${params}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

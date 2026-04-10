@@ -48,4 +48,10 @@ export class AppEnvironments {
     hideValueFromOutputs: true,
   })
   flowControllerApiKey?: string;
+
+  @EnvModelProperty({
+    description: 'HTTP Proxy URL for outbound requests (e.g., http://proxy.example.com:8080)',
+    hideValueFromOutputs: true,
+  })
+  httpProxyUrl?: string;
 }

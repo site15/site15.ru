@@ -1,3 +1,6 @@
+export * from './chat-list-messages-response.interface';
+export * from './chat-message-dto.interface';
+export * from './chat-send-message-dto.interface';
 export * from './complete-forgot-password-args.interface';
 export * from './complete-sign-up-args.interface';
 export * from './create-full-metrics-github-metric-dto.interface';
@@ -14,6 +17,7 @@ export * from './create-metrics-settings-dto.interface';
 export * from './create-sso-tenant-dto.interface';
 export * from './create-webhook-dto.interface';
 export * from './dev-to-stats-dto.interface';
+export * from './dialog-message-prompt.interface';
 export * from './files-error-enum.interface';
 export * from './files-error.interface';
 export * from './files-presigned-urls.interface';

@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpsProxyAgent } from 'https-proxy-agent';
 import { globalPrismaClient } from './global';
+import { globalAppEnvironments } from './global';
 
 /**
  * ===== НАСТРОЙКИ =====
@@ -44,14 +46,56 @@ async function writeCache(
 }
 
 /**
+ * ===== HELPER FUNCTIONS =====
+ */
+
+/**
+ * Get proxy agent if proxy is configured
+ */
+function getProxyAgent(): HttpsProxyAgent<string> | undefined {
+  const proxyUrl = globalAppEnvironments?.httpProxyUrl;
+  if (proxyUrl) {
+    return new HttpsProxyAgent(proxyUrl);
+  }
+  return undefined;
+}
+
+/**
+ * Merge proxy agent into fetch options
+ */
+function withProxyOptions(options?: RequestInit): RequestInit {
+  const agent = getProxyAgent();
+  if (!agent) {
+    return options || {};
+  }
+
+  return {
+    ...options,
+    // @ts-expect-error - agent is not in RequestInit but node-fetch supports it
+    agent,
+  };
+}
+
+/**
+ * Helper function to apply proxy to raw fetch calls
+ * Use this for direct fetch calls that need proxy support
+ */
+export function fetchWithProxy(url: string, options?: RequestInit): Promise<Response> {
+  return fetch(url, withProxyOptions(options));
+}
+
+/**
  * ===== ПЕРЕОПРЕДЕЛЕНИЕ fetch =====
  */
 export const customFetch = async function cachedFetch(url: string, options?: RequestInit | undefined) {
   const method = (options?.method || 'GET').toUpperCase();
 
+  // Apply proxy to all requests
+  const proxiedOptions = withProxyOptions(options);
+
   // Кэшируем только GET
   if (method !== 'GET') {
-    return fetch(url, options);
+    return fetch(url, proxiedOptions);
   }
 
   const cached = await readCache(url);
@@ -62,7 +106,7 @@ export const customFetch = async function cachedFetch(url: string, options?: Req
     });
   }
 
-  const response = await fetch(url, options);
+  const response = await fetch(url, proxiedOptions);
   const body = await response.text();
 
   await writeCache(url, {

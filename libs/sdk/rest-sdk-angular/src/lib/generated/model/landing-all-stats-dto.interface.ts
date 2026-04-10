@@ -23,6 +23,8 @@ export interface LandingAllStatsDtoInterface {
     nestPermissionsSeedStats: RepoStatsDtoInterface;
     typeGraphqlPrismaNestjsStats: RepoStatsDtoInterface;
     classValidatorMultiLangStats: RepoStatsDtoInterface;
+    myDashboardStats: RepoStatsDtoInterface;
+    ragSystemStats: RepoStatsDtoInterface;
     devToStats: DevToStatsDtoInterface;
     telegramDataStats: Array<TelegramChannelStatsDtoInterface>;
     habrStats: HabrStatsDtoInterface;
