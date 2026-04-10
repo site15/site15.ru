@@ -1,3 +1,9 @@
+## [1.32.1](https://github.com/site15/site15.ru/compare/server-v1.32.0...server-v1.32.1) (2026-04-10)
+
+### Bug Fixes
+
+- update year ([9214199](https://github.com/site15/site15.ru/commit/9214199397c86290216d07b12d1274d5ad83831c))
+
 # [1.32.0](https://github.com/site15/site15.ru/compare/server-v1.31.0...server-v1.32.0) (2026-04-10)
 
 ### Features
