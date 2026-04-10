@@ -1,3 +1,9 @@
+## [1.32.3](https://github.com/site15/site15.ru/compare/server-v1.32.2...server-v1.32.3) (2026-04-10)
+
+### Bug Fixes
+
+- update followers parser ([984a66f](https://github.com/site15/site15.ru/commit/984a66fee35d110b2e21bb0ce21db03899e6bdb2))
+
 ## [1.32.2](https://github.com/site15/site15.ru/compare/server-v1.32.1...server-v1.32.2) (2026-04-10)
 
 ### Bug Fixes
