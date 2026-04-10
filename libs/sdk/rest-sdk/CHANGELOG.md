@@ -1,3 +1,9 @@
+# [1.13.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.12.0...rest-sdk-v1.13.0) (2026-04-10)
+
+### Features
+
+- add support use proxy for correct work ([1560492](https://github.com/site15/site15.ru/commit/156049286e189c439675b97ea0d4c558a8689eb3))
+
 # [1.12.0](https://github.com/site15/site15.ru/compare/rest-sdk-v1.11.1...rest-sdk-v1.12.0) (2025-12-22)
 
 ### Features
