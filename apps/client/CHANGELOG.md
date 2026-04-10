@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/site15/site15.ru/compare/client-v1.16.0...client-v1.16.1) (2026-04-10)
+
+### Bug Fixes
+
+- change fetch to axios ([519fa62](https://github.com/site15/site15.ru/commit/519fa62fe73b9e58310304ac96fe061de2fa089a))
+- update yarn lock file ([2b2c57d](https://github.com/site15/site15.ru/commit/2b2c57d089287589d5e3f41c0f292ffc4d64ce98))
+
 # [1.16.0](https://github.com/site15/site15.ru/compare/client-v1.15.1...client-v1.16.0) (2026-04-10)
 
 ### Features
