@@ -684,8 +684,12 @@ async function fetchHabrStats() {
 
     const karma = $('div.karma-display').text().trim();
     const articles = $("a[href*='/ru/users/kaufmanendy/articles/']").first().text().match(/\d+/)?.[0] ?? '0';
-    const followers =
-      $("button:contains('Подписчики')").find('span.tm-navigation-dropdown__option-count').text().trim() ?? '0';
+    const followers = +$('.stat')
+      .filter((_, el) => $(el).find('.label').text().includes('Подписчики'))
+      .first()
+      .find('.counter')
+      .text()
+      .trim();
 
     return {
       karma,
