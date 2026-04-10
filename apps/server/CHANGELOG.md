@@ -1,3 +1,9 @@
+# [1.32.0](https://github.com/site15/site15.ru/compare/server-v1.31.0...server-v1.32.0) (2026-04-10)
+
+### Features
+
+- add support use proxy for correct work ([1560492](https://github.com/site15/site15.ru/commit/156049286e189c439675b97ea0d4c558a8689eb3))
+
 # [1.31.0](https://github.com/site15/site15.ru/compare/server-v1.30.3...server-v1.31.0) (2026-01-28)
 
 ### Features
