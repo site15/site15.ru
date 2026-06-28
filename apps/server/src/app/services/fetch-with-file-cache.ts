@@ -90,7 +90,11 @@ function withProxyConfig(options?: AxiosRequestConfig): AxiosRequestConfig {
 /**
  * ===== AXIOS WRAPPER =====
  */
-export const customFetch = async function cachedFetch(url: string, options?: AxiosRequestConfig): Promise<Response> {
+export const customFetch = async function cachedFetch(
+  url: string,
+  options?: AxiosRequestConfig,
+  skipCache?: boolean,
+): Promise<Response> {
   const method = (options?.method || 'GET').toUpperCase();
 
   const axiosConfig: AxiosRequestConfig = withProxyConfig({
@@ -102,7 +106,7 @@ export const customFetch = async function cachedFetch(url: string, options?: Axi
   });
 
   // Кэшируем только GET
-  if (method === 'GET') {
+  if (method === 'GET' && !skipCache) {
     const cached = await readCache(url);
 
     if (cached) {
@@ -115,7 +119,7 @@ export const customFetch = async function cachedFetch(url: string, options?: Axi
 
   const response: AxiosResponse<string> = await axios(axiosConfig);
 
-  if (method === 'GET') {
+  if (method === 'GET' && !skipCache) {
     await writeCache(url, {
       status: response.status,
       headers: response.headers,

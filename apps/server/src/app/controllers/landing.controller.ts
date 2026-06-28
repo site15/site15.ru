@@ -157,13 +157,17 @@ export class LandingController {
         perPage: '50', // Get recent messages
       });
 
-      const response = await customFetch(`${flowControllerUrl}/flow/dialog?${params}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
+      const response = await customFetch(
+        `${flowControllerUrl}/flow/dialog?${params}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+          },
         },
-      });
+        true,
+      );
 
       const result = await response.json();
       if (!response.ok) {
