@@ -1,3 +1,9 @@
+## [1.32.4](https://github.com/site15/site15.ru/compare/server-v1.32.3...server-v1.32.4) (2026-06-28)
+
+### Bug Fixes
+
+- update pm2 stop commands and enhance customFetch function with cache control ([669b516](https://github.com/site15/site15.ru/commit/669b516ece0b0da6f65c66b3be2adf71eb6f4113))
+
 ## [1.32.3](https://github.com/site15/site15.ru/compare/server-v1.32.2...server-v1.32.3) (2026-04-10)
 
 ### Bug Fixes
