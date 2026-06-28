@@ -25,24 +25,30 @@ document.addEventListener('DOMContentLoaded', function () {
   const closeMsgInfoModal = document.getElementById('closeMsgInfoModal');
   const msgInfoContent = document.getElementById('msgInfoContent');
 
-  // Load existing messages for this session
-  startInterval();
+  // Load existing messages for this session when chat is opened
+  const sessionIdOnLoad = localStorage.getItem('chatSessionId');
+  if (sessionIdOnLoad) {
+    loadChatHistory();
+  }
 
   // Open chat modal
   chatButton.addEventListener('click', function () {
     chatModal.classList.remove('hidden');
     chatInput.focus();
+    startInterval();
   });
 
   // Close chat modal
   closeButton.addEventListener('click', function () {
     chatModal.classList.add('hidden');
+    stopInterval();
   });
 
   // Close modal when clicking outside
   chatModal.addEventListener('click', function (e) {
     if (e.target === chatModal) {
       chatModal.classList.add('hidden');
+      stopInterval();
     }
   });
 
@@ -243,13 +249,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  function startInterval() {
+  function stopInterval() {
     if (setIntervalRef) {
       clearInterval(setIntervalRef);
+      setIntervalRef = null;
+    }
+  }
+
+  function startInterval() {
+    if (setIntervalRef) {
+      return;
+    }
+    const sessionId = localStorage.getItem('chatSessionId');
+    if (!sessionId) {
+      return;
     }
     setIntervalRef = setInterval(() => {
       loadChatHistory();
     }, 3000);
+  }
+
+  function fetchWithTimeout(url, options = {}, timeoutMs = 15000) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+    return fetch(url, { ...options, signal: controller.signal }).finally(() => {
+      clearTimeout(timeoutId);
+    });
   }
 
   let prevMessages = null;
@@ -258,8 +284,11 @@ document.addEventListener('DOMContentLoaded', function () {
   async function loadChatHistory() {
     // Get or create session ID from localStorage
     let sessionId = localStorage.getItem('chatSessionId');
+    if (!sessionId) {
+      return;
+    }
     try {
-      const response = await fetch(
+      const response = await fetchWithTimeout(
         window.location.href.includes('localhost')
           ? 'http://localhost:3000/api/landing/chat/list-messages/' + sessionId
           : 'https://site15.ru/api/landing/chat/list-messages/' + sessionId,
@@ -337,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       try {
         // Send to API
-        const response = await fetch(
+        const response = await fetchWithTimeout(
           window.location.href.includes('localhost')
             ? 'http://localhost:3000/api/landing/chat/send-message'
             : 'https://site15.ru/api/landing/chat/send-message',
@@ -361,6 +390,9 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('chatSessionId', result.sessionId);
           }
           addBotMessage(result, result.isProcessing);
+          if (result.isProcessing) {
+            startInterval();
+          }
         } else {
           addBotMessage({ message: 'Извините, произошла ошибка. Попробуйте позже.', isProcessing: false }, false);
         }
@@ -425,16 +457,13 @@ document.addEventListener('DOMContentLoaded', function () {
   // Reset chat function
   function resetChat() {
     prevMessages = null;
+    stopInterval();
 
     // Remove session ID from localStorage
     localStorage.removeItem('chatSessionId');
 
-    startInterval();
-
     // Clear input field
     chatInput.value = '';
-
-    localStorage.removeItem('chatSessionId');
 
     // Focus input field
     chatInput.focus();

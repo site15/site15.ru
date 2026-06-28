@@ -50,6 +50,12 @@ export class AppEnvironments {
   flowControllerApiKey?: string;
 
   @EnvModelProperty({
+    description: 'Timeout in milliseconds for Flow Controller chat API requests',
+    default: 15000,
+  })
+  flowControllerRequestTimeoutMs?: number;
+
+  @EnvModelProperty({
     description: 'HTTP Proxy URL for outbound requests (e.g., http://proxy.example.com:8080)',
     hideValueFromOutputs: true,
   })

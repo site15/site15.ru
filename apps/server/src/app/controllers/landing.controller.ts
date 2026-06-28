@@ -24,11 +24,24 @@ import {
 @AllowEmptySsoUser()
 export class LandingController {
   private readonly logger = new Logger(LandingController.name);
+  private static readonly DEFAULT_FLOW_CONTROLLER_TIMEOUT_MS = 15000;
 
   constructor(
     private readonly appEnvironments: AppEnvironments,
     private readonly metricsDynamicService: MetricsDynamicService,
   ) {}
+
+  private getFlowControllerRequestOptions<T extends Record<string, unknown>>(options: T): T & { timeout: number } {
+    return {
+      ...options,
+      timeout:
+        this.appEnvironments.flowControllerRequestTimeoutMs ?? LandingController.DEFAULT_FLOW_CONTROLLER_TIMEOUT_MS,
+    };
+  }
+
+  private isValidChatSessionId(sessionId?: string): boolean {
+    return !!sessionId && sessionId !== 'null' && sessionId !== 'undefined';
+  }
 
   @Get('stats')
   @ApiOkResponse({ type: LandingAllStatsResponse })
@@ -96,17 +109,20 @@ export class LandingController {
       //        ...(args.sessionId ? { dialogId: args.sessionId } : {}), // Using sessionId as dialogId
       //      })}`,
       //    );
-      const response = await customFetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-        },
-        data: {
-          message: args.message,
-          ...(args.sessionId ? { dialogId: args.sessionId } : {}),
-        },
-      });
+      const response = await customFetch(
+        url,
+        this.getFlowControllerRequestOptions({
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+          },
+          data: {
+            message: args.message,
+            ...(args.sessionId ? { dialogId: args.sessionId } : {}),
+          },
+        }),
+      );
       const result = await response.json();
 
       if (!response.ok) {
@@ -137,6 +153,10 @@ export class LandingController {
   @Get('chat/list-messages/:sessionId')
   @ApiOkResponse({ type: ChatListMessagesResponse })
   async chatListMessages(@Param('sessionId') sessionId: string): Promise<ChatListMessagesResponse> {
+    if (!this.isValidChatSessionId(sessionId)) {
+      return { messages: [] };
+    }
+
     const flowControllerUrl = this.appEnvironments.flowControllerUrl;
     const apiKey = this.appEnvironments.flowControllerApiKey;
 
@@ -159,13 +179,13 @@ export class LandingController {
 
       const response = await customFetch(
         `${flowControllerUrl}/flow/dialog?${params}`,
-        {
+        this.getFlowControllerRequestOptions({
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'x-api-key': apiKey,
           },
-        },
+        }),
         true,
       );
 
