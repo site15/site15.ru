@@ -1,3 +1,9 @@
+# [1.33.0](https://github.com/site15/site15.ru/compare/server-v1.32.4...server-v1.33.0) (2026-06-28)
+
+### Features
+
+- enhance chat functionality with session management and timeout handling ([c880d88](https://github.com/site15/site15.ru/commit/c880d887faabbc963cc199fbb075865be8607e37))
+
 ## [1.32.4](https://github.com/site15/site15.ru/compare/server-v1.32.3...server-v1.32.4) (2026-06-28)
 
 ### Bug Fixes
