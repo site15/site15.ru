@@ -245,12 +245,12 @@ export class LandingSendMessageDto {
   @IsString()
   name?: string;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
     type: 'string',
   })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  email!: string;
+  email?: string;
 
   @ApiProperty({
     type: 'string',

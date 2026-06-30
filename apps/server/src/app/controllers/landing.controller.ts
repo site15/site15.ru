@@ -57,16 +57,20 @@ export class LandingController {
       throw new UnauthorizedException('Bot configuration is incomplete');
     }
     const url = `https://api.telegram.org/bot${this.appEnvironments.landingBotToken}/sendMessage`;
-    let contact = args.email;
-    if (contact.includes('@') && contact.split('@')[0]) {
-      contact = `<pre>${contact}</pre>`;
-    } else {
-      if (contact.includes('@')) {
-        contact = `${contact}`;
-      } else {
+    const messageLines = ['<u>Сообщение с site15.ru</u>', `<b>Дата:</b> <i>${new Date().toLocaleString()}</i>`];
+    if (args.name) {
+      messageLines.push(`<b>Имя:</b> <i>${args.name}</i>`);
+    }
+    if (args.email) {
+      let contact = args.email;
+      if (contact.includes('@') && contact.split('@')[0]) {
+        contact = `<pre>${contact}</pre>`;
+      } else if (!contact.includes('@')) {
         contact = `@${contact}`;
       }
+      messageLines.push(`<b>E-mail/Телеграм:</b> <i>${contact}</i>`);
     }
+    messageLines.push(`<b>Сообщение:</b> <i>${args.message}</i>`);
     const response = await customFetch(url, {
       method: 'POST',
       headers: {
@@ -74,11 +78,7 @@ export class LandingController {
       },
       data: {
         chat_id: -1 * +this.appEnvironments.landingChatId,
-        text: `<u>Сообщение с site15.ru</u>
-<b>Дата:</b> <i>${new Date().toLocaleString()}</i>
-<b>Имя:</b> <i>${args.name}</i>
-<b>E-mail/Телеграм:</b> <i>${contact}</i>
-<b>Сообщение:</b> <i>${args.message}</i>`,
+        text: messageLines.join('\n'),
         parse_mode: 'HTML',
       },
     });
