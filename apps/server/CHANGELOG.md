@@ -1,3 +1,9 @@
+## [1.33.2](https://github.com/site15/site15.ru/compare/server-v1.33.1...server-v1.33.2) (2026-06-30)
+
+### Bug Fixes
+
+- clarify contact form instructions and update textarea placeholder ([cc7718b](https://github.com/site15/site15.ru/commit/cc7718b6373f3bcfc030ac21f0f5d09e2c97a3ee))
+
 ## [1.33.1](https://github.com/site15/site15.ru/compare/server-v1.33.0...server-v1.33.1) (2026-06-30)
 
 ### Bug Fixes
