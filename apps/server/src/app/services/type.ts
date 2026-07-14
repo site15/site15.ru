@@ -12,6 +12,7 @@ export interface AllStats {
   classValidatorMultiLangStats: RepoStats;
   myDashboardStats: RepoStats;
   ragSystemStats: RepoStats;
+  opworkStats: RepoStats;
   devToStats: DevToStats;
   telegramDataStats: TelegramChannelStats[];
   habrStats: HabrStats;
@@ -213,6 +214,9 @@ export class LandingAllStatsDto {
 
   @ApiProperty({ type: () => RepoStatsDto })
   ragSystemStats!: RepoStatsDto;
+
+  @ApiProperty({ type: () => RepoStatsDto })
+  opworkStats!: RepoStatsDto;
 
   @ApiProperty({ type: () => DevToStatsDto })
   devToStats!: DevToStatsDto;

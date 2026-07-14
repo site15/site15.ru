@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpWork | Ильшат Хамитов | Software Engineer | site15.ru</title>
+    <meta name="description"
+        content="OpWork — платформа для поиска работы с открытым исходным кодом на NestJS + Vue 3 + Prisma + PostgreSQL.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    
+    <!-- Sitemap and RSS Links -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+    <link rel="alternate" type="application/rss+xml" title="site15.ru - Ilshat Khamitov | Software Engineer" href="../rss.xml" />
+
+    <!-- Open Graph Generated: a.pr-cy.ru -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="OpWork - Ilshat Khamitov">
+    <meta property="og:description"
+        content="OpWork — платформа для поиска работы с открытым исходным кодом на NestJS + Vue 3 + Prisma + PostgreSQL.">
+    <meta property="og:url" content="https://site15.ru/projects/opwork">
+    <meta property="og:image" content="https://site15.ru/ilshat.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+    <!-- Open Graph: Article -->
+    <meta name="twitter:card" content="https://site15.ru/ilshat.jpg" />
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=23044594', 'ym');
+
+        ym(23044594, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/23044594" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script src="../js/tailwind.min.js"></script>
+    <link href="../fonts/fonts.css" rel="stylesheet">
+    <!-- Using unpkg as an alternative reliable CDN for lucide -->
+    <script src="../js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#fdfbf7',
+                        'neo-black': '#0a0a0a',
+                        'neo-yellow': '#ffeb3b',
+                        'neo-pink': '#ff7eb6',
+                        'neo-green': '#7afc50',
+                        'neo-blue': '#82caff',
+                        'neo-purple': '#b388ff',
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #0a0a0a',
+                        'neo-sm': '3px 3px 0px 0px #0a0a0a',
+                        'neo-lg': '8px 8px 0px 0px #0a0a0a',
+                        'neo-hover': '0px 0px 0px 0px #0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles for nuances Tailwind can't easily catch */
+        body {
+            background-color: #f3f3f3;
+            background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        .neo-border {
+            border: 3px solid #0a0a0a;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px #0a0a0a;
+        }
+
+        .text-stroke-2 {
+            -webkit-text-stroke: 2px #0a0a0a;
+            color: transparent;
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 120s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Coin Flip Animation */
+        .coin-container {
+            perspective: 1000px;
+        }
+
+        .coin-front,
+        .coin-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+        }
+
+        .coin-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fdfbf7;
+            border-left: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff7eb6;
+            border: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffeb3b;
+        }
+
+        /* Pattern classes */
+        .bg-lines {
+            background-image: repeating-linear-gradient(45deg, #0a0a0a 0, #0a0a0a 1px, transparent 0, transparent 50%);
+            background-size: 10px 10px;
+            opacity: 0.1;
+        }
+
+        /* Breadcrumb styles */
+        .breadcrumb {
+            background-color: #fdfbf7;
+            padding: 1rem 0;
+            border-bottom: 3px solid #0a0a0a;
+        }
+
+        .breadcrumb ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb li {
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin: 0 0.5rem;
+            color: #0a0a0a;
+        }
+
+        .breadcrumb a {
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            color: #ff7eb6;
+        }
+
+        .breadcrumb .current {
+            color: #ff7eb6;
+            font-weight: bold;
+        }
+
+        /* Code block styling */
+        pre {
+            background-color: #0a0a0a;
+            color: #7afc50;
+            padding: 1rem;
+            border-radius: 0;
+            border: 3px solid #0a0a0a;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #0a0a0a;
+            color: #7afc50;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0;
+        }
+
+        blockquote {
+            border-left: 4px solid #b388ff;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+        /* Strong text styling */
+        strong {
+            color: #0a0a0a;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="text-neo-black font-sans selection:bg-neo-black selection:text-neo-yellow">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-neo-bg neo-border border-t-0 border-x-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <a href="../" class="w-8 h-8 bg-neo-black text-neo-yellow flex items-center justify-center font-bold text-xl neo-border">
+                        <img src="../ezhik.jpg" alt="Profile Photo" class="w-full h-full object-cover">
+                    </a>
+                    <a href="../" class="font-bold text-xl tracking-tighter uppercase hidden sm:block">site15.ru</a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-4">
+                    <a href="../#about"
+                        class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О
+                        себе</a>
+                    <a href="../#projects"
+                        class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">15
+                        Проектов</a>
+                    <a href="../#experience"
+                        class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
+                    <a href="../#skills"
+                        class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Навыки</a>
+                    <a href="../#open-source-community"
+                        class="px-4 py-2 font-bold hover:bg-neo-purple transition-colors border-2 border-transparent hover:border-neo-black">Open
+                        Source</a>
+                    <a href="../#contact"
+                        class="px-4 py-2 bg-neo-black text-white font-bold hover:bg-neo-pink hover:text-neo-black hover:shadow-neo transition-all border-2 border-neo-black">Связаться</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn"
+                        class="p-2 neo-border bg-white active:shadow-neo-hover shadow-neo transition-all">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-neo-yellow border-t-2 border-neo-black p-4 space-y-2 absolute w-full">
+            <a href="../#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
+            <a href="../#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">15 Проектов</a>
+            <a href="../#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
+            <a href="../#skills" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Навыки</a>
+            <a href="../#open-source-community"
+                class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Open Source</a>
+            <a href="../#contact" class="block px-4 py-2 font-bold neo-border bg-neo-black text-white">Связаться</a>
+        </div>
+    </nav>
+    <section class="py-24 px-4 bg-neo-blue/10 border-b-4 border-neo-black" style="padding-bottom: 0px !important;">
+        <div class="max-w-7xl mx-auto">
+            <nav class="mb-8">
+                <div class="container mx-auto px-20">
+                    <ul class="flex items-center justify-center">
+                        <li><a href="/" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Главная</a></li>
+                        <li><a href="/index.html#projects" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a></li>
+                        <li class="px-4 py-2 bg-neo-blue text-white font-bold">OpWork</li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-black uppercase mb-4 text-neo-black">OpWork</h1>
+                <p class="inline-block px-4 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">Платформа для поиска работы с открытым исходным кодом на NestJS + Vue 3 + Prisma + PostgreSQL.</p>
+            </div>
+        </div>
+    </section>
+    
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="prose max-w-none space-y-8">
+            
+            <!-- TL;DR -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="zap" class="w-6 h-6 text-neo-yellow"></i> TL;DR</h2>
+                <p class="mb-4">За примерно <strong>4 месяца</strong> частичной занятости я создал платформу для поиска работы с открытым исходным кодом — <strong>OpWork</strong>.</p>
+                
+                <p class="mb-4">Платформа предоставляет полный цикл взаимодействия: <strong>соискатели</strong> создают резюме и откликаются на вакансии, <strong>работодатели</strong> публикуют вакансии и управляют откликами.</p>
+                
+                <p class="mb-6">Код полностью открыт — сделал это, чтобы другим разработчикам могло пригодиться. Планировал на базе этой базы сделать проект для поиска работы и специалистов именно для NestJS-разработчиков, но сейчас проект поставлен на паузу — нет времени.</p>
+            </article>
+
+            <!-- С чего всё началось -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="lightbulb" class="w-6 h-6 text-neo-pink"></i> С чего всё началось</h2>
+                <p class="mb-4">Идея родилась из желания создать <strong>open-source альтернативу</strong> существующим платформам по поиску работы. Большинство рекрутинговых сервисов — закрытые системы с непрозрачными алгоритмами ранжирования.</p>
+                
+                <p class="mb-4">Мне хотелось сделать платформу, где <strong>весь код открыт</strong>, где можно понять, как работает поиск, как устроена модель данных, как организованы бизнес-процессы. Просто открыть код — может кому-то пригодится как база или референс.</p>
+                
+                <p class="mb-6">Проект также стал полигоном для отработки архитектурных решений на <strong>NestJS + Vue 3 + Prisma</strong> — стеке, который я активно использую в работе.</p>
+            </article>
+
+            <!-- Архитектура и ключевая идея -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-6 h-6 text-neo-yellow"></i> Архитектура и ключевая идея</h2>
+                <p class="mb-4">OpWork построен по классической <strong>трёхуровневой архитектуре</strong>:</p>
+                
+                <pre>Vue 3 Frontend (Ant Design Vue)
+    ↕ REST API
+NestJS Backend (Fastify)
+    ↕ Prisma ORM
+PostgreSQL</pre>
+                
+                <p class="mb-4">Ключевая архитектурная особенность — <strong>двойная роль пользователей</strong>. При регистрации создаются два профиля: соискатель и компания. Пользователь может переключаться между ними, что упрощает взаимодействие.</p>
+                
+                <p class="mb-6">Все DTO генерируются автоматически из Prisma-схемы с помощью <strong>кастомного генератора</strong> <code>prisma-generator-nestjs-dto</code>, что обеспечивает строгую типизацию на всём пути от базы данных до фронтенда.</p>
+            </article>
+
+            <!-- Почему стек именно такой -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="cpu" class="w-6 h-6 text-neo-purple"></i> Почему стек именно такой</h2>
+                
+                <h3 class="text-xl font-bold mb-3 mt-4">Backend — NestJS + Fastify</h3>
+                <p class="mb-4">NestJS — мой основной фреймворк для бэкенда. Fastify выбран как высокопроизводительная альтернатива Express. Модульная архитектура NestJS идеально подходит для проектов с чётким разделением доменов.</p>
+                
+                <h3 class="text-xl font-bold mb-3 mt-4">Frontend — Vue 3 + Ant Design Vue</h3>
+                <p class="mb-6">Для фронтенда выбран Vue Vben Admin — зрелый шаблон на Vue 3 с Ant Design Vue. Это позволило быстро собрать полноценный UI с таблицами, фильтрами, формами и маршрутизацией без написания всего с нуля.</p>
+                
+                <h3 class="text-xl font-bold mb-3 mt-4">ORM — Prisma</h3>
+                <p class="mb-6">Prisma обеспечивает типобезопасную работу с базой данных, удобные миграции и автоматическую генерацию клиента. Схема в <code>~1900 строк</code> описывает всю модель данных платформы.</p>
+            </article>
+
+            <!-- Основные функциональные блоки -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="briefcase" class="w-6 h-6 text-neo-blue"></i> Основные функциональные блоки</h2>
+                
+                <h3 class="text-xl font-bold mb-3 mt-4">Для соискателей</h3>
+                <ul class="list-disc pl-6 mb-6 space-y-2">
+                    <li>Создание и управление <strong>резюме</strong> с образованием, опытом и навыками</li>
+                    <li><strong>Поиск вакансий</strong> с фильтрацией по навыкам, типу занятости, формату работы</li>
+                    <li><strong>Отклики</strong> на вакансии с сопроводительным письмом</li>
+                    <li>Отслеживание <strong>статуса заявок</strong></li>
+                    <li>Система <strong>уведомлений</strong> об изменениях</li>
+                </ul>
+                
+                <h3 class="text-xl font-bold mb-3 mt-4">Для работодателей</h3>
+                <ul class="list-disc pl-6 mb-6 space-y-2">
+                    <li>Управление <strong>профилем компании</strong></li>
+                    <li>Создание и публикация <strong>вакансий</strong> с тегами и навыками</li>
+                    <li>Просмотр и управление <strong>заявками</strong> соискателей</li>
+                    <li><strong>Фильтрация</strong> заявок по статусам</li>
+                    <li>Добавление <strong>примечаний</strong> к заявкам</li>
+                </ul>
+            </article>
+
+            <!-- Модель данных -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="database" class="w-6 h-6 text-neo-green"></i> Модель данных</h2>
+                <p class="mb-4">Prisma-схема содержит <strong>~1900 строк</strong> и описывает полноценную модель рекрутинговой платформы:</p>
+                
+                <pre>enum OpWorkUserType {
+  JOB_SEEKER   // Соискатель
+  EMPLOYER     // Работодатель
+  ADMIN        // Администратор
+}
+
+enum OpWorkJobStatus {
+  DRAFT → ACTIVE → PAUSED → CLOSED → ARCHIVED
+}
+
+enum OpWorkEmploymentType {
+  FULL_TIME | PART_TIME | CONTRACT
+}
+
+enum OpWorkApplicationStatus {
+  NEW → REVIEWING → INTERVIEW → OFFER → 
+  HIRED → REJECTED → WITHDRAWN
+}</pre>
+                
+                <p class="mb-6">Модель покрывает: пользователей, профили соискателей и работодателей, резюме с образованием и опытом, вакансии с навыками и тегами, заявки с историей статусов и примечаниями, уведомления.</p>
+            </article>
+
+            <!-- Кастомный генератор DTO -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="settings" class="w-6 h-6 text-neo-pink"></i> Кастомный генератор DTO</h2>
+                <p class="mb-4">Одна из интересных технических деталей — <strong>prisma-generator-nestjs-dto</strong>, кастомный генератор, который автоматически создаёт:</p>
+                
+                <ul class="list-disc pl-6 mb-4 space-y-2">
+                    <li>DTO для Create/Update операций с <code>class-validator</code> декораторами</li>
+                    <li>REST-контроллеры с полной типизацией</li>
+                    <li>Data providers для работы с Prisma</li>
+                    <li>Формы и списки для фронтенда</li>
+                    <li>OpenAPI TypeScript клиент</li>
+                </ul>
+                
+                <p class="mb-6">Это значительно ускоряет разработку: изменил схему Prisma — получил готовый набор DTO, контроллеров и типизированный клиент для фронтенда.</p>
+            </article>
+
+            <!-- Инфраструктура и деплой -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="shield" class="w-6 h-6 text-neo-yellow"></i> Инфраструктура и деплой</h2>
+                <p class="mb-4">Проект полностью контейнеризирован:</p>
+                
+                <ul class="list-disc pl-6 mb-4 space-y-2">
+                    <li><code>docker-compose</code> для PostgreSQL и всех сервисов</li>
+                    <li><code>PM2</code> для управления процессами backend и frontend</li>
+                    <li><code>Husky</code> pre-commit хуки для форматирования кода</li>
+                    <li>Автоматическая генерация OpenAPI-спефикации</li>
+                </ul>
+                
+                <p class="mb-6">Режимы разработки и production максимально упрощены: <code>npm run start:dev</code> поднимает всю инфраструктуру одной командой.</p>
+            </article>
+
+            <!-- Использование ИИ при разработке -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="sparkles" class="w-6 h-6 text-neo-blue"></i> Использование ИИ при разработке</h2>
+                <p class="mb-4">Как и в других моих проектах, значительная часть кода написана с помощью <strong>ИИ-ассистентов</strong>. Но ключевые архитектурные решения, модель данных и бизнес-логика — полностью мои.</p>
+                
+                <p class="mb-6">Особенно полезно ИИ помогал с <strong>генерацией повторяющегося кода</strong>: DTO, валидации, CRUD-операции — всё то, где ручной труд наиболее рутинный.</p>
+            </article>
+
+            <!-- Текущий статус и планы -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="calendar" class="w-6 h-6 text-neo-green"></i> Текущий статус и планы</h2>
+                <p class="mb-4">Сейчас проект <strong>поставлен на паузу</strong> — нет времени на активную разработку. Основной функционал уже работает:</p>
+                
+                <ul class="list-disc pl-6 mb-4 space-y-2">
+                    <li>Авторизация и регистрация с двойным профилем</li>
+                    <li>Управление резюме и вакансиями</li>
+                    <li>Система откликов и заявок</li>
+                    <li>Фильтрация и поиск</li>
+                    <li>Уведомления</li>
+                </ul>
+                
+                <p class="mb-4">Изначально планировалось на базе этой базы сделать специализированную платформу для поиска работы и специалистов для NestJS-разработчиков. В планах также были:</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2">
+                    <li>Переписка между соискателем и компанией</li>
+                    <li>Приглашения от компании</li>
+                    <li>Дашборды с аналитикой для обеих ролей</li>
+                    <li>Production-деплой</li>
+                </ul>
+            </article>
+
+            <!-- Ссылки -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="link" class="w-6 h-6 text-neo-purple"></i> Ссылки</h2>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <a href="https://github.com/site15/opwork" target="_blank" class="inline-block text-neo-black font-bold underline mr-2">https://github.com/site15/opwork</a>
+                        <span class="text-gray-700">— Репозиторий проекта</span>
+                    </div>
+                    <div class="flex items-start">
+                        <a href="https://github.com/site15/opwork/issues" target="_blank" class="inline-block text-neo-black font-bold underline mr-2">https://github.com/site15/opwork/issues</a>
+                        <span class="text-gray-700">— Issues и баги</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Итог -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="flag" class="w-6 h-6 text-neo-pink"></i> Итог</h2>
+                <p class="mb-4"><strong>OpWork — это open-source биржа для поиска работы</strong>. Код полностью открыт, чтобы другие разработчики могли использовать его как базу или референс для своих проектов.</p>
+                
+                <p class="mb-6">За 4 месяца частичной занятости удалось построить полноценную платформу с двойными ролями, кастомным генератором DTO и продуманной моделью данных. Сейчас проект на паузе, но код доступен и может пригодиться.</p>
+            </article>
+
+        </div>
+    </div>
+
+    <script>
+        // Initialize lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+        
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+    <!-- Footer -->
+    <footer class="bg-neo-black text-white py-12 px-4 border-t-4 border-white mt-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <h4 class="font-black text-2xl uppercase mb-2">site15.ru</h4>
+                <p class="font-mono text-sm text-gray-400">© 2026 Все права защищены (или нет).</p>
+            </div>
+            <div class="flex flex-col items-center md:items-end font-mono text-sm gap-2">
+                <!-- Footer Badges -->
+                <div class="flex flex-wrap justify-center md:justify-end gap-2">
+                    <a href="https://career.habr.com/endykaufman" target="_blank"
+                        class="px-3 py-1 bg-gray-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        ХабрКарьера
+                    </a>
+                    <a href="https://ufa.hh.ru/resume/2615ca8cff019da3eb0039ed1f6732786f4533" target="_blank"
+                        class="px-3 py-1 bg-red-600 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        HeadHunter
+                    </a>
+                    <a href="https://www.linkedin.com/in/ilshatkhamitov/" target="_blank"
+                        class="px-3 py-1 bg-blue-700 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        LinkedIn
+                    </a>
+                    <a href="../rss.xml" target="_blank"
+                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        RSS
+                    </a>
+                </div>
+                <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
+                </a>
+                <p class="text-gray-500">Уфа, Россия</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
