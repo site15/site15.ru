@@ -1,3 +1,9 @@
+# [1.34.0](https://github.com/site15/site15.ru/compare/server-v1.33.2...server-v1.34.0) (2026-07-14)
+
+### Features
+
+- **landing:** add open source community section and update navigation links ([8eaca22](https://github.com/site15/site15.ru/commit/8eaca2222d992a7c31a8bd8f6cc55ff2e680f105))
+
 ## [1.33.2](https://github.com/site15/site15.ru/compare/server-v1.33.1...server-v1.33.2) (2026-06-30)
 
 ### Bug Fixes
