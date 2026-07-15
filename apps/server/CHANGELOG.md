@@ -1,3 +1,9 @@
+# [1.35.0](https://github.com/site15/site15.ru/compare/server-v1.34.0...server-v1.35.0) (2026-07-15)
+
+### Features
+
+- **landing:** add Aimilo project with detailed page and listings ([8742b19](https://github.com/site15/site15.ru/commit/8742b19c03dd2f2772224d41704ebff3d854f6dd))
+
 # [1.34.0](https://github.com/site15/site15.ru/compare/server-v1.33.2...server-v1.34.0) (2026-07-14)
 
 ### Features
