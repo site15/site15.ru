@@ -90,5 +90,13 @@
             <guid>https://site15.ru/projects/opwork.html</guid>
             <pubDate>Tue, 14 Jul 2026 12:00:00 +0000</pubDate>
         </item>
+        
+        <item>
+            <title>Aimilo: Платформа персонального AI-контента</title>
+            <description>Коммерческая AI-платформа для создания персонализированного медиаконтента. Персонализированные открытки, анимации и песни через обычный чат без регистрации. Production-проект с реальными пользователями.</description>
+            <link>https://site15.ru/projects/aimilo.html</link>
+            <guid>https://site15.ru/projects/aimilo.html</guid>
+            <pubDate>Wed, 16 Jul 2026 12:00:00 +0000</pubDate>
+        </item>
     </channel>
 </rss>
