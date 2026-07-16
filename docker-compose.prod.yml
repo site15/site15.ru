@@ -1,27 +1,6 @@
 services:
   # ── Infrastructure ──────────────────────────────
-  postgres:
-    image: pgvector/pgvector:pg18
-    container_name: site15_postgres
-    ports:
-      - "${SITE_15_POSTGRES_PORT:-5432}:5432"
-    environment:
-      POSTGRES_USER: "${SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME}"
-      POSTGRES_PASSWORD: "${SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD}"
-      POSTGRES_DB: "${SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE}"
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - site15_postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    tty: true
-    restart: always
-    networks:
-      - site15-network
+  # PostgreSQL runs on host machine at 10.0.1.1:5432
 
   redis:
     image: redis:7.4.1
@@ -132,8 +111,6 @@ services:
       retries: 3
       start_period: 60s
     depends_on:
-      postgres:
-        condition: service_healthy
       redis:
         condition: service_healthy
       minio:
@@ -146,8 +123,6 @@ networks:
     driver: bridge
 
 volumes:
-  site15_postgres_data:
-    name: site15_postgres_data
   site15_redis_data:
     name: site15_redis_data
   site15_minio_data:
