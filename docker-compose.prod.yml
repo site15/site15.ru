@@ -51,10 +51,10 @@ services:
       dockerfile: .docker/server.Dockerfile
     container_name: site15_app
     ports:
-      - "${SITE_15_PORT:-9090}:8080"
+      - "${SITE_15_PORT:-9090}:9090"
     environment:
       NODE_TLS_REJECT_UNAUTHORIZED: "0"
-      SITE_15_PORT: "8080"
+      SITE_15_PORT: "9090"
       # ── Database URLs ──
       SITE_15_ROOT_DATABASE_URL: "${SITE_15_ROOT_DATABASE_URL}"
       SITE_15_WEBHOOK_DATABASE_URL: "${SITE_15_WEBHOOK_DATABASE_URL}"
@@ -105,7 +105,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:9090/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
       interval: 30s
       timeout: 10s
       retries: 3

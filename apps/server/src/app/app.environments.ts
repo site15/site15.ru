@@ -56,7 +56,7 @@ export class AppEnvironments {
   flowControllerRequestTimeoutMs?: number;
 
   @EnvModelProperty({
-    description: 'HTTP Proxy URL for outbound requests (e.g., http://proxy.example.com:8080)',
+    description: 'HTTP Proxy URL for outbound requests (e.g., http://proxy.example.com:9090)',
     hideValueFromOutputs: true,
   })
   httpProxyUrl?: string;
