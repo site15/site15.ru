@@ -48,7 +48,10 @@ services:
     container_name: site15_app
     labels:
       - 'caddy=site15.ru'
-      - 'caddy.reverse_proxy={{upstreams 9090}}' # Вместо 3000 поставьте ваш реальный порт!
+      - 'caddy.reverse_proxy={{upstreams 9090}}'
+      - 'caddy.encode=zstd gzip'
+      - 'caddy.try_files={path} /index.html'
+      - 'caddy.header=-Server'
     ports:
       - '${SITE_15_PORT:-9090}:9090'
     environment:
