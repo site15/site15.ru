@@ -4,7 +4,7 @@ set -euo pipefail
 # Use .env.docker by default (has container names for Docker network)
 # Override with: ENV_FILE=.env ./docker-up.sh
 ENV_FILE="${ENV_FILE:-.env.docker}"
-PORT="${SITE_15_PORT:-8080}"
+PORT="${SITE_15_PORT:-9090}"
 
 # Stop pm2 prod if running
 npx -y pm2 delete ./ecosystem-prod.config.json 2>/dev/null || true
