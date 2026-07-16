@@ -46,8 +46,13 @@ services:
       context: .
       dockerfile: .docker/server.Dockerfile
     container_name: site15_app
-    expose:
-      - '9090'
+    labels:
+      - 'caddy_0=https://site15.ru'
+      - 'caddy_0.encode=zstd gzip'
+      - 'caddy_0.handle_path=/*'
+      - 'caddy_0.handle_path.0_reverse_proxy={{upstreams 9090}}'
+      - 'caddy_0.header=-Server'
+      - 'caddy_0.try_files={path} /index.html /index.php'
     ports:
       - '${SITE_15_PORT:-9090}:9090'
     environment:
