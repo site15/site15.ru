@@ -43,6 +43,12 @@
     "_____docker-compose prod-infra_____": "_____docker-compose prod-infra_____",
     "docker-compose:start-prod:server": "export COMPOSE_INTERACTIVE_NO_CLI=1 && docker compose -f ./apps/server/docker-compose-prod.yml --env-file ./apps/server/docker-compose-prod.env --compatibility up -d",
     "docker-compose:stop-prod:server": "export COMPOSE_INTERACTIVE_NO_CLI=1 && docker compose -f ./apps/server/docker-compose-prod.yml --env-file ./apps/server/docker-compose-prod.env down",
+    "_____docker-compose prod (new)_____": "_____docker-compose prod (new)_____",
+    "docker-compose-prod:start": "export COMPOSE_INTERACTIVE_NO_CLI=1 && docker compose -f ./docker-compose.prod.yml --env-file ./.env.docker --compatibility up -d --build",
+    "docker-compose-prod:stop": "export COMPOSE_INTERACTIVE_NO_CLI=1 && docker compose -f ./docker-compose.prod.yml --env-file ./.env.docker --compatibility down",
+    "docker-compose-prod:logs": "docker compose -f ./docker-compose.prod.yml --env-file ./.env.docker logs -f app",
+    "docker-compose-prod:restart": "npm run docker-compose-prod:stop && npm run docker-compose-prod:start",
+    "docker-up": "chmod +x ./docker-up.sh && ./docker-up.sh",
     "_____tests_____": "_____tests_____",
     "test": "export CI=true && ./node_modules/.bin/nx run-many --all -t=test --skip-nx-cache=true --passWithNoTests --output-style=stream-without-prefixes",
     "test:e2e": "export CI=true && ./node_modules/.bin/nx run-many --all -t=e2e --skip-nx-cache=true --output-style=stream-without-prefixes",
@@ -254,6 +260,21 @@
     ],
     "docker-compose:stop-prod:server": [
       "Stopping the main docker-compose prod infrastructure for server"
+    ],
+    "docker-compose-prod:start": [
+      "Build and start full-stack Docker Compose (infra + app) with PM2 inside container"
+    ],
+    "docker-compose-prod:stop": [
+      "Stop full-stack Docker Compose (infra + app)"
+    ],
+    "docker-compose-prod:logs": [
+      "View logs for the app container in full-stack Docker Compose"
+    ],
+    "docker-compose-prod:restart": [
+      "Restart full-stack Docker Compose (infra + app)"
+    ],
+    "docker-up": [
+      "Run docker-up.sh: stop PM2, free port, build and start everything"
     ],
     "test": [
       "Running tests across the entire project"

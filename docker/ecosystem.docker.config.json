@@ -1,0 +1,32 @@
+{
+  "apps": [
+    {
+      "name": "site15-server-prod",
+      "cwd": "/app",
+      "script": "dist/apps/server/main.js",
+      "node_args": "-r dotenv/config",
+      "instances": 1,
+      "exec_mode": "fork",
+      "output": "./logs/site15-server-prod-out.log",
+      "error": "./logs/site15-server-prod-error.log",
+      "log": "./logs/site15-server-prod-combined.log",
+      "merge_logs": false,
+      "disable_logs": false,
+      "max_restarts": 999,
+      "restart_delay": 3000,
+      "kill_timeout": 5000,
+      "log_rotate": {
+        "max_size": "10M",
+        "retain": "all",
+        "compress": false,
+        "dateFormat": "YYYY-MM-DD-HH",
+        "rotateModule": true,
+        "rotateInterval": "0 * * * *"
+      },
+      "watch": false,
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

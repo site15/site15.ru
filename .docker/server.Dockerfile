@@ -33,11 +33,15 @@ RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOL
 
 FROM node:23.11.0-alpine
 WORKDIR /app
-EXPOSE 8080
+
 ENV NODE_ENV=production
 ENV TZ=UTC
 ENV SITE_15_PORT=8080
 ENV SITE_15_CLIENT_MINIO_URL=http://localhost:9000
+
+# Install PM2 for process management inside container
+RUN npm install -g pm2
+
 # Copy utility for "To work as a PID 1"
 COPY --from=base /usr/bin/dumb-init /usr/bin/dumb-init
 COPY --from=prod-deps /app/node_modules /app/node_modules
@@ -46,5 +50,16 @@ COPY --from=prod-deps /app/libs /app/libs
 COPY --from=prod-deps /app/package.json /app/package.json
 COPY --from=build /app/dist /app/dist
 COPY --from=prod-deps /app/apps/landing /app/dist/apps/client
-COPY --from=build /app/dist /app/dist
-CMD ["dumb-init", "node", "dist/apps/server/main.js"]
+
+# Create logs directory for PM2
+RUN mkdir -p logs
+
+# Copy PM2 config and entrypoint
+COPY docker/ecosystem.docker.config.json /app/ecosystem.docker.config.json
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+EXPOSE 8080
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["pm2-runtime", "start", "ecosystem.docker.config.json"]

@@ -1,0 +1,156 @@
+services:
+  # ── Infrastructure ──────────────────────────────
+  postgres:
+    image: pgvector/pgvector:pg18
+    container_name: site15_postgres
+    ports:
+      - "${SITE_15_POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_USER: "${SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME}"
+      POSTGRES_PASSWORD: "${SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD}"
+      POSTGRES_DB: "${SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE}"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - site15_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    tty: true
+    restart: always
+    networks:
+      - site15-network
+
+  redis:
+    image: redis:7.4.1
+    container_name: site15_redis
+    ports:
+      - "${SITE_15_REDIS_PORT:-6379}:6379"
+    command: redis-server --requirepass "${SITE_15_REDIS_REDIS_PASSWORD}"
+    environment:
+      REDIS_PASSWORD: "${SITE_15_REDIS_REDIS_PASSWORD}"
+    volumes:
+      - site15_redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli --no-auth-warning -a $$REDIS_PASSWORD ping | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    tty: true
+    restart: always
+    networks:
+      - site15-network
+
+  minio:
+    image: minio/minio:latest
+    container_name: site15_minio
+    ports:
+      - "${SITE_15_MINIO_API_PORT:-9000}:9000"
+      - "${SITE_15_MINIO_CONSOLE_PORT:-9001}:9001"
+    environment:
+      MINIO_ROOT_USER: "${SITE_15_MINIO_MINIO_ROOT_USER}"
+      MINIO_ROOT_PASSWORD: "${SITE_15_MINIO_MINIO_ROOT_PASSWORD}"
+    volumes:
+      - site15_minio_data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD-SHELL", "mc ready local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    tty: true
+    restart: always
+    networks:
+      - site15-network
+
+  # ── Application ─────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: .docker/server.Dockerfile
+    container_name: site15_app
+    ports:
+      - "${SITE_15_PORT:-8080}:8080"
+    environment:
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
+      SITE_15_PORT: "8080"
+      # ── Database URLs ──
+      SITE_15_ROOT_DATABASE_URL: "${SITE_15_ROOT_DATABASE_URL}"
+      SITE_15_WEBHOOK_DATABASE_URL: "${SITE_15_WEBHOOK_DATABASE_URL}"
+      SITE_15_SSO_DATABASE_URL: "${SITE_15_SSO_DATABASE_URL}"
+      SITE_15_METRICS_DATABASE_URL: "${SITE_15_METRICS_DATABASE_URL}"
+      SITE_15_NOTIFICATIONS_DATABASE_URL: "${SITE_15_NOTIFICATIONS_DATABASE_URL}"
+      SITE_15_TWO_FACTOR_DATABASE_URL: "${SITE_15_TWO_FACTOR_DATABASE_URL}"
+      # ── SSO ──
+      SITE_15_SSO_ADMIN_EMAIL: "${SITE_15_SSO_ADMIN_EMAIL}"
+      SITE_15_SSO_ADMIN_USERNAME: "${SITE_15_SSO_ADMIN_USERNAME}"
+      SITE_15_SSO_ADMIN_PASSWORD: "${SITE_15_SSO_ADMIN_PASSWORD}"
+      SITE_15_SSO_ADMIN_SECRET: "${SITE_15_SSO_ADMIN_SECRET}"
+      SITE_15_SSO_CLIENT_URL: "${SITE_15_SSO_CLIENT_URL}"
+      SITE_15_SSO_SERVER_URL: "${SITE_15_SSO_SERVER_URL}"
+      SITE_15_SSO_JWT_ACCESS_TOKEN_EXPIRES_IN: "${SITE_15_SSO_JWT_ACCESS_TOKEN_EXPIRES_IN:-30m}"
+      SITE_15_SSO_JWT_REFRESH_TOKEN_EXPIRES_IN: "${SITE_15_SSO_JWT_REFRESH_TOKEN_EXPIRES_IN:-24h}"
+      SITE_15_SSO_DEFAULT_PUBLIC_TENANTS: "${SITE_15_SSO_DEFAULT_PUBLIC_TENANTS:-}"
+      SITE_15_SSO_DEFAULT_TENANT: "${SITE_15_SSO_DEFAULT_TENANT:-}"
+      SITE_15_SSO_GOOGLE_OAUTH_CLIENT_ID: "${SITE_15_SSO_GOOGLE_OAUTH_CLIENT_ID:-}"
+      SITE_15_SSO_GOOGLE_OAUTH_CLIENT_SECRET_KEY: "${SITE_15_SSO_GOOGLE_OAUTH_CLIENT_SECRET_KEY:-}"
+      SITE_15_SSO_DISABLE_EMAIL_VERIFICATION: "${SITE_15_SSO_DISABLE_EMAIL_VERIFICATION:-}"
+      # ── MinIO ──
+      SITE_15_MINIO_SERVER_HOST: "${SITE_15_MINIO_SERVER_HOST:-site15_minio}"
+      SITE_15_MINIO_ACCESS_KEY: "${SITE_15_MINIO_MINIO_ROOT_USER}"
+      SITE_15_MINIO_SECRET_KEY: "${SITE_15_MINIO_MINIO_ROOT_PASSWORD}"
+      SITE_15_CLIENT_MINIO_URL: "${SITE_15_CLIENT_MINIO_URL}"
+      # ── Redis ──
+      SITE_15_KEYV_URL: "${SITE_15_KEYV_URL}"
+      # ── Notifications ──
+      SITE_15_NOTIFICATIONS_MAIL_TRANSPORT: "${SITE_15_NOTIFICATIONS_MAIL_TRANSPORT:-}"
+      SITE_15_NOTIFICATIONS_MAIL_DEFAULT_SENDER_NAME: "${SITE_15_NOTIFICATIONS_MAIL_DEFAULT_SENDER_NAME:-}"
+      SITE_15_NOTIFICATIONS_MAIL_DEFAULT_SENDER_EMAIL: "${SITE_15_NOTIFICATIONS_MAIL_DEFAULT_SENDER_EMAIL:-}"
+      # ── Landing / Social ──
+      SITE_15_LANDING_CHAT_ID: "${SITE_15_LANDING_CHAT_ID:-}"
+      SITE_15_LANDING_BOT_TOKEN: "${SITE_15_LANDING_BOT_TOKEN:-}"
+      SITE_15_DEVTO_API_KEY: "${SITE_15_DEVTO_API_KEY:-}"
+      SITE_15_GITHUB_TOKEN: "${SITE_15_GITHUB_TOKEN:-}"
+      # ── Sync ──
+      SITE_15_SYNC_ALL_STATS_AFTER_START: "${SITE_15_SYNC_ALL_STATS_AFTER_START:-}"
+      SITE_15_SYNC_ALL_STATS_BY_INTERVAL: "${SITE_15_SYNC_ALL_STATS_BY_INTERVAL:-}"
+      # ── Flow Controller ──
+      SITE_15_FLOW_CONTROLLER_URL: "${SITE_15_FLOW_CONTROLLER_URL:-}"
+      SITE_15_FLOW_CONTROLLER_API_KEY: "${SITE_15_FLOW_CONTROLLER_API_KEY:-}"
+      # ── Proxy ──
+      SITE_15_HTTP_PROXY_URL: "${SITE_15_HTTP_PROXY_URL:-}"
+    volumes:
+      - site15_logs:/app/logs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    networks:
+      - site15-network
+
+networks:
+  site15-network:
+    driver: bridge
+
+volumes:
+  site15_postgres_data:
+    name: site15_postgres_data
+  site15_redis_data:
+    name: site15_redis_data
+  site15_minio_data:
+    name: site15_minio_data
+  site15_logs:
+    name: site15_logs
