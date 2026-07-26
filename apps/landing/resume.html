@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме | Ильшат Хамитов | Senior Fullstack Engineer | site15.ru</title>
+    <meta name="description"
+        content="Полное резюме Senior Fullstack Engineer Ильшата Хамитова. Node.js, NestJS, TypeScript, Angular. 21+ лет опыта коммерческой разработки.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <link rel="alternate" type="application/rss+xml" title="site15.ru - Ilshat Khamitov | Software Engineer"
+        href="/rss.xml" />
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Резюме - Ilshat Khamitov | Senior Fullstack Engineer">
+    <meta property="og:description"
+        content="Полное резюме Senior Fullstack Engineer Ильшата Хамитова. 21+ лет опыта. Node.js, NestJS, TypeScript, Angular.">
+    <meta property="og:url" content="https://site15.ru/resume">
+    <meta property="og:image" content="https://site15.ru/ilshat.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+    <meta name="twitter:card" content="https://site15.ru/ilshat.jpg" />
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=23044594', 'ym');
+
+        ym(23044594, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/23044594" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script src="./js/tailwind.min.js"></script>
+    <link href="./fonts/fonts.css" rel="stylesheet">
+    <script src="./js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#fdfbf7',
+                        'neo-black': '#0a0a0a',
+                        'neo-yellow': '#ffeb3b',
+                        'neo-pink': '#ff7eb6',
+                        'neo-green': '#7afc50',
+                        'neo-blue': '#82caff',
+                        'neo-purple': '#b388ff',
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #0a0a0a',
+                        'neo-sm': '3px 3px 0px 0px #0a0a0a',
+                        'neo-lg': '8px 8px 0px 0px #0a0a0a',
+                        'neo-hover': '0px 0px 0px 0px #0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f3f3f3;
+            background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        .neo-border {
+            border: 3px solid #0a0a0a;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px #0a0a0a;
+        }
+
+        .text-stroke-2 {
+            -webkit-text-stroke: 2px #0a0a0a;
+            color: transparent;
+        }
+
+        .resume-section {
+            border-left: 4px solid #0a0a0a;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .experience-card {
+            transition: all 0.2s ease;
+        }
+
+        .experience-card:hover {
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+
+<body class="text-neo-black font-sans selection:bg-neo-black selection:text-neo-yellow">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-neo-bg neo-border border-t-0 border-x-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <a href="/"
+                        class="w-8 h-8 bg-neo-black text-neo-yellow flex items-center justify-center font-bold text-xl neo-border">
+                        <img src="ezhik.jpg" alt="Profile Photo" class="w-full h-full object-cover">
+                    </a>
+                    <a href="/" class="font-bold text-xl tracking-tighter uppercase hidden sm:block">site15.ru</a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-4">
+                    <a href="/#open-source-community"
+                        class="px-4 py-2 font-bold hover:bg-neo-purple transition-colors border-2 border-transparent hover:border-neo-black">Open
+                        Source</a>
+                    <a href="/#about"
+                        class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О
+                        себе</a>
+                    <a href="/#projects"
+                        class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">15
+                        Проектов</a>
+                    <a href="/#experience"
+                        class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
+                    <a href="/#skills"
+                        class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Навыки</a>
+                    <a href="/#contact"
+                        class="px-4 py-2 bg-neo-black text-white font-bold hover:bg-neo-pink hover:text-neo-black hover:shadow-neo transition-all border-2 border-neo-black">Связаться</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn"
+                        class="p-2 neo-border bg-white active:shadow-neo-hover shadow-neo transition-all">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-neo-yellow border-t-2 border-neo-black p-4 space-y-2 absolute w-full">
+            <a href="/#open-source-community"
+                class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Open Source</a>
+            <a href="/#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
+            <a href="/#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">15 Проектов</a>
+            <a href="/#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
+            <a href="/#skills" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Навыки</a>
+            <a href="/#contact" class="block px-4 py-2 font-bold neo-border bg-neo-black text-white">Связаться</a>
+        </div>
+    </nav>
+
+    <!-- Resume Content -->
+    <section class="pt-24 pb-16 px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-6 reveal">
+                <a href="/" class="font-mono text-sm hover:text-neo-pink transition-colors flex items-center gap-1">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i> На главную
+                </a>
+            </div>
+
+            <!-- Header Card -->
+            <div class="bg-white neo-border shadow-neo-lg p-8 md:p-12 mb-8 reveal">
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="flex-1">
+                        <div
+                            class="inline-block px-4 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">
+                            AVAILABLE FOR PROJECTS
+                        </div>
+                        <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-2">
+                            Ильшат<br>Хамитов
+                        </h1>
+                        <h2
+                            class="text-xl md:text-2xl font-bold bg-neo-black text-white inline-block px-4 py-2 mb-6 transform -rotate-1">
+                            Senior Fullstack Engineer
+                        </h2>
+                        <p class="font-mono text-sm mb-4 leading-relaxed">
+                            Мужчина, 41 год, родился 11 мая 1985<br>
+                            Уфа, Россия<br>
+                            Гражданство: Россия
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <a href="mailto:admin@site15.ru"
+                                class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border shadow-neo-sm hover:shadow-neo-hover transition-all flex items-center gap-1">
+                                <i data-lucide="mail" class="w-3 h-3"></i> admin@site15.ru
+                            </a>
+                            <a href="https://t.me/KaufmanEndy" target="_blank"
+                                class="px-3 py-1 bg-neo-purple text-white text-xs font-bold neo-border shadow-neo-sm hover:shadow-neo-hover transition-all flex items-center gap-1">
+                                <i data-lucide="send" class="w-3 h-3"></i> @KaufmanEndy
+                            </a>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://github.com/EndyKaufman" target="_blank"
+                                class="px-3 py-1 bg-neo-black text-white text-xs font-bold neo-border shadow-neo-sm hover:shadow-neo-hover transition-all flex items-center gap-1">
+                                <i data-lucide="github" class="w-3 h-3"></i> GitHub
+                            </a>
+                            <a href="https://career.habr.com/endykaufman" target="_blank"
+                                class="px-3 py-1 bg-gray-500 text-white text-xs font-bold neo-border shadow-neo-sm hover:shadow-neo-hover transition-all">
+                                ХабрКарьера
+                            </a>
+                            <a href="https://ufa.hh.ru/resume/2615ca8cff019da3eb0039ed1f6732786f4533" target="_blank"
+                                class="px-3 py-1 bg-red-600 text-white text-xs font-bold neo-border shadow-neo-sm hover:shadow-neo-hover transition-all">
+                                HeadHunter
+                            </a>
+                            <a href="https://www.linkedin.com/in/ilshatkhamitov/" target="_blank"
+                                class="px-3 py-1 bg-blue-700 text-white text-xs font-bold neo-border shadow-neo-sm hover:shadow-neo-hover transition-all">
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desired Position & Salary -->
+            <div class="bg-white neo-border shadow-neo p-6 mb-8 reveal">
+                <h2 class="text-2xl font-black mb-4 uppercase flex items-center gap-2">
+                    <i data-lucide="target" class="w-7 h-7"></i> Желаемая должность
+                </h2>
+                <p class="text-xl font-bold mb-2">Senior Fullstack Engineer (Node.js / NestJS / Angular / React)</p>
+                <p class="text-2xl font-black text-neo-black mb-3">
+                    <span class="bg-neo-yellow px-3 py-1 neo-border inline-block">360 000 ₽</span>
+                    <span class="font-mono text-sm ml-2">на руки</span>
+                </p>
+                <div class="font-mono text-sm space-y-1">
+                    <p>Тип занятости: полная занятость, частичная занятость, проектная работа</p>
+                    <p>Формат работы: удалённо, гибрид</p>
+                    <p>Не готов к переезду, готов к редким командировкам</p>
+                </div>
+            </div>
+
+            <!-- About -->
+            <div class="bg-white neo-border shadow-neo p-6 mb-8 reveal">
+                <h2 class="text-2xl font-black mb-4 uppercase flex items-center gap-2">
+                    <i data-lucide="user" class="w-7 h-7"></i> Обо мне
+                </h2>
+                <div class="font-mono text-sm leading-relaxed space-y-3">
+                    <p>Fullstack инженер с 20+ годами опыта разработки коммерческих продуктов. Основной стек — Node.js, TypeScript, NestJS, PostgreSQL, GraphQL, Angular, Docker и Kubernetes.</p>
+                    <p>Все эти годы работаю именно как разработчик: пишу код руками каждый день. Не занимаюсь people-менеджментом и не претендую на управленческие роли — мне интересна инженерная работа.</p>
+                    <p>Разрабатываю backend и frontend, проектирую архитектуру, занимаюсь рефакторингом legacy-систем и разработкой новых продуктов с нуля.</p>
+                    <p>В последнее время активно работаю с AI: интеграцией LLM, RAG-системами, генерацией изображений, музыки и видео, а также автоматизацией различных сценариев.</p>
+                    <p>Участвую в open source-разработке и развиваю собственные проекты:</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://github.com/site15" target="_blank" class="text-neo-black font-bold underline hover:text-neo-pink">github.com/site15</a>
+                        <a href="https://github.com/nestjs-mod" target="_blank" class="text-neo-black font-bold underline hover:text-neo-pink">github.com/nestjs-mod</a>
+                        <a href="https://github.com/EndyKaufman" target="_blank" class="text-neo-black font-bold underline hover:text-neo-pink">github.com/EndyKaufman</a>
+                    </div>
+                    <p>Личный сайт: <a href="https://site15.ru" class="text-neo-black font-bold underline hover:text-neo-pink">site15.ru</a></p>
+                    <p>Пишу технические статьи на Habr и Dev.to. Администратор крупнейшего русскоязычного сообщества по NestJS (nest_ru) и нескольких профильных Telegram-сообществ.</p>
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="bg-white neo-border shadow-neo p-6 mb-8 reveal">
+                <h2 class="text-2xl font-black mb-4 uppercase flex items-center gap-2">
+                    <i data-lucide="code" class="w-7 h-7"></i> Навыки
+                </h2>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">NestJS</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">PostgreSQL</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Kubernetes</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">GraphQL</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">SOLID</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">RxJS</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Docker</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">CI/CD</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Code review</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Проектирование систем</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Декомпозиция задач</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Рефакторинг кода</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Автоматизированное тестирование</span>
+                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Умение работать в команде</span>
+                </div>
+                <div class="mt-4 font-mono text-sm">
+                    <p><strong>Языки:</strong> Русский — Родной | Английский — A2 (Элементарный)</p>
+                </div>
+            </div>
+
+            <!-- Work Experience -->
+            <div class="mb-8 reveal">
+                <h2 class="text-3xl font-black mb-6 uppercase flex items-center gap-3">
+                    <i data-lucide="briefcase" class="w-8 h-8"></i> Опыт работы — 21 год 3 месяца
+                </h2>
+
+                <!-- Experience 1 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">ИП Хамитов Ильшат Маратович</h3>
+                            <p class="font-mono text-xs text-gray-500">aimilo.ru</p>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-green text-xs font-bold neo-border whitespace-nowrap">Июль 2026 — настоящее время</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Fullstack AI Engineer (Node.js / NestJS / Angular)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p>Разработка коммерческой AI-платформы для генерации персонализированного медиаконтента (изображения, анимации, песни) с использованием больших языковых моделей и специализированных AI-сервисов.</p>
+                        <p class="mt-2">Проект в production, поддерживает онлайн-оплату и развивается как SaaS-продукт. Весь код написан мной: backend, frontend, AI-интеграции и инфраструктура — чистая hands-on разработка.</p>
+                        <p class="mt-2"><strong>Стек:</strong> Node.js, TypeScript, NestJS, Angular, PostgreSQL, Prisma, NATS JetStream, OpenAI, Gemini, Suno, Docker.</p>
+                        <p class="mt-2"><strong>Ключевые достижения:</strong></p>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>Разработал платформу с автоматической, ручной и гибридной обработкой через AI</li>
+                            <li>Система версионирования AI-промптов с откатом и динамической генерацией</li>
+                            <li>AI-конвейер с поддержкой текстового, голосового и графического ввода</li>
+                            <li>Централизованное логирование LLM и кеширование повторяющихся генераций</li>
+                            <li>Антифрод-система на основе анализа fingerprint и IP</li>
+                            <li>Запуск production и подключение онлайн-оплаты через Т-Банк</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">Конфиденциальный B2C-проект (NDA)</h3>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-yellow text-xs font-bold neo-border whitespace-nowrap">Январь 2026 — Июль 2026 · 7 месяцев</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Senior Fullstack Engineer (Node.js / NestJS / Next.js)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p>Разработка высоконагруженного продукта с микросервисной архитектурой. Backend и frontend (клиентский сайт и админ-панель), инфраструктурные и бизнес-модули, AI-функциональность.</p>
+                        <p class="mt-2"><strong>Стек:</strong> Node.js, TypeScript, NestJS, Next.js, GraphQL, gRPC, PostgreSQL, Prisma, Redis, NATS JetStream, Docker.</p>
+                        <p class="mt-2"><strong>Ключевые достижения:</strong></p>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>Модуль Feature Toggle с A/B-тестированием</li>
+                            <li>Универсальный модуль доставки OTP-кодов с несколькими провайдерами</li>
+                            <li>AI-бот на базе RAG для автоматической обработки обращений</li>
+                        </ul>
+                        <p class="mt-2">Команда: 7 разработчиков, 4 QA, 2 менеджера. Ежедневные code review и релизы.</p>
+                    </div>
+                </div>
+
+                <!-- Experience 3 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">Продукт для управления сетью игровых клубов</h3>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border whitespace-nowrap">Февраль 2024 — Январь 2026 · 2 года</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Senior Fullstack Engineer (Node.js / NestJS / Angular)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p>Единственный инженер. Полная hands-on разработка: backend, frontend, desktop-приложение. Рефакторинг legacy и полная переработка системы.</p>
+                        <p class="mt-2"><strong>Стек:</strong> Node.js, TypeScript, NestJS, GraphQL, PostgreSQL, Angular, Electron, Docker, Kubernetes.</p>
+                        <p class="mt-2"><strong>Результаты:</strong></p>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>Полная переписка системы (web + admin + desktop) своими руками</li>
+                            <li>Переход с нестабильного legacy без остановки разработки</li>
+                            <li>CI/CD и production-инфраструктура в Kubernetes</li>
+                            <li>Модульная архитектура (Nx monorepo) с возможностью масштабирования</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 4 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">Р-Вижн</h3>
+                            <p class="font-mono text-xs text-gray-500">Москва · Платформа и платформенные решения</p>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-purple text-white text-xs font-bold neo-border whitespace-nowrap">Сентябрь 2023 — Февраль 2024 · 6 месяцев</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Senior Backend Engineer (Node.js / NestJS)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p>Разработка платформенных библиотек и инфраструктурных модулей для backend-сервисов на базе NestJS.</p>
+                        <p class="mt-2"><strong>Стек:</strong> Node.js, TypeScript, NestJS, GraphQL, gRPC.</p>
+                        <p class="mt-2">Разработка и поддержка внутренних NestJS библиотек, создание обёрток над Node.js библиотеками, GraphQL и gRPC интеграции, e2e-тестирование.</p>
+                    </div>
+                </div>
+
+                <!-- Experience 5 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">ilink</h3>
+                            <p class="font-mono text-xs text-gray-500">Финансовые онлайн-системы</p>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-pink text-xs font-bold neo-border whitespace-nowrap">Май 2022 — Сентябрь 2023 · 1 год 5 месяцев</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Senior Backend Engineer (Node.js / NestJS)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p>Разработка финансовых онлайн-систем. Перевод legacy JavaScript на TypeScript/NestJS, стабилизация системы, внедрение e2e-тестирования.</p>
+                        <p class="mt-2"><strong>Стек:</strong> Node.js, TypeScript, NestJS, GraphQL, PostgreSQL, Docker, Kubernetes, NATS Streaming, GitLab CI/CD.</p>
+                        <p class="mt-2"><strong>Достижения:</strong></p>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>Перевод legacy с JavaScript на TypeScript/NestJS</li>
+                            <li>Проектирование backend криптовалютного кошелька</li>
+                            <li>Flyway миграции, Prisma ORM, monorepo на Nx</li>
+                            <li>Полное покрытие e2e-тестами, CI/CD в Kubernetes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 6 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">Высоконагруженные веб-платформы</h3>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-green text-xs font-bold neo-border whitespace-nowrap">Август 2019 — Февраль 2023 · 3 года 7 месяцев</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Senior Fullstack Engineer (Node.js / NestJS / Angular)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p><strong>Стек:</strong> Node.js, TypeScript, NestJS, Angular, GraphQL, WebSockets, RxJS, Docker, Kubernetes, GitLab CI/CD.</p>
+                        <p class="mt-2"><strong>Проекты:</strong></p>
+                        <ul class="list-disc pl-5 mt-1 space-y-1">
+                            <li>Платформа для беттинга — backend, frontend, real-time через WebSockets</li>
+                            <li>Платформа донатов для стримеров (аналог DonationAlerts)</li>
+                            <li>Платформа коллективных скидок (аналог Biglion)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 7 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">Joyvoo</h3>
+                            <p class="font-mono text-xs text-gray-500">Backend для мобильной игры с высокой нагрузкой</p>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-yellow text-xs font-bold neo-border whitespace-nowrap">Январь 2022 — Май 2022 · 5 месяцев</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Senior Backend Engineer (Node.js / NestJS)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p><strong>Стек:</strong> Node.js, TypeScript, NestJS, REST API, MySQL, Prisma, NATS, WebSockets, Angular, Docker, Kubernetes.</p>
+                        <p class="mt-2">Оптимизация backend под высокую нагрузку, микросервисная архитектура, кэширование, админ-панель на Angular.</p>
+                    </div>
+                </div>
+
+                <!-- Experience 8 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">ТУТУ.ТВ</h3>
+                            <p class="font-mono text-xs text-gray-500">Электронная биржа криптовалют</p>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border whitespace-nowrap">Август 2019 — Январь 2022 · 2 года 6 месяцев</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Senior Backend Engineer (Node.js / NestJS)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p><strong>Стек:</strong> Node.js, TypeScript, NestJS, Angular, PostgreSQL, ClickHouse, Protobuf, Docker, Kubernetes.</p>
+                        <p class="mt-2">Модуль рассылки уведомлений, двухфакторная аутентификация, ClickHouse для аналитики, микросервисная архитектура. Команда: 5 backend, 4 frontend, PM, техдир.</p>
+                    </div>
+                </div>
+
+                <!-- Experience 9 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">Помогатель.ру</h3>
+                            <p class="font-mono text-xs text-gray-500">Москва · pomogatel.ru</p>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-purple text-white text-xs font-bold neo-border whitespace-nowrap">Декабрь 2018 — Август 2019 · 9 месяцев</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Frontend Engineer (Angular)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p>Веб-сервис по подбору персонала для частных лиц. <strong>Стек:</strong> Angular 6+, TypeScript, Git, Jenkins. Команда: 4 frontend, 2 backend.</p>
+                    </div>
+                </div>
+
+                <!-- Experience 10 -->
+                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
+                        <div>
+                            <h3 class="text-lg font-black">ООО "Комтек"</h3>
+                            <p class="font-mono text-xs text-gray-500">Уфа · Медицинские информационные системы</p>
+                        </div>
+                        <span class="px-3 py-1 bg-neo-pink text-xs font-bold neo-border whitespace-nowrap">Сентябрь 2016 — Ноябрь 2018 · 2 года 3 месяца</span>
+                    </div>
+                    <p class="font-bold text-sm mb-2">Senior Fullstack Engineer (Angular / Java / Oracle)</p>
+                    <div class="font-mono text-xs leading-relaxed">
+                        <p><strong>Стек:</strong> Angular, Oracle, PL/SQL, Java (Spring MVC), JHipster, ASP.NET Core, Flyway, Jenkins.</p>
+                        <p class="mt-2">Архитектура новой версии системы для медицинских учреждений. Кодогенерация на основе БД, миграции Flyway, генерация отчетов YARG. Создал утилиту <a href="https://rucken.ru" class="underline font-bold">rucken.ru</a>.</p>
+                    </div>
+                </div>
+
+                <!-- Earlier Experience (collapsed) -->
+                <div class="bg-white neo-border shadow-neo p-6 mb-4">
+                    <h3 class="text-lg font-black mb-4">Ранний опыт (2005 — 2016)</h3>
+                    <div class="space-y-4 font-mono text-xs">
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">Web Developer (Freelance)</p>
+                            <p class="text-gray-500">Август 2015 — Ноябрь 2017 · 2 года 4 месяца</p>
+                            <p>Python, Django, Angular, Heroku, Dokku. Коммерческие проекты с фриланс-бирж.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">Центр технологий моделирования · Уфа</p>
+                            <p class="text-gray-500">Сентябрь 2015 — Сентябрь 2016 · 1 год 1 месяц</p>
+                            <p>PHP, Oracle, PostgreSQL, ExtJS. Программные решения для нефтяных организаций.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">КОМТЕК · Уфа</p>
+                            <p class="text-gray-500">Апрель 2014 — Август 2015 · 1 год 5 месяцев</p>
+                            <p>Delphi, Oracle, SVN, Jenkins. Медицинские информационные системы.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">Web Developer (Freelance)</p>
+                            <p class="text-gray-500">Октябрь 2012 — Август 2015 · 2 года 11 месяцев</p>
+                            <p>PHP, AngularJS, Ionic, Meteor. Веб-приложения и мобильные приложения.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">БАНК УРАЛСИБ · Уфа</p>
+                            <p class="text-gray-500">Апрель 2012 — Апрель 2014 · 2 года 1 месяц</p>
+                            <p>Java, Oracle, PL/SQL, JQuery. Модули и отчётность для банковской системы Finacle.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">Парус-башкортостан · Уфа</p>
+                            <p class="text-gray-500">Июль 2010 — Апрель 2012 · 1 год 10 месяцев</p>
+                            <p>Delphi, Oracle, PL/SQL. Бухгалтерский учёт для бюджетных организаций.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">Web Developer (Freelance)</p>
+                            <p class="text-gray-500">Август 2008 — Октябрь 2010 · 2 года 3 месяца</p>
+                            <p>PHP (CodeIgniter), jQuery. Веб-сайты и веб-приложения.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">Управление Росреестра по РБ · Уфа</p>
+                            <p class="text-gray-500">Август 2008 — Июль 2010 · 2 года</p>
+                            <p>Delphi, Oracle. Администрирование IT-инфраструктуры, ведущий специалист.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">ООО "Межрегиональное объединение Аргумент" · Томск</p>
+                            <p class="text-gray-500">Апрель 2008 — Июль 2008 · 4 месяца</p>
+                            <p>Delphi, Oracle, SVN. КИС «Аргумент» — корпоративная информационная система.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">ОАО "Варьеганнефть" · Радужный</p>
+                            <p class="text-gray-500">Август 2007 — Февраль 2008 · 7 месяцев</p>
+                            <p>Delphi, Oracle. Сопровождение ERP-системы BAAN в нефтедобывающем предприятии.</p>
+                        </div>
+                        <div class="border-l-2 border-neo-black pl-4">
+                            <p class="font-bold">Web Developer (Freelance)</p>
+                            <p class="text-gray-500">Май 2005 — Апрель 2008 · 3 года</p>
+                            <p>PHP, JavaScript, CSS. Первые коммерческие проекты на фриланс-биржах.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education -->
+            <div class="bg-white neo-border shadow-neo p-6 mb-8 reveal">
+                <h2 class="text-2xl font-black mb-4 uppercase flex items-center gap-2">
+                    <i data-lucide="graduation-cap" class="w-7 h-7"></i> Образование
+                </h2>
+                <div class="font-mono text-sm">
+                    <p class="font-bold">Томский государственный университет систем управления и радиоэлектроники</p>
+                    <p class="text-gray-600">2007 · Высшее образование</p>
+                    <p>Вычислительных систем, Кафедра: Компьютерных систем в управлении и проектировании</p>
+                </div>
+            </div>
+
+            <!-- Additional Info -->
+            <div class="bg-white neo-border shadow-neo p-6 mb-8 reveal">
+                <h2 class="text-2xl font-black mb-4 uppercase flex items-center gap-2">
+                    <i data-lucide="info" class="w-7 h-7"></i> Дополнительная информация
+                </h2>
+                <div class="font-mono text-sm space-y-2">
+                    <p><strong>Права категории:</strong> B, C</p>
+                    <p><strong>Не готов к переезду,</strong> готов к редким командировкам</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center py-8 reveal">
+                <a href="/#contact"
+                    class="inline-block px-8 py-4 bg-neo-pink neo-border font-black text-lg uppercase tracking-wider shadow-neo hover:shadow-neo-hover hover:translate-x-[5px] hover:translate-y-[5px] transition-all">
+                    Связаться со мной
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-neo-black text-white py-12 px-4 border-t-4 border-white mt-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <h4 class="font-black text-2xl uppercase mb-2">site15.ru</h4>
+                <p class="font-mono text-sm text-gray-400">© 2026 Все права защищены (или нет).</p>
+            </div>
+            <div class="flex flex-col items-center md:items-end font-mono text-sm gap-2">
+                <div class="flex flex-wrap justify-center md:justify-end gap-2">
+                    <a href="https://career.habr.com/endykaufman" target="_blank"
+                        class="px-3 py-1 bg-gray-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        ХабрКарьера
+                    </a>
+                    <a href="https://ufa.hh.ru/resume/2615ca8cff019da3eb0039ed1f6732786f4533" target="_blank"
+                        class="px-3 py-1 bg-red-600 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        HeadHunter
+                    </a>
+                    <a href="https://www.linkedin.com/in/ilshatkhamitov/" target="_blank"
+                        class="px-3 py-1 bg-blue-700 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        LinkedIn
+                    </a>
+                    <a href="./rss.xml" target="_blank"
+                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        RSS
+                    </a>
+                </div>
+                <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
+                </a>
+                <p class="text-gray-500">Уфа, Россия</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+    <script src="./js/utils.js"></script>
+</body>
+
+</html>
