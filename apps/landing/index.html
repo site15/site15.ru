@@ -666,7 +666,7 @@
             <!-- Projects Grid (15 items) -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
                 <!-- Project 1 -->
-                <article
+                <article id="proj-1"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="1">
                     <div class="flex justify-between items-start">
@@ -766,7 +766,7 @@
                     </div>
                 </article>
                 <!-- Project 2 -->
-                <article
+                <article id="proj-2"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-100"
                     data-id="2">
                     <div class="flex justify-between items-start">
@@ -820,7 +820,7 @@
                     </div>
                 </article>
                 <!-- Project 3 -->
-                <article
+                <article id="proj-3"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-200"
                     data-id="3">
                     <div class="flex justify-between items-start">
@@ -880,7 +880,7 @@
                     </div>
                 </article>
                 <!-- Project 4 -->
-                <article
+                <article id="proj-4"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-200"
                     data-id="4">
                     <div class="flex justify-between items-start">
@@ -936,7 +936,7 @@
                     </div>
                 </article>
                 <!-- Project 5 -->
-                <article
+                <article id="proj-5"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-300"
                     data-id="5">
                     <div class="flex justify-between items-start">
@@ -989,7 +989,7 @@
                     </div>
                 </article>
                 <!-- Project 6 -->
-                <article
+                <article id="proj-6"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-400"
                     data-id="6">
                     <div class="flex justify-between items-start">
@@ -1026,7 +1026,7 @@
                     </div>
                 </article>
                 <!-- Project 7 -->
-                <article
+                <article id="proj-7"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="7">
                     <div class="flex justify-between items-start">
@@ -1064,7 +1064,7 @@
                     </div>
                 </article>
                 <!-- Project 8 -->
-                <article
+                <article id="proj-8"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="8">
                     <div class="flex justify-between items-start">
@@ -1122,7 +1122,7 @@
                     </div>
                 </article>
                 <!-- Project 9 -->
-                <article
+                <article id="proj-9"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="9">
                     <div class="flex justify-between items-start">
@@ -1177,7 +1177,7 @@
                     </div>
                 </article>
                 <!-- Project 10 -->
-                <article
+                <article id="proj-10"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="10">
                     <div class="flex justify-between items-start">
@@ -1226,7 +1226,7 @@
                     </div>
                 </article>
                 <!-- Project 11 -->
-                <article
+                <article id="proj-11"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="11">
                     <div class="flex justify-between items-start">
@@ -2629,6 +2629,12 @@
             </div>
         </div>
     </footer>
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top-btn"
+        class="hidden fixed bottom-6 right-24 w-14 h-14 bg-neo-blue text-white font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
+        <i data-lucide="arrow-up" class="w-7 h-7"></i>
+    </button>
+
     <!-- Floating Chat Button -->
     <button id="chatSupportButton"
         class="fixed bottom-6 right-6 w-16 h-16 bg-neo-pink text-neo-black font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow transition-all z-50 flex items-center justify-center">
@@ -2704,6 +2710,7 @@
     <script src="./js/utils.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/chat.js"></script>
+    <script src="./js/scroll-top.js"></script>
 
     <!-- Chat Support Script -->
     <!-- Moved to ./js/chat.js -->

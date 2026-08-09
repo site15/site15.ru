@@ -109,6 +109,94 @@
         .experience-card:hover {
             transform: translateX(4px);
         }
+
+        /* Tag Cloud */
+        .tag-cloud-item {
+            padding: 4px 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .tag-cloud-item:hover {
+            transform: scale(1.5) rotate(0deg) !important;
+            z-index: 10;
+            box-shadow: 4px 4px 0px 0px #0a0a0a;
+        }
+
+        .tag-cloud-item:active {
+            transform: scale(1.3) rotate(0deg) !important;
+            box-shadow: 1px 1px 0px 0px #0a0a0a;
+        }
+
+        /* Experience highlight animation */
+        @keyframes experienceHighlight {
+            0% { box-shadow: 0 0 0 0 rgba(255, 235, 59, 0.8); border-color: #0a0a0a; }
+            20% { box-shadow: 0 0 0 8px rgba(255, 235, 59, 0.5); border-color: #ffeb3b; }
+            40% { box-shadow: 0 0 0 8px rgba(255, 126, 182, 0.5); border-color: #ff7eb6; }
+            60% { box-shadow: 0 0 0 8px rgba(122, 252, 80, 0.5); border-color: #7afc50; }
+            80% { box-shadow: 0 0 0 4px rgba(255, 235, 59, 0.3); border-color: #ffeb3b; }
+            100% { box-shadow: 5px 5px 0px 0px #0a0a0a; border-color: #0a0a0a; }
+        }
+
+        .experience-highlight {
+            animation: experienceHighlight 3s ease-out;
+            border-color: #ffeb3b !important;
+        }
+
+        /* Tag Modal */
+        #tag-modal {
+            z-index: 100;
+        }
+
+        .tag-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 100;
+        }
+
+        .tag-modal-wrapper {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 101;
+            padding: 1rem;
+        }
+
+        .tag-modal-box {
+            background: #fdfbf7;
+            max-width: 560px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 102;
+        }
+
+        .tag-modal-item {
+            transition: all 0.15s ease;
+        }
+
+        .tag-modal-item:hover {
+            transform: translateX(4px);
+        }
+
+        /* Experience thematic tags */
+        .exp-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: #f0f0f0;
+            border: 2px solid #0a0a0a;
+            border-radius: 2px;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -166,7 +254,7 @@
 
     <!-- Resume Content -->
     <section class="pt-24 pb-16 px-4">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <!-- Breadcrumb -->
             <div class="mb-6 reveal">
                 <a href="/" class="font-mono text-sm hover:text-neo-pink transition-colors flex items-center gap-1">
@@ -176,25 +264,38 @@
 
             <!-- Header Card -->
             <div class="bg-white neo-border shadow-neo-lg p-8 md:p-12 mb-8 reveal">
-                <div class="flex flex-col md:flex-row gap-8 items-start">
-                    <div class="flex-1">
+                <div class="flex flex-col lg:flex-row gap-8 items-start">
+                    <!-- Photo -->
+                    <div class="flex-shrink-0 mx-auto lg:mx-0">
+                        <div class="relative w-40 h-40 md:w-48 md:h-48">
+                            <div class="absolute inset-0 bg-neo-blue neo-border shadow-neo-lg transform rotate-2"></div>
+                            <div class="absolute inset-0 bg-white neo-border overflow-hidden transform -rotate-1 hover:rotate-0 transition-transform duration-500">
+                                <img src="ilshat.jpg" alt="Ильшат Хамитов" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Name & Title -->
+                    <div class="lg:w-2/5">
                         <div
                             class="inline-block px-4 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">
                             AVAILABLE FOR PROJECTS
                         </div>
-                        <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-2">
+                        <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-2">
                             Ильшат<br>Хамитов
                         </h1>
                         <h2
-                            class="text-xl md:text-2xl font-bold bg-neo-black text-white inline-block px-4 py-2 mb-6 transform -rotate-1">
+                            class="text-lg md:text-xl font-bold bg-neo-black text-white inline-block px-4 py-2 mb-4 transform -rotate-1">
                             Senior Fullstack Engineer
                         </h2>
-                        <p class="font-mono text-sm mb-4 leading-relaxed">
+                    </div>
+                    <!-- Info + Links -->
+                    <div class="lg:flex-1">
+                        <p class="font-mono text-sm mb-3 leading-relaxed">
                             Мужчина, 41 год<br>
                             Уфа, Россия<br>
                             Гражданство: Россия
                         </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
+                        <div class="flex flex-wrap gap-2 mb-3">
                             <a href="mailto:admin@site15.ru"
                                 class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border shadow-neo-sm hover:shadow-neo-hover transition-all flex items-center gap-1">
                                 <i data-lucide="mail" class="w-3 h-3"></i> admin@site15.ru
@@ -223,6 +324,20 @@
                             </a>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Tag Cloud -->
+            <div class="bg-white neo-border shadow-neo p-6 mb-8 reveal">
+                <h2 class="text-2xl font-black mb-2 uppercase flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-7 h-7"></i> Облако технологий
+                </h2>
+                <p class="font-mono text-xs text-gray-500 mb-4">Наведите на тег — он увеличится. Нажмите — увидите, где и как я его использовал. Клик по пункту — прокрутит к опыту и подсветит его.</p>
+                <div id="tag-cloud-container" class="flex flex-wrap gap-2 justify-center items-center min-h-[120px]">
+                    <!-- Tags rendered by JS -->
+                </div>
+                <div class="mt-4 pt-4 border-t-2 border-gray-200 font-mono text-sm">
+                    <p><strong>Языки:</strong> Русский — Родной | Английский — B2 (Средне-продвинутый)</p>
                 </div>
             </div>
 
@@ -264,35 +379,6 @@
                 </div>
             </div>
 
-            <!-- Skills -->
-            <div class="bg-white neo-border shadow-neo p-6 mb-8 reveal">
-                <h2 class="text-2xl font-black mb-4 uppercase flex items-center gap-2">
-                    <i data-lucide="code" class="w-7 h-7"></i> Навыки
-                </h2>
-                <div class="flex flex-wrap gap-2">
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">NestJS</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">PostgreSQL</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Kubernetes</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">GraphQL</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">SOLID</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">RxJS</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Docker</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">CI/CD</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Code review</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Проектирование систем</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Декомпозиция задач</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Рефакторинг кода</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Автоматизированное тестирование</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Умение работать в команде</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Наставничество</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Управление проектами</span>
-                    <span class="px-3 py-1 bg-neo-blue text-xs font-bold neo-border">Умение разбираться в чужом коде</span>
-                </div>
-                <div class="mt-4 font-mono text-sm">
-                    <p><strong>Языки:</strong> Русский — Родной | Английский — B2 (Средне-продвинутый)</p>
-                </div>
-            </div>
-
             <!-- Work Experience -->
             <div class="mb-8 reveal">
                 <h2 class="text-3xl font-black mb-6 uppercase flex items-center gap-3">
@@ -300,7 +386,7 @@
                 </h2>
 
                 <!-- Experience 1 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-aimilo" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">ИП Хамитов Ильшат Маратович</h3>
@@ -352,10 +438,20 @@
                             <li>непрерывное развитие продукта на основе анализа стоимости генераций, качества AI и пользовательского опыта.</li>
                         </ul>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">AI-платформа</span>
+                        <span class="exp-tag">SaaS</span>
+                        <span class="exp-tag">Генерация контента</span>
+                        <span class="exp-tag">Промпт-инжиниринг</span>
+                        <span class="exp-tag">Монетизация</span>
+                        <span class="exp-tag">Антифрод</span>
+                        <span class="exp-tag">Онлайн-оплата</span>
+                        <span class="exp-tag">Hands-on</span>
+                    </div>
                 </div>
 
                 <!-- Experience 2 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-nda" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">Конфиденциальный B2C-проект (NDA)</h3>
@@ -402,10 +498,20 @@
                             <li>использование AI-инструментов разработки для ускорения реализации нового функционала.</li>
                         </ul>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">Микросервисы</span>
+                        <span class="exp-tag">GraphQL Gateway</span>
+                        <span class="exp-tag">Feature Toggle</span>
+                        <span class="exp-tag">A/B-тестирование</span>
+                        <span class="exp-tag">RAG / AI-бот</span>
+                        <span class="exp-tag">OTP-модуль</span>
+                        <span class="exp-tag">Code Review</span>
+                        <span class="exp-tag">Daily releases</span>
+                    </div>
                 </div>
 
                 <!-- Experience 3 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-gaming" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">Продукт для управления сетью игровых и компьютерных клубов</h3>
@@ -450,10 +556,21 @@
                             <li>создал единую архитектуру web + admin + desktop с изолированными модулями и возможностью дальнейшего масштабирования.</li>
                         </ul>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">Modular Monolith</span>
+                        <span class="exp-tag">Code Generation</span>
+                        <span class="exp-tag">E2E-тесты (~800)</span>
+                        <span class="exp-tag">Нагрузочное тестирование</span>
+                        <span class="exp-tag">CI/CD с нуля</span>
+                        <span class="exp-tag">GitOps</span>
+                        <span class="exp-tag">Multi-tenancy</span>
+                        <span class="exp-tag">Desktop (Electron)</span>
+                        <span class="exp-tag">Масштабирование до 3000 мест</span>
+                    </div>
                 </div>
 
                 <!-- Experience 4 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-rvision" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">Р-Вижн</h3>
@@ -484,10 +601,20 @@
                         <p class="mt-2">Работа в команде из 3 разработчиков совместно с архитектором.</p>
                         <p class="mt-2">Направление: Platform Engineering / Backend Infrastructure.</p>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">Platform Engineering</span>
+                        <span class="exp-tag">NestJS-библиотеки</span>
+                        <span class="exp-tag">OpenTelemetry</span>
+                        <span class="exp-tag">Kafka</span>
+                        <span class="exp-tag">gRPC</span>
+                        <span class="exp-tag">Стандартизация</span>
+                        <span class="exp-tag">E2E-тестирование</span>
+                        <span class="exp-tag">5 команд × 5 проектов</span>
+                    </div>
                 </div>
 
                 <!-- Experience 5 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-ilink" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">ilink</h3>
@@ -524,10 +651,21 @@
                             <li>система выдерживала 100 параллельных полных прогонов E2E-тестов.</li>
                         </ul>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">FinTech</span>
+                        <span class="exp-tag">Криптовалютная платформа</span>
+                        <span class="exp-tag">Legacy → NestJS</span>
+                        <span class="exp-tag">Микросервисы (7 сервисов)</span>
+                        <span class="exp-tag">NATS JetStream</span>
+                        <span class="exp-tag">Observability</span>
+                        <span class="exp-tag">Team Lead (4 чел.)</span>
+                        <span class="exp-tag">CI/CD + Kubernetes с нуля</span>
+                        <span class="exp-tag">~15 000 E2E-тестов</span>
+                    </div>
                 </div>
 
                 <!-- Experience 6 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-highload" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">Высоконагруженные веб-платформы</h3>
@@ -569,10 +707,20 @@
                         </ul>
                         <p class="mt-2">Инфраструктура всех проектов развёрнута в Kubernetes с автоматизированным деплоем через GitLab CI/CD.</p>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">Real-time</span>
+                        <span class="exp-tag">WebSockets</span>
+                        <span class="exp-tag">Беттинг</span>
+                        <span class="exp-tag">Стриминг / Донаты</span>
+                        <span class="exp-tag">Коллективные скидки</span>
+                        <span class="exp-tag">Pixel-perfect вёрстка</span>
+                        <span class="exp-tag">Kubernetes</span>
+                        <span class="exp-tag">E2E-тесты</span>
+                    </div>
                 </div>
 
                 <!-- Experience 7 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-joyvoo" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">Joyvoo</h3>
@@ -609,10 +757,19 @@
                         </ul>
                         <p class="mt-2">Работа в команде из 2 разработчиков, разработка велась по Scrum со спринтами.</p>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">Оптимизация производительности</span>
+                        <span class="exp-tag">Нагрузочное тестирование (~350×)</span>
+                        <span class="exp-tag">PostgreSQL Tuning</span>
+                        <span class="exp-tag">Микросервисы + NATS</span>
+                        <span class="exp-tag">Docker / Kubernetes</span>
+                        <span class="exp-tag">Админ-панель (Angular)</span>
+                        <span class="exp-tag">Scrum</span>
+                    </div>
                 </div>
 
                 <!-- Experience 8 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-tutu" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">ТУТУ.ТВ</h3>
@@ -645,10 +802,19 @@
                         <p class="mt-2">Инфраструктура проекта развёрнута в Kubernetes, деплой Docker-образов выполнялся через GitLab CI/CD. Разработка велась по Scrum.</p>
                         <p class="mt-2">Команда проекта: 5 backend-разработчиков, 4 frontend-разработчика, project manager и технический директор.</p>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">Криптовалютная биржа</span>
+                        <span class="exp-tag">ClickHouse</span>
+                        <span class="exp-tag">2FA</span>
+                        <span class="exp-tag">Микросервисная архитектура</span>
+                        <span class="exp-tag">Миграции БД</span>
+                        <span class="exp-tag">Scrum</span>
+                        <span class="exp-tag">Команда ~11 чел.</span>
+                    </div>
                 </div>
 
                 <!-- Experience 9 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-pomogatel" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">Помогатель.ру</h3>
@@ -670,10 +836,17 @@
                         </ul>
                         <p class="mt-2">Разработка велась в команде из 4 frontend- и 2 backend-разработчиков. Контроль версий через Git, деплой через Jenkins. Тестирование новых модулей на отдельных стендах. Разработка по итерационной модели с project-manager.</p>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">Адаптивная вёрстка</span>
+                        <span class="exp-tag">Angular</span>
+                        <span class="exp-tag">Jenkins</span>
+                        <span class="exp-tag">Итерационная разработка</span>
+                        <span class="exp-tag">Код-ревью</span>
+                    </div>
                 </div>
 
                 <!-- Experience 10 -->
-                <div class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
+                <div data-experience-id="exp-komtek" class="experience-card bg-white neo-border shadow-neo p-6 mb-4">
                     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-2 mb-3">
                         <div>
                             <h3 class="text-lg font-black">ООО "Комтек"</h3>
@@ -709,20 +882,29 @@
                         </ul>
                         <p class="mt-2">Инфраструктура: Git, Jenkins. Команда: до 5 разработчиков.</p>
                     </div>
+                    <div class="flex flex-wrap gap-1.5 mt-4 pt-3 border-t-2 border-gray-200">
+                        <span class="exp-tag">Медицина</span>
+                        <span class="exp-tag">Oracle PL/SQL</span>
+                        <span class="exp-tag">JHipster / Code Generation</span>
+                        <span class="exp-tag">Flyway</span>
+                        <span class="exp-tag">rucken.ru</span>
+                        <span class="exp-tag">Семантическое версионирование</span>
+                        <span class="exp-tag">Отчёты (YARG)</span>
+                    </div>
                 </div>
 
                 <!-- Earlier Experience (2005 — 2017) -->
                 <div class="bg-white neo-border shadow-neo p-6 mb-4">
                     <h3 class="text-lg font-black mb-4">Ранний опыт (2005 — 2017)</h3>
                     <div class="space-y-6 font-mono text-xs">
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-freelance3" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">Web Developer (Freelance)</p>
                             <p class="text-gray-500">Август 2015 — Ноябрь 2017 · 2 года 4 месяца</p>
                             <p class="mt-1">Разработка небольших веб-проектов и сайтов на фрилансе в свободное от основной работы время.</p>
                             <p class="mt-1"><strong>Стек:</strong> Python, Django, Angular, Heroku, Dokku.</p>
                             <p class="mt-1">Проектирование и разработка backend на Django, клиентской части на Angular, верстка UI, развёртывание в Heroku и Dokku. Несколько коммерческих проектов с фриланс-бирж, самостоятельная разработка полного цикла.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-ctm" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">Центр технологий моделирования · Уфа</p>
                             <p class="text-gray-500">Сентябрь 2015 — Сентябрь 2016 · 1 год 1 месяц</p>
                             <p class="mt-1"><strong>Software Developer</strong></p>
@@ -730,7 +912,7 @@
                             <p class="mt-1"><strong>Стек:</strong> PHP, Oracle, PostgreSQL, ExtJS, Git, GitLab CI/CD.</p>
                             <p class="mt-1">Разработка backend-модулей на PHP, frontend-интерфейсов на ExtJS, проектирование БД, SQL-запросы, отчёты. Команда из 4 разработчиков, Scrum.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-komtek-old" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">КОМТЕК · Уфа</p>
                             <p class="text-gray-500">Апрель 2014 — Август 2015 · 1 год 5 месяцев</p>
                             <p class="mt-1"><strong>Software Developer</strong></p>
@@ -738,14 +920,14 @@
                             <p class="mt-1"><strong>Стек:</strong> Delphi, Oracle, SVN, Jenkins.</p>
                             <p class="mt-1">Разработка дополнительных модулей системы, проектирование БД, SQL-запросы, миграции, хранимые процедуры, аналитические запросы и отчёты. Команда из 6 разработчиков.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-freelance2" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">Web Developer (Freelance)</p>
                             <p class="text-gray-500">Октябрь 2012 — Август 2015 · 2 года 11 месяцев</p>
                             <p class="mt-1">Разработка небольших веб-проектов и гибридных мобильных приложений на фрилансе.</p>
                             <p class="mt-1"><strong>Стек:</strong> PHP (Fat-Free Framework), AngularJS, Ionic, Meteor.</p>
                             <p class="mt-1">Веб-приложения на PHP, клиентская часть на AngularJS, гибридные мобильные приложения на Ionic, синхронизация данных между веб и мобильными приложениями (CQRS). Коммерческие проекты через фриланс-биржи.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-uralsib" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">БАНК УРАЛСИБ · Уфа</p>
                             <p class="text-gray-500">Апрель 2012 — Апрель 2014 · 2 года 1 месяц</p>
                             <p class="mt-1"><strong>Software Developer</strong></p>
@@ -753,7 +935,7 @@
                             <p class="mt-1"><strong>Стек:</strong> Java, Oracle, PL/SQL, JQuery, HTML, CSS.</p>
                             <p class="mt-1">Разработка дополнительных модулей для банковской системы Finacle, проектирование и создание схем БД и миграций, SQL-запросы и отчётные формы, разработка и внедрение фреймворка генерации клиентских форм (Java + JQuery + HTML + CSS). Команда из 6 разработчиков.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-parus" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">Парус-башкортостан · Уфа</p>
                             <p class="text-gray-500">Июль 2010 — Апрель 2012 · 1 год 10 месяцев</p>
                             <p class="mt-1"><strong>Software Developer</strong></p>
@@ -761,14 +943,14 @@
                             <p class="mt-1"><strong>Стек:</strong> Delphi, Oracle, PL/SQL.</p>
                             <p class="mt-1">Разработка хранимых процедур и сложных SQL-запросов, проектирование БД, миграции, бухгалтерские и аналитические отчёты (Excel, Word), оптимизация производительности БД, администрирование БД. Дополнительно — внутренние веб-инструменты на ASP.NET. Команда из 4 разработчиков.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-freelance1" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">Web Developer (Freelance)</p>
                             <p class="text-gray-500">Август 2008 — Октябрь 2010 · 2 года 3 месяца</p>
                             <p class="mt-1">Разработка небольших веб-сайтов и веб-приложений на PHP.</p>
                             <p class="mt-1"><strong>Стек:</strong> PHP (CodeIgniter), jQuery.</p>
                             <p class="mt-1">Проектирование и разработка веб-приложений, клиентская часть и кроссбраузерная верстка, самостоятельный деплой на хостинг через FTP.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-rosreestr" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">Управление Росреестра по РБ · Уфа</p>
                             <p class="text-gray-500">Август 2008 — Июль 2010 · 2 года</p>
                             <p class="mt-1"><strong>Ведущий специалист</strong></p>
@@ -776,7 +958,7 @@
                             <p class="mt-1"><strong>Стек:</strong> Delphi, Oracle.</p>
                             <p class="mt-1">Администрирование локальной сети и серверной инфраструктуры (~10 серверов и 50 рабочих станций), настройка сетевого оборудования и доменной инфраструктуры, администрирование и резервное копирование БД, разработка внутренних инструментов автоматизации.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-argument" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">ООО "Межрегиональное объединение Аргумент" · Томск</p>
                             <p class="text-gray-500">Апрель 2008 — Июль 2008 · 4 месяца</p>
                             <p class="mt-1"><strong>Software Developer</strong></p>
@@ -784,7 +966,7 @@
                             <p class="mt-1"><strong>Стек:</strong> Delphi, Oracle, SVN.</p>
                             <p class="mt-1">Разработка новых модулей системы, интеграционные и unit-тесты, участие в релизах. Команда из 3 разработчиков, Agile/SCRUM.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-varyegan" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">ОАО "Варьеганнефть" · Радужный</p>
                             <p class="text-gray-500">Август 2007 — Февраль 2008 · 7 месяцев</p>
                             <p class="mt-1"><strong>Software Engineer</strong></p>
@@ -792,7 +974,7 @@
                             <p class="mt-1"><strong>Стек:</strong> Delphi, Oracle.</p>
                             <p class="mt-1">Разработка инструментов генерации сводных аналитических отчётов, сложные SQL-запросы, анализ структуры БД, механизмы установки и обновления ПО по сети. Команда из 3 разработчиков.</p>
                         </div>
-                        <div class="border-l-2 border-neo-black pl-4">
+                        <div data-experience-id="exp-freelance0" class="border-l-2 border-neo-black pl-4">
                             <p class="font-bold">Web Developer (Freelance)</p>
                             <p class="text-gray-500">Май 2005 — Апрель 2008 · 3 года</p>
                             <p class="mt-1">Разработка небольших веб-сайтов и веб-приложений для коммерческих проектов на фриланс-биржах.</p>
@@ -887,6 +1069,29 @@
         });
     </script>
     <script src="./js/utils.js"></script>
+    <script src="./js/resume-tags.js"></script>
+
+    <!-- Tag Modal -->
+    <div id="tag-modal" class="hidden">
+        <div class="tag-modal-overlay"></div>
+        <div class="tag-modal-wrapper">
+            <div class="tag-modal-box neo-border shadow-neo-lg p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="tag-modal-title text-2xl font-black uppercase"></h3>
+                    <button class="tag-modal-close w-8 h-8 bg-neo-black text-white neo-border flex items-center justify-center font-bold hover:bg-neo-pink hover:text-neo-black transition-colors">&times;</button>
+                </div>
+                <p class="font-mono text-xs text-gray-500 mb-3">Нажмите на пункт, чтобы перейти к опыту:</p>
+                <ul class="tag-modal-list space-y-2"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top-btn"
+        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-white font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-40 flex items-center justify-center cursor-pointer">
+        <i data-lucide="arrow-up" class="w-7 h-7"></i>
+    </button>
+    <script src="./js/scroll-top.js"></script>
 </body>
 
 </html>
