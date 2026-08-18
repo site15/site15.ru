@@ -114,6 +114,17 @@
             animation: marquee 120s linear infinite;
         }
 
+        .marquee-content a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .marquee-content a:hover {
+            color: #ff7eb6;
+            text-decoration: underline;
+        }
+
         @keyframes marquee {
             0% {
                 transform: translateX(0);
@@ -227,17 +238,15 @@
                 </div>
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-4">
+                    <a href="#experience"
+                        class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
+                    <a href="#projects"
+                        class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a>
+                    <a href="#about"
+                        class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О себе</a>
                     <a href="#open-source-community"
                         class="px-4 py-2 font-bold hover:bg-neo-purple transition-colors border-2 border-transparent hover:border-neo-black">Open
                         Source</a>
-                    <a href="#about"
-                        class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О
-                        себе</a>
-                    <a href="#projects"
-                        class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">15
-                        Проектов</a>
-                    <a href="#experience"
-                        class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
                     <a href="#skills"
                         class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Навыки</a>
                     <a href="#contact"
@@ -255,11 +264,11 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu"
             class="hidden md:hidden bg-neo-yellow border-t-2 border-neo-black p-4 space-y-2 absolute w-full">
+            <a href="#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
+            <a href="#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Проекты</a>
+            <a href="#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
             <a href="#open-source-community"
                 class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Open Source</a>
-            <a href="#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
-            <a href="#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">15 Проектов</a>
-            <a href="#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
             <a href="#skills" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Навыки</a>
             <a href="#contact" class="block px-4 py-2 font-bold neo-border bg-neo-black text-white">Связаться</a>
         </div>
@@ -268,25 +277,8 @@
     <div
         class="mt-16 sm:mt-20 border-b-4 border-neo-black bg-neo-yellow py-3 overflow-hidden transform -rotate-1 relative z-40">
         <div class="marquee-container font-mono font-bold text-lg uppercase">
-            <div class="marquee-content">
-                Software Engineer • Node.js • NestJS • TypeScript • Kubernetes • Architecture • Backend • Frontend •
-                PostgreSQL • Angular • Protobuf • ClickHouse • Microservices • GraphQL • Electron • gRPC • NATS • Flyway
-                • Prisma • CI/CD • NATS Streaming • e2e • Dependency Injection • OAuth • JWT • Roles • Permissions •
-                Passport.js • Ionic • NX Monorepo • Schematics • CLI • Generator • Admin Panel • Desktop Application •
-                Exchange • Cryptocurrency • Blockchain • Migration • Refactoring • Stabilization • Library • Platform •
-                Solution • Betting • Email • Two-Factor Authorization • API • REST • Database • Microservice •
-                Infrastructure • Deployment • Scrum • Code Review • Mentorship • Leadership • Technical Leadership •
-                Fullstack • Monorepo • Wrapper • Mobile • Web • Application • Developer • Programming • Coding • Oracle
-                • MySQL • MS SQL • GitLab • Software Engineer •
-                Node.js • NestJS • TypeScript • Kubernetes • Architecture • Backend • Frontend • PostgreSQL • Angular •
-                Protobuf • ClickHouse • Microservices • GraphQL • Electron • gRPC • NATS • Flyway • Prisma • CI/CD •
-                NATS Streaming • e2e • Dependency Injection • OAuth • JWT • Roles • Permissions • Passport.js • Ionic •
-                NX Monorepo • Schematics • CLI • Generator • Admin Panel • Desktop Application • Exchange •
-                Cryptocurrency • Blockchain • Migration • Refactoring • Stabilization • Library • Platform • Solution •
-                Betting • Email • Two-Factor Authorization • API • REST • Database • Microservice • Infrastructure •
-                Deployment • Scrum • Code Review • Mentorship • Leadership • Technical Leadership • Fullstack • Monorepo
-                • Wrapper • Mobile • Web • Application • Developer • Programming • Coding • Oracle • MySQL • MS SQL •
-                GitLab •
+            <div class="marquee-content" id="marquee-tags">
+                <!-- Populated dynamically from tag-data.js -->
             </div>
         </div>
     </div>
@@ -296,7 +288,7 @@
             <div class="lg:col-span-8 z-10 reveal">
                 <div
                     class="inline-block px-4 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">
-                    AVAILABLE FOR PROJECTS
+                    OPEN TO WORK
                 </div>
                 <h1 class="text-6xl md:text-8xl font-black leading-[0.9] mb-6 uppercase tracking-tighter">
                     Ильшат <br>
@@ -308,13 +300,14 @@
                 </h2>
                 <p
                     class="text-xl md:text-2xl font-medium max-w-2xl mb-10 leading-relaxed border-l-4 border-neo-pink pl-6">
-                    Backend и frontend разработка. <br>
-                    <span class="font-mono text-sm mt-2 block opacity-75">Location: Уфа, Россия | Exp: 21+ лет | Salary: от 300 000 ₽</span>
+                    Fullstack / Backend Engineer. <br>
+                    Инженер-практик: пишу код, проектирую архитектуру, развиваю продукты. <br>
+                    <span class="font-mono text-sm mt-2 block opacity-75">Location: Уфа, Россия | Exp: 21+ лет</span>
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="#contact"
                         class="px-8 py-4 bg-neo-pink neo-border font-black text-lg uppercase tracking-wider shadow-neo hover:shadow-neo-hover hover:translate-x-[5px] hover:translate-y-[5px] transition-all text-center">
-                        Нанять меня
+                        Связаться
                     </a>
                     <a href="https://github.com/EndyKaufman" target="_blank"
                         class="px-8 py-4 bg-white neo-border font-black text-lg uppercase tracking-wider shadow-neo hover:shadow-neo-hover hover:translate-x-[5px] hover:translate-y-[5px] transition-all text-center flex items-center justify-center gap-2">
@@ -364,247 +357,6 @@
             <div class="coin-back"></div>
         </div>
     </section>
-    <!-- Communities, Open Source & Publications -->
-    <section id="open-source-community" class="py-20 px-4 bg-neo-bg border-y-4 border-neo-black">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 gap-12">
-                <!-- Communities -->
-                <div class="reveal">
-                    <h2 class="text-4xl font-black mb-8 uppercase flex items-center gap-3">
-                        <i data-lucide="message-square" class="w-10 h-10"></i> Сообщества
-                    </h2>
-                    <div class="bg-white neo-border p-6 relative">
-                        <div
-                            class="absolute -top-3 -right-3 bg-neo-yellow neo-border px-2 py-1 text-xs font-bold transform rotate-6">
-                            ADMIN</div>
-                        <p class="mb-4 font-mono text-sm">Администратор русскоязычных IT-сообществ:</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://t.me/nest_ru"
-                                class="px-3 py-1 border-2 border-black bg-neo-blue text-xs font-bold hover:bg-white transition-colors flex items-center">
-                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-                                </svg>
-                                NestJS RU <span id="telegram-nest_ru" class="ml-1">Загрузка...</span>
-                            </a>
-                            <a href="https://t.me/nest_basic"
-                                class="px-3 py-1 border-2 border-black bg-neo-blue text-xs font-bold hover:bg-white transition-colors flex items-center">
-                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-                                </svg>
-                                NestJS Basic <span id="telegram-nest_basic" class="ml-1">Загрузка...</span>
-                            </a>
-                            <a href="https://t.me/nest_random"
-                                class="px-3 py-1 border-2 border-black bg-neo-blue text-xs font-bold hover:bg-white transition-colors flex items-center">
-                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-                                </svg>
-                                NestJS Random <span id="telegram-nest_random" class="ml-1">Загрузка...</span>
-                            </a>
-                            <a href="https://t.me/prisma_ru"
-                                class="px-3 py-1 border-2 border-black bg-neo-green text-xs font-bold hover:bg-white transition-colors flex items-center">
-                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-                                </svg>
-                                Prisma RU <span id="telegram-prisma_ru" class="ml-1">Загрузка...</span>
-                            </a>
-                            <a href="https://t.me/typeorm_ru"
-                                class="px-3 py-1 border-2 border-black bg-neo-pink text-xs font-bold hover:bg-white transition-colors flex items-center">
-                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-                                </svg>
-                                TypeORM RU <span id="telegram-typeorm_ru" class="ml-1">Загрузка...</span>
-                            </a>
-                            <a href="https://t.me/nestjs_jobs"
-                                class="px-3 py-1 border-2 border-black bg-neo-orange text-xs font-bold hover:bg-white transition-colors flex items-center">
-                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-                                </svg>
-                                NestJS Jobs <span id="telegram-nestjs_jobs" class="ml-1">Загрузка...</span>
-                            </a>
-                            <a href="https://t.me/nxdev_ru"
-                                class="px-3 py-1 border-2 border-black bg-neo-yellow text-xs font-bold hover:bg-white transition-colors flex items-center">
-                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-                                </svg>
-                                NX Dev RU <span id="telegram-nxdev_ru" class="ml-1">Загрузка...</span>
-                            </a>
-                            <a href="https://t.me/angular_universal_ru"
-                                class="px-3 py-1 border-2 border-black bg-neo-purple text-xs font-bold hover:bg-white transition-colors flex items-center">
-                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-                                </svg>
-                                Angular Universal <span id="telegram-angular_universal_ru"
-                                    class="ml-1">Загрузка...</span>
-                            </a>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-gray-200">
-                            <p class="font-mono text-sm mb-2">Канал-дневник Fullstack-разработчика:</p>
-                            <a href="https://t.me/kaufman_log"
-                                class="px-3 py-1 border-2 border-black bg-neo-green text-xs font-bold hover:bg-white transition-colors flex items-center">
-                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
-                                </svg>
-                                Kaufman Log <span id="telegram-kaufman_log" class="ml-1">Загрузка...</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Open Source -->
-                <div class="reveal delay-100">
-                    <h2 class="text-4xl font-black mb-8 uppercase flex items-center gap-3">
-                        <i data-lucide="terminal-square" class="w-10 h-10"></i> Open Source
-                    </h2>
-                    <div class="space-y-4">
-                        <a href="https://github.com/EndyKaufman" target="_blank"
-                            class="block p-4 neo-border bg-white hover:bg-neo-pink hover:translate-x-1 hover:-translate-y-1 transition-all group">
-                            <h3 class="font-bold text-xl mb-1 flex justify-between">
-                                GitHub: EndyKaufman
-                                <i data-lucide="arrow-up-right"
-                                    class="opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                            </h3>
-                            <p class="font-mono text-sm opacity-70">Мой основной профиль разработки.</p>
-                            <div class="flex gap-2 mt-3 flex-wrap">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                                    </svg>
-                                    <span id="github-followers">97 подписчиков</span>
-                                </span>
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                                    </svg>
-                                    <span id="github-repos">88 репозиториев</span>
-                                </span>
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                                    </svg>
-                                    <span id="github-stars-total">431 звезда</span>
-                                </span>
-                            </div>
-                        </a>
-                        <a href="https://github.com/nestjs-mod" target="_blank"
-                            class="block p-4 neo-border bg-white hover:bg-neo-pink hover:translate-x-1 hover:-translate-y-1 transition-all group">
-                            <h3 class="font-bold text-xl mb-1 flex justify-between">
-                                Активный pet-проект: NestJS-mod
-                                <i data-lucide="arrow-up-right"
-                                    class="opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                            </h3>
-                            <p class="font-mono text-sm opacity-70">Инструменты и модули для экосистемы NestJS.</p>
-                            <div class="flex gap-2 mt-3 flex-wrap">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                                    </svg>
-                                    <span id="github-nestjs-mod-repos">9 репозиториев</span>
-                                </span>
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                                    </svg>
-                                    <span id="github-nestjs-mod-stars">35 звезд</span>
-                                </span>
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <svg class="h-3 mr-1" viewBox="0 0 780 250" aria-hidden="true">
-                                        <path fill="#231F20"
-                                            d="M240,250h100v-50h100V0H240V250z M340,50h50v100h-50V50z M480,0v200h100V50h50v150h50V50h50v150h50V0H480z M0,200h100V50h50v150h50V0H0V200z"
-                                            stroke-width="5" stroke="#f7f7f7"></path>
-                                    </svg>
-                                    <span id="npm-downloads-nestjs-mod">866 загрузок/мес</span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <!-- Articles & Publications -->
-                <div class="reveal delay-100">
-                    <h2 class="text-4xl font-black mb-8 uppercase flex items-center gap-3">
-                        <i data-lucide="book-open" class="w-10 h-10"></i> Публикации
-                    </h2>
-                    <div class="space-y-4">
-                        <a href="https://dev.to/endykaufman" target="_blank"
-                            class="block p-4 neo-border bg-white hover:bg-neo-pink hover:translate-x-1 hover:-translate-y-1 transition-all group">
-                            <h3 class="font-bold text-xl mb-1 flex justify-between">
-                                Dev.to Статьи
-                                <i data-lucide="arrow-up-right"
-                                    class="opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                            </h3>
-                            <p class="font-mono text-sm opacity-70">Технические статьи и руководства.</p>
-                            <div class="flex gap-2 mt-3 flex-wrap">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <i data-lucide="file-text" class="w-3 h-3 mr-1"></i>
-                                    <span id="devto-articles">Загрузка...</span>
-                                </span>
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <i data-lucide="users" class="w-3 h-3 mr-1"></i>
-                                    <span id="devto-followers">Загрузка...</span>
-                                </span>
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <i data-lucide="eye" class="w-3 h-3 mr-1"></i>
-                                    <span id="devto-views">Загрузка...</span>
-                                </span>
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <i data-lucide="heart" class="w-3 h-3 mr-1"></i>
-                                    <span id="devto-reactions">Загрузка...</span>
-                                </span>
-                            </div>
-                        </a>
-                        <a href="https://habr.com/ru/users/kaufmanendy/articles" target="_blank"
-                            class="block p-4 neo-border bg-white hover:bg-neo-pink hover:translate-x-1 hover:-translate-y-1 transition-all group">
-                            <h3 class="font-bold text-xl mb-1 flex justify-between">
-                                Habr Публикации
-                                <i data-lucide="arrow-up-right"
-                                    class="opacity-0 group-hover:opacity-100 transition-opacity"></i>
-                            </h3>
-                            <p class="font-mono text-sm opacity-70">Статьи на русском языке.</p>
-                            <div class="flex gap-2 mt-3 flex-wrap">
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <i data-lucide="file-text" class="w-3 h-3 mr-1"></i>
-                                    <span id="habr-articles">28 статей</span>
-                                </span>
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <i data-lucide="users" class="w-3 h-3 mr-1"></i>
-                                    <span id="habr-followers">18 подписчиков</span>
-                                </span>
-                                <span
-                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
-                                    <span id="habr-karma">карма - 1</span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
     <!-- About Stats Section -->
     <section id="about" class="py-20 border-y-4 border-neo-black">
         <div class="max-w-7xl mx-auto px-4">
@@ -651,6 +403,255 @@
             </div>
         </div>
     </section>
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-4 relative">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-5xl font-black mb-16 uppercase stroke-text reveal">Опыт работы</h2>
+            <div class="space-y-12 relative">
+                <!-- Vertical Line -->
+                <div
+                    class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-neo-black transform -translate-x-1/2 hidden md:block">
+                </div>
+                <!-- Job 1 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
+                    <div class="md:text-right order-2 md:order-1">
+                        <div class="inline-block bg-neo-black text-white px-3 py-1 font-mono font-bold text-sm mb-2">
+                            Июль 2026 — Настоящее время
+                        </div>
+                        <h3 class="text-2xl font-bold">Fullstack AI Engineer</h3>
+                        <p class="font-bold text-neo-pink">aimilo.ru — AI-платформа для генерации медиаконтента</p>
+                    </div>
+                    <div
+                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-green neo-border rounded-full z-10 items-center justify-center order-1">
+                    </div>
+                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-2 relative group">
+                        <div
+                            class="absolute -top-3 -right-3 w-8 h-8 bg-neo-green neo-border flex items-center justify-center group-hover:rotate-12 transition-transform">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        </div>
+                        <p class="mb-4 text-sm font-mono">Коммерческая AI-платформа для генерации персонализированного медиаконтента (изображения, анимации, песни) с использованием LLM и специализированных AI-сервисов.</p>
+                        <ul class="list-disc pl-4 text-sm space-y-1 marker:text-neo-pink">
+                            <li>Разработка архитектуры платформы с нуля</li>
+                            <li>AI-конвейер обработки пользовательских запросов</li>
+                            <li>Интеграция OpenAI, Gemini и Suno</li>
+                            <li>Система версионирования AI-промптов с возможностью отката</li>
+                            <li>Реализация платёжной системы и онлайн-оплаты</li>
+                            <li>Антифрод-система на основе анализа fingerprint и IP</li>
+                        </ul>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Angular</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">PostgreSQL</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NATS JetStream</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">OpenAI</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Job 2 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
+                    <div class="order-2 md:order-2">
+                        <div
+                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
+                            Янв 2026 — Июль 2026
+                        </div>
+                        <h3 class="text-2xl font-bold">Senior Fullstack Engineer</h3>
+                        <p class="font-bold text-neo-blue">Конфиденциальный B2C-проект (NDA)</p>
+                    </div>
+                    <div
+                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-blue neo-border rounded-full z-10 items-center justify-center">
+                    </div>
+                    <div
+                        class="bg-white p-6 neo-border shadow-neo order-3 md:order-1 text-left md:text-right relative group">
+                        <div
+                            class="absolute -top-3 -left-3 md:-left-auto md:-right-auto md:-right-3 w-8 h-8 bg-neo-blue neo-border flex items-center justify-center group-hover:-rotate-12 transition-transform">
+                            <i data-lucide="shield" class="w-4 h-4"></i>
+                        </div>
+                        <p class="mb-4 text-sm font-mono">Высоконагруженный продукт с микросервисной архитектурой. Backend и frontend разработка, AI-функциональность.</p>
+                        <ul
+                            class="list-disc pl-4 md:pl-0 md:list-none text-sm space-y-1 inline-block text-left md:text-right">
+                            <li>Модуль Feature Toggle для A/B-тестирования</li>
+                            <li>Универсальный модуль доставки OTP-кодов</li>
+                            <li>AI-бот на базе RAG для автоматической обработки обращений</li>
+                            <li>Разработка GraphQL API и бизнес-модулей</li>
+                        </ul>
+                        <div class="mt-4 flex flex-wrap gap-2 justify-start md:justify-end">
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
+                            <span
+                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Next.js</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">GraphQL</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">gRPC</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Redis</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Job 3 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
+                    <div class="md:text-right order-2 md:order-1">
+                        <div
+                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
+                            Фев 2024 — Янв 2026
+                        </div>
+                        <h3 class="text-2xl font-bold">Senior Fullstack Engineer</h3>
+                        <p class="font-bold text-neo-purple">Сеть игровых и компьютерных клубов</p>
+                    </div>
+                    <div
+                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-purple neo-border rounded-full z-10 items-center justify-center order-1">
+                    </div>
+                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-2">
+                        <p class="mb-4 text-sm font-mono">Экосистема для управления сетью компьютерных клубов: клиентский сайт, админ-панель, desktop-приложение.</p>
+                        <ul class="list-disc pl-4 text-sm space-y-1 marker:text-neo-purple">
+                            <li>Полная переработка системы с нестабильного legacy</li>
+                            <li>Проектирование архитектуры, готовой к масштабированию</li>
+                            <li>Внедрение CI/CD и деплоя в Kubernetes</li>
+                            <li>Разработка генератора кода для админ-панели</li>
+                            <li>Backend и frontend разработка</li>
+                        </ul>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">GraphQL</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Angular</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Electron</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Kubernetes</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Job 4 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
+                    <div class="order-2 md:order-2">
+                        <div
+                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
+                            Сен 2023 — Фев 2024
+                        </div>
+                        <h3 class="text-2xl font-bold">Senior Backend Engineer</h3>
+                        <p class="font-bold text-neo-blue">R-Vision</p>
+                    </div>
+                    <div
+                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-yellow neo-border rounded-full z-10 items-center justify-center">
+                    </div>
+                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-1 text-left md:text-right">
+                        <p class="mb-4 text-sm font-mono">Платформенные решения и внутренние библиотеки на NestJS.
+                        </p>
+                        <ul
+                            class="list-disc pl-4 md:pl-0 md:list-none text-sm space-y-1 inline-block text-left md:text-right">
+                            <li>Разработка и доработка платформенных обёрток</li>
+                            <li>Внедрение e2e-тестирования</li>
+                            <li>Рефакторинг и стабилизация кода</li>
+                            <li>Интеграции через gRPC и GraphQL</li>
+                        </ul>
+                        <div class="mt-4 flex flex-wrap gap-2 justify-start md:justify-end">
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
+                            <span
+                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">TypeScript</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">gRPC</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">GraphQL</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Job 5 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
+                    <div class="md:text-right order-2 md:order-1">
+                        <div
+                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
+                            Май 2022 — Сен 2023
+                        </div>
+                        <h3 class="text-2xl font-bold">Senior Backend Engineer</h3>
+                        <p class="font-bold text-neo-purple">ilink</p>
+                    </div>
+                    <div
+                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-green neo-border rounded-full z-10 items-center justify-center order-1">
+                    </div>
+                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-2">
+                        <p class="mb-4 text-sm font-mono">Финансовые онлайн-системы и криптовалютные кошельки.</p>
+                        <ul class="list-disc pl-4 text-sm space-y-1 marker:text-neo-purple">
+                            <li>Миграция legacy-проекта с JavaScript на NestJS</li>
+                            <li>Проектирование backend-архитектуры</li>
+                            <li>Инфраструктура микросервисов и взаимодействие через NATS Streaming</li>
+                            <li>Деплой и эксплуатация в Kubernetes</li>
+                        </ul>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
+                            <span
+                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">TypeScript</span>
+                            <span
+                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">PostgreSQL</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NATS</span>
+                            <span
+                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Kubernetes</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Job 6 -->
+                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
+                    <div class="order-2 md:order-2">
+                        <div
+                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
+                            Авг 2019 — Фев 2023
+                        </div>
+                        <h3 class="text-2xl font-bold">Senior Software Engineer</h3>
+                        <p class="font-bold text-neo-blue">ТУТУ.ТВ</p>
+                    </div>
+                    <div
+                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-pink neo-border rounded-full z-10 items-center justify-center">
+                    </div>
+                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-1 text-left md:text-right">
+                        <p class="mb-4 text-sm font-mono">Электронная биржа для криптовалют с собственным блокчейном.
+                        </p>
+                        <ul
+                            class="list-disc pl-4 md:pl-0 md:list-none text-sm space-y-1 inline-block text-left md:text-right">
+                            <li>Проектирование и разработка бэкенд-модулей и базы данных</li>
+                            <li>Внедрение мультипровайдинга в DI Angular и NestJS</li>
+                            <li>Разработка модулей рассылки писем и двухфакторной авторизации</li>
+                            <li>Декомпозиция легаси-кода, написание интеграционных и e2e-тестов</li>
+                            <li>Внедрение ClickHouse и миграций для аналитики</li>
+                            <li>Деплой в Kubernetes через GitLab CI/CD</li>
+                            <li>Работа в команде из 5 бэкенд- и 4 фронтенд-разработчиков по Scrum</li>
+                        </ul>
+                        <div class="mt-4 flex flex-wrap gap-2 justify-start md:justify-end">
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Angular</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Protobuf</span>
+                            <span
+                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">PostgreSQL</span>
+                            <span
+                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">ClickHouse</span>
+                            <span
+                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Микросервисы</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Resume Badges -->
+        <div class="max-w-5xl mx-auto px-4 mt-8 mb-16">
+            <div class="p-8 neo-border bg-neo-bg shadow-neo relative reveal">
+                <!-- Decorative accents -->
+                <div class="absolute top-0 left-0 w-full h-2 bg-neo-black"></div>
+                <div class="hidden md:block absolute -right-3 -bottom-3 w-16 h-16 bg-neo-pink neo-border -z-10"></div>
+                <h3 class="text-3xl font-black mb-6 uppercase">Полное резюме</h3>
+                <p class="font-mono text-sm mb-6 leading-relaxed">Полное резюме можно посмотреть на этих платформах:</p>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <a href="./resume.html"
+                        class="px-3 py-1 bg-neo-black text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center flex items-center gap-1">
+                        <i data-lucide="file-text" class="w-3 h-3"></i> Резюме
+                    </a>
+                    <a href="https://career.habr.com/endykaufman" target="_blank"
+                        class="px-3 py-1 bg-gray-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        ХабрКарьера
+                    </a>
+                    <a href="https://ufa.hh.ru/resume/2615ca8cff019da3eb0039ed1f6732786f4533" target="_blank"
+                        class="px-3 py-1 bg-red-600 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        HeadHunter
+                    </a>
+                    <a href="https://www.linkedin.com/in/ilshatkhamitov/" target="_blank"
+                        class="px-3 py-1 bg-blue-700 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- 15 Projects Section (Key Conceptual Block) -->
     <section id="projects" class="py-24 px-4 bg-neo-pink/10 border-b-4 border-neo-black">
         <div class="max-w-7xl mx-auto">
@@ -660,9 +661,7 @@
                 — мои инженерные наработки из реальной работы
             </h2>
             <p class="text-center text-lg mb-16 font-mono"><span
-                    class="inline-block bg-neo-black text-white px-3 py-1 font-mono font-bold text-base">Пока
-                    опубликовано 11 наработок, но финальная цель — все 15. Либы, утилиты и проекты, которыми я пользуюсь
-                    сам.</span></p>
+                    class="inline-block bg-neo-black text-white px-3 py-1 font-mono font-bold text-base">Либы, утилиты и проекты из реальной работы — с открытым кодом.</span></p>
             <!-- Projects Grid (15 items) -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
                 <!-- Project 1 -->
@@ -2097,15 +2096,7 @@
                                 </ul>
                             </div>
                         </article>
-                        <article class="p-4 neo-border bg-white shadow-neo-sm">
-                            <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="info"
-                                    class="w-6 h-6 text-neo-black"></i> Философия проекта</h4>
-                            <div class="mt-6 p-4 bg-gray-100 border-l-4 border-neo-pink">
-                                <p class="font-mono text-sm">
-                                    Aimilo — это не сервис открыток. Это платформа персонального AI-контента. Мы продаём не картинки и не песни — мы продаём эмоции. Люди покупают реакцию другого человека. Технология должна быть невидимой: через несколько лет никто не будет говорить «я использовал GPT», как сейчас никто не говорит «я использовал TCP/IP». Технология исчезает. Остаётся результат.
-                                </p>
-                            </div>
-                        </article>
+
 
                         <div class="mt-6 text-center">
                             <a href="/projects/aimilo.html"
@@ -2134,291 +2125,244 @@
             </div>
         </div>
     </div>
-    <!-- Experience Section -->
-    <section id="experience" class="py-24 px-4 relative">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-5xl font-black mb-16 uppercase stroke-text reveal">Опыт работы</h2>
-            <div class="space-y-12 relative">
-                <!-- Vertical Line -->
-                <div
-                    class="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-neo-black transform -translate-x-1/2 hidden md:block">
-                </div>
-                <!-- Job 1 -->
-                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
-                    <div class="md:text-right order-2 md:order-1">
-                        <div class="inline-block bg-neo-black text-white px-3 py-1 font-mono font-bold text-sm mb-2">
-                            Июль 2026 — Настоящее время
-                        </div>
-                        <h3 class="text-2xl font-bold">Fullstack AI Engineer</h3>
-                        <p class="font-bold text-neo-pink">aimilo.ru — AI-платформа для генерации медиаконтента</p>
-                    </div>
-                    <div
-                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-green neo-border rounded-full z-10 items-center justify-center order-1">
-                    </div>
-                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-2 relative group">
+    <!-- Communities, Open Source & Publications -->
+    <section id="open-source-community" class="py-20 px-4 bg-neo-bg border-y-4 border-neo-black">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 gap-12">
+                <!-- Communities -->
+                <div class="reveal">
+                    <h2 class="text-4xl font-black mb-8 uppercase flex items-center gap-3">
+                        <i data-lucide="message-square" class="w-10 h-10"></i> Сообщества
+                    </h2>
+                    <div class="bg-white neo-border p-6 relative">
                         <div
-                            class="absolute -top-3 -right-3 w-8 h-8 bg-neo-green neo-border flex items-center justify-center group-hover:rotate-12 transition-transform">
-                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            class="absolute -top-3 -right-3 bg-neo-yellow neo-border px-2 py-1 text-xs font-bold transform rotate-6">
+                            ADMIN</div>
+                        <p class="mb-4 font-mono text-sm">Администратор русскоязычных IT-сообществ:</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://t.me/nest_ru"
+                                class="px-3 py-1 border-2 border-black bg-neo-blue text-xs font-bold hover:bg-white transition-colors flex items-center">
+                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
+                                NestJS RU <span id="telegram-nest_ru" class="ml-1">Загрузка...</span>
+                            </a>
+                            <a href="https://t.me/nest_basic"
+                                class="px-3 py-1 border-2 border-black bg-neo-blue text-xs font-bold hover:bg-white transition-colors flex items-center">
+                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
+                                NestJS Basic <span id="telegram-nest_basic" class="ml-1">Загрузка...</span>
+                            </a>
+                            <a href="https://t.me/nest_random"
+                                class="px-3 py-1 border-2 border-black bg-neo-blue text-xs font-bold hover:bg-white transition-colors flex items-center">
+                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
+                                NestJS Random <span id="telegram-nest_random" class="ml-1">Загрузка...</span>
+                            </a>
+                            <a href="https://t.me/prisma_ru"
+                                class="px-3 py-1 border-2 border-black bg-neo-green text-xs font-bold hover:bg-white transition-colors flex items-center">
+                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
+                                Prisma RU <span id="telegram-prisma_ru" class="ml-1">Загрузка...</span>
+                            </a>
+                            <a href="https://t.me/typeorm_ru"
+                                class="px-3 py-1 border-2 border-black bg-neo-pink text-xs font-bold hover:bg-white transition-colors flex items-center">
+                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
+                                TypeORM RU <span id="telegram-typeorm_ru" class="ml-1">Загрузка...</span>
+                            </a>
+                            <a href="https://t.me/nestjs_jobs"
+                                class="px-3 py-1 border-2 border-black bg-neo-orange text-xs font-bold hover:bg-white transition-colors flex items-center">
+                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
+                                NestJS Jobs <span id="telegram-nestjs_jobs" class="ml-1">Загрузка...</span>
+                            </a>
+                            <a href="https://t.me/nxdev_ru"
+                                class="px-3 py-1 border-2 border-black bg-neo-yellow text-xs font-bold hover:bg-white transition-colors flex items-center">
+                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
+                                NX Dev RU <span id="telegram-nxdev_ru" class="ml-1">Загрузка...</span>
+                            </a>
+                            <a href="https://t.me/angular_universal_ru"
+                                class="px-3 py-1 border-2 border-black bg-neo-purple text-xs font-bold hover:bg-white transition-colors flex items-center">
+                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
+                                Angular Universal <span id="telegram-angular_universal_ru"
+                                    class="ml-1">Загрузка...</span>
+                            </a>
                         </div>
-                        <p class="mb-4 text-sm font-mono">Коммерческая AI-платформа для генерации персонализированного медиаконтента (изображения, анимации, песни) с использованием LLM и специализированных AI-сервисов.</p>
-                        <ul class="list-disc pl-4 text-sm space-y-1 marker:text-neo-pink">
-                            <li>Разработка архитектуры платформы с нуля</li>
-                            <li>AI-конвейер обработки пользовательских запросов</li>
-                            <li>Интеграция OpenAI, Gemini и Suno</li>
-                            <li>Система версионирования AI-промптов с возможностью отката</li>
-                            <li>Реализация платёжной системы и онлайн-оплаты</li>
-                            <li>Антифрод-система на основе анализа fingerprint и IP</li>
-                        </ul>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Angular</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">PostgreSQL</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NATS JetStream</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">OpenAI</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Job 2 -->
-                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
-                    <div class="order-2 md:order-2">
-                        <div
-                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
-                            Янв 2026 — Июль 2026
-                        </div>
-                        <h3 class="text-2xl font-bold">Senior Fullstack Engineer</h3>
-                        <p class="font-bold text-neo-blue">Конфиденциальный B2C-проект (NDA)</p>
-                    </div>
-                    <div
-                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-blue neo-border rounded-full z-10 items-center justify-center">
-                    </div>
-                    <div
-                        class="bg-white p-6 neo-border shadow-neo order-3 md:order-1 text-left md:text-right relative group">
-                        <div
-                            class="absolute -top-3 -left-3 md:-left-auto md:-right-auto md:-right-3 w-8 h-8 bg-neo-blue neo-border flex items-center justify-center group-hover:-rotate-12 transition-transform">
-                            <i data-lucide="shield" class="w-4 h-4"></i>
-                        </div>
-                        <p class="mb-4 text-sm font-mono">Высоконагруженный продукт с микросервисной архитектурой. Backend и frontend разработка, AI-функциональность.</p>
-                        <ul
-                            class="list-disc pl-4 md:pl-0 md:list-none text-sm space-y-1 inline-block text-left md:text-right">
-                            <li>Модуль Feature Toggle для A/B-тестирования</li>
-                            <li>Универсальный модуль доставки OTP-кодов</li>
-                            <li>AI-бот на базе RAG для автоматической обработки обращений</li>
-                            <li>Разработка GraphQL API и бизнес-модулей</li>
-                        </ul>
-                        <div class="mt-4 flex flex-wrap gap-2 justify-start md:justify-end">
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
-                            <span
-                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Next.js</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">GraphQL</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">gRPC</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Redis</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Job 3 -->
-                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
-                    <div class="md:text-right order-2 md:order-1">
-                        <div
-                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
-                            Фев 2024 — Янв 2026
-                        </div>
-                        <h3 class="text-2xl font-bold">Senior Fullstack Engineer</h3>
-                        <p class="font-bold text-neo-purple">Сеть игровых и компьютерных клубов</p>
-                    </div>
-                    <div
-                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-purple neo-border rounded-full z-10 items-center justify-center order-1">
-                    </div>
-                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-2">
-                        <p class="mb-4 text-sm font-mono">Экосистема для управления сетью компьютерных клубов: клиентский сайт, админ-панель, desktop-приложение.</p>
-                        <ul class="list-disc pl-4 text-sm space-y-1 marker:text-neo-purple">
-                            <li>Полная переработка системы с нестабильного legacy</li>
-                            <li>Проектирование архитектуры, готовой к масштабированию</li>
-                            <li>Внедрение CI/CD и деплоя в Kubernetes</li>
-                            <li>Разработка генератора кода для админ-панели</li>
-                            <li>Backend и frontend разработка</li>
-                        </ul>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">GraphQL</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Angular</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Electron</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Kubernetes</span>
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <p class="font-mono text-sm mb-2">Канал-дневник Fullstack-разработчика:</p>
+                            <a href="https://t.me/kaufman_log"
+                                class="px-3 py-1 border-2 border-black bg-neo-green text-xs font-bold hover:bg-white transition-colors flex items-center">
+                                <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="currentColor">
+                                    <path
+                                        d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.14.141-.259.259-.374.261l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.136-.954l11.566-4.458c.538-.196 1.006.128.832.941z" />
+                                </svg>
+                                Kaufman Log <span id="telegram-kaufman_log" class="ml-1">Загрузка...</span>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <!-- Job 4 -->
-                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
-                    <div class="order-2 md:order-2">
-                        <div
-                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
-                            Сен 2023 — Фев 2024
-                        </div>
-                        <h3 class="text-2xl font-bold">Senior Backend Engineer</h3>
-                        <p class="font-bold text-neo-blue">R-Vision</p>
-                    </div>
-                    <div
-                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-yellow neo-border rounded-full z-10 items-center justify-center">
-                    </div>
-                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-1 text-left md:text-right">
-                        <p class="mb-4 text-sm font-mono">Платформенные решения и внутренние библиотеки на NestJS.
-                        </p>
-                        <ul
-                            class="list-disc pl-4 md:pl-0 md:list-none text-sm space-y-1 inline-block text-left md:text-right">
-                            <li>Разработка и доработка платформенных обёрток</li>
-                            <li>Внедрение e2e-тестирования</li>
-                            <li>Рефакторинг и стабилизация кода</li>
-                            <li>Интеграции через gRPC и GraphQL</li>
-                        </ul>
-                        <div class="mt-4 flex flex-wrap gap-2 justify-start md:justify-end">
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
-                            <span
-                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">TypeScript</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">gRPC</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">GraphQL</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Job 5 -->
-                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
-                    <div class="md:text-right order-2 md:order-1">
-                        <div
-                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
-                            Май 2022 — Сен 2023
-                        </div>
-                        <h3 class="text-2xl font-bold">Senior Backend Engineer</h3>
-                        <p class="font-bold text-neo-purple">ilink</p>
-                    </div>
-                    <div
-                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-green neo-border rounded-full z-10 items-center justify-center order-1">
-                    </div>
-                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-2">
-                        <p class="mb-4 text-sm font-mono">Финансовые онлайн-системы и криптовалютные кошельки.</p>
-                        <ul class="list-disc pl-4 text-sm space-y-1 marker:text-neo-purple">
-                            <li>Миграция legacy-проекта с JavaScript на NestJS</li>
-                            <li>Проектирование backend-архитектуры</li>
-                            <li>Инфраструктура микросервисов и взаимодействие через NATS Streaming</li>
-                            <li>Деплой и эксплуатация в Kubernetes</li>
-                        </ul>
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
-                            <span
-                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">TypeScript</span>
-                            <span
-                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">PostgreSQL</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NATS</span>
-                            <span
-                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Kubernetes</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Job 6 -->
-                <div class="relative grid md:grid-cols-2 gap-8 items-center reveal">
-                    <div class="order-2 md:order-2">
-                        <div
-                            class="inline-block bg-white border border-black px-3 py-1 font-mono font-bold text-sm mb-2">
-                            Авг 2019 — Фев 2023
-                        </div>
-                        <h3 class="text-2xl font-bold">Senior Software Engineer</h3>
-                        <p class="font-bold text-neo-blue">ТУТУ.ТВ</p>
-                    </div>
-                    <div
-                        class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-pink neo-border rounded-full z-10 items-center justify-center">
-                    </div>
-                    <div class="bg-white p-6 neo-border shadow-neo order-3 md:order-1 text-left md:text-right">
-                        <p class="mb-4 text-sm font-mono">Электронная биржа для криптовалют с собственным блокчейном.
-                        </p>
-                        <ul
-                            class="list-disc pl-4 md:pl-0 md:list-none text-sm space-y-1 inline-block text-left md:text-right">
-                            <li>Проектирование и разработка бэкенд-модулей и базы данных</li>
-                            <li>Внедрение мультипровайдинга в DI Angular и NestJS</li>
-                            <li>Разработка модулей рассылки писем и двухфакторной авторизации</li>
-                            <li>Декомпозиция легаси-кода, написание интеграционных и e2e-тестов</li>
-                            <li>Внедрение ClickHouse и миграций для аналитики</li>
-                            <li>Деплой в Kubernetes через GitLab CI/CD</li>
-                            <li>Работа в команде из 5 бэкенд- и 4 фронтенд-разработчиков по Scrum</li>
-                        </ul>
-                        <div class="mt-4 flex flex-wrap gap-2 justify-start md:justify-end">
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Angular</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
-                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Protobuf</span>
-                            <span
-                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">PostgreSQL</span>
-                            <span
-                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">ClickHouse</span>
-                            <span
-                                class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">Микросервисы</span>
-                        </div>
+                <!-- Open Source -->
+                <div class="reveal delay-100">
+                    <h2 class="text-4xl font-black mb-8 uppercase flex items-center gap-3">
+                        <i data-lucide="terminal-square" class="w-10 h-10"></i> Open Source
+                    </h2>
+                    <div class="space-y-4">
+                        <a href="https://github.com/EndyKaufman" target="_blank"
+                            class="block p-4 neo-border bg-white hover:bg-neo-pink hover:translate-x-1 hover:-translate-y-1 transition-all group">
+                            <h3 class="font-bold text-xl mb-1 flex justify-between">
+                                GitHub: EndyKaufman
+                                <i data-lucide="arrow-up-right"
+                                    class="opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </h3>
+                            <p class="font-mono text-sm opacity-70">Мой основной профиль разработки.</p>
+                            <div class="flex gap-2 mt-3 flex-wrap">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                                    </svg>
+                                    <span id="github-followers">97 подписчиков</span>
+                                </span>
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                                    </svg>
+                                    <span id="github-repos">88 репозиториев</span>
+                                </span>
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                                    </svg>
+                                    <span id="github-stars-total">431 звезда</span>
+                                </span>
+                            </div>
+                        </a>
+                        <a href="https://github.com/nestjs-mod" target="_blank"
+                            class="block p-4 neo-border bg-white hover:bg-neo-pink hover:translate-x-1 hover:-translate-y-1 transition-all group">
+                            <h3 class="font-bold text-xl mb-1 flex justify-between">
+                                Активный pet-проект: NestJS-mod
+                                <i data-lucide="arrow-up-right"
+                                    class="opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </h3>
+                            <p class="font-mono text-sm opacity-70">Инструменты и модули для экосистемы NestJS.</p>
+                            <div class="flex gap-2 mt-3 flex-wrap">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                                    </svg>
+                                    <span id="github-nestjs-mod-repos">9 репозиториев</span>
+                                </span>
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                                    </svg>
+                                    <span id="github-nestjs-mod-stars">35 звезд</span>
+                                </span>
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <svg class="h-3 mr-1" viewBox="0 0 780 250" aria-hidden="true">
+                                        <path fill="#231F20"
+                                            d="M240,250h100v-50h100V0H240V250z M340,50h50v100h-50V50z M480,0v200h100V50h50v150h50V50h50v150h50V0H480z M0,200h100V50h50v150h50V0H0V200z"
+                                            stroke-width="5" stroke="#f7f7f7"></path>
+                                    </svg>
+                                    <span id="npm-downloads-nestjs-mod">866 загрузок/мес</span>
+                                </span>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </div>
-            <!-- Additional Experience Summary -->
-            <div class="mt-16 reveal">
-                <div class="p-8 neo-border bg-neo-bg shadow-neo relative">
-                    <!-- Decorative accents -->
-                    <div class="absolute top-0 left-0 w-full h-2 bg-neo-black"></div>
-                    <div class="hidden md:block absolute -right-3 -bottom-3 w-16 h-16 bg-neo-pink neo-border -z-10">
-                    </div>
-                    <h3 class="text-3xl font-black mb-6 uppercase">Дополнительный профессиональный опыт</h3>
-                    <p class="font-mono text-sm mb-4 leading-relaxed">
-                        Помимо перечисленных выше ключевых позиций, за свою карьеру я работал в коммерческих компаниях,
-                        государственных организациях и на фрилансе, участвуя в разработке и сопровождении крупных
-                        информационных систем.
-                        <br><br>
-                        <strong class="bg-neo-yellow px-1 neo-border border-2 border-black">Общий профессиональный стаж
-                            — более 21 года.</strong>
-                    </p>
-                    <div class="mb-6">
-                        <p
-                            class="font-bold text-lg mb-4 bg-neo-green inline-block px-2 border-2 border-black transform -rotate-1">
-                            В рамках предыдущих проектов я:</p>
-                        <ul
-                            class="grid md:grid-cols-2 gap-x-8 gap-y-2 list-disc pl-5 font-mono text-sm marker:text-neo-pink">
-                            <li>Разрабатывал backend и frontend для финансовых, медицинских и государственных систем
-                            </li>
-                            <li>Работал с Oracle, PostgreSQL, MySQL, MS SQL</li>
-                            <li>Проектировал базы данных, писал сложные SQL-запросы, хранимые процедуры и миграции</li>
-                            <li>Участвовал в проектах в ролях разработчика и ведущего разработчика</li>
-                            <li>Работал как в небольших командах, так и в крупных распределённых проектах</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-4 border-2 border-black">
-                        <p class="font-mono text-sm">
-                            <i data-lucide="archive" class="inline-block w-4 h-4 mr-2 mb-1"></i>
-                            Ранний опыт включает разработку на <strong class="bg-gray-200 px-1">Java, C#, Delphi, PHP,
-                                Python</strong>, а также поддержку и развитие legacy-систем, что позволяет мне
-                            эффективно работать с проектами любого уровня сложности и зрелости.
-                        </p>
+                <!-- Articles & Publications -->
+                <div class="reveal delay-100">
+                    <h2 class="text-4xl font-black mb-8 uppercase flex items-center gap-3">
+                        <i data-lucide="book-open" class="w-10 h-10"></i> Публикации
+                    </h2>
+                    <div class="space-y-4">
+                        <a href="https://dev.to/endykaufman" target="_blank"
+                            class="block p-4 neo-border bg-white hover:bg-neo-pink hover:translate-x-1 hover:-translate-y-1 transition-all group">
+                            <h3 class="font-bold text-xl mb-1 flex justify-between">
+                                Dev.to Статьи
+                                <i data-lucide="arrow-up-right"
+                                    class="opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </h3>
+                            <p class="font-mono text-sm opacity-70">Технические статьи и руководства.</p>
+                            <div class="flex gap-2 mt-3 flex-wrap">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="file-text" class="w-3 h-3 mr-1"></i>
+                                    <span id="devto-articles">Загрузка...</span>
+                                </span>
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="users" class="w-3 h-3 mr-1"></i>
+                                    <span id="devto-followers">Загрузка...</span>
+                                </span>
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="eye" class="w-3 h-3 mr-1"></i>
+                                    <span id="devto-views">Загрузка...</span>
+                                </span>
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="heart" class="w-3 h-3 mr-1"></i>
+                                    <span id="devto-reactions">Загрузка...</span>
+                                </span>
+                            </div>
+                        </a>
+                        <a href="https://habr.com/ru/users/kaufmanendy/articles" target="_blank"
+                            class="block p-4 neo-border bg-white hover:bg-neo-pink hover:translate-x-1 hover:-translate-y-1 transition-all group">
+                            <h3 class="font-bold text-xl mb-1 flex justify-between">
+                                Habr Публикации
+                                <i data-lucide="arrow-up-right"
+                                    class="opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                            </h3>
+                            <p class="font-mono text-sm opacity-70">Статьи на русском языке.</p>
+                            <div class="flex gap-2 mt-3 flex-wrap">
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="file-text" class="w-3 h-3 mr-1"></i>
+                                    <span id="habr-articles">28 статей</span>
+                                </span>
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <i data-lucide="users" class="w-3 h-3 mr-1"></i>
+                                    <span id="habr-followers">18 подписчиков</span>
+                                </span>
+                                <span
+                                    class="inline-flex items-center px-2 py-1 bg-gray-200 text-gray-800 text-xs font-mono font-bold rounded neo-border">
+                                    <span id="habr-karma">карма - 1</span>
+                                </span>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Resume Badges -->
-        <div class="max-w-5xl mx-auto px-4 mt-8 mb-16">
-            <div class="p-8 neo-border bg-neo-bg shadow-neo relative reveal">
-                <!-- Decorative accents -->
-                <div class="absolute top-0 left-0 w-full h-2 bg-neo-black"></div>
-                <div class="hidden md:block absolute -right-3 -bottom-3 w-16 h-16 bg-neo-pink neo-border -z-10"></div>
-                <h3 class="text-3xl font-black mb-6 uppercase">Полное резюме</h3>
-                <p class="font-mono text-sm mb-6 leading-relaxed">Полное резюме можно посмотреть на этих платформах:</p>
-                <div class="flex flex-wrap justify-center gap-2">
-                    <a href="./resume.html"
-                        class="px-3 py-1 bg-neo-black text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center flex items-center gap-1">
-                        <i data-lucide="file-text" class="w-3 h-3"></i> Резюме
-                    </a>
-                    <a href="https://career.habr.com/endykaufman" target="_blank"
-                        class="px-3 py-1 bg-gray-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
-                        ХабрКарьера
-                    </a>
-                    <a href="https://ufa.hh.ru/resume/2615ca8cff019da3eb0039ed1f6732786f4533" target="_blank"
-                        class="px-3 py-1 bg-red-600 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
-                        HeadHunter
-                    </a>
-                    <a href="https://www.linkedin.com/in/ilshatkhamitov/" target="_blank"
-                        class="px-3 py-1 bg-blue-700 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
-                        LinkedIn
-                    </a>
-                </div>
             </div>
         </div>
     </section>
@@ -2596,7 +2540,7 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
                 <h4 class="font-black text-2xl uppercase mb-2">site15.ru</h4>
-                <p class="font-mono text-sm text-gray-400">© 2026 Все права защищены (или нет).</p>
+                <p class="font-mono text-sm text-gray-400">© 2026 site15.ru</p>
             </div>
             <div class="flex flex-col items-center md:items-end font-mono text-sm gap-2">
                 <!-- Footer Badges -->
@@ -2711,6 +2655,17 @@
     <script src="./js/main.js"></script>
     <script src="./js/chat.js"></script>
     <script src="./js/scroll-top.js"></script>
+    <script src="./js/tag-data.js"></script>
+    <script>
+        // Populate marquee with tags from shared TAG_DATA
+        (function () {
+            const container = document.getElementById('marquee-tags');
+            if (!container || !window.TAG_DATA) return;
+            const tags = [...window.TAG_DATA].sort((a, b) => a.name.localeCompare(b.name, 'ru'));
+            const buildLinks = () => tags.map(t => '<a href="./resume.html#tag-' + encodeURIComponent(t.name) + '">' + t.name + '</a>').join(' • ');
+            container.innerHTML = buildLinks() + ' • ' + buildLinks();
+        })();
+    </script>
 
     <!-- Chat Support Script -->
     <!-- Moved to ./js/chat.js -->
