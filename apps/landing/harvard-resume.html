@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ilshat Khamitov — Senior Fullstack Engineer | Resume</title>
+    <meta name="description"
+        content="Senior Fullstack Engineer resume. Node.js, NestJS, TypeScript, Angular. 21+ years of experience.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ilshat Khamitov — Senior Fullstack Engineer | Resume">
+    <meta property="og:description"
+        content="Senior Fullstack Engineer resume. Node.js, NestJS, TypeScript, Angular. 21+ years of experience.">
+    <meta property="og:url" content="https://site15.ru/harvard-resume">
+    <meta property="og:image" content="https://site15.ru/ilshat.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+
+    <script src="./js/tailwind.min.js"></script>
+    <link href="./fonts/fonts.css" rel="stylesheet">
+    <script src="./js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .no-print { display: none !important; }
+            .experience-block { page-break-inside: avoid; }
+        }
+
+        body { background-color: #fff; }
+
+        .resume-container {
+            max-width: 9.5in;
+            margin: 0 auto;
+            padding: 0.4in 0.55in;
+            font-size: 11pt;
+            line-height: 1.45;
+            color: #000;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: 2px solid #000;
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+            margin-top: 5px;
+        }
+
+        .bullet-item {
+            position: relative;
+            padding-left: 13px;
+            margin-bottom: 3px;
+        }
+        .bullet-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .verb { font-weight: 700; }
+        .tool { color: #1a56db; font-weight: 600; }
+        .outcome { color: #15803d; font-weight: 600; }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+        .exp-company { font-weight: 900; font-size: 12pt; }
+        .exp-date { font-size: 10.5pt; color: #444; white-space: nowrap; }
+        .exp-role { font-style: italic; font-size: 10.5pt; color: #333; }
+
+        .experience-block { margin-bottom: 5px; }
+    </style>
+</head>
+
+<body class="text-black font-sans">
+
+    <!-- Print / Download bar -->
+    <div class="no-print bg-gray-100 border-b border-gray-300 py-3 px-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <a href="./index.html" class="font-bold text-sm hover:underline flex items-center gap-1">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to site
+            </a>
+            <span class="text-xs text-gray-500">Harvard-style resume — one-page, optimized for HR screening</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <button onclick="window.print()" class="px-4 py-1.5 bg-black text-white text-sm font-bold hover:bg-gray-800 transition-colors flex items-center gap-1">
+                <i data-lucide="printer" class="w-4 h-4"></i> Print / Save PDF
+            </button>
+            <a href="./harvard-resume-ru.html" class="px-3 py-1.5 border-2 border-black text-sm font-bold hover:bg-gray-200 transition-colors">RU</a>
+        </div>
+    </div>
+
+    <div class="resume-container">
+
+        <!-- HEADER -->
+        <header class="text-center" style="margin-bottom: 2px;">
+            <h1 style="font-size: 22pt; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px;">Ilshat Khamitov</h1>
+            <p style="font-size: 11pt;" class="font-mono">
+                Ufa, Russia &nbsp;·&nbsp;
+                <a href="mailto:admin@site15.ru" class="underline">admin@site15.ru</a> &nbsp;·&nbsp;
+                <a href="https://t.me/KaufmanEndy" class="underline">@KaufmanEndy</a> &nbsp;·&nbsp;
+                <a href="https://github.com/EndyKaufman" class="underline">github.com/EndyKaufman</a> &nbsp;·&nbsp;
+                <a href="https://www.linkedin.com/in/ilshatkhamitov/" class="underline">LinkedIn</a>
+            </p>
+        </header>
+
+        <!-- EXPERIENCE -->
+        <div class="section-title">Experience</div>
+
+        <!-- aimilo -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">aimilo.ru — AI Content Generation Platform</span>
+                <span class="exp-date">Jul 2026 — Present</span>
+            </div>
+            <div class="exp-role">Fullstack AI Engineer · Node.js, NestJS, Angular, PostgreSQL, OpenAI, Gemini, Suno, Docker · Solo, SaaS</div>
+            <div class="bullet-item"><span class="verb">Architected</span> modular <span class="tool">NestJS + NATS JetStream</span> backend with auto/manual/hybrid AI pipelines — <span class="outcome">eliminated operator intervention in 80%+ of orders</span></div>
+            <div class="bullet-item"><span class="verb">Built</span> prompt versioning system in <span class="tool">PostgreSQL + Prisma</span> with scheduled regeneration — <span class="outcome">reduced prompt iteration from days to &lt;1 hour</span></div>
+            <div class="bullet-item"><span class="verb">Implemented</span> LLM request caching via <span class="tool">Redis</span> and anti-fraud via <span class="tool">fingerprint + IP</span> — <span class="outcome">cut AI costs by ~30%</span></div>
+        </div>
+
+        <!-- NDA -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">Confidential B2C Product (NDA) — High-load Microservices</span>
+                <span class="exp-date">Jan 2026 — Present</span>
+            </div>
+            <div class="exp-role">Senior Fullstack Engineer · Node.js, NestJS, Next.js, GraphQL, gRPC, PostgreSQL, Redis, NATS · Team: 7 devs, 4 QA, 2 PMs · Daily releases</div>
+            <div class="bullet-item"><span class="verb">Designed</span> Feature Toggle system with random user distribution in <span class="tool">NestJS + PostgreSQL</span> — <span class="outcome">enabled A/B testing, reduced feature validation time by ~50%</span></div>
+            <div class="bullet-item"><span class="verb">Built</span> universal OTP module via <span class="tool">NestJS + NATS</span> — <span class="outcome">unified 3 auth flows into one configurable module</span></div>
+            <div class="bullet-item"><span class="verb">Developed</span> AI support bot using <span class="tool">RAG + Zendesk</span> knowledge base — <span class="outcome">automated ~40% of tier-1 support tickets</span></div>
+        </div>
+
+        <!-- Gaming -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">Gaming Club Management Platform</span>
+                <span class="exp-date">Feb 2024 — Jan 2026</span>
+            </div>
+            <div class="exp-role">Senior Fullstack Engineer · Node.js, NestJS, GraphQL, PostgreSQL, Angular, Electron, Docker, Kubernetes, GitLab CI/CD · Solo, MVP → production</div>
+            <div class="bullet-item"><span class="verb">Re-architected</span> microservices into <span class="tool">modular monolith</span> in ~1 month — <span class="outcome">reduced infra costs by ~60%</span></div>
+            <div class="bullet-item"><span class="verb">Built</span> code generation for CRUD via <span class="tool">custom Nx generators</span> (~150 tables, ~90 dictionaries) — <span class="outcome">cut module dev time from days to ~5 min</span></div>
+            <div class="bullet-item"><span class="verb">Established</span> CI/CD from scratch with <span class="tool">GitLab CI + Kubernetes + GitOps</span> (7 envs) — <span class="outcome">deployment in ~7 min via multi-level caching</span></div>
+        </div>
+
+        <!-- ilink -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">ilink — Financial & Crypto Payment Platform (Team Lead)</span>
+                <span class="exp-date">May 2022 — Sep 2023</span>
+            </div>
+            <div class="exp-role">Senior Backend Engineer (Team Lead) · Node.js, NestJS, GraphQL, PostgreSQL, NATS, Docker, Kubernetes, Prisma · Led 3 BE + 1 FE</div>
+            <div class="bullet-item"><span class="verb">Led</span> migration of 500+ endpoints from <span class="tool">JS/Express → TypeScript/NestJS</span> with zero downtime — <span class="outcome">eliminated runtime error class, ensured reproducible deployment</span></div>
+            <div class="bullet-item"><span class="verb">Architected</span> 7-service crypto platform with <span class="tool">NATS JetStream</span> for blockchain streaming — <span class="outcome">idempotent deposits/withdrawals across 4 blockchains</span></div>
+            <div class="bullet-item"><span class="verb">Built</span> observability stack: <span class="tool">Prometheus + Grafana + OpenTelemetry</span>, correlation ID, blockchain listener alerting — <span class="outcome">reduced incident detection from hours to minutes</span></div>
+        </div>
+
+        <!-- Joyvoo -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">Joyvoo — Mobile Game Backend Optimization</span>
+                <span class="exp-date">Jan 2022 — May 2022</span>
+            </div>
+            <div class="exp-role">Senior Backend Engineer · Node.js, NestJS, PostgreSQL, NATS, Angular, Docker, Kubernetes · Team: 2, Scrum</div>
+            <div class="bullet-item"><span class="verb">Diagnosed</span> critical bottleneck: registration handled only ~2 concurrent ops due to <span class="tool">PostgreSQL</span> locks — <span class="outcome">increased throughput to ~700 ops (~350×)</span></div>
+            <div class="bullet-item"><span class="verb">Optimized</span> indexes, SQL, connection pools; migrated <span class="tool">TypeORM → Prisma</span> — <span class="outcome">eliminated N+1 queries, improved type safety</span></div>
+        </div>
+
+        <!-- High-load + TUTU merged -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">High-load Web Platforms & TUTU.TV Crypto Exchange</span>
+                <span class="exp-date">Aug 2019 — Feb 2023</span>
+            </div>
+            <div class="exp-role">Senior Backend / Fullstack Engineer · Node.js, NestJS, Angular, PostgreSQL, ClickHouse, WebSockets, Docker, Kubernetes · Teams: 2–11</div>
+            <div class="bullet-item"><span class="verb">Designed</span> 3 production platforms (betting, streamer donations, group buying) on <span class="tool">NestJS + Angular</span> with <span class="tool">WebSockets + RxJS</span> — <span class="outcome">sub-100ms latency for live events, all deployed in Kubernetes</span></div>
+            <div class="bullet-item"><span class="verb">Integrated</span> <span class="tool">ClickHouse</span> for analytics and built 2FA module on <span class="tool">NestJS + PostgreSQL</span> — <span class="outcome">analytical queries on billions of rows without OLTP impact; secured all accounts with TOTP</span></div>
+        </div>
+
+
+        <!-- SKILLS -->
+        <div class="section-title">Technical Skills</div>
+        <table class="w-full" style="font-size: 11pt; line-height: 1.4;">
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap" style="width: 80px;">Languages</td>
+                <td class="py-0.5">TypeScript, JavaScript, SQL, PL/SQL, Java, Python, HTML/CSS</td>
+            </tr>
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap">Backend</td>
+                <td class="py-0.5">Node.js, NestJS, Express, GraphQL, gRPC, REST, WebSockets, RxJS, Prisma, TypeORM, Kafka, NATS, OpenTelemetry</td>
+            </tr>
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap">Frontend</td>
+                <td class="py-0.5">Angular, Next.js, Electron, Tailwind CSS</td>
+            </tr>
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap">Databases</td>
+                <td class="py-0.5">PostgreSQL, ClickHouse, Redis, MySQL, Oracle</td>
+            </tr>
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap">Infra / AI</td>
+                <td class="py-0.5">Docker, Kubernetes, GitLab CI/CD, GitOps, Prometheus, Grafana · OpenAI, Gemini, RAG, Prompt Engineering</td>
+            </tr>
+        </table>
+
+        <!-- EDUCATION & ADDITIONAL -->
+        <div class="section-title">Education & Additional</div>
+        <div style="font-size: 11pt; line-height: 1.45;">
+            <span class="font-bold">Tomsk State University of Control Systems and Radioelectronics</span> (2007) — B.S. Computer Systems
+            &nbsp;·&nbsp;
+            <span class="verb">Administer</span> largest RU-speaking <span class="tool">NestJS</span> community (nest_ru)
+            &nbsp;·&nbsp;
+            <span class="verb">Contribute</span> to <span class="tool">open-source</span>
+            &nbsp;·&nbsp;
+            <b>Languages:</b> Russian (Native), English (B2)
+        </div>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

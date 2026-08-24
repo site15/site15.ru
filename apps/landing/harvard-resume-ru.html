@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме — Ильшат Хамитов | Senior Fullstack Engineer</title>
+    <meta name="description"
+        content="Резюме Senior Fullstack Engineer Ильшата Хамитова. Node.js, NestJS, TypeScript, Angular. 21+ лет опыта.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Резюме — Ильшат Хамитов | Senior Fullstack Engineer">
+    <meta property="og:description"
+        content="Резюме Senior Fullstack Engineer Ильшата Хамитова. 21+ лет опыта. Node.js, NestJS, TypeScript, Angular.">
+    <meta property="og:url" content="https://site15.ru/harvard-resume-ru">
+    <meta property="og:image" content="https://site15.ru/ilshat.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+
+    <script src="./js/tailwind.min.js"></script>
+    <link href="./fonts/fonts.css" rel="stylesheet">
+    <script src="./js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .no-print { display: none !important; }
+            .experience-block { page-break-inside: avoid; }
+        }
+
+        body { background-color: #fff; }
+
+        .resume-container {
+            max-width: 9.5in;
+            margin: 0 auto;
+            padding: 0.4in 0.55in;
+            font-size: 11pt;
+            line-height: 1.45;
+            color: #000;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: 2px solid #000;
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+            margin-top: 5px;
+        }
+
+        .bullet-item {
+            position: relative;
+            padding-left: 13px;
+            margin-bottom: 3px;
+        }
+        .bullet-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Три цвета: Глагол / Инструмент / Результат */
+        .verb { font-weight: 700; }
+        .tool { color: #1a56db; font-weight: 600; }
+        .outcome { color: #15803d; font-weight: 600; }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+        .exp-company { font-weight: 900; font-size: 12pt; }
+        .exp-date { font-size: 10.5pt; color: #444; white-space: nowrap; }
+        .exp-role { font-style: italic; font-size: 10.5pt; color: #333; }
+
+        .experience-block { margin-bottom: 5px; }
+    </style>
+</head>
+
+<body class="text-black font-sans">
+
+    <!-- Панель печати -->
+    <div class="no-print bg-gray-100 border-b border-gray-300 py-3 px-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <a href="./index.html" class="font-bold text-sm hover:underline flex items-center gap-1">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> На главную
+            </a>
+            <span class="text-xs text-gray-500">Резюме в формате Harvard — одна страница, оптимизировано для HR-скрининга</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <a href="./harvard-resume.html" class="px-3 py-1.5 border-2 border-black text-sm font-bold hover:bg-gray-200 transition-colors">EN</a>
+            <button onclick="window.print()" class="px-4 py-1.5 bg-black text-white text-sm font-bold hover:bg-gray-800 transition-colors flex items-center gap-1">
+                <i data-lucide="printer" class="w-4 h-4"></i> Печать / Сохранить PDF
+            </button>
+        </div>
+    </div>
+
+    <div class="resume-container">
+
+        <!-- ШАПКА -->
+        <header class="text-center" style="margin-bottom: 2px;">
+            <h1 style="font-size: 22pt; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px;">Ильшат Хамитов</h1>
+            <p style="font-size: 11pt;" class="font-mono">
+                Уфа, Россия &nbsp;·&nbsp;
+                <a href="mailto:admin@site15.ru" class="underline">admin@site15.ru</a> &nbsp;·&nbsp;
+                <a href="https://t.me/KaufmanEndy" class="underline">@KaufmanEndy</a> &nbsp;·&nbsp;
+                <a href="https://github.com/EndyKaufman" class="underline">github.com/EndyKaufman</a> &nbsp;·&nbsp;
+                <a href="https://www.linkedin.com/in/ilshatkhamitov/" class="underline">LinkedIn</a>
+            </p>
+        </header>
+
+
+        <!-- ОПЫТ -->
+        <div class="section-title">Опыт работы — 21+ лет</div>
+
+        <!-- aimilo -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">aimilo.ru — AI-платформа генерации контента</span>
+                <span class="exp-date">Июль 2026 — н.в.</span>
+            </div>
+            <div class="exp-role">Fullstack AI Engineer · Node.js, NestJS, Angular, PostgreSQL, OpenAI, Gemini, Suno, Docker · Solo, SaaS</div>
+            <div class="bullet-item"><span class="verb">Спроектировал</span> AI-платформу генерации медиаконтента: модульный backend на <span class="tool">NestJS + NATS JetStream</span> с авто/ручными/гибридными пайплайнами — <span class="outcome">устранил ручное вмешательство в 80%+ заказов, подключил онлайн-оплату</span></div>
+            <div class="bullet-item"><span class="verb">Разработал</span> систему версионирования промптов в <span class="tool">PostgreSQL + Prisma</span> с плановой перегенерацией — <span class="outcome">сократил цикл итерации промптов с дней до &lt;1 часа</span></div>
+            <div class="bullet-item"><span class="verb">Внедрил</span> кеширование LLM-запросов через <span class="tool">Redis</span> и антифрод по <span class="tool">fingerprint + IP</span> — <span class="outcome">снизил затраты на AI-генерации на ~30%</span></div>
+        </div>
+
+        <!-- NDA -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">Конфиденциальный B2C-продукт (NDA) — высоконагруженные микросервисы</span>
+                <span class="exp-date">Янв 2026 — н.в.</span>
+            </div>
+            <div class="exp-role">Senior Fullstack Engineer · Node.js, NestJS, Next.js, GraphQL, gRPC, PostgreSQL, Redis, NATS · Команда: 7 разраб., 4 QA, 2 PM · Daily releases</div>
+            <div class="bullet-item"><span class="verb">Спроектировал</span> Feature Toggle с случайным распределением пользователей в <span class="tool">NestJS + PostgreSQL</span> — <span class="outcome">запустил A/B-тестирование, сократил валидацию фич на ~50%</span></div>
+            <div class="bullet-item"><span class="verb">Разработал</span> универсальный OTP-модуль через <span class="tool">NestJS + NATS</span> — <span class="outcome">объединил 3 отдельных auth-флоу в один настраиваемый модуль</span></div>
+            <div class="bullet-item"><span class="verb">Создал</span> AI-бота поддержки на <span class="tool">RAG + база знаний Zendesk</span> — <span class="outcome">автоматизировал ~40% обращений первой линии</span></div>
+        </div>
+
+        <!-- Gaming -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">Платформа управления сетью игровых клубов</span>
+                <span class="exp-date">Фев 2024 — Янв 2026</span>
+            </div>
+            <div class="exp-role">Senior Fullstack Engineer · Node.js, NestJS, GraphQL, PostgreSQL, Angular, Electron, Docker, Kubernetes, GitLab CI/CD · Solo, MVP → production</div>
+            <div class="bullet-item"><span class="verb">Перестроил</span> избыточные микросервисы в <span class="tool">модульный монолит</span> за ~1 месяц — <span class="outcome">снизил инфраструктурные затраты на ~60%</span></div>
+            <div class="bullet-item"><span class="verb">Построил</span> кодогенерацию CRUD-модулей через <span class="tool">Nx-генераторы</span> (~150 таблиц, ~90 справочников) — <span class="outcome">сократил разработку типовых модулей с дней до ~5 мин</span></div>
+            <div class="bullet-item"><span class="verb">Выстроил</span> CI/CD с нуля на <span class="tool">GitLab CI + Kubernetes + GitOps</span> (7 окружений) — <span class="outcome">деплой за ~7 мин благодаря многоуровневому кэшированию</span></div>
+        </div>
+
+        <!-- ilink -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">ilink — Финансовая и криптоплатёжная платформа (Team Lead)</span>
+                <span class="exp-date">Май 2022 — Сен 2023</span>
+            </div>
+            <div class="exp-role">Senior Backend Engineer (Team Lead) · Node.js, NestJS, GraphQL, PostgreSQL, NATS, Docker, Kubernetes, Prisma · Руководил 3 BE + 1 FE</div>
+            <div class="bullet-item"><span class="verb">Провёл</span> поэтапную миграцию 500+ endpoints с <span class="tool">JS/Express → TypeScript/NestJS</span> без простоя — <span class="outcome">устранил класс runtime-ошибок, обеспечил воспроизводимый deployment</span></div>
+            <div class="bullet-item"><span class="verb">Спроектировал</span> криптоплатформу из 7 сервисов с <span class="tool">NATS JetStream</span> для потоковой обработки блоков — <span class="outcome">идемпотентная обработка депозитов, withdrawals и обменов в 4 блокчейнах</span></div>
+            <div class="bullet-item"><span class="verb">Построил</span> наблюдаемость: <span class="tool">Prometheus + Grafana + OpenTelemetry</span>, correlation ID, алертинг blockchain-listeners — <span class="outcome">сократил время обнаружения инцидентов с часов до минут</span></div>
+        </div>
+
+        <!-- Joyvoo -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">Joyvoo — Оптимизация backend мобильной игры</span>
+                <span class="exp-date">Янв 2022 — Май 2022</span>
+            </div>
+            <div class="exp-role">Senior Backend Engineer · Node.js, NestJS, PostgreSQL, NATS, Angular, Docker, Kubernetes · Команда: 2, Scrum</div>
+            <div class="bullet-item"><span class="verb">Диагностировал</span> критический bottleneck: регистрация выдерживала ~2 параллельных операции из-за блокировок <span class="tool">PostgreSQL</span> — <span class="outcome">увеличил пропускную способность до ~700 операций (~350×)</span></div>
+            <div class="bullet-item"><span class="verb">Оптимизировал</span> индексы, SQL-запросы, connection pools; мигрировал с <span class="tool">TypeORM → Prisma</span> — <span class="outcome">устранил N+1 запросы, повысил типобезопасность кодовой базы</span></div>
+        </div>
+
+        <!-- Высоконагруженные платформы + ТУТУ.ТВ -->
+        <div class="experience-block">
+            <div class="exp-header">
+                <span class="exp-company">Высоконагруженные веб-платформы и ТУТУ.ТВ (криптобиржа)</span>
+                <span class="exp-date">Авг 2019 — Фев 2023</span>
+            </div>
+            <div class="exp-role">Senior Backend / Fullstack Engineer · Node.js, NestJS, Angular, PostgreSQL, ClickHouse, WebSockets, Docker, Kubernetes · Команды: 2–11</div>
+            <div class="bullet-item"><span class="verb">Спроектировал</span> 3 production-платформы (беттинг, донаты стримерам, коллективные скидки) на <span class="tool">NestJS + Angular</span> с <span class="tool">WebSockets + RxJS</span> — <span class="outcome">задержка &lt;100 мс для live-событий, все развёрнуты в Kubernetes</span></div>
+            <div class="bullet-item"><span class="verb">Интегрировал</span> <span class="tool">ClickHouse</span> для аналитики и разработал модуль 2FA на <span class="tool">NestJS + PostgreSQL</span> — <span class="outcome">аналитические запросы по миллиардам строк без влияния на OLTP; защитил аккаунты TOTP</span></div>
+        </div>
+
+
+        <!-- НАВЫКИ -->
+        <div class="section-title">Технические навыки</div>
+        <table class="w-full" style="font-size: 11pt; line-height: 1.4;">
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap" style="width: 80px;">Языки</td>
+                <td class="py-0.5">TypeScript, JavaScript, SQL, PL/SQL, Java, Python, HTML/CSS</td>
+            </tr>
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap">Backend</td>
+                <td class="py-0.5">Node.js, NestJS, Express, GraphQL, gRPC, REST, WebSockets, RxJS, Prisma, TypeORM, Kafka, NATS, OpenTelemetry</td>
+            </tr>
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap">Frontend</td>
+                <td class="py-0.5">Angular, Next.js, Electron, Tailwind CSS</td>
+            </tr>
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap">Базы данных</td>
+                <td class="py-0.5">PostgreSQL, ClickHouse, Redis, MySQL, Oracle</td>
+            </tr>
+            <tr>
+                <td class="font-bold pr-3 py-0.5 align-top whitespace-nowrap">Инфра / AI</td>
+                <td class="py-0.5">Docker, Kubernetes, GitLab CI/CD, GitOps, Prometheus, Grafana · OpenAI, Gemini, RAG, Prompt Engineering</td>
+            </tr>
+        </table>
+
+        <!-- ОБРАЗОВАНИЕ И ДОПОЛНИТЕЛЬНО -->
+        <div class="section-title">Образование и дополнительное</div>
+        <div style="font-size: 11pt; line-height: 1.45;">
+            <span class="font-bold">Томский государственный университет систем управления и радиоэлектроники</span> (2007) — Вычислительные системы
+            &nbsp;·&nbsp;
+            <span class="verb">Администрирую</span> крупнейшее RU-сообщество <span class="tool">NestJS</span> (nest_ru) и профильные сообщества по Prisma, TypeORM, Nx
+            &nbsp;·&nbsp;
+            <span class="verb">Участвую</span> в <span class="tool">open-source</span> проектах, публикую технические статьи
+            &nbsp;·&nbsp;
+            <b>Языки:</b> Русский (родной), Английский (B2)
+        </div>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
