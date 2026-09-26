@@ -64,28 +64,32 @@ async function writeCache(
 /**
  * Get proxy agent if proxy is configured.
  *
- * Тип агента выбирается по схеме самого прокси, а не по схеме целевого URL:
- * http-прокси (`http://host:3128`, самый частый вариант) нужно коннектить
- * через HttpProxyAgent, иначе HttpsProxyAgent пытается поднять TLS до
- * plaintext-портом прокси и запрос падает с "Client network socket
- * disconnected before secure TLS connection was established".
+ * Тип агента выбирается по схеме ЦЕЛЕВОГО url, а не прокси. HttpsProxyAgent
+ * работает и с `http://`, и с `https://` прокси: он шлёт `CONNECT host:port`
+ * и поднимает TLS уже внутри туннеля до цели. HttpProxyAgent на https-цели
+ * отправляет абсолютную форму `GET http://host:443/…`, которую живые прокси
+ * рвут без ответа (ECONNRESET); для plain-http цели наоборот нужен абсолютный
+ * forward, а не CONNECT. Проверено на реальном прокси: CONNECT -> 200,
+ * absolute-form -> socket hang up.
  */
-function getProxyAgent(): HttpProxyAgent<string> | HttpsProxyAgent<string> | SocksProxyAgent | undefined {
+function getProxyAgent(
+  targetUrl: string,
+): HttpProxyAgent<string> | HttpsProxyAgent<string> | SocksProxyAgent | undefined {
   const proxyUrl = globalAppEnvironments?.httpProxyUrl;
   if (!proxyUrl) {
     return undefined;
   }
-  if (/^socks\d??:\/\//i.test(proxyUrl)) {
+  if (!/^(https?|socks\d?):\/\//i.test(proxyUrl)) {
+    console.warn(`SITE_15_HTTP_PROXY_URL has unsupported scheme, proxy is ignored: ${proxyUrl}`);
+    return undefined;
+  }
+  if (/^socks\d?:\/\//i.test(proxyUrl)) {
     return new SocksProxyAgent(proxyUrl);
   }
-  if (/^https:\/\//i.test(proxyUrl)) {
+  if (/^https:\/\//i.test(targetUrl)) {
     return new HttpsProxyAgent(proxyUrl);
   }
-  if (/^http:\/\//i.test(proxyUrl)) {
-    return new HttpProxyAgent(proxyUrl);
-  }
-  console.warn(`SITE_15_HTTP_PROXY_URL has unsupported scheme, proxy is ignored: ${proxyUrl}`);
-  return undefined;
+  return new HttpProxyAgent(proxyUrl);
 }
 
 /**
@@ -101,7 +105,7 @@ function withProxyConfig(options?: AxiosRequestConfig): AxiosRequestConfig {
     return { ...options };
   }
 
-  const agent = getProxyAgent();
+  const agent = getProxyAgent(options?.url ?? '');
 
   return {
     ...options,

@@ -15,6 +15,21 @@ export class AppEnvironments {
 
   @EnvModelProperty({
     description:
+      'YouTube Data API v3 key for video statistics - create an API key at https://console.cloud.google.com/apis/credentials ' +
+      'and enable "YouTube Data API v3". Recommended over scraping: googleapis.com is reachable without a proxy',
+    hideValueFromOutputs: true,
+  })
+  youtubeApiKey?: string;
+
+  @EnvModelProperty({
+    description:
+      'YouTube channel id (UC…) for the public RSS feed fallback of video stats: gives exact view counts ' +
+      'without a Data API key, but no likes and only for the last ~100 channel videos',
+  })
+  youtubeChannelId?: string;
+
+  @EnvModelProperty({
+    description:
       'Dev.to API Key - replace with your actual API key from https://dev.to/settings/account, You can generate a new API key at: https://dev.to/settings/extensions',
     hideValueFromOutputs: true,
   })
