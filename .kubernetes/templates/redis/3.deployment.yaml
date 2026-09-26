@@ -17,15 +17,17 @@ spec:
     spec:
       containers:
         - name: %NAMESPACE%-redis
-          image: public.ecr.aws/bitnami/redis:7.4.1
+          image: redis:7.4.1
           imagePullPolicy: IfNotPresent
+          # официальный образ не читает REDIS_PASSWORD — только аргументом redis-server
+          command: ['sh', '-c', 'exec redis-server --requirepass "$REDIS_PASSWORD"']
           ports:
             - containerPort: 6379
           envFrom:
             - configMapRef:
                 name: %NAMESPACE%-redis-config
           volumeMounts:
-            - mountPath: /bitnami/redis/data
+            - mountPath: /data
               name: %NAMESPACE%-redis-volume
           resources:
             requests:

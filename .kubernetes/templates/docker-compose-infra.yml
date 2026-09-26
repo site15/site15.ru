@@ -4,7 +4,7 @@ networks:
     driver: 'bridge'
 services:
   site15-postgre-sql:
-    image: 'public.ecr.aws/bitnami/postgresql:15.10.0'
+    image: 'postgres:15.10'
     container_name: 'site15-postgre-sql'
     networks:
       - 'site15-network'
@@ -13,18 +13,18 @@ services:
     healthcheck:
       test:
         - 'CMD-SHELL'
-        - 'pg_isready -U postgres'
+        - 'pg_isready -U $$POSTGRES_USER'
       interval: '5s'
       timeout: '5s'
       retries: 5
     tty: true
     restart: 'always'
     environment:
-      POSTGRESQL_USERNAME: '%SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME%'
-      POSTGRESQL_PASSWORD: '%SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD%'
-      POSTGRESQL_DATABASE: '%SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE%'
+      POSTGRES_USER: '%SITE_15_POSTGRE_SQL_POSTGRESQL_USERNAME%'
+      POSTGRES_PASSWORD: '%SITE_15_POSTGRE_SQL_POSTGRESQL_PASSWORD%'
+      POSTGRES_DB: '%SITE_15_POSTGRE_SQL_POSTGRESQL_DATABASE%'
     volumes:
-      - 'site15-postgre-sql-volume:/bitnami/postgresql'
+      - 'site15-postgre-sql-volume:/var/lib/postgresql/data'
 volumes:
   site15-postgre-sql-volume:
     name: 'site15-postgre-sql-volume'

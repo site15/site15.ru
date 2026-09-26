@@ -36,7 +36,10 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV TZ=UTC
-ENV SITE_15_PORT=9090
+# 80 by default: Coolify/caddy-docker-proxy uses portless `{{upstreams}}` labels
+# which resolve to 80, so any other port silently produces 502 after a redeploy.
+# Override at runtime with SITE_15_PORT (docker-compose / Coolify env).
+ENV SITE_15_PORT=80
 ENV SITE_15_CLIENT_MINIO_URL=http://localhost:9000
 
 # Install PM2 for process management inside container
@@ -59,7 +62,7 @@ COPY docker/ecosystem.docker.config.json /app/ecosystem.docker.config.json
 COPY docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 9090
+EXPOSE 80
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["pm2-runtime", "start", "ecosystem.docker.config.json"]

@@ -493,6 +493,7 @@
     "redis": "4.7.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
+    "socks-proxy-agent": "^8.0.5",
     "tslib": "^2.3.0",
     "wait-on": "^8.0.1",
     "ws": "^8.18.0",

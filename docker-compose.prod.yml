@@ -50,14 +50,22 @@ services:
       - 'caddy_0=https://site15.ru'
       - 'caddy_0.encode=zstd gzip'
       - 'caddy_0.handle_path=/*'
-      - 'caddy_0.handle_path.0_reverse_proxy={{upstreams 9090}}'
+      # Portless on purpose (same as aimilo / virtual-gift-card on this host):
+      # caddy-docker-proxy takes the port from EXPOSE (80), and Coolify appends
+      # its own identical portless label after ours - so label order no longer
+      # decides the upstream and the 502-after-redeploy class is gone.
+      - 'caddy_0.handle_path.0_reverse_proxy={{upstreams}}'
       - 'caddy_0.header=-Server'
       - 'caddy_0.try_files={path} /index.html /index.php'
+    # Loopback-only publish: Coolify/Caddy never uses it (they reach the app over
+    # the private network via EXPOSE 80), it exists so `npm run
+    # docker-compose-prod:start` / ./docker-up.sh still serve http://localhost:9090
+    # locally. Never publish :80 - coolify-proxy owns it on the host.
     ports:
-      - '${SITE_15_PORT:-9090}:9090'
+      - '127.0.0.1:${SITE_15_HOST_PORT:-9090}:80'
     environment:
       NODE_TLS_REJECT_UNAUTHORIZED: '0'
-      SITE_15_PORT: '9090'
+      SITE_15_PORT: '80'
       # ── Database URLs ──
       SITE_15_ROOT_DATABASE_URL: '${SITE_15_ROOT_DATABASE_URL}'
       SITE_15_WEBHOOK_DATABASE_URL: '${SITE_15_WEBHOOK_DATABASE_URL}'
@@ -113,12 +121,14 @@ services:
           'CMD',
           'node',
           '-e',
-          "fetch('http://127.0.0.1:9090/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+          "fetch('http://127.0.0.1:80/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
         ]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
+      # Nest boot + prisma migrations take 60-90 s on this host; a shorter
+      # window marks the container unhealthy while it is still starting.
+      start_period: 120s
     depends_on:
       redis:
         condition: service_healthy

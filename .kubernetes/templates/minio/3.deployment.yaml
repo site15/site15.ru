@@ -17,8 +17,9 @@ spec:
     spec:
       containers:
         - name: %NAMESPACE%-minio
-          image: public.ecr.aws/bitnami/minio:2024.11.7
+          image: minio/minio:latest
           imagePullPolicy: IfNotPresent
+          args: ['server', '/data', '--console-address', ':9001']
           ports:
             - containerPort: 9000
             - containerPort: 9001
@@ -26,7 +27,7 @@ spec:
             - configMapRef:
                 name: %NAMESPACE%-minio-config
           volumeMounts:
-            - mountPath: /bitnami/minio/data
+            - mountPath: /data
               name: %NAMESPACE%-minio-volume
           resources:
             requests:

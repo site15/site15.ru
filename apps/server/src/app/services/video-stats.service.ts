@@ -244,16 +244,20 @@ export class VideoStatsService implements OnApplicationBootstrap {
   private async fetchYouTubeStats(videoId: string): Promise<VideoChannelStatsDto | null> {
     const response = await customFetch(
       `https://www.youtube.com/watch?v=${videoId}`,
-      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT } },
+      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT }, timeout: 15000 },
       true, // свой TTL (1 час) вместо общего кэша в 24 часа
     );
     if (!response.ok) {
+      this.logger.warn(`youtube stats: HTTP ${response.status} for ${videoId}`);
       return null;
     }
     const html = await response.text();
     const views = html.match(/"viewCount":"(\d+)"/)?.[1];
     const likes = html.match(/"likeCount":"(\d+)"/)?.[1];
     if (!views && !likes) {
+      // 200 без счётчиков = заглушка (consent/антибот) либо YouTube недоступен
+      // без прокси — SITE_15_HTTP_PROXY_URL.
+      this.logger.warn(`youtube stats: counters not found in HTML for ${videoId} (${html.length} bytes)`);
       return null;
     }
     return { views: views ? Number(views) : null, likes: likes ? Number(likes) : null };
@@ -262,7 +266,9 @@ export class VideoStatsService implements OnApplicationBootstrap {
   private async fetchRutubeStats(videoId: string): Promise<VideoChannelStatsDto | null> {
     const response = await customFetch(
       `https://rutube.ru/api/video/${videoId}/?format=json`,
-      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT } },
+      // proxy: false — площадка доступна напрямую, прокси (нужен только для
+      // YouTube) уводит запрос на зарубежный IP.
+      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT }, proxy: false },
       true,
     );
     if (!response.ok) {
@@ -278,7 +284,7 @@ export class VideoStatsService implements OnApplicationBootstrap {
     const [oid, id] = videoRef.split('_');
     const response = await customFetch(
       `https://vk.com/video_ext.php?oid=${oid}&id=${id}&hd=2`,
-      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT } },
+      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT }, proxy: false },
       true,
     );
     if (!response.ok) {

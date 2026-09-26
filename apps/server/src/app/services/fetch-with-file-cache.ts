@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { HttpProxyAgent } from 'http-proxy-agent';
 import { HttpsProxyAgent } from 'https-proxy-agent';
+import { SocksProxyAgent } from 'socks-proxy-agent';
 import { globalPrismaClient } from './global';
 import { globalAppEnvironments } from './global';
 
@@ -60,20 +62,45 @@ async function writeCache(
  */
 
 /**
- * Get proxy agent if proxy is configured
+ * Get proxy agent if proxy is configured.
+ *
+ * Тип агента выбирается по схеме самого прокси, а не по схеме целевого URL:
+ * http-прокси (`http://host:3128`, самый частый вариант) нужно коннектить
+ * через HttpProxyAgent, иначе HttpsProxyAgent пытается поднять TLS до
+ * plaintext-портом прокси и запрос падает с "Client network socket
+ * disconnected before secure TLS connection was established".
  */
-function getProxyAgent(): HttpsProxyAgent<string> | undefined {
+function getProxyAgent(): HttpProxyAgent<string> | HttpsProxyAgent<string> | SocksProxyAgent | undefined {
   const proxyUrl = globalAppEnvironments?.httpProxyUrl;
-  if (proxyUrl) {
+  if (!proxyUrl) {
+    return undefined;
+  }
+  if (/^socks\d??:\/\//i.test(proxyUrl)) {
+    return new SocksProxyAgent(proxyUrl);
+  }
+  if (/^https:\/\//i.test(proxyUrl)) {
     return new HttpsProxyAgent(proxyUrl);
   }
+  if (/^http:\/\//i.test(proxyUrl)) {
+    return new HttpProxyAgent(proxyUrl);
+  }
+  console.warn(`SITE_15_HTTP_PROXY_URL has unsupported scheme, proxy is ignored: ${proxyUrl}`);
   return undefined;
 }
 
 /**
  * Создание axios config с прокси
+ *
+ * `proxy: false` в options — явный отказ от прокси (то же значение понимает
+ * сам axios). Нужно для площадок, которые доступны напрямую: после включения
+ * SITE_15_HTTP_PROXY_URL они уехали бы на зарубежный IP и рискули бы отдать
+ * 403/троттлинг вместо данных.
  */
 function withProxyConfig(options?: AxiosRequestConfig): AxiosRequestConfig {
+  if (options?.proxy === false) {
+    return { ...options };
+  }
+
   const agent = getProxyAgent();
 
   return {

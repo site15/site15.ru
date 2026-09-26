@@ -15,6 +15,7 @@ This document contains rules and guidelines for Qoder to follow when working wit
 9. [Security Rules](#security-rules)
 10. [File Structure Rules](#file-structure-rules)
 11. [Additional Guidelines](#additional-guidelines)
+12. [Deployment & Infrastructure Rules](#deployment--infrastructure-rules)
 
 ## 1. General Development Rules
 
@@ -212,3 +213,20 @@ For a comprehensive set of development patterns extracted directly from the code
 ### 11.5. Performance Considerations
 
 - Implement lazy loading for modules and components when appropriate.
+
+## 12. Deployment & Infrastructure Rules
+
+### 12.1. Container Port
+
+- The server container listens on **80** (`.docker/server.Dockerfile`: `ENV SITE_15_PORT=80`, `EXPOSE 80`). The listen port is taken from `SITE_15_PORT`, so a stack that needs another port overrides it at runtime instead of editing the image.
+- Do not move the container back to a custom port (9090 and similar): caddy-docker-proxy resolves the portless `{{upstreams}}` label to the exposed port (80), and Coolify appends its own portless label after ours, so the last one wins and a non-80 listener produces 502 after every redeploy.
+- Caddy labels in `docker-compose.prod.yml` stay **portless** (`{{upstreams}}`) — the same convention as the other apps on the host.
+- Never publish host `:80` (coolify-proxy owns it). The app service publishes loopback only: `127.0.0.1:${SITE_15_HOST_PORT:-9090}:80`, which keeps local `docker-compose-prod` runs reachable at `http://localhost:9090`. A `0.0.0.0` mapping would serve the plain-HTTP API next to the TLS proxy.
+- In-container probes must target `127.0.0.1:80`, and `healthcheck.start_period` must cover Nest startup + migrations (60-90 s → 120 s).
+
+### 12.2. Outbound Proxy
+
+- External HTTP calls go through `customFetch` (`apps/server/src/app/services/fetch-with-file-cache.ts`), which applies `SITE_15_HTTP_PROXY_URL` when set.
+- The agent is chosen by the **proxy** URL scheme, not by the target: `http://` → `HttpProxyAgent`, `https://` → `HttpsProxyAgent`, `socks4://`/`socks5://` → `SocksProxyAgent`. Using `HttpsProxyAgent` for an `http://` proxy fails with "Client network socket disconnected before secure TLS connection was established" and breaks all outbound fetches.
+- Pass `proxy: false` in the fetch options for endpoints that must keep a domestic source address (`rutube.ru`, `vk.com`); YouTube is unreachable from the RU network without a proxy, so it keeps the proxy.
+- Statistics from platforms are never fetched from the browser (CORS) and never on every page view: `VideoStatsService` caches per video for 1 hour, backs off 10 minutes after a failure, and logs the reason (HTTP status / counters missing in HTML) instead of returning a silent `null`.
