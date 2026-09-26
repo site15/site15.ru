@@ -16,6 +16,11 @@
     // что YouTube недоступен и переходим на Rutube.
     var PROBE_TIMEOUT_MS = 3500;
     var STORAGE_PREFIX = 'site15:video:';
+    var PROVIDER_LABELS = { youtube: 'YouTube', rutube: 'Rutube', vk: 'VK Видео' };
+    // Как в form.js: на локальном хостинге сервер на 3000 порту, иначе — прод.
+    var API_BASE = window.location.href.indexOf('localhost') !== -1
+        ? 'http://localhost:3000/api'
+        : 'https://site15.ru/api';
 
     function storageGet(key) {
         try { return window.localStorage.getItem(key); } catch (e) { return null; }
@@ -101,6 +106,12 @@
         return iframe;
     }
 
+    function parseVkId(vkId) {
+        // "-241775994_456239017" → { oid: '-241775994', id: '456239017' }
+        var parts = String(vkId).split('_');
+        return { oid: parts[0], id: parts[1] };
+    }
+
     function mountPlayer(container, provider, ids) {
         container.innerHTML = '';
         var iframe;
@@ -109,6 +120,14 @@
                 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(ids.youtubeId) + '?rel=0&modestbranding=1',
                 'Видео с YouTube',
                 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            );
+        } else if (provider === 'vk') {
+            var vk = parseVkId(ids.vkId);
+            iframe = createIframe(
+                'https://vk.com/video_ext.php?oid=' + encodeURIComponent(vk.oid) +
+                    '&id=' + encodeURIComponent(vk.id) + '&hd=2',
+                'Видео с VK',
+                'autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock'
             );
         } else {
             iframe = createIframe(
@@ -130,7 +149,7 @@
             if (!provider) {
                 text = 'Определяем…';
             } else if (source === 'manual') {
-                text = 'Вручную: ' + (provider === 'youtube' ? 'YouTube' : 'Rutube');
+                text = 'Вручную: ' + (PROVIDER_LABELS[provider] || provider);
             } else if (provider === 'youtube') {
                 text = 'Играет YouTube (авто)';
             } else {
@@ -183,7 +202,7 @@
     }
     function readManual(youtubeId) {
         var v = storageGet(STORAGE_PREFIX + youtubeId);
-        return (v === 'youtube' || v === 'rutube') ? v : null;
+        return (v === 'youtube' || v === 'rutube' || v === 'vk') ? v : null;
     }
 
     function bindCardControls(card, ids) {
@@ -217,16 +236,68 @@
         }
     }
 
+    function formatCount(n) {
+        try {
+            return new Intl.NumberFormat('ru-RU').format(n);
+        } catch (e) {
+            return String(n);
+        }
+    }
+
+    /**
+   * Просмотры/лайки берутся с нашего бэкенда (/api/landing/video-stats):
+   * он ходит к площадкам сервер-side (CORS не даёт напрямую), кэширует в БД
+   * на час (чтобы не словить бан) и пишет историю — тренд по видео.
+   * Ошибки игнорируем молча — счётчики не критичны.
+   */
+    function loadVideoStats(card, ids) {
+        var params = [];
+        if (ids.youtubeId) params.push('yt=' + encodeURIComponent(ids.youtubeId));
+        if (ids.rutubeId) params.push('rutube=' + encodeURIComponent(ids.rutubeId));
+        if (ids.vkId) params.push('vk=' + encodeURIComponent(ids.vkId));
+        if (!params.length) return;
+
+        var slots = {};
+        Array.prototype.forEach.call(card.querySelectorAll('[data-video-platform]'), function (el) {
+            var slot = el.querySelector('[data-video-stats]');
+            if (slot) slots[el.getAttribute('data-video-platform')] = slot;
+        });
+
+        fetch(API_BASE + '/landing/video-stats?' + params.join('&'))
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (data) {
+                if (!data) return;
+                Object.keys(slots).forEach(function (provider) {
+                    var stats = data[provider];
+                    if (!stats) return;
+                    var parts = [];
+                    if (stats.views !== null && stats.views !== undefined) {
+                        parts.push(formatCount(stats.views) + ' \uD83D\uDC41\uFE0F');
+                    }
+                    if (stats.likes !== null && stats.likes !== undefined) {
+                        parts.push(formatCount(stats.likes) + ' \uD83D\uDC4D');
+                    }
+                    if (parts.length) {
+                        slots[provider].textContent = '\u00B7 ' + parts.join(' ');
+                        slots[provider].classList.remove('hidden');
+                    }
+                });
+            })
+            .catch(function () { /* статистика — украшение чипов */ });
+    }
+
     function initVideoCard(card) {
         var container = card.querySelector('[data-youtube-id][data-rutube-id]');
         if (!container) return;
 
         var ids = {
             youtubeId: container.getAttribute('data-youtube-id'),
-            rutubeId: container.getAttribute('data-rutube-id')
+            rutubeId: container.getAttribute('data-rutube-id'),
+            vkId: container.getAttribute('data-vk-id')
         };
 
         bindCardControls(card, ids);
+        loadVideoStats(card, ids);
 
         var manual = readManual(ids.youtubeId);
         if (manual) {

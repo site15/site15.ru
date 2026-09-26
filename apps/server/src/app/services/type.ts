@@ -354,3 +354,32 @@ export class ChatListMessagesResponse {
   })
   messages!: ChatMessageDto[];
 }
+
+/* ---------------- Video stats (landing) ---------------- */
+
+export class VideoChannelStatsDto {
+  @ApiPropertyOptional({
+    type: 'number',
+    nullable: true,
+    description: 'Количество просмотров (null — недоступно/не парсится)',
+  })
+  views?: number | null;
+
+  @ApiPropertyOptional({
+    type: 'number',
+    nullable: true,
+    description: 'Количество лайков (null — площадка не отдаёт лайки публично)',
+  })
+  likes?: number | null;
+}
+
+export class LandingVideoStatsResponse {
+  @ApiPropertyOptional({ type: () => VideoChannelStatsDto, nullable: true })
+  youtube?: VideoChannelStatsDto | null;
+
+  @ApiPropertyOptional({ type: () => VideoChannelStatsDto, nullable: true })
+  rutube?: VideoChannelStatsDto | null;
+
+  @ApiPropertyOptional({ type: () => VideoChannelStatsDto, nullable: true })
+  vk?: VideoChannelStatsDto | null;
+}

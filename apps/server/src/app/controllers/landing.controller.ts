@@ -1,12 +1,13 @@
 import { StatusResponse } from '@nestjs-mod/swagger';
 import { ValidationError } from '@nestjs-mod/validation';
-import { Body, Controller, Get, Logger, Param, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Param, Post, Query, UnauthorizedException } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 
 import { AllowEmptySsoUser } from '@site15/sso';
 import { AppEnvironments } from '../app.environments';
 import { MetricsDynamicService } from '../services/metrics-dynamic.service';
+import { VideoStatsService } from '../services/video-stats.service';
 import { customFetch } from '../services/fetch-with-file-cache';
 import {
   ChatListMessagesResponse,
@@ -14,6 +15,7 @@ import {
   ChatSendMessageDto,
   LandingAllStatsResponse,
   LandingSendMessageDto,
+  LandingVideoStatsResponse,
 } from '../services/type';
 
 @ApiBadRequestResponse({
@@ -29,6 +31,7 @@ export class LandingController {
   constructor(
     private readonly appEnvironments: AppEnvironments,
     private readonly metricsDynamicService: MetricsDynamicService,
+    private readonly videoStatsService: VideoStatsService,
   ) {}
 
   private getFlowControllerRequestOptions<T extends Record<string, unknown>>(options: T): T & { timeout: number } {
@@ -47,6 +50,22 @@ export class LandingController {
   @ApiOkResponse({ type: LandingAllStatsResponse })
   async stats() {
     return { allStats: await this.metricsDynamicService.getAllSync() };
+  }
+
+  /**
+   * Просмотры/лайки видео на YouTube / Rutube / VK Видео для лендинга.
+   * Выборка с площадок, кэш на час и история-тренд — в VideoStatsService;
+   * запросы к площадкам с TTL-гейтом, поэтому частыми не станут.
+   * Любой канал без данных возвращает null — лендинг просто скрывает счётчик.
+   */
+  @Get('video-stats')
+  @ApiOkResponse({ type: LandingVideoStatsResponse })
+  async videoStats(
+    @Query('yt') yt?: string,
+    @Query('rutube') rutube?: string,
+    @Query('vk') vk?: string,
+  ): Promise<LandingVideoStatsResponse> {
+    return this.videoStatsService.getStats({ yt, rutube, vk });
   }
 
   @Post('send-message')
