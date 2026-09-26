@@ -242,6 +242,8 @@
                         class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
                     <a href="#projects"
                         class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a>
+                    <a href="#videos"
+                        class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Видео</a>
                     <a href="#about"
                         class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О себе</a>
                     <a href="#open-source-community"
@@ -266,6 +268,7 @@
             class="hidden md:hidden bg-neo-yellow border-t-2 border-neo-black p-4 space-y-2 absolute w-full">
             <a href="#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
             <a href="#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Проекты</a>
+            <a href="#videos" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-blue">Видео</a>
             <a href="#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
             <a href="#open-source-community"
                 class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Open Source</a>
@@ -2133,6 +2136,71 @@
             </div>
         </div>
     </div>
+    <!-- Videos -->
+    <section id="videos" class="py-24 px-4 bg-neo-blue/10 border-y-4 border-neo-black relative overflow-hidden">
+        <div class="hidden md:block absolute -top-6 -left-6 w-24 h-24 bg-neo-yellow neo-border rotate-12 -z-0 opacity-70"></div>
+        <div class="hidden md:block absolute -bottom-8 -right-8 w-32 h-32 bg-neo-pink neo-border -rotate-6 -z-0 opacity-70"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase text-center reveal">
+                <span
+                    class="bg-neo-blue px-2 neo-border border-4 border-black inline-block transform -rotate-1">Видео</span>
+                — доклады и разборы
+            </h2>
+            <p class="text-center text-lg mb-4 font-mono">
+                <span class="inline-block bg-neo-black text-white px-3 py-1 font-mono font-bold text-base">
+                    Автоматически подбираем доступный проигрыватель: YouTube, либо Rutube если YouTube недоступен.
+                </span>
+            </p>
+            <p class="text-center text-sm mb-12 font-mono text-neo-black/70">
+                Нажмите на чип под видео, чтобы переключить плеер вручную (выбор запомнится).
+                Ctrl/⌘+клик — открыть оригинал на платформе в новой вкладке.
+            </p>
+
+            <div class="grid grid-cols-1 gap-8">
+                <!-- Video card 1 -->
+                <article data-video-card
+                    class="neo-border bg-white shadow-neo p-4 md:p-6 reveal">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <div class="font-mono text-xs text-neo-black/70 font-bold uppercase">№ 1 · Видео</div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" data-video-reset
+                                class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow hover:bg-neo-pink transition-colors"
+                                title="Вернуться к автоматическому выбору">
+                                ↺ авто
+                            </button>
+                            <span data-video-badge
+                                class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow"></span>
+                        </div>
+                    </div>
+
+                    <div class="relative w-full aspect-video bg-neo-black neo-border overflow-hidden"
+                        data-youtube-id="1MSIm8Te-QY" data-rutube-id="5f0217394026e166e7a224fc12f5c748">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">
+                            Определяем доступный проигрыватель…
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap items-center gap-2 justify-center text-xs font-mono">
+                        <a data-video-platform="youtube" role="tab" aria-pressed="false"
+                            target="_blank" rel="noopener noreferrer"
+                            href="https://youtu.be/1MSIm8Te-QY"
+                            title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на YouTube"
+                            class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
+                            ▶ YouTube
+                        </a>
+                        <a data-video-platform="rutube" role="tab" aria-pressed="false"
+                            target="_blank" rel="noopener noreferrer"
+                            href="https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/"
+                            title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на Rutube"
+                            class="cursor-pointer select-none px-3 py-1 bg-neo-purple text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
+                            ▶ Rutube
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
     <!-- Communities, Open Source & Publications -->
     <section id="open-source-community" class="py-20 px-4 bg-neo-bg border-y-4 border-neo-black">
         <div class="max-w-6xl mx-auto">
@@ -2668,6 +2736,7 @@
     <script src="./js/chat.js"></script>
     <script src="./js/scroll-top.js"></script>
     <script src="./js/tag-data.js"></script>
+    <script src="./js/video-player.js"></script>
     <script>
         // Populate marquee with tags from shared TAG_DATA
         (function () {
