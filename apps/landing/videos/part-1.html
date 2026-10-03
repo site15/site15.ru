@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstack-проект с AI — Часть 1 | Ильшат Хамитов | site15.ru</title>
+    <meta name="description"
+        content="Строим настоящий Fullstack-проект с AI с нуля до продакшена. Часть 1: NestJS + Angular + Prisma + PostgreSQL в Qoder IDE.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+    <link rel="alternate" type="application/rss+xml" title="site15.ru - Ilshat Khamitov | Software Engineer"
+        href="../rss.xml" />
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Fullstack-проект с AI — Часть 1 | Ильшат Хамитов">
+    <meta property="og:description"
+        content="Строим настоящий Fullstack-проект с AI с нуля до продакшена. NestJS + Angular + Prisma + PostgreSQL в Qoder IDE.">
+    <meta property="og:url" content="https://site15.ru/videos/part-1.html">
+    <meta property="og:image" content="https://site15.ru/ilshat.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=23044594', 'ym');
+
+        ym(23044594, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/23044594" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script src="../js/tailwind.min.js"></script>
+    <link href="../fonts/fonts.css" rel="stylesheet">
+    <script src="../js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#fdfbf7',
+                        'neo-black': '#0a0a0a',
+                        'neo-yellow': '#ffeb3b',
+                        'neo-pink': '#ff7eb6',
+                        'neo-green': '#7afc50',
+                        'neo-blue': '#82caff',
+                        'neo-purple': '#b388ff',
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #0a0a0a',
+                        'neo-sm': '3px 3px 0px 0px #0a0a0a',
+                        'neo-lg': '8px 8px 0px 0px #0a0a0a',
+                        'neo-hover': '0px 0px 0px 0px #0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f3f3f3;
+            background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        .neo-border {
+            border: 3px solid #0a0a0a;
+        }
+
+        .text-stroke {
+            -webkit-text-stroke: 1px #0a0a0a;
+        }
+
+        .text-stroke-2 {
+            -webkit-text-stroke: 2px #0a0a0a;
+            color: transparent;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fdfbf7;
+            border-left: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff7eb6;
+            border: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffeb3b;
+        }
+
+        .bg-lines {
+            background-image: repeating-linear-gradient(45deg, #0a0a0a 0, #0a0a0a 1px, transparent 0, transparent 50%);
+            background-size: 10px 10px;
+            opacity: 0.1;
+        }
+
+        .breadcrumb {
+            background-color: #fdfbf7;
+            padding: 1rem 0;
+            border-bottom: 3px solid #0a0a0a;
+        }
+
+        .breadcrumb ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin: 0 0.5rem;
+            color: #0a0a0a;
+        }
+
+        .breadcrumb a {
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            color: #ff7eb6;
+        }
+
+        .breadcrumb .current {
+            color: #ff7eb6;
+            font-weight: bold;
+        }
+
+        blockquote {
+            border-left: 4px solid #b388ff;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body class="text-neo-black font-sans selection:bg-neo-black selection:text-neo-yellow">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-neo-bg neo-border border-t-0 border-x-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <a href="../" class="w-8 h-8 bg-neo-black text-neo-yellow flex items-center justify-center font-bold text-xl neo-border">
+                        <img src="../ezhik.jpg" alt="Profile Photo" class="w-full h-full object-cover">
+                    </a>
+                    <a href="../" class="font-bold text-xl tracking-tighter uppercase hidden sm:block">site15.ru</a>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <a href="../#about"
+                        class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О
+                        себе</a>
+                    <a href="../#projects"
+                        class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a>
+                    <a href="../#videos"
+                        class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Видео</a>
+                    <a href="../#experience"
+                        class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
+                    <a href="../#skills"
+                        class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Навыки</a>
+                    <a href="../#contact"
+                        class="px-4 py-2 bg-neo-black text-white font-bold hover:bg-neo-pink hover:text-neo-black hover:shadow-neo transition-all border-2 border-neo-black">Связаться</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn"
+                        class="p-2 neo-border bg-white active:shadow-neo-hover shadow-neo transition-all">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-neo-yellow border-t-2 border-neo-black p-4 space-y-2 absolute w-full">
+            <a href="../#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
+            <a href="../#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Проекты</a>
+            <a href="../#videos" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-blue">Видео</a>
+            <a href="../#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
+            <a href="../#skills" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Навыки</a>
+            <a href="../#contact" class="block px-4 py-2 font-bold neo-border bg-neo-black text-white">Связаться</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="py-24 px-4 bg-neo-blue/10 border-b-4 border-neo-black" style="padding-bottom: 0px !important;">
+        <div class="max-w-7xl mx-auto">
+            <nav class="mb-8">
+                <div class="container mx-auto px-20">
+                    <ul class="flex items-center justify-center flex-wrap">
+                        <li><a href="../" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Главная</a></li>
+                        <li><a href="../#videos" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Видео</a></li>
+                        <li class="px-4 py-2 bg-neo-blue text-neo-black font-bold">Часть 1 — Создание проекта</li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="text-center mb-12">
+                <div class="inline-block px-3 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">Серия: Часть 1</div>
+                <h1 class="text-3xl md:text-5xl font-black uppercase mb-4 text-neo-black leading-tight">Строим настоящий Fullstack-проект с AI<br>с нуля до продакшена</h1>
+                <p class="inline-block px-4 py-1 mb-4 bg-neo-yellow neo-border font-mono font-bold text-sm shadow-neo-sm">Часть 1 — создание проекта и базовая архитектура</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Player -->
+    <section class="px-4 py-8 bg-neo-black border-b-4 border-neo-black">
+        <div class="max-w-5xl mx-auto">
+            <article data-video-card>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <div class="font-mono text-xs text-white/70 font-bold uppercase">Видеоплеер</div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" data-video-reset
+                            class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow hover:bg-neo-pink transition-colors"
+                            title="Вернуться к автоматическому выбору">
+                            ↺ авто
+                        </button>
+                        <span data-video-badge
+                            class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow"></span>
+                    </div>
+                </div>
+
+                <div class="relative w-full aspect-video bg-neo-black neo-border overflow-hidden"
+                    data-youtube-id="1MSIm8Te-QY" data-rutube-id="5f0217394026e166e7a224fc12f5c748"
+                    data-vk-id="-241775994_456239017">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">
+                        Определяем доступный проигрыватель…
+                    </div>
+                </div>
+
+                <div class="mt-4 flex flex-wrap items-center gap-2 justify-center text-xs font-mono">
+                    <a data-video-platform="youtube" role="tab" aria-pressed="false"
+                        target="_blank" rel="noopener noreferrer"
+                        href="https://youtu.be/1MSIm8Te-QY"
+                        title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на YouTube"
+                        class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
+                        ▶ YouTube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                    </a>
+                    <a data-video-platform="rutube" role="tab" aria-pressed="false"
+                        target="_blank" rel="noopener noreferrer"
+                        href="https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/"
+                        title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на Rutube"
+                        class="cursor-pointer select-none px-3 py-1 bg-neo-purple text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
+                        ▶ Rutube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                    </a>
+                    <a data-video-platform="vk" role="tab" aria-pressed="false"
+                        target="_blank" rel="noopener noreferrer"
+                        href="https://vkvideo.ru/video-241775994_456239017"
+                        title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на VK Видео"
+                        class="cursor-pointer select-none px-3 py-1 bg-neo-blue text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
+                        ▶ VK Видео <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <div class="prose max-w-none space-y-8">
+
+            <!-- Описание -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm reveal">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="file-text" class="w-6 h-6 text-neo-blue"></i> Описание</h2>
+                <p class="mb-4">Строим настоящий Fullstack-проект с AI с нуля до продакшена. В первой части создаём приложение на <strong>NestJS + Angular</strong> с <strong>Prisma</strong> и <strong>PostgreSQL</strong>, используя AI в <strong>Qoder IDE</strong>.</p>
+
+                <p class="mb-4">В этом видео начинаем разработку полноценного Fullstack-приложения и разбираем весь процесс разработки с AI:</p>
+
+                <ul class="list-disc pl-6 mb-4 space-y-1">
+                    <li>AI-assisted development с Qoder IDE</li>
+                    <li>Backend на NestJS</li>
+                    <li>Frontend на Angular</li>
+                    <li>ORM Prisma</li>
+                    <li>PostgreSQL</li>
+                    <li>Docker Compose</li>
+                    <li>Запуск и подготовка проекта к production</li>
+                    <li>Дальнейшее развёртывание проекта</li>
+                </ul>
+
+                <p class="mb-4">Это первая часть серии, в которой будем постепенно развивать приложение от идеи и первоначальной настройки до полноценного production-проекта.</p>
+            </article>
+
+            <!-- Стек технологий -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm reveal">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-6 h-6 text-neo-green"></i> Стек технологий</h2>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-neo-blue neo-border font-mono font-bold text-sm">Qoder IDE</span>
+                    <span class="px-3 py-1 bg-neo-green neo-border font-mono font-bold text-sm">AI</span>
+                    <span class="px-3 py-1 bg-neo-pink neo-border font-mono font-bold text-sm">NestJS</span>
+                    <span class="px-3 py-1 bg-neo-purple neo-border font-mono font-bold text-sm">Angular</span>
+                    <span class="px-3 py-1 bg-neo-yellow neo-border font-mono font-bold text-sm">TypeScript</span>
+                    <span class="px-3 py-1 bg-neo-blue neo-border font-mono font-bold text-sm">Prisma</span>
+                    <span class="px-3 py-1 bg-neo-green neo-border font-mono font-bold text-sm">PostgreSQL</span>
+                    <span class="px-3 py-1 bg-neo-pink neo-border font-mono font-bold text-sm">Docker</span>
+                    <span class="px-3 py-1 bg-neo-purple neo-border font-mono font-bold text-sm">Docker Compose</span>
+                    <span class="px-3 py-1 bg-neo-yellow neo-border font-mono font-bold text-sm">PM2</span>
+                    <span class="px-3 py-1 bg-neo-blue neo-border font-mono font-bold text-sm">tuna.am</span>
+                </div>
+            </article>
+
+            <!-- Серия -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm reveal">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="list-video" class="w-6 h-6 text-neo-purple"></i> Серия видео</h2>
+                <ul class="space-y-2">
+                    <li class="flex items-center gap-2">
+                        <span class="px-2 py-1 bg-neo-green neo-border font-mono font-bold text-xs">Часть 1</span>
+                        <span class="font-bold">Создание проекта и базовая архитектура</span>
+                        <span class="text-xs text-neo-black/50 font-mono">(это видео)</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="px-2 py-1 bg-neo-blue neo-border font-mono font-bold text-xs">Часть 2</span>
+                        <a href="part-2.html" class="font-bold underline hover:text-neo-pink transition-colors">Тестирование проекта с AI и HeyAPI</a>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="px-2 py-1 bg-gray-200 neo-border font-mono font-bold text-xs text-gray-500">Часть 3</span>
+                        <span class="text-gray-500 font-mono text-sm">[добавим после выхода]</span>
+                    </li>
+                </ul>
+            </article>
+
+            <!-- Таймкоды -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm reveal">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="clock" class="w-6 h-6 text-neo-yellow"></i> Таймкоды</h2>
+                <div class="space-y-2 font-mono text-sm">
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">00:00</span><span>Создаём Fullstack-проект с AI — идея KaufmanBot и разработка в Qoder IDE</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">01:42</span><span>Архитектура NestJS — плагины, Dependency Injection и новый подход</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">03:49</span><span>NestJS + Angular без monorepo — backend и frontend в одном репозитории</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">05:12</span><span>Начинаем разработку с AI — Qoder IDE создаёт основу проекта</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">10:17</span><span>Docker Compose + PostgreSQL — поднимаем базовую инфраструктуру</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">14:34</span><span>Настраиваем окружение — Node.js 24, зависимости и автоматический запуск</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">17:12</span><span>Первый запуск приложения — проверяем frontend, backend и базу данных</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">24:20</span><span>Переносим код с помощью AI — используем готовые решения и контекст</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">25:48</span><span>Prisma + миграции — подключаем ORM и создаём структуру базы данных</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">29:40</span><span>Health Check + SSE — добавляем мониторинг и Server-Sent Events</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">36:58</span><span>Отлаживаем проект с AI — исправляем ошибки по логам и контексту</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">48:00</span><span>Версионирование API — добавляем API Versioning в NestJS</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">50:32</span><span>Выводим проект в интернет — туннель, Proxy и постоянный HTTPS-адрес</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">59:08</span><span>Запускаем инфраструктуру через PM2 — объединяем backend, frontend и tunnel</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">01:03:07</span><span>AI Skills + MCP — расширяем возможности AI и добавляем контекст проекта</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">01:13:23</span><span>MinIO + PostgreSQL + финальный запуск — файловое хранилище и запуск одной командой</span></div>
+                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">01:17:12</span><span>Что получилось и что дальше — готовая основа KaufmanBot и планы</span></div>
+                </div>
+            </article>
+
+            <!-- Ссылки -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm reveal">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="link" class="w-6 h-6 text-neo-pink"></i> Ссылки</h2>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <a href="https://github.com/kaufman-bot/kaufman-bot" target="_blank" class="inline-block text-neo-black font-bold underline mr-2">GitHub</a>
+                        <span class="text-gray-700">— Исходный код проекта KaufmanBot</span>
+                    </div>
+                    <div class="flex items-start">
+                        <a href="https://youtu.be/1MSIm8Te-QY" target="_blank" class="inline-block text-neo-black font-bold underline mr-2">YouTube</a>
+                        <span class="text-gray-700">— Смотреть на YouTube</span>
+                    </div>
+                    <div class="flex items-start">
+                        <a href="https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/" target="_blank" class="inline-block text-neo-black font-bold underline mr-2">Rutube</a>
+                        <span class="text-gray-700">— Смотреть на Rutube</span>
+                    </div>
+                    <div class="flex items-start">
+                        <a href="https://vkvideo.ru/video-241775994_456239017" target="_blank" class="inline-block text-neo-black font-bold underline mr-2">VK Видео</a>
+                        <span class="text-gray-700">— Смотреть на VK Видео</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Теги -->
+            <article class="p-6 neo-border bg-white shadow-neo-sm reveal">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="hash" class="w-6 h-6 text-neo-blue"></i> Теги</h2>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-2 py-1 bg-neo-bg neo-border font-mono text-xs font-bold">#AI</span>
+                    <span class="px-2 py-1 bg-neo-bg neo-border font-mono text-xs font-bold">#Fullstack</span>
+                    <span class="px-2 py-1 bg-neo-bg neo-border font-mono text-xs font-bold">#NestJS</span>
+                    <span class="px-2 py-1 bg-neo-bg neo-border font-mono text-xs font-bold">#Angular</span>
+                    <span class="px-2 py-1 bg-neo-bg neo-border font-mono text-xs font-bold">#Prisma</span>
+                    <span class="px-2 py-1 bg-neo-bg neo-border font-mono text-xs font-bold">#PostgreSQL</span>
+                    <span class="px-2 py-1 bg-neo-bg neo-border font-mono text-xs font-bold">#TypeScript</span>
+                    <span class="px-2 py-1 bg-neo-bg neo-border font-mono text-xs font-bold">#WebDevelopment</span>
+                    <span class="px-2 py-1 bg-neo-bg neo-border font-mono text-xs font-bold">#Qoder</span>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <!-- Navigation between videos -->
+    <div class="max-w-4xl mx-auto px-4 pb-12">
+        <div class="flex justify-between items-center">
+            <div></div>
+            <a href="part-2.html" class="px-6 py-3 bg-neo-black text-white font-bold uppercase neo-border hover:bg-neo-pink hover:text-neo-black transition-all inline-block text-center">
+                Часть 2: Тестирование с AI →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            // Scroll reveal
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(function (el) { observer.observe(el); });
+        });
+    </script>
+    <script src="../js/video-player.js"></script>
+
+    <!-- Footer -->
+    <footer class="bg-neo-black text-white py-12 px-4 border-t-4 border-white mt-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <h4 class="font-black text-2xl uppercase mb-2">site15.ru</h4>
+                <p class="font-mono text-sm text-gray-400">© 2026 Все права защищены (или нет).</p>
+            </div>
+            <div class="flex flex-col items-center md:items-end font-mono text-sm gap-2">
+                <div class="flex flex-wrap justify-center md:justify-end gap-2">
+                    <a href="https://career.habr.com/endykaufman" target="_blank"
+                        class="px-3 py-1 bg-gray-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        ХабрКарьера
+                    </a>
+                    <a href="https://ufa.hh.ru/resume/2615ca8cff019da3eb0039ed1f6732786f4533" target="_blank"
+                        class="px-3 py-1 bg-red-600 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        HeadHunter
+                    </a>
+                    <a href="https://www.linkedin.com/in/ilshatkhamitov/" target="_blank"
+                        class="px-3 py-1 bg-blue-700 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        LinkedIn
+                    </a>
+                    <a href="../rss.xml" target="_blank"
+                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        RSS
+                    </a>
+                </div>
+                <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
+                </a>
+                <p class="text-gray-500">Уфа, Россия</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scroll-to-top-btn"
+        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-white font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
+        <i data-lucide="arrow-up" class="w-7 h-7"></i>
+    </button>
+    <script src="../js/scroll-top.js"></script>
+</body>
+
+</html>

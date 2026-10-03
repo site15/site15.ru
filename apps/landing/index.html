@@ -2140,7 +2140,7 @@
     <section id="videos" class="py-24 px-4 bg-neo-blue/10 border-y-4 border-neo-black relative overflow-hidden">
         <div class="hidden md:block absolute -top-6 -left-6 w-24 h-24 bg-neo-yellow neo-border rotate-12 -z-0 opacity-70"></div>
         <div class="hidden md:block absolute -bottom-8 -right-8 w-32 h-32 bg-neo-pink neo-border -rotate-6 -z-0 opacity-70"></div>
-        <div class="max-w-4xl mx-auto relative z-10">
+        <div class="max-w-6xl mx-auto relative z-10">
             <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase text-center reveal">
                 <span
                     class="bg-neo-blue px-2 neo-border border-4 border-black inline-block transform -rotate-1">Видео</span>
@@ -2156,56 +2156,96 @@
                 Ctrl/⌘+клик — открыть оригинал на платформе в новой вкладке.
             </p>
 
-            <div class="grid grid-cols-1 gap-8">
-                <!-- Video card 1 -->
-                <article data-video-card
-                    class="neo-border bg-white shadow-neo p-4 md:p-6 reveal">
-                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                        <div class="font-mono text-xs text-neo-black/70 font-bold uppercase">№ 1 · Видео</div>
-                        <div class="flex items-center gap-2">
-                            <button type="button" data-video-reset
-                                class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow hover:bg-neo-pink transition-colors"
-                                title="Вернуться к автоматическому выбору">
-                                ↺ авто
-                            </button>
-                            <span data-video-badge
-                                class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow"></span>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 reveal">
+                <!-- Sidebar: Video List -->
+                <div class="lg:col-span-4 space-y-3">
+                    <div class="font-mono text-xs font-bold uppercase text-neo-black/70 mb-2 px-1">Список видео</div>
+
+                    <button data-video-nav="0" onclick="switchVideo(0)"
+                        class="w-full text-left p-3 neo-border bg-neo-green/20 hover:bg-neo-green/40 transition-colors cursor-pointer block">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2 py-0.5 bg-neo-green neo-border font-mono font-bold text-xs">Часть 1</span>
+                        </div>
+                        <div class="font-bold text-sm leading-snug">Строим Fullstack-проект с AI — создание проекта и базовая архитектура</div>
+                        <div class="font-mono text-xs text-neo-black/60 mt-1">NestJS · Angular · Prisma · PostgreSQL</div>
+                    </button>
+
+                    <button data-video-nav="1" onclick="switchVideo(1)"
+                        class="w-full text-left p-3 neo-border bg-white hover:bg-neo-purple/20 transition-colors cursor-pointer block">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2 py-0.5 bg-neo-purple neo-border font-mono font-bold text-xs">Часть 2</span>
+                        </div>
+                        <div class="font-bold text-sm leading-snug">Тестирование проекта с AI и HeyAPI</div>
+                        <div class="font-mono text-xs text-neo-black/60 mt-1">LLM · HeyAPI · E2E · Swagger</div>
+                    </button>
+                </div>
+
+                <!-- Main Content: Player + Info -->
+                <div class="lg:col-span-8">
+                    <article data-video-card class="neo-border bg-white shadow-neo p-4 md:p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <div class="font-mono text-xs text-neo-black/70 font-bold uppercase" data-video-label>Видео</div>
+                            <div class="flex items-center gap-2">
+                                <button type="button" data-video-reset
+                                    class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow hover:bg-neo-pink transition-colors"
+                                    title="Вернуться к автоматическому выбору">
+                                    ↺ авто
+                                </button>
+                                <span data-video-badge
+                                    class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow"></span>
+                            </div>
+                        </div>
+
+                        <div class="relative w-full aspect-video bg-neo-black neo-border overflow-hidden"
+                            data-youtube-id="1MSIm8Te-QY" data-rutube-id="5f0217394026e166e7a224fc12f5c748"
+                            data-vk-id="-241775994_456239017">
+                            <div
+                                class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">
+                                Определяем доступный проигрыватель…
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap items-center gap-2 justify-center text-xs font-mono">
+                            <a data-video-platform="youtube" role="tab" aria-pressed="false"
+                                target="_blank" rel="noopener noreferrer"
+                                href="https://youtu.be/1MSIm8Te-QY"
+                                title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на YouTube"
+                                class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
+                                ▶ YouTube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                            </a>
+                            <a data-video-platform="rutube" role="tab" aria-pressed="false"
+                                target="_blank" rel="noopener noreferrer"
+                                href="https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/"
+                                title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на Rutube"
+                                class="cursor-pointer select-none px-3 py-1 bg-neo-purple text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
+                                ▶ Rutube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                            </a>
+                            <a data-video-platform="vk" role="tab" aria-pressed="false"
+                                target="_blank" rel="noopener noreferrer"
+                                href="https://vkvideo.ru/video-241775994_456239017"
+                                title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на VK Видео"
+                                class="cursor-pointer select-none px-3 py-1 bg-neo-blue text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
+                                ▶ VK Видео <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Video Info -->
+                    <div class="mt-4 p-4 neo-border bg-white shadow-neo-sm" data-video-info>
+                        <h3 class="font-bold text-lg mb-2" data-video-title>Строим настоящий Fullstack-проект с AI — Часть 1: Создание проекта</h3>
+                        <p class="font-mono text-sm text-gray-700 mb-3" data-video-description>Создаём приложение на NestJS + Angular с Prisma и PostgreSQL, используя AI в Qoder IDE. Разбираем весь процесс: от архитектуры до production-развёртывания.</p>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <a href="./videos/part-1.html"
+                                class="px-4 py-2 bg-neo-black text-white font-bold text-xs uppercase neo-border hover:bg-neo-pink hover:text-neo-black transition-all inline-block">
+                                Подробнее и таймкоды
+                            </a>
+                            <a href="https://github.com/kaufman-bot/kaufman-bot" target="_blank" rel="noopener noreferrer"
+                                class="px-4 py-2 bg-neo-green font-bold text-xs uppercase neo-border hover:bg-neo-yellow transition-all inline-block">
+                                Исходный код
+                            </a>
                         </div>
                     </div>
-
-                    <div class="relative w-full aspect-video bg-neo-black neo-border overflow-hidden"
-                        data-youtube-id="1MSIm8Te-QY" data-rutube-id="5f0217394026e166e7a224fc12f5c748"
-                        data-vk-id="-241775994_456239017">
-                        <div
-                            class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">
-                            Определяем доступный проигрыватель…
-                        </div>
-                    </div>
-
-                    <div class="mt-4 flex flex-wrap items-center gap-2 justify-center text-xs font-mono">
-                        <a data-video-platform="youtube" role="tab" aria-pressed="false"
-                            target="_blank" rel="noopener noreferrer"
-                            href="https://youtu.be/1MSIm8Te-QY"
-                            title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на YouTube"
-                            class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
-                            ▶ YouTube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
-                        </a>
-                        <a data-video-platform="rutube" role="tab" aria-pressed="false"
-                            target="_blank" rel="noopener noreferrer"
-                            href="https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/"
-                            title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на Rutube"
-                            class="cursor-pointer select-none px-3 py-1 bg-neo-purple text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
-                            ▶ Rutube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
-                        </a>
-                        <a data-video-platform="vk" role="tab" aria-pressed="false"
-                            target="_blank" rel="noopener noreferrer"
-                            href="https://vkvideo.ru/video-241775994_456239017"
-                            title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на VK Видео"
-                            class="cursor-pointer select-none px-3 py-1 bg-neo-blue text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
-                            ▶ VK Видео <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
-                        </a>
-                    </div>
-                </article>
+                </div>
             </div>
         </div>
     </section>
@@ -2745,6 +2785,122 @@
     <script src="./js/scroll-top.js"></script>
     <script src="./js/tag-data.js"></script>
     <script src="./js/video-player.js"></script>
+    <script>
+    // Multi-video sidebar data + switching logic
+    (function () {
+        var VIDEOS = [
+            {
+                youtubeId: '1MSIm8Te-QY',
+                rutubeId: '5f0217394026e166e7a224fc12f5c748',
+                vkId: '-241775994_456239017',
+                label: 'Часть 1 · Видео',
+                title: 'Строим настоящий Fullstack-проект с AI — Часть 1: Создание проекта',
+                description: 'Создаём приложение на NestJS + Angular с Prisma и PostgreSQL, используя AI в Qoder IDE. Разбираем весь процесс: от архитектуры до production-развёртывания.',
+                detailUrl: './videos/part-1.html',
+                repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+                ytHref: 'https://youtu.be/1MSIm8Te-QY',
+                rutubeHref: 'https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/',
+                vkHref: 'https://vkvideo.ru/video-241775994_456239017'
+            },
+            {
+                youtubeId: '6pSWtGoyS6I',
+                rutubeId: 'c70facc53f796801d96b6850f360a618',
+                vkId: '-241775994_456239022',
+                label: 'Часть 2 · Видео',
+                title: 'Строим Fullstack-проект с AI — Часть 2: Тестирование с AI и HeyAPI',
+                description: 'Продолжаем серию. Создаём тесты с помощью LLM, разбираем HeyAPI, E2E-тесты и постепенную генерацию кода с AI.',
+                detailUrl: './videos/part-2.html',
+                repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+                ytHref: 'https://youtu.be/6pSWtGoyS6I',
+                rutubeHref: 'https://rutube.ru/video/c70facc53f796801d96b6850f360a618/',
+                vkHref: 'https://vkvideo.ru/video-241775994_456239022'
+            }
+        ];
+
+        var currentVideo = 0;
+
+        function updateSidebarActive(index) {
+            document.querySelectorAll('[data-video-nav]').forEach(function (btn) {
+                var i = parseInt(btn.getAttribute('data-video-nav'), 10);
+                if (i === index) {
+                    btn.classList.add('ring-4', 'ring-neo-black');
+                    btn.style.backgroundColor = '';
+                } else {
+                    btn.classList.remove('ring-4', 'ring-neo-black');
+                }
+            });
+        }
+
+        window.switchVideo = function (index) {
+            if (index === currentVideo) return;
+            if (index < 0 || index >= VIDEOS.length) return;
+            currentVideo = index;
+            var v = VIDEOS[index];
+            var card = document.querySelector('[data-video-card]');
+            if (!card) return;
+
+            // Update container data attributes
+            var container = card.querySelector('[data-youtube-id][data-rutube-id]');
+            if (container) {
+                container.setAttribute('data-youtube-id', v.youtubeId);
+                container.setAttribute('data-rutube-id', v.rutubeId);
+                container.setAttribute('data-vk-id', v.vkId);
+                // Reset to placeholder
+                container.innerHTML = '<div class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">Определяем доступный проигрыватель…</div>';
+            }
+
+            // Update label
+            var label = card.querySelector('[data-video-label]');
+            if (label) label.textContent = v.label;
+
+            // Reset badge and player state
+            var badge = card.querySelector('[data-video-badge]');
+            if (badge) { badge.classList.add('hidden'); badge.textContent = ''; }
+            var resetBtn = card.querySelector('[data-video-reset]');
+            if (resetBtn) resetBtn.classList.add('hidden');
+            card._videoState = null;
+
+            // Update platform links
+            var ytLink = card.querySelector('[data-video-platform="youtube"]');
+            var rutubeLink = card.querySelector('[data-video-platform="rutube"]');
+            var vkLink = card.querySelector('[data-video-platform="vk"]');
+            if (ytLink) { ytLink.setAttribute('href', v.ytHref); ytLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); ytLink.classList.add('opacity-60'); ytLink.setAttribute('aria-pressed', 'false'); }
+            if (rutubeLink) { rutubeLink.setAttribute('href', v.rutubeHref); rutubeLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); rutubeLink.classList.add('opacity-60'); rutubeLink.setAttribute('aria-pressed', 'false'); }
+            if (vkLink) { vkLink.setAttribute('href', v.vkHref); vkLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); vkLink.classList.add('opacity-60'); vkLink.setAttribute('aria-pressed', 'false'); }
+
+            // Reset stats
+            card.querySelectorAll('[data-video-stats]').forEach(function (s) { s.classList.add('hidden'); s.textContent = ''; });
+
+            // Update info section
+            var infoSection = document.querySelector('[data-video-info]');
+            if (infoSection) {
+                var title = infoSection.querySelector('[data-video-title]');
+                var desc = infoSection.querySelector('[data-video-description]');
+                var links = infoSection.querySelectorAll('a');
+                if (title) title.textContent = v.title;
+                if (desc) desc.textContent = v.description;
+                if (links[0]) links[0].setAttribute('href', v.detailUrl);
+                if (links[1]) links[1].setAttribute('href', v.repoUrl);
+            }
+
+            // Update sidebar highlight
+            updateSidebarActive(index);
+
+            // Re-initialize video player for this card.
+            // Пробы кэшируются по videoId, поэтому повторный вызов не ждёт сеть.
+            if (window.__videoPlayer) {
+                window.__videoPlayer.initVideoCard(card);
+            }
+        };
+
+        // Initialize sidebar highlight
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () { updateSidebarActive(0); });
+        } else {
+            updateSidebarActive(0);
+        }
+    })();
+    </script>
     <script>
         // Populate marquee with tags from shared TAG_DATA
         (function () {

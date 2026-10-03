@@ -85,15 +85,19 @@
         });
     }
 
-    var youtubeAvailabilityPromise = null;
+    // Результат пробирования кэшируется ПО КАЖДОМУ видео: переключение
+    // между роликами на главной переиспользует уже готовый ответ и не
+    // ждёт новую сетевую проверку.
+    var probeCache = {};
 
     function probeYouTubeOnce(videoId) {
-        if (youtubeAvailabilityPromise) return youtubeAvailabilityPromise;
-        youtubeAvailabilityPromise = probeYouTube(videoId).catch(function () {
-            youtubeAvailabilityPromise = null;
+        if (probeCache[videoId]) return probeCache[videoId];
+        var promise = probeYouTube(videoId).catch(function () {
+            delete probeCache[videoId];
             return false;
         });
-        return youtubeAvailabilityPromise;
+        probeCache[videoId] = promise;
+        return promise;
     }
 
     function createIframe(src, title, allow) {
@@ -187,6 +191,9 @@
     function setProvider(card, provider, source, ids) {
         var container = card.querySelector('[data-youtube-id][data-rutube-id]');
         if (!container) return;
+        // Защита от устаревших асинхронных колбэков: если карточку уже
+        // переключили на другое видео (switchVideo), чужой iframe не монтируем.
+        if (ids && ids.youtubeId && container.getAttribute('data-youtube-id') !== ids.youtubeId) return;
         card._videoState = { provider: provider, source: source };
         if (provider) {
             mountPlayer(container, provider, ids);
@@ -205,7 +212,19 @@
         return (v === 'youtube' || v === 'rutube' || v === 'vk') ? v : null;
     }
 
-    function bindCardControls(card, ids) {
+    // Актуальные id-шники читаем из DOM в момент события: после switchVideo
+    // атрибуты контейнера меняются, и «устаревшие» обработчики становятся
+    // безвредны — они отработают с теми же данными, что и новые.
+    function currentIds(card) {
+        var container = card.querySelector('[data-youtube-id][data-rutube-id]');
+        return {
+            youtubeId: container ? container.getAttribute('data-youtube-id') : null,
+            rutubeId: container ? container.getAttribute('data-rutube-id') : null,
+            vkId: container ? container.getAttribute('data-vk-id') : null
+        };
+    }
+
+    function bindCardControls(card) {
         Array.prototype.forEach.call(card.querySelectorAll('[data-video-platform]'), function (el) {
             el.addEventListener('click', function (ev) {
                 // Ctrl/Cmd/Shift/Alt/average-click — штатное поведение браузера
@@ -214,6 +233,7 @@
                 if (ev.button !== 0 || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
                 ev.preventDefault();
                 var provider = el.getAttribute('data-video-platform');
+                var ids = currentIds(card);
                 persistManual(ids.youtubeId, provider);
                 setProvider(card, provider, 'manual', ids);
             });
@@ -224,13 +244,17 @@
             reset.addEventListener('click', function (ev) {
                 if (ev.button !== 0 || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
                 ev.preventDefault();
+                var ids = currentIds(card);
                 clearManual(ids.youtubeId);
                 // Запускаем авто-выбор заново.
                 setProvider(card, null, 'auto', ids);
+                delete probeCache[ids.youtubeId]; // форсируем свежую пробу
                 probeYouTubeOnce(ids.youtubeId).then(function (youtubeOk) {
                     var provider = youtubeOk ? 'youtube' : 'rutube';
                     if (readManual(ids.youtubeId)) return; // пользователь уже успел выбрать
-                    setProvider(card, provider, 'auto', ids);
+                    var cur = currentIds(card);
+                    if (cur.youtubeId !== ids.youtubeId) return;
+                    setProvider(card, provider, 'auto', cur);
                 });
             });
         }
@@ -250,7 +274,7 @@
    * на час (чтобы не словить бан) и пишет историю — тренд по видео.
    * Ошибки игнорируем молча — счётчики не критичны.
    */
-    function loadVideoStats(card, ids) {
+    function loadVideoStats(card, ids, gen) {
         var params = [];
         if (ids.youtubeId) params.push('yt=' + encodeURIComponent(ids.youtubeId));
         if (ids.rutubeId) params.push('rutube=' + encodeURIComponent(ids.rutubeId));
@@ -267,6 +291,8 @@
             .then(function (r) { return r.ok ? r.json() : null; })
             .then(function (data) {
                 if (!data) return;
+                // Пока летел запрос, видео могли переключить — не рисуем чужие счётчики.
+                if (gen !== undefined && card._videoGen !== gen) return;
                 Object.keys(slots).forEach(function (provider) {
                     var stats = data[provider];
                     if (!stats) return;
@@ -290,14 +316,15 @@
         var container = card.querySelector('[data-youtube-id][data-rutube-id]');
         if (!container) return;
 
-        var ids = {
-            youtubeId: container.getAttribute('data-youtube-id'),
-            rutubeId: container.getAttribute('data-rutube-id'),
-            vkId: container.getAttribute('data-vk-id')
-        };
+        // Generation counter: prevents stale probe callbacks from overwriting
+        // a newer video's iframe when switchVideo() re-initialises the card.
+        card._videoGen = (card._videoGen || 0) + 1;
+        var myGen = card._videoGen;
 
-        bindCardControls(card, ids);
-        loadVideoStats(card, ids);
+        var ids = currentIds(card);
+
+        bindCardControls(card);
+        loadVideoStats(card, ids, myGen);
 
         var manual = readManual(ids.youtubeId);
         if (manual) {
@@ -310,10 +337,14 @@
         renderState(card, card._videoState, ids);
 
         probeYouTubeOnce(ids.youtubeId).then(function (youtubeOk) {
+            // Если карточку уже переинициализировали (switchVideo) — не трогаем.
+            if (card._videoGen !== myGen) return;
             // Пользователь мог успеть нажать чип пока шло пробирование.
             if (card._videoState && card._videoState.source === 'manual') return;
+            var cur = currentIds(card);
+            if (cur.youtubeId !== ids.youtubeId) return;
             var provider = youtubeOk ? 'youtube' : 'rutube';
-            setProvider(card, provider, 'auto', ids);
+            setProvider(card, provider, 'auto', cur);
         });
     }
 
@@ -321,6 +352,15 @@
         var cards = document.querySelectorAll('[data-video-card]');
         Array.prototype.forEach.call(cards, initVideoCard);
     }
+
+    // Expose helpers for the multi-video sidebar on the landing page.
+    window.__videoPlayer = {
+        initVideoCard: initVideoCard,
+        resetProbe: function () {
+            probeCache = {};
+        },
+        probeYouTube: probeYouTubeOnce
+    };
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initVideoPlayers);
