@@ -16,6 +16,7 @@ import {
   LandingAllStatsResponse,
   LandingSendMessageDto,
   LandingVideoStatsResponse,
+  LandingVideosResponse,
 } from '../services/type';
 
 @ApiBadRequestResponse({
@@ -66,6 +67,17 @@ export class LandingController {
     @Query('vk') vk?: string,
   ): Promise<LandingVideoStatsResponse> {
     return this.videoStatsService.getStats({ yt, rutube, vk });
+  }
+
+  /**
+   * Все видео лендинга: ссылки, описания, ID-шники площадок + статистика
+   * (просмотры/лайки) по каждой. Один запрос вместо N вызовов video-stats —
+   * фронтенд получает всё разом и больше не хранит данные в коде.
+   */
+  @Get('videos')
+  @ApiOkResponse({ type: LandingVideosResponse })
+  async videos(): Promise<LandingVideosResponse> {
+    return this.videoStatsService.getAllVideosWithStats();
   }
 
   @Post('send-message')

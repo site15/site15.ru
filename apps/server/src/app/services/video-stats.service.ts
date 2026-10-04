@@ -6,7 +6,13 @@ import { METRICS_FEATURE, MetricsPrismaSdk } from '@site15/metrics';
 
 import { AppEnvironments } from '../app.environments';
 import { customFetch } from './fetch-with-file-cache';
-import { LandingVideoStatsResponse, VideoChannelStatsDto } from './type';
+import {
+  LandingVideoDto,
+  LandingVideosResponse,
+  LandingVideoWithStatsDto,
+  LandingVideoStatsResponse,
+  VideoChannelStatsDto,
+} from './type';
 
 export type VideoStatsProvider = 'youtube' | 'rutube' | 'vk';
 
@@ -42,6 +48,45 @@ export class VideoStatsService implements OnApplicationBootstrap {
     vk: /^-?\d+_\d+$/,
   };
 
+  /**
+   * Конфигурация видео лендинга. ID-шники площадок, ссылки, описания —
+   * всё живёт здесь; фронтенд получает единым запросом вместе со статистикой.
+   */
+  private static readonly VIDEOS: LandingVideoDto[] = [
+    {
+      youtubeId: '1MSIm8Te-QY',
+      rutubeId: '5f0217394026e166e7a224fc12f5c748',
+      vkId: '-241775994_456239017',
+      label: 'Часть 1 · Видео',
+      shortTitle: 'Часть 1',
+      techTags: 'NestJS · Angular · Prisma · PostgreSQL',
+      title: 'Строим настоящий Fullstack-проект с AI — Часть 1: Создание проекта',
+      description:
+        'Создаём приложение на NestJS + Angular с Prisma и PostgreSQL, используя AI в Qoder IDE. Разбираем весь процесс: от архитектуры до production-развёртывания.',
+      detailUrl: './videos/part-1.html',
+      repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+      ytHref: 'https://youtu.be/1MSIm8Te-QY',
+      rutubeHref: 'https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239017',
+    },
+    {
+      youtubeId: '6pSWtGoyS6I',
+      rutubeId: 'c70facc53f796801d96b6850f360a618',
+      vkId: '-241775994_456239022',
+      label: 'Часть 2 · Видео',
+      shortTitle: 'Часть 2',
+      techTags: 'LLM · HeyAPI · E2E · Swagger',
+      title: 'Строим Fullstack-проект с AI — Часть 2: Тестирование с AI и HeyAPI',
+      description:
+        'Продолжаем серию. Создаём тесты с помощью LLM, разбираем HeyAPI, E2E-тесты и постепенную генерацию кода с AI.',
+      detailUrl: './videos/part-2.html',
+      repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+      ytHref: 'https://youtu.be/6pSWtGoyS6I',
+      rutubeHref: 'https://rutube.ru/video/c70facc53f796801d96b6850f360a618/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239022',
+    },
+  ];
+
   private readonly inflight = new Map<string, Promise<VideoChannelStatsDto | null>>();
   private readonly lastFailureAt = new Map<string, number>();
 
@@ -69,6 +114,25 @@ export class VideoStatsService implements OnApplicationBootstrap {
       query.vk ? this.getForVideo('vk', query.vk) : Promise.resolve(null),
     ]);
     return { youtube, rutube, vk };
+  }
+
+  /**
+   * Все видео лендинга из конфига + статистика по каждой площадке.
+   * Один запрос вместо N вызовов video-stats — фронтенд получает
+   * ссылки, описания и счётчики разом.
+   */
+  async getAllVideosWithStats(): Promise<LandingVideosResponse> {
+    const videos: LandingVideoWithStatsDto[] = await Promise.all(
+      VideoStatsService.VIDEOS.map(async (video) => {
+        const [youtubeStats, rutubeStats, vkStats] = await Promise.all([
+          video.youtubeId ? this.getForVideo('youtube', video.youtubeId) : Promise.resolve(null),
+          video.rutubeId ? this.getForVideo('rutube', video.rutubeId) : Promise.resolve(null),
+          video.vkId ? this.getForVideo('vk', video.vkId) : Promise.resolve(null),
+        ]);
+        return { video, youtubeStats, rutubeStats, vkStats };
+      }),
+    );
+    return { videos };
   }
 
   /** Перебирает все когда-либо запрошенные видео и обновляет их в обход TTL. */

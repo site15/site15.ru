@@ -383,3 +383,81 @@ export class LandingVideoStatsResponse {
   @ApiPropertyOptional({ type: () => VideoChannelStatsDto, nullable: true })
   vk?: VideoChannelStatsDto | null;
 }
+
+/** Конфигурация одного видео лендинга (ID-шники площадок + ссылки + мета). */
+export class LandingVideoDto {
+  @ApiPropertyOptional({ description: 'YouTube video ID' })
+  @IsOptional()
+  @IsString()
+  youtubeId?: string | null;
+
+  @ApiPropertyOptional({ description: 'Rutube video hash' })
+  @IsOptional()
+  @IsString()
+  rutubeId?: string | null;
+
+  @ApiPropertyOptional({ description: 'VK Video id (oid_id формат)' })
+  @IsOptional()
+  @IsString()
+  vkId?: string | null;
+
+  @ApiProperty({ description: 'Метка в сайдбаре (напр. «Часть 1 · Видео»)' })
+  @IsString()
+  label!: string;
+
+  @ApiProperty({ description: 'Короткое название части' })
+  @IsString()
+  shortTitle!: string;
+
+  @ApiProperty({ description: 'Стек/теги части' })
+  @IsString()
+  techTags!: string;
+
+  @ApiProperty({ description: 'Заголовок видео' })
+  @IsString()
+  title!: string;
+
+  @ApiProperty({ description: 'Описание видео' })
+  @IsString()
+  description!: string;
+
+  @ApiProperty({ description: 'Ссылка на детальную страницу' })
+  @IsString()
+  detailUrl!: string;
+
+  @ApiProperty({ description: 'Ссылка на репозиторий' })
+  @IsString()
+  repoUrl!: string;
+
+  @ApiProperty({ description: 'Прямая ссылка на YouTube' })
+  @IsString()
+  ytHref!: string;
+
+  @ApiProperty({ description: 'Прямая ссылка на Rutube' })
+  @IsString()
+  rutubeHref!: string;
+
+  @ApiProperty({ description: 'Прямая ссылка на VK Видео' })
+  @IsString()
+  vkHref!: string;
+}
+
+/** Видео лендинга вместе со статистикой по каждой площадке. */
+export class LandingVideoWithStatsDto {
+  @ApiProperty({ type: () => LandingVideoDto })
+  video!: LandingVideoDto;
+
+  @ApiPropertyOptional({ type: () => VideoChannelStatsDto, nullable: true })
+  youtubeStats?: VideoChannelStatsDto | null;
+
+  @ApiPropertyOptional({ type: () => VideoChannelStatsDto, nullable: true })
+  rutubeStats?: VideoChannelStatsDto | null;
+
+  @ApiPropertyOptional({ type: () => VideoChannelStatsDto, nullable: true })
+  vkStats?: VideoChannelStatsDto | null;
+}
+
+export class LandingVideosResponse {
+  @ApiProperty({ type: () => LandingVideoWithStatsDto, isArray: true })
+  videos!: LandingVideoWithStatsDto[];
+}

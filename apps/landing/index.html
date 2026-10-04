@@ -2787,7 +2787,15 @@
     <script src="./js/video-player.js"></script>
     <script>
     // Multi-video sidebar data + switching logic
+    // Данные видео + статистика загружаются с бэкенда (GET /api/landing/videos).
+    // Если бэкенд недоступен — используется захардкоженный fallback + старый
+    // эндпоинт /api/landing/video-stats для счётчиков.
     (function () {
+        var API_BASE = window.location.href.indexOf('localhost') !== -1
+            ? 'http://localhost:3000/api'
+            : 'https://site15.ru/api';
+
+        // Fallback — на случай, если бэкенд ещё не поднялся.
         var VIDEOS = [
             {
                 youtubeId: '1MSIm8Te-QY',
@@ -2817,7 +2825,69 @@
             }
         ];
 
+        // Кэш статистики по индексу видео: { youtube: {views,likes}, rutube: {...}, vk: {...} }
+        var VIDEO_STATS = {};
+        var backendLoaded = false;
+
         var currentVideo = 0;
+
+        function formatCount(n) {
+            try { return new Intl.NumberFormat('ru-RU').format(n); } catch (e) { return String(n); }
+        }
+
+        /** Отрисовать счётчики из VIDEO_STATS[index] в чипы карточки. Если данных нет — показываем 0. */
+        function renderStats(card, index) {
+            var stats = VIDEO_STATS[index] || {};
+            var providers = ['youtube', 'rutube', 'vk'];
+            providers.forEach(function (key) {
+                var s = stats[key + 'Stats'] || {};
+                var views = (s.views !== null && s.views !== undefined) ? s.views : 0;
+                var likes = (s.likes !== null && s.likes !== undefined) ? s.likes : 0;
+                var chip = card.querySelector('[data-video-platform="' + key + '"] [data-video-stats]');
+                if (!chip) return;
+                chip.textContent = '\u00B7 ' + formatCount(views) + ' \uD83D\uDC41\uFE0F ' + formatCount(likes) + ' \uD83D\uDC4D';
+                chip.classList.remove('hidden');
+            });
+        }
+
+        /** Загрузить видео + статистику с бэкенда. */
+        function loadVideosFromBackend() {
+            fetch(API_BASE + '/landing/videos')
+                .then(function (r) { return r.ok ? r.json() : null; })
+                .then(function (data) {
+                    if (!data || !data.videos || !data.videos.length) return;
+                    backendLoaded = true;
+                    data.videos.forEach(function (item, i) {
+                        var v = item.video;
+                        // Обновляем VIDEOS данными с бэкенда.
+                        VIDEOS[i] = {
+                            youtubeId: v.youtubeId || null,
+                            rutubeId: v.rutubeId || null,
+                            vkId: v.vkId || null,
+                            label: v.label,
+                            title: v.title,
+                            description: v.description,
+                            detailUrl: v.detailUrl,
+                            repoUrl: v.repoUrl,
+                            ytHref: v.ytHref,
+                            rutubeHref: v.rutubeHref,
+                            vkHref: v.vkHref
+                        };
+                        // Кэшируем статистику.
+                        VIDEO_STATS[i] = {
+                            youtubeStats: item.youtubeStats || null,
+                            rutubeStats: item.rutubeStats || null,
+                            vkStats: item.vkStats || null
+                        };
+                    });
+                    // Рендерим статистику для текущего видео.
+                    var card = document.querySelector('[data-video-card]');
+                    if (card) renderStats(card, currentVideo);
+                })
+                .catch(function () {
+                    // Бэкенд недоступен — работаем на fallback + старый video-stats.
+                });
+        }
 
         function updateSidebarActive(index) {
             document.querySelectorAll('[data-video-nav]').forEach(function (btn) {
@@ -2868,8 +2938,11 @@
             if (rutubeLink) { rutubeLink.setAttribute('href', v.rutubeHref); rutubeLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); rutubeLink.classList.add('opacity-60'); rutubeLink.setAttribute('aria-pressed', 'false'); }
             if (vkLink) { vkLink.setAttribute('href', v.vkHref); vkLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); vkLink.classList.add('opacity-60'); vkLink.setAttribute('aria-pressed', 'false'); }
 
-            // Reset stats
+            // Reset stats, then render from cache (or fall back to old endpoint).
             card.querySelectorAll('[data-video-stats]').forEach(function (s) { s.classList.add('hidden'); s.textContent = ''; });
+            if (backendLoaded) {
+                renderStats(card, index);
+            }
 
             // Update info section
             var infoSection = document.querySelector('[data-video-info]');
@@ -2893,11 +2966,15 @@
             }
         };
 
-        // Initialize sidebar highlight
+        // Initialize: sidebar highlight + fetch videos from backend.
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function () { updateSidebarActive(0); });
+            document.addEventListener('DOMContentLoaded', function () {
+                updateSidebarActive(0);
+                loadVideosFromBackend();
+            });
         } else {
             updateSidebarActive(0);
+            loadVideosFromBackend();
         }
     })();
     </script>

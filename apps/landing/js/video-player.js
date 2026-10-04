@@ -272,7 +272,7 @@
    * Просмотры/лайки берутся с нашего бэкенда (/api/landing/video-stats):
    * он ходит к площадкам сервер-side (CORS не даёт напрямую), кэширует в БД
    * на час (чтобы не словить бан) и пишет историю — тренд по видео.
-   * Ошибки игнорируем молча — счётчики не критичны.
+   * Если данных нет — показываем 0, чтобы чипы не выглядели пустыми.
    */
     function loadVideoStats(card, ids, gen) {
         var params = [];
@@ -290,26 +290,24 @@
         fetch(API_BASE + '/landing/video-stats?' + params.join('&'))
             .then(function (r) { return r.ok ? r.json() : null; })
             .then(function (data) {
-                if (!data) return;
+                if (!data) data = {};
                 // Пока летел запрос, видео могли переключить — не рисуем чужие счётчики.
                 if (gen !== undefined && card._videoGen !== gen) return;
                 Object.keys(slots).forEach(function (provider) {
-                    var stats = data[provider];
-                    if (!stats) return;
-                    var parts = [];
-                    if (stats.views !== null && stats.views !== undefined) {
-                        parts.push(formatCount(stats.views) + ' \uD83D\uDC41\uFE0F');
-                    }
-                    if (stats.likes !== null && stats.likes !== undefined) {
-                        parts.push(formatCount(stats.likes) + ' \uD83D\uDC4D');
-                    }
-                    if (parts.length) {
-                        slots[provider].textContent = '\u00B7 ' + parts.join(' ');
-                        slots[provider].classList.remove('hidden');
-                    }
+                    var stats = data[provider] || {};
+                    var views = (stats.views !== null && stats.views !== undefined) ? stats.views : 0;
+                    var likes = (stats.likes !== null && stats.likes !== undefined) ? stats.likes : 0;
+                    slots[provider].textContent = '\u00B7 ' + formatCount(views) + ' \uD83D\uDC41\uFE0F ' + formatCount(likes) + ' \uD83D\uDC4D';
+                    slots[provider].classList.remove('hidden');
                 });
             })
-            .catch(function () { /* статистика — украшение чипов */ });
+            .catch(function () {
+                // Бэкенд недоступен — всё равно показываем нули.
+                Object.keys(slots).forEach(function (provider) {
+                    slots[provider].textContent = '\u00B7 0 \uD83D\uDC41\uFE0F 0 \uD83D\uDC4D';
+                    slots[provider].classList.remove('hidden');
+                });
+            });
     }
 
     function initVideoCard(card) {
