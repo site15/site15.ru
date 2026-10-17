@@ -85,6 +85,22 @@ export class VideoStatsService implements OnApplicationBootstrap {
       rutubeHref: 'https://rutube.ru/video/c70facc53f796801d96b6850f360a618/',
       vkHref: 'https://vkvideo.ru/video-241775994_456239022',
     },
+    {
+      youtubeId: '-VUl5p5xe3I',
+      rutubeId: '8af7bfb3b9e759ca6732dbc8011293d9',
+      vkId: '-241775994_456239023',
+      label: 'Часть 3 · Видео',
+      shortTitle: 'Часть 3',
+      techTags: 'GitHub Actions · CI/CD · MCP · Jest',
+      title: 'Настраиваем CI/CD с AI | GitHub Actions, тесты, MCP и скилл онбординга — Fullstack с AI — Часть 3',
+      description:
+        'Настраиваем CI/CD на GitHub Actions: пайплайны для бэкенда и фронтенда, линты, форматирование, билды, юнит-тесты. Разбираем MCP для GitHub и отладку упавших пайплайнов, скилл онбординга коммитов.',
+      detailUrl: './videos/part-3.html',
+      repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+      ytHref: 'https://youtu.be/-VUl5p5xe3I',
+      rutubeHref: 'https://rutube.ru/video/8af7bfb3b9e759ca6732dbc8011293d9/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239023',
+    },
   ];
 
   private readonly inflight = new Map<string, Promise<VideoChannelStatsDto | null>>();
