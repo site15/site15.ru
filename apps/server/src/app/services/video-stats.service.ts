@@ -101,6 +101,22 @@ export class VideoStatsService implements OnApplicationBootstrap {
       rutubeHref: 'https://rutube.ru/video/8af7bfb3b9e759ca6732dbc8011293d9/',
       vkHref: 'https://vkvideo.ru/video-241775994_456239023',
     },
+    {
+      youtubeId: 'ceL0qmeQe84',
+      rutubeId: '70858b2775dffb17c2e9c203937788ea',
+      vkId: '-241775994_456239038',
+      label: 'Часть 4 · Видео',
+      shortTitle: 'Часть 4',
+      techTags: 'PM2 · Playwright · E2E · GitHub Actions',
+      title: 'Запускаем прод с AI | start:prod, PM2, фронт внутри бэкенда и e2e — Fullstack с AI — Часть 4',
+      description:
+        'Доводим запуск продакшена: скрипт start:prod, PM2 и его логи, фронтенд внутри бэкенда через ServerStatic и e2e-тесты в GitHub Actions на двух ветках — бэкенда и фронтенда.',
+      detailUrl: './videos/part-4.html',
+      repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+      ytHref: 'https://youtu.be/ceL0qmeQe84',
+      rutubeHref: 'https://rutube.ru/video/70858b2775dffb17c2e9c203937788ea/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239038',
+    },
   ];
 
   private readonly inflight = new Map<string, Promise<VideoChannelStatsDto | null>>();
