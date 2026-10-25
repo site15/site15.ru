@@ -35,7 +35,8 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
     }
 
     if (this.appEnvironments.syncAllStatsAfterStart) {
-      this.syncAllStats().then();
+      // setImmediate() чтобы не блокировать event loop при старте
+      setImmediate(() => this.syncAllStats().then());
     }
   }
 
