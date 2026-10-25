@@ -131,7 +131,10 @@ export class VideoStatsService implements OnApplicationBootstrap {
     }
     // Первоначальное заполнение БД статистикой видео — чтобы фронтенд сразу
     // получил данные, а не ждал первого запуска шедулера.
-    this.refreshAll().catch((error) => this.logger.error(`Initial refreshAll failed: ${String(error)}`));
+    // setImmediate() чтобы не блокировать event loop при старте.
+    setImmediate(() => {
+      this.refreshAll().catch((error) => this.logger.error(`Initial refreshAll failed: ${String(error)}`));
+    });
 
     // Фоновое обновление известных видео по часам — тренд пополняется даже
     // без заходов на лендинг. Тот же гей, что у syncAllStats.
