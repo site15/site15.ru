@@ -19,15 +19,15 @@ export type VideoStatsProvider = 'youtube' | 'rutube' | 'vk';
 /**
  * Сбор просмотров/лайков видео лендинга (YouTube / Rutube / VK Видео).
  *
+ * Архитектура:
+ *  - Шедулер (`refreshAll()`) периодически (раз в час) опрашивает внешние
+ *    площадки и кладёт статистику в БД (metricsDynamic).
+ *  - Фронтенд берёт данные только из БД (быстро, без внешних запросов).
+ *  - Если данных нет в БД, возвращаем null — фронтенд покажет 0.
+ *  - Каждое изменение пишется в metricsDynamicHistory — тренд по видео,
+ *    ровно как по остальным метрикам проекта.
+ *
  * Площадки не отдают статистику через CORS, поэтому за ними ходит сервер.
- * Чтобы не словить бан за частые обращения:
- *  - значения лежат в metricsDynamic (level1='videoStats',
- *    level2='провайдер:idВидео', level3='views'|'likes') и перевыбираются
- *    не чаще VIDEO_STATS_TTL_MS (метка checkedAt);
- *  - каждое изменение пишется в metricsDynamicHistory — тренд по видео,
- *    ровно как по остальным метрикам проекта;
- *  - параллельные запросы к одному видео дедуплицируются (inflight),
- *    а после ошибки работает backoff, чтобы не долбить площадку на рефреше.
  */
 @Injectable()
 export class VideoStatsService implements OnApplicationBootstrap {
@@ -119,9 +119,6 @@ export class VideoStatsService implements OnApplicationBootstrap {
     },
   ];
 
-  private readonly inflight = new Map<string, Promise<VideoChannelStatsDto | null>>();
-  private readonly lastFailureAt = new Map<string, number>();
-
   constructor(
     @InjectPrismaClient(METRICS_FEATURE)
     private readonly prismaClient: MetricsPrismaSdk.PrismaClient,
@@ -132,6 +129,10 @@ export class VideoStatsService implements OnApplicationBootstrap {
     if (isInfrastructureMode()) {
       return;
     }
+    // Первоначальное заполнение БД статистикой видео — чтобы фронтенд сразу
+    // получил данные, а не ждал первого запуска шедулера.
+    this.refreshAll().catch((error) => this.logger.error(`Initial refreshAll failed: ${String(error)}`));
+
     // Фоновое обновление известных видео по часам — тренд пополняется даже
     // без заходов на лендинг. Тот же гей, что у syncAllStats.
     if (this.appEnvironments.syncAllStatsByInterval) {
@@ -167,20 +168,27 @@ export class VideoStatsService implements OnApplicationBootstrap {
     return { videos };
   }
 
-  /** Перебирает все когда-либо запрошенные видео и обновляет их в обход TTL. */
+  /**
+   * Шедулер: перебирает все видео из конфига и обновляет их статистику
+   * внешними запросами к площадкам. Вызывается по интервалу и при старте.
+   */
   async refreshAll(): Promise<void> {
-    const rows = await this.prismaClient.metricsDynamic.findMany({
-      where: { level1: VideoStatsService.LEVEL1, level3: 'views' },
-    });
-    for (const row of rows) {
-      const [provider, ...idParts] = (row.level2 || '').split(':');
-      const videoId = idParts.join(':');
-      if (!this.isProvider(provider) || !videoId) {
-        continue;
+    for (const video of VideoStatsService.VIDEOS) {
+      if (video.youtubeId) {
+        await this.fetchAndSave('youtube', video.youtubeId, `youtube:${video.youtubeId}`).catch((error) =>
+          this.logger.warn(`refreshAll failed for youtube:${video.youtubeId}: ${String(error)}`),
+        );
       }
-      await this.getForVideo(provider, videoId, true).catch((error) =>
-        this.logger.warn(`refreshAll failed for ${row.level2}: ${String(error)}`),
-      );
+      if (video.rutubeId) {
+        await this.fetchAndSave('rutube', video.rutubeId, `rutube:${video.rutubeId}`).catch((error) =>
+          this.logger.warn(`refreshAll failed for rutube:${video.rutubeId}: ${String(error)}`),
+        );
+      }
+      if (video.vkId) {
+        await this.fetchAndSave('vk', video.vkId, `vk:${video.vkId}`).catch((error) =>
+          this.logger.warn(`refreshAll failed for vk:${video.vkId}: ${String(error)}`),
+        );
+      }
     }
   }
 
@@ -188,11 +196,12 @@ export class VideoStatsService implements OnApplicationBootstrap {
     return value === 'youtube' || value === 'rutube' || value === 'vk';
   }
 
-  private async getForVideo(
-    provider: VideoStatsProvider,
-    videoId: string,
-    force = false,
-  ): Promise<VideoChannelStatsDto | null> {
+  /**
+   * Чтение статистики видео из БД. Внешние запросы НЕ делаются — только шедулер
+   * (`refreshAll()`) периодически опрашивает площадки и обновляет БД.
+   * Если данных нет в БД, возвращаем null — фронтенд покажет 0.
+   */
+  private async getForVideo(provider: VideoStatsProvider, videoId: string): Promise<VideoChannelStatsDto | null> {
     if (!VideoStatsService.ID_PATTERNS[provider].test(videoId)) {
       return null;
     }
@@ -200,31 +209,11 @@ export class VideoStatsService implements OnApplicationBootstrap {
     const key = `${provider}:${videoId}`;
     const stored = await this.readStored(key);
 
-    if (!force && stored && this.isFresh(stored)) {
-      return this.toStats(stored);
+    if (!stored) {
+      return null;
     }
 
-    // Inflight-дедуп: несколько одновременных запросов к одному видео
-    // выбирают данные с площадки ровно один раз.
-    const existing = this.inflight.get(key);
-    if (existing) {
-      await existing;
-      const refreshed = await this.readStored(key);
-      if (refreshed) {
-        return this.toStats(refreshed);
-      }
-      return stored ? this.toStats(stored) : null;
-    }
-
-    const failureAt = this.lastFailureAt.get(key);
-    if (!force && failureAt && Date.now() - failureAt < VideoStatsService.FAILURE_BACKOFF_MS) {
-      return stored ? this.toStats(stored) : null;
-    }
-
-    const promise = this.fetchAndSave(provider, videoId, key).finally(() => this.inflight.delete(key));
-    this.inflight.set(key, promise);
-    const fresh = await promise;
-    return fresh ?? (stored ? this.toStats(stored) : null);
+    return this.toStats(stored);
   }
 
   private async fetchAndSave(
@@ -240,14 +229,11 @@ export class VideoStatsService implements OnApplicationBootstrap {
             ? await this.fetchRutubeStats(videoId)
             : await this.fetchVkStats(videoId);
       if (!stats) {
-        this.lastFailureAt.set(key, Date.now());
         return null;
       }
-      this.lastFailureAt.delete(key);
       await this.save(key, stats);
       return stats;
     } catch (error) {
-      this.lastFailureAt.set(key, Date.now());
       this.logger.warn(`video-stats fetch failed for ${key}: ${String(error)}`);
       return null;
     }
@@ -269,11 +255,6 @@ export class VideoStatsService implements OnApplicationBootstrap {
       }
     }
     return { views: map.views ?? null, likes: map.likes ?? null, checkedAt: map.checkedAt ?? null };
-  }
-
-  private isFresh(stored: { checkedAt: string | null }): boolean {
-    const checkedAt = Number(stored.checkedAt);
-    return Number.isFinite(checkedAt) && Date.now() - checkedAt < VideoStatsService.TTL_MS;
   }
 
   private toStats(stored: { views: string | null; likes: string | null }): VideoChannelStatsDto {
@@ -480,7 +461,7 @@ export class VideoStatsService implements OnApplicationBootstrap {
       `https://rutube.ru/api/video/${videoId}/?format=json`,
       // proxy: false — площадка доступна напрямую, прокси (нужен только для
       // YouTube) уводит запрос на зарубежный IP.
-      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT }, proxy: false },
+      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT }, proxy: false, timeout: 15000 },
       true,
     );
     if (!response.ok) {
@@ -496,7 +477,7 @@ export class VideoStatsService implements OnApplicationBootstrap {
     const [oid, id] = videoRef.split('_');
     const response = await customFetch(
       `https://vk.com/video_ext.php?oid=${oid}&id=${id}&hd=2`,
-      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT }, proxy: false },
+      { headers: { 'User-Agent': VideoStatsService.BROWSER_USER_AGENT }, proxy: false, timeout: 15000 },
       true,
     );
     if (!response.ok) {

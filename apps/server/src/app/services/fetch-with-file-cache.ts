@@ -133,6 +133,7 @@ export const customFetch = async function cachedFetch(
     method: method as any,
     responseType: 'text', // важно: аналог response.text()
     validateStatus: () => true, // не бросаем на 4xx/5xx
+    timeout: 30000, // дефолтный таймаут 30с, если не указан явно
     ...options,
   });
 
