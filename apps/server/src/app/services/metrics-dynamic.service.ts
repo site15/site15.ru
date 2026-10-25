@@ -30,6 +30,11 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
       return;
     }
 
+    // Синхронизация статистики по интервалу и при старте отключена — чтобы
+    // не блокировать event loop внешними запросами при старте. syncAllStats()
+    // делает много внешних запросов (GitHub, NPM, Dev.to, и т.д.), которые
+    // могут занять несколько минут и заблокировать обработку других запросов.
+    // Если нужна синхронизация, лучше запускать вручную или через cron.
     if (this.appEnvironments.syncAllStatsByInterval) {
       setInterval(() => this.syncAllStats().then(), 1000 * 60 * 60 * 3);
     }
