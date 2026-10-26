@@ -6,6 +6,7 @@ import { METRICS_FEATURE, MetricsPrismaSdk } from '@site15/metrics';
 
 import { AppEnvironments } from '../app.environments';
 import { customFetch } from './fetch-with-file-cache';
+import { isWritableMetricValue } from './metric-value.utils';
 import {
   LandingVideoDto,
   LandingVideosResponse,
@@ -279,21 +280,32 @@ export class VideoStatsService implements OnApplicationBootstrap {
     ];
 
     for (const [level3, value] of fields) {
+      const metricKey = {
+        level1: VideoStatsService.LEVEL1,
+        level2: key,
+        level3,
+      };
+
+      // Просмотры/лайки, обнулённые сбоем площадки, не должны затирать
+      // последнее достоверное значение и писать в историю ложное падение.
+      if (level3 !== 'checkedAt') {
+        const current = await this.prismaClient.metricsDynamic.findUnique({
+          where: { level1_level2_level3: metricKey },
+          select: { value: true },
+        });
+        if (!isWritableMetricValue(current?.value ?? null, value)) {
+          this.logger.warn(`save: не пишу «${key}|${level3}»: ${current?.value} → ${value} похоже на сбой опроса`);
+          continue;
+        }
+      }
+
       await this.prismaClient.metricsDynamic.upsert({
         create: {
-          level1: VideoStatsService.LEVEL1,
-          level2: key,
-          level3,
+          ...metricKey,
           value,
         },
         update: { value },
-        where: {
-          level1_level2_level3: {
-            level1: VideoStatsService.LEVEL1,
-            level2: key,
-            level3,
-          },
-        },
+        where: { level1_level2_level3: metricKey },
       });
 
       // checkedAt — служебная метка свежести, в тренд её не пишем.
@@ -302,15 +314,14 @@ export class VideoStatsService implements OnApplicationBootstrap {
       }
 
       const old = await this.prismaClient.metricsDynamicHistory.findFirst({
-        where: { level1: VideoStatsService.LEVEL1, level2: key, level3 },
+        where: metricKey,
         orderBy: { createdAt: 'desc' },
+        select: { value: true },
       });
       if (!old || old.value !== value) {
         await this.prismaClient.metricsDynamicHistory.create({
           data: {
-            level1: VideoStatsService.LEVEL1,
-            level2: key,
-            level3,
+            ...metricKey,
             value,
           },
         });

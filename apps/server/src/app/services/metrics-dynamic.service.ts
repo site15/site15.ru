@@ -4,6 +4,7 @@ import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { METRICS_FEATURE, MetricsDynamic, MetricsPrismaSdk } from '@site15/metrics';
 import { AppEnvironments } from '../app.environments';
+import { isBlankOrZeroMetricValue, isWritableMetricValue } from './metric-value.utils';
 import { setAppEnvironments, setPrismaClient } from './global';
 import { AllStats, MetricHistoryItemDto } from './type';
 import { syncAllStats } from './update-all-stats';
@@ -33,25 +34,6 @@ function clampHistoryLimit(limit: number, fallback: number, max: number): number
     return fallback;
   }
   return Math.min(parsed, max);
-}
-
-/**
- * Нули и пустые значения в истории — следы сбоев опроса (площадка отдала пустой
- * ответ, парсер не нашёл число), а не реальные данные: звёзды/подписчики/просмотры
- * не «обнуляются» с последующим восстановлением. Такие точки не участвуют ни в
- * сравнении тренда, ни в модалке последних значений.
- *
- * Нечисловые строки (длительности, «N/A») не считаем нулём — их судьба за фронтом.
- */
-function isBlankOrZeroMetricValue(value: string | null): boolean {
-  if (value === null || value.trim() === '') {
-    return true;
-  }
-  const text = value.replace(/[\s\u00a0]/g, '').replace(/[\u2212\u2013\u2014]/g, '-');
-  if (!/^-?\d+(\.\d+)?$/.test(text)) {
-    return false;
-  }
-  return Number(text) === 0;
 }
 
 @Injectable()
@@ -191,38 +173,40 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
       const allStats = await syncAllStats();
       const metrics = this.convertAllStatsToMetricsDynamic(allStats);
       for (const metric of metrics) {
+        const key = {
+          level1: metric.level1 || '',
+          level2: metric.level2 || '',
+          level3: metric.level3 || '',
+        };
+        const current = await this.prismaClient.metricsDynamic.findUnique({
+          where: { level1_level2_level3: key },
+          select: { value: true },
+        });
+        if (!isWritableMetricValue(current?.value ?? null, metric.value)) {
+          this.logger.warn(
+            `syncAllStats: не пишу «${formatMetricKey(key)}»: ${current?.value} → ${metric.value} похоже на сбой опроса площадки`,
+          );
+          continue;
+        }
         await this.prismaClient.metricsDynamic.upsert({
           create: {
-            level1: metric.level1 || '',
-            level2: metric.level2 || '',
-            level3: metric.level3 || '',
+            ...key,
             value: metric.value,
           },
           update: {
             value: metric.value,
           },
-          where: {
-            level1_level2_level3: {
-              level1: metric.level1 || '',
-              level2: metric.level2 || '',
-              level3: metric.level3 || '',
-            },
-          },
+          where: { level1_level2_level3: key },
         });
         const old = await this.prismaClient.metricsDynamicHistory.findFirst({
-          where: {
-            level1: metric.level1 || '',
-            level2: metric.level2 || '',
-            level3: metric.level3 || '',
-          },
+          where: key,
           orderBy: { createdAt: 'desc' },
+          select: { value: true },
         });
         if (!old || old?.value !== metric.value) {
           await this.prismaClient.metricsDynamicHistory.create({
             data: {
-              level1: metric.level1 || '',
-              level2: metric.level2 || '',
-              level3: metric.level3 || '',
+              ...key,
               value: metric.value,
             },
           });

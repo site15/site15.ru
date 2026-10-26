@@ -16,6 +16,18 @@ function delay(ms: number | undefined) {
 }
 
 /**
+ * 404 — профиль/репозиторий/пакет действительно отсутствует, ноль в этом случае
+ * честный. Любая другая ошибка (403 rate-limit, 5xx, сеть) — временный сбой:
+ * подставлять вместо неё 0 нельзя, иначе сумма по репозиториям падает на
+ * пропущенный репозиторий, а в metricsDynamicHistory ложатся ложные «падения» с
+ * последующим «ростом». Такие ошибки пробрасываем наверх: секция в этом цикле не
+ * обновляется вовсе, в базе остаются последние достоверные значения.
+ */
+function isNotFoundFetchError(error: any): boolean {
+  return /HTTP 404/.test(String(error?.message ?? ''));
+}
+
+/**
  * Get proper Russian declension for numbers
  * @param {number} n - Number to format
  * @param {Array} words - Word forms for 1, 2-4, 5-20
@@ -202,13 +214,7 @@ async function fetchRepoData(repo: string, token: string | undefined) {
     console.log(`Response status for ${repo}: ${response.status}`);
 
     if (response.status === 403) {
-      console.warn(`⚠️  Rate limit exceeded for ${repo}. Using default values.`);
-      return {
-        name: repo,
-        stars: 0,
-        forks: 0,
-        watchers: 0,
-      };
+      throw new Error(`HTTP ${response.status}: rate limit exceeded for ${repo}`);
     }
 
     if (!response.ok) {
@@ -225,13 +231,17 @@ async function fetchRepoData(repo: string, token: string | undefined) {
       watchers: data.watchers_count || 0,
     };
   } catch (error) {
-    console.warn(`⚠️  Could not fetch data for ${repo}:`, error.message);
-    return {
-      name: repo,
-      stars: 0,
-      forks: 0,
-      watchers: 0,
-    };
+    if (isNotFoundFetchError(error)) {
+      console.warn(`⚠️  Repo ${repo} not found (404): звёзд 0.`);
+      return {
+        name: repo,
+        stars: 0,
+        forks: 0,
+        watchers: 0,
+      };
+    }
+    console.error(`❌ Could not fetch data for ${repo}:`, error.message);
+    throw error;
   }
 }
 
@@ -263,8 +273,12 @@ async function fetchCommitCount(repo: string, token: string | undefined) {
     }
     return 0;
   } catch (error) {
-    console.warn(`⚠️  Could not fetch commit count for ${repo}:`, error.message);
-    return 0;
+    if (isNotFoundFetchError(error)) {
+      console.warn(`⚠️  Repo ${repo} not found (404): коммитов 0.`);
+      return 0;
+    }
+    console.error(`❌ Could not fetch commit count for ${repo}:`, error.message);
+    throw error;
   }
 }
 
@@ -353,11 +367,15 @@ async function fetchUserData(username: string, token: string | undefined) {
       publicRepos: data.public_repos || 0,
     };
   } catch (error) {
-    console.warn(`⚠️  Could not fetch data for user ${username}:`, error.message);
-    return {
-      followers: 0,
-      publicRepos: 0,
-    };
+    if (isNotFoundFetchError(error)) {
+      console.warn(`⚠️  User ${username} not found (404): считаем 0.`);
+      return {
+        followers: 0,
+        publicRepos: 0,
+      };
+    }
+    console.error(`❌ Could not fetch data for user ${username}:`, error.message);
+    throw error;
   }
 }
 
@@ -383,10 +401,14 @@ async function fetchOrgData(org: string, token: string | undefined) {
       publicRepos: data.public_repos || 0,
     };
   } catch (error) {
-    console.warn(`⚠️  Could not fetch data for org ${org}:`, error.message);
-    return {
-      publicRepos: 0,
-    };
+    if (isNotFoundFetchError(error)) {
+      console.warn(`⚠️  Org ${org} not found (404): считаем 0.`);
+      return {
+        publicRepos: 0,
+      };
+    }
+    console.error(`❌ Could not fetch data for org ${org}:`, error.message);
+    throw error;
   }
 }
 
@@ -427,8 +449,12 @@ async function fetchTotalStars(username: string, token: string | undefined) {
 
     return totalStars;
   } catch (error) {
-    console.warn(`⚠️  Could not fetch total stars for ${username}:`, error.message);
-    return 0;
+    if (isNotFoundFetchError(error)) {
+      console.warn(`⚠️  User ${username} not found (404): звёзд 0.`);
+      return 0;
+    }
+    console.error(`❌ Could not fetch total stars for ${username}:`, error.message);
+    throw error;
   }
 }
 
@@ -466,8 +492,12 @@ async function fetchOrgStars(org: string, token: string | undefined) {
 
     return totalStars;
   } catch (error) {
-    console.warn(`⚠️  Could not fetch org stars for ${org}:`, error.message);
-    return 0;
+    if (isNotFoundFetchError(error)) {
+      console.warn(`⚠️  Org ${org} not found (404): звёзд 0.`);
+      return 0;
+    }
+    console.error(`❌ Could not fetch org stars for ${org}:`, error.message);
+    throw error;
   }
 }
 
@@ -658,10 +688,14 @@ async function fetchNpmNestjsModStats() {
       downloads: data.downloads || 0,
     };
   } catch (error) {
-    console.warn(`⚠️  Could not fetch NPM data:`, error.message);
-    return {
-      downloads: 0,
-    };
+    if (isNotFoundFetchError(error)) {
+      console.warn(`⚠️  NPM package not found (404): загрузок 0.`);
+      return {
+        downloads: 0,
+      };
+    }
+    console.error(`❌ Could not fetch NPM data:`, error.message);
+    throw error;
   }
 }
 

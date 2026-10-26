@@ -24,6 +24,13 @@ async function readCache(filePath: string) {
       return null;
     }
 
+    // Раньше в кэш попадали и ошибки (403/404/5xx): отдавать их как валидный
+    // ответ — значит снова получить 0 в метриках, поэтому считаем промахом.
+    const status = +((cached as any)?.status ?? 0);
+    if (cached && (status < 200 || status >= 300)) {
+      return null;
+    }
+
     return cached;
   } catch {
     return null;
@@ -151,7 +158,11 @@ export const customFetch = async function cachedFetch(
 
   const response: AxiosResponse<string> = await axios(axiosConfig);
 
-  if (method === 'GET' && !skipCache) {
+  // В кэш кладём только успешные ответы. Ответы 403/429/5xx (rate-limit
+  // площадки, временный сбой) жили бы в кэше сутки и воспроизводили ошибку на
+  // каждом цикле синхронизации: парсеры делают из тела ошибки 0, и в метрики
+  // вместе с настоящими значениями ложатся обнуления и ложные падения.
+  if (method === 'GET' && !skipCache && response.status >= 200 && response.status < 400) {
     await writeCache(url, {
       status: response.status,
       headers: response.headers,
