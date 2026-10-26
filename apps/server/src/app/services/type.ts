@@ -461,3 +461,38 @@ export class LandingVideosResponse {
   @ApiProperty({ type: () => LandingVideoWithStatsDto, isArray: true })
   videos!: LandingVideoWithStatsDto[];
 }
+
+/* ---------------- Metric history (landing trend badges) ---------------- */
+
+/** Одна точка истории метрики: значение (строкой — как лежит в БД) и время записи. */
+export class MetricPointDto {
+  @ApiProperty({
+    type: 'string',
+    nullable: true,
+    description: 'Значение метрики из metricsDynamicHistory',
+  })
+  value!: string | null;
+
+  @ApiProperty({
+    type: 'string',
+    description: 'ISO-время появления значения (createdAt записи истории)',
+  })
+  createdAt!: string;
+}
+
+/** История одной метрики: ключ + последние N точек, самая свежая — первой. */
+export class MetricHistoryItemDto {
+  @ApiProperty({
+    example: 'githubStats|rucken|stars',
+    description: 'Ключ метрики: level1|level2|level3',
+  })
+  key!: string;
+
+  @ApiProperty({ type: () => MetricPointDto, isArray: true })
+  points!: MetricPointDto[];
+}
+
+export class LandingMetricHistoryResponse {
+  @ApiProperty({ type: () => MetricHistoryItemDto, isArray: true })
+  items!: MetricHistoryItemDto[];
+}

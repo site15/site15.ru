@@ -113,7 +113,7 @@ function initializeGitHubBadges(allStats) {
   }
 
   // Update org stars badge
-  const orgStarsElement = document.getElementById('github-nestjs-mod-stars');
+  const orgStarsElement = document.getElementById('github-nestjs-mod-org-stars');
   if (orgStarsElement) {
     const starsWord = getRussianDeclension(allStats.githubStats.org.totalStars, ['звезда', 'звезды', 'звезд']);
     orgStarsElement.textContent = `${allStats.githubStats.org.totalStars} ${starsWord}`;

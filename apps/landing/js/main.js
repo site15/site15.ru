@@ -149,20 +149,30 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   function updateHtml() {
-    // Initialize GitHub badges when DOM is loaded
-    initializeGitHubBadges(allStats);
+    try {
+      // Initialize GitHub badges when DOM is loaded
+      initializeGitHubBadges(allStats);
 
-    //
-    updateTelegramChatsDisplay(allStats);
+      //
+      updateTelegramChatsDisplay(allStats);
 
-    // Initialize Dev.to badges
-    updateDevToBadges(allStats);
+      // Initialize Dev.to badges
+      updateDevToBadges(allStats);
 
-    //
-    updateNpmBadges(allStats);
+      //
+      updateNpmBadges(allStats);
 
-    // Initialize Habr badges
-    updateHabrBadges(allStats);
+      // Initialize Habr badges
+      updateHabrBadges(allStats);
+    } finally {
+      // Часть плашек перерисовывается через innerHTML/textContent, вместе с
+      // содержимым затираются и тренд-круглешки — ставим их заново (история уже
+      // в кэше stats-trend, поэтому повторных запросов не будет). В finally —
+      // чтобы бейджи вернулись, даже если один из апдейеров упал на данных.
+      if (window.statsTrend && typeof window.statsTrend.init === 'function') {
+        window.statsTrend.init(document);
+      }
+    }
   }
 
   // NOTE: This API endpoint can be called locally during development

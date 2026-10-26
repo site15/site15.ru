@@ -14,6 +14,7 @@ import {
   ChatMessageDto,
   ChatSendMessageDto,
   LandingAllStatsResponse,
+  LandingMetricHistoryResponse,
   LandingSendMessageDto,
   LandingVideoStatsResponse,
   LandingVideosResponse,
@@ -78,6 +79,21 @@ export class LandingController {
   @ApiOkResponse({ type: LandingVideosResponse })
   async videos(): Promise<LandingVideosResponse> {
     return this.videoStatsService.getAllVideosWithStats();
+  }
+
+  /**
+   * История значений метрик для лендинга: по ней рисуем тренд-бейджи (↑ рост,
+   * ↓ спад, ★ без изменений) и модалку с последними значениями.
+   * Ключи — `level1|level2|level3` через запятую (их отдаёт разметка бейджей).
+   * Только чтение из metricsDynamicHistory, внешних запросов нет.
+   */
+  @Get('metric-history')
+  @ApiOkResponse({ type: LandingMetricHistoryResponse })
+  async metricHistory(
+    @Query('keys') keys?: string,
+    @Query('limit') limit?: string,
+  ): Promise<LandingMetricHistoryResponse> {
+    return { items: await this.metricsDynamicService.getHistoryForKeys((keys ?? '').split(','), Number(limit)) };
   }
 
   @Post('send-message')

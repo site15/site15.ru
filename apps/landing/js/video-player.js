@@ -269,6 +269,31 @@
     }
 
     /**
+   * Ключ истории метрики для чипа площадки — тот же формат, что пишет бэкенд
+   * (video-stats.service.ts: level2 = `provider:videoId`, level3 = `views|likes`).
+   * Главная метрика чипа — просмотры, по ним и рисуем тренд.
+   */
+    function videoTrendKey(provider, ids) {
+        var videoId = provider === 'youtube' ? ids.youtubeId
+            : provider === 'rutube' ? ids.rutubeId
+                : ids.vkId;
+        if (!videoId) return null;
+        return 'videoStats|' + provider + ':' + videoId + '|views';
+    }
+
+    /** Повесить на чип ключ тренда и попросить stats-trend перерисовать круглешек. */
+    function applyTrendKey(slot, provider, ids) {
+        if (!slot || !window.statsTrend) return;
+        var key = videoTrendKey(provider, ids);
+        if (key) {
+            slot.setAttribute('data-trend-key', key);
+        } else {
+            slot.removeAttribute('data-trend-key');
+        }
+        window.statsTrend.refresh(slot);
+    }
+
+    /**
    * Просмотры/лайки берутся с нашего бэкенда (/api/landing/video-stats):
    * он ходит к площадкам сервер-side (CORS не даёт напрямую), кэширует в БД
    * на час (чтобы не словить бан) и пишет историю — тренд по видео.
@@ -299,6 +324,7 @@
                     var likes = (stats.likes !== null && stats.likes !== undefined) ? stats.likes : 0;
                     slots[provider].textContent = '\u00B7 ' + formatCount(views) + ' \uD83D\uDC41\uFE0F ' + formatCount(likes) + ' \uD83D\uDC4D';
                     slots[provider].classList.remove('hidden');
+                    applyTrendKey(slots[provider], provider, ids);
                 });
             })
             .catch(function () {
@@ -306,6 +332,7 @@
                 Object.keys(slots).forEach(function (provider) {
                     slots[provider].textContent = '\u00B7 0 \uD83D\uDC41\uFE0F 0 \uD83D\uDC4D';
                     slots[provider].classList.remove('hidden');
+                    applyTrendKey(slots[provider], provider, ids);
                 });
             });
     }
@@ -354,6 +381,9 @@
     // Expose helpers for the multi-video sidebar on the landing page.
     window.__videoPlayer = {
         initVideoCard: initVideoCard,
+        // Инлайн-скрипт лендинга рендерит счётчики из своего кэша (/landing/videos)
+        // и обновляет тренд-ключи тем же способом, что и loadVideoStats.
+        applyTrendKey: applyTrendKey,
         resetProbe: function () {
             probeCache = {};
         },
