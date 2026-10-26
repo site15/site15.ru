@@ -35,6 +35,25 @@ function clampHistoryLimit(limit: number, fallback: number, max: number): number
   return Math.min(parsed, max);
 }
 
+/**
+ * Нули и пустые значения в истории — следы сбоев опроса (площадка отдала пустой
+ * ответ, парсер не нашёл число), а не реальные данные: звёзды/подписчики/просмотры
+ * не «обнуляются» с последующим восстановлением. Такие точки не участвуют ни в
+ * сравнении тренда, ни в модалке последних значений.
+ *
+ * Нечисловые строки (длительности, «N/A») не считаем нулём — их судьба за фронтом.
+ */
+function isBlankOrZeroMetricValue(value: string | null): boolean {
+  if (value === null || value.trim() === '') {
+    return true;
+  }
+  const text = value.replace(/[\s\u00a0]/g, '').replace(/[\u2212\u2013\u2014]/g, '-');
+  if (!/^-?\d+(\.\d+)?$/.test(text)) {
+    return false;
+  }
+  return Number(text) === 0;
+}
+
 @Injectable()
 export class MetricsDynamicService implements OnApplicationBootstrap {
   private readonly logger = new Logger(MetricsDynamicService.name);
@@ -94,6 +113,7 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
    * лендинге. Ключ задаётся как `level1|level2|level3`; у плоских метрик
    * (devToStats, habrStats, npmNestjsModStats…) level2 пустой, и в фильтре он
    * намеренно опускается: такие строки лежат в БД то с '', то с null.
+   * Пустые и нулевые значения вырезаются — это шум от сбоев опроса площадок.
    *
    * Только чтение из metricsDynamicHistory — внешних запросов к площадкам здесь нет.
    */
@@ -145,7 +165,7 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
     return wanted.map((key) => ({
       key: formatMetricKey(key),
       points: rows
-        .filter((row) => matchesMetricKey(row, key))
+        .filter((row) => matchesMetricKey(row, key) && !isBlankOrZeroMetricValue(row.value))
         .slice(0, take)
         .map((row) => ({ value: row.value ?? null, createdAt: row.createdAt.toISOString() })),
     }));

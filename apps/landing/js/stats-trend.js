@@ -191,6 +191,19 @@
 
     /* ---------------- запрос истории ---------------- */
 
+    /**
+     * Нули и пустые значения — шум от сбоев опроса площадок (пришёл пустой ответ,
+     * парсер не нашёл число). Бэкенд их вырезает, но фильтруем и здесь: иначе
+     * старая сборка сервера нарисует «рост» после обнуления счётчика.
+     */
+    function isNoisePoint(point) {
+        if (!point) return true;
+        var value = point.value;
+        if (value === null || value === undefined || String(value).trim() === '') return true;
+        var n = toNumber(value);
+        return n !== null && n === 0;
+    }
+
     function fetchHistory(keys) {
         var chunks = [];
         for (var i = 0; i < keys.length; i += KEYS_PER_REQUEST) {
@@ -204,7 +217,10 @@
                 .then(function (data) {
                     if (!data || !data.items) return;
                     data.items.forEach(function (item) {
-                        if (item && item.key) cache[item.key] = item.points || [];
+                        if (!item || !item.key) return;
+                        cache[item.key] = (item.points || []).filter(function (point) {
+                            return !isNoisePoint(point);
+                        });
                     });
                 })
                 .catch(function () { /* бэкенд недоступен — бейджей просто не будет */ });
