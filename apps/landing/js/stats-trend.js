@@ -151,7 +151,7 @@
 
     /** Рост/спад/без изменений: самое свежее значение против предыдущего. */
     function directionOf(points, level3) {
-        if (!points || !points.length) return null;
+        if (!points || !points.length) return 'flat'; // Если истории нет, считаем что значение не менялось (★)
         if (points.length < 2) return 'flat';
         var current = toNumber(points[0].value);
         var previous = toNumber(points[1].value);
