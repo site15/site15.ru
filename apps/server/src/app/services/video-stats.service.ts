@@ -3,6 +3,8 @@ import { isInfrastructureMode } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { METRICS_FEATURE, MetricsPrismaSdk } from '@site15/metrics';
+import { fork } from 'child_process';
+import { join } from 'path';
 
 import { AppEnvironments } from '../app.environments';
 import { customFetch } from './fetch-with-file-cache';
@@ -130,17 +132,41 @@ export class VideoStatsService implements OnApplicationBootstrap {
     if (isInfrastructureMode()) {
       return;
     }
-    // Фоновое обновление известных видео по часам — тренд пополняется даже
-    // без заходов на лендинг. Тот же гей, что у syncAllStats.
-    // Первоначальное заполнение БД отключено — чтобы не блокировать event loop
-    // при старте. Данные появятся после первого запуска шедулера.
+    // Фоновое обновление видео-статистики вынесено в отдельный процесс (child_process.fork),
+    // чтобы не блокировать event loop основного приложения внешними запросами
+    // (YouTube, Rutube, VK). Worker script: apps/server/src/workers/refresh-video-stats.worker.ts
     if (this.appEnvironments.syncAllStatsByInterval) {
-      // setImmediate() чтобы не блокировать event loop при старте
-      setImmediate(() => {
-        this.refreshAll().catch((error) => this.logger.error(`Initial refreshAll failed: ${String(error)}`));
-        setInterval(() => this.refreshAll().then(), VideoStatsService.TTL_MS);
-      });
+      // Первоначальное заполнение БД через worker
+      setImmediate(() => this.spawnRefreshVideoStatsWorker());
+      // Периодическое обновление через worker
+      setInterval(() => this.spawnRefreshVideoStatsWorker(), VideoStatsService.TTL_MS);
     }
+  }
+
+  /**
+   * Запускает refreshAll() в отдельном процессе через child_process.fork().
+   * Это полностью изолирует event loop основного приложения от долгих внешних запросов.
+   */
+  private spawnRefreshVideoStatsWorker() {
+    const workerPath = join(__dirname, 'workers', 'refresh-video-stats.worker.js');
+    this.logger.log(`Spawning refresh-video-stats worker: ${workerPath}`);
+
+    const worker = fork(workerPath, [], {
+      env: process.env,
+      stdio: 'inherit',
+    });
+
+    worker.on('exit', (code) => {
+      if (code === 0) {
+        this.logger.log('refresh-video-stats worker completed successfully');
+      } else {
+        this.logger.error(`refresh-video-stats worker exited with code ${code}`);
+      }
+    });
+
+    worker.on('error', (error) => {
+      this.logger.error(`refresh-video-stats worker error: ${error.message}`);
+    });
   }
 
   async getStats(query: { yt?: string; rutube?: string; vk?: string }): Promise<LandingVideoStatsResponse> {

@@ -3,11 +3,13 @@ import { isInfrastructureMode } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { METRICS_FEATURE, MetricsDynamic, MetricsPrismaSdk } from '@site15/metrics';
+import { fork } from 'child_process';
+import { join } from 'path';
+
 import { AppEnvironments } from '../app.environments';
 import { isBlankOrZeroMetricValue, isWritableMetricValue } from './metric-value.utils';
 import { setAppEnvironments, setPrismaClient } from './global';
 import { AllStats, MetricHistoryItemDto } from './type';
-import { syncAllStats } from './update-all-stats';
 
 type ShortMetricsDynamic = Pick<MetricsDynamic, 'level1' | 'level2' | 'level3' | 'value'>;
 
@@ -71,19 +73,42 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
       return;
     }
 
-    // Синхронизация статистики по интервалу и при старте отключена — чтобы
-    // не блокировать event loop внешними запросами при старте. syncAllStats()
-    // делает много внешних запросов (GitHub, NPM, Dev.to, и т.д.), которые
-    // могут занять несколько минут и заблокировать обработку других запросов.
-    // Если нужна синхронизация, лучше запускать вручную или через cron.
+    // Синхронизация статистики вынесена в отдельный процесс (child_process.fork),
+    // чтобы не блокировать event loop основного приложения внешними запросами
+    // (GitHub, NPM, Dev.to, и т.д.). Worker script: apps/server/src/workers/sync-stats.worker.ts
     if (this.appEnvironments.syncAllStatsByInterval) {
-      setInterval(() => this.syncAllStats().then(), 1000 * 60 * 60 * 3);
+      setInterval(() => this.spawnSyncStatsWorker(), 1000 * 60 * 60 * 3);
     }
 
     if (this.appEnvironments.syncAllStatsAfterStart) {
-      // setImmediate() чтобы не блокировать event loop при старте
-      setImmediate(() => this.syncAllStats().then());
+      setImmediate(() => this.spawnSyncStatsWorker());
     }
+  }
+
+  /**
+   * Запускает syncAllStats() в отдельном процессе через child_process.fork().
+   * Это полностью изолирует event loop основного приложения от долгих внешних запросов.
+   */
+  private spawnSyncStatsWorker() {
+    const workerPath = join(__dirname, 'workers', 'sync-stats.worker.js');
+    this.logger.log(`Spawning sync-stats worker: ${workerPath}`);
+
+    const worker = fork(workerPath, [], {
+      env: process.env,
+      stdio: 'inherit',
+    });
+
+    worker.on('exit', (code) => {
+      if (code === 0) {
+        this.logger.log('sync-stats worker completed successfully');
+      } else {
+        this.logger.error(`sync-stats worker exited with code ${code}`);
+      }
+    });
+
+    worker.on('error', (error) => {
+      this.logger.error(`sync-stats worker error: ${error.message}`);
+    });
   }
 
   async getAllSync() {
@@ -165,103 +190,6 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
       return null;
     }
     return { level1, level2: level2 || '', level3 };
-  }
-
-  private async syncAllStats() {
-    this.logger.log('syncAllStats: start');
-    try {
-      const allStats = await syncAllStats();
-      const metrics = this.convertAllStatsToMetricsDynamic(allStats);
-      for (const metric of metrics) {
-        const key = {
-          level1: metric.level1 || '',
-          level2: metric.level2 || '',
-          level3: metric.level3 || '',
-        };
-        const current = await this.prismaClient.metricsDynamic.findUnique({
-          where: { level1_level2_level3: key },
-          select: { value: true },
-        });
-        if (!isWritableMetricValue(current?.value ?? null, metric.value)) {
-          this.logger.warn(
-            `syncAllStats: не пишу «${formatMetricKey(key)}»: ${current?.value} → ${metric.value} похоже на сбой опроса площадки`,
-          );
-          continue;
-        }
-        await this.prismaClient.metricsDynamic.upsert({
-          create: {
-            ...key,
-            value: metric.value,
-          },
-          update: {
-            value: metric.value,
-          },
-          where: { level1_level2_level3: key },
-        });
-        const old = await this.prismaClient.metricsDynamicHistory.findFirst({
-          where: key,
-          orderBy: { createdAt: 'desc' },
-          select: { value: true },
-        });
-        if (!old || old?.value !== metric.value) {
-          await this.prismaClient.metricsDynamicHistory.create({
-            data: {
-              ...key,
-              value: metric.value,
-            },
-          });
-        }
-      }
-    } catch (err) {
-      this.logger.error(err, err.stack);
-    }
-    this.logger.log('syncAllStats: end');
-  }
-
-  private convertAllStatsToMetricsDynamic(allStats: AllStats | null): ShortMetricsDynamic[] {
-    if (!allStats) return [];
-
-    const result: ShortMetricsDynamic[] = [];
-
-    const pushMetric = (level1: string, level2: string | null, level3: string | null, value: unknown) => {
-      result.push({
-        level1,
-        level2,
-        level3,
-        value: value === null || value === undefined ? null : String(value),
-      });
-    };
-
-    for (const [level1Key, level1Value] of Object.entries(allStats)) {
-      if (Array.isArray(level1Value)) {
-        // telegramDataStats
-        for (const item of level1Value) {
-          const level2 = item.id;
-
-          for (const [field, val] of Object.entries(item.data)) {
-            pushMetric(level1Key, level2, field, val);
-          }
-        }
-        continue;
-      }
-
-      if (typeof level1Value === 'object' && level1Value !== null) {
-        for (const [level2Key, level2Value] of Object.entries(level1Value)) {
-          if (typeof level2Value === 'object' && level2Value !== null) {
-            for (const [field, val] of Object.entries(level2Value)) {
-              pushMetric(level1Key, level2Key, field, val);
-            }
-          } else {
-            pushMetric(level1Key, null, level2Key, level2Value);
-          }
-        }
-        continue;
-      }
-
-      pushMetric(level1Key, null, null, level1Value);
-    }
-
-    return result;
   }
 
   private convertMetricsDynamicToAllStats(metricsDynamics: ShortMetricsDynamic[]): AllStats {
