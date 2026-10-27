@@ -552,13 +552,14 @@
                         var ytViews = (ytStats.views !== null && ytStats.views !== undefined) ? ytStats.views : 0;
                         var ytLikes = (ytStats.likes !== null && ytStats.likes !== undefined) ? ytStats.likes : 0;
 
-                        var ytLink = document.createElement('a');
-                        ytLink.href = short.ytHref || ('https://youtu.be/' + short.youtubeId);
-                        ytLink.target = '_blank';
-                        ytLink.rel = 'noopener noreferrer';
-                        ytLink.className = 'flex-1 px-2 py-1 bg-neo-pink text-neo-black neo-border font-bold text-xs hover:bg-neo-yellow transition-colors text-center';
-                        ytLink.innerHTML = '▶ YT <span class="font-normal">' + formatCount(ytViews) + '👁️ ' + formatCount(ytLikes) + '👍</span>';
-                        linksContainer.appendChild(ytLink);
+                        var ytBtn = document.createElement('button');
+                        ytBtn.type = 'button';
+                        ytBtn.className = 'flex-1 px-2 py-1 bg-neo-pink text-neo-black neo-border font-bold text-xs hover:bg-neo-yellow transition-colors text-center cursor-pointer';
+                        ytBtn.innerHTML = '▶ YT <span class="font-normal">' + formatCount(ytViews) + '👁️ ' + formatCount(ytLikes) + '👍</span>';
+                        ytBtn.onclick = function() {
+                            switchMainPlayer('youtube', short.youtubeId, short.rutubeId, short.vkId);
+                        };
+                        linksContainer.appendChild(ytBtn);
                     }
 
                     if (hasRutube) {
@@ -566,13 +567,14 @@
                         var rtViews = (rtStats.views !== null && rtStats.views !== undefined) ? rtStats.views : 0;
                         var rtLikes = (rtStats.likes !== null && rtStats.likes !== undefined) ? rtStats.likes : 0;
 
-                        var rtLink = document.createElement('a');
-                        rtLink.href = short.rutubeHref || ('https://rutube.ru/shorts/' + short.rutubeId + '/');
-                        rtLink.target = '_blank';
-                        rtLink.rel = 'noopener noreferrer';
-                        rtLink.className = 'flex-1 px-2 py-1 bg-neo-purple text-neo-black neo-border font-bold text-xs hover:bg-neo-yellow transition-colors text-center';
-                        rtLink.innerHTML = '▶ RT <span class="font-normal">' + formatCount(rtViews) + '👁️ ' + formatCount(rtLikes) + '👍</span>';
-                        linksContainer.appendChild(rtLink);
+                        var rtBtn = document.createElement('button');
+                        rtBtn.type = 'button';
+                        rtBtn.className = 'flex-1 px-2 py-1 bg-neo-purple text-neo-black neo-border font-bold text-xs hover:bg-neo-yellow transition-colors text-center cursor-pointer';
+                        rtBtn.innerHTML = '▶ RT <span class="font-normal">' + formatCount(rtViews) + '👁️ ' + formatCount(rtLikes) + '👍</span>';
+                        rtBtn.onclick = function() {
+                            switchMainPlayer('rutube', short.youtubeId, short.rutubeId, short.vkId);
+                        };
+                        linksContainer.appendChild(rtBtn);
                     }
 
                     if (hasVk) {
@@ -580,13 +582,14 @@
                         var vkViews = (vkStats.views !== null && vkStats.views !== undefined) ? vkStats.views : 0;
                         var vkLikes = (vkStats.likes !== null && vkStats.likes !== undefined) ? vkStats.likes : 0;
 
-                        var vkLink = document.createElement('a');
-                        vkLink.href = short.vkHref || ('https://vkvideo.ru/video' + short.vkId);
-                        vkLink.target = '_blank';
-                        vkLink.rel = 'noopener noreferrer';
-                        vkLink.className = 'flex-1 px-2 py-1 bg-neo-blue text-neo-black neo-border font-bold text-xs hover:bg-neo-yellow transition-colors text-center';
-                        vkLink.innerHTML = '▶ VK <span class="font-normal">' + formatCount(vkViews) + '👁️ ' + formatCount(vkLikes) + '👍</span>';
-                        linksContainer.appendChild(vkLink);
+                        var vkBtn = document.createElement('button');
+                        vkBtn.type = 'button';
+                        vkBtn.className = 'flex-1 px-2 py-1 bg-neo-blue text-neo-black neo-border font-bold text-xs hover:bg-neo-yellow transition-colors text-center cursor-pointer';
+                        vkBtn.innerHTML = '▶ VK <span class="font-normal">' + formatCount(vkViews) + '👁️ ' + formatCount(vkLikes) + '👍</span>';
+                        vkBtn.onclick = function() {
+                            switchMainPlayer('vk', short.youtubeId, short.rutubeId, short.vkId);
+                        };
+                        linksContainer.appendChild(vkBtn);
                     }
 
                     card.appendChild(linksContainer);
@@ -596,6 +599,28 @@
                 if (typeof lucide !== 'undefined') {
                     lucide.createIcons();
                 }
+            }
+
+            // Переключить основной плеер на выбранную платформу short
+            function switchMainPlayer(platform, ytId, rtId, vkId) {
+                var card = document.querySelector('[data-video-card]');
+                if (!card) return;
+
+                var container = card.querySelector('[data-youtube-id]');
+                if (!container) return;
+
+                // Обновляем data-атрибуты контейнера
+                if (ytId) container.setAttribute('data-youtube-id', ytId);
+                if (rtId) container.setAttribute('data-rutube-id', rtId);
+                if (vkId) container.setAttribute('data-vk-id', vkId);
+
+                // Переинициализируем плеер с новыми данными
+                if (window.__videoPlayer) {
+                    window.__videoPlayer.initVideoCard(card);
+                }
+
+                // Прокручиваем к основному плееру
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
 
             // Загружаем данные с бэкенда
