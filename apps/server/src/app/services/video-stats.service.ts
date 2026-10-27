@@ -15,6 +15,7 @@ import {
   LandingVideoWithStatsDto,
   LandingVideoStatsResponse,
   VideoChannelStatsDto,
+  LandingVideoShortDto,
 } from './type';
 
 export type VideoStatsProvider = 'youtube' | 'rutube' | 'vk';
@@ -52,6 +53,154 @@ export class VideoStatsService implements OnApplicationBootstrap {
   };
 
   /**
+   * Конфигурация коротких видео (shorts/clips). Привязаны к основным видео
+   * через parentYoutubeId, отображаются на странице соответствующего видео.
+   */
+  private static readonly SHORTS: LandingVideoShortDto[] = [
+    // Shorts для Части 1 (1MSIm8Te-QY) - Создание проекта
+    {
+      youtubeId: 'uge9-rne5yE',
+      rutubeId: '5068253edb9c65cf53252976550ff20b',
+      vkId: '-241775994_456239020',
+      title: 'Удалил — сразу коммить! Правило чистого git',
+      ytHref: 'https://youtu.be/uge9-rne5yE',
+      rutubeHref: 'https://rutube.ru/shorts/5068253edb9c65cf53252976550ff20b/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239020',
+      parentYoutubeId: '1MSIm8Te-QY',
+    },
+    {
+      youtubeId: 'KtyUYsKRrso',
+      rutubeId: '59956604ad7bcb96b64f86a9740712c0',
+      title: 'Сайт с телефона: туннель вместо домена',
+      ytHref: 'https://youtu.be/KtyUYsKRrso',
+      rutubeHref: 'https://rutube.ru/shorts/59956604ad7bcb96b64f86a9740712c0/',
+      parentYoutubeId: '1MSIm8Te-QY',
+    },
+    {
+      youtubeId: 'NIzUM18PIrg',
+      rutubeId: '645bf76817d488211fbc7ae1dc1b19f7',
+      title: 'Нейронка сама добавила MinIO в проект',
+      ytHref: 'https://youtu.be/NIzUM18PIrg',
+      rutubeHref: 'https://rutube.ru/shorts/645bf76817d488211fbc7ae1dc1b19f7/',
+      parentYoutubeId: '1MSIm8Te-QY',
+    },
+
+    // Shorts для Части 2 (6pSWtGoyS6I) - Тестирование с AI и HeyAPI
+    {
+      youtubeId: 'sdDt4CV7PfA',
+      rutubeId: '1578d5b5f12b45b54c3ab3701eafe665',
+      vkId: '-241775994_456239037',
+      title: 'Тест прошёл, но ничего не проверил: нейросеть имитировала e2e',
+      ytHref: 'https://youtu.be/sdDt4CV7PfA',
+      rutubeHref: 'https://rutube.ru/shorts/1578d5b5f12b45b54c3ab3701eafe665/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239037',
+      parentYoutubeId: '6pSWtGoyS6I',
+    },
+    {
+      youtubeId: '6e0Q87kVMFs',
+      rutubeId: '378b05492b85a90d25b07f4f332844bf',
+      vkId: '-241775994_456239034',
+      title: 'Дешевые vs дорогие LLM — когда какой режим',
+      ytHref: 'https://youtu.be/6e0Q87kVMFs',
+      rutubeHref: 'https://rutube.ru/shorts/378b05492b85a90d25b07f4f332844bf/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239034',
+      parentYoutubeId: '6pSWtGoyS6I',
+    },
+    {
+      youtubeId: '4q6y9sfaP9M',
+      rutubeId: '9e5c4d48ddb6e97a1f294e610692f428',
+      title: 'Я код не писал — только делал ревью',
+      ytHref: 'https://youtu.be/4q6y9sfaP9M',
+      rutubeHref: 'https://rutube.ru/shorts/9e5c4d48ddb6e97a1f294e610692f428/',
+      parentYoutubeId: '6pSWtGoyS6I',
+    },
+    {
+      youtubeId: 'ZRShYa_jkXE',
+      rutubeId: 'adb216e88e70c9a43a89311cd9017da2',
+      vkId: '-241775994_456239019',
+      title: 'Нейронка запомнила паттерн DTO на будущее',
+      ytHref: 'https://youtu.be/ZRShYa_jkXE',
+      rutubeHref: 'https://rutube.ru/shorts/adb216e88e70c9a43a89311cd9017da2/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239019',
+      parentYoutubeId: '6pSWtGoyS6I',
+    },
+
+    // Shorts для Части 3 (-VUl5p5xe3I) - CI/CD, GitHub Actions, MCP
+    {
+      youtubeId: 'CM7eMTTzNag',
+      rutubeId: '89342e10ac2be657a72d9e53aca80d2c',
+      vkId: '-241775994_456239035',
+      title: 'AI починил CI/CD ошибку — скопировал ошибку в чат',
+      ytHref: 'https://youtu.be/CM7eMTTzNag',
+      rutubeHref: 'https://rutube.ru/shorts/89342e10ac2be657a72d9e53aca80d2c/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239035',
+      parentYoutubeId: '-VUl5p5xe3I',
+    },
+    {
+      youtubeId: 'W4salkv1j_I',
+      rutubeId: '99ee34d5668ec54fcaf7075c643948d1',
+      vkId: '-241775994_456239040',
+      title: 'MinIO не скачивается в CI: официальный образ заархивировали',
+      ytHref: 'https://youtu.be/W4salkv1j_I',
+      rutubeHref: 'https://rutube.ru/shorts/99ee34d5668ec54fcaf7075c643948d1/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239040',
+      parentYoutubeId: '-VUl5p5xe3I',
+    },
+    {
+      youtubeId: 'GW8O9oonuC8',
+      rutubeId: '4ed1578f616c199f1da934980b6f94af',
+      vkId: '-241775994_456239036',
+      title: 'AI сделает документацию через Playwright MCP',
+      ytHref: 'https://youtu.be/GW8O9oonuC8',
+      rutubeHref: 'https://rutube.ru/shorts/4ed1578f616c199f1da934980b6f94af/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239036',
+      parentYoutubeId: '-VUl5p5xe3I',
+    },
+    {
+      youtubeId: '746NYNgrLLs',
+      rutubeId: '9eca48f12aa16b3019f108f14cd62431',
+      vkId: '-241775994_456239028',
+      title: 'MCP для PostgreSQL — read-only пользователи',
+      ytHref: 'https://youtu.be/746NYNgrLLs',
+      rutubeHref: 'https://rutube.ru/shorts/9eca48f12aa16b3019f108f14cd62431/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239028',
+      parentYoutubeId: '-VUl5p5xe3I',
+    },
+    {
+      youtubeId: 'hyU8zjHFc28',
+      rutubeId: '98fba0f6ded90fa503e855742d3c2a07',
+      vkId: '-241775994_456239021',
+      title: 'Сказал удалить контроллер — нейронка вычистила ВСЁ связанное',
+      ytHref: 'https://youtu.be/hyU8zjHFc28',
+      rutubeHref: 'https://rutube.ru/shorts/98fba0f6ded90fa503e855742d3c2a07/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239021',
+      parentYoutubeId: '-VUl5p5xe3I',
+    },
+
+    // Shorts для Части 4 (ceL0qmeQe84) - Продакшн, PM2, e2e
+    {
+      youtubeId: '9jbmuedo5Qw',
+      rutubeId: '27460495c7790e1e772b4ae19d60f8aa',
+      vkId: '-241775994_456239042',
+      title: 'Прогон e2e в GitHub Actions: инфраструктура поднялась, тесты зелёные',
+      ytHref: 'https://youtu.be/9jbmuedo5Qw',
+      rutubeHref: 'https://rutube.ru/shorts/27460495c7790e1e772b4ae19d60f8aa/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239042',
+      parentYoutubeId: 'ceL0qmeQe84',
+    },
+    {
+      youtubeId: 'fXoAUVxamfA',
+      rutubeId: 'a6749f8f3f8746f522f7b104e2fc5e51',
+      vkId: '-241775994_456239027',
+      title: 'E2E тесты на реальном бэкенде без тест-сервера',
+      ytHref: 'https://youtu.be/fXoAUVxamfA',
+      rutubeHref: 'https://rutube.ru/shorts/a6749f8f3f8746f522f7b104e2fc5e51/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239027',
+      parentYoutubeId: 'ceL0qmeQe84',
+    },
+  ];
+
+  /**
    * Конфигурация видео лендинга. ID-шники площадок, ссылки, описания —
    * всё живёт здесь; фронтенд получает единым запросом вместе со статистикой.
    */
@@ -71,6 +220,7 @@ export class VideoStatsService implements OnApplicationBootstrap {
       ytHref: 'https://youtu.be/1MSIm8Te-QY',
       rutubeHref: 'https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/',
       vkHref: 'https://vkvideo.ru/video-241775994_456239017',
+      shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === '1MSIm8Te-QY'),
     },
     {
       youtubeId: '6pSWtGoyS6I',
@@ -87,6 +237,7 @@ export class VideoStatsService implements OnApplicationBootstrap {
       ytHref: 'https://youtu.be/6pSWtGoyS6I',
       rutubeHref: 'https://rutube.ru/video/c70facc53f796801d96b6850f360a618/',
       vkHref: 'https://vkvideo.ru/video-241775994_456239022',
+      shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === '6pSWtGoyS6I'),
     },
     {
       youtubeId: '-VUl5p5xe3I',
@@ -103,6 +254,7 @@ export class VideoStatsService implements OnApplicationBootstrap {
       ytHref: 'https://youtu.be/-VUl5p5xe3I',
       rutubeHref: 'https://rutube.ru/video/8af7bfb3b9e759ca6732dbc8011293d9/',
       vkHref: 'https://vkvideo.ru/video-241775994_456239023',
+      shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === '-VUl5p5xe3I'),
     },
     {
       youtubeId: 'ceL0qmeQe84',
@@ -119,6 +271,7 @@ export class VideoStatsService implements OnApplicationBootstrap {
       ytHref: 'https://youtu.be/ceL0qmeQe84',
       rutubeHref: 'https://rutube.ru/video/70858b2775dffb17c2e9c203937788ea/',
       vkHref: 'https://vkvideo.ru/video-241775994_456239038',
+      shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === 'ceL0qmeQe84'),
     },
   ];
 
@@ -191,7 +344,28 @@ export class VideoStatsService implements OnApplicationBootstrap {
           video.rutubeId ? this.getForVideo('rutube', video.rutubeId) : Promise.resolve(null),
           video.vkId ? this.getForVideo('vk', video.vkId) : Promise.resolve(null),
         ]);
-        return { video, youtubeStats, rutubeStats, vkStats };
+
+        // Получаем статистику для shorts (если есть)
+        let shortsStats: Array<{
+          youtubeStats?: VideoChannelStatsDto | null;
+          rutubeStats?: VideoChannelStatsDto | null;
+          vkStats?: VideoChannelStatsDto | null;
+        }> | null = null;
+
+        if (video.shorts && video.shorts.length > 0) {
+          shortsStats = await Promise.all(
+            video.shorts.map(async (short) => {
+              const [ytStats, rtStats, vkStats] = await Promise.all([
+                short.youtubeId ? this.getForVideo('youtube', short.youtubeId) : Promise.resolve(null),
+                short.rutubeId ? this.getForVideo('rutube', short.rutubeId) : Promise.resolve(null),
+                short.vkId ? this.getForVideo('vk', short.vkId) : Promise.resolve(null),
+              ]);
+              return { youtubeStats: ytStats, rutubeStats: rtStats, vkStats: vkStats };
+            }),
+          );
+        }
+
+        return { video, youtubeStats, rutubeStats, vkStats, shortsStats };
       }),
     );
     return { videos };
@@ -202,6 +376,7 @@ export class VideoStatsService implements OnApplicationBootstrap {
    * внешними запросами к площадкам. Вызывается по интервалу и при старте.
    */
   async refreshAll(): Promise<void> {
+    // Обновляем статистику основных видео
     for (const video of VideoStatsService.VIDEOS) {
       if (video.youtubeId) {
         await this.fetchAndSave('youtube', video.youtubeId, `youtube:${video.youtubeId}`).catch((error) =>
@@ -216,6 +391,25 @@ export class VideoStatsService implements OnApplicationBootstrap {
       if (video.vkId) {
         await this.fetchAndSave('vk', video.vkId, `vk:${video.vkId}`).catch((error) =>
           this.logger.warn(`refreshAll failed for vk:${video.vkId}: ${String(error)}`),
+        );
+      }
+    }
+
+    // Обновляем статистику shorts (один раз, т.к. shorts общие для всех видео)
+    for (const short of VideoStatsService.SHORTS) {
+      if (short.youtubeId) {
+        await this.fetchAndSave('youtube', short.youtubeId, `youtube:${short.youtubeId}`).catch((error) =>
+          this.logger.warn(`refreshAll failed for youtube short:${short.youtubeId}: ${String(error)}`),
+        );
+      }
+      if (short.rutubeId) {
+        await this.fetchAndSave('rutube', short.rutubeId, `rutube:${short.rutubeId}`).catch((error) =>
+          this.logger.warn(`refreshAll failed for rutube short:${short.rutubeId}: ${String(error)}`),
+        );
+      }
+      if (short.vkId) {
+        await this.fetchAndSave('vk', short.vkId, `vk:${short.vkId}`).catch((error) =>
+          this.logger.warn(`refreshAll failed for vk short:${short.vkId}: ${String(error)}`),
         );
       }
     }

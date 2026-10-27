@@ -290,6 +290,17 @@
                     </a>
                 </div>
             </article>
+
+            <!-- Shorts Section -->
+            <div class="mt-8" data-shorts-section style="display: none;">
+                <h3 class="text-2xl font-bold mb-4 flex items-center gap-2 text-white">
+                    <i data-lucide="zap" class="w-6 h-6 text-neo-yellow"></i>
+                    Короткие видео по этой теме
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-shorts-container>
+                    <!-- Shorts will be dynamically inserted here -->
+                </div>
+            </div>
         </div>
     </section>
 
@@ -462,6 +473,149 @@
     </script>
     <script src="../js/stats-trend.js"></script>
     <script src="../js/video-player.js"></script>
+    <script>
+        // Загрузка и рендеринг shorts для этой страницы
+        (function() {
+            var API_BASE = window.location.href.indexOf('localhost') !== -1
+                ? 'http://localhost:3000/api'
+                : 'https://site15.ru/api';
+
+            function formatCount(n) {
+                try { return new Intl.NumberFormat('ru-RU').format(n); } catch (e) { return String(n); }
+            }
+
+            function renderShorts(videoData, statsData) {
+                var section = document.querySelector('[data-shorts-section]');
+                var container = document.querySelector('[data-shorts-container]');
+
+                if (!section || !container || !videoData || !videoData.shorts || videoData.shorts.length === 0) {
+                    if (section) section.style.display = 'none';
+                    return;
+                }
+
+                section.style.display = 'block';
+                container.innerHTML = '';
+
+                videoData.shorts.forEach(function(short, i) {
+                    var shortStats = (statsData && statsData.shortsStats && statsData.shortsStats[i]) || {};
+                    var hasYoutube = !!short.youtubeId;
+                    var hasRutube = !!short.rutubeId;
+                    var hasVk = !!short.vkId;
+
+                    var card = document.createElement('div');
+                    card.className = 'neo-border bg-white shadow-neo-sm p-3 flex flex-col';
+
+                    var title = document.createElement('h4');
+                    title.className = 'font-bold text-sm mb-2 line-clamp-2';
+                    title.textContent = short.title;
+                    card.appendChild(title);
+
+                    var playerContainer = document.createElement('div');
+                    playerContainer.className = 'relative w-full bg-neo-black neo-border overflow-hidden mb-2';
+                    playerContainer.style.aspectRatio = '9/16';
+                    playerContainer.style.maxHeight = '200px';
+
+                    var iframe;
+                    if (hasYoutube) {
+                        iframe = document.createElement('iframe');
+                        iframe.src = 'https://www.youtube-nocookie.com/embed/' + short.youtubeId + '?rel=0&modestbranding=1';
+                        iframe.className = 'absolute inset-0 w-full h-full';
+                        iframe.allowFullscreen = true;
+                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                    } else if (hasRutube) {
+                        iframe = document.createElement('iframe');
+                        iframe.src = 'https://rutube.ru/play/embed/' + short.rutubeId + '/';
+                        iframe.className = 'absolute inset-0 w-full h-full';
+                        iframe.allowFullscreen = true;
+                        iframe.setAttribute('allow', 'clipboard-write; autoplay; fullscreen; picture-in-picture');
+                    } else if (hasVk) {
+                        var vkParts = short.vkId.split('_');
+                        iframe = document.createElement('iframe');
+                        iframe.src = 'https://vk.com/video_ext.php?oid=' + vkParts[0] + '&id=' + vkParts[1] + '&hd=2';
+                        iframe.className = 'absolute inset-0 w-full h-full';
+                        iframe.allowFullscreen = true;
+                        iframe.setAttribute('allow', 'autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock');
+                    }
+
+                    if (iframe) {
+                        iframe.frameBorder = '0';
+                        playerContainer.appendChild(iframe);
+                    }
+
+                    card.appendChild(playerContainer);
+
+                    var linksContainer = document.createElement('div');
+                    linksContainer.className = 'flex flex-wrap gap-1 mt-auto';
+
+                    if (hasYoutube) {
+                        var ytStats = shortStats.youtubeStats || {};
+                        var ytViews = (ytStats.views !== null && ytStats.views !== undefined) ? ytStats.views : 0;
+                        var ytLikes = (ytStats.likes !== null && ytStats.likes !== undefined) ? ytStats.likes : 0;
+
+                        var ytLink = document.createElement('a');
+                        ytLink.href = short.ytHref || ('https://youtu.be/' + short.youtubeId);
+                        ytLink.target = '_blank';
+                        ytLink.rel = 'noopener noreferrer';
+                        ytLink.className = 'flex-1 px-2 py-1 bg-neo-pink text-neo-black neo-border font-bold text-xs hover:bg-neo-yellow transition-colors text-center';
+                        ytLink.innerHTML = '▶ YT <span class="font-normal">' + formatCount(ytViews) + '👁️ ' + formatCount(ytLikes) + '👍</span>';
+                        linksContainer.appendChild(ytLink);
+                    }
+
+                    if (hasRutube) {
+                        var rtStats = shortStats.rutubeStats || {};
+                        var rtViews = (rtStats.views !== null && rtStats.views !== undefined) ? rtStats.views : 0;
+                        var rtLikes = (rtStats.likes !== null && rtStats.likes !== undefined) ? rtStats.likes : 0;
+
+                        var rtLink = document.createElement('a');
+                        rtLink.href = short.rutubeHref || ('https://rutube.ru/shorts/' + short.rutubeId + '/');
+                        rtLink.target = '_blank';
+                        rtLink.rel = 'noopener noreferrer';
+                        rtLink.className = 'flex-1 px-2 py-1 bg-neo-purple text-neo-black neo-border font-bold text-xs hover:bg-neo-yellow transition-colors text-center';
+                        rtLink.innerHTML = '▶ RT <span class="font-normal">' + formatCount(rtViews) + '👁️ ' + formatCount(rtLikes) + '👍</span>';
+                        linksContainer.appendChild(rtLink);
+                    }
+
+                    if (hasVk) {
+                        var vkStats = shortStats.vkStats || {};
+                        var vkViews = (vkStats.views !== null && vkStats.views !== undefined) ? vkStats.views : 0;
+                        var vkLikes = (vkStats.likes !== null && vkStats.likes !== undefined) ? vkStats.likes : 0;
+
+                        var vkLink = document.createElement('a');
+                        vkLink.href = short.vkHref || ('https://vkvideo.ru/video' + short.vkId);
+                        vkLink.target = '_blank';
+                        vkLink.rel = 'noopener noreferrer';
+                        vkLink.className = 'flex-1 px-2 py-1 bg-neo-blue text-neo-black neo-border font-bold text-xs hover:bg-neo-yellow transition-colors text-center';
+                        vkLink.innerHTML = '▶ VK <span class="font-normal">' + formatCount(vkViews) + '👁️ ' + formatCount(vkLikes) + '👍</span>';
+                        linksContainer.appendChild(vkLink);
+                    }
+
+                    card.appendChild(linksContainer);
+                    container.appendChild(card);
+                });
+
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            }
+
+            // Загружаем данные с бэкенда
+            fetch(API_BASE + '/landing/videos')
+                .then(function(r) { return r.ok ? r.json() : null; })
+                .then(function(data) {
+                    if (!data || !data.videos || !data.videos.length) return;
+                    // Находим видео для этой страницы (Часть 1 = youtubeId 1MSIm8Te-QY)
+                    var videoItem = data.videos.find(function(item) {
+                        return item.video.youtubeId === '1MSIm8Te-QY';
+                    });
+                    if (videoItem) {
+                        renderShorts(videoItem.video, videoItem);
+                    }
+                })
+                .catch(function() {
+                    // Бэкенд недоступен — shorts не отображаются
+                });
+        })();
+    </script>
 
     <!-- Footer -->
     <footer class="bg-neo-black text-white py-12 px-4 border-t-4 border-white mt-10">

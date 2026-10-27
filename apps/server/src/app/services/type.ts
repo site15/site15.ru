@@ -373,6 +373,50 @@ export class VideoChannelStatsDto {
   likes?: number | null;
 }
 
+/** Конфигурация одного короткого видео (shorts/clips). */
+export class LandingVideoShortDto {
+  @ApiPropertyOptional({ description: 'YouTube Shorts video ID' })
+  @IsOptional()
+  @IsString()
+  youtubeId?: string | null;
+
+  @ApiPropertyOptional({ description: 'Rutube Shorts video hash' })
+  @IsOptional()
+  @IsString()
+  rutubeId?: string | null;
+
+  @ApiPropertyOptional({ description: 'VK Video clip id (oid_id формат)' })
+  @IsOptional()
+  @IsString()
+  vkId?: string | null;
+
+  @ApiProperty({ description: 'Заголовок short' })
+  @IsString()
+  title!: string;
+
+  @ApiPropertyOptional({ description: 'Прямая ссылка на YouTube Shorts' })
+  @IsOptional()
+  @IsString()
+  ytHref?: string | null;
+
+  @ApiPropertyOptional({ description: 'Прямая ссылка на Rutube Shorts' })
+  @IsOptional()
+  @IsString()
+  rutubeHref?: string | null;
+
+  @ApiPropertyOptional({ description: 'Прямая ссылка на VK Video clip' })
+  @IsOptional()
+  @IsString()
+  vkHref?: string | null;
+
+  @ApiPropertyOptional({
+    description: 'YouTube ID родительского видео (к которому относится этот short)',
+  })
+  @IsOptional()
+  @IsString()
+  parentYoutubeId?: string | null;
+}
+
 export class LandingVideoStatsResponse {
   @ApiPropertyOptional({ type: () => VideoChannelStatsDto, nullable: true })
   youtube?: VideoChannelStatsDto | null;
@@ -440,6 +484,14 @@ export class LandingVideoDto {
   @ApiProperty({ description: 'Прямая ссылка на VK Видео' })
   @IsString()
   vkHref!: string;
+
+  @ApiPropertyOptional({
+    type: () => LandingVideoShortDto,
+    isArray: true,
+    description: 'Список коротких видео (shorts/clips), связанных с этим видео',
+  })
+  @IsOptional()
+  shorts?: LandingVideoShortDto[] | null;
 }
 
 /** Видео лендинга вместе со статистикой по каждой площадке. */
@@ -455,6 +507,18 @@ export class LandingVideoWithStatsDto {
 
   @ApiPropertyOptional({ type: () => VideoChannelStatsDto, nullable: true })
   vkStats?: VideoChannelStatsDto | null;
+
+  @ApiPropertyOptional({
+    type: () => VideoChannelStatsDto,
+    isArray: true,
+    nullable: true,
+    description: 'Статистика для каждого short (в том же порядке, что и video.shorts)',
+  })
+  shortsStats?: Array<{
+    youtubeStats?: VideoChannelStatsDto | null;
+    rutubeStats?: VideoChannelStatsDto | null;
+    vkStats?: VideoChannelStatsDto | null;
+  }> | null;
 }
 
 export class LandingVideosResponse {
