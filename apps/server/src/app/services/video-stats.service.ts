@@ -273,6 +273,23 @@ export class VideoStatsService implements OnApplicationBootstrap {
       vkHref: 'https://vkvideo.ru/video-241775994_456239038',
       shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === 'ceL0qmeQe84'),
     },
+    {
+      youtubeId: 'QgVRC0aSoSs',
+      rutubeId: '0e5e5a2f09a513b08084d8ed40bb777d',
+      vkId: '-241775994_456239049',
+      label: 'Часть 5 · Видео',
+      shortTitle: 'Часть 5',
+      techTags: 'OpenSpec · Telegram · Plugin System · SSE',
+      title: 'OpenSpec, мок-сервер Telegram и плагинная система — Fullstack с AI — Часть 5',
+      description:
+        'Разбираемся с OpenSpec для проектирования задач через промпты. Строим мок-сервер Telegram с веб-интерфейсом, плагинную систему с Discovery Service, обработкой событий и восстановлением при падении.',
+      detailUrl: './videos/part-5.html',
+      repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+      ytHref: 'https://youtu.be/QgVRC0aSoSs',
+      rutubeHref: 'https://rutube.ru/video/0e5e5a2f09a513b08084d8ed40bb777d/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239049',
+      shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === 'QgVRC0aSoSs'),
+    },
   ];
 
   constructor(
