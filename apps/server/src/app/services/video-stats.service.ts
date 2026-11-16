@@ -295,6 +295,23 @@ export class VideoStatsService implements OnApplicationBootstrap {
       vkHref: 'https://vkvideo.ru/video-241775994_456239049',
       shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === 'QgVRC0aSoSs'),
     },
+    {
+      youtubeId: '1u112LZZofI',
+      rutubeId: '9828455d2dea2f9ae225cb5626b9288b',
+      vkId: '-241775994_456239063',
+      label: 'Часть 6 · Видео',
+      shortTitle: 'Часть 6',
+      techTags: 'OpenSpec · Grammy · Telegram · Webhooks',
+      title: 'AI подключает реальный Telegram | кнопки, пресеты, скиллы и grammy — Fullstack с AI — Часть 6',
+      description:
+        "Доводим mock-сервер Telegram до интерактива: кнопки с title и callback, пресеты для переиспользования, гранулярность задач одной правкой промпта. Правила переезжают из личной памяти харнеса в скиллы и документы репозитория. Подключаем реальный Telegram через grammy: несколько боевых ботов, вебхуки с секретом, привязка deep link'ом и переключение mock ↔ Telegram.",
+      detailUrl: './videos/part-6.html',
+      repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+      ytHref: 'https://youtu.be/1u112LZZofI',
+      rutubeHref: 'https://rutube.ru/video/9828455d2dea2f9ae225cb5626b9288b/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239063',
+      shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === '1u112LZZofI'),
+    },
   ];
 
   constructor(
