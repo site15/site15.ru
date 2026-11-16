@@ -4,15 +4,16 @@
  * Не блокирует event loop основного приложения.
  */
 
-import { MetricsPrismaSdk } from '@site15/metrics';
 import { setPrismaClient, setAppEnvironments } from '../app/services/global';
 import { AppEnvironments } from '../app/app.environments';
 import { VideoStatsService } from '../app/services/video-stats.service';
+import { createMetricsPrismaClient } from './metrics-prisma-client';
 
 async function bootstrap() {
   try {
-    // Создаём Prisma client
-    const prismaClient = new MetricsPrismaSdk.PrismaClient();
+    // Создаём Prisma client — обязательно через driver adapter, иначе клиент,
+    // собранный с queryCompiler, падает на первом же обращении (P2038).
+    const prismaClient = createMetricsPrismaClient();
     setPrismaClient(prismaClient);
 
     // Загружаем env variables (они уже в process.env)

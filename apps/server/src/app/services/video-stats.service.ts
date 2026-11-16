@@ -3,12 +3,13 @@ import { isInfrastructureMode } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { METRICS_FEATURE, MetricsPrismaSdk } from '@site15/metrics';
-import { fork } from 'child_process';
 import { join } from 'path';
 
 import { AppEnvironments } from '../app.environments';
+import { mapWithConcurrency } from './concurrency.utils';
 import { customFetch } from './fetch-with-file-cache';
 import { isWritableMetricValue } from './metric-value.utils';
+import { StatsWorkerLauncher } from './stats-worker-launcher';
 import {
   LandingVideoDto,
   LandingVideosResponse,
@@ -36,12 +37,16 @@ export type VideoStatsProvider = 'youtube' | 'rutube' | 'vk';
 @Injectable()
 export class VideoStatsService implements OnApplicationBootstrap {
   private readonly logger = new Logger(VideoStatsService.name);
+  /** Один фоновый worker за раз: повторный запуск, пока предыдущий жив, пропускается. */
+  private readonly videoStatsWorkerLauncher = new StatsWorkerLauncher(this.logger, 'refresh-video-stats');
 
   private static readonly LEVEL1 = 'videoStats';
   /** Минимальный интервал обращения к площадке за одним видео. */
   private static readonly TTL_MS = 1000 * 60 * 60; // 1 час
   /** Пауза перед повтором после неудачной выборки. */
   private static readonly FAILURE_BACKOFF_MS = 1000 * 60 * 10; // 10 минут
+  /** Сколько обращений к площадкам выполняется одновременно в одном прогоне refreshAll. */
+  private static readonly RUN_CONCURRENCY = 4;
   // Rutube/VK отдают 403/заглушку без «браузерного» User-Agent.
   private static readonly BROWSER_USER_AGENT =
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
@@ -310,6 +315,13 @@ export class VideoStatsService implements OnApplicationBootstrap {
       setImmediate(() => this.spawnRefreshVideoStatsWorker());
       // Периодическое обновление через worker
       setInterval(() => this.spawnRefreshVideoStatsWorker(), VideoStatsService.TTL_MS);
+    } else {
+      // Без шедулера счётчики не появляются никогда: чтение из БД внешних
+      // запросов не делает. Новое видео, добавленное при выключенном шедуере,
+      // даёт нули по всем площадкам.
+      this.logger.warn(
+        'refresh-video-stats scheduler отключён: выставьте SITE_15_SYNC_ALL_STATS_BY_INTERVAL=true, иначе счётчики видео не обновляются',
+      );
     }
   }
 
@@ -319,24 +331,7 @@ export class VideoStatsService implements OnApplicationBootstrap {
    */
   private spawnRefreshVideoStatsWorker() {
     const workerPath = join(__dirname, 'workers', 'refresh-video-stats.worker.js');
-    this.logger.log(`Spawning refresh-video-stats worker: ${workerPath}`);
-
-    const worker = fork(workerPath, [], {
-      env: process.env,
-      stdio: 'inherit',
-    });
-
-    worker.on('exit', (code) => {
-      if (code === 0) {
-        this.logger.log('refresh-video-stats worker completed successfully');
-      } else {
-        this.logger.error(`refresh-video-stats worker exited with code ${code}`);
-      }
-    });
-
-    worker.on('error', (error) => {
-      this.logger.error(`refresh-video-stats worker error: ${error.message}`);
-    });
+    this.videoStatsWorkerLauncher.spawn(workerPath);
   }
 
   async getStats(query: { yt?: string; rutube?: string; vk?: string }): Promise<LandingVideoStatsResponse> {
@@ -389,46 +384,42 @@ export class VideoStatsService implements OnApplicationBootstrap {
   }
 
   /**
-   * Шедулер: перебирает все видео из конфига и обновляет их статистику
+   * Шедулер: перебирает все видео и shorts из конфига и обновляет их статистику
    * внешними запросами к площадкам. Вызывается по интервалу и при старте.
+   *
+   * Обращения идут пакетами (RUN_CONCURRENCY), а не последовательными await:
+   * при 5 основных видео и 14 shorts это 57 запросов, и последовательный цикл
+   * складывается в минуты. Хвост списка — самые свежие видео и все shorts —
+   * при рестарте приложения/передеплои не успевал дойти до площадки, и у нового
+   * выпуска счётчики по всем платформам оставались нулевыми.
    */
   async refreshAll(): Promise<void> {
-    // Обновляем статистику основных видео
-    for (const video of VideoStatsService.VIDEOS) {
+    const targets: Array<{ provider: VideoStatsProvider; videoId: string; key: string }> = [];
+    for (const video of [...VideoStatsService.VIDEOS, ...VideoStatsService.SHORTS]) {
       if (video.youtubeId) {
-        await this.fetchAndSave('youtube', video.youtubeId, `youtube:${video.youtubeId}`).catch((error) =>
-          this.logger.warn(`refreshAll failed for youtube:${video.youtubeId}: ${String(error)}`),
-        );
+        targets.push({ provider: 'youtube', videoId: video.youtubeId, key: `youtube:${video.youtubeId}` });
       }
       if (video.rutubeId) {
-        await this.fetchAndSave('rutube', video.rutubeId, `rutube:${video.rutubeId}`).catch((error) =>
-          this.logger.warn(`refreshAll failed for rutube:${video.rutubeId}: ${String(error)}`),
-        );
+        targets.push({ provider: 'rutube', videoId: video.rutubeId, key: `rutube:${video.rutubeId}` });
       }
       if (video.vkId) {
-        await this.fetchAndSave('vk', video.vkId, `vk:${video.vkId}`).catch((error) =>
-          this.logger.warn(`refreshAll failed for vk:${video.vkId}: ${String(error)}`),
-        );
+        targets.push({ provider: 'vk', videoId: video.vkId, key: `vk:${video.vkId}` });
       }
     }
 
-    // Обновляем статистику shorts (один раз, т.к. shorts общие для всех видео)
-    for (const short of VideoStatsService.SHORTS) {
-      if (short.youtubeId) {
-        await this.fetchAndSave('youtube', short.youtubeId, `youtube:${short.youtubeId}`).catch((error) =>
-          this.logger.warn(`refreshAll failed for youtube short:${short.youtubeId}: ${String(error)}`),
-        );
+    let missed = 0;
+    await mapWithConcurrency(targets, VideoStatsService.RUN_CONCURRENCY, async (target) => {
+      const stats = await this.fetchAndSave(target.provider, target.videoId, target.key).catch((error) => {
+        this.logger.warn(`refreshAll failed for ${target.key}: ${String(error)}`);
+        return null;
+      });
+      if (!stats) {
+        missed += 1;
       }
-      if (short.rutubeId) {
-        await this.fetchAndSave('rutube', short.rutubeId, `rutube:${short.rutubeId}`).catch((error) =>
-          this.logger.warn(`refreshAll failed for rutube short:${short.rutubeId}: ${String(error)}`),
-        );
-      }
-      if (short.vkId) {
-        await this.fetchAndSave('vk', short.vkId, `vk:${short.vkId}`).catch((error) =>
-          this.logger.warn(`refreshAll failed for vk short:${short.vkId}: ${String(error)}`),
-        );
-      }
+    });
+
+    if (missed) {
+      this.logger.warn(`refreshAll: ${missed} из ${targets.length} обращений к площадкам не дали данных`);
     }
   }
 

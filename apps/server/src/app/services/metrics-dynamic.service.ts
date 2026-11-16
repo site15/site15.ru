@@ -3,12 +3,12 @@ import { isInfrastructureMode } from '@nestjs-mod/common';
 import { InjectPrismaClient } from '@nestjs-mod/prisma';
 import { Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { METRICS_FEATURE, MetricsDynamic, MetricsPrismaSdk } from '@site15/metrics';
-import { fork } from 'child_process';
 import { join } from 'path';
 
 import { AppEnvironments } from '../app.environments';
 import { isBlankOrZeroMetricValue, isWritableMetricValue } from './metric-value.utils';
 import { setAppEnvironments, setPrismaClient } from './global';
+import { StatsWorkerLauncher } from './stats-worker-launcher';
 import { AllStats, MetricHistoryItemDto } from './type';
 
 type ShortMetricsDynamic = Pick<MetricsDynamic, 'level1' | 'level2' | 'level3' | 'value'>;
@@ -41,6 +41,8 @@ function clampHistoryLimit(limit: number, fallback: number, max: number): number
 @Injectable()
 export class MetricsDynamicService implements OnApplicationBootstrap {
   private readonly logger = new Logger(MetricsDynamicService.name);
+  /** Один фоновый worker за раз: повторный запуск, пока предыдущий жив, пропускается. */
+  private readonly syncStatsWorkerLauncher = new StatsWorkerLauncher(this.logger, 'sync-stats');
 
   /** Разделитель в ключах метрик лендинга: `level1|level2|level3`. */
   private static readonly HISTORY_KEY_SEPARATOR = '|';
@@ -83,6 +85,14 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
     if (this.appEnvironments.syncAllStatsAfterStart) {
       setImmediate(() => this.spawnSyncStatsWorker());
     }
+
+    if (!this.appEnvironments.syncAllStatsByInterval && !this.appEnvironments.syncAllStatsAfterStart) {
+      // Без этих гейтов статистика лендинга не обновляется вовсе: эндпоинты
+      // /api/landing/* читают только БД и никогда не ходят на площадки.
+      this.logger.warn(
+        'sync-stats scheduler отключён: выставьте SITE_15_SYNC_ALL_STATS_BY_INTERVAL=true (или ..._AFTER_START=true), иначе метрики проектов и чатов устаревают',
+      );
+    }
   }
 
   /**
@@ -91,24 +101,7 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
    */
   private spawnSyncStatsWorker() {
     const workerPath = join(__dirname, 'workers', 'sync-stats.worker.js');
-    this.logger.log(`Spawning sync-stats worker: ${workerPath}`);
-
-    const worker = fork(workerPath, [], {
-      env: process.env,
-      stdio: 'inherit',
-    });
-
-    worker.on('exit', (code) => {
-      if (code === 0) {
-        this.logger.log('sync-stats worker completed successfully');
-      } else {
-        this.logger.error(`sync-stats worker exited with code ${code}`);
-      }
-    });
-
-    worker.on('error', (error) => {
-      this.logger.error(`sync-stats worker error: ${error.message}`);
-    });
+    this.syncStatsWorkerLauncher.spawn(workerPath);
   }
 
   async getAllSync() {
