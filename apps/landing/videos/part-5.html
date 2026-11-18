@@ -75,11 +75,15 @@
         }
     </script>
     <style>
+        html {
+            overflow-x: hidden; /* фолбэк для старых браузеров без clip */
+            overflow-x: clip;
+        }
+
         body {
             background-color: #f3f3f3;
             background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
             background-size: 24px 24px;
-            overflow-x: hidden;
         }
 
         .neo-border {

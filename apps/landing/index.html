@@ -83,11 +83,31 @@
     </script>
     <style>
         /* Custom Styles for nuances Tailwind can't easily catch */
+        /* Горизонтальное обрезание держим на корневом html: overflow-x: clip не создаёт
+           собственный контейнер прокрутки (в отличие от overflow-x: hidden на body),
+           поэтому якорная навигация (#videos и т.п.), scroll-behavior и position: sticky
+           работают одинаково во всех браузерах и страница не «прыгает наверх». */
+        html {
+            overflow-x: hidden; /* фолбэк для старых браузеров без clip */
+            overflow-x: clip;
+        }
+
         body {
             background-color: #f3f3f3;
             background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
             background-size: 24px 24px;
-            overflow-x: hidden;
+        }
+
+        /* Фиксированный навбар не должен перекрывать заголовок секции при переходе по якорю */
+        section[id] {
+            scroll-margin-top: 5.5rem;
+        }
+
+        /* При переключении видео браузер не должен подстраивать скролл (scroll-anchoring):
+           перемонтирование плеера/описания меняет содержимое — гасим автокомпенсацию. */
+        [data-video-card],
+        [data-video-info] {
+            overflow-anchor: none;
         }
 
         .neo-border {
@@ -2161,7 +2181,7 @@
                 <div class="lg:col-span-4 space-y-3">
                     <div class="font-mono text-xs font-bold uppercase text-neo-black/70 mb-2 px-1">Список видео</div>
 
-                    <button data-video-nav="0" onclick="switchVideo(0)"
+                    <button type="button" tabindex="-1" data-video-nav="0" onclick="switchVideo(0, event)"
                         class="w-full text-left p-3 neo-border bg-neo-green/20 hover:bg-neo-green/40 transition-colors cursor-pointer block">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="px-2 py-0.5 bg-neo-green neo-border font-mono font-bold text-xs">Часть 1</span>
@@ -2170,7 +2190,7 @@
                         <div class="font-mono text-xs text-neo-black/60 mt-1">NestJS · Angular · Prisma · PostgreSQL</div>
                     </button>
 
-                    <button data-video-nav="1" onclick="switchVideo(1)"
+                    <button type="button" tabindex="-1" data-video-nav="1" onclick="switchVideo(1, event)"
                         class="w-full text-left p-3 neo-border bg-white hover:bg-neo-purple/20 transition-colors cursor-pointer block">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="px-2 py-0.5 bg-neo-purple neo-border font-mono font-bold text-xs">Часть 2</span>
@@ -2179,7 +2199,7 @@
                         <div class="font-mono text-xs text-neo-black/60 mt-1">LLM · HeyAPI · E2E · Swagger</div>
                     </button>
 
-                    <button data-video-nav="2" onclick="switchVideo(2)"
+                    <button type="button" tabindex="-1" data-video-nav="2" onclick="switchVideo(2, event)"
                         class="w-full text-left p-3 neo-border bg-white hover:bg-neo-blue/20 transition-colors cursor-pointer block">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="px-2 py-0.5 bg-neo-blue neo-border font-mono font-bold text-xs">Часть 3</span>
@@ -2188,7 +2208,7 @@
                         <div class="font-mono text-xs text-neo-black/60 mt-1">GitHub Actions · CI/CD · MCP · Jest</div>
                     </button>
 
-                    <button data-video-nav="3" onclick="switchVideo(3)"
+                    <button type="button" tabindex="-1" data-video-nav="3" onclick="switchVideo(3, event)"
                         class="w-full text-left p-3 neo-border bg-white hover:bg-neo-yellow/40 transition-colors cursor-pointer block">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="px-2 py-0.5 bg-neo-yellow neo-border font-mono font-bold text-xs">Часть 4</span>
@@ -2197,7 +2217,7 @@
                         <div class="font-mono text-xs text-neo-black/60 mt-1">PM2 · Playwright · E2E · GitHub Actions</div>
                     </button>
 
-                    <button data-video-nav="4" onclick="switchVideo(4)"
+                    <button type="button" tabindex="-1" data-video-nav="4" onclick="switchVideo(4, event)"
                         class="w-full text-left p-3 neo-border bg-white hover:bg-neo-pink/40 transition-colors cursor-pointer block">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="px-2 py-0.5 bg-neo-pink neo-border font-mono font-bold text-xs">Часть 5</span>
@@ -2206,7 +2226,7 @@
                         <div class="font-mono text-xs text-neo-black/60 mt-1">OpenSpec · Telegram · Plugin System · SSE</div>
                     </button>
 
-                    <button data-video-nav="5" onclick="switchVideo(5)"
+                    <button type="button" tabindex="-1" data-video-nav="5" onclick="switchVideo(5, event)"
                         class="w-full text-left p-3 neo-border bg-white hover:bg-neo-green/40 transition-colors cursor-pointer block">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="px-2 py-0.5 bg-neo-green neo-border font-mono font-bold text-xs">Часть 6</span>
@@ -2997,13 +3017,36 @@
             });
         }
 
-        window.switchVideo = function (index) {
+        window.switchVideo = function (index, ev) {
             if (index === currentVideo) return;
             if (index < 0 || index >= VIDEOS.length) return;
+            // Полностью гасим штатное поведение кнопки: никаких переходов/фокус-скролла.
+            if (ev && typeof ev.preventDefault === 'function') { try { ev.preventDefault(); } catch (e) {}
+                if (ev.currentTarget && typeof ev.currentTarget.blur === 'function') { try { ev.currentTarget.blur(); } catch (e) {} } }
             currentVideo = index;
             var v = VIDEOS[index];
             var card = document.querySelector('[data-video-card]');
             if (!card) return;
+
+            // Замок позиции скролла: переключение видео НЕ должно двигать страницу
+            // ни на пиксель (ни при клике/focus, ни при scroll-anchoring, ни при
+            // асинхронном монтировании iframe).
+            var _startY = window.scrollY;
+            var _snapping = false;
+            function _keepScroll() {
+                if (_snapping || window.scrollY === _startY) return;
+                _snapping = true;
+                window.scrollTo(0, _startY);
+                // сброс флага в следующем кадре, чтобы не заглотить реальный скролл
+                requestAnimationFrame(function () { _snapping = false; });
+            }
+            // Временно отключаем плавную прокрутку — иначе возврат анимируется как рывок.
+            document.documentElement.style.scrollBehavior = 'auto';
+            window.addEventListener('scroll', _keepScroll, { passive: true });
+            function _releaseLock() {
+                window.removeEventListener('scroll', _keepScroll);
+                document.documentElement.style.scrollBehavior = '';
+            }
 
             // Update container data attributes
             var container = card.querySelector('[data-youtube-id][data-rutube-id]');
@@ -3060,6 +3103,12 @@
             if (window.__videoPlayer) {
                 window.__videoPlayer.initVideoCard(card);
             }
+
+            // Держим замок ещё ~500 мс, чтобы перехватить отложенные смещения
+            // (асинхронное монтирование iframe), затем отпускаем.
+            _keepScroll();
+            setTimeout(_keepScroll, 60);
+            setTimeout(_releaseLock, 500);
         };
 
         // Initialize: sidebar highlight + fetch videos from backend.

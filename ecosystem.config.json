@@ -9,6 +9,10 @@
       "name": "site15",
       "script": "./node_modules/.bin/nx serve server --skip-nx-cache=true",
       "node_args": "-r dotenv/config"
+    },
+    {
+      "name": "landing",
+      "script": "npx --yes serve apps/landing --listen 4300 --no-clipboard"
     }
   ]
 }
