@@ -325,13 +325,20 @@
                     <span class="text-stroke-2">Хамитов</span>
                 </h1>
                 <h2
-                    class="text-2xl md:text-3xl font-bold bg-neo-black text-white inline-block px-4 py-2 mb-8 transform -rotate-2">
+                    class="text-2xl md:text-3xl font-bold bg-neo-black text-white inline-block px-4 py-2 mb-4 transform -rotate-2">
                     Senior Fullstack Engineer
                 </h2>
+                <div class="mb-8">
+                    <span
+                        class="inline-flex items-center gap-2 px-4 py-2 bg-neo-purple neo-border font-mono font-bold text-sm shadow-neo-sm transform rotate-1">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        Разработка с LLM-агентами · OpenSpec
+                    </span>
+                </div>
                 <p
                     class="text-xl md:text-2xl font-medium max-w-2xl mb-10 leading-relaxed border-l-4 border-neo-pink pl-6">
                     Fullstack / Backend Engineer. <br>
-                    Инженер-практик: пишу код, проектирую архитектуру, развиваю продукты. <br>
+                    Инженер-практик: пишу код, проектирую архитектуру, развиваю продукты — сегодня в связке с LLM-агентами по OpenSpec. <br>
                     <span class="font-mono text-sm mt-2 block opacity-75">Location: Уфа, Россия | Exp: 21+ лет</span>
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
@@ -396,7 +403,7 @@
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-5xl font-black mb-12 uppercase text-center"><span class="bg-neo-green px-2">О себе</span> и
                 экспертиза</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Card 1 -->
                 <div class="p-8 neo-border bg-neo-bg shadow-neo hover:shadow-neo-hover transition-all reveal">
                     <div class="w-12 h-12 bg-neo-black text-white flex items-center justify-center mb-4 neo-border">
@@ -432,6 +439,17 @@
                         Умею выстраивать работу команды без конфликтов и перегруза. Объясняю сложные вещи простым
                         языком, помогаю расти разработчикам и настраиваю процессы так, чтобы команда двигалась быстрее и
                         увереннее.
+                    </p>
+                </div>
+                <!-- Card 4 -->
+                <div class="p-8 neo-border bg-neo-purple shadow-neo hover:shadow-neo-hover transition-all reveal delay-300">
+                    <div class="w-12 h-12 bg-neo-black text-white flex items-center justify-center mb-4 neo-border">
+                        <i data-lucide="bot" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Разработка через LLM-агентов</h3>
+                    <p class="font-mono text-sm leading-relaxed">
+                        Проектирую фичи по OpenSpec: задаю цель, границы и критерии приёмки, а код пишут LLM-агенты под
+                        моим ревью. Это ускоряет путь от идеи до прода и держит архитектуру под контролем.
                     </p>
                 </div>
             </div>
@@ -471,6 +489,7 @@
                             <li>Система версионирования AI-промптов с возможностью отката</li>
                             <li>Реализация платёжной системы и онлайн-оплаты</li>
                             <li>Антифрод-система на основе анализа fingerprint и IP</li>
+                            <li>Агентская разработка по OpenSpec: спецификация → реализация LLM-агентами → ревью и приёмка</li>
                         </ul>
                         <div class="mt-4 flex flex-wrap gap-2">
                             <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NestJS</span>
@@ -478,6 +497,8 @@
                             <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">PostgreSQL</span>
                             <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">NATS JetStream</span>
                             <span class="text-xs font-bold border border-black px-2 py-0.5 bg-gray-100">OpenAI</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-neo-purple/30">OpenSpec</span>
+                            <span class="text-xs font-bold border border-black px-2 py-0.5 bg-neo-purple/30">Qoder</span>
                         </div>
                     </div>
                 </div>
@@ -690,18 +711,25 @@
             </div>
         </div>
     </section>
-    <!-- 15 Projects Section (Key Conceptual Block) -->
-    <section id="projects" class="py-24 px-4 bg-neo-pink/10 border-b-4 border-neo-black">
-        <div class="max-w-7xl mx-auto">
+    <!-- Projects Section: two groups — classic development & LLM-driven development -->
+    <section id="projects" class="py-24 px-4 bg-neo-pink/10 border-y-4 border-neo-black">
+        <div class="max-w-7xl mx-auto flex flex-col">
             <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase text-center reveal">
                 <span
                     class="bg-neo-pink px-2 neo-border border-4 border-black inline-block transform -rotate-1">site15.ru</span>
                 — мои инженерные наработки из реальной работы
             </h2>
-            <p class="text-center text-lg mb-16 font-mono"><span
-                    class="inline-block bg-neo-black text-white px-3 py-1 font-mono font-bold text-base">Либы, утилиты и проекты из реальной работы — с открытым кодом.</span></p>
-            <!-- Projects Grid (15 items) -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
+            <p class="text-center text-lg mb-8 font-mono"><span
+                    class="inline-block bg-neo-black text-white px-3 py-1 font-mono font-bold text-base">Наработки из реальной работы — с открытым кодом. Собираю их двумя способами.</span></p>
+            <!-- Group 1: Классическая разработка -->
+            <div class="text-center mb-8 mt-16 reveal order-3">
+                <h3 class="text-2xl md:text-3xl font-black uppercase mb-3">
+                    <span class="bg-neo-blue px-2 neo-border border-4 border-black inline-block">Классическая разработка</span>
+                </h3>
+                <p class="font-mono text-sm text-gray-700">Библиотеки, утилиты и модули, написанные вручную в реальных проектах.</p>
+            </div>
+            <!-- Projects Grid: classic -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 order-4">
                 <!-- Project 1 -->
                 <article id="proj-1"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
@@ -1100,6 +1128,16 @@
                             локализованная валидация.</p>
                     </div>
                 </article>
+            </div>
+            <!-- Group 2: Разработка с помощью LLM -->
+            <div class="text-center mb-8 mt-4 reveal order-1">
+                <h3 class="text-2xl md:text-3xl font-black uppercase mb-3">
+                    <span class="bg-neo-purple px-2 neo-border border-4 border-black inline-block transform -rotate-1">Разработка с помощью LLM</span>
+                </h3>
+                <p class="font-mono text-sm text-gray-700 max-w-3xl mx-auto leading-relaxed">Продукты, спроектированные и собранные агентской разработкой по OpenSpec: я задаю цели, границы и критерии приёмки, LLM-агенты пишут код под моим ревью.</p>
+            </div>
+            <!-- Projects Grid: LLM -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 order-2">
                 <!-- Project 8 -->
                 <article id="proj-8"
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
