@@ -9,8 +9,14 @@ ENV NX_PARALLEL=3
 ENV NX_SKIP_NX_CACHE=true
 ENV NODE_OPTIONS=--max-old-space-size=8192
 COPY . .
+# site15-vps intermittently drops TLS to registry.yarnpkg.com while fetching
+# optional platform-specific packages (@esbuild/{android,darwin,aix}-*, fsevents)
+# that a linux-alpine build does not need. Retry once, then fall back to
+# --ignore-optional so a flaky CDN can no longer fail the deploy.
 RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOLDER=/yarn/.cache \
-    yarn install --frozen-lockfile --ignore-scripts --prefer-offline && \
+    ( yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 || \
+      yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 || \
+      yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 --ignore-optional ) && \
     echo '' > .env && \
     jq 'del(.targetDefaults, .plugins, .generators, .release)' nx.json > temp.json && mv temp.json nx.json && \
     yarn nx run-many -p rest-sdk server client -t=build --configuration=production
@@ -26,7 +32,9 @@ COPY . .
 RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOLDER=/yarn/.cache \
     echo '' > .env && \
     jq 'del(.devDependencies)' package.json > temp.json && mv temp.json package.json && \
-    yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline && \
+    ( yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 || \
+      yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 || \
+      yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 --ignore-optional ) && \
     jq 'del(.targetDefaults, .plugins, .generators, .release)' nx.json > temp.json && mv temp.json nx.json && \
     rm -rf node_modules/@angular node_modules/ng-zorro-antd node_modules/@faker-js node_modules/@ant-design node_modules/@jsverse && \
     rm -rf node_modules/zone.js node_modules/@ngx-formly node_modules/markdown-it node_modules/@types
