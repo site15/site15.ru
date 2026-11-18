@@ -3204,9 +3204,36 @@
             // Временно отключаем плавную прокрутку — иначе возврат анимируется как рывок.
             document.documentElement.style.scrollBehavior = 'auto';
             window.addEventListener('scroll', _keepScroll, { passive: true });
+
+            // Замок должен пережить ПОЗДНЕЕ асинхронное перемонтирование плеера:
+            // iframe площадки вставляется и догружается через пробу (до нескольких
+            // секунд), а embed при загрузке может сам сдвинуть родителя — из-за чего
+            // «иногда» страница прыгала наверх уже после отпускания замка (жёстких 500 мс
+            // не хватало). Поэтому не фиксируем окно по времени, а продлеваем его на
+            // каждую DOM-мутацию внутри карточки, пока она не утихнет.
+            var _releaseTimer = null;
+            var _hardStop = null;
+            var _observer = null;
+            var LOCK_TAIL_MS = 1000; // держим ещё столько же после последней мутации
+            var LOCK_MAX_MS = 6000;  // жёсткий потолок, чтобы не залочить скролл навсегда
             function _releaseLock() {
+                if (_observer) { try { _observer.disconnect(); } catch (e) {} _observer = null; }
+                if (_releaseTimer) { clearTimeout(_releaseTimer); _releaseTimer = null; }
+                if (_hardStop) { clearTimeout(_hardStop); _hardStop = null; }
                 window.removeEventListener('scroll', _keepScroll);
                 document.documentElement.style.scrollBehavior = '';
+            }
+            function _arm() {
+                if (_releaseTimer) clearTimeout(_releaseTimer);
+                _releaseTimer = setTimeout(_releaseLock, LOCK_TAIL_MS);
+            }
+            _hardStop = setTimeout(_releaseLock, LOCK_MAX_MS);
+            if (card && window.MutationObserver) {
+                _observer = new MutationObserver(function () {
+                    _keepScroll();
+                    _arm();
+                });
+                _observer.observe(card, { childList: true, subtree: true });
             }
 
             // Update container data attributes
@@ -3265,11 +3292,11 @@
                 window.__videoPlayer.initVideoCard(card);
             }
 
-            // Держим замок ещё ~500 мс, чтобы перехватить отложенные смещения
-            // (асинхронное монтирование iframe), затем отпускаем.
+            // Базовое окно замка; будет продлеваться MutationObserver'ом при
+            // фактическом перемонтировании iframe, затем отпускаться через LOCK_TAIL_MS.
             _keepScroll();
             setTimeout(_keepScroll, 60);
-            setTimeout(_releaseLock, 500);
+            _arm();
         };
 
         // Initialize: sidebar highlight + fetch videos from backend.
