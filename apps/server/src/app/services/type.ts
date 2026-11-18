@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsOptional, IsString, IsNotEmpty, IsDefined } from 'class-validator';
+import { IsOptional, IsString, IsNotEmpty, IsDefined, IsInt } from 'class-validator';
 
 export interface AllStats {
   githubStats: GithubStats;
@@ -559,4 +559,131 @@ export class MetricHistoryItemDto {
 export class LandingMetricHistoryResponse {
   @ApiProperty({ type: () => MetricHistoryItemDto, isArray: true })
   items!: MetricHistoryItemDto[];
+}
+
+/* ---------------- Music albums (landing) ---------------- */
+
+/** Один трек альбома — для трек-листа на детальной странице. */
+export class LandingMusicTrackDto {
+  @ApiProperty({ description: 'Номер трека в релизе' })
+  @IsInt()
+  n!: number;
+
+  @ApiProperty({ example: 'Golden Autumn Reprise' })
+  @IsString()
+  title!: string;
+
+  @ApiProperty({ example: '3:49', description: 'Длительность по ffprobe, мм:сс' })
+  @IsString()
+  duration!: string;
+
+  @ApiPropertyOptional({ description: 'Темп в BPM (замер каталога библиотеки)', nullable: true })
+  @IsOptional()
+  @IsInt()
+  bpm?: number | null;
+}
+
+/** Ссылка на витрину, где альбом лежит, но iframe-плеера у нас нет. */
+export class LandingMusicLinkDto {
+  @ApiProperty({ example: 'VK Музыка' })
+  @IsString()
+  label!: string;
+
+  @ApiProperty({ description: 'Прямая ссылка на релиз' })
+  @IsString()
+  href!: string;
+}
+
+/** Встраиваемый плеер площадки: iframe + прямая ссылка + комфортная высота. */
+export class LandingMusicEmbedDto {
+  @ApiProperty({ description: 'Ключ площадки: yandex | spotify | soundcloud' })
+  @IsString()
+  provider!: string;
+
+  @ApiProperty({ example: 'Яндекс Музыка' })
+  @IsString()
+  label!: string;
+
+  @ApiProperty({ description: 'Значение src для iframe' })
+  @IsString()
+  embedUrl!: string;
+
+  @ApiProperty({ description: 'Прямая ссылка на релиз на этой площадке' })
+  @IsString()
+  href!: string;
+
+  @ApiPropertyOptional({
+    description: 'Рекомендуемая высота плеера в px (у площадок разная плотность разметки)',
+    nullable: true,
+  })
+  @IsOptional()
+  @IsInt()
+  height?: number | null;
+}
+
+/** Конфигурация одного альбома лендинга: мета + плееры + ссылки + трек-лист. */
+export class LandingMusicAlbumDto {
+  @ApiProperty({ example: 'autumn-exe', description: 'slug — ключ альбома в URL детальной страницы' })
+  @IsString()
+  slug!: string;
+
+  @ApiProperty({ description: 'Метка в сайдбаре (напр. «Альбом 1 · Музыка»)' })
+  @IsString()
+  label!: string;
+
+  @ApiProperty({ example: 'Autumn Exe' })
+  @IsString()
+  shortTitle!: string;
+
+  @ApiProperty({ example: 'Electronic · Downtempo', description: 'Строка жанра/мета для карточки' })
+  @IsString()
+  techTags!: string;
+
+  @ApiProperty({ description: 'Заголовок альбома' })
+  @IsString()
+  title!: string;
+
+  @ApiProperty({ example: 'EndyKaufman' })
+  @IsString()
+  artist!: string;
+
+  @ApiProperty({ description: 'Описание альбома для карточки и детальной страницы' })
+  @IsString()
+  description!: string;
+
+  @ApiProperty({ example: '14 треков · 49 минут', description: 'Короткая строка-факт' })
+  @IsString()
+  facts!: string;
+
+  @ApiProperty({ example: '2026-11-01', description: 'Дата, которую показывают площадки' })
+  @IsString()
+  releaseDate!: string;
+
+  @ApiProperty({ description: 'Ссылка на обложку (относительная от корня лендинга)' })
+  @IsString()
+  coverUrl!: string;
+
+  @ApiProperty({ description: 'Ссылка на детальную страницу альбома' })
+  @IsString()
+  detailUrl!: string;
+
+  @ApiProperty({ type: () => LandingMusicEmbedDto, isArray: true, description: 'Встраиваемые плееры' })
+  embeds!: LandingMusicEmbedDto[];
+
+  @ApiPropertyOptional({
+    type: () => LandingMusicLinkDto,
+    isArray: true,
+    description: 'Площадки без iframe — только ссылкой',
+  })
+  @IsOptional()
+  links?: LandingMusicLinkDto[] | null;
+
+  @ApiPropertyOptional({ type: () => LandingMusicTrackDto, isArray: true, description: 'Трек-лист' })
+  @IsOptional()
+  tracks?: LandingMusicTrackDto[] | null;
+}
+
+export class LandingMusicAlbumsResponse {
+  @ApiProperty({ type: () => LandingMusicAlbumDto, isArray: true })
+  albums!: LandingMusicAlbumDto[];
 }

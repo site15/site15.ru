@@ -52,13 +52,13 @@
   function getBgClass(color) {
     const map = {
       'neo-black': 'bg-neo-black text-white',
-      'neo-blue': 'bg-neo-blue text-white',
+      'neo-blue': 'bg-neo-blue text-neo-black',
       'neo-green': 'bg-neo-green text-neo-black',
       'neo-yellow': 'bg-neo-yellow text-neo-black',
       'neo-pink': 'bg-neo-pink text-neo-black',
-      'neo-purple': 'bg-neo-purple text-white',
-      'neo-red': 'bg-red-500 text-white',
-      'neo-orange': 'bg-orange-500 text-white',
+      'neo-purple': 'bg-neo-purple text-neo-black',
+      'neo-red': 'bg-red-500 text-neo-black',
+      'neo-orange': 'bg-orange-500 text-neo-black',
     };
     return map[color] || 'bg-white text-neo-black';
   }

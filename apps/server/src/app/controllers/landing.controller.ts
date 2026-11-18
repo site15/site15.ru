@@ -7,6 +7,7 @@ import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 import { AllowEmptySsoUser } from '@site15/sso';
 import { AppEnvironments } from '../app.environments';
 import { MetricsDynamicService } from '../services/metrics-dynamic.service';
+import { MusicAlbumsService } from '../services/music-albums.service';
 import { VideoStatsService } from '../services/video-stats.service';
 import { customFetch } from '../services/fetch-with-file-cache';
 import {
@@ -15,6 +16,7 @@ import {
   ChatSendMessageDto,
   LandingAllStatsResponse,
   LandingMetricHistoryResponse,
+  LandingMusicAlbumsResponse,
   LandingSendMessageDto,
   LandingVideoStatsResponse,
   LandingVideosResponse,
@@ -34,6 +36,7 @@ export class LandingController {
     private readonly appEnvironments: AppEnvironments,
     private readonly metricsDynamicService: MetricsDynamicService,
     private readonly videoStatsService: VideoStatsService,
+    private readonly musicAlbumsService: MusicAlbumsService,
   ) {}
 
   private getFlowControllerRequestOptions<T extends Record<string, unknown>>(options: T): T & { timeout: number } {
@@ -79,6 +82,17 @@ export class LandingController {
   @ApiOkResponse({ type: LandingVideosResponse })
   async videos(): Promise<LandingVideosResponse> {
     return this.videoStatsService.getAllVideosWithStats();
+  }
+
+  /**
+   * Музыкальные релизы лендинга: метаданные альбома, iframe-плееры площадок,
+   * ссылки на витрины и трек-лист. Только конфигурация — внешних запросов нет,
+   * счётчики прослушиваний площадки публично не отдают.
+   */
+  @Get('albums')
+  @ApiOkResponse({ type: LandingMusicAlbumsResponse })
+  albums(): LandingMusicAlbumsResponse {
+    return this.musicAlbumsService.getAllAlbums();
   }
 
   /**

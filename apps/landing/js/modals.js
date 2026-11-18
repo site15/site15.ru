@@ -40,9 +40,9 @@ window.openProjectDetailsModal = function (id) {
     // Special content for Rucken project
     projectDetailsContent.innerHTML = `
                     <div class="prose max-w-none">
-                        <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">Rucken: Презентация проекта</h1>
+                        <h1 class="text-4xl font-black uppercase mb-6 text-pink-700">Rucken: Презентация проекта</h1>
                         <p class="text-xl italic mb-8">Инженерная платформа, прожитая на практике</p>
-                        
+
                         <div class="space-y-6">
                             <!-- Context and Duration -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
@@ -72,7 +72,7 @@ window.openProjectDetailsModal = function (id) {
                             <!-- Code Generation -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="code" class="w-6 h-6 text-neo-green"></i> Генерация кода: что сработало, а что нет</h2>
-                                
+
                                 <h3 class="text-xl font-bold mb-3 mt-6">Что оказалось полезным</h3>
                                 <p class="mb-4">Генераторы кода действительно дали огромный плюс:</p>
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
@@ -82,10 +82,10 @@ window.openProjectDetailsModal = function (id) {
                                     <li>возможность быстро масштабировать проект по количеству сущностей.</li>
                                 </ul>
                                 <p class="mb-6">На старте и в фазе активного роста это <strong>работало отлично</strong>.</p>
-                                
+
                                 <h3 class="text-xl font-bold mb-3 mt-6">Где начались реальные проблемы</h3>
                                 <p class="mb-4">Когда система стала сложной, вскрылись ограничения подхода.</p>
-                                
+
                                 <h4 class="text-lg font-bold mb-3 mt-4">1. Кастомизация под конкретные кейсы</h4>
                                 <p class="mb-4">Реальные интерфейсы почти никогда не одинаковые.</p>
                                 <p class="mb-2">Пример:</p>
@@ -109,7 +109,7 @@ window.openProjectDetailsModal = function (id) {
                                     </ul>
                                 </ul>
                                 <p class="mb-6">Сложность генераторов росла <strong>быстрее, чем сложность продукта</strong>.</p>
-                                
+
                                 <h4 class="text-lg font-bold mb-3 mt-4">2. Ручные правки vs повторная генерация</h4>
                                 <p class="mb-4">Появился ключевой конфликт:</p>
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
@@ -134,7 +134,7 @@ window.openProjectDetailsModal = function (id) {
                                     <li>не терять кастомные правки,</li>
                                     <li>работать с большим количеством файлов.</li>
                                 </ul>
-                                
+
                                 <h4 class="text-lg font-bold mb-3 mt-4">3. Избыточность кода</h4>
                                 <p class="mb-4">Из-за генерации:</p>
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
@@ -158,14 +158,14 @@ window.openProjectDetailsModal = function (id) {
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="brain" class="w-6 h-6 text-neo-purple"></i> Главные выводы по генерации</h2>
                                 <p class="mb-4">После 2–3 лет работы с этим подходом я пришёл к важным выводам:</p>
-                                
+
                                 <h3 class="text-xl font-bold mb-3 mt-4">✔️ Генерация кода — это хорошо, когда:</h3>
                                 <ul class="list-disc pl-6 mb-6 space-y-2">
                                     <li>нужно <strong>быстро создать много однотипного кода</strong>,</li>
                                     <li>проект находится в фазе активного роста,</li>
                                     <li>требования ещё не устоялись.</li>
                                 </ul>
-                                
+
                                 <h3 class="text-xl font-bold mb-3 mt-4">⚠️ Генерация кода становится проблемой, когда:</h3>
                                 <ul class="list-disc pl-6 mb-6 space-y-2">
                                     <li>начинается глубокая кастомизация,</li>
@@ -241,9 +241,9 @@ window.openProjectDetailsModal = function (id) {
     // Special content for KaufmanBot project
     projectDetailsContent.innerHTML = `
                     <div class="prose max-w-none">
-                        <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">KaufmanBot: Презентация проекта</h1>
+                        <h1 class="text-4xl font-black uppercase mb-6 text-pink-700">KaufmanBot: Презентация проекта</h1>
                         <p class="text-xl italic mb-8">Архитектурный эксперимент и демонстрационная платформа</p>
-                        
+
                         <div class="space-y-6">
                             <!-- Overall Idea -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
@@ -286,37 +286,37 @@ window.openProjectDetailsModal = function (id) {
                             <!-- Plugin Examples -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="code" class="w-6 h-6 text-neo-yellow"></i> Примеры плагинов (сжато)</h2>
-                                
+
                                 <h3 class="text-xl font-bold mb-3 mt-4">Системные плагины</h3>
                                 <p class="mb-2"><strong>Отладка</strong> — управление debug-режимом<br>
                                 Команды: debug on/off/state/help, отладка включить/выключить<br>
                                 Поддержка RU / EN и синонимов</p>
-                                
+
                                 <p class="mb-2"><strong>Короткие команды</strong> — сокращённые алиасы для длинных команд<br>
                                 Команды: scmd state/help, кмд состояние/помощь</p>
-                                
+
                                 <p class="mb-2"><strong>Работа в группах</strong> — поддержка сценариев в групповых чатах<br>
                                 Команды: groups help/meet, группы помощь/знакомство</p>
-                                
+
                                 <p class="mb-4"><strong>Переключение языка</strong> — управление локалью пользователя<br>
                                 Команды: my locale, change locale to ru, мой язык</p>
-                                
+
                                 <h3 class="text-xl font-bold mb-3">Пользовательские и групповые плагины</h3>
                                 <p class="mb-2"><strong>Конвертер валют</strong> — конвертация валют с контекстом<br>
                                 Команды: convert 1 usd to eur, ещё / дальше</p>
-                                
+
                                 <p class="mb-2"><strong>Генератор фактов</strong> — случайные факты с продолжением<br>
                                 Команды: get fact(s), дай факт(ы), ещё / дальше</p>
-                                
+
                                 <p class="mb-2"><strong>Генератор цитат</strong> — случайные цитаты<br>
                                 Команды: get quote(s), дай цитату, ещё / дальше</p>
-                                
+
                                 <p class="mb-2"><strong>Генератор шуток</strong> — случайные шутки<br>
                                 Команды: get joke(s), пошути, рассмеши, ещё / дальше</p>
-                                
+
                                 <p class="mb-2"><strong>Первое знакомство</strong> — многошаговый сценарий с сохранением состояния<br>
                                 Команды: meet start/reset/help, знакомство начать</p>
-                                
+
                                 <p class="mb-4"><strong>Демо-заказ такси</strong> — пошаговый сценарий с несколькими экранами<br>
                                 Команды: get taxi, дай такси</p>
                             </article>
@@ -346,7 +346,7 @@ window.openProjectDetailsModal = function (id) {
                                         <li>лучше подходит для сложных сценариев</li>
                                     </ul>
                                 </article>
-                                
+
                                 <article class="p-6 neo-border bg-white shadow-neo-sm">
                                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="bot" class="w-6 h-6 text-neo-blue"></i> Автоматические ответы и Dialogflow</h2>
                                     <p class="mb-4">На момент разработки нейросетей ещё не было, но хотелось «умных» ответов.</p>
@@ -366,7 +366,7 @@ window.openProjectDetailsModal = function (id) {
                             <!-- Database and ORM -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="database" class="w-6 h-6 text-neo-green"></i> Работа с БД и ORM</h2>
-                                
+
                                 <h3 class="text-xl font-bold mb-3 mt-4">Prisma</h3>
                                 <p class="mb-4">Проект использовался для изучения Prisma в сложной архитектуре:</p>
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
@@ -374,7 +374,7 @@ window.openProjectDetailsModal = function (id) {
                                     <li>свои миграции</li>
                                     <li>деплой как отдельный npm-пакет</li>
                                 </ul>
-                                
+
                                 <h3 class="text-xl font-bold mb-3 mt-4">Принципиальное решение</h3>
                                 <p class="mb-4">В отличие от проекта Rucken:</p>
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
@@ -382,7 +382,7 @@ window.openProjectDetailsModal = function (id) {
                                     <li>нет наследования между либами</li>
                                     <li>каждая либа автономна</li>
                                 </ul>
-                                
+
                                 <h3 class="text-xl font-bold mb-3 mt-4">Миграции</h3>
                                 <p class="mb-2">Использовался:</p>
                                 <ul class="list-disc pl-6 mb-2 space-y-1">
@@ -409,7 +409,7 @@ window.openProjectDetailsModal = function (id) {
                                         <li>интегрирована в плагинную модель бота</li>
                                     </ul>
                                 </article>
-                                
+
                                 <article class="p-6 neo-border bg-white shadow-neo-sm">
                                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="zap" class="w-6 h-6 text-neo-yellow"></i> Schematics и автоматизация</h2>
                                     <p class="mb-4">Реализованы Nx schematics:</p>
@@ -506,9 +506,9 @@ window.openProjectDetailsModal = function (id) {
     // Special content for NestJS-mod project
     projectDetailsContent.innerHTML = `
                     <div class="prose max-w-none">
-                        <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">NestJS-mod: Презентация проекта</h1>
+                        <h1 class="text-4xl font-black uppercase mb-6 text-pink-700">NestJS-mod: Презентация проекта</h1>
                         <p class="text-xl italic mb-8">Моя fullstack-платформа для NestJS</p>
-                        
+
                         <div class="space-y-6">
                             <!-- Introduction -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
@@ -602,13 +602,13 @@ window.openProjectDetailsModal = function (id) {
                             <!-- Ecosystem -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="package" class="w-6 h-6 text-neo-yellow"></i> Экосистема</h2>
-                                
+
                                 <h3 class="text-xl font-bold mb-3 mt-4">Core</h3>
                                 <p class="mb-2"><strong>nestjs-mod</strong> — ядро и архитектурные утилиты</p>
-                                
+
                                 <h3 class="text-xl font-bold mb-3">Contrib</h3>
                                 <p class="mb-2"><strong>nestjs-mod-contrib</strong> — дополнительные библиотеки, создаваемые по необходимости</p>
-                                
+
                                 <h3 class="text-xl font-bold mb-3">Шаблоны</h3>
                                 <p class="mb-2"><strong>nestjs-mod-fullstack</strong> — production-ready fullstack boilerplate (NestJS + Angular)</p>
                                 <p class="mb-2"><strong>nestjs-mod-sso</strong> — пример SSO и webhook-интеграций</p>
@@ -658,16 +658,16 @@ window.openProjectDetailsModal = function (id) {
     // Special content for ngx-dynamic-form-builder project
     projectDetailsContent.innerHTML = `
                     <div class="prose max-w-none">
-                        <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">ngx-dynamic-form-builder: Презентация проекта</h1>
+                        <h1 class="text-4xl font-black uppercase mb-6 text-pink-700">ngx-dynamic-form-builder: Презентация проекта</h1>
                         <p class="text-xl italic mb-8">Моя библиотека для Angular</p>
-                        
+
                         <div class="space-y-6">
                             <!-- Introduction -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6 text-neo-blue"></i> Короткое описание</h2>
                                 <p class="mb-4"><strong>ngx-dynamic-form-builder</strong> — это моя <strong>библиотека для Angular</strong>, созданная для динамического построения форм. Она позволяет генерировать структуры FormGroup на основе классов и метаданных, используя Angular FormBuilder вместе с class-transformer и class-validator. Поддерживаются мультиязычные сообщения об ошибках.</p>
                                 <p class="mb-4">Библиотека обеспечивает типобезопасное создание динамических форм на основе классов с декораторами, поддержку валидаций и мультиязычных сообщений.</p>
-                                <p class="mb-4">Ссылка на репозиторий: <a href="https://github.com/EndyKaufman/ngx-dynamic-form-builder" target="_blank" class="text-neo-blue underline">https://github.com/EndyKaufman/ngx-dynamic-form-builder</a></p>
+                                <p class="mb-4">Ссылка на репозиторий: <a href="https://github.com/EndyKaufman/ngx-dynamic-form-builder" target="_blank" class="text-blue-600 underline">https://github.com/EndyKaufman/ngx-dynamic-form-builder</a></p>
                             </article>
 
                             <!-- Package Info -->
@@ -680,15 +680,15 @@ window.openProjectDetailsModal = function (id) {
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="history" class="w-6 h-6 text-neo-purple"></i> История создания и мотивация</h2>
                                 <p class="mb-4">Когда Angular только появился и внедрили реактивные формы, я столкнулся с задачей: <strong>как использовать классы с декораторами валидации</strong>, которые я писал на NestJS в контроллерах, на фронтенде.</p>
-                                
+
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
                                     <li>Существующих решений я не нашёл.</li>
                                     <li>Тогда я решил написать <strong>обёртку</strong>, которая превращает валидаторы классов в валидаторы Angular Reactive Forms.</li>
                                     <li>В процессе библиотека многократно правилась по багам, которые присылало сообщество, и активно использовалась мной во всех проектах.</li>
                                 </ul>
-                                
+
                                 <p class="mb-4">Главные преимущества моего подхода:</p>
-                                
+
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
                                     <li>Серверные DTO можно было <strong>шарить через npm-библиотеки на фронт</strong>.</li>
                                     <li>Валидации оставались <strong>типобезопасными</strong> и переиспользуемыми между бэком и фронтом.</li>
@@ -705,7 +705,7 @@ window.openProjectDetailsModal = function (id) {
                                     <li>Интеграция с class-transformer-global-storage для извлечения метаданных типов и построения форм</li>
                                     <li>Работа с массивами, вложенными объектами и типобезопасными моделями</li>
                                 </ul>
-                                
+
                                 <p class="mb-4">Пример использования:</p>
                                 <pre class="bg-gray-100 p-4 font-mono text-sm overflow-x-auto"><code>// Модель данных
 @Exclude()
@@ -826,7 +826,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                 <p class="mb-4">Сейчас я чаще использую <strong>Formly</strong>, где кастомизация форм и отображение ошибок DTO реализуется через возможности самой Formly.</p>
                                 <p class="mb-4">Но библиотека остаётся актуальной, когда Formly <strong>не разрешено использовать</strong> работодателем.</p>
                                 <p class="mb-4">Если бэк использует те же DTO, библиотека сильно упрощает работу с валидаторами и формами.</p>
-                                
+
                                 <p class="mb-4"><strong>Статус:</strong> пока на паузе. Я планировал обновить библиотеку под последние версии Angular, но с появлением <strong>сигнальных форм</strong> пока решил отложить.</p>
                             </article>
 
@@ -854,24 +854,24 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
     // Special content for nest-permissions-seed project
     projectDetailsContent.innerHTML = `
                     <div class="prose max-w-none">
-                        <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">\`nest-permissions-seed\` — шаблон (бойлерплейт) проекта на NestJS</h1>
-                        
+                        <h1 class="text-4xl font-black uppercase mb-6 text-pink-700">\`nest-permissions-seed\` — шаблон (бойлерплейт) проекта на NestJS</h1>
+
                         <div class="space-y-6">
                             <!-- Context -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6 text-neo-blue"></i> Контекст появления</h2>
                                 <p class="mb-4">В общем, когда NestJS только появился, никто не знал, как на нём писать приложения, а информации в интернете было очень мало.</p>
-                                
+
                                 <p class="mb-4">У меня уже был опыт работы с разными технологиями:</p>
-                                
+
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
                                     <li><strong>Backend:</strong> .NET Core, Java Spring</li>
                                     <li><strong>Frontend:</strong> Angular</li>
                                     <li><strong>Домашние проекты:</strong> Django на Python</li>
                                 </ul>
-                                
+
                                 <p class="mb-4">Я искал информацию в интернете и собрал <strong>шаблонный проект (бойлерплейт)</strong>, который начал использовать, чтобы показывать, <strong>как нужно писать на NestJS</strong>.</p>
-                                
+
                                 <p class="mb-4">Сейчас эти все практики не актуальны, мои подходы поменялись, но проект всё ещё полезен для новичков, так как демонстрирует <strong>основы NestJS без переусложнений</strong> — всё сделано в лоб.</p>
                             </article>
 
@@ -879,7 +879,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="flag" class="w-6 h-6 text-neo-green"></i> Назначение проекта</h2>
                                 <p class="mb-4"><code>nest-permissions-seed</code> — это <strong>демо-шаблон / boilerplate</strong>:</p>
-                                
+
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
                                     <li>Показывает базовую архитектуру <strong>NestJS приложения</strong></li>
                                     <li>Демонстрирует <strong>permissions</strong> и роли пользователей (<code>admin</code>, <code>user</code>)</li>
@@ -888,7 +888,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                     <li>Swagger UI для тестирования API</li>
                                     <li>Seed-данные для быстрого старта</li>
                                 </ul>
-                                
+
                                 <p class="mb-4">Цель: дать <strong>готовую стартовую точку</strong> для новичков и показать <strong>правильные подходы к структуре и организации кода</strong>.</p>
                             </article>
 
@@ -896,7 +896,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="layout" class="w-6 h-6 text-neo-purple"></i> Структура бойлерплейта</h2>
                                 <p class="mb-4">Проект минималистичный, типичный для NestJS, но упрощённый для обучения:</p>
-                                
+
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
                                     <li><strong>src/</strong> — исходный код приложения
                                         <ul class="list-disc pl-6 mb-2 space-y-1">
@@ -911,7 +911,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                     <li><strong>scripts/</strong> — миграции и инициализация базы</li>
                                     <li><strong>main.ts</strong> — точка входа приложения</li>
                                 </ul>
-                                
+
                                 <p class="mb-4">Проект сделан <strong>наглядно и просто</strong>, без лишних абстракций.</p>
                             </article>
 
@@ -946,7 +946,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                     <li><code>npm run migrate:run</code> — выполнить миграции</li>
                                     <li><code>npm run start:prod</code> — запустить продакшн-сервер<br>
                                         (<code>npm run start:watch</code> — dev-сервер)</li>
-                                    <li>Swagger: <a href="https://nest-permissions-seed.herokuapp.com/swagger" target="_blank" class="text-neo-blue underline">https://nest-permissions-seed.herokuapp.com/swagger</a></li>
+                                    <li>Swagger: <a href="https://nest-permissions-seed.herokuapp.com/swagger" target="_blank" class="text-blue-600 underline">https://nest-permissions-seed.herokuapp.com/swagger</a></li>
                                 </ol>
                             </article>
 
@@ -985,7 +985,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                         </tbody>
                                     </table>
                                 </div>
-                                
+
                                 <p class="mb-4"><strong>Итого:</strong> ~12–27 <strong>человекочасов</strong> для опытного разработчика.</p>
                             </article>
 
@@ -1012,17 +1012,17 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
     // Special content for typegraphql-prisma-nestjs project
     projectDetailsContent.innerHTML = `
                     <div class="prose max-w-none">
-                        <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">typegraphql-prisma-nestjs: Презентация проекта</h1>
+                        <h1 class="text-4xl font-black uppercase mb-6 text-pink-700">typegraphql-prisma-nestjs: Презентация проекта</h1>
                         <p class="text-xl italic mb-8">Мой форк оригинального генератора typegraphql-prisma</p>
-                        
+
                         <div class="space-y-6">
                             <!-- Main Idea -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6 text-neo-blue"></i> Основная идея</h2>
                                 <p class="mb-4">Это <strong>мой форк оригинального генератора typegraphql-prisma</strong>, который я использую для <strong>быстрой генерации CRUD‑бэкенда на GraphQL</strong>.</p>
-                                
+
                                 <p class="mb-4">Оригинальный генератор перестал корректно работать с определённой версией <strong>NestJS</strong>: автор NestJS интегрировал части TypeGraphQL, что <strong>сломало обратную совместимость с декораторами</strong>. В итоге весь туллинг оригинального проекта перестал работать или работает частично.</p>
-                                
+
                                 <p class="mb-4">Моя версия форка решает эти проблемы:</p>
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
                                     <li>Поддержка NestJS интеграции на должном уровне.</li>
@@ -1047,7 +1047,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                     <li><strong>На работе</strong>: активно применяю для ускоренной генерации CRUD API на NestJS + Prisma + GraphQL.</li>
                                     <li><strong>В домашних проектах</strong>: удобно для прототипирования и тестирования идей.</li>
                                 </ul>
-                                
+
                                 <blockquote class="border-l-4 border-neo-pink pl-4 italic mb-4">
                                     <p>Важно: библиотека даёт полный доступ к базе, поэтому <strong>нужно внимательно контролировать, что шариcь наружу</strong>.</p>
                                 </blockquote>
@@ -1066,7 +1066,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                             <!-- Differences from Original -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="git-compare" class="w-6 h-6 text-neo-blue"></i> Отличия моего форка от оригинала</h2>
-                                
+
                                 <div class="space-y-6">
                                     <div>
                                         <h3 class="text-xl font-bold mb-3">1. Импорты для NestJS</h3>
@@ -1075,7 +1075,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                             <li>Мой форк: <code>import { Context, Query, Resolver } from "@nestjs/graphql"</code></li>
                                         </ul>
                                     </div>
-                                    
+
                                     <div>
                                         <h3 class="text-xl font-bold mb-3">2. Поддержка модификации аргументов перед запросом к Prisma</h3>
                                         <ul class="list-disc pl-6 mb-2 space-y-1">
@@ -1084,14 +1084,14 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                             <li>Примеры форка и приложения доступны в репозиториях EndyKaufman.</li>
                                         </ul>
                                     </div>
-                                    
+
                                     <div>
                                         <h3 class="text-xl font-bold mb-3">3. Поддержка отметки части полей как опциональных</h3>
                                         <ul class="list-disc pl-6 mb-2 space-y-1">
                                             <li>Можно использовать: <code>@TypeGraphQL.optional(input: ["create", "update"])</code></li>
                                         </ul>
                                     </div>
-                                    
+
                                     <div>
                                         <h3 class="text-xl font-bold mb-3">4. Поддержка вызова асинхронных событий после запроса к Prisma</h3>
                                         <ul class="list-disc pl-6 mb-2 space-y-1">
@@ -1099,7 +1099,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                             <li>Пример использования: возможность вставлять коллбэки <code>afterProcessEvents</code> для обработки результата после запроса.</li>
                                         </ul>
                                     </div>
-                                    
+
                                     <div>
                                         <h3 class="text-xl font-bold mb-3">5. Опции для пропуска генерации методов и полей резолверов</h3>
                                         <ul class="list-disc pl-6 mb-2 space-y-1">
@@ -1108,7 +1108,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                             <li><code>emitPropertyMethods</code> — методы работы с полями сущностей (<code>create, connectOrCreate, upsert…</code>)</li>
                                         </ul>
                                     </div>
-                                    
+
                                     <div>
                                         <h3 class="text-xl font-bold mb-3">6. Интеграция с Dataloader для вложенных объектов</h3>
                                         <ul class="list-disc pl-6 mb-2 space-y-1">
@@ -1147,17 +1147,17 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
     // Special content for class-validator-multi-lang project
     projectDetailsContent.innerHTML = `
                     <div class="prose max-w-none">
-                        <h1 class="text-4xl font-black uppercase mb-6 text-neo-pink">class‑validator‑multi‑lang: Презентация проекта</h1>
+                        <h1 class="text-4xl font-black uppercase mb-6 text-pink-700">class‑validator‑multi‑lang: Презентация проекта</h1>
                         <p class="text-xl italic mb-8">Мой форк библиотеки для NestJS</p>
-                        
+
                         <div class="space-y-6">
                             <!-- Essence -->
                             <article class="p-6 neo-border bg-white shadow-neo-sm">
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6 text-neo-blue"></i> Суть проекта</h2>
                                 <p class="mb-4">Во всех моих проектах на <strong>NestJS</strong> я активно использую <strong>class‑validator</strong> для валидации DTO и моделей. Основная проблема: стандартная библиотека возвращает ошибки только на английском языке.</p>
-                                
+
                                 <p class="mb-4">Чтобы решить эту задачу, я создал <strong>форк class‑validator с поддержкой многоязычных сообщений об ошибках</strong>, с возможностью <strong>кастомизации и локализации ошибок на русский язык</strong>.</p>
-                                
+
                                 <p class="mb-4">Изначально я оформил изменения в виде <strong>pull request к оригинальной библиотеке</strong>, но несмотря на положительные отзывы сообщества, PR был <strong>отклонён</strong>. В итоге я опубликовал <strong>форк в npm</strong> как отдельный пакет, чтобы использовать его в своих проектах.</p>
                             </article>
 
@@ -1166,7 +1166,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="hammer" class="w-6 h-6 text-neo-green"></i> Техническая реализация</h2>
                                 <ul class="list-disc pl-6 mb-4 space-y-2">
                                     <li><strong>Перевод сообщений</strong> реализован через <strong>PO-файлы</strong>.</li>
-                                    <li>Подключён <strong>сервис Crowdin</strong> (<a href="https://crowdin.com/project/class-validator" target="_blank" class="text-neo-blue underline">https://crowdin.com/project/class-validator</a>), что позволяет <strong>любому пользователю предложить исправление или новый перевод</strong>.</li>
+                                    <li>Подключён <strong>сервис Crowdin</strong> (<a href="https://crowdin.com/project/class-validator" target="_blank" class="text-blue-600 underline">https://crowdin.com/project/class-validator</a>), что позволяет <strong>любому пользователю предложить исправление или новый перевод</strong>.</li>
                                     <li>После пул-реквеста с переводом я <strong>апрувлю изменения и выпускаю новую версию библиотеки</strong>, если это необходимо.</li>
                                     <li>Поддержка библиотеки минимальна: я <strong>редко обновляю форк</strong>, так как оригинальная библиотека иногда вносит <strong>ломающие изменения</strong>, которые требуют дополнительного тестирования и адаптации.</li>
                                 </ul>
@@ -1203,7 +1203,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
   } else {
     // Default content for other projects
     projectDetailsContent.innerHTML =
-      '<div class="text-center py-10"><h2 class="text-4xl font-black uppercase mb-4 text-neo-pink">О ПРОЕКТЕ</h2></div>';
+      '<div class="text-center py-10"><h2 class="text-4xl font-black uppercase mb-4 text-pink-700">О ПРОЕКТЕ</h2></div>';
   }
 
   // Show modal and disable body scroll

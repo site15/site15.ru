@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Site15" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    
+
     <!-- Sitemap and RSS Links -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
     <link rel="alternate" type="application/rss+xml" title="site15.ru - Ilshat Khamitov | Software Engineer" href="../rss.xml" />
@@ -286,40 +286,40 @@
                 <div class="container mx-auto px-20">
                     <ul class="flex items-center justify-center">
                         <li><a href="/" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Главная</a></li>
-                        
+
                         <li><a href="/index.html#projects" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a></li>
-                        
-                        <li class="px-4 py-2 bg-neo-pink text-white font-bold">nest-permissions-seed</li>
+
+                        <li class="px-4 py-2 bg-neo-pink text-neo-black font-bold">nest-permissions-seed</li>
                     </ul>
                 </div>
             </nav>
-            
+
             <div class="text-center mb-12">
                 <h1 class="text-5xl font-black uppercase mb-4 text-neo-black">nest-permissions-seed</h1>
                 <p class="inline-block px-4 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">Шаблонный (boilerplate) проект на NestJS с JWT, Guards и разрешениями.</p>
             </div>
         </div>
     </section>
-    
+
     <div class="container mx-auto px-4 py-12 max-w-6xl">
         <div class="prose max-w-none space-y-6">
-            
+
             <div class="space-y-6">
                 <!-- Context -->
                 <article class="p-6 neo-border bg-white shadow-neo-sm">
                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6 text-neo-blue"></i> Контекст появления</h2>
                     <p class="mb-4">В общем, когда NestJS только появился, никто не знал, как на нём писать приложения, а информации в интернете было очень мало.</p>
-                    
+
                     <p class="mb-4">У меня уже был опыт работы с разными технологиями:</p>
-                    
+
                     <ul class="list-disc pl-6 mb-4 space-y-2">
                         <li><strong>Backend:</strong> .NET Core, Java Spring</li>
                         <li><strong>Frontend:</strong> Angular</li>
                         <li><strong>Домашние проекты:</strong> Django на Python</li>
                     </ul>
-                    
+
                     <p class="mb-4">Я искал информацию в интернете и собрал <strong>шаблонный проект (бойлерплейт)</strong>, который начал использовать, чтобы показывать, <strong>как нужно писать на NestJS</strong>.</p>
-                    
+
                     <p class="mb-4">Сейчас эти все практики не актуальны, мои подходы поменялись, но проект всё ещё полезен для новичков, так как демонстрирует <strong>основы NestJS без переусложнений</strong> — всё сделано в лоб.</p>
                 </article>
 
@@ -327,7 +327,7 @@
                 <article class="p-6 neo-border bg-white shadow-neo-sm">
                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="flag" class="w-6 h-6 text-neo-green"></i> Назначение проекта</h2>
                     <p class="mb-4"><code>nest-permissions-seed</code> — это <strong>демо-шаблон / boilerplate</strong>:</p>
-                    
+
                     <ul class="list-disc pl-6 mb-4 space-y-2">
                         <li>Показывает базовую архитектуру <strong>NestJS приложения</strong></li>
                         <li>Демонстрирует <strong>permissions</strong> и роли пользователей (<code>admin</code>, <code>user</code>)</li>
@@ -336,7 +336,7 @@
                         <li>Swagger UI для тестирования API</li>
                         <li>Seed-данные для быстрого старта</li>
                     </ul>
-                    
+
                     <p class="mb-4">Цель: дать <strong>готовую стартовую точку</strong> для новичков и показать <strong>правильные подходы к структуре и организации кода</strong>.</p>
                 </article>
 
@@ -344,7 +344,7 @@
                 <article class="p-6 neo-border bg-white shadow-neo-sm">
                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="layout" class="w-6 h-6 text-neo-purple"></i> Структура бойлерплейта</h2>
                     <p class="mb-4">Проект минималистичный, типичный для NestJS, но упрощённый для обучения:</p>
-                    
+
                     <ul class="list-disc pl-6 mb-4 space-y-2">
                         <li><strong>src/</strong> — исходный код приложения
                             <ul class="list-disc pl-6 mb-2 space-y-1">
@@ -359,7 +359,7 @@
                         <li><strong>scripts/</strong> — миграции и инициализация базы</li>
                         <li><strong>main.ts</strong> — точка входа приложения</li>
                     </ul>
-                    
+
                     <p class="mb-4">Проект сделан <strong>наглядно и просто</strong>, без лишних абстракций.</p>
                 </article>
 
@@ -394,7 +394,7 @@
                         <li><code>npm run migrate:run</code> — выполнить миграции</li>
                         <li><code>npm run start:prod</code> — запустить продакшн-сервер<br>
                             (<code>npm run start:watch</code> — dev-сервер)</li>
-                        <li>Swagger: <a href="https://nest-permissions-seed.herokuapp.com/swagger" target="_blank" class="text-neo-blue underline">https://nest-permissions-seed.herokuapp.com/swagger</a></li>
+                        <li>Swagger: <a href="https://nest-permissions-seed.herokuapp.com/swagger" target="_blank" class="text-blue-700 underline">https://nest-permissions-seed.herokuapp.com/swagger</a></li>
                     </ol>
                 </article>
 
@@ -433,7 +433,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <p class="mb-4"><strong>Итого:</strong> ~12–27 <strong>человекочасов</strong> для опытного разработчика.</p>
                 </article>
 
@@ -486,21 +486,21 @@
                         LinkedIn
                     </a>
                     <a href="../rss.xml" target="_blank"
-                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        class="px-3 py-1 bg-orange-500 text-neo-black text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
                         RSS
                     </a>
                 </div>
                 <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
                     <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
                 </a>
-                <p class="text-gray-500">Уфа, Россия</p>
+                <p class="text-gray-400">Уфа, Россия</p>
             </div>
         </div>
     </footer>
 
     <!-- Scroll to Top Button -->
     <button id="scroll-to-top-btn"
-        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-white font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
+        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-neo-black font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
         <i data-lucide="arrow-up" class="w-7 h-7"></i>
     </button>
     <script src="../js/scroll-top.js"></script>

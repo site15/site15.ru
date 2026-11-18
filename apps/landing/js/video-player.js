@@ -176,7 +176,7 @@
         Array.prototype.forEach.call(card.querySelectorAll('[data-video-platform]'), function (el) {
             var isActive = el.getAttribute('data-video-platform') === provider;
             el.classList.toggle('opacity-100', isActive);
-            el.classList.toggle('opacity-60', !isActive);
+            el.classList.toggle('opacity-80', !isActive);
             el.classList.toggle('ring-4', isActive);
             el.classList.toggle('ring-neo-black', isActive);
             el.setAttribute('aria-pressed', isActive ? 'true' : 'false');

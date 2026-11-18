@@ -86,6 +86,40 @@
             background-size: 24px 24px;
         }
 
+        /* Бледный подкладочный слой верхнего блока. Картинка задаётся переменной --hero-media-url
+           на самой секции, лежит полупрозрачным псевдоэлементом ПОД её контентом и поэтому не
+           перекрывает ни точечный фон body, ни тонировку секции. Ассет заранее обрезан до верхней
+           полосы без надписей: в баннере «EndyKaufman» стоит на 45 % высоты, и при обычном cover на
+           узком экране в кадр попадает вся высота — встроенный текст проступал бы призраком под
+           реальным h1. opacity 0.10: контраст чёрного текста по полосе 13.6:1 вместо 17.0:1 — AA с
+           запасом. Сжатая полоса 36 КБ вместо 4.46 МБ оригинала, он тут всё равно на 10 %. */
+        .hero-media {
+            position: relative;
+            isolation: isolate;
+        }
+
+        .hero-media::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background-image: var(--hero-media-url);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.10;
+            pointer-events: none;
+        }
+
+        /* На узком экране cover оставляет из полосы только центр — там пустое небо, и подкладка
+           пропадает. Смещаем кадр к левому краю: там волны баннера, они дают текстуру на всю
+           высоту шапки и не закрывают заголовок тёмной графикой (в правом кадре — окно кода). */
+        @media (max-width: 767px) {
+            .hero-media::before {
+                background-position: left center;
+            }
+        }
+
         .neo-border {
             border: 3px solid #0a0a0a;
         }
@@ -197,6 +231,8 @@
                         class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a>
                     <a href="../#videos"
                         class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Видео</a>
+                    <a href="../#music"
+                        class="px-4 py-2 font-bold hover:bg-neo-purple transition-colors border-2 border-transparent hover:border-neo-black">Музыка</a>
                     <a href="../#experience"
                         class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
                     <a href="../#skills"
@@ -217,6 +253,7 @@
             <a href="../#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
             <a href="../#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Проекты</a>
             <a href="../#videos" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-blue">Видео</a>
+            <a href="../#music" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Музыка</a>
             <a href="../#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
             <a href="../#skills" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Навыки</a>
             <a href="../#contact" class="block px-4 py-2 font-bold neo-border bg-neo-black text-white">Связаться</a>
@@ -224,7 +261,7 @@
     </nav>
 
     <!-- Header -->
-    <section class="py-24 px-4 bg-neo-blue/10 border-b-4 border-neo-black" style="padding-bottom: 0px !important;">
+    <section class="hero-media py-24 px-4 bg-neo-blue/10 border-b-4 border-neo-black" style="padding-bottom: 0px !important; --hero-media-url: url('../banner_pale_strip.jpg');">
         <div class="max-w-7xl mx-auto">
             <nav class="mb-8">
                 <div class="container mx-auto px-20">
@@ -249,7 +286,7 @@
         <div class="max-w-5xl mx-auto">
             <article data-video-card>
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                    <div class="font-mono text-xs text-white/70 font-bold uppercase">Видеоплеер</div>
+                    <div class="font-mono text-xs text-white/70 font-bold uppercase">Смотреть</div>
                     <div class="flex items-center gap-2">
                         <button type="button" data-video-reset
                             class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow hover:bg-neo-pink transition-colors"
@@ -266,7 +303,7 @@
                     data-vk-id="-241775994_456239017">
                     <div
                         class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">
-                        Определяем доступный проигрыватель…
+                        Загружаем видео…
                     </div>
                 </div>
 
@@ -275,22 +312,22 @@
                         target="_blank" rel="noopener noreferrer"
                         href="https://youtu.be/1MSIm8Te-QY"
                         title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на YouTube"
-                        class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
-                        ▶ YouTube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                        class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                        ▶ YouTube <span data-video-stats class="hidden font-normal text-neo-black"></span>
                     </a>
                     <a data-video-platform="rutube" role="tab" aria-pressed="false"
                         target="_blank" rel="noopener noreferrer"
                         href="https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/"
                         title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на Rutube"
-                        class="cursor-pointer select-none px-3 py-1 bg-neo-purple text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
-                        ▶ Rutube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                        class="cursor-pointer select-none px-3 py-1 bg-neo-purple text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                        ▶ Rutube <span data-video-stats class="hidden font-normal text-neo-black"></span>
                     </a>
                     <a data-video-platform="vk" role="tab" aria-pressed="false"
                         target="_blank" rel="noopener noreferrer"
                         href="https://vkvideo.ru/video-241775994_456239017"
                         title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на VK Видео"
-                        class="cursor-pointer select-none px-3 py-1 bg-neo-blue text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
-                        ▶ VK Видео <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                        class="cursor-pointer select-none px-3 py-1 bg-neo-blue text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                        ▶ VK Видео <span data-video-stats class="hidden font-normal text-neo-black"></span>
                     </a>
                 </div>
             </article>
@@ -358,7 +395,7 @@
                     <li class="flex items-center gap-2">
                         <span class="px-2 py-1 bg-neo-green neo-border font-mono font-bold text-xs">Часть 1</span>
                         <span class="font-bold">Создание проекта и базовая архитектура</span>
-                        <span class="text-xs text-neo-black/50 font-mono">(это видео)</span>
+                        <span class="text-xs text-neo-black/70 font-mono">(это видео)</span>
                     </li>
                     <li class="flex items-center gap-2">
                         <span class="px-2 py-1 bg-neo-blue neo-border font-mono font-bold text-xs">Часть 2</span>
@@ -387,23 +424,23 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm reveal">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="clock" class="w-6 h-6 text-neo-yellow"></i> Таймкоды</h2>
                 <div class="space-y-2 font-mono text-sm">
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">00:00</span><span>Создаём Fullstack-проект с AI — идея KaufmanBot и разработка в Qoder IDE</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">01:42</span><span>Архитектура NestJS — плагины, Dependency Injection и новый подход</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">03:49</span><span>NestJS + Angular без monorepo — backend и frontend в одном репозитории</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">05:12</span><span>Начинаем разработку с AI — Qoder IDE создаёт основу проекта</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">10:17</span><span>Docker Compose + PostgreSQL — поднимаем базовую инфраструктуру</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">14:34</span><span>Настраиваем окружение — Node.js 24, зависимости и автоматический запуск</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">17:12</span><span>Первый запуск приложения — проверяем frontend, backend и базу данных</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">24:20</span><span>Переносим код с помощью AI — используем готовые решения и контекст</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">25:48</span><span>Prisma + миграции — подключаем ORM и создаём структуру базы данных</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">29:40</span><span>Health Check + SSE — добавляем мониторинг и Server-Sent Events</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">36:58</span><span>Отлаживаем проект с AI — исправляем ошибки по логам и контексту</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">48:00</span><span>Версионирование API — добавляем API Versioning в NestJS</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">50:32</span><span>Выводим проект в интернет — туннель, Proxy и постоянный HTTPS-адрес</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">59:08</span><span>Запускаем инфраструктуру через PM2 — объединяем backend, frontend и tunnel</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">01:03:07</span><span>AI Skills + MCP — расширяем возможности AI и добавляем контекст проекта</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">01:13:23</span><span>MinIO + PostgreSQL + финальный запуск — файловое хранилище и запуск одной командой</span></div>
-                    <div class="flex gap-3"><span class="text-neo-pink font-bold whitespace-nowrap">01:17:12</span><span>Что получилось и что дальше — готовая основа KaufmanBot и планы</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">00:00</span><span>Создаём Fullstack-проект с AI — идея KaufmanBot и разработка в Qoder IDE</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">01:42</span><span>Архитектура NestJS — плагины, Dependency Injection и новый подход</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">03:49</span><span>NestJS + Angular без monorepo — backend и frontend в одном репозитории</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">05:12</span><span>Начинаем разработку с AI — Qoder IDE создаёт основу проекта</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">10:17</span><span>Docker Compose + PostgreSQL — поднимаем базовую инфраструктуру</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">14:34</span><span>Настраиваем окружение — Node.js 24, зависимости и автоматический запуск</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">17:12</span><span>Первый запуск приложения — проверяем frontend, backend и базу данных</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">24:20</span><span>Переносим код с помощью AI — используем готовые решения и контекст</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">25:48</span><span>Prisma + миграции — подключаем ORM и создаём структуру базы данных</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">29:40</span><span>Health Check + SSE — добавляем мониторинг и Server-Sent Events</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">36:58</span><span>Отлаживаем проект с AI — исправляем ошибки по логам и контексту</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">48:00</span><span>Версионирование API — добавляем API Versioning в NestJS</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">50:32</span><span>Выводим проект в интернет — туннель, Proxy и постоянный HTTPS-адрес</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">59:08</span><span>Запускаем инфраструктуру через PM2 — объединяем backend, frontend и tunnel</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">01:03:07</span><span>AI Skills + MCP — расширяем возможности AI и добавляем контекст проекта</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">01:13:23</span><span>MinIO + PostgreSQL + финальный запуск — файловое хранилище и запуск одной командой</span></div>
+                    <div class="flex gap-3"><span class="text-pink-700 font-bold whitespace-nowrap">01:17:12</span><span>Что получилось и что дальше — готовая основа KaufmanBot и планы</span></div>
                 </div>
             </article>
 
@@ -676,20 +713,20 @@
                         LinkedIn
                     </a>
                     <a href="../rss.xml" target="_blank"
-                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        class="px-3 py-1 bg-orange-500 text-neo-black text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
                         RSS
                     </a>
                 </div>
                 <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
                     <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
                 </a>
-                <p class="text-gray-500">Уфа, Россия</p>
+                <p class="text-gray-400">Уфа, Россия</p>
             </div>
         </div>
     </footer>
 
     <button id="scroll-to-top-btn"
-        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-white font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
+        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-neo-black font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
         <i data-lucide="arrow-up" class="w-7 h-7"></i>
     </button>
     <script src="../js/scroll-top.js"></script>

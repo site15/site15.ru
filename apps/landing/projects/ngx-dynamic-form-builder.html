@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Site15" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    
+
     <!-- Sitemap and RSS Links -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
     <link rel="alternate" type="application/rss+xml" title="site15.ru - Ilshat Khamitov | Software Engineer" href="../rss.xml" />
@@ -288,31 +288,31 @@
                 <div class="container mx-auto px-20">
                     <ul class="flex items-center justify-center">
                         <li><a href="/" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Главная</a></li>
-                        
+
                         <li><a href="/index.html#projects" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a></li>
-                        
-                        <li class="px-4 py-2 bg-neo-pink text-white font-bold">ngx-dynamic-form-builder</li>
+
+                        <li class="px-4 py-2 bg-neo-pink text-neo-black font-bold">ngx-dynamic-form-builder</li>
                     </ul>
                 </div>
             </nav>
-            
+
             <div class="text-center mb-12">
                 <h1 class="text-5xl font-black uppercase mb-4 text-neo-black">ngx-dynamic-form-builder</h1>
                 <p class="inline-block px-4 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">Моя библиотека для Angular для динамического построения форм с поддержкой валидаций и мультиязычных сообщений.</p>
             </div>
         </div>
     </section>
-    
+
     <div class="container mx-auto px-4 py-12 max-w-6xl">
         <div class="prose max-w-none space-y-6">
-            
+
             <div class="space-y-6">
                 <!-- Introduction -->
                 <article class="p-6 neo-border bg-white shadow-neo-sm">
                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="target" class="w-6 h-6 text-neo-blue"></i> Короткое описание</h2>
                     <p class="mb-4"><strong>ngx-dynamic-form-builder</strong> — это моя <strong>библиотека для Angular</strong>, созданная для динамического построения форм. Она позволяет генерировать структуры FormGroup на основе классов и метаданных, используя Angular FormBuilder вместе с class-transformer и class-validator. Поддерживаются мультиязычные сообщения об ошибках.</p>
                     <p class="mb-4">Библиотека обеспечивает типобезопасное создание динамических форм на основе классов с декораторами, поддержку валидаций и мультиязычных сообщений.</p>
-                    <p class="mb-4">Ссылка на репозиторий: <a href="https://github.com/EndyKaufman/ngx-dynamic-form-builder" target="_blank" class="text-neo-blue underline">https://github.com/EndyKaufman/ngx-dynamic-form-builder</a></p>
+                    <p class="mb-4">Ссылка на репозиторий: <a href="https://github.com/EndyKaufman/ngx-dynamic-form-builder" target="_blank" class="text-blue-700 underline">https://github.com/EndyKaufman/ngx-dynamic-form-builder</a></p>
                 </article>
 
                 <!-- Package Info -->
@@ -325,15 +325,15 @@
                 <article class="p-6 neo-border bg-white shadow-neo-sm">
                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="history" class="w-6 h-6 text-neo-purple"></i> История создания и мотивация</h2>
                     <p class="mb-4">Когда Angular только появился и внедрили реактивные формы, я столкнулся с задачей: <strong>как использовать классы с декораторами валидации</strong>, которые я писал на NestJS в контроллерах, на фронтенде.</p>
-                    
+
                     <ul class="list-disc pl-6 mb-4 space-y-2">
                         <li>Существующих решений я не нашёл.</li>
                         <li>Тогда я решил написать <strong>обёртку</strong>, которая превращает валидаторы классов в валидаторы Angular Reactive Forms.</li>
                         <li>В процессе библиотека многократно правилась по багам, которые присылало сообщество, и активно использовалась мной во всех проектах.</li>
                     </ul>
-                    
+
                     <p class="mb-4">Главные преимущества моего подхода:</p>
-                    
+
                     <ul class="list-disc pl-6 mb-4 space-y-2">
                         <li>Серверные DTO можно было <strong>шарить через npm-библиотеки на фронт</strong>.</li>
                         <li>Валидации оставались <strong>типобезопасными</strong> и переиспользуемыми между бэком и фронтом.</li>
@@ -350,7 +350,7 @@
                         <li>Интеграция с class-transformer-global-storage для извлечения метаданных типов и построения форм</li>
                         <li>Работа с массивами, вложенными объектами и типобезопасными моделями</li>
                     </ul>
-                    
+
                     <p class="mb-4">Пример использования:</p>
                     <pre class="bg-gray-100 p-4 font-mono text-sm overflow-x-auto"><code>// Модель данных
 @Exclude()
@@ -471,7 +471,7 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                     <p class="mb-4">Сейчас я чаще использую <strong>Formly</strong>, где кастомизация форм и отображение ошибок DTO реализуется через возможности самой Formly.</p>
                     <p class="mb-4">Но библиотека остаётся актуальной, когда Formly <strong>не разрешено использовать</strong> работодателем.</p>
                     <p class="mb-4">Если бэк использует те же DTO, библиотека сильно упрощает работу с валидаторами и формами.</p>
-                    
+
                     <p class="mb-4"><strong>Статус:</strong> пока на паузе. Я планировал обновить библиотеку под последние версии Angular, но с появлением <strong>сигнальных форм</strong> пока решил отложить.</p>
                 </article>
 
@@ -525,21 +525,21 @@ this.form = fb.rootFormGroup(Company, { name: '' });</code></pre>
                         LinkedIn
                     </a>
                     <a href="../rss.xml" target="_blank"
-                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        class="px-3 py-1 bg-orange-500 text-neo-black text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
                         RSS
                     </a>
                 </div>
                 <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
                     <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
                 </a>
-                <p class="text-gray-500">Уфа, Россия</p>
+                <p class="text-gray-400">Уфа, Россия</p>
             </div>
         </div>
     </footer>
 
     <!-- Scroll to Top Button -->
     <button id="scroll-to-top-btn"
-        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-white font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
+        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-neo-black font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
         <i data-lucide="arrow-up" class="w-7 h-7"></i>
     </button>
     <script src="../js/scroll-top.js"></script>

@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Site15" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    
+
     <!-- Sitemap and RSS Links -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
     <link rel="alternate" type="application/rss+xml" title="site15.ru - Ilshat Khamitov | Software Engineer" href="../rss.xml" />
@@ -312,28 +312,28 @@
                     <ul class="flex items-center justify-center">
                         <li><a href="/" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Главная</a></li>
                         <li><a href="/index.html#projects" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a></li>
-                        <li class="px-4 py-2 bg-neo-blue text-white font-bold">OpWork</li>
+                        <li class="px-4 py-2 bg-neo-blue text-neo-black font-bold">OpWork</li>
                     </ul>
                 </div>
             </nav>
-            
+
             <div class="text-center mb-12">
                 <h1 class="text-5xl font-black uppercase mb-4 text-neo-black">OpWork</h1>
                 <p class="inline-block px-4 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">Платформа для поиска работы с открытым исходным кодом на NestJS + Vue 3 + Prisma + PostgreSQL.</p>
             </div>
         </div>
     </section>
-    
+
     <div class="container mx-auto px-4 py-12 max-w-4xl">
         <div class="prose max-w-none space-y-8">
-            
+
             <!-- TL;DR -->
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="zap" class="w-6 h-6 text-neo-yellow"></i> TL;DR</h2>
                 <p class="mb-4">За примерно <strong>4 месяца</strong> частичной занятости я создал платформу для поиска работы с открытым исходным кодом — <strong>OpWork</strong>.</p>
-                
+
                 <p class="mb-4">Платформа предоставляет полный цикл взаимодействия: <strong>соискатели</strong> создают резюме и откликаются на вакансии, <strong>работодатели</strong> публикуют вакансии и управляют откликами.</p>
-                
+
                 <p class="mb-6">Код полностью открыт — сделал это, чтобы другим разработчикам могло пригодиться. Планировал на базе этой базы сделать проект для поиска работы и специалистов именно для NestJS-разработчиков, но сейчас проект поставлен на паузу — нет времени.</p>
             </article>
 
@@ -341,9 +341,9 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="lightbulb" class="w-6 h-6 text-neo-pink"></i> С чего всё началось</h2>
                 <p class="mb-4">Идея родилась из желания создать <strong>open-source альтернативу</strong> существующим платформам по поиску работы. Большинство рекрутинговых сервисов — закрытые системы с непрозрачными алгоритмами ранжирования.</p>
-                
+
                 <p class="mb-4">Мне хотелось сделать платформу, где <strong>весь код открыт</strong>, где можно понять, как работает поиск, как устроена модель данных, как организованы бизнес-процессы. Просто открыть код — может кому-то пригодится как база или референс.</p>
-                
+
                 <p class="mb-6">Проект также стал полигоном для отработки архитектурных решений на <strong>NestJS + Vue 3 + Prisma</strong> — стеке, который я активно использую в работе.</p>
             </article>
 
@@ -351,28 +351,28 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-6 h-6 text-neo-yellow"></i> Архитектура и ключевая идея</h2>
                 <p class="mb-4">OpWork построен по классической <strong>трёхуровневой архитектуре</strong>:</p>
-                
+
                 <pre>Vue 3 Frontend (Ant Design Vue)
     ↕ REST API
 NestJS Backend (Fastify)
     ↕ Prisma ORM
 PostgreSQL</pre>
-                
+
                 <p class="mb-4">Ключевая архитектурная особенность — <strong>двойная роль пользователей</strong>. При регистрации создаются два профиля: соискатель и компания. Пользователь может переключаться между ними, что упрощает взаимодействие.</p>
-                
+
                 <p class="mb-6">Все DTO генерируются автоматически из Prisma-схемы с помощью <strong>кастомного генератора</strong> <code>prisma-generator-nestjs-dto</code>, что обеспечивает строгую типизацию на всём пути от базы данных до фронтенда.</p>
             </article>
 
             <!-- Почему стек именно такой -->
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="cpu" class="w-6 h-6 text-neo-purple"></i> Почему стек именно такой</h2>
-                
+
                 <h3 class="text-xl font-bold mb-3 mt-4">Backend — NestJS + Fastify</h3>
                 <p class="mb-4">NestJS — мой основной фреймворк для бэкенда. Fastify выбран как высокопроизводительная альтернатива Express. Модульная архитектура NestJS идеально подходит для проектов с чётким разделением доменов.</p>
-                
+
                 <h3 class="text-xl font-bold mb-3 mt-4">Frontend — Vue 3 + Ant Design Vue</h3>
                 <p class="mb-6">Для фронтенда выбран Vue Vben Admin — зрелый шаблон на Vue 3 с Ant Design Vue. Это позволило быстро собрать полноценный UI с таблицами, фильтрами, формами и маршрутизацией без написания всего с нуля.</p>
-                
+
                 <h3 class="text-xl font-bold mb-3 mt-4">ORM — Prisma</h3>
                 <p class="mb-6">Prisma обеспечивает типобезопасную работу с базой данных, удобные миграции и автоматическую генерацию клиента. Схема в <code>~1900 строк</code> описывает всю модель данных платформы.</p>
             </article>
@@ -380,7 +380,7 @@ PostgreSQL</pre>
             <!-- Основные функциональные блоки -->
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="briefcase" class="w-6 h-6 text-neo-blue"></i> Основные функциональные блоки</h2>
-                
+
                 <h3 class="text-xl font-bold mb-3 mt-4">Для соискателей</h3>
                 <ul class="list-disc pl-6 mb-6 space-y-2">
                     <li>Создание и управление <strong>резюме</strong> с образованием, опытом и навыками</li>
@@ -389,7 +389,7 @@ PostgreSQL</pre>
                     <li>Отслеживание <strong>статуса заявок</strong></li>
                     <li>Система <strong>уведомлений</strong> об изменениях</li>
                 </ul>
-                
+
                 <h3 class="text-xl font-bold mb-3 mt-4">Для работодателей</h3>
                 <ul class="list-disc pl-6 mb-6 space-y-2">
                     <li>Управление <strong>профилем компании</strong></li>
@@ -404,7 +404,7 @@ PostgreSQL</pre>
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="database" class="w-6 h-6 text-neo-green"></i> Модель данных</h2>
                 <p class="mb-4">Prisma-схема содержит <strong>~1900 строк</strong> и описывает полноценную модель рекрутинговой платформы:</p>
-                
+
                 <pre>enum OpWorkUserType {
   JOB_SEEKER   // Соискатель
   EMPLOYER     // Работодатель
@@ -420,10 +420,10 @@ enum OpWorkEmploymentType {
 }
 
 enum OpWorkApplicationStatus {
-  NEW → REVIEWING → INTERVIEW → OFFER → 
+  NEW → REVIEWING → INTERVIEW → OFFER →
   HIRED → REJECTED → WITHDRAWN
 }</pre>
-                
+
                 <p class="mb-6">Модель покрывает: пользователей, профили соискателей и работодателей, резюме с образованием и опытом, вакансии с навыками и тегами, заявки с историей статусов и примечаниями, уведомления.</p>
             </article>
 
@@ -431,7 +431,7 @@ enum OpWorkApplicationStatus {
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="settings" class="w-6 h-6 text-neo-pink"></i> Кастомный генератор DTO</h2>
                 <p class="mb-4">Одна из интересных технических деталей — <strong>prisma-generator-nestjs-dto</strong>, кастомный генератор, который автоматически создаёт:</p>
-                
+
                 <ul class="list-disc pl-6 mb-4 space-y-2">
                     <li>DTO для Create/Update операций с <code>class-validator</code> декораторами</li>
                     <li>REST-контроллеры с полной типизацией</li>
@@ -439,7 +439,7 @@ enum OpWorkApplicationStatus {
                     <li>Формы и списки для фронтенда</li>
                     <li>OpenAPI TypeScript клиент</li>
                 </ul>
-                
+
                 <p class="mb-6">Это значительно ускоряет разработку: изменил схему Prisma — получил готовый набор DTO, контроллеров и типизированный клиент для фронтенда.</p>
             </article>
 
@@ -447,14 +447,14 @@ enum OpWorkApplicationStatus {
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="shield" class="w-6 h-6 text-neo-yellow"></i> Инфраструктура и деплой</h2>
                 <p class="mb-4">Проект полностью контейнеризирован:</p>
-                
+
                 <ul class="list-disc pl-6 mb-4 space-y-2">
                     <li><code>docker-compose</code> для PostgreSQL и всех сервисов</li>
                     <li><code>PM2</code> для управления процессами backend и frontend</li>
                     <li><code>Husky</code> pre-commit хуки для форматирования кода</li>
                     <li>Автоматическая генерация OpenAPI-спефикации</li>
                 </ul>
-                
+
                 <p class="mb-6">Режимы разработки и production максимально упрощены: <code>npm run start:dev</code> поднимает всю инфраструктуру одной командой.</p>
             </article>
 
@@ -462,7 +462,7 @@ enum OpWorkApplicationStatus {
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="sparkles" class="w-6 h-6 text-neo-blue"></i> Использование ИИ при разработке</h2>
                 <p class="mb-4">Как и в других моих проектах, значительная часть кода написана с помощью <strong>ИИ-ассистентов</strong>. Но ключевые архитектурные решения, модель данных и бизнес-логика — полностью мои.</p>
-                
+
                 <p class="mb-6">Особенно полезно ИИ помогал с <strong>генерацией повторяющегося кода</strong>: DTO, валидации, CRUD-операции — всё то, где ручной труд наиболее рутинный.</p>
             </article>
 
@@ -470,7 +470,7 @@ enum OpWorkApplicationStatus {
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="calendar" class="w-6 h-6 text-neo-green"></i> Текущий статус и планы</h2>
                 <p class="mb-4">Сейчас проект <strong>поставлен на паузу</strong> — нет времени на активную разработку. Основной функционал уже работает:</p>
-                
+
                 <ul class="list-disc pl-6 mb-4 space-y-2">
                     <li>Авторизация и регистрация с двойным профилем</li>
                     <li>Управление резюме и вакансиями</li>
@@ -478,7 +478,7 @@ enum OpWorkApplicationStatus {
                     <li>Фильтрация и поиск</li>
                     <li>Уведомления</li>
                 </ul>
-                
+
                 <p class="mb-4">Изначально планировалось на базе этой базы сделать специализированную платформу для поиска работы и специалистов для NestJS-разработчиков. В планах также были:</p>
                 <ul class="list-disc pl-6 mb-6 space-y-2">
                     <li>Переписка между соискателем и компанией</li>
@@ -507,7 +507,7 @@ enum OpWorkApplicationStatus {
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="flag" class="w-6 h-6 text-neo-pink"></i> Итог</h2>
                 <p class="mb-4"><strong>OpWork — это open-source биржа для поиска работы</strong>. Код полностью открыт, чтобы другие разработчики могли использовать его как базу или референс для своих проектов.</p>
-                
+
                 <p class="mb-6">За 4 месяца частичной занятости удалось построить полноценную платформу с двойными ролями, кастомным генератором DTO и продуманной моделью данных. Сейчас проект на паузе, но код доступен и может пригодиться.</p>
             </article>
 
@@ -519,12 +519,12 @@ enum OpWorkApplicationStatus {
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
-        
+
         // Mobile menu toggle
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            
+
             if (mobileMenuBtn && mobileMenu) {
                 mobileMenuBtn.addEventListener('click', function() {
                     mobileMenu.classList.toggle('hidden');
@@ -555,21 +555,21 @@ enum OpWorkApplicationStatus {
                         LinkedIn
                     </a>
                     <a href="../rss.xml" target="_blank"
-                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        class="px-3 py-1 bg-orange-500 text-neo-black text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
                         RSS
                     </a>
                 </div>
                 <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
                     <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
                 </a>
-                <p class="text-gray-500">Уфа, Россия</p>
+                <p class="text-gray-400">Уфа, Россия</p>
             </div>
         </div>
     </footer>
 
     <!-- Scroll to Top Button -->
     <button id="scroll-to-top-btn"
-        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-white font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
+        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-neo-black font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
         <i data-lucide="arrow-up" class="w-7 h-7"></i>
     </button>
     <script src="../js/scroll-top.js"></script>

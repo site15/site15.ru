@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Site15" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    
+
     <!-- Sitemap and RSS Links -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
     <link rel="alternate" type="application/rss+xml" title="site15.ru - Ilshat Khamitov | Software Engineer" href="../rss.xml" />
@@ -312,28 +312,28 @@
                     <ul class="flex items-center justify-center">
                         <li><a href="/" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Главная</a></li>
                         <li><a href="/index.html#projects" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a></li>
-                        <li class="px-4 py-2 bg-neo-purple text-white font-bold">RAG System</li>
+                        <li class="px-4 py-2 bg-neo-purple text-neo-black font-bold">RAG System</li>
                     </ul>
                 </div>
             </nav>
-            
+
             <div class="text-center mb-12">
                 <h1 class="text-5xl font-black uppercase mb-4 text-neo-black">RAG System</h1>
                 <p class="inline-block px-4 py-1 mb-4 bg-neo-green neo-border font-mono font-bold text-sm shadow-neo-sm">RAG-система на NestJS + PostgreSQL (pgvector) для ответов на вопросы на основе знаний и опыта.</p>
             </div>
         </div>
     </section>
-    
+
     <div class="container mx-auto px-4 py-12 max-w-4xl">
         <div class="prose max-w-none space-y-8">
-            
+
             <!-- TL;DR -->
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="zap" class="w-6 h-6 text-neo-yellow"></i> TL;DR</h2>
                 <p class="mb-4">За 8 дней частичной занятости я собрал RAG-систему на <strong>NestJS + PostgreSQL (pgvector)</strong>, которая обрабатывает <strong>~11 000 чанков документов</strong>.</p>
-                
+
                 <p class="mb-4">Первая версия отвечала около <strong>4 минут</strong>, после оптимизации — <strong>40–60 секунд</strong>.</p>
-                
+
                 <p class="mb-6">Главный вывод: <strong>RAG — это не «векторный поиск + LLM», а в первую очередь подготовка данных, фильтрация контекста и аккуратная работа с промптами</strong>.</p>
             </article>
 
@@ -341,11 +341,11 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="lightbulb" class="w-6 h-6 text-neo-pink"></i> С чего всё началось</h2>
                 <p class="mb-4">Идея проекта возникла довольно прозаично. Я давно хотел сделать себе простой сайт-визитку, но всё время откладывал. В какой-то момент понял, что в эпоху нейросетей это уже не большая проблема — и за вечер собрал <strong>site15.ru</strong>.</p>
-                
+
                 <p class="mb-4">Дальше возник логичный вопрос: <em>почему бы не добавить на сайт чат, который мог бы отвечать на вопросы на основе моих знаний, опыта и проектов?</em></p>
-                
+
                 <p class="mb-6">Так я и начал разбираться, как вообще делаются RAG-системы.</p>
-                
+
                 <p class="mb-6">Проект изначально был <strong>для личного использования</strong> — без бизнес-целей и «стартап-мышления». Мне хотелось руками пройти путь от «ничего не знаю про RAG» до рабочей системы.</p>
             </article>
 
@@ -353,7 +353,7 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="help-circle" class="w-6 h-6 text-neo-blue"></i> Зачем вообще RAG</h2>
                 <p class="mb-4">Основная задача была учебная: научиться работать с RAG-системами, потому что сейчас это одна из самых востребованных тем — корпоративные базы знаний, ответы в стиле компании, поиск по внутренней документации.</p>
-                
+
                 <p class="mb-6">По ходу стало понятно, что <strong>RAG — это не какая-то магия, а довольно жёсткий инженерный процесс</strong>, где ошибки в данных или промптах мгновенно вылезают наружу.</p>
             </article>
 
@@ -361,28 +361,28 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="link" class="w-6 h-6 text-neo-green"></i> Как это встроено в site15.ru</h2>
                 <p class="mb-4">RAG-система интегрирована с моим сайтом-визиткой. Site15.ru выступает как <strong>демо и интерфейс</strong>:</p>
-                
+
                 <pre>frontend site15.ru → backend site15.ru → отдельный сервер rag-system</pre>
-                
+
                 <p class="mb-4">Backend передаёт специальный API-ключ, что хотя бы минимально защищает систему от лишних запросов. Это не про серьёзную безопасность — просто базовая гигиена.</p>
-                
+
                 <p class="mb-6">Таким образом сайт стал не просто визиткой, а живым примером работы RAG.</p>
             </article>
 
             <!-- Почему стек именно такой -->
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="cpu" class="w-6 h-6 text-neo-purple"></i> Почему стек именно такой</h2>
-                
+
                 <h3 class="text-xl font-bold mb-3 mt-4">Backend — NestJS</h3>
                 <p class="mb-4">Я постоянно пишу бэкенды на NestJS, поэтому тут даже не было выбора.</p>
-                
+
                 <h3 class="text-xl font-bold mb-3 mt-4">Frontend — React Admin</h3>
                 <p class="mb-4">Вообще я работаю с Angular, но полноценного фронтенда тут не было нужно — требовалась только админка для управления документами, эмбеддингами и промптами.</p>
                 <p class="mb-6">В Angular-экосистеме готового аналога react-admin нет, поэтому решил взять его и заодно получить практический опыт.</p>
-                
+
                 <h3 class="text-xl font-bold mb-3 mt-4">PostgreSQL + pgvector</h3>
                 <p class="mb-6">Очень удобно, когда не нужно поднимать отдельное векторное хранилище. Обычные данные и векторы живут в одной базе — меньше инфраструктуры, меньше точек отказа.</p>
-                
+
                 <h3 class="text-xl font-bold mb-3 mt-4">Несколько LLM-провайдеров</h3>
                 <p class="mb-6">Изначально заложил поддержку разных провайдеров (OpenAI, Groq, Ollama и т.д.), чтобы можно было переключаться между ними и использовать бесплатные лимиты. Когда лимит одного заканчивается — активным становится следующий.</p>
             </article>
@@ -391,16 +391,16 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="layers" class="w-6 h-6 text-neo-yellow"></i> Архитектура и ключевая идея</h2>
                 <p class="mb-4">В какой-то момент стало очевидно, что <strong>главная проблема — не LLM</strong>, а объём данных, который ты в неё пихаешь.</p>
-                
+
                 <p class="mb-4">Я реализовал <strong>иерархическую фильтрацию</strong>:</p>
-                
+
                 <pre>Запрос пользователя
  → нормализация вопроса
  → фильтрация по метаданным       (11000 → ~500)
  → фильтрация по секциям          (500 → ~200)
  → векторный поиск                (200 → 5–10)
  → один оптимизированный запрос в LLM</pre>
-                
+
                 <p class="mb-6">Идея простая: <strong>не отправлять в LLM всё подряд</strong>.</p>
             </article>
 
@@ -408,16 +408,16 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-6 h-6 text-neo-pink"></i> Почему RAG оказался сложнее, чем казалось</h2>
                 <p class="mb-4">На старте всё выглядело очень просто:</p>
-                
+
                 <blockquote>RAG = векторный поиск + LLM</blockquote>
-                
+
                 <p class="mb-6">На практике оказалось, что <strong>большая часть времени уходит на</strong>:</p>
                 <ul class="list-disc pl-6 mb-6 space-y-2">
                     <li>сегментацию документов,</li>
                     <li>генерацию метаданных,</li>
                     <li>согласование промптов между собой.</li>
                 </ul>
-                
+
                 <p class="mb-6">Первая версия системы делала всё последовательно и отвечала <strong>около 4 минут</strong> даже на простой вопрос.</p>
             </article>
 
@@ -425,9 +425,9 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="hammer" class="w-6 h-6 text-neo-blue"></i> Самая большая техническая боль</h2>
                 <p class="mb-4">Самым тяжёлым этапом стало <strong>создание метаданных для 11 005 чанков документов</strong>.</p>
-                
+
                 <p class="mb-4">В облаке это просто не взлетало — слишком долго и дорого. В итоге я запустил всё локально через <strong>LM Studio</strong> с моделью <code>qwen2.5-7b-instruct</code> и <strong>два дня гонял чанки на своей RTX 2060 SUPER</strong>.</p>
-                
+
                 <p class="mb-6">Это был момент, когда стало особенно понятно, что <strong>RAG — это не игрушка</strong>.</p>
             </article>
 
@@ -439,9 +439,9 @@
                     <li>лишних промежуточных промптов,</li>
                     <li>последовательных вызовов, которые можно было запускать параллельно.</li>
                 </ul>
-                
+
                 <p class="mb-4">В первой версии было <strong>8 промежуточных промптов</strong>, сейчас — <strong>4</strong>. Часть этапов стала параллельной, появилась асинхронная очередь на RxJS.</p>
-                
+
                 <p class="mb-6">Результат: <strong>40–60 секунд вместо 4 минут</strong>.</p>
             </article>
 
@@ -449,10 +449,10 @@
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="message-square" class="w-6 h-6 text-neo-purple"></i> Промпты — это ад</h2>
                 <p class="mb-4">Самое долгое и сложное — формирование промптов. Они легко конфликтуют друг с другом или начинают «утекать»:</p>
-                
+
                 <pre>Промпт: отвечай только по контексту
 LLM: ...и ещё немного от себя</pre>
-                
+
                 <p class="mb-6">Главный вывод: <strong>меньше промптов, но они должны быть согласованы</strong>.</p>
             </article>
 
@@ -460,7 +460,7 @@ LLM: ...и ещё немного от себя</pre>
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="bot" class="w-6 h-6 text-neo-yellow"></i> Использование ИИ при разработке</h2>
                 <p class="mb-4">Примерно <strong>70% кода писалось с помощью ИИ-ассистентов</strong>, но без моей архитектурной логики, правок и отладки этот код просто не работал бы.</p>
-                
+
                 <p class="mb-6"><strong>Ассистент — это инструмент, а не замена инженера</strong>.</p>
             </article>
 
@@ -472,14 +472,14 @@ LLM: ...и ещё немного от себя</pre>
                     <li>проверку разрешённого IP,</li>
                     <li>проверку API-ключа.</li>
                 </ul>
-                
+
                 <p class="mb-4">Развёртывание максимально простое:</p>
                 <ul class="list-disc pl-6 mb-6 space-y-2">
                     <li>отдельный VPS,</li>
                     <li><code>docker-compose</code> для PostgreSQL и Ollama,</li>
                     <li>backend через <code>pm2</code>.</li>
                 </ul>
-                
+
                 <p class="mb-6">CI/CD пока нет — в планах Docker + Kubernetes.</p>
             </article>
 
@@ -487,7 +487,7 @@ LLM: ...и ещё немного от себя</pre>
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="calendar" class="w-6 h-6 text-neo-blue"></i> Текущий статус и планы</h2>
                 <p class="mb-4">Сейчас это <strong>экспериментальный проект</strong>, не MVP и не продакшен. Скорее заготовка и рабочий пример того, <strong>как можно собирать RAG-системы руками</strong>.</p>
-                
+
                 <p class="mb-6">В планах:</p>
                 <ul class="list-disc pl-6 mb-6 space-y-2">
                     <li>написать тесты пользовательских сценариев,</li>
@@ -517,7 +517,7 @@ LLM: ...и ещё немного от себя</pre>
             <article class="p-6 neo-border bg-white shadow-neo-sm">
                 <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="flag" class="w-6 h-6 text-neo-green"></i> Итог</h2>
                 <p class="mb-4"><strong>RAG — это не «подключил LLM и поехали»</strong>. Это про данные, фильтрацию и дисциплину в промптах.</p>
-                
+
                 <p class="mb-6">За 8 дней частичной занятости мне удалось собрать рабочую систему, интегрировать её с site15.ru и получить реальное понимание того, как RAG работает на практике.</p>
             </article>
 
@@ -529,12 +529,12 @@ LLM: ...и ещё немного от себя</pre>
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
-        
+
         // Mobile menu toggle
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-            
+
             if (mobileMenuBtn && mobileMenu) {
                 mobileMenuBtn.addEventListener('click', function() {
                     mobileMenu.classList.toggle('hidden');
@@ -565,21 +565,21 @@ LLM: ...и ещё немного от себя</pre>
                         LinkedIn
                     </a>
                     <a href="../rss.xml" target="_blank"
-                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        class="px-3 py-1 bg-orange-500 text-neo-black text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
                         RSS
                     </a>
                 </div>
                 <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
                     <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
                 </a>
-                <p class="text-gray-500">Уфа, Россия</p>
+                <p class="text-gray-400">Уфа, Россия</p>
             </div>
         </div>
     </footer>
 
     <!-- Scroll to Top Button -->
     <button id="scroll-to-top-btn"
-        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-white font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
+        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-neo-black font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
         <i data-lucide="arrow-up" class="w-7 h-7"></i>
     </button>
     <script src="../js/scroll-top.js"></script>

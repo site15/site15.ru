@@ -14,6 +14,7 @@ import { AppExceptionsFilter } from './app.filter';
 import { LandingController } from './controllers/landing.controller';
 import { TimeController } from './controllers/time.controller';
 import { MetricsDynamicService } from './services/metrics-dynamic.service';
+import { MusicAlbumsService } from './services/music-albums.service';
 import { VideoStatsService } from './services/video-stats.service';
 import { METRICS_FEATURE } from '@site15/metrics';
 
@@ -84,5 +85,11 @@ export const { AppModule } = createNestModule({
         ]),
   ],
   controllers: [TimeController, LandingController],
-  providers: [TimeController, MetricsDynamicService, VideoStatsService, { provide: APP_FILTER, useClass: AppExceptionsFilter }],
+  providers: [
+    TimeController,
+    MetricsDynamicService,
+    VideoStatsService,
+    MusicAlbumsService,
+    { provide: APP_FILTER, useClass: AppExceptionsFilter },
+  ],
 });

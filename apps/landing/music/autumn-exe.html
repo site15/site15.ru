@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autumn Exe — альбом EndyKaufman: тёмный лоу-фай для работы за клавиатурой | site15.ru</title>
+    <meta name="description"
+        content="Autumn Exe — 14 инструментальных треков, 49 минут тёмного лоу-фая без пения, сгенерированного через AI. Дуга темпа от 53 до 162 BPM. Трек-лист, плееры Яндекс Музыки, Spotify и SoundCloud, ссылки на все витрины.">
+
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Site15" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="../sitemap.xml" />
+    <link rel="alternate" type="application/rss+xml" title="site15.ru - Ilshat Khamitov | Software Engineer"
+        href="../rss.xml" />
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Autumn Exe — EndyKaufman · 14 треков, 49 минут тёмного лоу-фая">
+    <meta property="og:description"
+        content="Фоновый лоу-фай без пения для долгих часов за клавиатурой. Трек-лист, BPM-дуга 53→162 и плееры трёх площадок.">
+    <meta property="og:url" content="https://site15.ru/music/autumn-exe.html">
+    <meta property="og:image" content="https://site15.ru/music/autumn-exe/cover.jpg">
+    <meta property="og:site_name" content="Ilshat Khamitov Portfolio">
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=23044594', 'ym');
+
+        ym(23044594, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", accurateTrackBounce: true, trackLinks: true });
+    </script>
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/23044594" style="position:absolute; left:-9999px;" alt="" /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
+    <script src="../js/tailwind.min.js"></script>
+    <link href="../fonts/fonts.css" rel="stylesheet">
+    <script src="../js/lucide.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neo-bg': '#fdfbf7',
+                        'neo-black': '#0a0a0a',
+                        'neo-yellow': '#ffeb3b',
+                        'neo-pink': '#ff7eb6',
+                        'neo-green': '#7afc50',
+                        'neo-blue': '#82caff',
+                        'neo-purple': '#b388ff',
+                    },
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'neo': '5px 5px 0px 0px #0a0a0a',
+                        'neo-sm': '3px 3px 0px 0px #0a0a0a',
+                        'neo-lg': '8px 8px 0px 0px #0a0a0a',
+                        'neo-hover': '0px 0px 0px 0px #0a0a0a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            overflow-x: hidden; /* фолбэк для старых браузеров без clip */
+            overflow-x: clip;
+        }
+
+        body {
+            background-color: #f3f3f3;
+            background-image: radial-gradient(#0a0a0a 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* ВАЖНО: точечный фон — фирменный слой всего лендинга, перекрывать его сплошной подложкой
+           секции нельзя (с ним фон становится скучным). Если мелкий текст местами забивается точками,
+           решается локально: либо сплошной цвет вместо text-neo-black/NN, либо чип/карточка под блоком. */
+
+        /* Бледный подкладочный слой верхнего блока (тот же приём, что на videos/part-N.html, только
+           картинка — обложка этого альбома; для нового релиза меняется путь в --hero-media-url).
+           Полупрозрачный псевдоэлемент ПОД контентом секции, поэтому точечный фон body и тонировка
+           продолжают проступать. Ассет заранее обрезан до верхней полосы без надписей: на обложке
+           «Autumn.exe» стоит по центру, «EndyKaufman» внизу, и при обычном cover на узком экране
+           в кадр попадает вся высота — призрачный текст наложился бы на реальный h1. opacity 0.10:
+           контраст чёрного текста по полосе 13.2:1 вместо 16.5:1 — AA с запасом. */
+        .hero-media {
+            position: relative;
+            isolation: isolate;
+        }
+
+        .hero-media::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background-image: var(--hero-media-url);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.10;
+            pointer-events: none;
+        }
+
+        section[id] {
+            scroll-margin-top: 5.5rem;
+        }
+
+        .neo-border {
+            border: 3px solid #0a0a0a;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fdfbf7;
+            border-left: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #b388ff;
+            border: 3px solid #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffeb3b;
+        }
+
+        .breadcrumb {
+            background-color: #fdfbf7;
+            padding: 1rem 0;
+            border-bottom: 3px solid #0a0a0a;
+        }
+
+        .breadcrumb ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb li:not(:last-child)::after {
+            content: '>';
+            margin: 0 0.5rem;
+            color: #0a0a0a;
+        }
+
+        .breadcrumb a {
+            color: #0a0a0a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover {
+            color: #ff7eb6;
+        }
+
+        .breadcrumb .current {
+            color: #b388ff;
+            font-weight: bold;
+        }
+
+        /* Таблица трек-листа: плотные строки, без вертикальных линий. */
+        table.tracklist {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.tracklist th,
+        table.tracklist td {
+            padding: 0.5rem 0.6rem;
+            text-align: left;
+            border-bottom: 2px solid #0a0a0a;
+        }
+
+        table.tracklist th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        table.tracklist td.num,
+        table.tracklist td.dur,
+        table.tracklist td.bpm {
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+        }
+
+        @media print {
+            nav, footer, #scroll-to-top-btn {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-neo-black font-sans selection:bg-neo-black selection:text-neo-yellow">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 bg-neo-bg neo-border border-t-0 border-x-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <a href="../" class="w-8 h-8 bg-neo-black text-neo-yellow flex items-center justify-center font-bold text-xl neo-border">
+                        <img src="../ezhik.jpg" alt="Profile Photo" class="w-full h-full object-cover">
+                    </a>
+                    <a href="../" class="font-bold text-xl tracking-tighter uppercase hidden sm:block">site15.ru</a>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <a href="../#about"
+                        class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О
+                        себе</a>
+                    <a href="../#projects"
+                        class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a>
+                    <a href="../#videos"
+                        class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Видео</a>
+                    <a href="../#music"
+                        class="px-4 py-2 font-bold hover:bg-neo-purple transition-colors border-2 border-transparent hover:border-neo-black">Музыка</a>
+                    <a href="../#experience"
+                        class="px-4 py-2 font-bold hover:bg-neo-green transition-colors border-2 border-transparent hover:border-neo-black">Опыт</a>
+                    <a href="../#skills"
+                        class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Навыки</a>
+                    <a href="../#contact"
+                        class="px-4 py-2 bg-neo-black text-white font-bold hover:bg-neo-pink hover:text-neo-black hover:shadow-neo transition-all border-2 border-neo-black">Связаться</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn"
+                        class="p-2 neo-border bg-white active:shadow-neo-hover shadow-neo transition-all">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-neo-yellow border-t-2 border-neo-black p-4 space-y-2 absolute w-full">
+            <a href="../#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
+            <a href="../#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Проекты</a>
+            <a href="../#videos" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-blue">Видео</a>
+            <a href="../#music" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Музыка</a>
+            <a href="../#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
+            <a href="../#skills" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Навыки</a>
+            <a href="../#contact" class="block px-4 py-2 font-bold neo-border bg-neo-black text-white">Связаться</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="hero-media py-24 px-4 bg-neo-purple/10 border-b-4 border-neo-black" style="--hero-media-url: url('./autumn-exe/cover_pale_strip.jpg');">
+        <div class="max-w-7xl mx-auto">
+            <nav class="mb-8">
+                <div class="container mx-auto px-20">
+                    <ul class="flex items-center justify-center flex-wrap">
+                        <li><a href="../" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Главная</a></li>
+                        <li><a href="../#music" class="px-4 py-2 bg-white neo-border font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">Музыка</a></li>
+                        <li class="px-4 py-2 bg-neo-purple text-neo-black font-bold">Autumn Exe — тёмный лоу-фай для работы</li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-4 flex justify-center">
+                    <img src="./autumn-exe/cover.jpg" alt="Обложка альбома Autumn Exe — EndyKaufman"
+                        class="w-64 h-64 md:w-80 md:h-80 object-cover neo-border shadow-neo-lg">
+                </div>
+                <div class="md:col-span-8 text-center md:text-left">
+                    <div class="inline-block px-3 py-1 mb-4 bg-neo-purple neo-border font-mono font-bold text-sm shadow-neo-sm">
+                        Альбом 1 · Electronic · Downtempo
+                    </div>
+                    <h1 class="text-3xl md:text-5xl font-black uppercase mb-4 text-neo-black leading-tight">Autumn Exe</h1>
+                    <!-- Как на страницах серии: вторичная строка в шапке — чип, а не текст на точечном фоне -->
+                    <p class="inline-block px-4 py-1 mb-4 bg-neo-yellow neo-border font-mono font-bold text-sm shadow-neo-sm">
+                        EndyKaufman · 1 ноября 2026 · 14 треков · 49 минут · ℗ &amp; © 2026 EndyKaufman
+                    </p>
+                    <p class="mb-6 max-w-2xl p-4 neo-border bg-white shadow-neo-sm">
+                        Тёмный лоу-фай без пения, сгенерированный через AI. Это музыка для долгих часов за клавиатурой: под неё пишут код,
+                        учатся, работают и дочитывают вечер. Она остаётся фоном и не просит внимания — дуга темпа
+                        от 53 до 162 BPM ведёт от медленных треков к подвижным.
+                    </p>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-2 font-mono text-xs font-bold">
+                        <span class="px-3 py-1 bg-neo-yellow neo-border">lo-fi</span>
+                        <span class="px-3 py-1 bg-neo-green neo-border">downtempo</span>
+                        <span class="px-3 py-1 bg-neo-pink neo-border">instrumental</span>
+                        <span class="px-3 py-1 bg-neo-blue neo-border">chillhop</span>
+                        <span class="px-3 py-1 bg-neo-purple neo-border">background music</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Player -->
+    <section id="player" class="px-4 py-12 bg-neo-black border-b-4 border-neo-black">
+        <div class="max-w-5xl mx-auto">
+            <!-- reset/badge живут внутри карточки: music-player.js ищет их по [data-music-card] -->
+            <article data-music-card>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <div class="font-mono text-xs text-white/70 font-bold uppercase">Слушать</div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" data-music-reset
+                            class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow hover:bg-neo-pink transition-colors"
+                            title="Вернуться к площадке по умолчанию">
+                            ↺ авто
+                        </button>
+                        <span data-music-badge
+                            class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-purple"></span>
+                    </div>
+                </div>
+
+                <div class="relative w-full bg-neo-black neo-border overflow-hidden" data-music-player
+                    data-music-slug="autumn-exe"
+                    data-music-embeds='[{"provider":"yandex","label":"Яндекс Музыка","embedUrl":"https://music.yandex.ru/iframe/#/album/44782986","href":"https://music.yandex.ru/album/44782986","height":560},{"provider":"spotify","label":"Spotify","embedUrl":"https://open.spotify.com/embed/album/3lel7yF3XSAZ52yPaXLP9O","href":"https://open.spotify.com/album/3lel7yF3XSAZ52yPaXLP9O","height":560},{"provider":"soundcloud","label":"SoundCloud","embedUrl":"https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fendykaufman%2Fsets%2Fautumn-exe&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false","href":"https://soundcloud.com/endykaufman/sets/autumn-exe","height":540}]'
+                    style="height: 560px">
+                    <div class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">
+                        Загружаем плеер…
+                    </div>
+                </div>
+
+                <div class="mt-4 flex flex-wrap items-center gap-2 justify-center text-xs font-mono" data-music-chips>
+                    <a data-music-platform="yandex" role="tab" aria-pressed="false" target="_blank" rel="noopener noreferrer"
+                        href="https://music.yandex.ru/album/44782986"
+                        title="ЛКМ — слушать здесь · Ctrl/⌘/средняя кнопка — открыть на Яндекс Музыке"
+                        class="cursor-pointer select-none px-3 py-1 bg-neo-yellow text-neo-black neo-border font-bold hover:bg-neo-pink transition-colors opacity-80">
+                        ♪ Яндекс Музыка
+                    </a>
+                    <a data-music-platform="spotify" role="tab" aria-pressed="false" target="_blank" rel="noopener noreferrer"
+                        href="https://open.spotify.com/album/3lel7yF3XSAZ52yPaXLP9O"
+                        title="ЛКМ — слушать здесь · Ctrl/⌘/средняя кнопка — открыть на Spotify"
+                        class="cursor-pointer select-none px-3 py-1 bg-neo-green text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                        ♪ Spotify
+                    </a>
+                    <a data-music-platform="soundcloud" role="tab" aria-pressed="false" target="_blank" rel="noopener noreferrer"
+                        href="https://soundcloud.com/endykaufman/sets/autumn-exe"
+                        title="ЛКМ — слушать здесь · Ctrl/⌘/средняя кнопка — открыть на SoundCloud"
+                        class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                        ♪ SoundCloud
+                    </a>
+                </div>
+            </article>
+
+            <p class="text-center text-xs font-mono text-white/60 mt-4">
+                ЛКМ по чипу — сменить площадку здесь, Ctrl/⌘+клик — открыть релиз на площадке. Выбор запоминается.
+                VK Музыка и остальные витрины не встраиваются iframe'ом — они списком ниже.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tracklist -->
+    <section id="tracklist" class="py-16 px-4 bg-neo-bg border-b-4 border-neo-black">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 reveal"><i data-lucide="list-music" class="w-6 h-6 text-neo-purple"></i> Трек-лист</h2>
+            <p class="font-mono text-sm text-gray-700 mb-6">
+                Порядок — дуга темпа от спокойных к подвижным. Длительности — ffprobe по мастер-файлам, BPM — замер
+                каталога. Без округления альбом идёт 49:11; строки таблицы округлены до секунды, поэтому в сумме дают
+                49:15.
+            </p>
+            <div class="neo-border bg-white shadow-neo p-4 md:p-6 overflow-x-auto">
+                <table class="tracklist font-mono text-sm">
+                    <thead>
+                        <tr>
+                            <th class="w-10">№</th>
+                            <th>Название</th>
+                            <th class="w-20 text-right">Время</th>
+                            <th class="w-16 text-right">BPM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="num">1</td><td>Golden Autumn Reprise</td><td class="dur text-right">3:49</td><td class="bpm text-right">53</td></tr>
+                        <tr><td class="num">2</td><td>The Warmth</td><td class="dur text-right">3:30</td><td class="bpm text-right">55</td></tr>
+                        <tr><td class="num">3</td><td>Daylight Warmth</td><td class="dur text-right">3:34</td><td class="bpm text-right">76</td></tr>
+                        <tr><td class="num">4</td><td>Golden Autumn Woods</td><td class="dur text-right">3:25</td><td class="bpm text-right">78</td></tr>
+                        <tr><td class="num">5</td><td>Stronger Current</td><td class="dur text-right">3:30</td><td class="bpm text-right">78</td></tr>
+                        <tr><td class="num">6</td><td>Fading Warmth</td><td class="dur text-right">3:19</td><td class="bpm text-right">78</td></tr>
+                        <tr><td class="num">7</td><td>Quiet Warmth</td><td class="dur text-right">3:19</td><td class="bpm text-right">85</td></tr>
+                        <tr><td class="num">8</td><td>Note by Note</td><td class="dur text-right">3:35</td><td class="bpm text-right">85</td></tr>
+                        <tr><td class="num">9</td><td>Deep Current</td><td class="dur text-right">3:43</td><td class="bpm text-right">85</td></tr>
+                        <tr><td class="num">10</td><td>Autumn Nights</td><td class="dur text-right">3:40</td><td class="bpm text-right">152</td></tr>
+                        <tr><td class="num">11</td><td>Volga Mist Reprise</td><td class="dur text-right">3:18</td><td class="bpm text-right">157</td></tr>
+                        <tr><td class="num">12</td><td>Volga Mist</td><td class="dur text-right">3:09</td><td class="bpm text-right">157</td></tr>
+                        <tr><td class="num">13</td><td>Evening Warmth</td><td class="dur text-right">3:19</td><td class="bpm text-right">157</td></tr>
+                        <tr><td class="num">14</td><td>Restless Heart</td><td class="dur text-right">4:05</td><td class="bpm text-right">162</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- All stores -->
+    <section id="stores" class="py-16 px-4 bg-neo-pink/10 border-b-4 border-neo-black">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 reveal"><i data-lucide="headphones" class="w-6 h-6 text-neo-pink"></i> Где слушать</h2>
+            <p class="font-mono text-sm text-gray-700 mb-6">
+                Релиз доставлен в 27 магазинов; здесь — витрины, которые находятся по названию, с адресами страницы
+                альбома. Один адрес со всеми ссылками: <a href="https://band.link/AutumnExe" target="_blank" rel="noopener noreferrer"
+                    class="font-bold underline text-neo-black">band.link/AutumnExe</a>.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a href="https://music.yandex.ru/album/44782986" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-neo-yellow font-bold hover:shadow-neo transition-all"><i data-lucide="music-2" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>Яндекс Музыка<span class="block font-mono text-xs font-normal mt-1 break-all text-neo-black">music.yandex.ru/album/44782986</span><span class="block font-mono text-xs font-normal text-neo-black">альбом · плеер выше</span></a>
+                <a href="https://open.spotify.com/album/3lel7yF3XSAZ52yPaXLP9O" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-neo-green font-bold hover:shadow-neo transition-all"><i data-lucide="audio-lines" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>Spotify<span class="block font-mono text-xs font-normal mt-1 break-all text-neo-black">open.spotify.com/album/3lel7yF3XSAZ52yPaXLP9O</span><span class="block font-mono text-xs font-normal text-neo-black">альбом · плеер выше</span></a>
+                <a href="https://soundcloud.com/endykaufman/sets/autumn-exe" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-neo-pink font-bold hover:shadow-neo transition-all"><i data-lucide="cloud" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>SoundCloud<span class="block font-mono text-xs font-normal mt-1 break-all text-neo-black">soundcloud.com/endykaufman/sets/autumn-exe</span><span class="block font-mono text-xs font-normal text-neo-black">сет из 14 треков · выложен отдельно от доставки, треки открыты на скачивание</span></a>
+                <a href="https://vk.ru/music/album/-2000922681_29922681" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-neo-blue font-bold hover:shadow-neo transition-all"><i data-lucide="square-play" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>VK Музыка<span class="block font-mono text-xs font-normal mt-1 break-all text-neo-black">vk.ru/music/album/-2000922681_29922681</span><span class="block font-mono text-xs font-normal text-neo-black">альбом · iframe площадка не отдаёт</span></a>
+                <a href="https://music.apple.com/us/album/autumn-exe/6829883972" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-white font-bold hover:shadow-neo transition-all"><i data-lucide="smartphone" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>Apple Music<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">music.apple.com/us/album/autumn-exe/6829883972</span><span class="block font-mono text-xs font-normal text-gray-700">14 songs, 49 minutes</span></a>
+                <a href="https://zvuk.com/release/53754548" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-white font-bold hover:shadow-neo transition-all"><i data-lucide="volume-2" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>Звук<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">zvuk.com/release/53754548</span><span class="block font-mono text-xs font-normal text-gray-700">релиз</span></a>
+                <a href="https://music.mts.ru/artist/26871345/albums/44782986" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-white font-bold hover:shadow-neo transition-all"><i data-lucide="radio" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>MTS Music<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">music.mts.ru/artist/26871345/albums/44782986</span><span class="block font-mono text-xs font-normal text-gray-700">альбом · id совпадают с Яндекс Музыкой</span></a>
+                <a href="https://www.deezer.com/album/1136724141" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-white font-bold hover:shadow-neo transition-all"><i data-lucide="waves" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>Deezer<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">deezer.com/album/1136724141</span><span class="block font-mono text-xs font-normal text-gray-700">14 треков · UPC 859750162762</span></a>
+                <a href="https://music.amazon.co.uk/albums/B0HQ54HF1R" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-white font-bold hover:shadow-neo transition-all"><i data-lucide="shopping-bag" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>Amazon Music<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">music.amazon.co.uk/albums/B0HQ54HF1R</span><span class="block font-mono text-xs font-normal text-gray-700">альбом (UK)</span></a>
+                <a href="https://www.qobuz.com/ca-en/album/autumn-exe-endykaufman/kdqwirz3pan0w" target="_blank" rel="noopener noreferrer"
+                    class="block p-4 neo-border bg-white font-bold hover:shadow-neo transition-all"><i data-lucide="gauge" class="w-4 h-4 mr-1.5 inline-block align-text-bottom"></i>Qobuz<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">qobuz.com/ca-en/album/autumn-exe-endykaufman/kdqwirz3pan0w</span><span class="block font-mono text-xs font-normal text-gray-700">альбом (ca-en)</span></a>
+            </div>
+
+            <h3 class="text-xl font-bold mb-2 mt-10">Профили артиста</h3>
+            <p class="font-mono text-xs text-gray-700 mb-4">
+                Те же витрины, но страница EndyKaufman целиком — туда стоит идти за следующим релизом.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <a href="https://music.yandex.ru/artist/26871345" target="_blank" rel="noopener noreferrer"
+                    class="block p-3 neo-border bg-white font-bold text-sm hover:bg-neo-yellow transition-all"><i data-lucide="music-2" class="w-3.5 h-3.5 mr-1.5 inline-block align-text-bottom"></i>Яндекс Музыка<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">music.yandex.ru/artist/26871345</span></a>
+                <a href="https://open.spotify.com/artist/0X4bCLsZvlmeumLsYwPiEr" target="_blank" rel="noopener noreferrer"
+                    class="block p-3 neo-border bg-white font-bold text-sm hover:bg-neo-green transition-all"><i data-lucide="audio-lines" class="w-3.5 h-3.5 mr-1.5 inline-block align-text-bottom"></i>Spotify<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">open.spotify.com/artist/0X4bCLsZvlmeumLsYwPiEr</span></a>
+                <a href="https://music.apple.com/us/artist/endykaufman/6829214444" target="_blank" rel="noopener noreferrer"
+                    class="block p-3 neo-border bg-white font-bold text-sm hover:bg-neo-pink transition-all"><i data-lucide="smartphone" class="w-3.5 h-3.5 mr-1.5 inline-block align-text-bottom"></i>Apple Music<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">music.apple.com/us/artist/endykaufman/6829214444</span></a>
+                <a href="https://vk.ru/artist/1288496809791737072" target="_blank" rel="noopener noreferrer"
+                    class="block p-3 neo-border bg-white font-bold text-sm hover:bg-neo-blue transition-all"><i data-lucide="square-play" class="w-3.5 h-3.5 mr-1.5 inline-block align-text-bottom"></i>VK<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">vk.ru/artist/1288496809791737072</span></a>
+                <a href="https://zvuk.com/artist/214878965" target="_blank" rel="noopener noreferrer"
+                    class="block p-3 neo-border bg-white font-bold text-sm hover:bg-neo-yellow transition-all"><i data-lucide="volume-2" class="w-3.5 h-3.5 mr-1.5 inline-block align-text-bottom"></i>Звук<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">zvuk.com/artist/214878965</span></a>
+                <a href="https://music.mts.ru/artist/26871345" target="_blank" rel="noopener noreferrer"
+                    class="block p-3 neo-border bg-white font-bold text-sm hover:bg-neo-green transition-all"><i data-lucide="radio" class="w-3.5 h-3.5 mr-1.5 inline-block align-text-bottom"></i>MTS Music<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">music.mts.ru/artist/26871345</span></a>
+                <a href="https://www.deezer.com/ru/artist/425728781" target="_blank" rel="noopener noreferrer"
+                    class="block p-3 neo-border bg-white font-bold text-sm hover:bg-neo-pink transition-all"><i data-lucide="waves" class="w-3.5 h-3.5 mr-1.5 inline-block align-text-bottom"></i>Deezer<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">deezer.com/ru/artist/425728781</span></a>
+                <a href="https://music.amazon.co.uk/artists/B0HQ4HRW78" target="_blank" rel="noopener noreferrer"
+                    class="block p-3 neo-border bg-white font-bold text-sm hover:bg-neo-blue transition-all"><i data-lucide="shopping-bag" class="w-3.5 h-3.5 mr-1.5 inline-block align-text-bottom"></i>Amazon Music<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">music.amazon.co.uk/artists/B0HQ4HRW78</span></a>
+                <a href="https://soundcloud.com/endykaufman" target="_blank" rel="noopener noreferrer"
+                    class="block p-3 neo-border bg-white font-bold text-sm hover:bg-neo-yellow transition-all"><i data-lucide="cloud" class="w-3.5 h-3.5 mr-1.5 inline-block align-text-bottom"></i>SoundCloud<span class="block font-mono text-xs font-normal mt-1 break-all text-gray-700">soundcloud.com/endykaufman</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About the album -->
+    <section id="about-album" class="py-16 px-4 bg-neo-bg border-b-4 border-neo-black">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div class="md:col-span-8 p-6 neo-border bg-white shadow-neo">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="disc-3" class="w-6 h-6 text-neo-green"></i> Об альбоме</h2>
+                <p class="mb-4">
+                    «Autumn Exe» — дебютный релиз EndyKaufman. Треки сгенерированы через AI по моим промптам, а отбор, порядок
+                    и выпуск альбома уже за мной. Это не саундтрек к конкретным видео, а та фоновая подложка, что
+                    играла под ними: кто слышал шортсы про fullstack, узнает её с первых тактов.
+                </p>
+                <p class="mb-4">
+                    Звучит она там, где нужен длинный ровный ритм работы: код, учёба, долгий вечер с книгой. Тёмная
+                    и тихая настолько, что не лезет под слова, и достаточно стабильная, чтобы держать сессию.
+                    Тональности — преимущественно A♭ и E♭ мажор, два трека в C минор.
+                </p>
+                <p>
+                    Собран в Уфе, Россия. Выпущен 1 ноября 2026. ℗ &amp; © 2026 EndyKaufman.
+                </p>
+            </div>
+            <div class="md:col-span-4 space-y-4">
+                <div class="p-4 neo-border bg-neo-purple/30 shadow-neo-sm font-mono text-sm">
+                    <div class="font-black uppercase text-xs mb-2">Факты</div>
+                    <ul class="space-y-1">
+                        <li>14 треков · 49:11</li>
+                        <li>53 → 162 BPM</li>
+                        <li>Electronic · Downtempo</li>
+                        <li>Без вокала</li>
+                        <li>AI-генерация</li>
+                        <li>UPC 859750162762</li>
+                        <li>ISRC QT66C2683976…989</li>
+                    </ul>
+                </div>
+                <div class="p-4 neo-border bg-white shadow-neo-sm font-mono text-sm">
+                    <div class="font-black uppercase text-xs mb-2">Связано с проектом</div>
+                    <p class="mb-3">Эти треки — фоновая подложка шортсов серии про fullstack с AI.</p>
+                    <a href="../#videos" class="px-3 py-2 bg-neo-black text-white font-bold text-xs uppercase neo-border hover:bg-neo-pink hover:text-neo-black transition-all inline-block">К видео</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Дискография — аналог блока «Серия видео» на страницах роликов -->
+    <section id="discography" class="py-16 px-4 bg-neo-purple/10 border-b-4 border-neo-black">
+        <div class="max-w-5xl mx-auto">
+            <article class="p-6 neo-border bg-white shadow-neo-sm reveal">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2"><i data-lucide="library" class="w-6 h-6 text-neo-blue"></i> Дискография</h2>
+                <ul class="space-y-2">
+                    <li class="flex items-center gap-2 flex-wrap">
+                        <span class="px-2 py-1 bg-neo-yellow neo-border font-mono font-bold text-xs">Альбом 1</span>
+                        <span class="font-bold">Autumn Exe — 14 треков, 49 минут · 1 ноября 2026</span>
+                    </li>
+                </ul>
+                <p class="font-mono text-xs text-neo-black/60 mt-4">
+                    Все релизы перечислены в <a href="../#music" class="font-bold underline">секции «Музыка»</a>;
+                    список ведётся с бэкенда, новая страница альбома появляется в день релиза.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-neo-black text-white py-12 px-4 border-t-4 border-white mt-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-center md:text-left">
+                <h4 class="font-black text-2xl uppercase mb-2">site15.ru</h4>
+                <p class="font-mono text-sm text-gray-400">© 2026 Все права защищены (или нет).</p>
+            </div>
+            <div class="flex flex-col items-center md:items-end font-mono text-sm gap-2">
+                <div class="flex flex-wrap justify-center md:justify-end gap-2">
+                    <a href="https://career.habr.com/endykaufman" target="_blank"
+                        class="px-3 py-1 bg-gray-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        ХабрКарьера
+                    </a>
+                    <a href="https://ufa.hh.ru/resume/2615ca8cff019da3eb0039ed1f6732786f4533" target="_blank"
+                        class="px-3 py-1 bg-red-600 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        HeadHunter
+                    </a>
+                    <a href="https://www.linkedin.com/in/ilshatkhamitov/" target="_blank"
+                        class="px-3 py-1 bg-blue-700 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        LinkedIn
+                    </a>
+                    <a href="../rss.xml" target="_blank"
+                        class="px-3 py-1 bg-orange-500 text-neo-black text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        RSS
+                    </a>
+                </div>
+                <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
+                    <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
+                </a>
+                <p class="text-gray-400">Уфа, Россия</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scroll-to-top-btn"
+        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-neo-black font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
+        <i data-lucide="arrow-up" class="w-7 h-7"></i>
+    </button>
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(function (el) { observer.observe(el); });
+        });
+    </script>
+    <script src="../js/music-player.js"></script>
+    <script src="../js/scroll-top.js"></script>
+</body>
+
+</html>

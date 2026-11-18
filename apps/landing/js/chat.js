@@ -158,10 +158,10 @@ document.addEventListener('DOMContentLoaded', function () {
             row.style.cursor = 'pointer';
             row.addEventListener('click', function () {
               // Remove highlight from all rows
-              tableRows.forEach((r) => r.classList.remove('bg-neo-blue', 'text-white'));
+              tableRows.forEach((r) => r.classList.remove('bg-neo-blue', 'text-neo-black'));
 
               // Highlight clicked row
-              this.classList.add('bg-neo-blue', 'text-white');
+              this.classList.add('bg-neo-blue', 'text-neo-black');
 
               // Get data from clicked row
               const cells = this.querySelectorAll('td');

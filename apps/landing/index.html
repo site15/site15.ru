@@ -98,6 +98,10 @@
             background-size: 24px 24px;
         }
 
+        /* ВАЖНО: точечный фон — фирменный слой, его нельзя перекрывать сплошными подложками секций.
+           Если мелкий mono-текст местами забивается точками, решается локально: сплошной цвет
+           (text-gray-700 / text-neo-black, без /50, /60, /70) либо чип-карточка под этим блоком. */
+
         /* Фиксированный навбар не должен перекрывать заголовок секции при переходе по якорю */
         section[id] {
             scroll-margin-top: 5.5rem;
@@ -264,6 +268,8 @@
                         class="px-4 py-2 font-bold hover:bg-neo-pink transition-colors border-2 border-transparent hover:border-neo-black">Проекты</a>
                     <a href="#videos"
                         class="px-4 py-2 font-bold hover:bg-neo-blue transition-colors border-2 border-transparent hover:border-neo-black">Видео</a>
+                    <a href="#music"
+                        class="px-4 py-2 font-bold hover:bg-neo-purple transition-colors border-2 border-transparent hover:border-neo-black">Музыка</a>
                     <a href="#about"
                         class="px-4 py-2 font-bold hover:bg-neo-yellow transition-colors border-2 border-transparent hover:border-neo-black">О себе</a>
                     <a href="#open-source-community"
@@ -289,6 +295,7 @@
             <a href="#experience" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Опыт</a>
             <a href="#projects" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">Проекты</a>
             <a href="#videos" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-blue">Видео</a>
+            <a href="#music" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Музыка</a>
             <a href="#about" class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-green">О себе</a>
             <a href="#open-source-community"
                 class="block px-4 py-2 font-bold neo-border bg-white hover:bg-neo-purple">Open Source</a>
@@ -446,7 +453,7 @@
                             Июль 2026 — Настоящее время
                         </div>
                         <h3 class="text-2xl font-bold">Fullstack AI Engineer</h3>
-                        <p class="font-bold text-neo-pink">aimilo.ru — AI-платформа для генерации медиаконтента</p>
+                        <p class="font-bold text-pink-700">aimilo.ru — AI-платформа для генерации медиаконтента</p>
                     </div>
                     <div
                         class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-green neo-border rounded-full z-10 items-center justify-center order-1">
@@ -482,7 +489,7 @@
                             Янв 2026 — Июль 2026
                         </div>
                         <h3 class="text-2xl font-bold">Senior Fullstack Engineer</h3>
-                        <p class="font-bold text-neo-blue">Конфиденциальный B2C-проект (NDA)</p>
+                        <p class="font-bold text-blue-700">Конфиденциальный B2C-проект (NDA)</p>
                     </div>
                     <div
                         class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-blue neo-border rounded-full z-10 items-center justify-center">
@@ -519,7 +526,7 @@
                             Фев 2024 — Янв 2026
                         </div>
                         <h3 class="text-2xl font-bold">Senior Fullstack Engineer</h3>
-                        <p class="font-bold text-neo-purple">Сеть игровых и компьютерных клубов</p>
+                        <p class="font-bold text-purple-700">Сеть игровых и компьютерных клубов</p>
                     </div>
                     <div
                         class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-purple neo-border rounded-full z-10 items-center justify-center order-1">
@@ -550,7 +557,7 @@
                             Сен 2023 — Фев 2024
                         </div>
                         <h3 class="text-2xl font-bold">Senior Backend Engineer</h3>
-                        <p class="font-bold text-neo-blue">R-Vision</p>
+                        <p class="font-bold text-blue-700">R-Vision</p>
                     </div>
                     <div
                         class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-yellow neo-border rounded-full z-10 items-center justify-center">
@@ -582,7 +589,7 @@
                             Май 2022 — Сен 2023
                         </div>
                         <h3 class="text-2xl font-bold">Senior Backend Engineer</h3>
-                        <p class="font-bold text-neo-purple">ilink</p>
+                        <p class="font-bold text-purple-700">ilink</p>
                     </div>
                     <div
                         class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-green neo-border rounded-full z-10 items-center justify-center order-1">
@@ -615,7 +622,7 @@
                             Авг 2019 — Фев 2023
                         </div>
                         <h3 class="text-2xl font-bold">Senior Software Engineer</h3>
-                        <p class="font-bold text-neo-blue">ТУТУ.ТВ</p>
+                        <p class="font-bold text-blue-700">ТУТУ.ТВ</p>
                     </div>
                     <div
                         class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-neo-pink neo-border rounded-full z-10 items-center justify-center">
@@ -700,7 +707,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="1">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-pink font-bold mb-1">Fullstack, Platform</div>
+                        <div class="font-mono text-xs text-pink-700 font-bold mb-1">Fullstack, Platform</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-yellow text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="archive" class="w-3 h-3 mr-1"></i>
@@ -747,7 +754,7 @@
                             TypeScript. Объединение backend-архитектур на NestJS, frontend и mobile-решений на
                             Angular/Ionic, CLI-инструментов и schematics, практик работы с NX monorepo. <a
                                 href="https://github.com/rucken" target="_blank"
-                                class="text-neo-pink font-bold underline">GitHub организации</a></p>
+                                class="text-pink-700 font-bold underline">GitHub организации</a></p>
                         <p class="detail-arch mb-2">Модульная архитектура с выделенными компонентами: 1) Backend-ядро на
                             NestJS с готовой системой аутентификации (JWT, OAuth), Roles/Permissions, Passport.js; 2)
                             CLI-платформа с автоматизацией рутинных операций; 3) Frontend/Mobile решения на
@@ -764,21 +771,21 @@
                             разработки ≈ 6-11 месяцев работы одного senior-инженера.</p>
                         <p class="detail-links mb-4">
                             <a href="https://github.com/rucken/core" target="_blank"
-                                class="inline-block mr-4 text-neo-blue font-bold underline">Core Angular</a>
+                                class="inline-block mr-4 text-blue-600 font-bold underline">Core Angular</a>
                             <a href="https://github.com/rucken/core-nestjs" target="_blank"
-                                class="inline-block mr-4 text-neo-blue font-bold underline">Backend ядро</a>
+                                class="inline-block mr-4 text-blue-600 font-bold underline">Backend ядро</a>
                             <a href="https://github.com/rucken/todo-nestjs" target="_blank"
-                                class="inline-block mr-4 text-neo-green font-bold underline">Todo NestJS</a>
+                                class="inline-block mr-4 text-green-700 font-bold underline">Todo NestJS</a>
                             <a href="https://github.com/rucken/todo-ionic" target="_blank"
-                                class="inline-block mr-4 text-neo-purple font-bold underline">Todo Ionic</a>
+                                class="inline-block mr-4 text-purple-600 font-bold underline">Todo Ionic</a>
                             <a href="https://github.com/rucken/ionic" target="_blank"
-                                class="inline-block mr-4 text-neo-yellow font-bold underline">Ionic UI</a>
+                                class="inline-block mr-4 text-yellow-700 font-bold underline">Ionic UI</a>
                             <a href="https://github.com/rucken/todo" target="_blank"
-                                class="inline-block mr-4 text-neo-pink font-bold underline">Todo Web</a>
+                                class="inline-block mr-4 text-pink-700 font-bold underline">Todo Web</a>
                             <a href="https://github.com/rucken/cli" target="_blank"
-                                class="inline-block mr-4 text-neo-green font-bold underline">CLI инструменты</a>
+                                class="inline-block mr-4 text-green-700 font-bold underline">CLI инструменты</a>
                             <a href="https://github.com/rucken/schematics" target="_blank"
-                                class="inline-block mr-4 text-neo-purple font-bold underline">Schematics</a>
+                                class="inline-block mr-4 text-purple-600 font-bold underline">Schematics</a>
                         </p>
                         <div class="mt-6 p-4 bg-gray-100 border-l-4 border-neo-pink">
                             <p class="font-mono text-sm">
@@ -800,9 +807,9 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-100"
                     data-id="2">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-pink font-bold mb-1">Telegram, Bot</div>
+                        <div class="font-mono text-xs text-pink-700 font-bold mb-1">Telegram, Bot</div>
                         <span
-                            class="inline-flex items-center px-2 py-1 bg-neo-blue text-white text-xs font-mono font-bold rounded neo-border">
+                            class="inline-flex items-center px-2 py-1 bg-neo-blue text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="pause-circle" class="w-3 h-3 mr-1"></i>
                             PAUSED
                         </span>
@@ -854,7 +861,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-200"
                     data-id="3">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-blue font-bold mb-1">NestJS, Platform</div>
+                        <div class="font-mono text-xs text-blue-600 font-bold mb-1">NestJS, Platform</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border whitespace-nowrap">
                             <i data-lucide="activity" class="w-3 h-3 mr-1"></i>
@@ -914,7 +921,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-200"
                     data-id="4">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-blue font-bold mb-1">Library, Angular</div>
+                        <div class="font-mono text-xs text-blue-600 font-bold mb-1">Library, Angular</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
@@ -970,7 +977,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-300"
                     data-id="5">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-pink font-bold mb-1">Boilerplate, NestJS</div>
+                        <div class="font-mono text-xs text-pink-700 font-bold mb-1">Boilerplate, NestJS</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-yellow text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="archive" class="w-3 h-3 mr-1"></i>
@@ -1023,7 +1030,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal delay-400"
                     data-id="6">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-blue font-bold mb-1">Library, NestJS</div>
+                        <div class="font-mono text-xs text-blue-600 font-bold mb-1">Library, NestJS</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
@@ -1060,7 +1067,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="7">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-blue font-bold mb-1">Library, NestJS</div>
+                        <div class="font-mono text-xs text-blue-600 font-bold mb-1">Library, NestJS</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
@@ -1098,7 +1105,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="8">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-blue font-bold mb-1">Fullstack, Mobile</div>
+                        <div class="font-mono text-xs text-blue-600 font-bold mb-1">Fullstack, Mobile</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
@@ -1156,7 +1163,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="9">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-purple font-bold mb-1">AI, RAG System</div>
+                        <div class="font-mono text-xs text-purple-600 font-bold mb-1">AI, RAG System</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
@@ -1211,9 +1218,9 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="10">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-blue font-bold mb-1">Job Platform, Open Source</div>
+                        <div class="font-mono text-xs text-blue-600 font-bold mb-1">Job Platform, Open Source</div>
                         <span
-                            class="inline-flex items-center px-2 py-1 bg-neo-blue text-white text-xs font-mono font-bold rounded neo-border">
+                            class="inline-flex items-center px-2 py-1 bg-neo-blue text-neo-black text-xs font-mono font-bold rounded neo-border">
                             <i data-lucide="pause-circle" class="w-3 h-3 mr-1"></i>
                             PAUSED
                         </span>
@@ -1260,7 +1267,7 @@
                     class="project-card neo-border bg-white shadow-neo hover:shadow-neo-hover hover:translate-x-1 hover:translate-y-1 transition-all p-4 cursor-pointer reveal"
                     data-id="11">
                     <div class="flex justify-between items-start">
-                        <div class="font-mono text-xs text-neo-pink font-bold mb-1">AI, SaaS, Platform</div>
+                        <div class="font-mono text-xs text-pink-700 font-bold mb-1">AI, SaaS, Platform</div>
                         <span
                             class="inline-flex items-center px-2 py-1 bg-neo-green text-neo-black text-xs font-mono font-bold rounded neo-border whitespace-nowrap">
                             <i data-lucide="rocket" class="w-3 h-3 mr-1"></i>
@@ -1295,7 +1302,7 @@
         <div class="modal-content relative bg-neo-bg neo-border shadow-neo-lg max-w-4xl mx-auto my-12 p-6 md:p-10"
             onclick="event.stopPropagation()">
             <button
-                class="absolute top-4 right-4 p-2 bg-neo-black text-white neo-border shadow-neo-sm hover:bg-neo-pink transition-colors"
+                class="absolute top-4 right-4 p-2 bg-neo-black text-white neo-border shadow-neo-sm hover:bg-neo-pink hover:text-neo-black transition-colors"
                 onclick="closeModal()">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -1305,14 +1312,14 @@
                 <!-- Project 1 Content -->
                 <div class="project-content hidden" data-project-id="1">
                     <div class="flex justify-between items-start">
-                        <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">Rucken</h3>
+                        <h3 class="text-4xl font-black uppercase mb-4 text-pink-700">Rucken</h3>
                     </div>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         Создание инженерной платформы и набора open-source проектов для ускорения fullstack-разработки и
                         стандартизации архитектурных решений в проектах на TypeScript. Объединение backend-архитектур на
                         NestJS, frontend и mobile-решений на Angular/Ionic, CLI-инструментов и schematics, практик
                         работы с NX monorepo. <a href="https://github.com/rucken" target="_blank"
-                            class="text-neo-pink font-bold underline">GitHub организации</a></p>
+                            class="text-pink-700 font-bold underline">GitHub организации</a></p>
                     <div class="space-y-6">
                         <article class="p-4 neo-border bg-white shadow-neo-sm">
                             <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
@@ -1423,7 +1430,7 @@
                 </div>
                 <!-- Project 2 Content -->
                 <div class="project-content hidden" data-project-id="2">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">KaufmanBot</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-pink-700">KaufmanBot</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         Исследовательский и архитектурный проект для изучения мультипровайдинга в NestJS и построения
                         плагинной архитектуры для Telegram-бота.</p>
@@ -1501,7 +1508,7 @@
                 </div>
                 <!-- Project 3 Content -->
                 <div class="project-content hidden" data-project-id="3">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">NestJS-mod</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-pink-700">NestJS-mod</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         Инженерная экосистема библиотек, шаблонов и архитектурных соглашений для построения и
                         сопровождения крупных NestJS-систем. Решение проблемы разрозненной архитектуры и высокой
@@ -1543,14 +1550,14 @@
                                     class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
                             <div class="font-mono text-sm leading-relaxed">
                                 <p class="mb-2"><a href="https://github.com/nestjs-mod" target="_blank"
-                                        class="text-neo-blue font-bold underline">GitHub организации</a></p>
+                                        class="text-blue-600 font-bold underline">GitHub организации</a></p>
                                 <p class="mb-2"><a href="https://github.com/nestjs-mod/nestjs-mod" target="_blank"
-                                        class="text-neo-blue font-bold underline">nestjs-mod (основное ядро)</a></p>
+                                        class="text-blue-600 font-bold underline">nestjs-mod (основное ядро)</a></p>
                                 <p class="mb-2"><a href="https://github.com/nestjs-mod/nestjs-mod-contrib"
-                                        target="_blank" class="text-neo-blue font-bold underline">nestjs-mod-contrib
+                                        target="_blank" class="text-blue-600 font-bold underline">nestjs-mod-contrib
                                         (расширения)</a></p>
                                 <p class="mb-2"><a href="https://github.com/nestjs-mod/nestjs-mod-fullstack"
-                                        target="_blank" class="text-neo-blue font-bold underline">nestjs-mod-fullstack
+                                        target="_blank" class="text-blue-600 font-bold underline">nestjs-mod-fullstack
                                         (шаблон)</a></p>
                             </div>
                         </article>
@@ -1565,7 +1572,7 @@
                 </div>
                 <!-- Project 4 Content -->
                 <div class="project-content hidden" data-project-id="4">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">ngx-dynamic-form-builder</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-pink-700">ngx-dynamic-form-builder</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         Библиотека для динамического построения форм в Angular с поддержкой валидаций и мультиязычных
                         сообщений.</p>
@@ -1603,13 +1610,13 @@
                             <div class="font-mono text-sm leading-relaxed">
                                 <p class="mb-2">GitHub репозиторий: <a
                                         href="https://github.com/EndyKaufman/ngx-dynamic-form-builder" target="_blank"
-                                        class="text-neo-blue underline">https://github.com/EndyKaufman/ngx-dynamic-form-builder</a>
+                                        class="text-blue-600 underline">https://github.com/EndyKaufman/ngx-dynamic-form-builder</a>
                                 </p>
                                 <p class="mb-2">npm пакет: <a
                                         href="https://www.npmjs.com/package/ngx-dynamic-form-builder" target="_blank"
-                                        class="text-neo-blue underline">ngx-dynamic-form-builder</a></p>
+                                        class="text-blue-600 underline">ngx-dynamic-form-builder</a></p>
                                 <p>StackBlitz демо: <a href="https://stackblitz.com/edit/ngx-dynamic-form-builder"
-                                        target="_blank" class="text-neo-blue underline">Демо приложение</a></p>
+                                        target="_blank" class="text-blue-600 underline">Демо приложение</a></p>
                             </div>
                         </article>
 
@@ -1623,7 +1630,7 @@
                 </div>
                 <!-- Project 5 Content -->
                 <div class="project-content hidden" data-project-id="5">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">nest-permissions-seed</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-pink-700">nest-permissions-seed</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         Шаблон проекта на NestJS с базовой архитектурой, permissions, JWT авторизацией и готовыми
                         примерами.</p>
@@ -1660,7 +1667,7 @@
                                     class="w-6 h-6 text-neo-pink"></i> Ссылки</h4>
                             <div class="font-mono text-sm leading-relaxed">
                                 <p><a href="https://github.com/EndyKaufman/nest-permissions-seed" target="_blank"
-                                        class="text-neo-blue hover:underline">GitHub репозиторий</a></p>
+                                        class="text-blue-600 hover:underline">GitHub репозиторий</a></p>
                             </div>
                         </article>
 
@@ -1674,7 +1681,7 @@
                 </div>
                 <!-- Project 6 Content -->
                 <div class="project-content hidden" data-project-id="6">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">typegraphql-prisma-nestjs</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-pink-700">typegraphql-prisma-nestjs</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         Мой форк оригинального генератора typegraphql-prisma, который я использую для быстрой генерации
                         CRUD‑бэкенда на GraphQL.</p>
@@ -1752,7 +1759,7 @@
                 </div>
                 <!-- Project 7 Content -->
                 <div class="project-content hidden" data-project-id="7">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">class-validator-multi-lang</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-pink-700">class-validator-multi-lang</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         Мой форк библиотеки class-validator с поддержкой многоязычных сообщений об ошибках для NestJS.
                     </p>
@@ -1826,14 +1833,14 @@
                 </div>
                 <!-- Project 8 Content -->
                 <div class="project-content hidden" data-project-id="8">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">My Dashboard</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-pink-700">My Dashboard</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         Комплексная система управления дашбордами с веб-приложением, мобильным приложением
                         (Ionic/Capacitor)
                         и API для отображения информации в реальном времени. Поддержка разных типов виджетов,
                         QR-привязка
                         устройств, OAuth-авторизация через Supabase. <a href="https://github.com/site15/my-dashboard"
-                            target="_blank" class="text-neo-pink font-bold underline">GitHub репозиторий</a></p>
+                            target="_blank" class="text-pink-700 font-bold underline">GitHub репозиторий</a></p>
                     <div class="space-y-6">
                         <article class="p-4 neo-border bg-white shadow-neo-sm">
                             <h4 class="font-bold text-xl mb-2 flex items-center gap-2"><i data-lucide="layers-3"
@@ -1940,7 +1947,7 @@
                 </div>
                 <!-- Project 9 Content -->
                 <div class="project-content hidden" data-project-id="9">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-purple">RAG System</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-purple-600">RAG System</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         RAG-система на NestJS + PostgreSQL (pgvector) для ответов на вопросы на основе знаний и опыта.
                         Интегрирована с site15.ru как демо и интерфейс для взаимодействия с RAG.
@@ -2008,7 +2015,7 @@
                 </div>
                 <!-- Project 10 Content -->
                 <div class="project-content hidden" data-project-id="10">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-blue">OpWork</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-blue-600">OpWork</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
                         Платформа для поиска работы с открытым исходным кодом. Соискатели создают резюме и откликаются на вакансии, работодатели публикуют вакансии и управляют откликами. Код открыт — может пригодиться как база или референс.
                     </p>
@@ -2067,9 +2074,9 @@
                 </div>
                 <!-- Project 11 Content -->
                 <div class="project-content hidden" data-project-id="11">
-                    <h3 class="text-4xl font-black uppercase mb-4 text-neo-pink">Aimilo</h3>
+                    <h3 class="text-4xl font-black uppercase mb-4 text-pink-700">Aimilo</h3>
                     <p class="text-lg mb-6 leading-relaxed border-l-4 border-neo-yellow pl-4 font-mono text-gray-700">
-                        Коммерческая AI-платформа для создания персонализированного медиаконтента. Пользователь описывает повод, загружает фотографии — ИИ создаёт уникальный подарок: изображение, анимацию, песню или анимацию с песней. Без регистрации, через обычный чат. <a href="https://aimilo.ru" target="_blank" class="text-neo-pink font-bold underline">aimilo.ru</a>
+                        Коммерческая AI-платформа для создания персонализированного медиаконтента. Пользователь описывает повод, загружает фотографии — ИИ создаёт уникальный подарок: изображение, анимацию, песню или анимацию с песней. Без регистрации, через обычный чат. <a href="https://aimilo.ru" target="_blank" class="text-pink-700 font-bold underline">aimilo.ru</a>
                     </p>
                     <div class="space-y-6">
                         <article class="p-4 neo-border bg-white shadow-neo-sm">
@@ -2147,7 +2154,7 @@
         <div class="modal-content relative bg-neo-bg neo-border shadow-neo-lg max-w-4xl mx-auto my-12 p-6 md:p-10"
             onclick="event.stopPropagation()">
             <button
-                class="absolute top-4 right-4 p-2 bg-neo-black text-white neo-border shadow-neo-sm hover:bg-neo-pink transition-colors"
+                class="absolute top-4 right-4 p-2 bg-neo-black text-white neo-border shadow-neo-sm hover:bg-neo-pink hover:text-neo-black transition-colors"
                 onclick="closeProjectDetailsModal()">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -2164,22 +2171,26 @@
             <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase text-center reveal">
                 <span
                     class="bg-neo-blue px-2 neo-border border-4 border-black inline-block transform -rotate-1">Видео</span>
-                — доклады и разборы
+                — серия «Fullstack с AI»
             </h2>
             <p class="text-center text-lg mb-4 font-mono">
                 <span class="inline-block bg-neo-black text-white px-3 py-1 font-mono font-bold text-base">
-                    Автоматически подбираем доступный проигрыватель: YouTube, либо Rutube если YouTube недоступен.
+                    Собираю реальный проект целиком: от пустой папки до живого прода и подключённого Telegram-бота.
                 </span>
             </p>
-            <p class="text-center text-sm mb-12 font-mono text-neo-black/70">
-                Нажмите на чип под видео, чтобы переключить плеер вручную (выбор запомнится).
-                Ctrl/⌘+клик — открыть оригинал на платформе в новой вкладке.
+            <p class="text-center text-sm mb-4 font-mono text-neo-black">
+                NestJS + Angular + Prisma + PostgreSQL в Qoder IDE: архитектура, тесты, CI/CD, прод-запуск, OpenSpec и живой grammy-бот.
+                Каждая часть заканчивается работающим куском продукта — можно идти по порядку или открыть нужную.
+            </p>
+            <p class="text-center text-xs mb-12 font-mono text-gray-700">
+                Плеер сам берёт доступную площадку (YouTube / Rutube / VK), чип под видео переключает её вручную — выбор запоминается.
+                Ctrl/⌘+клик по чипу — открыть оригинал на платформе в новой вкладке.
             </p>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 reveal">
                 <!-- Sidebar: Video List -->
                 <div class="lg:col-span-4 space-y-3">
-                    <div class="font-mono text-xs font-bold uppercase text-neo-black/70 mb-2 px-1">Список видео</div>
+                    <div class="font-mono text-xs font-bold uppercase text-neo-black mb-2 px-1">Список видео</div>
 
                     <button type="button" tabindex="-1" data-video-nav="0" onclick="switchVideo(0, event)"
                         class="w-full text-left p-3 neo-border bg-neo-green/20 hover:bg-neo-green/40 transition-colors cursor-pointer block">
@@ -2187,7 +2198,7 @@
                             <span class="px-2 py-0.5 bg-neo-green neo-border font-mono font-bold text-xs">Часть 1</span>
                         </div>
                         <div class="font-bold text-sm leading-snug">Строим Fullstack-проект с AI — создание проекта и базовая архитектура</div>
-                        <div class="font-mono text-xs text-neo-black/60 mt-1">NestJS · Angular · Prisma · PostgreSQL</div>
+                        <div class="font-mono text-xs text-gray-700 mt-1">NestJS · Angular · Prisma · PostgreSQL</div>
                     </button>
 
                     <button type="button" tabindex="-1" data-video-nav="1" onclick="switchVideo(1, event)"
@@ -2196,7 +2207,7 @@
                             <span class="px-2 py-0.5 bg-neo-purple neo-border font-mono font-bold text-xs">Часть 2</span>
                         </div>
                         <div class="font-bold text-sm leading-snug">Тестирование проекта с AI и HeyAPI</div>
-                        <div class="font-mono text-xs text-neo-black/60 mt-1">LLM · HeyAPI · E2E · Swagger</div>
+                        <div class="font-mono text-xs text-gray-700 mt-1">LLM · HeyAPI · E2E · Swagger</div>
                     </button>
 
                     <button type="button" tabindex="-1" data-video-nav="2" onclick="switchVideo(2, event)"
@@ -2205,7 +2216,7 @@
                             <span class="px-2 py-0.5 bg-neo-blue neo-border font-mono font-bold text-xs">Часть 3</span>
                         </div>
                         <div class="font-bold text-sm leading-snug">CI/CD с AI, GitHub Actions, MCP и скилл онбординга</div>
-                        <div class="font-mono text-xs text-neo-black/60 mt-1">GitHub Actions · CI/CD · MCP · Jest</div>
+                        <div class="font-mono text-xs text-gray-700 mt-1">GitHub Actions · CI/CD · MCP · Jest</div>
                     </button>
 
                     <button type="button" tabindex="-1" data-video-nav="3" onclick="switchVideo(3, event)"
@@ -2214,7 +2225,7 @@
                             <span class="px-2 py-0.5 bg-neo-yellow neo-border font-mono font-bold text-xs">Часть 4</span>
                         </div>
                         <div class="font-bold text-sm leading-snug">Запускаем прод с AI: start:prod, PM2, фронт внутри бэкенда и e2e</div>
-                        <div class="font-mono text-xs text-neo-black/60 mt-1">PM2 · Playwright · E2E · GitHub Actions</div>
+                        <div class="font-mono text-xs text-gray-700 mt-1">PM2 · Playwright · E2E · GitHub Actions</div>
                     </button>
 
                     <button type="button" tabindex="-1" data-video-nav="4" onclick="switchVideo(4, event)"
@@ -2223,7 +2234,7 @@
                             <span class="px-2 py-0.5 bg-neo-pink neo-border font-mono font-bold text-xs">Часть 5</span>
                         </div>
                         <div class="font-bold text-sm leading-snug">OpenSpec, мок-сервер Telegram и плагинная система</div>
-                        <div class="font-mono text-xs text-neo-black/60 mt-1">OpenSpec · Telegram · Plugin System · SSE</div>
+                        <div class="font-mono text-xs text-gray-700 mt-1">OpenSpec · Telegram · Plugin System · SSE</div>
                     </button>
 
                     <button type="button" tabindex="-1" data-video-nav="5" onclick="switchVideo(5, event)"
@@ -2232,7 +2243,7 @@
                             <span class="px-2 py-0.5 bg-neo-green neo-border font-mono font-bold text-xs">Часть 6</span>
                         </div>
                         <div class="font-bold text-sm leading-snug">AI подключает реальный Telegram: кнопки, пресеты, скиллы и grammy</div>
-                        <div class="font-mono text-xs text-neo-black/60 mt-1">OpenSpec · Grammy · Telegram · Webhooks</div>
+                        <div class="font-mono text-xs text-gray-700 mt-1">OpenSpec · Grammy · Telegram · Webhooks</div>
                     </button>
                 </div>
 
@@ -2257,7 +2268,7 @@
                             data-vk-id="-241775994_456239017">
                             <div
                                 class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">
-                                Определяем доступный проигрыватель…
+                                Загружаем видео…
                             </div>
                         </div>
 
@@ -2266,22 +2277,22 @@
                                 target="_blank" rel="noopener noreferrer"
                                 href="https://youtu.be/1MSIm8Te-QY"
                                 title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на YouTube"
-                                class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
-                                ▶ YouTube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                                class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                                ▶ YouTube <span data-video-stats class="hidden font-normal text-neo-black"></span>
                             </a>
                             <a data-video-platform="rutube" role="tab" aria-pressed="false"
                                 target="_blank" rel="noopener noreferrer"
                                 href="https://rutube.ru/video/5f0217394026e166e7a224fc12f5c748/"
                                 title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на Rutube"
-                                class="cursor-pointer select-none px-3 py-1 bg-neo-purple text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
-                                ▶ Rutube <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                                class="cursor-pointer select-none px-3 py-1 bg-neo-purple text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                                ▶ Rutube <span data-video-stats class="hidden font-normal text-neo-black"></span>
                             </a>
                             <a data-video-platform="vk" role="tab" aria-pressed="false"
                                 target="_blank" rel="noopener noreferrer"
                                 href="https://vkvideo.ru/video-241775994_456239017"
                                 title="ЛКМ — смотреть здесь · Ctrl/⌘/средняя кнопка — открыть на VK Видео"
-                                class="cursor-pointer select-none px-3 py-1 bg-neo-blue text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-60">
-                                ▶ VK Видео <span data-video-stats class="hidden font-normal text-neo-black/70"></span>
+                                class="cursor-pointer select-none px-3 py-1 bg-neo-blue text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                                ▶ VK Видео <span data-video-stats class="hidden font-normal text-neo-black"></span>
                             </a>
                         </div>
                     </article>
@@ -2298,6 +2309,117 @@
                             <a href="https://github.com/kaufman-bot/kaufman-bot" target="_blank" rel="noopener noreferrer"
                                 class="px-4 py-2 bg-neo-green font-bold text-xs uppercase neo-border hover:bg-neo-yellow transition-all inline-block">
                                 Исходный код
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Music Section: albums with platform iframe players -->
+    <section id="music" class="py-24 px-4 bg-neo-purple/10 border-y-4 border-neo-black relative overflow-hidden">
+        <div class="hidden md:block absolute -top-6 -right-6 w-24 h-24 bg-neo-purple neo-border -rotate-12 -z-0 opacity-70"></div>
+        <div class="hidden md:block absolute -bottom-8 -left-8 w-32 h-32 bg-neo-yellow neo-border rotate-6 -z-0 opacity-70"></div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <h2 class="text-4xl md:text-5xl font-black mb-4 uppercase text-center reveal">
+                <span
+                    class="bg-neo-purple px-2 neo-border border-4 border-black inline-block transform rotate-1">Музыка</span>
+                — генерирую через AI
+            </h2>
+            <p class="text-center text-lg mb-4 font-mono">
+                <span class="inline-block bg-neo-black text-white px-3 py-1 font-mono font-bold text-base">
+                    Треки генерирую через AI, а отбор, порядок и релиз — мои: лоу-фай без вокала для долгих часов за клавиатурой.
+                </span>
+            </p>
+            <p class="text-center text-sm mb-4 font-mono text-neo-black">
+                Дебютный Autumn Exe — 14 инструментальных треков, 49 минут, дуга темпа от 53 до 162 BPM: от медленных к подвижным,
+                чтобы работать длинными блоками. Вокала нет специально — чтобы не лез под мысли и не просил внимания.
+                Трек-лист и все витрины — на странице альбома.
+            </p>
+            <p class="text-center text-xs mb-12 font-mono text-gray-700">
+                Играет доступная тебе площадка (Яндекс Музыка / Spotify / SoundCloud), чип под плеером переключает её вручную — выбор запоминается.
+                Если плеер молчит — просто выбери другую. Ctrl/⌘+клик по чипу — открыть релиз на площадке в новой вкладке.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 reveal">
+                <!-- Sidebar: Album List -->
+                <div class="lg:col-span-4 space-y-3">
+                    <div class="font-mono text-xs font-bold uppercase text-neo-black mb-2 px-1">Список альбомов</div>
+
+                    <button type="button" tabindex="-1" data-music-nav="0" onclick="switchAlbum(0, event)"
+                        class="w-full text-left p-3 neo-border bg-neo-purple/20 hover:bg-neo-purple/40 transition-colors cursor-pointer block">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2 py-0.5 bg-neo-purple neo-border font-mono font-bold text-xs">Альбом 1</span>
+                        </div>
+                        <div class="font-bold text-sm leading-snug">Autumn Exe — тёмный лоу-фай для долгих часов за клавиатурой</div>
+                        <div class="font-mono text-xs text-gray-700 mt-1">14 треков · 49 минут · 53→162 BPM</div>
+                    </button>
+                </div>
+
+                <!-- Main Content: Cover + Player + Info -->
+                <div class="lg:col-span-8">
+                    <article data-music-card class="neo-border bg-white shadow-neo p-4 md:p-6">
+                        <div class="flex flex-wrap items-start gap-3 mb-3">
+                            <img data-music-cover src="./music/autumn-exe/cover.jpg"
+                                alt="Обложка альбома Autumn Exe"
+                                class="w-20 h-20 md:w-24 md:h-24 object-cover neo-border flex-shrink-0">
+                            <div class="min-w-0 flex-1">
+                                <div class="font-mono text-xs text-neo-black/70 font-bold uppercase" data-music-label>Альбом 1 · Музыка</div>
+                                <div class="font-black text-xl leading-tight truncate" data-music-title>Autumn Exe</div>
+                                <div class="font-mono text-xs text-neo-black/70 mt-1" data-music-facts>14 треков · 49 минут · 53→162 BPM</div>
+                            </div>
+                            <div class="flex items-center gap-2 ml-auto">
+                                <button type="button" data-music-reset
+                                    class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-yellow hover:bg-neo-pink transition-colors"
+                                    title="Вернуться к площадке по умолчанию">
+                                    ↺ авто
+                                </button>
+                                <span data-music-badge
+                                    class="hidden px-2 py-1 neo-border text-xs font-mono font-bold bg-neo-purple"></span>
+                            </div>
+                        </div>
+
+                        <div class="relative w-full bg-neo-black neo-border overflow-hidden" data-music-player
+                            data-music-slug="autumn-exe" data-music-embeds="[]" style="height: 520px">
+                            <div
+                                class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">
+                                Загружаем плеер…
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap items-center gap-2 justify-center text-xs font-mono"
+                            data-music-chips>
+                            <a data-music-platform="yandex" role="tab" aria-pressed="false"
+                                target="_blank" rel="noopener noreferrer"
+                                href="https://music.yandex.ru/album/44782986"
+                                title="ЛКМ — слушать здесь · Ctrl/⌘/средняя кнопка — открыть на Яндекс Музыке"
+                                class="cursor-pointer select-none px-3 py-1 bg-neo-yellow text-neo-black neo-border font-bold hover:bg-neo-pink transition-colors opacity-80">
+                                ♪ Яндекс Музыка
+                            </a>
+                            <a data-music-platform="spotify" role="tab" aria-pressed="false"
+                                target="_blank" rel="noopener noreferrer"
+                                href="https://open.spotify.com/album/3lel7yF3XSAZ52yPaXLP9O"
+                                title="ЛКМ — слушать здесь · Ctrl/⌘/средняя кнопка — открыть на Spotify"
+                                class="cursor-pointer select-none px-3 py-1 bg-neo-green text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                                ♪ Spotify
+                            </a>
+                            <a data-music-platform="soundcloud" role="tab" aria-pressed="false"
+                                target="_blank" rel="noopener noreferrer"
+                                href="https://soundcloud.com/endykaufman/sets/autumn-exe"
+                                title="ЛКМ — слушать здесь · Ctrl/⌘/средняя кнопка — открыть на SoundCloud"
+                                class="cursor-pointer select-none px-3 py-1 bg-neo-pink text-neo-black neo-border font-bold hover:bg-neo-yellow transition-colors opacity-80">
+                                ♪ SoundCloud
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Album Info -->
+                    <div class="mt-4 p-4 neo-border bg-white shadow-neo-sm" data-music-info>
+                        <p class="font-mono text-sm text-gray-700 mb-3" data-music-description>Тёмный лоу-фай без пения, сгенерированный через AI: 14 инструментальных треков, 49 минут. Это музыка для долгих часов за клавиатурой — под неё пишут код, учатся и дочитывают вечер. Дуга темпа от 53 до 162 BPM: от медленных треков к подвижным.</p>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <a href="./music/autumn-exe.html"
+                                class="px-4 py-2 bg-neo-black text-white font-bold text-xs uppercase neo-border hover:bg-neo-purple hover:text-neo-black transition-all inline-block">
+                                Трек-лист и все витрины
                             </a>
                         </div>
                     </div>
@@ -2746,20 +2868,20 @@
                         LinkedIn
                     </a>
                     <a href="./rss.xml" target="_blank"
-                        class="px-3 py-1 bg-orange-500 text-white text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
+                        class="px-3 py-1 bg-orange-500 text-neo-black text-xs font-bold neo-border shadow-neo hover:shadow-neo-hover transition-all text-center">
                         RSS
                     </a>
                 </div>
                 <a href="mailto:admin@site15.ru" class="hover:text-neo-pink transition-colors flex items-center gap-2">
                     <i data-lucide="mail" class="w-4 h-4"></i> admin@site15.ru
                 </a>
-                <p class="text-gray-500">Уфа, Россия</p>
+                <p class="text-gray-400">Уфа, Россия</p>
             </div>
         </div>
     </footer>
     <!-- Scroll to Top Button -->
     <button id="scroll-to-top-btn"
-        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-white font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
+        class="hidden fixed bottom-6 right-6 w-14 h-14 bg-neo-blue text-neo-black font-bold rounded-full neo-border shadow-neo hover:shadow-neo-hover hover:bg-neo-yellow hover:text-neo-black transition-all z-50 flex items-center justify-center cursor-pointer">
         <i data-lucide="arrow-up" class="w-7 h-7"></i>
     </button>
 
@@ -2842,6 +2964,7 @@
     <script src="./js/tag-data.js"></script>
     <script src="./js/stats-trend.js"></script>
     <script src="./js/video-player.js"></script>
+    <script src="./js/music-player.js"></script>
     <script>
     // Multi-video sidebar data + switching logic
     // Данные видео + статистика загружаются с бэкенда (GET /api/landing/videos).
@@ -3055,7 +3178,7 @@
                 container.setAttribute('data-rutube-id', v.rutubeId);
                 container.setAttribute('data-vk-id', v.vkId);
                 // Reset to placeholder
-                container.innerHTML = '<div class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">Определяем доступный проигрыватель…</div>';
+                container.innerHTML = '<div class="absolute inset-0 flex items-center justify-center text-white font-mono text-sm px-4 text-center">Загружаем видео…</div>';
             }
 
             // Update label
@@ -3073,9 +3196,9 @@
             var ytLink = card.querySelector('[data-video-platform="youtube"]');
             var rutubeLink = card.querySelector('[data-video-platform="rutube"]');
             var vkLink = card.querySelector('[data-video-platform="vk"]');
-            if (ytLink) { ytLink.setAttribute('href', v.ytHref); ytLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); ytLink.classList.add('opacity-60'); ytLink.setAttribute('aria-pressed', 'false'); }
-            if (rutubeLink) { rutubeLink.setAttribute('href', v.rutubeHref); rutubeLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); rutubeLink.classList.add('opacity-60'); rutubeLink.setAttribute('aria-pressed', 'false'); }
-            if (vkLink) { vkLink.setAttribute('href', v.vkHref); vkLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); vkLink.classList.add('opacity-60'); vkLink.setAttribute('aria-pressed', 'false'); }
+            if (ytLink) { ytLink.setAttribute('href', v.ytHref); ytLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); ytLink.classList.add('opacity-80'); ytLink.setAttribute('aria-pressed', 'false'); }
+            if (rutubeLink) { rutubeLink.setAttribute('href', v.rutubeHref); rutubeLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); rutubeLink.classList.add('opacity-80'); rutubeLink.setAttribute('aria-pressed', 'false'); }
+            if (vkLink) { vkLink.setAttribute('href', v.vkHref); vkLink.classList.remove('opacity-100', 'ring-4', 'ring-neo-black'); vkLink.classList.add('opacity-80'); vkLink.setAttribute('aria-pressed', 'false'); }
 
             // Reset stats, then render from cache (or fall back to old endpoint).
             card.querySelectorAll('[data-video-stats]').forEach(function (s) { s.classList.add('hidden'); s.textContent = ''; });
@@ -3120,6 +3243,188 @@
         } else {
             updateSidebarActive(0);
             loadVideosFromBackend();
+        }
+    })();
+    </script>
+    <script>
+    // Multi-album sidebar + iframe-плееры площадок (Яндекс Музыка / Spotify / SoundCloud).
+    // Источник истины — бэкенд (GET /api/landing/albums); массив ниже — fallback
+    // на случай, если бэкенд ещё не поднялся. Счётчиков прослушиваний тут нет
+    // сознательно: площадки их публично не отдают.
+    (function () {
+        var API_BASE = window.location.href.indexOf('localhost') !== -1
+            ? 'http://localhost:3000/api'
+            : 'https://site15.ru/api';
+
+        var CHIP_COLORS = {
+            yandex: 'bg-neo-yellow hover:bg-neo-pink',
+            spotify: 'bg-neo-green hover:bg-neo-yellow',
+            soundcloud: 'bg-neo-pink hover:bg-neo-yellow'
+        };
+
+        // Fallback — на случай, если бэкенд ещё не поднялся.
+        var ALBUMS = [
+            {
+                slug: 'autumn-exe',
+                label: 'Альбом 1 · Музыка',
+                shortTitle: 'Autumn Exe',
+                title: 'Autumn Exe',
+                artist: 'EndyKaufman',
+                facts: '14 треков · 49 минут · 53→162 BPM',
+                description: 'Тёмный лоу-фай без пения, сгенерированный через AI: 14 инструментальных треков, 49 минут. Это музыка для долгих часов за клавиатурой — под неё пишут код, учатся и дочитывают вечер. Дуга темпа от 53 до 162 BPM: от медленных треков к подвижным.',
+                coverUrl: './music/autumn-exe/cover.jpg',
+                detailUrl: './music/autumn-exe.html',
+                embeds: [
+                    {
+                        provider: 'yandex',
+                        label: 'Яндекс Музыка',
+                        embedUrl: 'https://music.yandex.ru/iframe/#/album/44782986',
+                        href: 'https://music.yandex.ru/album/44782986',
+                        height: 560
+                    },
+                    {
+                        provider: 'spotify',
+                        label: 'Spotify',
+                        embedUrl: 'https://open.spotify.com/embed/album/3lel7yF3XSAZ52yPaXLP9O',
+                        href: 'https://open.spotify.com/album/3lel7yF3XSAZ52yPaXLP9O',
+                        height: 560
+                    },
+                    {
+                        provider: 'soundcloud',
+                        label: 'SoundCloud',
+                        embedUrl: 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fendykaufman%2Fsets%2Fautumn-exe&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false',
+                        href: 'https://soundcloud.com/endykaufman/sets/autumn-exe',
+                        height: 540
+                    }
+                ]
+            }
+        ];
+
+        var currentAlbum = 0;
+
+        function updateSidebarActive(index) {
+            document.querySelectorAll('[data-music-nav]').forEach(function (btn) {
+                var i = parseInt(btn.getAttribute('data-music-nav'), 10);
+                btn.classList.toggle('ring-4', i === index);
+                btn.classList.toggle('ring-neo-black', i === index);
+            });
+        }
+
+        /** Чипы рисуются из embeds альбома: у следующего релиза набор площадок может быть другим. */
+        function renderChips(album) {
+            var box = document.querySelector('[data-music-chips]');
+            if (!box) return;
+            box.innerHTML = '';
+            (album.embeds || []).forEach(function (e) {
+                var a = document.createElement('a');
+                a.setAttribute('data-music-platform', e.provider);
+                a.setAttribute('role', 'tab');
+                a.setAttribute('aria-pressed', 'false');
+                a.setAttribute('target', '_blank');
+                a.setAttribute('rel', 'noopener noreferrer');
+                a.href = e.href;
+                a.title = 'ЛКМ — слушать здесь · Ctrl/⌘/средняя кнопка — открыть на ' + e.label;
+                a.className = 'cursor-pointer select-none px-3 py-1 text-neo-black neo-border font-bold transition-colors opacity-80 '
+                    + (CHIP_COLORS[e.provider] || 'bg-white hover:bg-neo-yellow');
+                a.textContent = '\u266A ' + e.label;
+                box.appendChild(a);
+            });
+        }
+
+        function renderAlbum(index) {
+            var album = ALBUMS[index];
+            var card = document.querySelector('[data-music-card]');
+            if (!album || !card) return;
+
+            var holder = card.querySelector('[data-music-player]');
+            if (holder) {
+                holder.setAttribute('data-music-slug', album.slug);
+                holder.setAttribute('data-music-embeds', JSON.stringify(album.embeds || []));
+            }
+
+            var cover = card.querySelector('[data-music-cover]');
+            if (cover && album.coverUrl) {
+                cover.setAttribute('src', album.coverUrl);
+                cover.alt = 'Обложка альбома ' + album.title;
+            }
+
+            var label = card.querySelector('[data-music-label]');
+            if (label) label.textContent = album.label;
+            var title = card.querySelector('[data-music-title]');
+            if (title) { title.textContent = album.title; title.title = album.title; }
+            var facts = card.querySelector('[data-music-facts]');
+            if (facts) facts.textContent = album.facts;
+
+            renderChips(album);
+
+            var info = document.querySelector('[data-music-info]');
+            if (info) {
+                var desc = info.querySelector('[data-music-description]');
+                if (desc) desc.textContent = album.description;
+                var link = info.querySelector('a');
+                if (link) link.setAttribute('href', album.detailUrl);
+            }
+
+            updateSidebarActive(index);
+
+            // Плеер сам подберёт площадку: сохранённый выбор или первую из списка.
+            if (window.__musicPlayer) window.__musicPlayer.initMusicCard(card);
+        }
+
+        /** Замок позиции скролла — тот же, что у switchVideo: смена альбома не должна двигать страницу. */
+        function lockScroll() {
+            var startY = window.scrollY;
+            var snapping = false;
+            function keep() {
+                if (snapping || window.scrollY === startY) return;
+                snapping = true;
+                window.scrollTo(0, startY);
+                requestAnimationFrame(function () { snapping = false; });
+            }
+            document.documentElement.style.scrollBehavior = 'auto';
+            window.addEventListener('scroll', keep, { passive: true });
+            return function release() {
+                window.removeEventListener('scroll', keep);
+                document.documentElement.style.scrollBehavior = '';
+            };
+        }
+
+        window.switchAlbum = function (index, ev) {
+            if (index === currentAlbum) return;
+            if (index < 0 || index >= ALBUMS.length) return;
+            if (ev && typeof ev.preventDefault === 'function') {
+                try { ev.preventDefault(); } catch (e) {}
+                if (ev.currentTarget && typeof ev.currentTarget.blur === 'function') {
+                    try { ev.currentTarget.blur(); } catch (e) {}
+                }
+            }
+            var release = lockScroll();
+            currentAlbum = index;
+            renderAlbum(index);
+            setTimeout(release, 500);
+        };
+
+        /** Подтянуть альбомы с бэкенда; если ответ пустой или сеть упала — остаётся fallback. */
+        function loadAlbumsFromBackend() {
+            fetch(API_BASE + '/landing/albums')
+                .then(function (r) { return r.ok ? r.json() : null; })
+                .then(function (data) {
+                    if (!data || !data.albums || !data.albums.length) return;
+                    ALBUMS = data.albums;
+                    renderAlbum(currentAlbum);
+                })
+                .catch(function () { /* бэкенд недоступен — работаем на fallback */ });
+        }
+
+        function init() {
+            renderAlbum(0);
+            loadAlbumsFromBackend();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
         }
     })();
     </script>
