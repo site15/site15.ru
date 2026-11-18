@@ -9,15 +9,18 @@ ENV NX_PARALLEL=3
 ENV NX_SKIP_NX_CACHE=true
 ENV NODE_OPTIONS=--max-old-space-size=8192
 COPY . .
-# site15-vps intermittently drops TLS to registry.yarnpkg.com while fetching
-# optional platform-specific packages (@esbuild/{android,darwin,aix}-*, fsevents)
-# that a linux-alpine build does not need. Retry once, then fall back to
-# --ignore-optional so a flaky CDN can no longer fail the deploy.
+# site15-vps is blocked on registry.yarnpkg.com by host/SNI (TLS resets on every
+# Cloudflare IP, so IP pinning/extra_hosts will not help), while registry.npmjs.org
+# is reachable and serves byte-identical tarballs. yarn v1 downloads by the URL in
+# yarn.lock `resolved` and ignores registry/--registry/YARN_REGISTRY, so rewrite the
+# host in the build-layer yarn.lock (repo yarn.lock stays untouched). Retry once;
+# NO --ignore-optional: it strips the platform's own native binaries
+# (@esbuild/linux-x64, rollup/lmdb) and breaks the nx build below.
 ENV YARN_CACHE_FOLDER=/yarn/.cache
 RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared \
-    ( yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 || \
-      yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 || \
-      yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 --ignore-optional ) && \
+    sed -i 's#https://registry.yarnpkg.com#https://registry.npmjs.org#g' yarn.lock && \
+    yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 || \
+    yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 && \
     echo '' > .env && \
     jq 'del(.targetDefaults, .plugins, .generators, .release)' nx.json > temp.json && mv temp.json nx.json && \
     yarn nx run-many -p rest-sdk server client -t=build --configuration=production
@@ -34,9 +37,9 @@ ENV YARN_CACHE_FOLDER=/yarn/.cache
 RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared \
     echo '' > .env && \
     jq 'del(.devDependencies)' package.json > temp.json && mv temp.json package.json && \
-    ( yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 || \
-      yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 || \
-      yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 --ignore-optional ) && \
+    sed -i 's#https://registry.yarnpkg.com#https://registry.npmjs.org#g' yarn.lock && \
+    yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 || \
+    yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 && \
     jq 'del(.targetDefaults, .plugins, .generators, .release)' nx.json > temp.json && mv temp.json nx.json && \
     rm -rf node_modules/@angular node_modules/ng-zorro-antd node_modules/@faker-js node_modules/@ant-design node_modules/@jsverse && \
     rm -rf node_modules/zone.js node_modules/@ngx-formly node_modules/markdown-it node_modules/@types
