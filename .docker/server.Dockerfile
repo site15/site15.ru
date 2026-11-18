@@ -13,7 +13,8 @@ COPY . .
 # optional platform-specific packages (@esbuild/{android,darwin,aix}-*, fsevents)
 # that a linux-alpine build does not need. Retry once, then fall back to
 # --ignore-optional so a flaky CDN can no longer fail the deploy.
-RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOLDER=/yarn/.cache \
+ENV YARN_CACHE_FOLDER=/yarn/.cache
+RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared \
     ( yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 || \
       yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 || \
       yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 --ignore-optional ) && \
@@ -29,7 +30,8 @@ ENV NX_PARALLEL=3
 ENV NX_SKIP_NX_CACHE=true
 ENV NODE_OPTIONS=--max-old-space-size=8192
 COPY . .
-RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared YARN_CACHE_FOLDER=/yarn/.cache \
+ENV YARN_CACHE_FOLDER=/yarn/.cache
+RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared \
     echo '' > .env && \
     jq 'del(.devDependencies)' package.json > temp.json && mv temp.json package.json && \
     ( yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 || \
