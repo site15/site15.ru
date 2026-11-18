@@ -17,7 +17,7 @@ COPY . .
 # NO --ignore-optional: it strips the platform's own native binaries
 # (@esbuild/linux-x64, rollup/lmdb) and breaks the nx build below.
 ENV YARN_CACHE_FOLDER=/yarn/.cache
-RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared \
+RUN --mount=type=cache,id=yarn-build,target=/yarn/.cache,sharing=locked \
     sed -i 's#https://registry.yarnpkg.com#https://registry.npmjs.org#g' yarn.lock && \
     yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 || \
     yarn install --frozen-lockfile --ignore-scripts --prefer-offline --network-timeout 600000 && \
@@ -34,7 +34,7 @@ ENV NX_SKIP_NX_CACHE=true
 ENV NODE_OPTIONS=--max-old-space-size=8192
 COPY . .
 ENV YARN_CACHE_FOLDER=/yarn/.cache
-RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared \
+RUN --mount=type=cache,id=yarn-prod,target=/yarn/.cache,sharing=locked \
     echo '' > .env && \
     jq 'del(.devDependencies)' package.json > temp.json && mv temp.json package.json && \
     sed -i 's#https://registry.yarnpkg.com#https://registry.npmjs.org#g' yarn.lock && \
@@ -42,7 +42,8 @@ RUN --mount=type=cache,id=yarn,target=/yarn/.cache,sharing=shared \
     yarn install --frozen-lockfile --production --ignore-scripts --prefer-offline --network-timeout 600000 && \
     jq 'del(.targetDefaults, .plugins, .generators, .release)' nx.json > temp.json && mv temp.json nx.json && \
     rm -rf node_modules/@angular node_modules/ng-zorro-antd node_modules/@faker-js node_modules/@ant-design node_modules/@jsverse && \
-    rm -rf node_modules/zone.js node_modules/@ngx-formly node_modules/markdown-it node_modules/@types
+    rm -rf node_modules/zone.js node_modules/@ngx-formly node_modules/markdown-it node_modules/@types && \
+    sh -c 'e=$(find node_modules -mindepth 1 -maxdepth 1 -type d -empty; find node_modules/@* -mindepth 1 -maxdepth 1 -type d -empty 2>/dev/null); if [ -n "$e" ]; then echo "[gate] empty package dirs:"; echo "$e"; exit 1; fi; echo "[gate] prod-deps layer ok"'
 
 FROM node:23.11.0-alpine
 WORKDIR /app
@@ -66,6 +67,12 @@ COPY --from=prod-deps /app/libs /app/libs
 COPY --from=prod-deps /app/package.json /app/package.json
 COPY --from=build /app/dist /app/dist
 COPY --from=prod-deps /app/apps/landing /app/dist/apps/client
+
+# TASK 2 (2026-11-19): fail-fast on the empty-package cache-mount race. Assert the
+# entrypoint bundle exists and no declared prod package was unpacked as an empty
+# dir (the 23012b37 crash: class-validator-multi-lang shipped 0 files, container
+# died in ~9 s with "Cannot find module"). A broken build must fail, not deploy.
+RUN sh -c 'test -f dist/apps/server/main.js || { echo "[gate] dist/apps/server/main.js missing"; exit 1; }; e=$(find node_modules -mindepth 1 -maxdepth 1 -type d -empty; find node_modules/@* -mindepth 1 -maxdepth 1 -type d -empty 2>/dev/null); if [ -n "$e" ]; then echo "[gate] empty package dirs in image:"; echo "$e"; exit 1; fi; echo "[gate] final image ok"'
 
 # Create logs directory for PM2
 RUN mkdir -p logs

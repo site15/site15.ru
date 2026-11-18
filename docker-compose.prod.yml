@@ -2,7 +2,12 @@ services:
   # ── Infrastructure ──────────────────────────────
   # PostgreSQL runs on host machine at 10.0.1.1:5432
 
-  redis:
+  # TASK 4 (2026-11-19): service keys are site15_-prefixed so their DNS alias on
+  # the shared `coolify` network is unique. The old generic `redis`/`minio` names
+  # collided with the aimilo stack's `redis` → round-robin → "AUTH called without
+  # any password" → hung /api/health → unhealthy → 502. App reaches these via the
+  # container_name / SITE_15_KEYV_URL host `site15_redis` (unchanged).
+  site15_redis:
     image: redis:7.4.1
     container_name: site15_redis
     ports:
@@ -20,7 +25,7 @@ services:
     tty: true
     restart: always
 
-  minio:
+  site15_minio:
     image: minio/minio:latest
     container_name: site15_minio
     ports:
@@ -132,9 +137,9 @@ services:
       # window marks the container unhealthy while it is still starting.
       start_period: 120s
     depends_on:
-      redis:
+      site15_redis:
         condition: service_healthy
-      minio:
+      site15_minio:
         condition: service_started
 
 volumes:
