@@ -6,7 +6,7 @@ window.TAG_DATA = [
     color: 'neo-green',
     items: [
       { text: 'Основной язык backend-разработки на протяжении 6+ лет', exp: 'exp-nda' },
-      { text: 'AI-платформа Aimilo: fullstack разработка на Node.js/NestJS', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: fullstack разработка на Node.js/NestJS', url: '/projects/aimilo.html', type: 'проект' },
       { text: 'Миграция legacy JavaScript/Express на TypeScript/NestJS (500+ endpoints)', exp: 'exp-ilink' },
       { text: 'Разработка платформенных библиотек и обёрток', exp: 'exp-rvision' },
       { text: 'Оптимизация production backend: увеличение нагрузки в ~350×', exp: 'exp-joyvoo' },
@@ -30,7 +30,7 @@ window.TAG_DATA = [
     color: 'neo-blue',
     items: [
       { text: 'Типобезопасная разработка backend и frontend во всех проектах', exp: 'exp-nda' },
-      { text: 'AI-платформа Aimilo: типобезопасная fullstack-разработка', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: типобезопасная fullstack-разработка', url: '/projects/aimilo.html', type: 'проект' },
       { text: 'Миграция legacy JavaScript-кода на TypeScript с сохранением совместимости', exp: 'exp-ilink' },
       {
         text: 'Перевод части работы с БД с TypeORM на Prisma — обнаружение и исправление проблем благодаря типобезопасности',
@@ -51,7 +51,7 @@ window.TAG_DATA = [
         type: 'сообщество',
       },
       { text: 'Основной фреймворк для backend-сервисов на протяжении 4+ лет', exp: 'exp-nda' },
-      { text: 'AI-платформа Aimilo: backend на NestJS с AI-интеграциями', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: backend на NestJS с AI-интеграциями', url: '/projects/aimilo.html', type: 'проект' },
       { text: 'Поэтапная миграция legacy-системы на архитектуру NestJS', exp: 'exp-ilink' },
       { text: 'Разработка внутренних NestJS-библиотек для 5 команд компании', exp: 'exp-rvision' },
       {
@@ -79,7 +79,7 @@ window.TAG_DATA = [
         text: 'Организация работы через отдельные схемы/БД-доступы, ~150 таблиц, ~90 справочников',
         exp: 'exp-gaming',
       },
-      { text: 'AI-платформа Aimilo: PostgreSQL + Prisma ORM', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: PostgreSQL + Prisma ORM', url: '/projects/aimilo.html', type: 'проект' },
       {
         text: 'Оптимизация транзакций, блокировок, connection pool и индексов — увеличение нагрузки в ~350×',
         exp: 'exp-joyvoo',
@@ -107,7 +107,7 @@ window.TAG_DATA = [
         type: 'сообщество',
       },
       { text: 'Полная разработка административной панели с аналитическими запросами', exp: 'exp-joyvoo' },
-      { text: 'AI-платформа Aimilo: административная панель на Angular', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: административная панель на Angular', url: '/projects/aimilo.html', type: 'проект' },
       { text: 'Разработка клиентских приложений для веб-платформ (беттинг, донаты, скидки)', exp: 'exp-highload' },
       { text: 'Игровая платформа: веб-сайт, административная панель, desktop-приложение', exp: 'exp-gaming' },
       { text: 'Криптовалютная биржа: frontend на Angular, dependency injection и мультипровайдинг', exp: 'exp-tutu' },
@@ -132,7 +132,7 @@ window.TAG_DATA = [
     color: 'neo-blue',
     items: [
       { text: 'Внедрение Docker/Kubernetes и автоматического CI/CD с нуля', exp: 'exp-joyvoo' },
-      { text: 'AI-платформа Aimilo: контейнеризация и инфраструктура', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: контейнеризация и инфраструктура', url: '/projects/aimilo.html', type: 'проект' },
       { text: 'Организация 7 окружений, автоматический deployment 3 компонентов', exp: 'exp-gaming' },
       { text: 'Построение CI/CD и Kubernetes-инфраструктуры для blockchain-сервисов', exp: 'exp-ilink' },
       { text: 'Криптовалютная биржа ТУТУ.ТВ: Docker + Kubernetes + GitLab CI/CD', exp: 'exp-tutu' },
@@ -145,7 +145,7 @@ window.TAG_DATA = [
     color: 'neo-purple',
     items: [
       { text: 'Выстраивание CI/CD и deployment-процесса с 7 окружениями', exp: 'exp-gaming' },
-      { text: 'AI-платформа Aimilo: инфраструктура в Docker/Kubernetes', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: инфраструктура в Docker/Kubernetes', url: '/projects/aimilo.html', type: 'проект' },
       { text: 'Построение Kubernetes-инфраструктуры с нуля для blockchain-сервисов', exp: 'exp-ilink' },
       { text: 'Внедрение контейнеризации и автоматического деплоя', exp: 'exp-joyvoo' },
       { text: 'Криптовалютная биржа ТУТУ.ТВ: Kubernetes + GitLab CI/CD', exp: 'exp-tutu' },
@@ -175,7 +175,7 @@ window.TAG_DATA = [
         target: 'open-source-community',
         type: 'сообщество',
       },
-      { text: 'AI-платформа Aimilo: PostgreSQL + Prisma ORM', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: PostgreSQL + Prisma ORM', url: '/projects/aimilo.html', type: 'проект' },
       { text: 'Конфиденциальный проект: PostgreSQL + Prisma ORM, автоматические миграции', exp: 'exp-nda' },
       { text: 'Перевод части работы с БД с TypeORM на Prisma, обнаружение и исправление проблем', exp: 'exp-joyvoo' },
       { text: 'Внедрение Prisma для типобезопасной работы с базой данных', exp: 'exp-ilink' },
@@ -187,7 +187,7 @@ window.TAG_DATA = [
     color: 'neo-yellow',
     items: [
       { text: 'Потоковая обработка blockchain-данных через NATS JetStream и микросервисы', exp: 'exp-ilink' },
-      { text: 'AI-платформа Aimilo: взаимодействие подсистем через NATS JetStream', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: взаимодействие подсистем через NATS JetStream', url: '/projects/aimilo.html', type: 'проект' },
       { text: 'Конфиденциальный проект: NATS JetStream для межсервисного взаимодействия', exp: 'exp-nda' },
     ],
   },
@@ -209,7 +209,7 @@ window.TAG_DATA = [
     color: 'neo-purple',
     items: [
       { text: 'С нуля выстроил CI/CD на базе GitLab CI/CD, 7 окружений, ~7 минут deployment', exp: 'exp-gaming' },
-      { text: 'AI-платформа Aimilo: настройка инфраструктуры и deployment', exp: 'exp-aimilo' },
+      { text: 'AI-платформа Aimilo: настройка инфраструктуры и deployment', url: '/projects/aimilo.html', type: 'проект' },
       { text: 'Внедрение Docker/Kubernetes и автоматического CI/CD', exp: 'exp-joyvoo' },
       { text: 'Автоматический deployment через GitLab CI/CD', exp: 'exp-tutu' },
       { text: 'Отдельные pipeline для blockchain-сервисов', exp: 'exp-ilink' },
@@ -357,7 +357,7 @@ window.TAG_DATA = [
         type: 'опенсорс',
       },
       { text: 'AI-бот на базе RAG для автоматической обработки обращений с базой знаний Zendesk', exp: 'exp-nda' },
-      { text: 'Разработка коммерческой AI-платформы для генерации медиаконтента', exp: 'exp-aimilo' },
+      { text: 'Разработка коммерческой AI-платформы для генерации медиаконтента', url: '/projects/aimilo.html', type: 'проект' },
     ],
   },
   {
