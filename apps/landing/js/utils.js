@@ -32,6 +32,30 @@ function initMobileMenuToggle() {
   }
 }
 
+/**
+ * GET с ограничением по времени, отдающий распарсенный JSON.
+ *
+ * Публичные эндпоинты лендинга читают БД, и пока сервер не ответил, fetch висит
+ * неограниченно: плашки остаются в «Загрузка...» до конца жизни вкладки. Здесь
+ * любая неудача (таймаут, не-2xx, битый JSON) превращается в null — вызывающий
+ * код продолжает жить на своих запасных значениях.
+ */
+function fetchJsonWithTimeout(url, timeoutMs = 8000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    signal: controller.signal,
+  })
+    .then((response) => (response.ok ? response.json() : null))
+    .catch(() => null)
+    .finally(() => clearTimeout(timer));
+}
+
 function initLucide() {
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();

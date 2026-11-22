@@ -21,6 +21,9 @@
 
     var POINTS_LIMIT = 5;
     var KEYS_PER_REQUEST = 20;
+    /** Сколько ждём историю метрик: висячий запрос не нужен (см. main.js). */
+    var FETCH_TIMEOUT_MS = 8000;
+
     // Бейдж вешаем на «чип»: сам элемент либо ближайший контейнер-плашка.
     var HOST_SELECTOR = 'a, .inline-flex, .flex';
 
@@ -204,6 +207,30 @@
         return n !== null && n === 0;
     }
 
+    /**
+     * GET с ограничением по времени. Без него при зависшем бэкенде запрос живёт
+     * до закрытия вкладки, а браузер держит соединение вместо других чтений.
+     */
+    function fetchWithTimeout(url) {
+        if (typeof AbortController === 'undefined') {
+            return fetch(url);
+        }
+        var controller = new AbortController();
+        var timer = setTimeout(function () {
+            controller.abort();
+        }, FETCH_TIMEOUT_MS);
+        return fetch(url, { signal: controller.signal }).then(
+            function (response) {
+                clearTimeout(timer);
+                return response;
+            },
+            function (error) {
+                clearTimeout(timer);
+                throw error;
+            }
+        );
+    }
+
     function fetchHistory(keys) {
         var chunks = [];
         for (var i = 0; i < keys.length; i += KEYS_PER_REQUEST) {
@@ -212,7 +239,7 @@
         return Promise.all(chunks.map(function (chunk) {
             var url = API_BASE + '/landing/metric-history?limit=' + POINTS_LIMIT +
                 '&keys=' + encodeURIComponent(chunk.join(','));
-            return fetch(url)
+            return fetchWithTimeout(url)
                 .then(function (response) { return response.ok ? response.json() : null; })
                 .then(function (data) {
                     if (!data || !data.items) return;

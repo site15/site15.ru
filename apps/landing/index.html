@@ -3090,8 +3090,9 @@
 
         /** Загрузить видео + статистику с бэкенда. */
         function loadVideosFromBackend() {
-            fetch(API_BASE + '/landing/videos')
-                .then(function (r) { return r.ok ? r.json() : null; })
+            // fetchJsonWithTimeout (utils.js) ограничивает ожидание и уже вернул
+            // распарсенный JSON либо null — зависший бэкенд не держит запрос.
+            fetchJsonWithTimeout(API_BASE + '/landing/videos')
                 .then(function (data) {
                     if (!data || !data.videos || !data.videos.length) return;
                     backendLoaded = true;
@@ -3434,8 +3435,7 @@
 
         /** Подтянуть альбомы с бэкенда; если ответ пустой или сеть упала — остаётся fallback. */
         function loadAlbumsFromBackend() {
-            fetch(API_BASE + '/landing/albums')
-                .then(function (r) { return r.ok ? r.json() : null; })
+            fetchJsonWithTimeout(API_BASE + '/landing/albums')
                 .then(function (data) {
                     if (!data || !data.albums || !data.albums.length) return;
                     ALBUMS = data.albums;

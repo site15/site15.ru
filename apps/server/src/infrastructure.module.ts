@@ -76,7 +76,10 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
       provider: 'prisma-client',
       prismaClientFactory: async (options) => {
         const { url, ...otherOoptions } = options;
-        const adapter = new PrismaPg({ connectionString: url });
+        // connectionTimeoutMillis обязателен: у node-postgres по умолчанию его нет,
+        // и при недоступном PostgreSQL pool.connect() ждёт вечно — каждый запрос
+        // под SsoGuard (чтение tenant) зависал навсегда, а не падал с ошибкой.
+        const adapter = new PrismaPg({ connectionString: url, connectionTimeoutMillis: 5000 });
         return new SsoPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
       },
       addMigrationScripts: false,
@@ -95,7 +98,9 @@ export const INFRASTRUCTURE_MODULE_IMPORTS = [
       provider: 'prisma-client',
       prismaClientFactory: async (options) => {
         const { url, ...otherOoptions } = options;
-        const adapter = new PrismaPg({ connectionString: url });
+        // См. комментарий у SsoPrismaSdk: без connectionTimeoutMillis мёртвая БД
+        // вешает чтения лендинга вместо того, чтобы отдать ошибку за секунды.
+        const adapter = new PrismaPg({ connectionString: url, connectionTimeoutMillis: 5000 });
         return new MetricsPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
       },
       addMigrationScripts: false,

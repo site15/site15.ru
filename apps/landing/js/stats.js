@@ -1,5 +1,99 @@
+// Помощники чтения метрик: секции и числа подготовлены так, чтобы отсутствие
+// данных в ответе бэкенда не рвало отрисовку остальных плашек.
+/** Заглушка для текстовой метрики, которой нет в ответе бэкенда. */
+const STAT_TEXT_PLACEHOLDER = '—';
+
+/**
+ * Секции проектов, которые читаются ниже напрямую (allStats.ragSystemStats.stars).
+ * Ответ /api/landing/stats собирается из отдельных строк метрик, поэтому секция
+ * может отсутствовать или прийти без части полей — и тогда одно обращение к
+ * вложенному полю роняло всю отрисовку, а остальные плашки оставались незаполненными.
+ */
+const GITHUB_PROJECT_STAT_SECTIONS = [
+  'kaufmanbotStats',
+  'nestjsModStats',
+  'ngxDynamicFormBuilderStats',
+  'nestPermissionsSeedStats',
+  'classValidatorMultiLangStats',
+  'typeGraphqlPrismaNestjsStats',
+  'myDashboardStats',
+  'ragSystemStats',
+  'opworkStats',
+];
+
+function isStatsObject(value) {
+  return !!value && typeof value === 'object' && !Array.isArray(value);
+}
+
+function asStatsObject(value) {
+  return isStatsObject(value) ? value : {};
+}
+
+/**
+ * Число метрики: в БД значение лежит строкой ('1 234', '19') или отсутствует.
+ * Без приведения падает любой .toLocaleString() у строки и .replace() у undefined.
+ */
+function toStatNumber(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value;
+  }
+  const parsed = Number(String(value == null ? '' : value).replace(/[^\d.-]/g, ''));
+  return Number.isFinite(parsed) ? parsed : 0;
+}
+
+/**
+ * Копия ответа бэкенда, в которой заведомо есть все секции и поля ниже.
+ * Ничего не выдумывает: только пустые объекты и нули вместо «undefined» в плашках.
+ */
+function ensureGitHubStatsShape(stats) {
+  const source = asStatsObject(stats);
+  const github = asStatsObject(source.githubStats);
+  const result = { ...source };
+
+  result.githubStats = {
+    ...github,
+    commitDuration: github.commitDuration == null ? STAT_TEXT_PLACEHOLDER : String(github.commitDuration),
+    rucken: { stars: 0, commits: 0, ...asStatsObject(github.rucken) },
+    user: { followers: 0, repos: 0, totalStars: 0, ...asStatsObject(github.user) },
+    org: { repos: 0, totalStars: 0, ...asStatsObject(github.org) },
+  };
+
+  GITHUB_PROJECT_STAT_SECTIONS.forEach((key) => {
+    result[key] = { stars: 0, commits: 0, duration: STAT_TEXT_PLACEHOLDER, ...asStatsObject(source[key]) };
+  });
+
+  return result;
+}
+
+/**
+ * Слияние ответа бэкенда поверх запасных значений полей main.js: секция за секцией,
+ * поле за полем. Так частичный ответ (пришли только звёзды) не затирает остальные
+ * плашки, а отсутствующая в ответе секция не роняет отрисовку.
+ */
+function mergeStatsObjects(base, override) {
+  const source = asStatsObject(base);
+  const result = { ...source };
+  if (!isStatsObject(override)) {
+    return result;
+  }
+
+  Object.keys(override).forEach((key) => {
+    const value = override[key];
+    if (value === null || value === undefined) {
+      return;
+    }
+    const previous = result[key];
+    result[key] =
+      isStatsObject(previous) && isStatsObject(value) ? mergeStatsObjects(previous, value) : value;
+  });
+
+  return result;
+}
+
 // Initialize GitHub badges with data from githubStats constant
-function initializeGitHubBadges(allStats) {
+function initializeGitHubBadges(stats) {
+  const allStats = ensureGitHubStatsShape(stats);
+
   // Update Rucken stars badge
   const starsElement = document.getElementById('github-stars');
   if (starsElement) {
@@ -80,7 +174,7 @@ function initializeGitHubBadges(allStats) {
       'подписчика',
       'подписчиков',
     ]);
-    followersElement.textContent = `${allStats.githubStats.user.followers.toLocaleString()} ${followersWord}`;
+    followersElement.textContent = `${toStatNumber(allStats.githubStats.user.followers).toLocaleString()} ${followersWord}`;
   }
 
   // Update user repos badge
@@ -306,18 +400,22 @@ function getRussianDeclension(number, words) {
 // Function to update Telegram chat display with data
 function updateTelegramChatDisplay(chatId, data) {
   const element = document.getElementById(`telegram-${chatId}`);
-  if (element) {
-    // Parse the number of members
-    const membersCount = parseInt(data.members.replace(/[^\d]/g, '')) || 0;
-    // For channels, display "subscribers" instead of "участников"
-    if (chatId === 'kaufman_log') {
-      const subscribersWord = getRussianDeclension(membersCount, ['подписчик', 'подписчика', 'подписчиков']);
-      element.textContent = `${data.members} ${subscribersWord}`;
-    } else {
-      const membersWord = getRussianDeclension(membersCount, ['участник', 'участника', 'участников']);
-      element.textContent = `${data.members} ${membersWord}`;
-    }
+  if (!element) {
+    return;
   }
+  // Значение лежит в БД строкой ('3 013'), но может прийти числом или не прийти вовсе.
+  const members = data && data.members != null && data.members !== '' ? String(data.members) : '';
+  if (!members) {
+    // Иначе чат так и останется в «Загрузка...» — пробросили отсутствие наружу.
+    element.textContent = STAT_TEXT_PLACEHOLDER;
+    return;
+  }
+  // Parse the number of members
+  const membersCount = parseInt(members.replace(/[^\d]/g, ''), 10) || 0;
+  // For channels, display "subscribers" instead of "участников"
+  const words =
+    chatId === 'kaufman_log' ? ['подписчик', 'подписчика', 'подписчиков'] : ['участник', 'участника', 'участников'];
+  element.textContent = `${members} ${getRussianDeclension(membersCount, words)}`;
 }
 
 function updateTelegramChatsDisplay(allStats) {
@@ -333,13 +431,18 @@ function updateTelegramChatsDisplay(allStats) {
     'angular_universal_ru',
     'kaufman_log',
   ];
-  telegramChannelIds.forEach(async (chatId) => {
+  const channels = Array.isArray(allStats && allStats.telegramDataStats) ? allStats.telegramDataStats : [];
+  const dataById = {};
+  channels.forEach((channel) => {
+    if (channel && channel.id) {
+      dataById[channel.id] = channel.data;
+    }
+  });
+  telegramChannelIds.forEach((chatId) => {
     try {
-      const { data } = allStats.telegramDataStats.find((channel) => channel.id === chatId) || { data: null };
-      if (data) {
-        // Update display
-        updateTelegramChatDisplay(chatId, data);
-      }
+      // Зовём и для чатов без данных: ответ собирается из строк метрик, поэтому
+      // отсутствующий канал — обычное дело, а «Загрузка...» вместо числа — нет.
+      updateTelegramChatDisplay(chatId, dataById[chatId] || null);
     } catch (error) {
       console.error(`Failed to fetch data for ${chatId}:`, error);
     }
@@ -348,30 +451,30 @@ function updateTelegramChatsDisplay(allStats) {
 
 // Update Dev.to badges with hardcoded data
 function updateDevToBadges(allStats) {
+  const devToStats = asStatsObject(allStats && allStats.devToStats);
   // Update articles count
   const articlesElement = document.getElementById('devto-articles');
   if (articlesElement) {
-    const articlesWord = getRussianDeclension(allStats.devToStats.articles, ['статья', 'статьи', 'статей']);
-    articlesElement.textContent = `${allStats.devToStats.articles} ${articlesWord}`;
+    const articles = toStatNumber(devToStats.articles);
+    const articlesWord = getRussianDeclension(articles, ['статья', 'статьи', 'статей']);
+    articlesElement.textContent = `${articles} ${articlesWord}`;
   }
   // Update followers count
   const followersElement = document.getElementById('devto-followers');
   if (followersElement) {
-    const followersWord = getRussianDeclension(allStats.devToStats.followers, [
-      'подписчик',
-      'подписчика',
-      'подписчиков',
-    ]);
-    followersElement.textContent = `${allStats.devToStats.followers.toLocaleString()} ${followersWord}`;
+    const followers = toStatNumber(devToStats.followers);
+    const followersWord = getRussianDeclension(followers, ['подписчик', 'подписчика', 'подписчиков']);
+    followersElement.textContent = `${followers.toLocaleString()} ${followersWord}`;
   }
   // Update views count
   const viewsElement = document.getElementById('devto-views');
   if (viewsElement) {
     // Format large numbers (e.g., 50000 -> 50K)
-    let viewsText = allStats.devToStats.views.toLocaleString();
-    let viewsWord = getRussianDeclension(allStats.devToStats.views, ['просмотр', 'просмотра', 'просмотров']);
-    if (allStats.devToStats.views >= 1000) {
-      viewsText = `${Math.round(allStats.devToStats.views / 1000)}K`;
+    const views = toStatNumber(devToStats.views);
+    let viewsText = views.toLocaleString();
+    let viewsWord = getRussianDeclension(views, ['просмотр', 'просмотра', 'просмотров']);
+    if (views >= 1000) {
+      viewsText = `${Math.round(views / 1000)}K`;
       viewsWord = 'просмотров'; // Always use plural for thousands
     }
     viewsElement.textContent = `${viewsText} ${viewsWord}`;
@@ -380,10 +483,11 @@ function updateDevToBadges(allStats) {
   const reactionsElement = document.getElementById('devto-reactions');
   if (reactionsElement) {
     // Format large numbers (e.g., 1500 -> 1.5K)
-    let reactionsText = allStats.devToStats.reactions.toLocaleString();
-    let reactionsWord = getRussianDeclension(allStats.devToStats.reactions, ['реакция', 'реакции', 'реакций']);
-    if (allStats.devToStats.reactions >= 1000) {
-      reactionsText = `${(allStats.devToStats.reactions / 1000).toFixed(1)}K`;
+    const reactions = toStatNumber(devToStats.reactions);
+    let reactionsText = reactions.toLocaleString();
+    let reactionsWord = getRussianDeclension(reactions, ['реакция', 'реакции', 'реакций']);
+    if (reactions >= 1000) {
+      reactionsText = `${(reactions / 1000).toFixed(1)}K`;
       reactionsWord = 'реакций'; // Always use plural for thousands
     }
     reactionsElement.textContent = `${reactionsText} ${reactionsWord}`;
@@ -392,26 +496,25 @@ function updateDevToBadges(allStats) {
 
 // Update Habr badges with hardcoded data
 function updateHabrBadges(allStats) {
+  const habrStats = asStatsObject(allStats && allStats.habrStats);
   // Update articles count
   const articlesElement = document.getElementById('habr-articles');
   if (articlesElement) {
-    const articlesWord = getRussianDeclension(allStats.habrStats.articles, ['статья', 'статьи', 'статей']);
-    articlesElement.textContent = `${allStats.habrStats.articles} ${articlesWord}`;
+    const articles = toStatNumber(habrStats.articles);
+    const articlesWord = getRussianDeclension(articles, ['статья', 'статьи', 'статей']);
+    articlesElement.textContent = `${articles} ${articlesWord}`;
   }
   // Update followers count
   const followersElement = document.getElementById('habr-followers');
   if (followersElement) {
-    const followersWord = getRussianDeclension(allStats.habrStats.followers, [
-      'подписчик',
-      'подписчика',
-      'подписчиков',
-    ]);
-    followersElement.textContent = `${allStats.habrStats.followers.toLocaleString()} ${followersWord}`;
+    const followers = toStatNumber(habrStats.followers);
+    const followersWord = getRussianDeclension(followers, ['подписчик', 'подписчика', 'подписчиков']);
+    followersElement.textContent = `${followers.toLocaleString()} ${followersWord}`;
   }
   // Update karma count
   const karmaElement = document.getElementById('habr-karma');
   if (karmaElement) {
-    karmaElement.textContent = `карма - ${allStats.habrStats.karma.toLocaleString()}`;
+    karmaElement.textContent = `карма - ${toStatNumber(habrStats.karma).toLocaleString()}`;
   }
 }
 
@@ -419,7 +522,8 @@ function updateHabrBadges(allStats) {
 function updateNpmBadges(allStats) {
   const npmDownloads = document.getElementById('npm-downloads-nestjs-mod');
   if (npmDownloads) {
-    const downloadsCount = allStats.npmNestjsModStats.downloads;
+    const npmStats = asStatsObject(allStats && allStats.npmNestjsModStats);
+    const downloadsCount = toStatNumber(npmStats.downloads);
     const formattedDownloads = downloadsCount.toLocaleString();
     const downloadsWord = getRussianDeclension(downloadsCount, ['загрузка', 'загрузки', 'загрузок']);
     const downloadsText = `${formattedDownloads} ${downloadsWord}/мес`;

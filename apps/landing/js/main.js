@@ -14,8 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Start the coin animation
   initCoinAnimation();
 
-  // default
-  let allStats = {
+  // Запасные значения: с ними страница рисуется сразу, до всякого ответа бэкенда.
+  // Ответ API накладывается поверх этого объекта (mergeStatsObjects), поэтому здесь
+  // должны жить реальные числа площадок, а не нули — иначе при недоступном бэкенде
+  // плашки показывают «0 звезд» вместо правдоподобных значений.
+  const FALLBACK_ALL_STATS = {
     githubStats: {
       rucken: {
         stars: 508,
@@ -63,9 +66,19 @@ document.addEventListener('DOMContentLoaded', function () {
       duration: '5 лет 3 месяца 28 дней',
     },
     myDashboardStats: {
+      stars: 1,
+      commits: 412,
+      duration: '2 месяца 11 дней',
+    },
+    ragSystemStats: {
+      stars: 2,
+      commits: 122,
+      duration: '5 месяцев 15 дней',
+    },
+    opworkStats: {
       stars: 0,
-      commits: 0,
-      duration: '0 дней',
+      commits: 117,
+      duration: '3 месяца 23 дня',
     },
     devToStats: {
       articles: 97,
@@ -139,31 +152,43 @@ document.addEventListener('DOMContentLoaded', function () {
       },
     ],
     habrStats: {
-      articles: '28',
-      followers: '19',
-      karma: '1',
+      articles: 28,
+      followers: 19,
+      karma: 1,
     },
     npmNestjsModStats: {
       downloads: 866,
     },
   };
 
+  /** Рабочий объект статистики: начинается с запасных значений, дополняется ответом API. */
+  let allStats = mergeStatsObjects(FALLBACK_ALL_STATS, {});
+
+  /**
+   * Сколько ждём /api/landing/stats. Больше — уже «сервер висит», а не «данные едут»:
+   * бэкенд отвечает на чтения лендинга за секунды, остальное — недоступная БД.
+   */
+  const STATS_FETCH_TIMEOUT_MS = 8000;
+
+  // Апдейдеры изолированы: раньше один TypeError на непривычных данных обрывал
+  // всю цепочку, и часть плашек оставалась в «Загрузка...» до перезагрузки вкладки.
+  const STATS_UPDATERS = [
+    ['github', () => initializeGitHubBadges(allStats)],
+    ['telegram', () => updateTelegramChatsDisplay(allStats)],
+    ['dev.to', () => updateDevToBadges(allStats)],
+    ['npm', () => updateNpmBadges(allStats)],
+    ['habr', () => updateHabrBadges(allStats)],
+  ];
+
   function updateHtml() {
     try {
-      // Initialize GitHub badges when DOM is loaded
-      initializeGitHubBadges(allStats);
-
-      //
-      updateTelegramChatsDisplay(allStats);
-
-      // Initialize Dev.to badges
-      updateDevToBadges(allStats);
-
-      //
-      updateNpmBadges(allStats);
-
-      // Initialize Habr badges
-      updateHabrBadges(allStats);
+      STATS_UPDATERS.forEach(([name, update]) => {
+        try {
+          update();
+        } catch (error) {
+          console.error(`Не удалось отрисовать блок метрик: ${name}`, error);
+        }
+      });
     } finally {
       // Часть плашек перерисовывается через innerHTML/textContent, вместе с
       // содержимым затираются и тренд-круглешки — ставим их заново (история уже
@@ -175,26 +200,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
+  // Первую отрисовку делаем сразу из запасных значений — так плашки показаны
+  // всегда, независимо от того, дождёмся мы ответа бэкенда или нет.
+  updateHtml();
+
   // NOTE: This API endpoint can be called locally during development
   // Local development URL: http://localhost:3000/api/landing/stats
   // Production URL: https://site15.ru/api/landing/stats
-  fetch(
-    this.location.href.includes('localhost')
-      ? 'http://localhost:3000/api/landing/stats'
-      : 'https://site15.ru/api/landing/stats',
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
-  )
-    .then((response) => response.json())
-    .catch(() => {
-      updateHtml();
-    })
-    .then((data) => {
-      allStats = data.allStats;
-      updateHtml();
-    });
+  const statsUrl = window.location.href.includes('localhost')
+    ? 'http://localhost:3000/api/landing/stats'
+    : 'https://site15.ru/api/landing/stats';
+
+  // fetchJsonWithTimeout не бросает: любая неудача — это null.
+  fetchJsonWithTimeout(statsUrl, STATS_FETCH_TIMEOUT_MS).then((data) => {
+    const incoming = data && data.allStats;
+    if (!incoming) {
+      return;
+    }
+    // Не подменяем, а накладываем: частичный ответ (пришли не все метрики) не должен
+    // стирать с экрана то, чего в нём нет.
+    allStats = mergeStatsObjects(FALLBACK_ALL_STATS, incoming);
+    updateHtml();
+  });
 });

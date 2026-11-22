@@ -21,6 +21,32 @@
     var API_BASE = window.location.href.indexOf('localhost') !== -1
         ? 'http://localhost:3000/api'
         : 'https://site15.ru/api';
+    /** Сколько ждём счётчики видео: столько же, сколько и остальные чтения лендинга. */
+    var STATS_FETCH_TIMEOUT_MS = 8000;
+
+    /**
+     * GET с ограничением по времени. Без него при зависшем бэкенде запрос живёт до
+     * закрытия вкладки, и ветка «показываем нули» в loadVideoStats не выполняется.
+     */
+    function fetchWithTimeout(url) {
+        if (typeof AbortController === 'undefined') {
+            return fetch(url);
+        }
+        var controller = new AbortController();
+        var timer = setTimeout(function () {
+            controller.abort();
+        }, STATS_FETCH_TIMEOUT_MS);
+        return fetch(url, { signal: controller.signal }).then(
+            function (response) {
+                clearTimeout(timer);
+                return response;
+            },
+            function (error) {
+                clearTimeout(timer);
+                throw error;
+            }
+        );
+    }
 
     function storageGet(key) {
         try { return window.localStorage.getItem(key); } catch (e) { return null; }
@@ -312,7 +338,7 @@
             if (slot) slots[el.getAttribute('data-video-platform')] = slot;
         });
 
-        fetch(API_BASE + '/landing/video-stats?' + params.join('&'))
+        fetchWithTimeout(API_BASE + '/landing/video-stats?' + params.join('&'))
             .then(function (r) { return r.ok ? r.json() : null; })
             .then(function (data) {
                 if (!data) data = {};

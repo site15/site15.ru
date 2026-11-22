@@ -9,6 +9,7 @@ import { AppEnvironments } from '../app.environments';
 import { mapWithConcurrency } from './concurrency.utils';
 import { customFetch } from './fetch-with-file-cache';
 import { isWritableMetricValue } from './metric-value.utils';
+import { withReadTimeout } from './read-timeout.utils';
 import { StatsWorkerLauncher } from './stats-worker-launcher';
 import {
   LandingVideoDto,
@@ -47,6 +48,12 @@ export class VideoStatsService implements OnApplicationBootstrap {
   private static readonly FAILURE_BACKOFF_MS = 1000 * 60 * 10; // 10 минут
   /** Сколько обращений к площадкам выполняется одновременно в одном прогоне refreshAll. */
   private static readonly RUN_CONCURRENCY = 4;
+  /**
+   * Сколько ждём строку метрик из БД на чтение для лендинга. Совпадает по смыслу
+   * с MetricsDynamicService.READ_TIMEOUT_MS: зависеть до бесконечности публичный
+   * GET не имеет права.
+   */
+  private static readonly READ_TIMEOUT_MS = 3000;
   // Rutube/VK отдают 403/заглушку без «браузерного» User-Agent.
   private static readonly BROWSER_USER_AGENT =
     'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
@@ -455,7 +462,15 @@ export class VideoStatsService implements OnApplicationBootstrap {
     }
 
     const key = `${provider}:${videoId}`;
-    const stored = await this.readStored(key);
+    // Чтение ограничено по времени: при недоступном PostgreSQL pg ждёт соединения
+    // сколько угодно, и один такой ключ вешает весь /landing/videos. null —
+    // штатный ответ «данных нет», фронтенд на него уже умеет (показывает 0).
+    const stored = await withReadTimeout(
+      `video-stats read ${key}`,
+      this.readStored(key),
+      VideoStatsService.READ_TIMEOUT_MS,
+      null,
+    );
 
     if (!stored) {
       return null;

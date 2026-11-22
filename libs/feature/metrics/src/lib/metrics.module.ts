@@ -46,7 +46,10 @@ export const { MetricsModule } = createNestModule({
         provider: 'prisma-client',
         prismaClientFactory: async (options) => {
           const { url, ...otherOoptions } = options;
-          const adapter = new PrismaPg({ connectionString: url });
+          // connectionTimeoutMillis: без него node-postgres ждёт установки
+          // соединения неограниченно, и недоступная БД вешает любой запрос
+          // вместо того, чтобы отдать ошибку.
+          const adapter = new PrismaPg({ connectionString: url, connectionTimeoutMillis: 5000 });
           return new MetricsPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
         },
         moduleFormat: 'cjs',

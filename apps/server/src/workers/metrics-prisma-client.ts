@@ -31,6 +31,10 @@ export function metricsDatabaseUrl(env: NodeJS.ProcessEnv = process.env): string
 }
 
 export function createMetricsPrismaClient(): MetricsPrismaSdk.PrismaClient {
-  const adapter = new PrismaPg({ connectionString: metricsDatabaseUrl() });
+  // connectionTimeoutMillis — тот же страховочный лимит, что у основного
+  // приложения (infrastructure.module.ts): воркер переживает недоступную БД как
+  // ошибку в логе, а не как вечный await, из-за которого следующий прогон
+  // вообще не стартует.
+  const adapter = new PrismaPg({ connectionString: metricsDatabaseUrl(), connectionTimeoutMillis: 5000 });
   return new MetricsPrismaSdk.PrismaClient({ adapter });
 }

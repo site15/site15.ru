@@ -4,7 +4,7 @@ import { Body, Controller, Get, Logger, Param, Post, Query, UnauthorizedExceptio
 import { ApiBadRequestResponse, ApiOkResponse, ApiTags, refs } from '@nestjs/swagger';
 import { InjectTranslateFunction, TranslateFunction } from 'nestjs-translates';
 
-import { AllowEmptySsoUser } from '@site15/sso';
+import { AllowEmptySsoUser, SkipSsoGuard } from '@site15/sso';
 import { AppEnvironments } from '../app.environments';
 import { MetricsDynamicService } from '../services/metrics-dynamic.service';
 import { MusicAlbumsService } from '../services/music-albums.service';
@@ -51,6 +51,13 @@ export class LandingController {
     return !!sessionId && sessionId !== 'null' && sessionId !== 'undefined';
   }
 
+  /**
+   * Публичные чтения лендинга идут мимо SsoGuard: guard на каждом запросе читает
+   * tenant из Keyv(Redis), а при недоступном кэше/БД этот await не завершается
+   * никогда — вся статистика страницы замирала в «Загрузка...». Пользователь для
+   * этих эндпоинтов не используется, поэтому guard только мешал.
+   */
+  @SkipSsoGuard()
   @Get('stats')
   @ApiOkResponse({ type: LandingAllStatsResponse })
   async stats() {
@@ -63,6 +70,7 @@ export class LandingController {
    * запросы к площадкам с TTL-гейтом, поэтому частыми не станут.
    * Любой канал без данных возвращает null — лендинг просто скрывает счётчик.
    */
+  @SkipSsoGuard()
   @Get('video-stats')
   @ApiOkResponse({ type: LandingVideoStatsResponse })
   async videoStats(
@@ -78,6 +86,7 @@ export class LandingController {
    * (просмотры/лайки) по каждой. Один запрос вместо N вызовов video-stats —
    * фронтенд получает всё разом и больше не хранит данные в коде.
    */
+  @SkipSsoGuard()
   @Get('videos')
   @ApiOkResponse({ type: LandingVideosResponse })
   async videos(): Promise<LandingVideosResponse> {
@@ -89,6 +98,7 @@ export class LandingController {
    * ссылки на витрины и трек-лист. Только конфигурация — внешних запросов нет,
    * счётчики прослушиваний площадки публично не отдают.
    */
+  @SkipSsoGuard()
   @Get('albums')
   @ApiOkResponse({ type: LandingMusicAlbumsResponse })
   albums(): LandingMusicAlbumsResponse {
@@ -101,6 +111,7 @@ export class LandingController {
    * Ключи — `level1|level2|level3` через запятую (их отдаёт разметка бейджей).
    * Только чтение из metricsDynamicHistory, внешних запросов нет.
    */
+  @SkipSsoGuard()
   @Get('metric-history')
   @ApiOkResponse({ type: LandingMetricHistoryResponse })
   async metricHistory(

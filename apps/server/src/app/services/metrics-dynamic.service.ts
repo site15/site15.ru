@@ -6,7 +6,8 @@ import { METRICS_FEATURE, MetricsDynamic, MetricsPrismaSdk } from '@site15/metri
 import { join } from 'path';
 
 import { AppEnvironments } from '../app.environments';
-import { isBlankOrZeroMetricValue, isWritableMetricValue } from './metric-value.utils';
+import { isBlankOrZeroMetricValue } from './metric-value.utils';
+import { withReadTimeout } from './read-timeout.utils';
 import { setAppEnvironments, setPrismaClient } from './global';
 import { StatsWorkerLauncher } from './stats-worker-launcher';
 import { AllStats, MetricHistoryItemDto } from './type';
@@ -58,6 +59,19 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
    * вытеснят из выборки тихие.
    */
   private static readonly HISTORY_ROWS_PER_KEY = 4;
+  /**
+   * Сколько ждём ответ от БД в публичных чтениях лендинга. Больше — и запрос
+   * начинает выглядеть для браузера как зависнувший сервер: при недоступном
+   * PostgreSQL node-postgres ждёт соединения сколько угодно, а счётчики
+   * лендинга остаются в «Загрузка...» до бесконечности.
+   */
+  private static readonly READ_TIMEOUT_MS = 3000;
+  /**
+   * Последний успешный снимок метрик: отдаём его, если очередное чтение
+   * не удалось или вышло за READ_TIMEOUT_MS, чтобы лендинг показывал
+   * немного устаревшие, но реальные значения вместо пустоты.
+   */
+  private lastGoodSnapshot: AllStats | null = null;
 
   constructor(
     @InjectPrismaClient(METRICS_FEATURE)
@@ -105,7 +119,19 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
   }
 
   async getAllSync() {
-    return this.convertMetricsDynamicToAllStats(await this.prismaClient.metricsDynamic.findMany({}));
+    const snapshot = await withReadTimeout<AllStats | null>(
+      'GET /landing/stats',
+      this.prismaClient.metricsDynamic.findMany({}).then((rows) => this.convertMetricsDynamicToAllStats(rows)),
+      MetricsDynamicService.READ_TIMEOUT_MS,
+      null,
+    );
+
+    if (snapshot === null) {
+      return (this.lastGoodSnapshot ?? {}) as AllStats;
+    }
+
+    this.lastGoodSnapshot = snapshot;
+    return snapshot;
   }
 
   /**
@@ -149,18 +175,25 @@ export class MetricsDynamicService implements OnApplicationBootstrap {
     );
     // level2 подставляем только когда он реально запрошен: для «плоских» метрик
     // строки в БД могут лежать и с '', и с null.
-    const rows = await this.prismaClient.metricsDynamicHistory.findMany({
-      where: {
-        OR: wanted.map((key) => ({
-          level1: key.level1,
-          level3: key.level3,
-          ...(key.level2 ? { level2: key.level2 } : {}),
-        })),
-      },
-      orderBy: { createdAt: 'desc' },
-      take: wanted.length * take * MetricsDynamicService.HISTORY_ROWS_PER_KEY,
-      select: { level1: true, level2: true, level3: true, value: true, createdAt: true },
-    });
+    // Пустой ответ по таймауту допустим: тренд-бейджи просто не отрисуются,
+    // а счётчики останутся на своих местах (см. getAllSync).
+    const rows = await withReadTimeout(
+      'GET /landing/metric-history',
+      this.prismaClient.metricsDynamicHistory.findMany({
+        where: {
+          OR: wanted.map((key) => ({
+            level1: key.level1,
+            level3: key.level3,
+            ...(key.level2 ? { level2: key.level2 } : {}),
+          })),
+        },
+        orderBy: { createdAt: 'desc' },
+        take: wanted.length * take * MetricsDynamicService.HISTORY_ROWS_PER_KEY,
+        select: { level1: true, level2: true, level3: true, value: true, createdAt: true },
+      }),
+      MetricsDynamicService.READ_TIMEOUT_MS,
+      [],
+    );
 
     return wanted.map((key) => ({
       key: formatMetricKey(key),

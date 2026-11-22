@@ -67,7 +67,11 @@ export const { SsoModule } = createNestModule({
         provider: 'prisma-client',
         prismaClientFactory: async (options) => {
           const { url, ...otherOoptions } = options;
-          const adapter = new PrismaPg({ connectionString: url });
+          // connectionTimeoutMillis: по умолчанию у node-postgres его нет, и при
+          // недоступном PostgreSQL `pool.connect()` ждёт вечно. Чтение tenant
+          // идёт в каждом запросе под SsoGuard, поэтому зависший коннект
+          // подвешивал весь API приложения без ошибки в логах.
+          const adapter = new PrismaPg({ connectionString: url, connectionTimeoutMillis: 5000 });
           return new SsoPrismaSdk.PrismaClient({ adapter, ...otherOoptions });
         },
         moduleFormat: 'cjs',
