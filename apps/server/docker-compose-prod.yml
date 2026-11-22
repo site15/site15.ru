@@ -46,7 +46,7 @@ services:
     tty: true
     restart: "always"
   site-15-minio:
-    image: "minio/minio:latest"
+    image: "pgsty/minio:RELEASE.2026-08-04T00-00-00Z"
     container_name: "site-15-minio"
     volumes:
       - "site-15-minio-volume:/data"

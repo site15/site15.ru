@@ -26,7 +26,12 @@ services:
     restart: always
 
   site15_minio:
-    image: minio/minio:latest
+    # 2026-11-22: minio/minio was deleted from Docker Hub (2026-09) → `pull access
+    # denied`, and quay.io/minio now requires auth (401) → Coolify `pull` step failed
+    # the whole deployment. pgsty/minio ("Silo") is a conservatively maintained MinIO
+    # fork: same `server /data --console-address` CLI, MINIO_ROOT_* envs, bundled `mc`
+    # for the healthcheck. Pinned so a registry can't silently vanish under :latest.
+    image: pgsty/minio:RELEASE.2026-08-04T00-00-00Z
     container_name: site15_minio
     ports:
       - '${SITE_15_MINIO_API_PORT:-9000}:9000'
