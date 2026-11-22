@@ -57,3 +57,6 @@ apps/client-e2e/src/video
 
 error.log
 swagger.json
+
+# personal docs (resume exports, not for VCS)
+docs/Резюме _Senior Fullstack Engineer (Node.js _ NestJS _ Angular _ React)_.html
