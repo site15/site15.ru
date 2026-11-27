@@ -2190,62 +2190,82 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 reveal">
                 <!-- Sidebar: Video List -->
-                <div class="lg:col-span-4 space-y-3">
+                <div class="lg:col-span-4">
                     <div class="font-mono text-xs font-bold uppercase text-neo-black mb-2 px-1">Список видео</div>
+                    <!-- Число пунктов серии растёт быстрее, чем высота колонки: список прокручивается внутри
+                         себя, чтобы плеер не уезжал за экран. Потолок разный по брейкпоинтам, потому что
+                         различается и способ прокрутки. На десктопе список — узкая колонка (4/12), поэтому
+                         overscroll-contain: колесо внутри списка не крутит страницу, плеер остаётся на месте.
+                         На мобильном список во всю ширину и листают свайпом — там contain ловил бы палец на
+                         границе и страница не сдвинулась бы вовсе, поэтому оставлено overscroll-auto: докрутили
+                         список до конца — пошла прокрутка страницы. px-1/py-1 (4px) дают место под ring-4
+                         активной кнопки, иначе он обрезался бы краем контейнера. -->
+                    <div data-video-nav-list
+                        class="space-y-3 px-1 py-1 -mx-1 max-h-[26rem] lg:max-h-[40rem] overflow-y-auto overscroll-auto lg:overscroll-contain">
 
-                    <button type="button" tabindex="-1" data-video-nav="0" onclick="switchVideo(0, event)"
-                        class="w-full text-left p-3 neo-border bg-neo-green/20 hover:bg-neo-green/40 transition-colors cursor-pointer block">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 bg-neo-green neo-border font-mono font-bold text-xs">Часть 1</span>
-                        </div>
-                        <div class="font-bold text-sm leading-snug">Строим Fullstack-проект с AI — создание проекта и базовая архитектура</div>
-                        <div class="font-mono text-xs text-gray-700 mt-1">NestJS · Angular · Prisma · PostgreSQL</div>
-                    </button>
+                        <button type="button" tabindex="-1" data-video-nav="0" onclick="switchVideo(0, event)"
+                            class="w-full text-left p-3 neo-border bg-neo-green/20 hover:bg-neo-green/40 transition-colors cursor-pointer block">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="px-2 py-0.5 bg-neo-green neo-border font-mono font-bold text-xs">Часть 1</span>
+                            </div>
+                            <div class="font-bold text-sm leading-snug">Строим Fullstack-проект с AI — создание проекта и базовая архитектура</div>
+                            <div class="font-mono text-xs text-gray-700 mt-1">NestJS · Angular · Prisma · PostgreSQL</div>
+                        </button>
 
-                    <button type="button" tabindex="-1" data-video-nav="1" onclick="switchVideo(1, event)"
-                        class="w-full text-left p-3 neo-border bg-white hover:bg-neo-purple/20 transition-colors cursor-pointer block">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 bg-neo-purple neo-border font-mono font-bold text-xs">Часть 2</span>
-                        </div>
-                        <div class="font-bold text-sm leading-snug">Тестирование проекта с AI и HeyAPI</div>
-                        <div class="font-mono text-xs text-gray-700 mt-1">LLM · HeyAPI · E2E · Swagger</div>
-                    </button>
+                        <button type="button" tabindex="-1" data-video-nav="1" onclick="switchVideo(1, event)"
+                            class="w-full text-left p-3 neo-border bg-white hover:bg-neo-purple/20 transition-colors cursor-pointer block">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="px-2 py-0.5 bg-neo-purple neo-border font-mono font-bold text-xs">Часть 2</span>
+                            </div>
+                            <div class="font-bold text-sm leading-snug">Тестирование проекта с AI и HeyAPI</div>
+                            <div class="font-mono text-xs text-gray-700 mt-1">LLM · HeyAPI · E2E · Swagger</div>
+                        </button>
 
-                    <button type="button" tabindex="-1" data-video-nav="2" onclick="switchVideo(2, event)"
-                        class="w-full text-left p-3 neo-border bg-white hover:bg-neo-blue/20 transition-colors cursor-pointer block">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 bg-neo-blue neo-border font-mono font-bold text-xs">Часть 3</span>
-                        </div>
-                        <div class="font-bold text-sm leading-snug">CI/CD с AI, GitHub Actions, MCP и скилл онбординга</div>
-                        <div class="font-mono text-xs text-gray-700 mt-1">GitHub Actions · CI/CD · MCP · Jest</div>
-                    </button>
+                        <button type="button" tabindex="-1" data-video-nav="2" onclick="switchVideo(2, event)"
+                            class="w-full text-left p-3 neo-border bg-white hover:bg-neo-blue/20 transition-colors cursor-pointer block">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="px-2 py-0.5 bg-neo-blue neo-border font-mono font-bold text-xs">Часть 3</span>
+                            </div>
+                            <div class="font-bold text-sm leading-snug">CI/CD с AI, GitHub Actions, MCP и скилл онбординга</div>
+                            <div class="font-mono text-xs text-gray-700 mt-1">GitHub Actions · CI/CD · MCP · Jest</div>
+                        </button>
 
-                    <button type="button" tabindex="-1" data-video-nav="3" onclick="switchVideo(3, event)"
-                        class="w-full text-left p-3 neo-border bg-white hover:bg-neo-yellow/40 transition-colors cursor-pointer block">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 bg-neo-yellow neo-border font-mono font-bold text-xs">Часть 4</span>
-                        </div>
-                        <div class="font-bold text-sm leading-snug">Запускаем прод с AI: start:prod, PM2, фронт внутри бэкенда и e2e</div>
-                        <div class="font-mono text-xs text-gray-700 mt-1">PM2 · Playwright · E2E · GitHub Actions</div>
-                    </button>
+                        <button type="button" tabindex="-1" data-video-nav="3" onclick="switchVideo(3, event)"
+                            class="w-full text-left p-3 neo-border bg-white hover:bg-neo-yellow/40 transition-colors cursor-pointer block">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="px-2 py-0.5 bg-neo-yellow neo-border font-mono font-bold text-xs">Часть 4</span>
+                            </div>
+                            <div class="font-bold text-sm leading-snug">Запускаем прод с AI: start:prod, PM2, фронт внутри бэкенда и e2e</div>
+                            <div class="font-mono text-xs text-gray-700 mt-1">PM2 · Playwright · E2E · GitHub Actions</div>
+                        </button>
 
-                    <button type="button" tabindex="-1" data-video-nav="4" onclick="switchVideo(4, event)"
-                        class="w-full text-left p-3 neo-border bg-white hover:bg-neo-pink/40 transition-colors cursor-pointer block">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 bg-neo-pink neo-border font-mono font-bold text-xs">Часть 5</span>
-                        </div>
-                        <div class="font-bold text-sm leading-snug">OpenSpec, мок-сервер Telegram и плагинная система</div>
-                        <div class="font-mono text-xs text-gray-700 mt-1">OpenSpec · Telegram · Plugin System · SSE</div>
-                    </button>
+                        <button type="button" tabindex="-1" data-video-nav="4" onclick="switchVideo(4, event)"
+                            class="w-full text-left p-3 neo-border bg-white hover:bg-neo-pink/40 transition-colors cursor-pointer block">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="px-2 py-0.5 bg-neo-pink neo-border font-mono font-bold text-xs">Часть 5</span>
+                            </div>
+                            <div class="font-bold text-sm leading-snug">OpenSpec, мок-сервер Telegram и плагинная система</div>
+                            <div class="font-mono text-xs text-gray-700 mt-1">OpenSpec · Telegram · Plugin System · SSE</div>
+                        </button>
 
-                    <button type="button" tabindex="-1" data-video-nav="5" onclick="switchVideo(5, event)"
-                        class="w-full text-left p-3 neo-border bg-white hover:bg-neo-green/40 transition-colors cursor-pointer block">
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 bg-neo-green neo-border font-mono font-bold text-xs">Часть 6</span>
-                        </div>
-                        <div class="font-bold text-sm leading-snug">AI подключает реальный Telegram: кнопки, пресеты, скиллы и grammy</div>
-                        <div class="font-mono text-xs text-gray-700 mt-1">OpenSpec · Grammy · Telegram · Webhooks</div>
-                    </button>
+                        <button type="button" tabindex="-1" data-video-nav="5" onclick="switchVideo(5, event)"
+                            class="w-full text-left p-3 neo-border bg-white hover:bg-neo-green/40 transition-colors cursor-pointer block">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="px-2 py-0.5 bg-neo-green neo-border font-mono font-bold text-xs">Часть 6</span>
+                            </div>
+                            <div class="font-bold text-sm leading-snug">AI подключает реальный Telegram: кнопки, пресеты, скиллы и grammy</div>
+                            <div class="font-mono text-xs text-gray-700 mt-1">OpenSpec · Grammy · Telegram · Webhooks</div>
+                        </button>
+
+                        <button type="button" tabindex="-1" data-video-nav="6" onclick="switchVideo(6, event)"
+                            class="w-full text-left p-3 neo-border bg-white hover:bg-neo-purple/20 transition-colors cursor-pointer block">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="px-2 py-0.5 bg-neo-purple neo-border font-mono font-bold text-xs">Часть 7</span>
+                            </div>
+                            <div class="font-bold text-sm leading-snug">AI пишет плагин такси: источник сообщения, reply и матрица цен</div>
+                            <div class="font-mono text-xs text-gray-700 mt-1">OpenSpec · Taxi Plugin · Reply · Inline Mode</div>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Main Content: Player + Info -->
@@ -3055,6 +3075,19 @@
                 ytHref: 'https://youtu.be/1u112LZZofI',
                 rutubeHref: 'https://rutube.ru/video/9828455d2dea2f9ae225cb5626b9288b/',
                 vkHref: 'https://vkvideo.ru/video-241775994_456239063'
+            },
+            {
+                youtubeId: '3-Dz7GOlKxU',
+                rutubeId: '91521f97ffc6aa8e291923bf5d64c1dd',
+                vkId: '-241775994_456239084',
+                label: 'Часть 7 · Видео',
+                title: 'AI пишет плагин такси | источник, reply, цены и маршруты — Fullstack с AI — Часть 7',
+                description: 'Закрываем боль поддержки: в чате видно, с какого канала и с какого бота пришло сообщение и кто ответил — бот или оператор. Дальше reply: ответ привязывается к конкретной реплике и уходит в тот канал, откуда пришла последняя, а не во все привязки сразу. Третья линия — плагин такси: спека через OpenSpec, подбор свободной машины, заказ через Telegram и inline-правка сообщения вместо нового.',
+                detailUrl: './videos/part-7.html',
+                repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+                ytHref: 'https://youtu.be/3-Dz7GOlKxU',
+                rutubeHref: 'https://rutube.ru/video/91521f97ffc6aa8e291923bf5d64c1dd/',
+                vkHref: 'https://vkvideo.ru/video-241775994_456239084'
             }
         ];
 

@@ -319,6 +319,23 @@ export class VideoStatsService implements OnApplicationBootstrap {
       vkHref: 'https://vkvideo.ru/video-241775994_456239063',
       shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === '1u112LZZofI'),
     },
+    {
+      youtubeId: '3-Dz7GOlKxU',
+      rutubeId: '91521f97ffc6aa8e291923bf5d64c1dd',
+      vkId: '-241775994_456239084',
+      label: 'Часть 7 · Видео',
+      shortTitle: 'Часть 7',
+      techTags: 'OpenSpec · Telegram · Reply · Taxi Plugin',
+      title: 'AI пишет плагин такси | источник, reply, цены и маршруты — Fullstack с AI — Часть 7',
+      description:
+        'Закрываем боль поддержки: в чате видно, с какого канала и с какого бота пришло сообщение и кто ответил — бот или оператор. Дальше reply: ответ привязывается к конкретной реплике и уходит в тот канал, откуда пришла последняя, а не во все привязки сразу. Третья линия — плагин такси: спека через OpenSpec, подбор свободной машины, заказ через Telegram и inline-правка сообщения вместо нового.',
+      detailUrl: './videos/part-7.html',
+      repoUrl: 'https://github.com/kaufman-bot/kaufman-bot',
+      ytHref: 'https://youtu.be/3-Dz7GOlKxU',
+      rutubeHref: 'https://rutube.ru/video/91521f97ffc6aa8e291923bf5d64c1dd/',
+      vkHref: 'https://vkvideo.ru/video-241775994_456239084',
+      shorts: VideoStatsService.SHORTS.filter((s) => s.parentYoutubeId === '3-Dz7GOlKxU'),
+    },
   ];
 
   constructor(
